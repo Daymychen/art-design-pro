@@ -1,0 +1,56 @@
+@media screen and (max-width: $device-ipad-pro) {
+  .top-bar {
+    .menu {
+      .right {
+        .search-wrap {
+          display: none;
+        }
+
+        .screen {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $device-ipad) {
+  .top-bar {
+    left: 0;
+    z-index: 100;
+    width: 100% !important;
+
+    .refresh {
+      display: none !important;
+    }
+
+    .svg-icon {
+      display: block !important;
+    }
+  }
+}
+
+@media screen and (max-width: $device-phone) {
+  .top-bar {
+    .menu {
+      .left {
+        .svg-icon {
+          padding-left: 18px;
+        }
+      }
+
+      .right {
+        .user {
+          .cover {
+            width: 26px;
+            height: 26px;
+          }
+        }
+
+        .btn {
+          padding: 0 10px;
+        }
+      }
+    }
+  }
+}

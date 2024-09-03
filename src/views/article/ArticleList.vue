@@ -1,0 +1,372 @@
+<template>
+  <div class="page-content article-list">
+    <el-row justify="space-between" :gutter="10">
+      <el-col :lg="6" :md="6" :sm="14" :xs="16">
+        <el-input
+          v-model="searchVal"
+          :prefix-icon="Search"
+          clearable
+          placeholder="输入文章标题查询"
+          @keyup.enter="searchArticle"
+        />
+      </el-col>
+      <el-col :lg="12" :md="12" :sm="0" :xs="0">
+        <div class="custom-segmented">
+          <el-segmented v-model="yearVal" :options="options" @change="searchArticleByYear" />
+        </div>
+      </el-col>
+      <el-col :lg="6" :md="6" :sm="10" :xs="6" style="display: flex; justify-content: end">
+        <el-button @click="toAddArticle" v-auth="'add'">新增文章</el-button>
+      </el-col>
+    </el-row>
+
+    <div class="list">
+      <div class="offset">
+        <div class="item" v-for="item in articleList" :key="item.id" @click="toDetail(item)">
+          <!-- 骨架屏 -->
+          <el-skeleton animated :loading="isLoading" style="width: 100%; height: 100%">
+            <template #template>
+              <div class="top">
+                <el-skeleton-item
+                  variant="image"
+                  style="width: 100%; height: 100%; border-radius: 10px"
+                />
+                <div style="padding: 16px 0">
+                  <el-skeleton-item variant="p" style="width: 80%" />
+                  <el-skeleton-item variant="p" style="width: 40%; margin-top: 10px" />
+                </div>
+              </div>
+            </template>
+
+            <template #default>
+              <div class="top">
+                <el-image class="cover" :src="item.home_img" lazy fit="cover" />
+
+                <span class="type">{{ item.type_name }}</span>
+              </div>
+              <div class="bottom">
+                <h2>{{ item.title }}</h2>
+                <div class="info">
+                  <div class="text">
+                    <i class="iconfont">&#xe7c1;</i>
+                    <span>{{ useDateFormat(item.create_time, 'YYYY-MM-DD') }}</span>
+                    <div class="line"></div>
+                    <i class="iconfont">&#xe605;</i>
+                    <span>{{ item.count }}</span>
+                  </div>
+                  <el-button v-auth="'edit'" size="small" @click.stop="toEdit(item)"
+                    >编辑</el-button
+                  >
+                </div>
+              </div>
+            </template>
+          </el-skeleton>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 16vh" v-if="showEmpty">
+      <el-empty :description="`未找到相关数据 ${EmojiText[0]}`" />
+    </div>
+
+    <div style="display: flex; justify-content: center; margin-top: 20px">
+      <el-pagination
+        size="default"
+        background
+        v-model:current-page="currentPage"
+        :page-size="pageSize"
+        :pager-count="9"
+        layout="prev, pager, next, total,jumper"
+        :total="total"
+        :hide-on-single-page="true"
+        @current-change="handleCurrentChange"
+      />
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+  import { ref, onMounted, computed } from 'vue'
+  // import { ArticleService } from '@/api/articleApi'
+  import { ArticleType } from '@/api/model/articleModel'
+  import { ApiStatus } from '@/utils/http/status'
+  import { router } from '@/router'
+  import { useDateFormat } from '@vueuse/core'
+  import { Search } from '@element-plus/icons-vue'
+  import EmojiText from '@/utils/emojo'
+  import axios from 'axios'
+
+  const yearVal = ref('All')
+
+  const options = ['All', '2024', '2023', '2022', '2021', '2020', '2019']
+
+  const searchVal = ref('')
+  const articleList = ref<ArticleType[]>([])
+  const currentPage = ref(1)
+  const pageSize = ref(40)
+  // const lastPage = ref(0)
+  const total = ref(0)
+  const isLoading = ref(true)
+
+  const showEmpty = computed(() => {
+    return articleList.value.length === 0 && !isLoading.value
+  })
+
+  onMounted(() => {
+    getArticleList({ backTop: false })
+  })
+
+  // 搜索文章
+  const searchArticle = () => {
+    getArticleList({ backTop: true })
+  }
+
+  // 根据年份查询文章
+  const searchArticleByYear = () => {
+    getArticleList({ backTop: true })
+  }
+
+  const getArticleList = async ({ backTop = false }) => {
+    isLoading.value = true
+    // let year = yearVal.value
+
+    if (searchVal.value) {
+      yearVal.value = 'All'
+    }
+
+    if (yearVal.value === 'All') {
+      // year = ''
+    }
+
+    // const params = {
+    //   page: currentPage.value,
+    //   size: pageSize.value,
+    //   searchVal: searchVal.value,
+    //   year
+    // }
+
+    const res = await axios.get('https://www.qiniu.lingchen.kim/blog_list.json')
+    if (res.data.code === ApiStatus.success) {
+      articleList.value = res.data.data
+      isLoading.value = false
+
+      if (backTop) {
+        scrollToTop()
+      }
+    }
+
+    // const res = await ArticleService.getArticleList(params)
+    // if (res.code === ApiStatus.success) {
+    //   currentPage.value = res.currentPage
+    //   pageSize.value = res.pageSize
+    //   lastPage.value = res.lastPage
+    //   total.value = res.total
+    //   articleList.value = res.data
+
+    //   // setTimeout(() => {
+    //   isLoading.value = false
+    //   // }, 3000)
+
+    //   if (searchVal.value) {
+    //     searchVal.value = ''
+    //   }
+
+    //   if (backTop) {
+    //     scrollToTop()
+    //   }
+    // }
+  }
+
+  const handleCurrentChange = (val: number) => {
+    currentPage.value = val
+    getArticleList({ backTop: true })
+  }
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0 })
+  }
+
+  const toDetail = (item: ArticleType) => {
+    router.push({
+      path: `/article/detail`,
+      query: {
+        id: item.id
+      }
+    })
+  }
+
+  const toEdit = (item: ArticleType) => {
+    router.push({
+      path: `/article/article-publish`,
+      query: {
+        id: item.id
+      }
+    })
+  }
+
+  const toAddArticle = () => {
+    router.push({
+      path: `/article/article-publish`
+    })
+  }
+</script>
+
+<style lang="scss" scoped>
+  .article-list {
+    .custom-segmented .el-segmented {
+      height: 40px;
+      padding: 6px;
+      // --el-segmented-item-selected-color: var(--el-text-color-primary);
+      // --el-segmented-item-selected-bg-color: #fff;
+      --el-border-radius-base: 8px;
+      // background: var(--art-main-bg-color);
+    }
+
+    .list {
+      margin-top: 20px;
+
+      .offset {
+        width: calc(100% + 20px);
+        display: flex;
+        flex-wrap: wrap;
+
+        .item {
+          box-sizing: border-box;
+          width: calc(20% - 20px);
+          margin: 0 20px 30px 0;
+          cursor: pointer;
+
+          &:hover {
+            .el-button {
+              opacity: 1 !important;
+            }
+          }
+
+          .top {
+            position: relative;
+            aspect-ratio: 16/9.5;
+
+            .cover {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              background: #f1f2f5;
+              border-radius: 6px;
+            }
+
+            .type {
+              position: absolute;
+              top: 5px;
+              right: 5px;
+              padding: 5px 4px;
+              font-size: 12px;
+              color: #ddd;
+              background: rgba($color: #000, $alpha: 60%);
+              border-radius: 4px;
+            }
+          }
+
+          .bottom {
+            h2 {
+              margin-top: 10px;
+              font-size: 18px;
+              font-weight: 500;
+              color: #333;
+              @include ellipsis();
+            }
+
+            .info {
+              display: flex;
+              justify-content: space-between;
+              width: 100%;
+              height: 25px;
+              margin-top: 6px;
+              line-height: 25px;
+
+              .text {
+                display: flex;
+                align-items: center;
+
+                i {
+                  margin-right: 5px;
+                  font-size: 14px;
+                  color: #555;
+                }
+
+                span {
+                  font-size: 12px;
+                }
+
+                .line {
+                  width: 1px;
+                  height: 12px;
+                  margin: 0 15px;
+                  background-color: var(--art-border-color-2);
+                }
+              }
+
+              .el-button {
+                opacity: 0;
+                transition: all 0.3s;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media only screen and (max-width: $device-notebook) {
+    .article-list {
+      .list {
+        .offset {
+          .item {
+            width: calc(25% - 20px);
+          }
+        }
+      }
+    }
+  }
+
+  @media only screen and (max-width: $device-ipad-pro) {
+    .article-list {
+      .list {
+        .offset {
+          .item {
+            width: calc(33.333% - 20px);
+
+            .bottom {
+              h2 {
+                font-size: 16px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media only screen and (max-width: $device-ipad) {
+    .article-list {
+      .list {
+        .offset {
+          .item {
+            width: calc(50% - 20px);
+          }
+        }
+      }
+    }
+  }
+
+  @media only screen and (max-width: $device-phone) {
+    .article-list {
+      .list {
+        .offset {
+          .item {
+            width: calc(100% - 20px);
+          }
+        }
+      }
+    }
+  }
+</style>

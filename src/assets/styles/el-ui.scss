@@ -1,0 +1,248 @@
+// 优化element 组件样式
+
+:root {
+  // 系统主色
+  --main-color: var(--el-color-primary);
+  --el-color-white: white !important;
+  --el-color-black: white !important;
+  // 输入框边框颜色
+  // --el-border-color: #E4E4E7 !important; // DCDFE6
+  // 按钮粗度
+  --el-font-weight-primary: 400 !important;
+
+  // 边框、按钮圆角...
+  --el-border-radius-base: 8px !important;
+
+  --el-border-radius-small: 10px !important;
+  --el-messagebox-border-radius: 10px !important;
+
+  // 默认按钮颜色
+  .el-button--primary {
+    --el-button-font-color: #ffffff;
+    --el-button-active-font-color: #e6e6e6;
+    --el-button-background-color: var(--main-color);
+    --el-button-border-color: var(--main-color);
+    --el-button-hover-color: var(--main-color);
+    --el-button-active-background-color: var(--main-color);
+    --el-button-active-border-color: var(--main-color);
+  }
+
+  .region .el-radio-button__original-radio:checked + .el-radio-button__inner {
+    color: var(--main-color);
+  }
+
+  .el-button:active {
+    color: var(--main-color);
+    border-color: var(--el-color-primary-light-6);
+  }
+}
+
+.el-pagination.is-background .btn-next,
+.el-pagination.is-background .btn-prev,
+.el-pagination.is-background .el-pager li {
+  border-radius: 6px;
+}
+
+.el-popover {
+  min-width: 80px;
+}
+
+.el-dialog__header {
+  padding: 10px 10px;
+}
+
+.el-dialog__body {
+  padding: 25px 10px !important;
+}
+
+.el-dialog__footer {
+  padding: 10px 10px !important;
+  // border-top: 1px solid #F0F0F0;
+}
+
+// ✅ el-message 样式优化
+.el-message {
+  background-color: var(--art-main-bg-color) !important;
+  border: 0 !important;
+  box-shadow:
+    0 6px 16px 0 rgba(0, 0, 0, 0.08),
+    0 3px 6px -4px rgba(0, 0, 0, 0.12),
+    0 9px 28px 8px rgba(0, 0, 0, 0.05) !important;
+
+  p {
+    color: #515a6e !important;
+    font-size: 13px;
+  }
+}
+
+.el-dropdown-selfdefine:focus {
+  outline: none !important;
+}
+
+// 处理移动端组件兼容性
+@media screen and (max-width: $device-phone) {
+  .el-message-box,
+  .el-message,
+  .el-dialog {
+    width: calc(100% - 24px) !important;
+  }
+
+  .el-date-picker.has-sidebar.has-time {
+    width: calc(100% - 24px);
+    left: 12px !important;
+  }
+
+  .el-picker-panel *[slot='sidebar'],
+  .el-picker-panel__sidebar {
+    display: none;
+  }
+
+  .el-picker-panel *[slot='sidebar'] + .el-picker-panel__body,
+  .el-picker-panel__sidebar + .el-picker-panel__body {
+    margin-left: 0;
+  }
+}
+
+// 修改el-button样式
+.el-button {
+  &:active {
+    color: #fff !important;
+  }
+
+  &.el-button--text {
+    background-color: transparent !important;
+    padding: 0 !important;
+
+    span {
+      margin-left: 0 !important;
+    }
+  }
+
+  // &.el-button--success {
+  //   background-color: #2dce89 !important;
+  //   border-color: #2dce89 !important;
+  // }
+}
+
+// 修改el-tag样式
+.el-tag {
+  height: 28px !important;
+  line-height: 28px !important;
+  padding: 0 14px !important;
+  border: 0 !important;
+  border-radius: 6px !important;
+  font-weight: bold;
+  transition: all 0s !important;
+}
+
+.el-tag--success {
+  background-color: rgba(#dcfce7, 0.85) !important;
+}
+
+.el-tag--success {
+  // background-color: var(--el-color-success) !important;
+  background-color: --main-color !important;
+}
+
+// .el-tag--info {
+//   background-color: rgba(#E9E9EB, 0.85) !important;
+// }
+
+// .el-tag--warning {
+//   background-color: rgba(#FAECD8, 0.85) !important;
+// }
+
+// .el-tag--danger {
+//   background-color: rgba(#FFE2E3, 0.85) !important;
+// }
+
+.dark {
+  .el-tag {
+    color: #eee !important;
+  }
+
+  .el-tag--primary {
+    background-color: #409eff !important;
+  }
+
+  .el-tag--success {
+    background-color: #49bb78 !important;
+  }
+
+  .el-tag--info {
+    background-color: #a1afc0 !important;
+  }
+
+  .el-tag--warning {
+    background-color: #f7ae55 !important;
+  }
+
+  .el-tag--danger {
+    background-color: #e53e3e !important;
+  }
+
+  .el-message {
+    border: 1px solid var(--art-border-color) !important;
+  }
+}
+
+.el-checkbox-group {
+  &.el-table-filter__checkbox-group label.el-checkbox {
+    height: 17px !important;
+
+    .el-checkbox__label {
+      font-weight: 400 !important;
+    }
+  }
+}
+
+.el-checkbox {
+  .el-checkbox__inner {
+    width: 18px !important;
+    height: 18px !important;
+    border-radius: 5px !important;
+
+    &::after {
+      width: 4px;
+      height: 8px;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 4px;
+      margin: auto;
+      border: 2px solid var(--el-checkbox-checked-icon-color);
+      border-left: 0;
+      border-top: 0;
+    }
+  }
+}
+
+.el-notification .el-notification__icon {
+  font-size: 22px !important;
+}
+
+.el-message-box__headerbtn .el-message-box__close,
+.el-dialog__headerbtn .el-dialog__close {
+  color: #999 !important;
+}
+
+.el-table__column-filter-trigger i {
+  color: var(--main-color) !important;
+  margin: -3px 0 0 2px;
+}
+
+// 去除 el-dropdown 鼠标放上去出现的边框
+.el-tooltip__trigger:focus-visible {
+  outline: unset;
+}
+
+// ipad 表单右侧按钮优化
+@media screen and (max-width: $device-ipad-pro) {
+  .el-table-fixed-column--right {
+    padding-right: 0 !important;
+
+    .el-button {
+      margin: 5px 10px 5px 0 !important;
+    }
+  }
+}

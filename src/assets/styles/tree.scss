@@ -1,0 +1,150 @@
+// 自定义Element树形结构组件样式
+
+.tree .custom-tree-node {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  padding-right: 8px;
+}
+
+.tree .tree .el-tree-node__content {
+  height: 38px;
+  line-height: 38px;
+}
+
+.el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {
+  background-color: #409eff;
+  color: #fff;
+}
+
+.el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content i {
+  color: #fff;
+}
+
+.tree .custom-tree-node .icon {
+  font-size: 13px;
+  color: #409eff;
+}
+
+.tree .custom-tree-node .btn {
+  font-size: 13px;
+  display: none;
+  padding: 6px;
+  position: relative;
+}
+
+.tree .custom-tree-node:hover .icon {
+  color: #409eff;
+}
+
+.tree .el-tree-node__content:hover {
+  color: #606060;
+  // background: #409EFF;
+  background: #f0f7ff;
+}
+
+.tree .custom-tree-node:hover .btn {
+  display: inline;
+}
+
+.tree .custom-tree-node .btn:hover ul {
+  display: inline;
+}
+
+.tree .custom-tree-node .btn ul {
+  width: 120px;
+  background: #fff;
+  position: absolute;
+  top: 26px;
+  right: 0;
+  display: none;
+  z-index: 999;
+  border: 1px solid #f0f0f0;
+  //   box-shadow: 0 4px 4px 2px #f2f2f2;
+}
+
+.tree .custom-tree-node .btn ul li {
+  padding: 10px 15px;
+  color: #666666;
+  box-sizing: border-box;
+}
+
+.tree .custom-tree-node .btn ul li:hover {
+  color: #333;
+  background: #f5f5f5;
+}
+
+.tree .el-tree-node.is-expanded > .el-tree-node__children {
+  overflow: inherit;
+}
+
+.tree .el-tree > .el-tree-node:after {
+  border-top: none;
+}
+
+.tree .el-tree-node {
+  position: relative;
+}
+
+.tree .el-tree-node__expand-icon.is-leaf {
+  display: none;
+}
+
+.tree .el-tree-node__children {
+  padding-left: 16px;
+}
+
+.tree .el-tree-node :last-child:before {
+  height: 38px;
+}
+
+.tree .el-tree-node :last-child:before {
+  height: 17px;
+}
+
+.tree .el-tree > .el-tree-node:before {
+  border-left: none;
+}
+
+.tree .el-tree > .el-tree-node:after {
+  border-top: none;
+}
+
+.tree .el-tree-node:before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  right: auto;
+  border-width: 1px;
+}
+
+.tree .el-tree-node:after {
+  content: '';
+  left: -4px;
+  position: absolute;
+  right: auto;
+  border-width: 1px;
+}
+
+.tree .el-tree-node:before {
+  border-left: 1px dashed #dcdfe6;
+  bottom: 0px;
+  height: 100%;
+  top: -3px;
+  width: 1px;
+  left: 14px;
+}
+
+.tree .el-tree-node:after {
+  border-top: 1px dashed #dcdfe6;
+  height: 20px;
+  top: 13px;
+  left: 15px;
+  width: 12px;
+}
+
+.tree-color {
+  background: #f7fafe;
+}

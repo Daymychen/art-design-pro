@@ -1,0 +1,49 @@
+// css全局变量
+:root {
+  --art-body-font-family: PingFangSC-Regular, Microsoft Yahei, sans-serif;
+  --art-heading-color: #333333;
+  --art-body-text-align: left;
+
+  // 系统主题变量
+  // 这里只是声明，配置需要在 src/config/setting/ SystemThemeStyles 中配置
+  --art-bg-color: #f6f7f9; // 最底部背景颜色
+  --art-main-bg-color: #ffffff; // 主背景色
+  --art-border-color: #eceef6; // 边框颜色
+  --art-border-color-2: #d9d9d9; // 边框颜色
+  --art-head-hover-btn-color: #f8f8f8; // 顶部菜单 hover 按钮背景色
+  --art-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.06); // 阴影1
+  --art-box-shadow-1: 0 2px 8px 0 rgba(0, 0, 0, 0.1); // 阴影2
+  --art-box-shadow-2: 0 2px 8px 0 rgba(0, 0, 0, 0.2); // 阴影3
+  --art-box-shadow-3: 0 2px 8px 0 rgba(0, 0, 0, 0.3); // 阴影4
+  --art-gradient-border: 1px solid transparent; // 渐变边框
+
+  // 页面级别变量
+  --console-margin: 20px; // 工作台盒子间距
+}
+
+// sass全局变量
+
+// 默认系统背景色
+$default-background: #fafafa;
+// 菜单背景色
+$theme-menu-color: #fff;
+// 图标hover背景色
+$icon-hover-bg: #442929;
+// 蒙版背景色
+$mask-color: #000000;
+// 蒙版透明度
+$mask-alpha: 0.6;
+
+// notebook
+$device-notebook: 1600px;
+// ipad pro
+$device-ipad-pro: 1180px;
+// ipad
+$device-ipad: 800px;
+// ipad-竖屏
+$device-ipad-vertical: 900px;
+// mobile
+$device-phone: 500px;
+
+// console view
+$console-box-gap: 25px;

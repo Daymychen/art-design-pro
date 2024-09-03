@@ -1,0 +1,77 @@
+<template>
+  <template v-for="item in list" :key="item.id">
+    <el-sub-menu v-if="isNotEmpty(item.children)" :index="item.path || item.title">
+      <template #title>
+        <i class="iconfont-sys" :style="{ color: theme.iconColor }">{{ item.icon }}</i>
+        <!-- <span>{{ item.title }}</span> -->
+        <span>{{ getLocaleMenuTitle(item) }}</span>
+      </template>
+      <submenu :list="item.children" :isMobile="isMobile" @close="closeMenu" />
+    </el-sub-menu>
+
+    <el-menu-item
+      v-if="!isNotEmpty(item.children) && !item.noMenu"
+      :index="item.path || item.title"
+      @click="goPage(item)"
+    >
+      <template #title>
+        <i class="iconfont-sys">{{ item.icon }}</i>
+        <!-- <span>{{ item.title }}</span> -->
+        <span>{{ getLocaleMenuTitle(item) }}</span>
+      </template>
+    </el-menu-item>
+  </template>
+</template>
+
+<script lang="ts" setup>
+  import { router } from '@/router'
+  import { MenuListType } from '@/types/menu'
+  import { useUserStore } from '@/store/modules/user'
+  import { LanguageEnum } from '@/enums/appEnum'
+
+  const userStore = useUserStore()
+  const language = computed(() => userStore.language)
+
+  defineProps({
+    title: {
+      type: String,
+      default: '666'
+    },
+    list: {
+      type: [Array] as PropType<MenuListType[]>,
+      default: () => []
+    },
+    theme: {
+      type: Object,
+      default: () => {}
+    },
+    isMobile: Boolean
+  })
+
+  const emit = defineEmits(['close'])
+
+  const goPage = (item: MenuListType) => {
+    let isNewSite = item.path.indexOf('http') !== -1 ? true : false
+
+    // 打开新窗口
+    if (isNewSite) {
+      window.open(item.path, '_blank')
+      return
+    }
+
+    closeMenu()
+    router.push(item.path)
+  }
+
+  const closeMenu = () => {
+    emit('close')
+  }
+
+  const isNotEmpty = (children: MenuListType[] | undefined) => {
+    return children && children.length > 0
+  }
+
+  const getLocaleMenuTitle = (item: MenuListType) => {
+    return language.value === LanguageEnum.ZH ? item.title : item.title_en
+  }
+</script>

@@ -1,0 +1,8 @@
+// 移动端样式处理
+
+// 去除移动端点击背景色
+@media screen and (max-width: $device-ipad-pro) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+}

@@ -1,0 +1,26 @@
+.breadcrumb {
+  margin-left: 10px;
+
+  ul {
+    display: flex;
+
+    li {
+      font-size: 13px;
+
+      span {
+        font-size: 13px;
+      }
+
+      i {
+        margin: 0 7px;
+        font-size: 13px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: $device-ipad) {
+  .breadcrumb {
+    display: none;
+  }
+}

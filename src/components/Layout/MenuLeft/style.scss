@@ -1,0 +1,87 @@
+// 菜单基础样式
+.menu-left {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 101;
+  height: 100vh;
+  user-select: none;
+
+  .header {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    overflow: hidden;
+    line-height: 60px;
+    cursor: pointer;
+
+    .svg-icon {
+      width: 32px;
+    }
+
+    p {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 55px;
+      margin-left: 10px;
+      font-family: Montserrat, sans-serif;
+      font-size: 16px;
+      font-weight: bold !important;
+    }
+  }
+
+  .el-menu {
+    box-sizing: border-box;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+    border-right: 0;
+
+    &::-webkit-scrollbar {
+      width: 0 !important;
+    }
+  }
+
+  .menu-model {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: $device-ipad) {
+  .menu-left {
+    .header {
+      display: none;
+    }
+
+    .el-menu {
+      height: 100vh;
+    }
+
+    .el-menu--collapse {
+      width: 0;
+    }
+  }
+}
+
+@media only screen and (max-width: $device-phone) {
+  .menu-left-close {
+    width: 0;
+  }
+
+  .menu-left {
+    .menu-model {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      display: block;
+      width: 100%;
+      height: 100vh;
+      background: rgba($color: #000, $alpha: 50%);
+      transition: opacity 0.2s ease-in-out;
+    }
+  }
+}

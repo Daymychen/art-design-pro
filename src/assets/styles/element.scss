@@ -1,0 +1,24 @@
+// https://github.com/element-plus/element-plus/blob/dev/packages/theme-chalk/src/common/var.scss
+
+@forward 'element-plus/theme-chalk/src/common/var.scss' // Element 自定义主题
+  with (
+  //
+  $colors:
+    (
+      //
+      'white': #ffffff,
+      'black': #000000,
+      'success': ('base': #52c41a),
+      'warning': ('base': #faad14),
+      'danger': ('base': #ff4d4f),
+      'info': ('base': #8c8c8c),
+      'error': ('base': #ff4d4f)
+    ),
+  $button: (
+    //
+    'hover-bg-color': transparent,
+    'hover-border-color': var(--el-color-primary)
+  )
+);
+
+@use 'element-plus/theme-chalk/src/index.scss' as *;
