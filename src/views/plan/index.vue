@@ -18,25 +18,11 @@
 <script setup lang="ts">
   const apiList = ref([
     {
-      version: 'v1.0.3',
-      title: '系统图标公开使用',
-      date: '2024-9-20',
-      status: 'not-start',
-      statusText: '未开始'
-    },
-    {
-      version: 'v1.0.2',
-      title: '富文本编辑用户体验优化',
-      date: '2024-9-15',
-      status: 'not-start',
-      statusText: '未开始'
-    },
-    {
       version: 'v1.0.1',
-      title: '部分页面代码补全',
-      date: '2024-9-10',
-      status: 'progress',
-      statusText: '进行中'
+      title: '留言板块开发',
+      date: '2024-9-4',
+      status: 'complete',
+      statusText: '完成'
     },
     {
       version: 'v1.0.0（正式版）',

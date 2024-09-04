@@ -90,6 +90,12 @@ const menuData: MenuListType[] = [
         title_en: 'Article category',
         path: '/article/detail',
         noMenu: true
+      },
+      {
+        id: 205,
+        title: '留言管理',
+        title_en: 'Comment',
+        path: '/article/comment'
       }
     ]
   },

@@ -225,6 +225,14 @@ export const roleRoutes: AppRouteRecordRaw[] = [
           title: '文章分类',
           keepAlive: true
         }
+      },
+      {
+        path: '/article/comment',
+        component: () => import('@views/article/Comment.vue'),
+        meta: {
+          title: '留言',
+          keepAlive: true
+        }
       }
     ]
   },

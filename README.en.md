@@ -2,7 +2,7 @@ English | [简体中文](./README.md)
 
 ## About Art Design Pro
 
-Art Design Pro is an open-source backend management system solution designed specifically for visual appeal, user experience, and rapid development. Based on the ElementPlus design guidelines, we have optimized the styles of its components to offer a more aesthetically pleasing and practical front-end interface, helping you effortlessly build high-quality backend systems.
+Art Design Pro is an open-source admin panel solution specifically designed for visual effects, user experience, and rapid development. Based on the ElementPlus design guidelines, I have optimized the styles of its components to provide a more aesthetically pleasing and practical front-end interface, helping you effortlessly build high-quality admin systems.
 
 ## Demo Images
 

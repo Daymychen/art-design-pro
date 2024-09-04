@@ -1,0 +1,246 @@
+<template>
+  <div class="page-content">
+    <h1 class="title">留言墙</h1>
+    <p class="desc">每一份留言都记录了您的想法，也为我们提供了珍贵的回忆</p>
+
+    <div class="list">
+      <ul class="offset">
+        <li
+          class="comment-box"
+          v-for="item in commentList"
+          :key="item.id"
+          :style="{ background: randomColor() }"
+          @click="openDrawer(item)"
+        >
+          <p class="date">{{ item.date }}</p>
+          <p class="content">{{ item.content }}</p>
+          <div class="bottom">
+            <div class="left">
+              <span><i class="iconfont-sys">&#xe6eb;</i>{{ item.collection }}</span>
+              <span><i class="iconfont-sys">&#xe6e9;</i>{{ item.comment }}</span>
+            </div>
+            <div class="right">
+              <span class="dark-text">{{ item.userName }}</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <el-drawer v-model="showDrawer" :modal="false" :lock-scroll="false" :size="360">
+      <template #header>
+        <h4>详情</h4>
+      </template>
+      <template #default>
+        <div class="drawer-default">
+          <div class="comment-box" :style="{ background: randomColor() }">
+            <p class="date">{{ clickItem.date }}</p>
+            <p class="content">{{ clickItem.content }}</p>
+            <div class="bottom">
+              <div class="left">
+                <span><i class="iconfont-sys">&#xe6eb;</i>{{ clickItem.collection }}</span>
+                <span><i class="iconfont-sys">&#xe6e9;</i>{{ clickItem.comment }}</span>
+              </div>
+              <div class="right">
+                <span class="dark-text">{{ clickItem.userName }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 评论组件 -->
+          <CommentWidget></CommentWidget>
+        </div>
+      </template>
+      <template #footer>
+        <div>
+          <!-- <el-button @click="cancelClick">cancel</el-button> -->
+          <!-- <el-button type="primary" @click="confirmClick">confirm</el-button> -->
+        </div>
+      </template>
+    </el-drawer>
+  </div>
+</template>
+
+<script setup lang="ts">
+  import { commentList } from '@/mock/temp/commentList'
+  const showDrawer = ref(false)
+
+  const colorList = reactive([
+    'rgba(255, 227, 148, 0.25)',
+    'rgba(252, 175, 162, 0.25)',
+    'rgba(146, 230, 245, 0.25)',
+    'rgba(255, 227, 148, 0.25)',
+    'rgba(168, 237, 138, 0.25)',
+    'rgba(202, 167, 247, 0.25)'
+  ])
+
+  let lastColor: string | null = null
+
+  const randomColor = () => {
+    let newColor: string
+
+    do {
+      const index = Math.floor(Math.random() * colorList.length)
+      newColor = colorList[index]
+    } while (newColor === lastColor)
+
+    lastColor = newColor
+    return newColor
+  }
+
+  const clickItem = ref({
+    id: 1,
+    date: '2024-9-3',
+    content: '加油！学好Node 自己写个小Demo',
+    collection: 5,
+    comment: 8,
+    userName: '匿名'
+  })
+
+  const openDrawer = (item: any) => {
+    showDrawer.value = true
+    clickItem.value = item
+  }
+</script>
+
+<style lang="scss" scoped>
+  .page-content {
+    background-color: transparent !important;
+    box-shadow: none !important;
+
+    .title {
+      font-size: 36px;
+      font-weight: 500;
+      margin-top: 20px;
+    }
+
+    .desc {
+      color: #5b5b5b;
+      font-size: 14px;
+      margin-top: 15px;
+    }
+
+    .list {
+      margin-top: 40px;
+
+      .offset {
+        width: calc(100% + 16px);
+        display: flex;
+        flex-wrap: wrap;
+      }
+    }
+
+    .comment-box {
+      width: calc(20% - 16px);
+      margin: 0 16px 16px 0;
+      padding: 16px;
+      box-sizing: border-box;
+      background-color: #eae2cb;
+      aspect-ratio: 16 / 12;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s;
+
+      &:hover {
+        transform: translateY(-5px);
+      }
+
+      .date {
+        color: #949494;
+        font-size: 12px;
+      }
+
+      .content {
+        color: #333;
+        font-size: 14px;
+        margin-top: 16px;
+      }
+
+      .bottom {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: absolute;
+        bottom: 16px;
+        left: 0;
+        padding: 0 16px;
+        box-sizing: border-box;
+
+        .left {
+          display: flex;
+          align-items: center;
+
+          span {
+            font-size: 12px;
+            color: #949494;
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+
+            i {
+              margin-right: 5px;
+            }
+          }
+        }
+
+        .right {
+          span {
+            color: #333;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+
+    .drawer-default {
+      .comment-box {
+        width: 100%;
+
+        &:hover {
+          transform: translateY(0);
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: $device-notebook) {
+    .page-content {
+      .comment-box {
+        width: calc(25% - 16px);
+      }
+    }
+  }
+
+  @media screen and (max-width: $device-ipad-pro) {
+    .page-content {
+      .comment-box {
+        width: calc(33.333% - 16px);
+      }
+    }
+  }
+
+  @media screen and (max-width: $device-ipad) {
+    .page-content {
+      .comment-box {
+        width: calc(50% - 16px);
+      }
+    }
+  }
+
+  @media screen and (max-width: $device-phone) {
+    .page-content {
+      .comment-box {
+        width: calc(100% - 16px);
+      }
+    }
+  }
+
+  .dark {
+    .page-content {
+      .comment-box {
+        background-color: var(--art-main-bg-color) !important;
+      }
+    }
+  }
+</style>
