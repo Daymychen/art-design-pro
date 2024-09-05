@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont-sys"; /* Project id 3682552 */
-  src: url('iconfont.woff2?t=1725360569703') format('woff2'),
-       url('iconfont.woff?t=1725360569703') format('woff'),
-       url('iconfont.ttf?t=1725360569703') format('truetype');
+  src: url('iconfont.woff2?t=1725522066011') format('woff2'),
+       url('iconfont.woff?t=1725522066011') format('woff'),
+       url('iconfont.ttf?t=1725522066011') format('truetype');
 }
 
 .iconfont-sys {
@@ -11,6 +11,14 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-c181huiche:before {
+  content: "\e60c";
+}
+
+.icon-huiche1:before {
+  content: "\e6e6";
 }
 
 .icon-command:before {

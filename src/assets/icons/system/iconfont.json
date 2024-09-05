@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "35119374",
+      "name": "c181回车",
+      "font_class": "c181huiche",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "36847909",
+      "name": "回车",
+      "font_class": "huiche1",
+      "unicode": "e6e6",
+      "unicode_decimal": 59110
+    },
+    {
       "icon_id": "141578",
       "name": "command",
       "font_class": "command",

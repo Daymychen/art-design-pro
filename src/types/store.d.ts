@@ -18,6 +18,7 @@ export interface SystemThemeType {
   borderColor2: string // 边框颜色
   hoverBtnColor: string // 按钮 hover 颜色
   gradientBorder: string // 渐变边框
+  selectedColor: string // 渐变边框
 }
 
 // 定义包含多个主题的类型

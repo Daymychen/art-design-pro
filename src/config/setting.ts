@@ -26,7 +26,8 @@ export const SystemThemeStyles: SystemThemeTypes = {
     borderColor: '#ECEEF6',
     borderColor2: '#D9D9D9',
     hoverBtnColor: '#F8F8F8',
-    gradientBorder: '0px solid transparent'
+    gradientBorder: '0px solid transparent',
+    selectedColor: '#F4F4F5'
   },
   [SystemThemeEnum.DARK]: {
     className: SystemThemeEnum.DARK,
@@ -35,7 +36,8 @@ export const SystemThemeStyles: SystemThemeTypes = {
     borderColor: '#28282A',
     borderColor2: '#4C4D50',
     hoverBtnColor: '#070707',
-    gradientBorder: '1px solid transparent'
+    gradientBorder: '1px solid transparent',
+    selectedColor: '#27272A'
   }
 }
 
