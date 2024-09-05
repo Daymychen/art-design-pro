@@ -1,6 +1,42 @@
 // 重新修改菜单样式
+
+.el-popper.is-pure {
+  border: 0.5px solid var(--art-border-color-2) !important;
+  border-radius: 12px;
+}
+
+.el-menu--vertical,
+.el-menu--popup-container {
+  border: 1px solid transparent !important;
+
+  .el-menu--popup {
+    padding: 10px 10px;
+
+    .el-menu-item {
+      height: 40px;
+      padding: 0 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+
+      &:hover {
+        background: var(--art-selected-color);
+      }
+    }
+  }
+}
+
 .menu-left {
   // ---------------------- Modify default style ----------------------
+  .header {
+    .svg-icon {
+      margin-left: 18px;
+    }
+  }
+
   // 父级菜单
   .el-sub-menu__title {
     // 图标
@@ -46,17 +82,15 @@
   }
 
   // ---------------------- Dark theme menu ----------------------
-  &.menu-left-dark {
-    .header {
-      .svg-icon {
-        margin-left: 20px;
-      }
-    }
-  }
-
   .el-menu-dark {
     .el-sub-menu__icon-arrow {
       color: #ccc;
+    }
+
+    .el-sub-menu__title {
+      .iconfont-sys {
+        margin-left: 3px !important;
+      }
     }
 
     // 选中颜色
@@ -69,28 +103,30 @@
     .el-menu-item:not(.is-active):hover {
       background: #0f1015 !important;
     }
+  }
 
-    .el-menu-item {
-      span {
-        margin-left: 21px;
+  .el-menu-dark.el-menu--collapse {
+    .el-sub-menu.is-active {
+      .el-sub-menu__title {
+        .iconfont-sys {
+          color: var(--main-color) !important;
+        }
       }
     }
   }
 
   // ---------------------- Light theme menu ----------------------
-  &.menu-left-light {
-    .header {
-      .svg-icon {
-        margin-left: 20px;
-      }
-    }
-  }
-
   .el-menu-light {
     .el-sub-menu__title,
     .el-menu-item {
       width: 100%;
       border-radius: 0;
+    }
+
+    .el-sub-menu__title {
+      .iconfont-sys {
+        margin-left: 3px !important;
+      }
     }
 
     .el-sub-menu__icon-arrow {
@@ -117,12 +153,6 @@
       }
     }
 
-    .el-menu-item {
-      span {
-        margin-left: 21px;
-      }
-    }
-
     // 鼠标移入背景色
     .el-sub-menu__title:hover,
     .el-menu-item:not(.is-active):hover {
@@ -130,20 +160,22 @@
     }
   }
 
-  // ---------------------- Design theme menu ----------------------
-  &.menu-left-design {
-    .header {
-      .svg-icon {
-        margin-left: 20px;
+  .el-menu-light.el-menu--collapse {
+    .el-sub-menu.is-active {
+      .el-sub-menu__title {
+        .iconfont-sys {
+          color: var(--main-color) !important;
+        }
       }
     }
   }
 
+  // ---------------------- Design theme menu ----------------------
   .el-menu-design {
     overflow: hidden;
 
     > .el-sub-menu {
-      margin-left: 5px;
+      margin-left: 8px;
     }
 
     .el-sub-menu {
@@ -155,14 +187,21 @@
       height: 50px;
       margin-bottom: 15px;
       line-height: 50px;
+      padding-left: 0 !important;
+      border-radius: 4px;
+
+      &:hover {
+        background: var(--art-selected-color) !important;
+      }
 
       .iconfont-sys {
-        margin-left: 0;
+        margin-left: 15px !important;
       }
     }
 
     .el-sub-menu.is-active {
       .el-sub-menu__title {
+        
         .iconfont-sys {
           width: 30px;
           height: 30px;
@@ -171,19 +210,25 @@
           text-align: center;
           background: var(--main-color) !important;
           border-radius: 6px;
-          // padding: 0 5px;
-          // margin-left: -5px;
+          position: relative;
+          left: -5px;
+        }
+
+        span {
+          position: relative;
+          left: -3px;
         }
       }
     }
   }
 
-  .el-menu--collapse {
+  .el-menu-design.el-menu--collapse {
     .el-sub-menu.is-active {
       .el-sub-menu__title {
         .iconfont-sys {
           padding: 0 5px !important;
-          margin-left: -5px !important;
+          position: relative;
+          left: -5px;
         }
       }
     }
