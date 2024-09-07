@@ -2,7 +2,7 @@
 export default {
   topBar: {
     search: {
-      title: '搜索页面'
+      title: '搜索'
     },
     user: ['个人中心', '退出登录']
   },

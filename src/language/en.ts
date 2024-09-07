@@ -2,7 +2,7 @@
 export default {
   topBar: {
     search: {
-      title: 'Search Page'
+      title: 'Search'
     },
     user: ['User center', 'Logout']
   },

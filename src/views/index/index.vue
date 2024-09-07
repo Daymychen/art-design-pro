@@ -1,13 +1,19 @@
 <template>
   <div class="frame" :style="{ paddingLeft, paddingTop }">
+    <!-- 左侧菜单 -->
     <menu-left></menu-left>
 
+    <!-- 搜索组件 -->
+    <search></search>
+
+    <!-- 顶栏 -->
     <top-bar>
       <template #default>
         <work-tab v-if="showWorkTab"></work-tab>
       </template>
     </top-bar>
 
+    <!-- 内容区域 -->
     <div class="container">
       <router-view v-if="isRefresh" v-slot="{ Component, route }" :style="{ minHeight }">
         <keep-alive :max="10">

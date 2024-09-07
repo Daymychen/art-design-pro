@@ -12,48 +12,14 @@
 
       <div class="right">
         <div class="search-wrap">
-          <el-input
-            v-model="searchVal"
-            :placeholder="$t('topBar.search.title')"
-            @input="search"
-            @blur="searchBlur"
-            ref="searchInput"
-            :prefix-icon="Search"
-            @keydown.up.prevent="highlightPrevious"
-            @keydown.down.prevent="highlightNext"
-            @keydown.enter.prevent="selectHighlighted"
-          >
-            <template #suffix>
-              <div class="search-keydown">
-                <i class="iconfont-sys">&#xe9ab;</i>
-                <span>k</span>
-              </div>
-            </template>
-          </el-input>
-          <div class="result" v-show="searchResult.length">
-            <div class="box" v-for="(item, pIndex) in searchResult" :key="pIndex">
-              <i class="iconfont-sys">{{ item.icon }}</i
-              >{{ getLocaleMenuTitle(item) }}
-              <div
-                v-for="(cItem, cIndex) in item.children"
-                :key="cIndex"
-                @click="searchGoPage(cItem.path)"
-                :class="{ highlighted: isHighlighted(pIndex, cIndex) }"
-              >
-                {{ getLocaleMenuTitle(cItem) }}
-              </div>
+          <div class="search-input" @click="openSearchDialog">
+            <div class="left">
+              <i class="iconfont-sys">&#xe710;</i>
+              <span>{{ $t('topBar.search.title') }}</span>
             </div>
-
-            <div class="bottom">
-              <div>
-                <i class="iconfont-sys">&#xe864;</i>
-                <i class="iconfont-sys">&#xe867;</i>
-                <span>切换</span>
-              </div>
-              <div>
-                <i class="iconfont-sys">&#xe6e6;</i>
-                <span>选择</span>
-              </div>
+            <div class="search-keydown">
+              <i class="iconfont-sys">&#xe9ab;</i>
+              <span>k</span>
             </div>
           </div>
         </div>
@@ -143,10 +109,7 @@
   import { useUserStore } from '@/store/modules/user'
   import { fullScreen, exitScreen } from '@/utils/utils'
   import { ElMessageBox } from 'element-plus'
-  import { menuData } from '@/mock/menuData'
-  import { Search } from '@element-plus/icons-vue'
   import { HOME_PAGE } from '@/router'
-  import { MenuListType } from '@/types/menu'
   import { useI18n } from 'vue-i18n'
   import mittBus from '@/utils/mittBus'
 
@@ -167,33 +130,17 @@
   const isFullScreen = ref(false)
   const showNotice = ref(false)
   const notice = ref(null)
-  const searchVal = ref()
-  const searchResult: any = ref([])
   const systemThemeColor = computed(() => settingStore.systemThemeColor)
   const showSettingGuide = computed(() => settingStore.showSettingGuide)
-  const searchInput = ref<HTMLInputElement | null>(null)
 
   onMounted(() => {
     initLanguage()
-    document.addEventListener('keydown', handleKeydown)
     document.addEventListener('click', bodyCloseNotice)
   })
 
   onUnmounted(() => {
-    document.removeEventListener('keydown', handleKeydown)
     document.addEventListener('click', bodyCloseNotice)
   })
-
-  const handleKeydown = (event: KeyboardEvent) => {
-    // Check for macOS Command key or Windows/Linux Ctrl key
-    const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0
-    const isCommandKey = isMac ? event.metaKey : event.ctrlKey
-
-    if (isCommandKey && event.key.toLowerCase() === 'k') {
-      event.preventDefault()
-      searchInput.value?.focus()
-    }
-  }
 
   const fullScreenFun = () => {
     fullScreen()
@@ -227,64 +174,10 @@
     router.push(HOME_PAGE)
   }
 
-  const searchGoPage = (path: string) => {
-    // 如果 path 是以 http 开头则跳转到新的页面
-
-    if (path.startsWith('http')) {
-      window.open(path)
-      return
-    }
-    router.push(path)
-    searchVal.value = ''
-    searchResult.value = []
-  }
-
   const loginOut = () => {
     ElMessageBox.confirm('您确定退出登录当前账户吗？打开的标签页和个人设置将会保存。').then(() => {
       userStore.logOut()
     })
-  }
-
-  const search = (val: string) => {
-    if (val) {
-      let list = fuzzyQueryList(menuData, val)
-      searchResult.value = list.filter((item) => {
-        return item.children!.length
-      })
-    } else {
-      searchResult.value = []
-    }
-  }
-
-  // 模糊查询
-  const fuzzyQueryList = (arr: MenuListType[], val: string): MenuListType[] => {
-    const titleField = language.value === LanguageEnum.ZH ? 'title' : 'title_en'
-    const lowerVal = val.toLowerCase() // 将查询值转换为小写
-    const searchItem = (item: MenuListType): MenuListType | null => {
-      // 如果当前项有 noMenu: true，直接过滤掉
-      if (item.noMenu) return null
-
-      // 将 item[titleField] 转换为小写进行比较
-      const lowerItemTitle = item[titleField]!.toLowerCase()
-
-      // 查找子项并过滤符合条件的子项
-      const children = item.children ? fuzzyQueryList(item.children, val) : []
-
-      // 如果子项符合条件或当前项标题包含查询值，返回该项
-      if (children.length || lowerItemTitle.includes(lowerVal)) {
-        return { ...item, children }
-      }
-
-      // 否则过滤掉
-      return null
-    }
-
-    // 使用 map 和 filter 来优化处理逻辑，排除 null 结果
-    return arr.map(searchItem).filter((item): item is MenuListType => item !== null)
-  }
-
-  const getLocaleMenuTitle = (item: MenuListType) => {
-    return language.value === LanguageEnum.ZH ? item.title : item.title_en
   }
 
   const reload = (time: number = 0) => {
@@ -314,6 +207,10 @@
     // settingStore.openSettingGuide()
   }
 
+  const openSearchDialog = () => {
+    mittBus.emit('openSearchDialog')
+  }
+
   const bodyCloseNotice = (e: any) => {
     let { className } = e.target
 
@@ -330,76 +227,6 @@
 
   const visibleNotice = () => {
     showNotice.value = !showNotice.value
-  }
-
-  // 搜索逻辑
-  const highlightedIndex = ref([0, 0]) // [parentIndex, childIndex]
-
-  // 搜索框键盘向上切换
-  const highlightPrevious = () => {
-    if (searchVal.value) {
-      const [parentIndex, childIndex] = highlightedIndex.value
-
-      if (childIndex > 0) {
-        highlightedIndex.value = [parentIndex, childIndex - 1]
-      } else if (parentIndex > 0) {
-        const previousParent = searchResult.value[parentIndex - 1]
-        const newChildIndex =
-          previousParent.children.length > 0 ? previousParent.children.length - 1 : -1
-        highlightedIndex.value = [parentIndex - 1, newChildIndex]
-      } else {
-        const lastParentIndex = searchResult.value.length - 1
-        const lastParent = searchResult.value[lastParentIndex]
-        const newChildIndex = lastParent.children.length > 0 ? lastParent.children.length - 1 : -1
-        highlightedIndex.value = [lastParentIndex, newChildIndex]
-      }
-    }
-  }
-
-  // 搜索框键盘向下切换
-  const highlightNext = () => {
-    if (searchVal.value) {
-      const [parentIndex, childIndex] = highlightedIndex.value
-      const currentParent = searchResult.value[parentIndex]
-
-      const hasMoreChildren = childIndex < currentParent.children.length - 1
-
-      if (hasMoreChildren) {
-        highlightedIndex.value = [parentIndex, childIndex + 1]
-      } else if (parentIndex < searchResult.value.length - 1) {
-        highlightedIndex.value = [parentIndex + 1, 0]
-      } else {
-        highlightedIndex.value = [0, 0]
-      }
-    }
-  }
-
-  // 搜索框键盘回车跳转页面
-  const selectHighlighted = () => {
-    if (searchVal.value) {
-      const [parentIndex, childIndex] = highlightedIndex.value
-      if (parentIndex !== -1) {
-        const selectedItem =
-          childIndex === -1
-            ? searchResult.value[parentIndex]
-            : searchResult.value[parentIndex].children[childIndex]
-        if (selectedItem) {
-          searchInput.value?.blur()
-          searchGoPage(selectedItem.path)
-        }
-      }
-    }
-  }
-
-  const isHighlighted = (parentIndex: number, childIndex?: number) => {
-    const [highlightedParentIndex, highlightedChildIndex] = highlightedIndex.value
-    return childIndex === undefined
-      ? highlightedParentIndex === parentIndex && highlightedChildIndex === -1
-      : highlightedParentIndex === parentIndex && highlightedChildIndex === childIndex
-  }
-
-  const searchBlur = () => {
-    highlightedIndex.value = [0, 0]
   }
 </script>
 

@@ -59,6 +59,7 @@ declare module 'vue' {
     Notice: typeof import('./../components/Layout/Notice/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Search: typeof import('./../components/Layout/Search/index.vue')['default']
     Setting: typeof import('./../components/Layout/Setting/index.vue')['default']
     Submenu: typeof import('./../components/Layout/Submenu/submenu.vue')['default']
     TableBar: typeof import('./../components/Table/TableBar.vue')['default']

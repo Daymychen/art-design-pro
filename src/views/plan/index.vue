@@ -18,6 +18,13 @@
 <script setup lang="ts">
   const apiList = ref([
     {
+      version: 'v1.0.21',
+      title: '搜索升级为全局弹窗',
+      date: '2024-9-7',
+      status: 'complete',
+      statusText: '完成'
+    },
+    {
       version: 'v1.0.2',
       title: '搜索支持键盘上下选择、回车搜索',
       date: '2024-9-5',

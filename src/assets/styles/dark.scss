@@ -8,8 +8,8 @@ $background-color: #070707;
 
 /* 覆盖element-plus默认深色背景色 */
 html.dark {
-  // ✅ element-plus 背景颜色
-  --el-bg-color: $background-color;
+  // ✅ element-plus
+  // --el-bg-color: $background-color;
   --el-text-color-regular: $font-color;
 
   // ✅ 富文本编辑器
