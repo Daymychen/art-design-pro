@@ -1,28 +1,38 @@
-// css全局变量
+// CSS 全局变量 ｜ light 主题变量
 :root {
   --art-body-font-family: PingFangSC-Regular, Microsoft Yahei, sans-serif;
   --art-heading-color: #333333;
   --art-body-text-align: left;
 
-  // 系统主题变量 Light | Dark
-  // 这里只是声明，配置需要在 src/config/setting/ SystemThemeStyles 中配置
-  --art-bg-color: #f6f7f9; // 最底部背景颜色
-  --art-main-bg-color: #ffffff; // 主背景色
-  --art-border-color: #eceef6; // 边框颜色
-  --art-border-color-2: #d9d9d9; // 边框颜色
-  --art-head-hover-btn-color: #f8f8f8; // 顶部菜单 hover 按钮背景色
+  // 主题变量（light 主题变量）
+  --art-bg-color: #FCFCFC; // 最底部背景颜色
+  --art-main-bg-color: #FFFFFF; // 主背景色
+  --art-border-color: #ECEEF6; // 边框颜色
+  --art-border-color-2: #D9D9D9; // 边框颜色
+  --art-head-hover-btn-color: #F8F8F8; // 顶部菜单 hover 按钮背景色
   --art-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.06); // 阴影1
   --art-box-shadow-1: 0 2px 8px 0 rgba(0, 0, 0, 0.1); // 阴影2
   --art-box-shadow-2: 0 2px 8px 0 rgba(0, 0, 0, 0.2); // 阴影3
   --art-box-shadow-3: 0 2px 8px 0 rgba(0, 0, 0, 0.3); // 阴影4
-  --art-gradient-border: 1px solid transparent; // 渐变边框
+  --art-gradient-border: 0px solid transparent; // 渐变边框
   --art-selected-color: #F4F4F5; // 选中颜色 ｜ hover 颜色
+  --art-selected-color-2: #F4F8FB; // 选中颜色2
 
   // 页面级别变量
   --console-margin: 20px; // 工作台盒子间距
 }
 
-// sass全局变量
+// dark 主题变量
+html.dark {
+  --art-bg-color: #070707;
+  --art-main-bg-color: #161618;
+  --art-border-color: #28282A;
+  --art-border-color-2: #4C4D50;
+  --art-head-hover-btn-color: #070707;
+  --art-gradient-border: 1px solid transparent;
+  --art-selected-color: #27272A;
+  --art-selected-color-2: #212121;
+}
 
 // 默认系统背景色
 $default-background: #fafafa;

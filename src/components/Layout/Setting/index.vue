@@ -277,13 +277,6 @@
 
     if (currentTheme) {
       el.setAttribute('class', currentTheme.className)
-      el.style.setProperty('--art-bg-color', currentTheme.backgroundColor)
-      el.style.setProperty('--art-main-bg-color', currentTheme.mainBgColor)
-      el.style.setProperty('--art-border-color', currentTheme.borderColor)
-      el.style.setProperty('--art-border-color-2', currentTheme.borderColor2)
-      el.style.setProperty('--art-head-hover-btn-color', currentTheme.hoverBtnColor)
-      el.style.setProperty('--art-gradient-border', currentTheme.gradientBorder)
-      el.style.setProperty('--art-selected-color', currentTheme.selectedColor)
     }
 
     // 设置按钮颜色加深或变浅

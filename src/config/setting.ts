@@ -20,24 +20,10 @@ export const SystemInfo = {
 // 系统主题样式（light | dark）
 export const SystemThemeStyles: SystemThemeTypes = {
   [SystemThemeEnum.LIGHT]: {
-    className: '',
-    backgroundColor: '#FCFCFC',
-    mainBgColor: '#FFFFFF',
-    borderColor: '#ECEEF6',
-    borderColor2: '#D9D9D9',
-    hoverBtnColor: '#F8F8F8',
-    gradientBorder: '0px solid transparent',
-    selectedColor: '#F4F4F5'
+    className: ''
   },
   [SystemThemeEnum.DARK]: {
-    className: SystemThemeEnum.DARK,
-    backgroundColor: '#070707',
-    mainBgColor: '#161618',
-    borderColor: '#28282A',
-    borderColor2: '#4C4D50',
-    hoverBtnColor: '#070707',
-    gradientBorder: '1px solid transparent',
-    selectedColor: '#27272A'
+    className: SystemThemeEnum.DARK
   }
 }
 

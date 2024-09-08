@@ -12,13 +12,6 @@ export interface UserInfo {
 // 系统主题样式（light | dark）
 export interface SystemThemeType {
   className: string // className
-  backgroundColor: string // 背景底色
-  mainBgColor: string // box背景颜色
-  borderColor: string // 边框颜色
-  borderColor2: string // 边框颜色
-  hoverBtnColor: string // 按钮 hover 颜色
-  gradientBorder: string // 渐变边框
-  selectedColor: string // 渐变边框
 }
 
 // 定义包含多个主题的类型

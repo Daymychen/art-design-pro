@@ -19,7 +19,7 @@
     height: 48px;
 
     :deep(.el-input__wrapper) {
-      background-color: #F1F2F3;
+      background-color: #F3F4F5;
       box-shadow: none;
       border: 1px solid var(--art-border-color-2);
     }
@@ -78,7 +78,8 @@
         align-items: center;
         justify-content: space-between;
         margin-top: 8px;
-        background: var(--art-selected-color);
+        background: var(--art-selected-color-2);
+        // background-color: #F4F8FB;
       }
     }
   }
