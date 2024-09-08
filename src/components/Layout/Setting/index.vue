@@ -101,35 +101,18 @@
         <div
           class="button"
           :class="{ 'is-active': !boxBorderMode }"
-          @click="setBoxMode(false, 'shadow-mode')"
+          @click="switchBoxMode(false, 'shadow-mode')"
         >
           {{ $t('setting.box.list[0]') }}
         </div>
         <div
           class="button"
           :class="{ 'is-active': boxBorderMode }"
-          @click="setBoxMode(false, 'border-mode')"
+          @click="switchBoxMode(false, 'border-mode')"
         >
           {{ $t('setting.box.list[1]') }}
         </div>
       </div>
-
-      <!-- <div style="display: flex; justify-content: center; margin-top: 20px">
-        <el-button
-          style="width: 50%; border-radius: 4px"
-          :type="!boxBorderMode ? 'primary' : ''"
-          @click="setBoxMode(false, 'shadow-mode')"
-        >
-          {{ $t('setting.box.list[0]') }}
-        </el-button>
-        <el-button
-          style="width: 50%; border-radius: 4px"
-          :type="boxBorderMode ? 'primary' : ''"
-          @click="setBoxMode(false, 'border-mode')"
-        >
-          {{ $t('setting.box.list[1]') }}
-        </el-button>
-      </div> -->
 
       <p class="title" style="margin-top: 50px">{{ $t('setting.basics.title') }}</p>
       <div class="basic-box">
@@ -348,6 +331,16 @@
 
   const closeDrawer = () => {
     showDrawer.value = false
+  }
+
+  const switchBoxMode = (isInit: boolean = false, type: string) => {
+    if (
+      (type === 'shadow-mode' && boxBorderMode.value === false) ||
+      (type === 'border-mode' && boxBorderMode.value === true)
+    ) {
+      return
+    }
+    setBoxMode(isInit, type)
   }
 
   // 设置盒子边框 ｜ 阴影 样式

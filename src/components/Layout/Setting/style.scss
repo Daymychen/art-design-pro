@@ -291,7 +291,7 @@
     align-items: center;
     justify-content: space-between;
     margin-top: 20px;
-    background-color: #EFEFF0;
+    background-color: #F4F4F5;
 
     .button {
       width: calc(50% - 3px);
@@ -311,7 +311,7 @@
 
       &:hover:not(.is-active) {
         color: #333;
-        background-color: rgba($color: #000000, $alpha: 0.05);
+        background-color: rgba($color: #000000, $alpha: 0.04);
       }
     }
   }
