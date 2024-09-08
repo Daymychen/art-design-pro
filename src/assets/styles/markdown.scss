@@ -100,22 +100,6 @@ $font-color: #24292e;
   box-sizing: border-box;
 }
 
-/* .line-numbers-mode .copy-btn {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  width: 34px;
-  height: 34px;
-  line-height: 34px;
-  cursor: pointer;
-  background-color: #000;
-  border-radius: 5px;
-  text-align: center;
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 20px;
-  transition: opacity .3s;
-} */
-
 .line-numbers-mode .copy-btn {
   display: inline-block;
   display: flex;

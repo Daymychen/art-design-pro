@@ -23,24 +23,23 @@
       margin-top: 20px;
     }
 
-    &::before {
-      position: absolute;
-      top: 10px;
-      left: 0;
-      width: 50px;
-      margin: auto;
-      content: '';
-      border-bottom: 2px solid var(--art-border-color);
-    }
-
+    &::before,
     &::after {
       position: absolute;
       top: 10px;
-      right: 0;
+      border-bottom: 1px solid rgba($color: #000000, $alpha: 0.1);
       width: 50px;
       margin: auto;
       content: '';
-      border-bottom: 2px solid var(--art-border-color);
+    }
+
+    &::before {
+      left: 0;
+      
+    }
+
+    &::after {
+      right: 0;
     }
   }
 
@@ -284,6 +283,39 @@
     }
   }
 
+  .box-style {
+    padding: 4px;
+    box-sizing: border-box;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    background-color: #EFEFF0;
+
+    .button {
+      width: calc(50% - 3px);
+      height: 34px;
+      line-height: 34px;
+      border-radius: 6px;
+      font-size: 14px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      transition: all .2s !important;
+
+      &.is-active {
+        color: #333;
+        background-color: var(--art-main-bg-color);
+      }
+
+      &:hover:not(.is-active) {
+        color: #333;
+        background-color: rgba($color: #000000, $alpha: 0.05);
+      }
+    }
+  }
+
   .basic-box {
     position: relative;
     z-index: 10;
@@ -309,8 +341,35 @@
   }
 }
 
+.dark {
+  .drawer-con {
+    .title {
+      &::before,
+      &::after {
+        border-bottom: 1px solid rgba($color: #ffffff, $alpha: 0.2) !important;
+      }
+    }
+    
+    .box-style {
+      background-color: #2A2A2A;
+  
+      .button {
+        &.is-active {
+          color: #fff !important;
+          background-color: #444;
+        }
+  
+        &:hover:not(.is-active) {
+          background-color: rgba($color: #000000, $alpha: 0.2);
+        }
+      }
+    }
+  }
+}
+
 @media screen and (max-width: $device-ipad) {
   .mobile-hide {
     display: none !important;
   }
 }
+

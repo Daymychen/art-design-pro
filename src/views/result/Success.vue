@@ -29,7 +29,7 @@
       display: block;
       margin-top: 6vh;
       font-size: 80px;
-      color: #19be6b;
+      color: #19be6b !important;
     }
 
     .title {

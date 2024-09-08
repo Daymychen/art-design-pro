@@ -27,7 +27,7 @@
       display: block;
       margin-top: 6vh;
       font-size: 80px;
-      color: #ed4015;
+      color: #ed4015 !important;
     }
 
     .title {

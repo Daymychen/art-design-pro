@@ -96,7 +96,25 @@
 
       <p class="title" style="margin-top: 40px">{{ $t('setting.box.title') }}</p>
 
-      <div style="display: flex; justify-content: center; margin-top: 20px">
+      <div class="box-style">
+        <div v-if="false">{{ boxBorderMode }}</div>
+        <div
+          class="button"
+          :class="{ 'is-active': !boxBorderMode }"
+          @click="setBoxMode(false, 'shadow-mode')"
+        >
+          {{ $t('setting.box.list[0]') }}
+        </div>
+        <div
+          class="button"
+          :class="{ 'is-active': boxBorderMode }"
+          @click="setBoxMode(false, 'border-mode')"
+        >
+          {{ $t('setting.box.list[1]') }}
+        </div>
+      </div>
+
+      <!-- <div style="display: flex; justify-content: center; margin-top: 20px">
         <el-button
           style="width: 50%; border-radius: 4px"
           :type="!boxBorderMode ? 'primary' : ''"
@@ -111,7 +129,7 @@
         >
           {{ $t('setting.box.list[1]') }}
         </el-button>
-      </div>
+      </div> -->
 
       <p class="title" style="margin-top: 50px">{{ $t('setting.basics.title') }}</p>
       <div class="basic-box">

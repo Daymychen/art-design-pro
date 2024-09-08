@@ -117,8 +117,8 @@ export const SystemMainColor = [
   '#1485FF',
   '#5D87FF',
   '#9071E9',
-  '#F98B16',
   '#63BA46',
   '#00C3EE',
-  '#FD6975'
+  '#FD6975',
+  '#FF80C8'
 ]
