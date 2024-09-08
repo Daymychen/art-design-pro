@@ -27,7 +27,7 @@
       </ul>
     </div>
 
-    <el-drawer v-model="showDrawer" :modal="false" :lock-scroll="false" :size="360">
+    <el-drawer v-model="showDrawer" :lock-scroll="false" :size="360" modal-class="comment-modal">
       <template #header>
         <h4>详情</h4>
       </template>
@@ -65,13 +65,24 @@
   import { commentList } from '@/mock/temp/commentList'
   const showDrawer = ref(false)
 
+  // const colorList = reactive([
+  //   'rgba(216, 248, 255, 0.8)',
+  //   'rgba(253, 223, 217, 0.8)',
+  //   'rgba(252, 230, 240, 0.8)',
+  //   'rgba(211, 248, 240, 0.8)',
+  //   'rgba(255, 234, 188, 0.8)',
+  //   'rgba(245, 225, 255, 0.8)',
+  //   'rgba(225, 230, 254, 0.8)'
+  // ])
+
   const colorList = reactive([
-    'rgba(255, 227, 148, 0.25)',
-    'rgba(252, 175, 162, 0.25)',
-    'rgba(146, 230, 245, 0.25)',
-    'rgba(255, 227, 148, 0.25)',
-    'rgba(168, 237, 138, 0.25)',
-    'rgba(202, 167, 247, 0.25)'
+    '#D8F8FF',
+    '#FDDFD9',
+    '#FCE6F0',
+    '#D3F8F0',
+    '#FFEABC',
+    '#F5E1FF',
+    '#E1E6FE'
   ])
 
   let lastColor: string | null = null
@@ -107,6 +118,10 @@
   .page-content {
     background-color: transparent !important;
     box-shadow: none !important;
+
+    :deep(.comment-modal) {
+      background-color: transparent;
+    }
 
     .title {
       font-size: 36px;
@@ -239,7 +254,7 @@
   .dark {
     .page-content {
       .comment-box {
-        background-color: var(--art-main-bg-color) !important;
+        color: #333 !important;
       }
     }
   }
