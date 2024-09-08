@@ -79,11 +79,6 @@
         justify-content: space-between;
         margin-top: 8px;
         background: var(--art-selected-color);
-
-        &:hover:not(.disabled-hover) {
-          color: #fff;
-          background-color: var(--el-color-primary-light-3) !important;
-        }
       }
     }
   }
