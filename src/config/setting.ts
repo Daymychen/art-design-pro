@@ -100,10 +100,10 @@ export const DarkMenuStyles: MenuThemeType[] = [
   {
     theme: MenuThemeEnum.DARK,
     background: '#161618',
-    systemNameColor: '#BABBBD',
+    systemNameColor: '#ffffff',
     iconColor: '#BABBBD',
-    textColor: '#999999',
-    textActiveColor: '#ddd',
+    textColor: 'rgba(#ffffff, 0.7)',
+    textActiveColor: '#fff',
     iconActiveColor: '#FFFFFF',
     tabBarBackground: '#FFFFFF',
     systemBackground: '#F8F8F8',

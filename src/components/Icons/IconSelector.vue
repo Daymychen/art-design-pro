@@ -74,7 +74,7 @@
       margin-bottom: 15px;
       line-height: 34px;
       cursor: pointer;
-      border: 1px solid #d3d7de;
+      border: 1px solid var(--art-border-color-2);
       border-radius: 6px;
       transition: border 0.3s;
 
