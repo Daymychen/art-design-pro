@@ -33,7 +33,11 @@
             v-for="(cItem, cIndex) in item.children"
             :key="cIndex"
             @click="searchGoPage(cItem.path)"
-            :class="{ highlighted: isHighlighted(pIndex, cIndex) }"
+            @mouseenter="highlightOnHover(pIndex, cIndex)"
+            :class="{
+              highlighted: isHighlighted(pIndex, cIndex),
+              'disabled-hover': disabledHover
+            }"
           >
             {{ getLocaleMenuTitle(cItem) }}
             <i class="selected-icon iconfont-sys" v-show="isHighlighted(pIndex, cIndex)"
@@ -92,10 +96,14 @@
     if (isCommandKey && event.key.toLowerCase() === 'k') {
       event.preventDefault()
       showSearchDialog.value = true
-      setTimeout(() => {
-        searchInput.value?.focus()
-      }, 100)
+      focusInput()
     }
+  }
+
+  const focusInput = () => {
+    setTimeout(() => {
+      searchInput.value?.focus()
+    }, 100)
   }
 
   const search = (val: string) => {
@@ -138,11 +146,14 @@
 
   // 搜索逻辑
   const highlightedIndex = ref([0, 0]) // [parentIndex, childIndex]
+  const disabledHover = ref(false)
 
   // 搜索框键盘向上切换
   const highlightPrevious = () => {
     if (searchVal.value) {
       const [parentIndex, childIndex] = highlightedIndex.value
+
+      disabledHover.value = true
 
       if (childIndex > 0) {
         highlightedIndex.value = [parentIndex, childIndex - 1]
@@ -166,6 +177,7 @@
       const [parentIndex, childIndex] = highlightedIndex.value
       const currentParent = searchResult.value[parentIndex]
 
+      disabledHover.value = true
       const hasMoreChildren = childIndex < currentParent.children.length - 1
 
       if (hasMoreChildren) {
@@ -225,12 +237,19 @@
 
   const openSearchDialog = () => {
     showSearchDialog.value = true
+    focusInput()
   }
 
   const closeSearchDialog = () => {
     searchVal.value = ''
     searchResult.value = []
     highlightedIndex.value = [0, 0]
+  }
+
+  // 鼠标 hover 高亮
+  const highlightOnHover = (pIndex: number, cIndex: number) => {
+    highlightedIndex.value = [pIndex, cIndex]
+    disabledHover.value = false
   }
 </script>
 
