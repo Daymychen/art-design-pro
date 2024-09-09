@@ -1,8 +1,7 @@
 .search-widget {
 
   :deep(.search-modal) {
-    background-color: rgba($color: #000000, $alpha: 0.1);
-    backdrop-filter: blur(1px);
+    background-color: rgba($color: #000000, $alpha: 0.2);
   }
 
   :deep(.el-dialog__header) {
@@ -15,19 +14,23 @@
   }
 
   .el-input {
-    font-size: 16px;
     height: 48px;
-
+    
     :deep(.el-input__wrapper) {
       background-color: #F3F4F5;
       box-shadow: none;
-      border: 1px solid var(--art-border-color-2);
+      border: 1px solid #E5E6E7;
+      border-radius: 6px !important;
+    }
+
+    :deep(.el-input__inner) {
+      color: #888 !important;
     }
 
     .search-keydown {
       color: #A7A7A7;
       height: 20px;
-      padding: 0 6px;
+      padding: 0 4px;
       display: flex;
       align-items: center;
       border-radius: 4px;
@@ -53,11 +56,6 @@
       font-weight: 500;
     }
 
-    .highlighted {
-      color: #fff !important;
-      background-color: var(--el-color-primary-light-3) !important;
-    }
-
     .box {
       font-size: 16px;
       line-height: 1;
@@ -71,7 +69,8 @@
 
       div {
         padding: 16px;
-        color: #333;
+        color: #343f44;
+        font-size: 15px;
         font-weight: 400;
         border-radius: 8px;
         display: flex;
@@ -79,7 +78,11 @@
         justify-content: space-between;
         margin-top: 8px;
         background: var(--art-selected-color-2);
-        // background-color: #F4F8FB;
+
+        &.highlighted {
+          color: #fff !important;
+          background-color: var(--el-color-primary-light-3) !important;
+        }
       }
     }
   }
@@ -132,11 +135,51 @@
   .search-widget {
     .el-input {
       :deep(.el-input__wrapper) {
-        background-color: #141414;
+        background-color: #252526;
+        border: 1px solid #4C4D50;
       }
 
       .search-keydown {
-        background-color: #222;
+        background-color: #252526;
+        border: 1px solid #4C4D50;
+      }
+    }
+
+    :deep(.search-modal) {
+      background-color: rgba(23,23,26,0.6);
+      backdrop-filter: none;
+    }
+  
+    :deep(.el-dialog) {
+      background-color: #252526;
+    }
+
+    .result {
+      .box {
+        div {
+          color: rgba($color: #ffffff, $alpha: 0.6) !important;
+
+          &.highlighted {
+            color: #fff !important;
+          }
+        }
+      }
+    }
+
+    .dialog-footer {
+      > div {
+        color: #999 !important;
+
+        i {
+          border: 1px solid #3A3A3A;
+          box-shadow: 0 2px 0 #3A3A3A;
+          background-color: #1F1F1F;
+        }
+
+        span {
+          font-size: 12px;
+          margin-right: 15px;
+        }
       }
     }
   }

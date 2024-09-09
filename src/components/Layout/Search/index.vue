@@ -2,7 +2,7 @@
   <div class="search-widget">
     <el-dialog
       v-model="showSearchDialog"
-      width="700"
+      width="600"
       :show-close="false"
       :lock-scroll="false"
       modal-class="search-modal"
@@ -10,7 +10,7 @@
     >
       <el-input
         v-model="searchVal"
-        placeholder="快速搜索页面"
+        placeholder="搜索页面"
         @input="search"
         @blur="searchBlur"
         ref="searchInput"
