@@ -1,3 +1,75 @@
+.user-menu-popover {
+  .user-menu-box {
+    padding-top: 10px;
+
+    .user-head {
+      display: flex;
+      align-items: center;
+
+      .cover {
+        width: 40px;
+        height: 40px;
+        margin: 0 10px 0 0;
+        overflow: hidden;
+        background: #eee;
+        border-radius: 50%;
+      }
+
+      .user-wrap {
+        width: calc(100% - 45px);
+        display: flex;
+        align-items: center;
+        height: 100%;
+
+        .name {
+          color: #222;
+          font-size: 14px;
+          font-weight: 500;
+          @include ellipsis();
+        }
+      }
+    }
+
+    .user-menu {
+      border-top: 1px solid var(--art-border-color);
+      // border-bottom: 1px solid var(--art-border-color);
+      margin-top: 10px;
+      padding: 16px 0;
+
+      li {
+        padding: 8px 8px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        border-radius: 6px;
+        user-select: none;
+  
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+  
+        i {
+          display: block;
+          width: 25px;
+          color: #555;
+          font-size: 16px;
+        }
+  
+        span {
+          color: #000;
+          font-size: 14px;
+        }
+  
+        &:hover {
+          background-color: var(--art-selected-color);
+        }
+      }
+    }  
+  }  
+}
+
+
 .top-bar {
   position: fixed;
   top: 0;
@@ -186,24 +258,13 @@
         }
 
         .cover {
-          width: 36px;
-          height: 36px;
+          width: 34px;
+          height: 34px;
           margin: 0 10px 0 0;
           overflow: hidden;
           cursor: pointer;
           background: #eee;
           border-radius: 50%;
-        }
-
-        .user-wrap {
-          display: flex;
-          align-items: center;
-          height: 100%;
-
-          .name {
-            font-size: 14px;
-            cursor: pointer;
-          }
         }
       }
 
@@ -218,7 +279,6 @@
       }
 
       .setting-btn {
-        margin-right: 8px;
 
         &:hover {
           animation: rotate180 0.6s;

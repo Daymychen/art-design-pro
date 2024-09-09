@@ -6,11 +6,18 @@
   "description": "",
   "glyphs": [
     {
-      "icon_id": "35119374",
-      "name": "c181回车",
-      "font_class": "c181huiche",
-      "unicode": "e60c",
-      "unicode_decimal": 58892
+      "icon_id": "5127345",
+      "name": "github",
+      "font_class": "github",
+      "unicode": "e8d6",
+      "unicode_decimal": 59606
+    },
+    {
+      "icon_id": "7617119",
+      "name": "github",
+      "font_class": "github1",
+      "unicode": "e603",
+      "unicode_decimal": 58883
     },
     {
       "icon_id": "36847909",

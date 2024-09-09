@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont-sys"; /* Project id 3682552 */
-  src: url('iconfont.woff2?t=1725522066011') format('woff2'),
-       url('iconfont.woff?t=1725522066011') format('woff'),
-       url('iconfont.ttf?t=1725522066011') format('truetype');
+  src: url('iconfont.woff2?t=1725869253544') format('woff2'),
+       url('iconfont.woff?t=1725869253544') format('woff'),
+       url('iconfont.ttf?t=1725869253544') format('truetype');
 }
 
 .iconfont-sys {
@@ -13,8 +13,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-c181huiche:before {
-  content: "\e60c";
+.icon-github:before {
+  content: "\e8d6";
+}
+
+.icon-github1:before {
+  content: "\e603";
 }
 
 .icon-huiche1:before {

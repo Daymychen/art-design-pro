@@ -24,7 +24,7 @@
           </div>
         </div>
 
-        <div class="user">
+        <!-- <div class="user">
           <img
             class="cover"
             src="@imgs/user/avatar.png"
@@ -48,7 +48,8 @@
               </el-dropdown-menu>
             </template>
           </el-dropdown>
-        </div>
+        </div> -->
+
         <div class="screen" @click="fullScreenFun" v-if="!isFullScreen">
           <i class="iconfont-sys btn">&#xe8ce;</i>
         </div>
@@ -75,10 +76,6 @@
           </el-dropdown>
         </div>
 
-        <!-- <div class="setting-btn" @click="openSetting">
-          <i class="iconfont-sys btn">&#xe6d0;</i>
-        </div> -->
-
         <div class="setting-btn" @click="openSetting">
           <el-popover :visible="showSettingGuide" placement="bottom-start" :width="190" :offset="0">
             <template #reference>
@@ -89,6 +86,51 @@
                 >点击这里查看<span :style="{ color: systemThemeColor }"> 主题风格 </span>、
                 <span :style="{ color: systemThemeColor }"> 开启顶栏菜单 </span>等更多配置
               </p>
+            </template>
+          </el-popover>
+        </div>
+
+        <div class="user">
+          <el-popover
+            placement="bottom-end"
+            :width="210"
+            :hide-after="0"
+            :offset="20"
+            trigger="hover"
+            :show-arrow="false"
+            popper-class="user-menu-popover"
+            popper-style="border: 1px solid var(--art-border-color-2); border-radius: 10px; padding: 5px 16px; 5px 16px;"
+          >
+            <template #reference>
+              <img class="cover" src="@imgs/user/avatar.png" @click="goPage('/user/user')" />
+            </template>
+            <template #default>
+              <div class="user-menu-box">
+                <div class="user-head">
+                  <img class="cover" src="@imgs/user/avatar.png" style="float: left" />
+                  <div class="user-wrap">
+                    <span class="name">{{ userInfo.username }}</span>
+                  </div>
+                </div>
+                <ul class="user-menu">
+                  <li @click="goPage('/user/user')">
+                    <i class="menu-icon iconfont-sys">&#xe734;</i>
+                    <span class="menu-txt">{{ $t('topBar.user[0]') }}</span>
+                  </li>
+                  <li @click="toBlog()">
+                    <i class="menu-icon iconfont-sys">&#xe827;</i>
+                    <span class="menu-txt">{{ $t('topBar.user[1]') }}</span>
+                  </li>
+                  <li @click="toGithub()">
+                    <i class="menu-icon iconfont-sys">&#xe8d6;</i>
+                    <span class="menu-txt">{{ $t('topBar.user[2]') }}</span>
+                  </li>
+                  <li @click="loginOut">
+                    <i class="menu-icon iconfont-sys">&#xe780;</i>
+                    <span class="menu-txt">{{ $t('topBar.user[3]') }}</span>
+                  </li>
+                </ul>
+              </div>
             </template>
           </el-popover>
         </div>
@@ -168,6 +210,14 @@
     }
 
     router.push(path)
+  }
+
+  const toBlog = () => {
+    window.open('https:/www.lingchen.kim')
+  }
+
+  const toGithub = () => {
+    window.open('https://github.com/Daymychen/art-design-pro')
   }
 
   const toHome = () => {
