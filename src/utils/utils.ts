@@ -71,3 +71,7 @@ export function colourBlend(c1: string, c2: string, ratio: any) {
 export function scrollToTop() {
   window.scrollTo({ top: 0 })
 }
+
+export const getCssVar = (name: string) => {
+  return getComputedStyle(document.documentElement).getPropertyValue(name)
+}

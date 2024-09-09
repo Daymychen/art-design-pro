@@ -3,7 +3,7 @@
 * 单页面移除深色主题 document.getElementsByTagName("html")[0].removeAttribute('class')
 */
 
-$font-color: rgba(#ffffff, 0.8);
+$font-color: rgba(#ffffff, 0.7);
 $background-color: #070707;
 
 /* 覆盖element-plus默认深色背景色 */
@@ -93,7 +93,7 @@ html.dark {
             top: 0;
             bottom: 0;
             margin: auto;
-            background: #bfbfbf !important;
+            background: var(--main-color) !important;
             transition: all 0.2s;
           }
         }
