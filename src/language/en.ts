@@ -14,6 +14,12 @@ export default {
     logOutTips:
       'Are you sure you want to log out of the current account? Open tabs and personal settings will be saved.'
   },
+  search: {
+    placeholder: 'Search page',
+    historyTitle: 'Search history',
+    switchKeydown: 'Navigate',
+    selectKeydown: 'Select'
+  },
   setting: {
     theme: {
       title: 'Theme Style',

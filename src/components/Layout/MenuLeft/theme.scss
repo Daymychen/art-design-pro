@@ -299,6 +299,17 @@
   }
 }
 
+.dark {
+  .menu-left {
+    .el-menu-item.is-active {
+      span {
+        // 暗黑主题模式，选中菜单文字颜色
+        color: var(--main-color) !important;
+      }
+    }
+  }
+}
+
 @media only screen and (max-width: $device-phone) {
   .menu-left {
     .el-menu-design {

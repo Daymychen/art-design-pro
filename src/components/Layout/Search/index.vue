@@ -9,8 +9,8 @@
       @close="closeSearchDialog"
     >
       <el-input
-        v-model="searchVal"
-        placeholder="搜索页面"
+        v-model.trim="searchVal"
+        :placeholder="$t('search.historyTitle')"
         @input="search"
         @blur="searchBlur"
         ref="searchInput"
@@ -25,14 +25,13 @@
           </div>
         </template>
       </el-input>
+
       <div class="result" v-show="searchResult.length">
         <div class="box" v-for="(item, pIndex) in searchResult" :key="pIndex">
-          <!-- <i class="menu-icon iconfont-sys">{{ item.icon }}</i
-          >{{ getLocaleMenuTitle(item) }} -->
           <div
             v-for="(cItem, cIndex) in item.children"
             :key="cIndex"
-            @click="searchGoPage(cItem.path)"
+            @click="searchGoPage(cItem)"
             @mouseenter="highlightOnHover(pIndex, cIndex)"
             :class="{
               highlighted: isHighlighted(pIndex, cIndex)
@@ -45,16 +44,39 @@
           </div>
         </div>
       </div>
+
+      <div
+        class="history-box"
+        v-show="!searchVal && searchResult.length === 0 && historyResult.length > 0"
+      >
+        <p class="title">{{ $t('search.historyTitle') }}</p>
+        <div class="history-result">
+          <div
+            class="box"
+            v-for="(item, index) in historyResult"
+            :key="index"
+            :class="{
+              highlighted: historyHIndex === index
+            }"
+            @click="searchGoPage(item)"
+            @mouseenter="historyHIndex = index"
+          >
+            {{ getLocaleMenuTitle(item) }}
+            <i class="selected-icon iconfont-sys" @click.stop="deleteHistory(index)">&#xe83a;</i>
+          </div>
+        </div>
+      </div>
+
       <template #footer>
         <div class="dialog-footer">
           <div>
             <i class="iconfont-sys">&#xe864;</i>
             <i class="iconfont-sys">&#xe867;</i>
-            <span>切换</span>
+            <span>{{ $t('search.switchKeydown') }}</span>
           </div>
           <div>
             <i class="iconfont-sys">&#xe6e6;</i>
-            <span>选择</span>
+            <span>{{ $t('search.selectKeydown') }}</span>
           </div>
         </div>
       </template>
@@ -77,6 +99,10 @@
   const showSearchDialog = ref(false)
   const searchVal = ref()
   const searchResult: any = ref([])
+  const historyMaxLength = 5 // 历史记录最大长度
+
+  const historyResult = computed(() => userStore.searchHistory)
+
   const searchInput = ref<HTMLInputElement | null>(null)
 
   onMounted(() => {
@@ -145,6 +171,7 @@
 
   // 搜索逻辑
   const highlightedIndex = ref([0, 0]) // [parentIndex, childIndex]
+  const historyHIndex = ref(0)
 
   // 搜索框键盘向上切换
   const highlightPrevious = () => {
@@ -164,6 +191,9 @@
         const newChildIndex = lastParent.children.length > 0 ? lastParent.children.length - 1 : -1
         highlightedIndex.value = [lastParentIndex, newChildIndex]
       }
+    } else {
+      historyHIndex.value =
+        (historyHIndex.value - 1 + historyResult.value.length) % historyResult.value.length
     }
   }
 
@@ -182,6 +212,8 @@
       } else {
         highlightedIndex.value = [0, 0]
       }
+    } else {
+      historyHIndex.value = (historyHIndex.value + 1) % historyResult.value.length
     }
   }
 
@@ -196,9 +228,14 @@
             : searchResult.value[parentIndex].children[childIndex]
         if (selectedItem) {
           searchInput.value?.blur()
-          searchGoPage(selectedItem.path)
+          searchGoPage(selectedItem)
         }
       }
+    } else {
+      if (!searchVal.value && historyResult.value.length === 0) {
+        return
+      }
+      searchGoPage(historyResult.value[historyHIndex.value])
     }
   }
 
@@ -217,17 +254,52 @@
     return language.value === LanguageEnum.ZH ? item.title : item.title_en
   }
 
-  const searchGoPage = (path: string) => {
+  const searchGoPage = (item: MenuListType) => {
     showSearchDialog.value = false
 
+    addHistory(item)
+
     // 如果 path 是以 http 开头则跳转到新的页面
-    if (path.startsWith('http')) {
-      window.open(path)
+    if (item.path.startsWith('http')) {
+      window.open(item.path)
       return
     }
-    router.push(path)
+    router.push(item.path)
     searchVal.value = ''
     searchResult.value = []
+  }
+
+  // 添加历史记录
+  const updateHistory = () => {
+    if (Array.isArray(historyResult.value)) {
+      userStore.setSearchHistory(historyResult.value)
+    }
+  }
+
+  const addHistory = (item: MenuListType) => {
+    const hasItemIndex = historyResult.value.findIndex(
+      (historyItem: MenuListType) => historyItem.path === item.path
+    )
+
+    if (hasItemIndex !== -1) {
+      historyResult.value.splice(hasItemIndex, 1) // 如果存在则删除
+    } else if (historyResult.value.length >= historyMaxLength) {
+      historyResult.value.pop() // 超过最大记录数则删除最后一个
+    }
+
+    cleanItem(item)
+    historyResult.value.unshift(item) // 添加新的 item 到头部
+    updateHistory()
+  }
+
+  const cleanItem = (item: MenuListType) => {
+    delete item.children
+    delete item.authList
+  }
+
+  const deleteHistory = (index: number) => {
+    historyResult.value.splice(index, 1)
+    updateHistory()
   }
 
   const openSearchDialog = () => {
@@ -239,6 +311,7 @@
     searchVal.value = ''
     searchResult.value = []
     highlightedIndex.value = [0, 0]
+    historyHIndex.value = 0
   }
 
   // 鼠标 hover 高亮

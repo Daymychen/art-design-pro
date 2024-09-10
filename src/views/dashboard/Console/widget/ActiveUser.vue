@@ -180,4 +180,14 @@
       }
     }
   }
+
+  @media screen and (max-width: $device-phone) {
+    .dark {
+      .active-user {
+        .chart {
+          padding: 15px 0 0 0 !important;
+        }
+      }
+    }
+  }
 </style>

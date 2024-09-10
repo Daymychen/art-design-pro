@@ -5,11 +5,13 @@ import { UserInfo } from '@/types/store'
 import { useSettingStore } from './setting'
 import { useWorktabStore } from './worktab'
 import { getSysStorage } from '@/utils/storage'
+import { MenuListType } from '@/types/menu'
 
 interface UserState {
   language: LanguageEnum // 语言
   isLogin: boolean // 是否登录
   info: Partial<UserInfo> // 用户信息
+  searchHistory: MenuListType[] // 搜索历史
 }
 
 export const useUserStore = defineStore({
@@ -17,7 +19,8 @@ export const useUserStore = defineStore({
   state: (): UserState => ({
     language: LanguageEnum.ZH,
     isLogin: false,
-    info: {}
+    info: {},
+    searchHistory: []
   }),
   getters: {
     getUserInfo(): Partial<UserInfo> {
@@ -36,11 +39,12 @@ export const useUserStore = defineStore({
 
       if (sys) {
         sys = JSON.parse(sys)
-        const { info, isLogin, language } = sys.user
+        const { info, isLogin, language, searchHistory } = sys.user
 
         this.info = info || {}
         this.isLogin = isLogin || false
         this.language = language || LanguageEnum.ZH
+        this.searchHistory = searchHistory || []
       }
     },
     // 用户数据持久化存储
@@ -50,6 +54,7 @@ export const useUserStore = defineStore({
           info: this.info,
           isLogin: this.isLogin,
           language: this.language,
+          searchHistory: this.searchHistory,
           worktab: this.getWorktabState,
           setting: this.getSettingState
         }
@@ -64,12 +69,16 @@ export const useUserStore = defineStore({
     setLanguage(lang: LanguageEnum) {
       this.language = lang
     },
+    setSearchHistory(list: Array<MenuListType>) {
+      this.searchHistory = list
+    },
     logOut() {
       document.getElementsByTagName('html')[0].removeAttribute('class') // 移除暗黑主题
 
       setTimeout(() => {
         this.info = {}
         this.isLogin = false
+        this.searchHistory = []
         useWorktabStore().opened = []
         this.saveUserData()
         router.push('/login')

@@ -292,7 +292,7 @@
 
       :deep(.active-user) {
         .chart {
-          padding: 15px 0 0;
+          padding: 10px;
         }
       }
 

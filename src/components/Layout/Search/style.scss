@@ -68,7 +68,8 @@
       }
 
       div {
-        padding: 16px;
+        height: 50px;
+        padding: 0 16px;
         color: #343f44;
         font-size: 15px;
         font-weight: 400;
@@ -86,6 +87,64 @@
 
         .selected-icon {
           font-size: 15px;
+        }
+      }
+    }
+  }
+
+  .history-box {
+    margin-top: 20px;
+    .title {
+      color: #888;
+      font-size: 13px;
+    }
+
+    .history-result {
+      width: 100%;
+      background: var(--rt-main-bg-color);
+      margin-top: 5px;
+  
+      .box {
+        font-weight: 500;
+      }
+  
+      .box {
+        height: 50px;
+        padding: 0 16px;
+        color: #343f44;
+        font-size: 15px;
+        font-weight: 400;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 8px;
+        background: var(--art-selected-color-2);
+        cursor: pointer;
+
+        &.highlighted {
+          color: #fff !important;
+          background-color: var(--el-color-primary-light-3) !important;
+
+          .selected-icon {
+            color: #fff !important;
+          }
+        }
+
+        .selected-icon {
+          width: 20px;
+          height: 20px;
+          line-height: 20px;
+          text-align: center;
+          color: #999;
+          font-size: 15px;
+          user-select: none;
+          border-radius: 50%;
+          transition: background-color .3s;
+
+          &:hover {
+            background-color: rgba($color: #000000, $alpha: 0.2);
+          }
         }
       }
     }

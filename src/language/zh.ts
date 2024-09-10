@@ -13,6 +13,12 @@ export default {
     switchLangTips: '语言切换成功',
     logOutTips: '您确定退出登录当前账户吗？打开的标签页和个人设置将会保存。'
   },
+  search: {
+    placeholder: '搜索页面',
+    historyTitle: '搜索历史',
+    switchKeydown: '切换',
+    selectKeydown: '选择'
+  },
   setting: {
     theme: {
       title: '主题风格',

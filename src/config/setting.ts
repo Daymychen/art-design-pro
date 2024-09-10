@@ -1,6 +1,5 @@
 import { MenuThemeEnum, SystemThemeEnum } from '@/enums/appEnum'
 import { MenuThemeType, SystemThemeTypes } from '@/types/store'
-import { getCssVar } from '@/utils/utils'
 
 // Element plus theme
 export const ElementPlusTheme = {
@@ -74,7 +73,7 @@ export const ThemeList: MenuThemeType[] = [
     systemNameColor: '#BABBBD',
     iconColor: '#BABBBD',
     textColor: '#BABBBD',
-    textActiveColor: '#D9D9D9',
+    textActiveColor: '#FFFFFF',
     iconActiveColor: '#FFFFFF',
     tabBarBackground: '#FFFFFF',
     systemBackground: '#F8F8F8',
@@ -104,7 +103,7 @@ export const DarkMenuStyles: MenuThemeType[] = [
     systemNameColor: '#DDDDDD',
     iconColor: '#BABBBD',
     textColor: 'rgba(#FFFFFF, 0.7)',
-    textActiveColor: getCssVar('--main-color'),
+    textActiveColor: '',
     iconActiveColor: '#FFFFFF',
     tabBarBackground: '#FFFFFF',
     systemBackground: '#F8F8F8',
