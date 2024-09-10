@@ -2,7 +2,7 @@
   <div class="page-content article-list">
     <el-row>
       <el-col :span="10">
-        <el-button v-auth="'add'" @click="openAdd">新增</el-button>
+        <el-button v-auth="'add'" style="width: 100px" plain @click="openAdd">新增</el-button>
       </el-col>
     </el-row>
 

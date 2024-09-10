@@ -18,7 +18,7 @@
         </el-form>
       </template>
       <template #bottom>
-        <el-button @click="showDialog('add')">新增</el-button>
+        <el-button @click="showDialog('add')" style="width: 100px">新增</el-button>
       </template>
     </table-bar>
 
