@@ -102,7 +102,7 @@
             popper-style="border: 1px solid var(--art-border-color-2); border-radius: 10px; padding: 5px 16px; 5px 16px;"
           >
             <template #reference>
-              <img class="cover" src="@imgs/user/avatar.png" @click="goPage('/user/user')" />
+              <img class="cover" src="@imgs/user/avatar.png" />
             </template>
             <template #default>
               <div class="user-menu-box">
