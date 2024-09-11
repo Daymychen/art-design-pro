@@ -169,6 +169,9 @@
         flex: 1;
 
         p {
+          color: var(--art-gray-800);
+          font-weight: 400;
+
           &:first-of-type {
             font-size: 24px;
           }

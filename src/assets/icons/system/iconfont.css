@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont-sys"; /* Project id 3682552 */
-  src: url('iconfont.woff2?t=1725869253544') format('woff2'),
-       url('iconfont.woff?t=1725869253544') format('woff'),
-       url('iconfont.ttf?t=1725869253544') format('truetype');
+  src: url('iconfont.woff2?t=1726034626475') format('woff2'),
+       url('iconfont.woff?t=1726034626475') format('woff'),
+       url('iconfont.ttf?t=1726034626475') format('truetype');
 }
 
 .iconfont-sys {
@@ -11,6 +11,54 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-wushuju:before {
+  content: "\e68f";
+}
+
+.icon-No-data:before {
+  content: "\e692";
+}
+
+.icon-zanwushuju1:before {
+  content: "\e60c";
+}
+
+.icon-nomoredata:before {
+  content: "\e621";
+}
+
+.icon-wushuju2:before {
+  content: "\e6b4";
+}
+
+.icon-zanwushuju:before {
+  content: "\e6da";
+}
+
+.icon-zanwushuju5:before {
+  content: "\e693";
+}
+
+.icon-zanwushuju3:before {
+  content: "\e694";
+}
+
+.icon-zanwushuju7:before {
+  content: "\e8d7";
+}
+
+.icon-zanwushuju10:before {
+  content: "\e695";
+}
+
+.icon-zanwushuju3x1:before {
+  content: "\e696";
+}
+
+.icon-zanwushujuxian:before {
+  content: "\e8d8";
 }
 
 .icon-github:before {

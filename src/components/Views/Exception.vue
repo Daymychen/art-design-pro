@@ -53,7 +53,7 @@
         p {
           font-size: 20px;
           line-height: 28px;
-          color: #808695;
+          color: var(--art-gray-600);
         }
 
         .el-button {

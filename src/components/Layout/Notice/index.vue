@@ -54,15 +54,15 @@
         </ul>
 
         <div class="empty-tips" v-show="barActiveIndex === 0 && noticeList.length === 0">
-          <i class="iconfont">&#xe707;</i>
+          <i class="iconfont-sys">&#xe8d7;</i>
           <p>暂无{{ barList[barActiveIndex].name }}</p>
         </div>
         <div class="empty-tips" v-show="barActiveIndex === 1 && msgList.length === 0">
-          <i class="iconfont">&#xe707;</i>
+          <i class="iconfont-sys">&#xe8d7;</i>
           <p>暂无{{ barList[barActiveIndex].name }}</p>
         </div>
         <div class="empty-tips" v-show="barActiveIndex === 2 && pendingList.length === 0">
-          <i class="iconfont">&#xe707;</i>
+          <i class="iconfont-sys">&#xe8d7;</i>
           <p>暂无{{ barList[barActiveIndex].name }}</p>
         </div>
       </div>

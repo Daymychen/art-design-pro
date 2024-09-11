@@ -75,7 +75,7 @@
         h4 {
           font-size: 18px;
           font-weight: 500;
-          color: var(--art-heading-color);
+          color: var(--art-text-gray-800);
         }
 
         p {
@@ -120,6 +120,7 @@
       }
 
       p {
+        color: var(--art-gray-700);
         margin-top: 5px;
         font-size: 14px;
       }
@@ -142,9 +143,10 @@
           text-align: center;
           cursor: pointer;
           background: var(--art-bg-color);
-          border: 1px solid var(--art-border-color);
+          border: 1px solid var(--art-border-dashed-color);
           border-radius: 5px;
           transition: all 0.3s;
+          color: var(--art-gray-800);
 
           &:hover {
             box-shadow: 0 5px 10px rgb(0 0 0 / 5%);

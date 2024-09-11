@@ -113,7 +113,6 @@
           font-size: 12px;
           font-weight: 500;
           margin-right: 10px;
-          // display: none;
         }
 
         .name {
@@ -125,7 +124,7 @@
       }
 
       .content {
-        color: #333;
+        color: var(--art-gray-800);
         margin-top: 10px;
         display: block;
         font-size: 14px;
@@ -139,12 +138,12 @@
         margin: 10px 0;
 
         .date {
-          color: #999;
+          color: var(--art-gray-500);
           font-size: 12px;
         }
 
         .btn-text {
-          color: #666;
+          color: var(--art-gray-800);
           font-size: 12px;
           margin-left: 20px;
           cursor: pointer;

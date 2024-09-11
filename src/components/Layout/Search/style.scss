@@ -17,18 +17,18 @@
     height: 48px;
     
     :deep(.el-input__wrapper) {
-      background-color: #F3F4F5;
+      background-color: rgba(var(--art-gray-200-rgb), 0.8);
       box-shadow: none;
-      border: 1px solid #E5E6E7;
+      border: 1px solid  var(--art-border-dashed-color);
       border-radius: 6px !important;
     }
 
     :deep(.el-input__inner) {
-      color: #888 !important;
+      color: var(--art-gray-600) !important;
     }
 
     .search-keydown {
-      color: #A7A7A7;
+      color: var(--art-gray-500);
       height: 20px;
       padding: 0 4px;
       display: flex;
@@ -70,7 +70,7 @@
       div {
         height: 50px;
         padding: 0 16px;
-        color: #343f44;
+        color: var(--art-gray-700);
         font-size: 15px;
         font-weight: 400;
         border-radius: 8px;
@@ -78,7 +78,7 @@
         align-items: center;
         justify-content: space-between;
         margin-top: 8px;
-        background: var(--art-selected-color-2);
+        background: var(--art-gray-100);
 
         &.highlighted {
           color: #fff !important;
@@ -95,7 +95,7 @@
   .history-box {
     margin-top: 20px;
     .title {
-      color: #888;
+      color: var(--art-gray-600);
       font-size: 13px;
     }
 
@@ -111,7 +111,7 @@
       .box {
         height: 50px;
         padding: 0 16px;
-        color: #343f44;
+        color: var(--art-gray-800);
         font-size: 15px;
         font-weight: 400;
         border-radius: 8px;
@@ -119,7 +119,7 @@
         align-items: center;
         justify-content: space-between;
         margin-top: 8px;
-        background: var(--art-selected-color-2);
+        background: var(--art-gray-100);
         cursor: pointer;
 
         &.highlighted {
@@ -136,7 +136,7 @@
           height: 20px;
           line-height: 20px;
           text-align: center;
-          color: #999;
+          color: var(--art-gray-500);
           font-size: 15px;
           user-select: none;
           border-radius: 50%;
@@ -173,12 +173,12 @@
         left: 117px;
         top: 6px;
         background: var(--art-bg-color);
-        border: 1px solid var(--art-border-color-2);
+        border: 1px solid var(--art-border-dashed-color);
         box-sizing: border-box;
-        box-shadow: 0 2px 0 var(--art-border-color-2);
+        box-shadow: 0 2px 0 var(--art-border-dashed-color);
         border-radius: 3px;
         font-size: 12px;
-        color: #999;
+        color: var(--art-gray-500);
         margin-right: 8px;
 
         &:last-of-type {
@@ -231,12 +231,10 @@
 
     .dialog-footer {
       > div {
-        color: #999 !important;
+        color: var(--art-gray-600) !important;
 
         i {
-          border: 1px solid #3A3A3A;
-          box-shadow: 0 2px 0 #3A3A3A;
-          background-color: #1F1F1F;
+          background-color: var(--art-gray-100);
         }
 
         span {

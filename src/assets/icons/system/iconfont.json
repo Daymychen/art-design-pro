@@ -6,6 +6,90 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "2686138",
+      "name": "无数据",
+      "font_class": "wushuju",
+      "unicode": "e68f",
+      "unicode_decimal": 59023
+    },
+    {
+      "icon_id": "2698993",
+      "name": "No data",
+      "font_class": "No-data",
+      "unicode": "e692",
+      "unicode_decimal": 59026
+    },
+    {
+      "icon_id": "2986854",
+      "name": "暂无数据",
+      "font_class": "zanwushuju1",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "5153455",
+      "name": "无数据",
+      "font_class": "nomoredata",
+      "unicode": "e621",
+      "unicode_decimal": 58913
+    },
+    {
+      "icon_id": "5239734",
+      "name": "无数据",
+      "font_class": "wushuju2",
+      "unicode": "e6b4",
+      "unicode_decimal": 59060
+    },
+    {
+      "icon_id": "7700160",
+      "name": "暂无数据",
+      "font_class": "zanwushuju",
+      "unicode": "e6da",
+      "unicode_decimal": 59098
+    },
+    {
+      "icon_id": "9897578",
+      "name": "暂无数据",
+      "font_class": "zanwushuju5",
+      "unicode": "e693",
+      "unicode_decimal": 59027
+    },
+    {
+      "icon_id": "11217278",
+      "name": "暂无数据",
+      "font_class": "zanwushuju3",
+      "unicode": "e694",
+      "unicode_decimal": 59028
+    },
+    {
+      "icon_id": "11363720",
+      "name": "暂无数据",
+      "font_class": "zanwushuju7",
+      "unicode": "e8d7",
+      "unicode_decimal": 59607
+    },
+    {
+      "icon_id": "15812601",
+      "name": "暂无数据",
+      "font_class": "zanwushuju10",
+      "unicode": "e695",
+      "unicode_decimal": 59029
+    },
+    {
+      "icon_id": "18192471",
+      "name": "暂无数据@3x",
+      "font_class": "zanwushuju3x1",
+      "unicode": "e696",
+      "unicode_decimal": 59030
+    },
+    {
+      "icon_id": "37985387",
+      "name": "暂无数据线",
+      "font_class": "zanwushujuxian",
+      "unicode": "e8d8",
+      "unicode_decimal": 59608
+    },
+    {
       "icon_id": "5127345",
       "name": "github",
       "font_class": "github",

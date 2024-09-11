@@ -14,25 +14,23 @@ html.dark {
 
   // ✅ 富文本编辑器
   // 工具栏背景颜色
-  --w-e-toolbar-bg-color: #161618;
+  --w-e-toolbar-bg-color: var(--art-main-bg-color);
   // 输入区域背景颜色
-  --w-e-textarea-bg-color: #161618;
-  // 输入区域文字颜色
-  --w-e-textarea-color: #ccc;
+  --w-e-textarea-bg-color: var(--art-main-bg-color);
   // 工具栏文字颜色
-  --w-e-toolbar-color: #7a7e89;
+  --w-e-toolbar-color: var(--art-text-gray-600);
   // 选中菜单颜色
-  --w-e-toolbar-active-bg-color: #161616;
+  --w-e-toolbar-active-bg-color: rgba(var(--art-gray-100-rgb), 0.8);
   // 弹窗边框颜色
-  --w-e-toolbar-border-color: #4c4d50;
+  --w-e-toolbar-border-color: var(--art-border-dashed-color);
   // 分割线颜色
-  --w-e-textarea-border-color: #4c4d50;
-  // 表格头颜色
-  --w-e-textarea-slight-bg-color: #000;
+  --w-e-textarea-border-color: var(--art-border-dashed-color);
   // 链接输入框边框颜色
-  --w-e-modal-button-border-color: #4c4d50;
+  --w-e-modal-button-border-color: var(--art-border-dashed-color);
+  // 表格头颜色
+  --w-e-textarea-slight-bg-color: var(--art-color);
   // 按钮背景颜色
-  --w-e-modal-button-bg-color: #000;
+  --w-e-modal-button-bg-color: var(--art-color);
 }
 
 .dark {
@@ -60,24 +58,24 @@ html.dark {
     filter: brightness(0.8) saturate(1.25);
   }
 
-  /* 让非 el- 开头的元素继承全局颜色 */
-  [class]:not([class^='el-']) {
+  /* 让非 el- 开头的元素继承全局颜色、以及 pre code 元素的颜色 */
+  [class]:not([class^='el-']):not(pre code *) {
     color: inherit !important;
   }
+  
 
   // ✅ 左侧菜单样式
   .menu-left {
     .el-menu-dark {
       // 选中颜色
       .el-menu-item.is-active {
-        background: #28282a;
         background: transparent;
       }
 
       // 鼠标移入背景色
       .el-sub-menu__title:hover,
       .el-menu-item:not(.is-active):hover {
-        background: #1f1f21 !important;
+        background: rgba(var(--art-gray-200-rgb), 0.6) !important;
       }
 
       .el-menu:not(.el-menu--collapse) {
@@ -102,8 +100,8 @@ html.dark {
   }
 
   // 表格 hover 背景色
-  .el-table--enable-row-hover .el-table__body tr:hover > td {
-    background-color: #1f1f21 !important;
+  .el-table__body tr:hover > td {
+    background-color: rgba(var(--art-gray-100-rgb), 0.6) !important;
   }
 
   .page-content .article-list .item .left .outer > div {
@@ -111,55 +109,55 @@ html.dark {
   }
 
   // ✅ 富文本编辑器
+  // 分隔线
   .w-e-bar-divider {
-    background-color: #4c4d50 !important;
+    background-color: var(--art-gray-300) !important;
   }
 
   // 下拉选择框
   .w-e-select-list {
-    background-color: #000 !important;
+    background-color: var(--art-main-bg-color) !important;
+    border: 1px solid var(--art-border-dashed-color) !important;
   }
 
   /* 弹出框 */
   .w-e-drop-panel {
-    border: 1px solid #4c4d50 !important;
+    border: 1px solid var(--art-border-dashed-color) !important;
   }
 
   /* 工具栏菜单 */
   .w-e-bar-item-group .w-e-bar-item-menus-container {
-    background-color: #000 !important;
+    background-color: var(--art-main-bg-color) !important;
+    border: 1px solid var(--art-border-dashed-color) !important;
   }
 
   /* 下拉选择框 hover 样式调整 */
-  .w-e-select-list ul li:hover {
-    background-color: #161618 !important;
-  }
-
+  .w-e-select-list ul li:hover,
   /* 工具栏 hover 按钮背景颜色 */
   .w-e-bar-item button:hover {
-    background-color: #000 !important;
+    background-color: var(--art-color) !important;
   }
 
   /* 代码块 */
   .w-e-text-container [data-slate-editor] pre > code {
-    background-color: #000 !important;
-    border: 1px solid #222 !important;
+    background-color: var(--art-gray-100) !important;
+    border: 1px solid var(--art-border-dashed-color) !important;
     text-shadow: none !important;
   }
 
   /* 引用 */
   .w-e-text-container [data-slate-editor] blockquote {
-    border-left: 4px solid #4c4d50 !important;
-    background-color: #000;
+    border-left: 4px solid var(--art-gray-200) !important;
+    background-color: var(--art-color);
   }
 
   .editor-wrapper {
     .w-e-text-container [data-slate-editor] .table-container th:last-of-type {
-      border-right: 1px solid #4c4d50 !important;
+      border-right: 1px solid var(--art-gray-200) !important;
     }
 
     .w-e-modal {
-      background-color: #000;
+      background-color: var(--art-color);
     }
   }
 }

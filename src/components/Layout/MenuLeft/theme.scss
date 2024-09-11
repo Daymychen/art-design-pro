@@ -1,7 +1,7 @@
 // 重新修改菜单样式
 
 .el-popper.is-pure {
-  border: 0.5px solid var(--art-border-color-2) !important;
+  border: 0.5px solid var(--art-border-dashed-color) !important;
   border-radius: 12px;
 }
 
@@ -23,7 +23,7 @@
       }
 
       &:hover {
-        background: var(--art-selected-color);
+        background: var(--art-gray-200);
       }
     }
   }
@@ -84,7 +84,7 @@
   // ---------------------- Dark theme menu ----------------------
   .el-menu-dark {
     .el-sub-menu__icon-arrow {
-      color: #ccc;
+      color: var(--art-gray-800);
     }
 
     .el-sub-menu__title {
@@ -95,7 +95,7 @@
 
     // 选中颜色
     .el-menu-item.is-active {
-      background-image: linear-gradient(to right, #2d8df0, #1f9ef0);
+      background-color: var(--el-color-primary-light-1);
     }
 
     // 鼠标移入背景色
@@ -131,7 +131,7 @@
     }
 
     .el-sub-menu__icon-arrow {
-      color: #808695;
+      color: var(--art-gray-600);
     }
 
     // 选中颜色
@@ -157,7 +157,7 @@
     // 鼠标移入背景色
     .el-sub-menu__title:hover,
     .el-menu-item:not(.is-active):hover {
-      background: #f5f7fa !important;
+      background: var(--art-gray-100) !important;
     }
   }
 
@@ -192,7 +192,7 @@
       border-radius: 4px;
 
       &:hover {
-        background: var(--art-selected-color) !important;
+        background: var(--art-gray-200) !important;
       }
 
       .iconfont-sys {
@@ -262,13 +262,13 @@
 
     .el-sub-menu__icon-arrow {
       right: 15px;
-      color: #808695;
+      color: var(--art-gray-600);
     }
 
     // 选中颜色
     .el-menu-item.is-active {
       font-weight: 500;
-      color: #333 !important;
+      color: var(--art-gray-800) !important;
       background: transparent !important;
 
       &::before {
@@ -280,7 +280,7 @@
         height: 6px;
         margin: auto;
         content: '';
-        background: #999;
+        background: var(--art-gray-700);
         border-radius: 50%;
         transition: all 0.2s;
       }
@@ -288,12 +288,12 @@
 
     // 鼠标移入背景色
     .el-sub-menu__title:hover {
-      background: #f5f6fa !important;
+      background: rgba(var(--art-gray-200-rgb), 0.7) !important;
       border-radius: 8px;
     }
 
     .el-menu-item:not(.is-active):hover {
-      background: #f5f6fa !important;
+      background: rgba(var(--art-gray-200-rgb), 0.7) !important;
       border-radius: 8px;
     }
   }

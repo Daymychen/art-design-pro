@@ -1,50 +1,168 @@
-// CSS 全局变量 ｜ light 主题变量
+// 默认主题变量 ｜ Light 主题变量
+
 :root {
-  --art-body-font-family: PingFangSC-Regular, Microsoft Yahei, sans-serif;
-  --art-heading-color: #333333;
-  --art-body-text-align: left;
+  // Theme color
+  --art-primary: #1B84FF;
+  --art-success: #17C653;
+  --art-warning: #F6C000;
+  --art-danger: #F8285A;
+  --art-info: #7239EA;
 
-  // 主题变量（light 主题变量）
+  --art-color: #FFFFFF;
+  --art-light: #F9F9F9;
+  --art-dark: #1E2129;
+  
+  // Theme active color
+  --art-primary-active: #056EE9;
+  --art-success-active: #04B440;
+  --art-warning-active: #DEAD00;
+  --art-danger-active: #D81A48;
+  --art-info-active: #5014D0;
+
+  --art-light-active: #F1F1F4;
+
+  // Background color | Hover color
+  --art-text-muted: #99A1B7;
+  --art-gray-100: #F9F9F9;
+  --art-gray-100-rgb: 249,249,249;
+  --art-gray-200: #F1F1F4;
+  --art-gray-200-rgb: 241,241,244;
+  --art-gray-300: #DBDFE9;
+  --art-gray-300-rgb: 219,223,233;
+  --art-gray-400: #C4CADA;
+  --art-gray-400-rgb: 196,202,218;
+  --art-gray-500: #99A1B7;
+  --art-gray-500-rgb: 153,161,183;
+  --art-gray-600: #78829D;
+  --art-gray-600-rgb: 120,130,157;
+  --art-gray-700: #4B5675;
+  --art-gray-700-rgb: 75,86,117;
+  --art-gray-800: #252F4A;
+  --art-gray-800-rgb: 37,47,74;
+  --art-gray-900: #071437;
+  --art-gray-900-rgb: 7,20,55;
+
+  // Text color
+  --art-text-muted: #99A1B7;
+  --art-text-gray-100: #F9F9F9;
+  --art-text-gray-200: #F1F1F4;
+  --art-text-gray-300: #DBDFE9;
+  --art-text-gray-400: #C4CADA;
+  --art-text-gray-500: #99A1B7;
+  --art-text-gray-600: #78829D;
+  --art-text-gray-700: #4B5675;
+  --art-text-gray-800: #252F4A;
+  --art-text-gray-900: #071437;
+
+  // Border
+  --art-border-color: #F1F1F4;
+  --art-border-dashed-color: #DBDFE9;
+  --art-root-card-border-color: #F1F1F4;
+
+  // Hover
+  --art-light-active: #F1F1F4;
+
+  // Shadow
+  --art-box-shadow-xs: 0 0.1rem 0.75rem 0.25rem rgba(0, 0, 0, 0.05);
+  --art-box-shadow-sm: 0 0.1rem 1rem 0.25rem rgba(0, 0, 0, 0.05);
+  --art-box-shadow: 0 0.5rem 1.5rem 0.5rem rgba(0, 0, 0, 0.075);
+  --art-box-shadow-lg: 0 1rem 2rem 1rem rgba(0, 0, 0, 0.1);
+
+  // Root card box、shadow
+  --art-root-card-box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+  --art-root-card-border-color: #F1F1F4;
+
+  // Theme background color
   --art-bg-color: #FCFCFC; // 最底部背景颜色
-  --art-main-bg-color: #FFFFFF; // 主背景色
-  --art-border-color: #ECEEF6; // 边框颜色
-  --art-border-color-2: #D9D9D9; // 边框颜色
-  --art-head-hover-btn-color: #F8F8F8; // 顶部菜单 hover 按钮背景色
-  --art-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.06); // 阴影1
-  --art-box-shadow-1: 0 2px 8px 0 rgba(0, 0, 0, 0.1); // 阴影2
-  --art-box-shadow-2: 0 2px 8px 0 rgba(0, 0, 0, 0.2); // 阴影3
-  --art-box-shadow-3: 0 2px 8px 0 rgba(0, 0, 0, 0.3); // 阴影4
-  --art-gradient-border: 0px solid transparent; // 渐变边框
-  --art-selected-color: #F4F4F5; // 选中颜色 ｜ hover 颜色
-  --art-selected-color-2: #F4F8FB; // 选中颜色2
+  --art-main-bg-color: #FFFFFF; 
+}
 
+// Dark 主题变量
+html.dark {
+  // Theme color
+  --art-primary: #006AE6;
+  --art-success: #00A261;
+  --art-warning: #C59A00;
+  --art-danger: #E42855;
+  --art-info: #883FFF;
+
+  --art-color: #000000;
+  --art-light: #1B1C22;
+  --art-dark: #272A34;
+  
+  // Theme active color
+  --art-primary-active: #107EFF;
+  --art-success-active: #01BF73;
+  --art-warning-active: #D9AA00;
+  --art-danger-active: #FF3767;
+  --art-info-active: #9E63FF;
+
+  --art-light-active: #1F212A;
+
+  // Background color | Hover color
+  --art-text-muted: #636674;
+  --art-gray-100: #1B1C22;
+  --art-gray-100-rgb: 27,28,34;
+  --art-gray-200: #26272F;
+  --art-gray-200-rgb: 38,39,47;
+  --art-gray-300: #363843;
+  --art-gray-300-rgb: 54,56,67;
+  --art-gray-400: #464852;
+  --art-gray-400-rgb: 70,72,82;
+  --art-gray-500: #636674;
+  --art-gray-500-rgb: 99,102,116;
+  --art-gray-600: #808290;
+  --art-gray-600-rgb: 128,130,144;
+  --art-gray-700: #9A9CAE;
+  --art-gray-700-rgb: 154,156,174;
+  --art-gray-800: #B5B7C8;
+  --art-gray-800-rgb: 181,183,200;
+  --art-gray-900: #F5F5F5;
+  --art-gray-900-rgb: 245,245,245;
+  
+
+  // Text color
+  --art-text-muted: #636674;
+  --art-text-gray-100: #1B1C22;
+  --art-text-gray-200: #26272F;
+  --art-text-gray-300: #363843;
+  --art-text-gray-400: #464852;
+  --art-text-gray-500: #636674;
+  --art-text-gray-600: #808290;
+  --art-text-gray-700: #9A9CAE;
+  --art-text-gray-800: #B5B7C8;
+  --art-text-gray-900: #F5F5F5;
+
+  // Border
+  --art-border-color: #26272F;
+  --art-border-dashed-color: #363843;
+  --art-root-card-border-color: #1E2027;
+  
+  // Hover
+  --art-light-active: #1F212A;
+
+  // Shadow
+  --art-box-shadow-xs: 0 0.1rem 0.75rem 0.25rem rgba(0, 0, 0, 0.05);
+  --art-box-shadow-sm: 0 0.1rem 1rem 0.25rem rgba(0, 0, 0, 0.05);
+  --art-box-shadow: 0 0.5rem 1.5rem 0.5rem rgba(0, 0, 0, 0.075);
+  --art-box-shadow-lg: 0 1rem 2rem 1rem rgba(0, 0, 0, 0.1);
+
+  // Root card box、shadow
+  --art-root-card-box-shadow: none;
+  --art-root-card-border-color: #1E2027;
+
+  // Theme background color
+  --art-bg-color: #070707;
+  --art-main-bg-color: #161618;
+}
+
+// CSS 全局变量
+:root {
   // 页面级别变量
   --console-margin: 20px; // 工作台盒子间距
 }
 
-// dark 主题变量
-html.dark {
-  --art-bg-color: #070707;
-  --art-main-bg-color: #161618;
-  --art-border-color: #28282A;
-  --art-border-color-2: #4C4D50;
-  --art-head-hover-btn-color: #070707;
-  --art-gradient-border: 1px solid transparent;
-  --art-selected-color: #27272A;
-  --art-selected-color-2: #212121;
-}
-
-// 默认系统背景色
-$default-background: #fafafa;
-// 菜单背景色
-$theme-menu-color: #fff;
-// 图标hover背景色
-$icon-hover-bg: #442929;
-// 蒙版背景色
-$mask-color: #000000;
-// 蒙版透明度
-$mask-alpha: 0.6;
-
+// 媒体查询-设备尺寸
 // notebook
 $device-notebook: 1600px;
 // ipad pro

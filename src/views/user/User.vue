@@ -368,7 +368,7 @@
             padding: 15px 25px;
             font-size: 20px;
             font-weight: 400;
-            color: var(--art-heading-color);
+            color: var(--art-text-gray-800);
             border-bottom: 1px solid var(--art-border-color);
           }
 

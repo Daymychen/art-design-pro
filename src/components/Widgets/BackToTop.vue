@@ -52,7 +52,7 @@
     justify-content: center;
     width: 38px;
     height: 38px;
-    color: #333;
+    color: var(--art-gray-700);
     text-align: center;
     cursor: pointer;
     border: 1px solid var(--art-border-color);

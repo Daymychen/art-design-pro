@@ -135,7 +135,7 @@
           margin-top: 5px;
           font-size: 28px;
           font-weight: 400;
-          color: var(--art-heading-color);
+          color: var(--art-text-gray-800);
         }
 
         .change {

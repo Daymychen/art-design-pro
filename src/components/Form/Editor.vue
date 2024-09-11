@@ -197,14 +197,6 @@
 </script>
 
 <style lang="scss">
-  .dark {
-    .editor-wrapper {
-      .iconfont-sys {
-        color: #999;
-      }
-    }
-  }
-
   /* 编辑器容器 */
   .editor-wrapper {
     width: 100%;
@@ -214,7 +206,6 @@
     border-radius: 8px;
 
     .iconfont-sys {
-      // color: #000;
       font-size: 20px !important;
     }
 
@@ -255,12 +246,12 @@
 
     /* 下拉选择框 hover 样式调整 */
     .w-e-select-list ul li:hover {
-      background-color: #f2f2f3;
+      background-color: var(--art-gray-200);
     }
 
     :root {
       /* 激活颜色 */
-      --w-e-toolbar-active-bg-color: #f2f2f3;
+      --w-e-toolbar-active-bg-color: var(--art-gray-200);
 
       /* toolbar 图标和文字颜色 */
       --w-e-toolbar-color: #000;
@@ -269,7 +260,7 @@
       --w-e-textarea-selected-border-color: #ddd;
 
       /* 表格头背景颜色 */
-      --w-e-textarea-slight-bg-color: #f2f2f3;
+      --w-e-textarea-slight-bg-color: var(--art-gray-200);
     }
 
     /* 工具栏按钮样式 */
@@ -279,7 +270,7 @@
 
     /* 工具栏 hover 按钮背景颜色 */
     .w-e-bar-item button:hover {
-      background-color: #f2f2f3;
+      background-color: var(--art-gray-200);
     }
 
     /* 工具栏分割线 */
@@ -300,7 +291,7 @@
     /* 代码块 */
     .w-e-text-container [data-slate-editor] pre > code {
       padding: 0.6rem 1rem;
-      background-color: #f8f8f8;
+      background-color: var(--art-gray-100);
       border-radius: 6px;
     }
 

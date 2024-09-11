@@ -74,18 +74,18 @@
       margin-bottom: 15px;
       line-height: 34px;
       cursor: pointer;
-      border: 1px solid var(--art-border-color-2);
       border-radius: 6px;
       transition: border 0.3s;
+      border: 1px solid var(--art-border-dashed-color);
 
       &:hover {
-        border-color: #b3b4b7;
+        border-color: var(--art-text-gray-400);
       }
 
       .icon {
         display: flex;
         align-items: center;
-        color: #000;
+        color: var(--art-gray-900);
 
         i {
           font-size: 14px;
@@ -97,7 +97,7 @@
         align-items: center;
         height: calc(100% - 2px);
         font-size: 13px;
-        color: #666;
+        color: var(--art-gray-700);
       }
 
       .arrow {
@@ -107,7 +107,7 @@
 
         i {
           font-size: 13px;
-          color: #888;
+          color: var(--art-gray-600);
         }
       }
     }
@@ -124,25 +124,19 @@
         flex-direction: column;
         justify-content: center;
         aspect-ratio: 1 / 1;
-        color: #666;
+        color: var(--art-gray-600);
         text-align: center;
         border-right: 1px solid var(--art-border-color);
         border-bottom: 1px solid var(--art-border-color);
 
         &:hover {
           cursor: pointer;
-          background: rgba($color: #2d8cf0, $alpha: 5%);
+          background: var(--art-gray-100);
         }
 
         i {
           font-size: 26px;
           color: #000;
-        }
-
-        span {
-          display: block;
-          margin-top: 20px;
-          color: #999;
         }
       }
     }

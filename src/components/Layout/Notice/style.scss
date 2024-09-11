@@ -29,7 +29,7 @@
     .text {
       font-size: 16px;
       font-weight: 500;
-      color: #444;
+      color: var(--art-gray-800);
     }
 
     .btn {
@@ -39,8 +39,7 @@
       border-radius: 6px;
 
       &:hover {
-        color: #1485ff;
-        background-color: var(--art-head-hover-btn-color);
+        background-color: var(--art-gray-200);
       }
     }
   }
@@ -58,8 +57,8 @@
       height: 48px;
       margin-right: 20px;
       overflow: hidden;
-      font-size: 14px;
-      color: #515a6e;
+      font-size: 13px;
+      color: var(--art-gray-700);
       cursor: pointer;
       transition: color 0.3s;
 
@@ -70,12 +69,12 @@
       }
 
       &:hover {
-        color: #1485ff;
+        color: var(--art-gray-900);
       }
 
       &.active {
-        color: #1485ff !important;
-        border-bottom: 2px solid #1485ff;
+        color: var(--main-color) !important;
+        border-bottom: 2px solid var(--main-color);
       }
     }
   }
@@ -101,7 +100,7 @@
           cursor: pointer;
 
           &:hover {
-            background-color: var(--art-head-hover-btn-color);
+            background-color: var(--art-gray-100);
           }
 
           &:last-of-type {
@@ -135,12 +134,12 @@
               font-size: 14px;
               font-weight: 400;
               line-height: 22px;
-              color: #141414;
+              color: var(--art-gray-900);
             }
 
             p {
               font-size: 12px;
-              color: #808695;
+              color: var(--art-gray-500);
             }
           }
         }
@@ -155,7 +154,7 @@
           cursor: pointer;
 
           &:hover {
-            background-color: var(--art-head-hover-btn-color);
+            background-color: var(--art-gray-100);
           }
 
           &:last-of-type {
@@ -181,12 +180,12 @@
               font-size: 13px;
               font-weight: 400;
               line-height: 22px;
-              color: #141414;
+              color: var(--art-gray-900);
             }
 
             p {
               font-size: 12px;
-              color: #808695;
+              color: var(--art-gray-500);
             }
           }
         }
@@ -201,35 +200,28 @@
             border-bottom: 0;
           }
 
-          h4 {
-            font-size: 14px;
-            font-weight: 400;
-            line-height: 22px;
-            color: #515a6e;
-          }
-
           p {
             font-size: 12px;
-            color: #808695;
+            color: var(--art-gray-500);
           }
         }
       }
 
       .empty-tips {
         position: relative;
-        top: 150px;
+        top: 100px;
         height: 100%;
-        color: #999;
+        color: var(--art-gray-500);
         text-align: center;
         background: transparent !important;
 
         i {
-          font-size: 35px;
+          font-size: 60px;
         }
 
         p {
-          margin-top: 5px;
-          font-size: 14px;
+          margin-top: 15px;
+          font-size: 12px;
           background: transparent !important;
         }
       }

@@ -155,17 +155,3 @@
     var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert)
     var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
-
-@mixin gradientBorder() {
-  border: var(--art-gradient-border);
-  background-clip: padding-box, border-box;
-  background-origin: padding-box, border-box;
-  background-image: linear-gradient(to right, var(--art-main-bg-color), var(--art-main-bg-color)),
-    linear-gradient(
-      150deg,
-      rgba(#6674a1, 0.3),
-      rgba(#625277, 0.3),
-      var(--art-main-bg-color),
-      var(--art-main-bg-color)
-    );
-}

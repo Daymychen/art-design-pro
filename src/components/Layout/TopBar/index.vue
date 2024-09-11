@@ -24,32 +24,6 @@
           </div>
         </div>
 
-        <!-- <div class="user">
-          <img
-            class="cover"
-            src="@imgs/user/avatar.png"
-            style="float: left"
-            @click="goPage('/user/user')"
-          />
-          <el-dropdown @command="goPage">
-            <div class="user-wrap">
-              <span class="name">{{ userInfo.username }}</span>
-            </div>
-            <template #dropdown>
-              <el-dropdown-menu>
-                <el-dropdown-item command="/user/user">
-                  <i class="menu-icon iconfont-sys">&#xe725;</i>
-                  <span class="menu-txt">{{ $t('topBar.user[0]') }}</span>
-                </el-dropdown-item>
-                <el-dropdown-item command="loginOut">
-                  <i class="menu-icon iconfont-sys">&#xe678;</i>
-                  <span class="menu-txt">{{ $t('topBar.user[1]') }}</span>
-                </el-dropdown-item>
-              </el-dropdown-menu>
-            </template>
-          </el-dropdown>
-        </div> -->
-
         <div class="screen" @click="fullScreenFun" v-if="!isFullScreen">
           <i class="iconfont-sys btn">&#xe8ce;</i>
         </div>
@@ -99,7 +73,7 @@
             trigger="hover"
             :show-arrow="false"
             popper-class="user-menu-popover"
-            popper-style="border: 1px solid var(--art-border-color-2); border-radius: 10px; padding: 5px 16px; 5px 16px;"
+            popper-style="border: 1px solid var(--art-border-dashed-color); border-radius: 10px; padding: 5px 16px; 5px 16px;"
           >
             <template #reference>
               <img class="cover" src="@imgs/user/avatar.png" />

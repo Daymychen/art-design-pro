@@ -89,14 +89,14 @@
 <style scoped lang="scss">
   .comment-module {
     .comment-header {
-      color: #222;
+      color: var(--art-gray-900);
       font-size: 18px;
       font-weight: 500;
       padding-bottom: 20px;
     }
 
     .comment-item {
-      border-bottom: 1px solid var(--art-border-color-2);
+      border-bottom: 1px solid var(--art-border-dashed-color);
       padding-bottom: 10px;
       margin-bottom: 20px;
     }
@@ -112,18 +112,11 @@
       padding-bottom: 50px;
       position: relative;
 
-      h3 {
-        color: #000;
-        font-size: 18px;
-        font-weight: 500;
-        margin-top: 30px;
-      }
-
       > div {
         input,
         textarea {
           width: 100%;
-          border: 1px solid var(--art-border-color-2);
+          border: 1px solid var(--art-border-dashed-color);
           display: block;
           outline: none;
           box-sizing: border-box;

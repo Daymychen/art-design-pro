@@ -28,12 +28,12 @@ h4,
 h5 {
   margin: 0;
   padding: 0;
-  color: var(--art-heading-color);
+  color: var(--art-text-gray-800);
 }
 
 body {
-  color: #67748e;
-  text-align: var(--art-body-text-align);
+  color: var(--art-text-gray-700); 
+  text-align: left;
 }
 
 select {
@@ -115,7 +115,7 @@ blockquote:after {
 
 /*滚动条的轨道*/
 ::-webkit-scrollbar-track {
-  background-color: #f6f6f6;
+  background-color: var(--art-text-gray-100);
 }
 
 /*滚动条的滑块按钮*/
@@ -124,7 +124,6 @@ blockquote:after {
   background-color: #cccccc !important;
   transition: all 0.2s;
   -webkit-transition: all 0.2s;
-  /* box-shadow: inset 0 0 5px #000 !important; */
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -143,6 +142,6 @@ blockquote:after {
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: #161618 !important;
+    background-color: rgba(var(--art-gray-300-rgb), 0.8) !important;
   }
 }

@@ -176,7 +176,6 @@
 
     .user-name {
       margin-left: 10px;
-      // color: var(--art-heading-color);
     }
   }
 

@@ -117,11 +117,6 @@
       margin-left: 0 !important;
     }
   }
-
-  // &.el-button--success {
-  //   background-color: #2dce89 !important;
-  //   border-color: #2dce89 !important;
-  // }
 }
 
 // 修改el-tag样式
@@ -140,21 +135,8 @@
 }
 
 .el-tag--success {
-  // background-color: var(--el-color-success) !important;
   background-color: --main-color !important;
 }
-
-// .el-tag--info {
-//   background-color: rgba(#E9E9EB, 0.85) !important;
-// }
-
-// .el-tag--warning {
-//   background-color: rgba(#FAECD8, 0.85) !important;
-// }
-
-// .el-tag--danger {
-//   background-color: rgba(#FFE2E3, 0.85) !important;
-// }
 
 .dark {
   .el-tag {

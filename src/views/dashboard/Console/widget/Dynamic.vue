@@ -84,7 +84,7 @@
 
         .user {
           font-weight: 500;
-          color: var(--art-heading-color);
+          color: var(--art-text-gray-800);
         }
 
         .type {

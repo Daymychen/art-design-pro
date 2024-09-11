@@ -216,10 +216,7 @@
     .custom-segmented .el-segmented {
       height: 40px;
       padding: 6px;
-      // --el-segmented-item-selected-color: var(--el-text-color-primary);
-      // --el-segmented-item-selected-bg-color: #fff;
       --el-border-radius-base: 8px;
-      // background: var(--art-main-bg-color);
     }
 
     .list {
@@ -260,7 +257,7 @@
               right: 5px;
               padding: 5px 4px;
               font-size: 12px;
-              color: #ddd;
+              color: var(--art-gray-300);
               background: rgba($color: #000, $alpha: 60%);
               border-radius: 4px;
             }
@@ -301,7 +298,7 @@
                   width: 1px;
                   height: 12px;
                   margin: 0 15px;
-                  background-color: var(--art-border-color-2);
+                  background-color: var(--art-border-dashed-color);
                 }
               }
 

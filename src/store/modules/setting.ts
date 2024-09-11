@@ -164,8 +164,8 @@ function setElementThemeColor(color: string) {
   elStyle.setProperty('--van-primary-color', color)
 
   // 设置系统字体颜色跟随系统主色
-  // elStyle.setProperty("--art-body-color", color)
-  // elStyle.setProperty("--art-heading-color", color)
+  // elStyle.setProperty('--art-body-color', color)
+  // elStyle.setProperty('--art-text-gray-800', color)
 
   for (let i = 1; i < 10; i++) {
     const itemColor = colourBlend(color, mixColor, i / 10)
