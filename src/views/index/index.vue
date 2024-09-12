@@ -15,12 +15,19 @@
 
     <!-- 内容区域 -->
     <div class="container">
-      <router-view v-if="isRefresh" v-slot="{ Component, route }" :style="{ minHeight }">
+      <router-view
+        v-if="isRefresh && isOnline"
+        v-slot="{ Component, route }"
+        :style="{ minHeight }"
+      >
         <keep-alive :max="10">
           <component :is="Component" :key="route.path" v-if="route.meta.keepAlive" />
         </keep-alive>
         <component :is="Component" :key="route.path" v-if="!route.meta.keepAlive" />
       </router-view>
+
+      <!-- 网络异常提示组件 -->
+      <network v-else></network>
     </div>
 
     <!-- 个性化设置 -->
@@ -37,6 +44,9 @@
   import { MenuThemeEnum, MenuWidth } from '@/enums/appEnum'
   import { useMenuStore } from '@/store/modules/menu'
   import { useSettingStore } from '@/store/modules/setting'
+
+  // 网络状态
+  const { isOnline } = useNetwork()
 
   // 获取菜单和设置信息的 store
   const settingStore = useSettingStore()
