@@ -2,7 +2,7 @@ English | [简体中文](./README.md)
 
 ## About Art Design Pro
 
-Art Design Pro is an open-source admin panel solution specifically designed for visual effects, user experience, and rapid development. Based on the ElementPlus design guidelines, I have optimized the styles of its components to provide a more aesthetically pleasing and practical front-end interface, helping you effortlessly build high-quality admin systems.
+As a developer, I needed to build admin management systems for multiple projects but found that traditional systems couldn't fully meet the requirements for user experience and visual design. Therefore, I created Art Design Pro, an open-source admin management solution focused on user experience and rapid development. Based on the ElementPlus design specifications, it has been visually optimized to provide a more beautiful and practical front-end interface, helping you easily build high-quality admin systems.
 
 ## Demo Images
 
@@ -16,48 +16,31 @@ Art Design Pro is an open-source admin panel solution specifically designed for 
 
 ## Features
 
-- High-quality appearance, high performance, high availability
-- Extraction of typical templates/business components
-- Rich layout modes
-- Built-in light and dark themes
-- Beautiful UI, excellent user experience, and detailed handling
-
-## Design
-
-- Carefully designed based on the Element system
-- Built-in light and dark themes
-- Configurable themes to meet different corporate needs
-- Rich personalized configurations to meet various user requirements
+- Uses the latest technology stack
+- Built-in common business component templates
+- Provides multiple theme modes and customizable themes
+- Beautiful UI design, excellent user experience, and attention to detail
 
 ## Functionality
 
-- Built-in common backend management system modules
-- Multiple tabs
+- Rich theme switching
+- Global search
+- Multi-tabs
 - Global breadcrumbs
-- Internationalization
-- Exception handling
-- Utils toolkit
-- Configurable menu bar logos
-- Light/dark sidebar
-- Light and dark themes
-- Rich personalized configurations
-- Collapsible sidebar
-- Support for embedded pages
-- Reload current page
-- Dynamic routing supports automatic reloading
-- Supports multi-level route nesting and menu bar nesting
-- Separation of routes and menu settings
+- Multi-language support
+- Icon library
 - Rich text editor
-- Excellent persistent storage solutions
-- Custom login redirection
-
-## Permissions
-
+- Echarts charts
+- Utils toolkit
+- Network exception handling
 - Route-level authentication
 - Sidebar menu authentication
-- Functional block authentication
-- Function point authentication
 - Authentication directives
+- Mobile adaptation
+- Excellent persistent storage solution
+- Local data storage validation
+- Code commit validation and formatting
+- Code commit standardization
 
 ## Compatibility
 
@@ -69,9 +52,13 @@ Art Design Pro is an open-source admin panel solution specifically designed for 
 # Install dependencies
 pnpm install
 
-# Serve with hot reload at localhost:3000
+# Start local development environment
 pnpm dev
 
-# Build for production with minification
+# Build for production
 pnpm build
 ```
+
+## Future Plans
+
+I will continue to update Art Design Pro, introducing more practical features including dynamic forms, global error handling and log collection, animations and transition effects, workflow engine integration, image cropping and compression, shortcut key support, etc. I will also write usage documentation to help developers get started more quickly.
