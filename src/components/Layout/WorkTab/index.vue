@@ -14,7 +14,7 @@
           :id="`scroll-li-${index}`"
           @click="clickTab(item.path)"
         >
-          {{ getLocaleMenuTitle(item) }}
+          {{ getMenuTitle(item) }}
           <el-icon v-if="index !== 0" @click.stop="closeWorktab('current', item.path)">
             <Close />
           </el-icon>
@@ -53,7 +53,7 @@
   import { useWorktabStore } from '@/store/modules/worktab'
   import { ArrowDown, ArrowLeft, ArrowRight, Close, CircleClose } from '@element-plus/icons-vue'
   import { useUserStore } from '@/store/modules/user'
-  import { LanguageEnum } from '@/enums/appEnum'
+  import { getMenuTitle } from '@/utils/menu'
 
   const store = useWorktabStore()
   const list = computed(() => store.opened)
@@ -65,9 +65,7 @@
   const transition = ref('')
   const scrollRef = ref<HTMLElement | null>(null)
   const tabsRef = ref<HTMLElement | null>(null)
-
   const userStore = useUserStore()
-  const language = computed(() => userStore.language)
 
   let startX = 0
   let currentX = 0
@@ -98,10 +96,6 @@
       })
     }
   )
-
-  const getLocaleMenuTitle = (item: any) => {
-    return language.value === LanguageEnum.ZH ? item.title : item.title_en
-  }
 
   const clickTab = (path: string) => {
     router.push(path)

@@ -2,7 +2,7 @@
   <div class="breadcrumb">
     <ul>
       <li v-for="(item, index) in breadList" :key="index">
-        <span>{{ getLocaleMenuTitle(item) }}</span>
+        <span>{{ getMetaMenuTitle(item) }}</span>
         <i v-if="index !== breadList.length - 1">/</i>
       </li>
     </ul>
@@ -10,8 +10,7 @@
 </template>
 
 <script setup lang="ts">
-  import { LanguageEnum } from '@/enums/appEnum'
-  import { useUserStore } from '@/store/modules/user'
+  import { getMetaMenuTitle } from '@/utils/menu'
   import { RouteLocationMatched } from 'vue-router'
 
   const route = useRoute()
@@ -48,12 +47,6 @@
       immediate: true
     }
   )
-
-  const userStore = useUserStore()
-  const language = computed(() => userStore.language)
-  const getLocaleMenuTitle = (item: any) => {
-    return language.value === LanguageEnum.ZH ? item.meta.title : item.meta.title_en
-  }
 </script>
 
 <style lang="scss" scoped>

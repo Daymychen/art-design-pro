@@ -37,7 +37,7 @@
               highlighted: isHighlighted(pIndex, cIndex)
             }"
           >
-            {{ getLocaleMenuTitle(cItem) }}
+            {{ getMenuTitle(cItem) }}
             <i class="selected-icon iconfont-sys" v-show="isHighlighted(pIndex, cIndex)"
               >&#xe6e6;</i
             >
@@ -61,7 +61,7 @@
             @click="searchGoPage(item)"
             @mouseenter="historyHIndex = index"
           >
-            {{ getLocaleMenuTitle(item) }}
+            {{ getMenuTitle(item) }}
             <i class="selected-icon iconfont-sys" @click.stop="deleteHistory(index)">&#xe83a;</i>
           </div>
         </div>
@@ -91,6 +91,7 @@
   import { MenuListType } from '@/types/menu'
   import { Search } from '@element-plus/icons-vue'
   import mittBus from '@/utils/mittBus'
+  import { getMenuTitle } from '@/utils/menu'
 
   const router = useRouter()
   const userStore = useUserStore()
@@ -248,10 +249,6 @@
 
   const searchBlur = () => {
     highlightedIndex.value = [0, 0]
-  }
-
-  const getLocaleMenuTitle = (item: MenuListType) => {
-    return language.value === LanguageEnum.ZH ? item.title : item.title_en
   }
 
   const searchGoPage = (item: MenuListType) => {

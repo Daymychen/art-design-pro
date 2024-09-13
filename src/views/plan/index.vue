@@ -18,6 +18,13 @@
 <script setup lang="ts">
   const apiList = ref([
     {
+      version: 'v1.0.27',
+      title: '菜单标题多语言封装',
+      date: '2024-9-13',
+      status: 'complete',
+      statusText: '完成'
+    },
+    {
       version: 'v1.0.26',
       title: 'windows下全局搜索图标优化',
       date: '2024-9-13',

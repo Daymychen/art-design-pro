@@ -4,7 +4,7 @@
       <template #title>
         <i class="iconfont-sys" :style="{ color: theme.iconColor }">{{ item.icon }}</i>
         <!-- <span>{{ item.title }}</span> -->
-        <span>{{ getLocaleMenuTitle(item) }}</span>
+        <span>{{ getMenuTitle(item) }}</span>
       </template>
       <submenu :list="item.children" :isMobile="isMobile" @close="closeMenu" />
     </el-sub-menu>
@@ -17,7 +17,7 @@
       <template #title>
         <i class="iconfont-sys">{{ item.icon }}</i>
         <!-- <span>{{ item.title }}</span> -->
-        <span>{{ getLocaleMenuTitle(item) }}</span>
+        <span>{{ getMenuTitle(item) }}</span>
       </template>
     </el-menu-item>
   </template>
@@ -26,11 +26,7 @@
 <script lang="ts" setup>
   import { router } from '@/router'
   import { MenuListType } from '@/types/menu'
-  import { useUserStore } from '@/store/modules/user'
-  import { LanguageEnum } from '@/enums/appEnum'
-
-  const userStore = useUserStore()
-  const language = computed(() => userStore.language)
+  import { getMenuTitle } from '@/utils/menu'
 
   defineProps({
     title: {
@@ -69,9 +65,5 @@
 
   const isNotEmpty = (children: MenuListType[] | undefined) => {
     return children && children.length > 0
-  }
-
-  const getLocaleMenuTitle = (item: MenuListType) => {
-    return language.value === LanguageEnum.ZH ? item.title : item.title_en
   }
 </script>
