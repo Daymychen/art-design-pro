@@ -10,7 +10,7 @@
     >
       <el-input
         v-model.trim="searchVal"
-        :placeholder="$t('search.historyTitle')"
+        :placeholder="$t('search.placeholder')"
         @input="search"
         @blur="searchBlur"
         ref="searchInput"
