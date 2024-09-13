@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont-sys"; /* Project id 3682552 */
-  src: url('iconfont.woff2?t=1726034626475') format('woff2'),
-       url('iconfont.woff?t=1726034626475') format('woff'),
-       url('iconfont.ttf?t=1726034626475') format('truetype');
+  src: url('iconfont.woff2?t=1726206698360') format('woff2'),
+       url('iconfont.woff?t=1726206698360') format('woff'),
+       url('iconfont.ttf?t=1726206698360') format('truetype');
 }
 
 .iconfont-sys {
@@ -13,8 +13,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-wushuju:before {
-  content: "\e68f";
+.icon-Ctrl1:before {
+  content: "\e621";
+}
+
+.icon-Ctrl-copy:before {
+  content: "\eeac";
 }
 
 .icon-No-data:before {
@@ -23,14 +27,6 @@
 
 .icon-zanwushuju1:before {
   content: "\e60c";
-}
-
-.icon-nomoredata:before {
-  content: "\e621";
-}
-
-.icon-wushuju2:before {
-  content: "\e6b4";
 }
 
 .icon-zanwushuju:before {
@@ -53,10 +49,6 @@
   content: "\e695";
 }
 
-.icon-zanwushuju3x1:before {
-  content: "\e696";
-}
-
 .icon-zanwushujuxian:before {
   content: "\e8d8";
 }
@@ -71,10 +63,6 @@
 
 .icon-huiche1:before {
   content: "\e6e6";
-}
-
-.icon-command:before {
-  content: "\e8d5";
 }
 
 .icon-command1:before {

@@ -18,7 +18,8 @@
               <span>{{ $t('topBar.search.title') }}</span>
             </div>
             <div class="search-keydown">
-              <i class="iconfont-sys">&#xe9ab;</i>
+              <i class="iconfont-sys" v-if="isWindows">&#xeeac;</i>
+              <i class="iconfont-sys" v-else>&#xe9ab;</i>
               <span>k</span>
             </div>
           </div>
@@ -129,6 +130,7 @@
   import { useI18n } from 'vue-i18n'
   import mittBus from '@/utils/mittBus'
 
+  const isWindows = navigator.userAgent.includes('Windows')
   const { locale } = useI18n()
 
   const store = useMenuStore()

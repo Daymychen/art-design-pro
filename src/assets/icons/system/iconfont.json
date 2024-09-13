@@ -6,11 +6,18 @@
   "description": "",
   "glyphs": [
     {
-      "icon_id": "2686138",
-      "name": "无数据",
-      "font_class": "wushuju",
-      "unicode": "e68f",
-      "unicode_decimal": 59023
+      "icon_id": "38038714",
+      "name": "Ctrl",
+      "font_class": "Ctrl1",
+      "unicode": "e621",
+      "unicode_decimal": 58913
+    },
+    {
+      "icon_id": "41850062",
+      "name": "Ctrl-copy",
+      "font_class": "Ctrl-copy",
+      "unicode": "eeac",
+      "unicode_decimal": 61100
     },
     {
       "icon_id": "2698993",
@@ -25,20 +32,6 @@
       "font_class": "zanwushuju1",
       "unicode": "e60c",
       "unicode_decimal": 58892
-    },
-    {
-      "icon_id": "5153455",
-      "name": "无数据",
-      "font_class": "nomoredata",
-      "unicode": "e621",
-      "unicode_decimal": 58913
-    },
-    {
-      "icon_id": "5239734",
-      "name": "无数据",
-      "font_class": "wushuju2",
-      "unicode": "e6b4",
-      "unicode_decimal": 59060
     },
     {
       "icon_id": "7700160",
@@ -76,13 +69,6 @@
       "unicode_decimal": 59029
     },
     {
-      "icon_id": "18192471",
-      "name": "暂无数据@3x",
-      "font_class": "zanwushuju3x1",
-      "unicode": "e696",
-      "unicode_decimal": 59030
-    },
-    {
       "icon_id": "37985387",
       "name": "暂无数据线",
       "font_class": "zanwushujuxian",
@@ -109,13 +95,6 @@
       "font_class": "huiche1",
       "unicode": "e6e6",
       "unicode_decimal": 59110
-    },
-    {
-      "icon_id": "141578",
-      "name": "command",
-      "font_class": "command",
-      "unicode": "e8d5",
-      "unicode_decimal": 59605
     },
     {
       "icon_id": "25498978",

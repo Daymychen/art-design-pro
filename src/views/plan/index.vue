@@ -18,6 +18,13 @@
 <script setup lang="ts">
   const apiList = ref([
     {
+      version: 'v1.0.26',
+      title: 'windows下全局搜索图标优化',
+      date: '2024-9-13',
+      status: 'complete',
+      statusText: '完成'
+    },
+    {
       version: 'v1.0.25',
       title: '新增网络异常提示组件',
       date: '2024-9-12',
