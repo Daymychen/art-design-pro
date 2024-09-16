@@ -29,7 +29,9 @@ function addCopyButton(block: HTMLElement) {
   copyButton.className = 'copy-button iconfont-sys'
   copyButton.innerHTML = '&#xe7b2;'
   copyButton.onclick = () => {
-    navigator.clipboard.writeText(block.innerText).then(() => {
+    // 过滤掉行号，只复制代码内容
+    const codeContent = block.innerText.replace(/^\d+\s+/gm, '')
+    navigator.clipboard.writeText(codeContent).then(() => {
       ElMessage.success('复制成功')
     })
   }
