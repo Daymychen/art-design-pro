@@ -46,7 +46,8 @@ export default {
         'Show multilingual selection',
         'Show top progress bar',
         'Color Weakness Mode',
-        'Auto close settings center'
+        'Auto close settings center',
+        'Page animation'
       ]
     }
   },

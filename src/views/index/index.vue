@@ -20,10 +20,14 @@
         v-slot="{ Component, route }"
         :style="{ minHeight }"
       >
-        <keep-alive :max="10">
-          <component :is="Component" :key="route.path" v-if="route.meta.keepAlive" />
-        </keep-alive>
-        <component :is="Component" :key="route.path" v-if="!route.meta.keepAlive" />
+        <transition :name="pageTransition" mode="out-in" appear>
+          <keep-alive :max="10">
+            <component :is="Component" :key="route.path" v-if="route.meta.keepAlive" />
+          </keep-alive>
+        </transition>
+        <transition :name="pageTransition" mode="out-in" appear>
+          <component :is="Component" :key="route.path" v-if="!route.meta.keepAlive" />
+        </transition>
       </router-view>
 
       <!-- 网络异常提示组件 -->
@@ -36,6 +40,7 @@
 </template>
 
 <script setup lang="ts">
+  import '@/assets/styles/transition.scss'
   import { computed, ref, watch, nextTick } from 'vue'
   import MenuLeft from '@comps/Layout/MenuLeft/index.vue'
   import TopBar from '@comps/Layout/TopBar/index.vue'
@@ -60,6 +65,8 @@
 
   // 是否需要刷新
   const refresh = computed(() => settingStore.refresh)
+  // 页面动画
+  const pageTransition = computed(() => settingStore.pageTransition)
 
   // 根据菜单是否打开来设置左侧填充宽度
   const paddingLeft = computed(() => {

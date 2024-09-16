@@ -1,0 +1,89 @@
+// 页面过渡动画效果
+
+// fade 动画
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.4s ease;
+  will-change: opacity;
+}
+
+.fade-enter-from {
+  opacity: 0;
+}
+
+.fade-enter-to {
+  opacity: 1;
+}
+
+.fade-leave-to {
+  opacity: 0;
+}
+
+// slide-right 动画
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition:
+    opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.slide-right-enter-from {
+  opacity: 0;
+  transform: translate3d(-30px, 0, 0);
+}
+
+.slide-right-enter-to {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.slide-right-leave-to {
+  opacity: 0;
+  transform: translate3d(30px, 0, 0);
+}
+
+
+// slide-top 动画
+.slide-top-enter-active,
+.slide-top-leave-active {
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  will-change: transform, opacity;
+}
+
+.slide-top-enter-from {
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+.slide-top-enter-to {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.slide-top-leave-to {
+  transform: translateY(-20px);
+  opacity: 0;
+}
+
+// slide-bottom 动画
+.slide-bottom-enter-active,
+.slide-bottom-leave-active {
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  will-change: transform, opacity;
+}
+
+.slide-bottom-enter-from {
+  transform: translateY(-20px);
+  opacity: 0;
+}
+
+.slide-bottom-enter-to {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.slide-bottom-leave-to {
+  transform: translateY(20px);
+  opacity: 0;
+}

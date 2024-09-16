@@ -18,6 +18,13 @@
 <script setup lang="ts">
   const apiList = ref([
     {
+      version: 'v1.0.3',
+      title: '新增页面切换动画',
+      date: '2024-9-17',
+      status: 'complete',
+      statusText: '完成'
+    },
+    {
       version: 'v1.0.27',
       title: '菜单标题多语言封装',
       date: '2024-9-13',

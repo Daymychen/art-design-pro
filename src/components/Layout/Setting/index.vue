@@ -152,6 +152,23 @@
           <span>{{ $t('setting.basics.list[8]') }}</span>
           <el-switch v-model="autoClose" @change="setAutoClose" />
         </div>
+        <div class="item" style="display: flex">
+          <span>{{ $t('setting.basics.list[9]') }}</span>
+          <el-select
+            v-model="pageTransition"
+            placeholder="Select"
+            size="default"
+            style="width: 120px"
+            @change="setPageTransition"
+          >
+            <el-option
+              v-for="item in pageTransitionOps"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </div>
       </div>
     </div>
   </el-drawer>
@@ -184,6 +201,7 @@
   const currentMenuTheme = computed(() => store.menuThemeType)
   const systemThemeColor = computed(() => store.systemThemeColor)
   const boxBorderMode = computed(() => store.boxBorderMode)
+  const pageTransition = computed(() => store.pageTransition)
   const uniqueOpened = ref(true)
   const showMenuButton = ref(true)
   const autoClose = ref(true)
@@ -193,6 +211,29 @@
   const showLanguage = ref(true)
   const showNprogress = ref(true)
   const colorWeak = ref(false)
+
+  const pageTransitionOps = [
+    {
+      value: '',
+      label: '无动画'
+    },
+    {
+      value: 'fade',
+      label: 'fade'
+    },
+    {
+      value: 'slide-right',
+      label: 'slide-right'
+    },
+    {
+      value: 'slide-top',
+      label: 'slide-top'
+    },
+    {
+      value: 'slide-bottom',
+      label: 'slide-bottom'
+    }
+  ]
 
   watch(
     () => store.showWorkTab,
@@ -353,6 +394,11 @@
         store.setBorderMode()
       }
     }, 50)
+  }
+
+  const setPageTransition = (transition: string) => {
+    store.setPageTransition(transition)
+    isAutoClose()
   }
 
   const setUniqueOpened = () => {

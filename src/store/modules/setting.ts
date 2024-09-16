@@ -21,6 +21,7 @@ export interface SettingState {
   showNprogress: boolean // 是否显示顶部进度条
   colorWeak: boolean // 是否显示顶部进度条
   showSettingGuide: boolean // 是否显示设置引导
+  pageTransition: string // 页面切换动画
   refresh: boolean
 }
 
@@ -42,6 +43,7 @@ export const useSettingStore = defineStore({
     showNprogress: false,
     colorWeak: false,
     showSettingGuide: true,
+    pageTransition: 'slide-right',
     refresh: false
   }),
   getters: {
@@ -82,6 +84,7 @@ export const useSettingStore = defineStore({
         this.showNprogress = setting.showNprogress
         this.colorWeak = setting.colorWeak
         this.showSettingGuide = setting.showSettingGuide
+        this.pageTransition = setting.pageTransition
 
         setElementThemeColor(setting.systemThemeColor)
       } else {
@@ -147,6 +150,10 @@ export const useSettingStore = defineStore({
     // 显示设置引导
     openSettingGuide() {
       this.showSettingGuide = true
+    },
+    // 设置页面切换动画
+    setPageTransition(transition: string) {
+      this.pageTransition = transition
     },
     // 刷新当前页
     reload() {
