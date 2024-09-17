@@ -189,7 +189,7 @@
   }
 
   const toBlog = () => {
-    window.open('https:/www.lingchen.kim')
+    window.open('https://www.lingchen.kim')
   }
 
   const toGithub = () => {
