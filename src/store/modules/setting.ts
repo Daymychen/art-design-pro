@@ -22,6 +22,7 @@ export interface SettingState {
   colorWeak: boolean // 是否显示顶部进度条
   showSettingGuide: boolean // 是否显示设置引导
   pageTransition: string // 页面切换动画
+  menuOpen: boolean // 菜单是否展开
   refresh: boolean
 }
 
@@ -44,6 +45,7 @@ export const useSettingStore = defineStore({
     colorWeak: false,
     showSettingGuide: true,
     pageTransition: 'slide-right',
+    menuOpen: true,
     refresh: false
   }),
   getters: {
@@ -85,6 +87,7 @@ export const useSettingStore = defineStore({
         this.colorWeak = setting.colorWeak
         this.showSettingGuide = setting.showSettingGuide
         this.pageTransition = setting.pageTransition
+        this.menuOpen = setting.menuOpen
 
         setElementThemeColor(setting.systemThemeColor)
       } else {
@@ -154,6 +157,10 @@ export const useSettingStore = defineStore({
     // 设置页面切换动画
     setPageTransition(transition: string) {
       this.pageTransition = transition
+    },
+    // 设置菜单是否展开
+    setMenuOpen(open: boolean) {
+      this.menuOpen = open
     },
     // 刷新当前页
     reload() {

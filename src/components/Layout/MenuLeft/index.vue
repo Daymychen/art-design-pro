@@ -43,19 +43,17 @@
   import { computed, ref, onMounted, watch } from 'vue'
   import { menuData } from '@/mock/menuData'
   import { HOME_PAGE } from '@/router/index'
-  import { useMenuStore } from '@/store/modules/menu'
   import { useSettingStore } from '@/store/modules/setting'
   import { SystemInfo } from '@/config/setting'
   import { MenuWidth } from '@/enums/appEnum'
 
-  const store = useMenuStore()
   const route = useRoute()
   const router = useRouter()
   const settingStore = useSettingStore()
   const menuOpenWidth = MenuWidth.OPEN
   const menuCloseWidth = MenuWidth.CLOSE
 
-  const collapse = computed(() => !store.menuOpen)
+  const collapse = computed(() => !settingStore.menuOpen)
   const uniqueOpened = computed(() => settingStore.uniqueOpened)
   const defaultOpenedsArray = ref([])
   const routerPath = computed(() => {
@@ -102,16 +100,14 @@
   }
 
   const setMenuModel = () => {
-    // ipad 竖屏
+    // 小屏幕折叠菜单
     if (screenWidth < 900) {
-      store.setMenuOpen(false)
-    } else {
-      store.setMenuOpen(true)
+      settingStore.setMenuOpen(false)
     }
   }
 
   const visibleMenu = () => {
-    store.setMenuOpen(!!collapse.value)
+    settingStore.setMenuOpen(!!collapse.value)
 
     // 移动端模态框
     if (!showMobileModel.value) {
@@ -125,7 +121,7 @@
 
   const closeMenu = () => {
     if (document.body.clientWidth < 500) {
-      store.setMenuOpen(false)
+      settingStore.setMenuOpen(false)
       showMobileModel.value = false
     }
   }

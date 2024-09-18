@@ -17,7 +17,6 @@
   import { hexToRgba } from '@/utils/utils'
   import { useSettingStore } from '@/store/modules/setting'
   import { SystemThemeEnum } from '@/enums/appEnum'
-  import { useMenuStore } from '@/store/modules/menu'
 
   const chartRef = ref<HTMLDivElement>()
   const { setOptions, removeResize, resize } = useECharts(chartRef as Ref<HTMLDivElement>)
@@ -25,8 +24,8 @@
   const store = useSettingStore()
   const theme = computed(() => store.systemThemeType)
   const isLight = computed(() => theme.value === SystemThemeEnum.LIGHT)
-  const menuStore = useMenuStore()
-  const menuOpen = computed(() => menuStore.menuOpen)
+  const settingStore = useSettingStore()
+  const menuOpen = computed(() => settingStore.menuOpen)
 
   // 收缩菜单时，重新计算图表大小
   watch(menuOpen, () => {

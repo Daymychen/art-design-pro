@@ -121,7 +121,6 @@
   import Breadcrumb from '../Breadcrumb/index.vue'
   import Notice from '../Notice/index.vue'
   import { LanguageEnum, MenuWidth } from '@/enums/appEnum'
-  import { useMenuStore } from '@/store/modules/menu'
   import { useSettingStore } from '@/store/modules/setting'
   import { useUserStore } from '@/store/modules/user'
   import { fullScreen, exitScreen } from '@/utils/utils'
@@ -133,7 +132,6 @@
   const isWindows = navigator.userAgent.includes('Windows')
   const { locale } = useI18n()
 
-  const store = useMenuStore()
   const settingStore = useSettingStore()
   const userStore = useUserStore()
   const router = useRouter()
@@ -141,7 +139,7 @@
   const showMenuButton = computed(() => settingStore.showMenuButton)
   const showRefreshButton = computed(() => settingStore.showRefreshButton)
   const showLanguage = computed(() => settingStore.showLanguage)
-  const menuOpen = computed(() => store.menuOpen)
+  const menuOpen = computed(() => settingStore.menuOpen)
   const showCrumbs = computed(() => settingStore.showCrumbs)
   const userInfo = computed(() => userStore.getUserInfo)
   const language = computed(() => userStore.language)
@@ -175,7 +173,7 @@
   }
 
   const visibleMenu = () => {
-    store.setMenuOpen(!menuOpen.value)
+    settingStore.setMenuOpen(!menuOpen.value)
   }
 
   const goPage = (path: string) => {

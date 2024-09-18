@@ -58,7 +58,7 @@
   const menuStore = useMenuStore()
 
   // 菜单是否打开
-  const menuOpen = computed(() => menuStore.menuOpen)
+  const menuOpen = computed(() => settingStore.menuOpen)
 
   // 是否显示工作标签
   const showWorkTab = computed(() => settingStore.showWorkTab)
