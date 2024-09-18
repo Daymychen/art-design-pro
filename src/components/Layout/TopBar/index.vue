@@ -176,7 +176,6 @@
 
   const visibleMenu = () => {
     store.setMenuOpen(!menuOpen.value)
-    reload(300)
   }
 
   const goPage = (path: string) => {

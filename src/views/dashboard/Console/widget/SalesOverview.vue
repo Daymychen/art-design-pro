@@ -10,128 +10,124 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+  import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
   import echarts from '@/plugins/echarts'
   import { useECharts } from '@/utils/echarts/useECharts'
   import { hexToRgba } from '@/utils/utils'
   import { useSettingStore } from '@/store/modules/setting'
   import { SystemThemeEnum } from '@/enums/appEnum'
+  import { useMenuStore } from '@/store/modules/menu'
 
-  export default defineComponent({
-    setup() {
-      const chartRef = ref<HTMLDivElement>()
-      const { setOptions, removeResize } = useECharts(chartRef as Ref<HTMLDivElement>)
+  const chartRef = ref<HTMLDivElement>()
+  const { setOptions, removeResize, resize } = useECharts(chartRef as Ref<HTMLDivElement>)
 
-      const store = useSettingStore()
-      const theme = computed(() => store.systemThemeType)
-      const isLight = theme.value === SystemThemeEnum.LIGHT
+  const store = useSettingStore()
+  const theme = computed(() => store.systemThemeType)
+  const isLight = computed(() => theme.value === SystemThemeEnum.LIGHT)
+  const menuStore = useMenuStore()
+  const menuOpen = computed(() => menuStore.menuOpen)
 
-      onMounted(() => {
-        createChart()
-      })
-
-      onUnmounted(() => {
-        removeResize()
-      })
-
-      const getCssVariable = (str: string) => {
-        return getComputedStyle(document.documentElement).getPropertyValue(str)
-      }
-
-      const createChart = () => {
-        setOptions({
-          grid: {
-            left: '2.2%',
-            right: '3%',
-            bottom: '0%',
-            top: '5px',
-            containLabel: true
-          },
-          tooltip: {
-            trigger: 'axis'
-          },
-          xAxis: {
-            type: 'category',
-            boundaryGap: false,
-            data: ['2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021'],
-            axisLabel: {
-              show: true,
-              color: '#999',
-              // rotate: 30,
-              margin: 20,
-              interval: 0,
-              fontSize: 13,
-              fontWeight: 'bold'
-            },
-            axisLine: {
-              show: false
-            }
-          },
-          yAxis: {
-            type: 'value',
-            axisLabel: {
-              show: true,
-              color: '#999',
-              fontSize: 13,
-              fontWeight: 'bold'
-            },
-            axisLine: {
-              show: isLight ? true : false,
-              lineStyle: {
-                color: '#E8E8E8',
-                width: 1
-              }
-            },
-            splitLine: {
-              show: true,
-              lineStyle: {
-                color: isLight ? '#e8e8e8' : '#333',
-                width: 1,
-                type: 'dashed'
-              }
-            }
-          },
-          series: [
-            {
-              name: '销售',
-              // color: '#2c90ff',
-              color: getCssVariable('--main-color'),
-              type: 'line',
-              stack: '总量',
-              data: [80, 40, 300, 200, 500, 250, 160, 304, 180],
-              smooth: true,
-              symbol: 'none', //去掉圆点
-              itemStyle: {
-                lineStyle: {
-                  width: 2.6
-                }
-              },
-              areaStyle: {
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                  {
-                    offset: 0,
-                    // color: 'rgba(44,144,255,0.1)'
-                    // 跟随系统
-                    color: hexToRgba(getCssVariable('--el-color-primary'), 0.2).rgba
-                  },
-                  {
-                    offset: 1,
-                    // color: 'rgba(44,144,255,0.01)'
-                    // 跟随系统
-                    color: hexToRgba(getCssVariable('--el-color-primary'), 0.01).rgba
-                  }
-                ])
-              }
-            }
-          ]
-        })
-      }
-
-      return {
-        chartRef
-      }
-    }
+  // 收缩菜单时，重新计算图表大小
+  watch(menuOpen, () => {
+    const delays = [100, 200, 300]
+    delays.forEach((delay) => {
+      setTimeout(resize, delay)
+    })
   })
+
+  onMounted(() => {
+    createChart()
+  })
+
+  onUnmounted(() => {
+    removeResize()
+  })
+
+  const getCssVariable = (str: string) => {
+    return getComputedStyle(document.documentElement).getPropertyValue(str)
+  }
+
+  const createChart = () => {
+    setOptions({
+      grid: {
+        left: '2.2%',
+        right: '3%',
+        bottom: '0%',
+        top: '5px',
+        containLabel: true
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: ['2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021'],
+        axisLabel: {
+          show: true,
+          color: '#999',
+          margin: 20,
+          interval: 0,
+          fontSize: 13,
+          fontWeight: 'bold'
+        },
+        axisLine: {
+          show: false
+        }
+      },
+      yAxis: {
+        type: 'value',
+        axisLabel: {
+          show: true,
+          color: '#999',
+          fontSize: 13,
+          fontWeight: 'bold'
+        },
+        axisLine: {
+          show: isLight.value ? true : false,
+          lineStyle: {
+            color: '#E8E8E8',
+            width: 1
+          }
+        },
+        splitLine: {
+          show: true,
+          lineStyle: {
+            color: isLight.value ? '#e8e8e8' : '#333',
+            width: 1,
+            type: 'dashed'
+          }
+        }
+      },
+      series: [
+        {
+          name: '销售',
+          color: getCssVariable('--main-color'),
+          type: 'line',
+          stack: '总量',
+          data: [80, 40, 300, 200, 500, 250, 160, 304, 180],
+          smooth: true,
+          symbol: 'none',
+          lineStyle: {
+            width: 2.6
+          },
+          areaStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              {
+                offset: 0,
+                color: hexToRgba(getCssVariable('--el-color-primary'), 0.2).rgba
+              },
+              {
+                offset: 1,
+                color: hexToRgba(getCssVariable('--el-color-primary'), 0.01).rgba
+              }
+            ])
+          }
+        }
+      ]
+    })
+  }
 </script>
 
 <style lang="scss" scoped>

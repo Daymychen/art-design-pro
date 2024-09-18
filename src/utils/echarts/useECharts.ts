@@ -1,3 +1,4 @@
+// src/utils/echarts/useECharts.ts
 import { unref, Ref, nextTick } from 'vue'
 import { EChartsOption } from 'echarts'
 import echarts from '@/plugins/echarts'
@@ -7,16 +8,17 @@ export function useECharts(
   elRef: Ref<HTMLDivElement>,
   theme: 'light' | 'dark' | 'default' = 'light'
 ) {
-  let chartInstance: echarts.ECharts
+  let chartInstance: echarts.ECharts | null = null
+  let resizeHandler: () => void
 
   // 初始化echarts
   function initCharts() {
     const el = unref(elRef)
-    if (!el || !unref(el)) {
+    if (!el) {
       return
     }
-    addResize()
     chartInstance = echarts.init(el, theme)
+    addResize()
   }
 
   // 配置
@@ -36,7 +38,7 @@ export function useECharts(
       if (!options.yAxis.axisLine) {
         options.yAxis.axisLine = axisLine
       }
-      if (!options.yAxisaxisTick) {
+      if (!options.yAxis.axisTick) {
         options.yAxis.axisTick = axisTick
       }
     }
@@ -49,9 +51,6 @@ export function useECharts(
       }
       if (!options.xAxis.splitLine) {
         options.xAxis.splitLine = splitLine
-      }
-      if (!options.xAxis.axisTick) {
-        options.xAxis.axisTick = axisTick
       }
       if (!options.xAxis.axisTick) {
         options.xAxis.axisTick = axisTick
@@ -71,8 +70,6 @@ export function useECharts(
           initCharts()
           if (!chartInstance) return
         }
-        // clear && chartInstance.clear()
-
         chartInstance.setOption(options)
       }, 30)
     })
@@ -80,20 +77,34 @@ export function useECharts(
 
   // 监听窗口大小变化
   function addResize() {
-    window.addEventListener('resize', () => {
-      chartInstance.resize()
-    })
+    resizeHandler = () => {
+      resize()
+    }
+    window.addEventListener('resize', resizeHandler)
   }
 
   // 移除监听
   function removeResize() {
-    window.removeEventListener('resize', addResize)
+    if (resizeHandler) {
+      window.removeEventListener('resize', resizeHandler)
+    }
   }
+
+  // 暴露 resize 方法
+  function resize() {
+    if (chartInstance) {
+      chartInstance.resize()
+    }
+  }
+
+  // 初始化时创建图表
+  initCharts()
 
   return {
     setOptions,
     addResize,
     removeResize,
+    resize,
     echarts
   }
 }

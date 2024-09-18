@@ -19,9 +19,20 @@
   import { ref, computed, onMounted, onUnmounted } from 'vue'
   import { useECharts } from '@/utils/echarts/useECharts'
   import { useSettingStore } from '@/store/modules/setting'
+  import { useMenuStore } from '@/store/modules/menu'
 
   const chartRef = ref<HTMLDivElement | null>(null)
-  const { setOptions, removeResize } = useECharts(chartRef as Ref<HTMLDivElement>)
+  const { setOptions, removeResize, resize } = useECharts(chartRef as Ref<HTMLDivElement>)
+  const menuStore = useMenuStore()
+  const menuOpen = computed(() => menuStore.menuOpen)
+
+  // 收缩菜单时，重新计算图表大小
+  watch(menuOpen, () => {
+    const delays = [100, 200, 300]
+    delays.forEach((delay) => {
+      setTimeout(resize, delay)
+    })
+  })
 
   const store = useSettingStore()
   const isDark = computed(() => store.isDark)
