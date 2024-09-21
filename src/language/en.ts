@@ -4,7 +4,7 @@ export default {
     search: {
       title: 'Search'
     },
-    user: ['User center', 'Blog', 'Github', 'Log out']
+    user: ['User center', 'Document', 'Github', 'Log out']
   },
   common: {
     tips: 'Tips',

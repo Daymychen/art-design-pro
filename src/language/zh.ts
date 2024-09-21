@@ -4,7 +4,7 @@ export default {
     search: {
       title: '搜索'
     },
-    user: ['个人中心', '博客', 'Github', '退出登录']
+    user: ['个人中心', '使用文档', 'Github', '退出登录']
   },
   common: {
     tips: '提示',

@@ -18,6 +18,13 @@
 <script setup lang="ts">
   const apiList = ref([
     {
+      version: 'v1.0.33',
+      title: '新增项目文档',
+      date: '2024-9-21',
+      status: 'complete',
+      statusText: '完成'
+    },
+    {
       version: 'v1.0.32',
       title: '菜单折叠持久化存储',
       date: '2024-9-18',

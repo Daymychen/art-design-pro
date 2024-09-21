@@ -92,8 +92,8 @@
                     <i class="menu-icon iconfont-sys">&#xe734;</i>
                     <span class="menu-txt">{{ $t('topBar.user[0]') }}</span>
                   </li>
-                  <li @click="toBlog()">
-                    <i class="menu-icon iconfont-sys">&#xe827;</i>
+                  <li @click="toDocs()">
+                    <i class="menu-icon iconfont-sys" style="font-size: 15px">&#xe828;</i>
                     <span class="menu-txt">{{ $t('topBar.user[1]') }}</span>
                   </li>
                   <li @click="toGithub()">
@@ -185,8 +185,8 @@
     router.push(path)
   }
 
-  const toBlog = () => {
-    window.open('https://www.lingchen.kim')
+  const toDocs = () => {
+    window.open('https://www.lingchen.kim/art-design-pro/docs')
   }
 
   const toGithub = () => {
