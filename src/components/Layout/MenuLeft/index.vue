@@ -23,7 +23,7 @@
       :active-text-color="theme.textActiveColor"
       :default-openeds="defaultOpenedsArray"
     >
-      <submenu :list="menuData" :isMobile="isMobileModel" :theme="theme" @close="closeMenu" />
+      <submenu :list="menuList" :isMobile="isMobileModel" :theme="theme" @close="closeMenu" />
     </el-menu>
 
     <div
@@ -40,12 +40,11 @@
 
 <script setup lang="ts">
   import Submenu from '../Submenu/submenu.vue'
-  import { computed, ref, onMounted, watch } from 'vue'
-  import { menuData } from '@/mock/menuData'
   import { HOME_PAGE } from '@/router/index'
   import { useSettingStore } from '@/store/modules/setting'
   import { SystemInfo } from '@/config/setting'
   import { MenuWidth } from '@/enums/appEnum'
+  import { useMenuStore } from '@/store/modules/menu'
 
   const route = useRoute()
   const router = useRouter()
@@ -56,6 +55,8 @@
   const collapse = computed(() => !settingStore.menuOpen)
   const uniqueOpened = computed(() => settingStore.uniqueOpened)
   const defaultOpenedsArray = ref([])
+  const menuList = computed(() => useMenuStore().getMenuList)
+
   const routerPath = computed(() => {
     if (route.path === '/user/user') {
       // defaultOpenedsArray.value = []

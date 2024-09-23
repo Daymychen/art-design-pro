@@ -86,16 +86,17 @@
 
 <script lang="ts" setup>
   import { LanguageEnum } from '@/enums/appEnum'
-  import { menuData } from '@/mock/menuData'
   import { useUserStore } from '@/store/modules/user'
   import { MenuListType } from '@/types/menu'
   import { Search } from '@element-plus/icons-vue'
   import mittBus from '@/utils/mittBus'
   import { getMenuTitle } from '@/utils/menu'
+  import { useMenuStore } from '@/store/modules/menu'
 
   const router = useRouter()
   const userStore = useUserStore()
   const language = computed(() => userStore.language)
+  const menuList = computed(() => useMenuStore().getMenuList)
 
   const showSearchDialog = ref(false)
   const searchVal = ref()
@@ -134,7 +135,7 @@
 
   const search = (val: string) => {
     if (val) {
-      let list = fuzzyQueryList(menuData, val)
+      let list = fuzzyQueryList(menuList.value, val)
       searchResult.value = list.filter((item) => {
         return item.children!.length
       })

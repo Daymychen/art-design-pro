@@ -4,7 +4,9 @@ import { useWorktabStore } from '@/store/modules/worktab'
 import Home from '@views/index/index.vue'
 import { SystemInfo } from '@/config/setting'
 import { useUserStore } from '@/store/modules/user'
-import { addRouteList } from '@/api/menuApi'
+import { menuService } from '@/api/menuApi'
+import { routerMatch } from '@/utils/menu'
+import { useMenuStore } from '@/store/modules/menu'
 
 // 路由项扩展
 export type AppRouteRecordRaw = RouteRecordRaw & {
@@ -362,39 +364,42 @@ export const roleRoutes: AppRouteRecordRaw[] = [
 
 export const allRoutes = roleRoutes
 
-// 定义标识，记录路由是否添加
-let registerRoute = true
+// 是否注册路由
+const isRouteRegistered = ref(false)
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const userStore = useUserStore()
   const worktabStore = useWorktabStore()
   const { meta, path, params, query } = to
-  const { title, title_en, notTab } = meta
-  const isLogin = userStore.isLogin
+  const { title, title_en: titleEn, notTab } = meta
 
-  if (!isLogin && path !== '/login') {
+  if (!userStore.isLogin && path !== '/login') {
     userStore.logOut()
+    next('/login')
     return
   }
 
-  if (registerRoute) {
-    addRouteList()
-    next({ ...to, replace: true })
-    registerRoute = false
+  // 获取菜单，注册路由
+  if (!isRouteRegistered.value) {
+    try {
+      await registerRoutes()
+      next({ ...to, replace: true })
+    } catch (error) {
+      console.error('Failed to register routes:', error)
+      next('/exception/500')
+    }
     return
   }
 
-  // 页面不存在时跳转到404
   if (to.matched.length === 0) {
     next('/exception/404')
     return
   }
 
-  // 设置标签页和网页标题
   if (!notTab) {
     worktabStore.router({
       title: title as string,
-      title_en: title_en as string,
+      title_en: titleEn as string,
       path,
       params,
       query
@@ -407,6 +412,27 @@ router.beforeEach((to, from, next) => {
 
   next()
 })
+
+// 获取菜单，注册路由
+async function registerRoutes(): Promise<void> {
+  try {
+    const { menuList, closeLoading } = await menuService.getMenuList()
+
+    if (!Array.isArray(menuList) || menuList.length === 0) {
+      throw new Error('获取菜单列表未空')
+    }
+
+    // 设置菜单列表
+    useMenuStore().setMenuList(menuList as [])
+    // 注册路由
+    routerMatch(menuList, roleRoutes)
+    isRouteRegistered.value = true
+    closeLoading()
+  } catch (error) {
+    console.error('获取菜单列表失败:', error)
+    throw error
+  }
+}
 
 export function initRouter(app: App<Element>) {
   app.use(router)

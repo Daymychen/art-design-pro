@@ -5,7 +5,7 @@
 
 import { MenuListType } from '@/types/menu'
 
-const menuData: MenuListType[] = [
+export const menuData: MenuListType[] = [
   {
     id: 1,
     title: 'Dashboard',
@@ -345,5 +345,3 @@ const menuData: MenuListType[] = [
     ]
   }
 ]
-
-export { menuData }

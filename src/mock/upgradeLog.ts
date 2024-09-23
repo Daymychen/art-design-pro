@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.0.34',
+    title: '获取路由菜单列表优化',
+    date: '2024-9-23',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.0.33',
     title: '新增项目文档',
     date: '2024-9-21',

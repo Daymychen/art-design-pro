@@ -161,7 +161,9 @@
 
 <script setup lang="ts">
   import { Delete, EditPen } from '@element-plus/icons-vue'
-  import { menuData } from '@/mock/menuData'
+  import { useMenuStore } from '@/store/modules/menu'
+
+  const menuList = computed(() => useMenuStore().getMenuList)
 
   const dialogVisible = ref(false)
   const form = reactive({
@@ -189,7 +191,7 @@
     ]
   })
 
-  const tableData = menuData
+  const tableData = menuList.value
 
   const showDialog = (type: string) => {
     console.log(type)
