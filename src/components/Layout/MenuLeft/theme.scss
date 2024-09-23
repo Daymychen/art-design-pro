@@ -87,9 +87,14 @@
       color: var(--art-gray-800);
     }
 
+    
     .el-sub-menu__title {
       .iconfont-sys {
         margin-left: 3px !important;
+      }
+
+      .el-icon {
+        color: var(--art-gray-300);
       }
     }
 
