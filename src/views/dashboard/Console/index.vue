@@ -20,20 +20,23 @@
         <p>使用了 Vue3、TypeScript、Vite、Element Plus 等前沿技术</p>
 
         <div class="button-wrap">
-          <div class="btn" @click="goPage('https://www.lingchen.kim')">
-            <span>博客地址</span>
+          <div class="btn" @click="goPage('https://www.lingchen.kim/art-design-pro/docs/')">
+            <span>项目官网</span>
+            <i class="iconfont">&#xe7e7;</i>
+          </div>
+          <div
+            class="btn"
+            @click="goPage('https://www.lingchen.kim/art-design-pro/docs/guide/introduce.html')"
+          >
+            <span>文档</span>
             <i class="iconfont">&#xe7e7;</i>
           </div>
           <div class="btn" @click="goPage('https://github.com/Daymychen')">
             <span>Github</span>
             <i class="iconfont">&#xe7e7;</i>
           </div>
-          <div class="btn">
-            <span>项目官网</span>
-            <i class="iconfont">&#xe7e7;</i>
-          </div>
-          <div class="btn">
-            <span>使用手册</span>
+          <div class="btn" @click="goPage('https://www.lingchen.kim')">
+            <span>博客</span>
             <i class="iconfont">&#xe7e7;</i>
           </div>
         </div>
