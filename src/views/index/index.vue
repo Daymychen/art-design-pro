@@ -46,7 +46,7 @@
   import TopBar from '@comps/Layout/TopBar/index.vue'
   import WorkTab from '@comps/Layout/WorkTab/index.vue'
   import Setting from '@comps/Layout/Setting/index.vue'
-  import { MenuThemeEnum, MenuWidth } from '@/enums/appEnum'
+  import { MenuWidth } from '@/enums/appEnum'
   import { useMenuStore } from '@/store/modules/menu'
   import { useSettingStore } from '@/store/modules/setting'
 
@@ -78,10 +78,8 @@
   // 根据是否显示工作标签来设置最小高度
   const minHeight = computed(() => `calc(100vh - ${showWorkTab.value ? 120 : 75}px)`)
 
-  // 根据主题类型和是否显示工作标签来设置顶部填充高度
   const paddingTop = computed(() => {
-    const themeType = settingStore.menuThemeType
-    return showWorkTab.value ? '110px' : themeType === MenuThemeEnum.DESIGN ? '60px' : '80px'
+    return showWorkTab.value ? '110px' : '60px'
   })
 
   // 是否刷新页面的状态

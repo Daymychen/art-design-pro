@@ -148,16 +148,99 @@ export const roleRoutes: AppRouteRecordRaw[] = [
     name: 'Menu',
     component: Home,
     meta: {
-      title: '菜单管理'
+      title: '菜单管理',
+      title_en: 'Menu Management'
     },
     children: [
       {
-        path: '/menu/menu',
+        path: 'menu',
         name: 'Menus',
         component: () => import('@views/menu/Menu.vue'),
         meta: {
-          title: '菜单管理'
+          title: '菜单管理',
+          title_en: 'Menu Management',
+          keepAlive: true
         }
+      },
+      {
+        path: 'nested',
+        name: 'Nested',
+        meta: {
+          title: '嵌套菜单',
+          title_en: 'Nested Menu'
+        },
+        children: [
+          {
+            path: 'menu1',
+            name: 'NestedMenu1',
+            component: () => import('@views/menu/nested/menu1.vue'),
+            meta: {
+              title: '菜单1',
+              title_en: 'Menu 1',
+              keepAlive: true
+            }
+          },
+          {
+            path: 'menu2',
+            name: 'NestedMenu2',
+            meta: {
+              title: '菜单2',
+              title_en: 'Menu 2'
+            },
+            children: [
+              {
+                path: 'menu2-1',
+                name: 'NestedMenu2-1',
+                component: () => import('@views/menu/nested/menu2/menu2-1.vue'),
+                meta: {
+                  title: '菜单2-1',
+                  title_en: 'Menu 2-1',
+                  keepAlive: true
+                }
+              }
+            ]
+          },
+          {
+            path: 'menu3',
+            name: 'NestedMenu3',
+            meta: {
+              title: '菜单3',
+              title_en: 'Menu 3'
+            },
+            children: [
+              {
+                path: 'menu3-1',
+                name: 'NestedMenu3-1',
+                component: () => import('@views/menu/nested/menu3/menu3-1.vue'),
+                meta: {
+                  title: '菜单3-1',
+                  title_en: 'Menu 3-1',
+                  keepAlive: true
+                }
+              },
+              {
+                path: 'menu3-2',
+                name: 'NestedMenu3-2',
+                meta: {
+                  title: '菜单3-2',
+                  title_en: 'Menu 3-2'
+                },
+                children: [
+                  {
+                    path: 'menu3-2-1',
+                    name: 'NestedMenu3-2-1',
+                    component: () => import('@views/menu/nested/menu3/menu3-2/menu3-2-1.vue'),
+                    meta: {
+                      title: '菜单3-2-1',
+                      title_en: 'Menu 3-2-1',
+                      keepAlive: true
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
     ]
   },

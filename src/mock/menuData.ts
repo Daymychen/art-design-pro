@@ -147,6 +147,7 @@ export const menuData: MenuListType[] = [
         title: '菜单权限',
         title_en: 'Menu permissions',
         path: '/menu/menu',
+        icon: '\ue8a4',
         authList: [
           {
             id: 4011,
@@ -162,6 +163,87 @@ export const menuData: MenuListType[] = [
             id: 4013,
             title: '删除',
             auth_mark: 'delete'
+          }
+        ]
+      },
+      {
+        id: 402,
+        title: '嵌套菜单',
+        title_en: 'Nested menu',
+        path: '/menu/nested',
+        icon: '\ue676',
+        authList: [
+          {
+            id: 4021,
+            title: '新增',
+            auth_mark: 'add'
+          },
+          {
+            id: 4022,
+            title: '编辑',
+            auth_mark: 'edit'
+          },
+          {
+            id: 4023,
+            title: '删除',
+            auth_mark: 'delete'
+          }
+        ],
+        children: [
+          {
+            id: 40201,
+            title: '菜单1',
+            title_en: 'menu1',
+            path: '/menu/nested/menu1',
+            icon: '\ue676'
+          },
+          {
+            id: 40202,
+            title: '菜单2',
+            title_en: 'menu2',
+            path: '/menu/nested/menu2',
+            icon: '\ue676',
+            children: [
+              {
+                id: 4020201,
+                title: '菜单2-1',
+                title_en: 'menu2-1',
+                path: '/menu/nested/menu2/menu2-1',
+                icon: '\ue676'
+              }
+            ]
+          },
+          {
+            id: 40203,
+            title: '菜单3',
+            title_en: 'menu3',
+            path: '/menu/nested/menu3',
+            icon: '\ue676',
+            children: [
+              {
+                id: 4020301,
+                title: '菜单3-1',
+                title_en: 'menu3-1',
+                path: '/menu/nested/menu3/menu3-1',
+                icon: '\ue676'
+              },
+              {
+                id: 4020302,
+                title: '菜单3-2',
+                title_en: 'menu3-2',
+                path: '/menu/nested/menu3/menu3-2',
+                icon: '\ue676',
+                children: [
+                  {
+                    id: 402030201,
+                    title: '菜单3-2-1',
+                    title_en: 'menu3-2-1',
+                    path: '/menu/nested/menu3/menu3-2/menu3-2-1',
+                    icon: '\ue676'
+                  }
+                ]
+              }
+            ]
           }
         ]
       }

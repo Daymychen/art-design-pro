@@ -1,22 +1,22 @@
 <template>
   <template v-for="item in list" :key="item.id">
-    <el-sub-menu v-if="isNotEmpty(item.children)" :index="item.path || item.title">
+    <el-sub-menu v-if="isNotEmpty(item.children)" :index="item.path || item.title" :level="level">
       <template #title>
-        <i class="iconfont-sys" :style="{ color: theme.iconColor }">{{ item.icon }}</i>
-        <!-- <span>{{ item.title }}</span> -->
+        <i class="iconfont-sys" :style="{ color: theme?.iconColor }">{{ item.icon }}</i>
         <span>{{ getMenuTitle(item) }}</span>
       </template>
-      <submenu :list="item.children" :isMobile="isMobile" @close="closeMenu" />
+      <!-- 递归菜单 -->
+      <submenu :list="item.children" :isMobile="isMobile" @close="closeMenu" :level="level + 1" />
     </el-sub-menu>
 
     <el-menu-item
       v-if="!isNotEmpty(item.children) && !item.noMenu"
       :index="item.path || item.title"
       @click="goPage(item)"
+      :level-item="level + 1"
     >
       <template #title>
         <i class="iconfont-sys">{{ item.icon }}</i>
-        <!-- <span>{{ item.title }}</span> -->
         <span>{{ getMenuTitle(item) }}</span>
       </template>
     </el-menu-item>
@@ -41,7 +41,11 @@
       type: Object,
       default: () => {}
     },
-    isMobile: Boolean
+    isMobile: Boolean,
+    level: {
+      type: Number,
+      default: 0
+    }
   })
 
   const emit = defineEmits(['close'])

@@ -72,10 +72,24 @@ html.dark {
         background: transparent;
       }
 
+      .el-sub-menu__title {
+        .el-icon {
+          color: var(--art-gray-800) !important;
+        }
+      }
+
       // 鼠标移入背景色
       .el-sub-menu__title:hover,
       .el-menu-item:not(.is-active):hover {
         background: rgba(var(--art-gray-200-rgb), 0.6) !important;
+      }
+
+      [level-item="2"].is-active:not(.el-menu--collapse) {
+        &.is-active {
+          &:before {
+            margin-left: -10px !important;
+          }
+        }
       }
 
       .el-menu:not(.el-menu--collapse) {
@@ -87,12 +101,12 @@ html.dark {
             height: 5px;
             border-radius: 50%;
             position: absolute;
-            left: 33px;
             top: 0;
             bottom: 0;
             margin: auto;
             background: var(--main-color) !important;
             transition: all 0.2s;
+            margin-left: -18px;
           }
         }
       }
