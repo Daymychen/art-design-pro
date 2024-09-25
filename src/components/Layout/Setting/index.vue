@@ -344,7 +344,6 @@
   const setSystemThemeModel = (theme: SystemThemeEnum, themeMode: SystemThemeEnum) => {
     store.setGlopTheme(theme, themeMode)
     isAutoClose()
-    store.reload()
   }
 
   // 自动关闭

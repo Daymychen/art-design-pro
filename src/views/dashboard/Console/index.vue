@@ -55,6 +55,15 @@
   import { SystemInfo } from '@/config/setting'
   import TodoList from './widget/TodoList.vue'
   import { scrollToTop } from '@/utils/utils'
+  import { useSettingStore } from '@/store/modules/setting'
+
+  const settingStore = useSettingStore()
+  const currentGlopTheme = computed(() => settingStore.systemThemeType)
+
+  // 系统主题风格变化时，刷新页面重写渲染 Echarts
+  watch(currentGlopTheme, () => {
+    settingStore.reload()
+  })
 
   const systemName = SystemInfo.name
   scrollToTop()
