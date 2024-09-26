@@ -1,9 +1,14 @@
 <template>
   <ul class="card" :style="{ marginTop: showWorkTab ? '0' : '10px' }">
     <li class="console-box-2" v-for="(item, index) in dataList" :key="index" :style="dataListStyle">
-      <span class="des">{{ item.des }}</span>
+      <span class="des custom-text subtitle">{{ item.des }}</span>
       <div>
-        <CountTo class="number" :endVal="item.num" :duration="1000" separator=""></CountTo>
+        <CountTo
+          class="number custom-text box-title"
+          :endVal="item.num"
+          :duration="1000"
+          separator=""
+        ></CountTo>
         <span
           class="change"
           :style="{ color: item.change.indexOf('+') === -1 ? 'red' : '#52c41a' }"
@@ -135,7 +140,7 @@
           margin-top: 5px;
           font-size: 28px;
           font-weight: 400;
-          color: var(--art-text-gray-800);
+          // color: var(--art-text-gray-800);
         }
 
         .change {

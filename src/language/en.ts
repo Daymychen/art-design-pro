@@ -7,12 +7,10 @@ export default {
     user: ['User center', 'Document', 'Github', 'Log out']
   },
   common: {
-    tips: 'Tips',
+    tips: 'Prompt',
     cancel: 'Cancel',
-    define: 'Define',
-    switchLangTips: 'Language switch success',
-    logOutTips:
-      'Are you sure you want to log out of the current account? Open tabs and personal settings will be saved.'
+    confirm: 'Confirm',
+    logOutTips: 'Do you want to log out?'
   },
   search: {
     placeholder: 'Search page',

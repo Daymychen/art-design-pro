@@ -73,12 +73,10 @@ export const useUserStore = defineStore({
       this.searchHistory = list
     },
     logOut() {
-      document.getElementsByTagName('html')[0].removeAttribute('class') // 移除暗黑主题
-
       setTimeout(() => {
+        document.getElementsByTagName('html')[0].removeAttribute('class') // 移除暗黑主题
         this.info = {}
         this.isLogin = false
-        this.searchHistory = []
         useWorktabStore().opened = []
         this.saveUserData()
         router.push('/login')

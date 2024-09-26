@@ -2,15 +2,15 @@
   <div class="region todo-list console-box">
     <div class="card-header">
       <div class="title">
-        <h4>代办事项</h4>
-        <p>待处理<span>+6</span></p>
+        <h4 class="custom-text box-title">代办事项</h4>
+        <p class="custom-text subtitle">待处理<span>+6</span></p>
       </div>
     </div>
 
     <div class="list">
       <div v-for="(item, index) in list" :key="index">
         <p class="title">{{ item.username }}</p>
-        <p class="date">{{ item.date }}</p>
+        <p class="date custom-text subtitle">{{ item.date }}</p>
         <el-checkbox v-model="item.complate" />
       </div>
     </div>
@@ -98,7 +98,6 @@
           margin-top: 6px;
           font-size: 12px;
           font-weight: 400;
-          color: #718096;
         }
 
         .el-checkbox {

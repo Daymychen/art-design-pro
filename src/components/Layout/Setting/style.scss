@@ -66,13 +66,13 @@
         height: 50px;
         overflow: hidden;
         cursor: pointer;
-        border: 1px solid transparent;
+        border: 2px solid var(--art-gray-100);
         border-radius: 6px;
         box-shadow: $box-shadow;
         transition: box-shadow 0.1s;
 
         &.is-active {
-          border: 1px solid var(--main-color);
+          border: 2px solid var(--main-color);
         }
 
         > div {
@@ -167,13 +167,13 @@
           overflow: hidden;
           cursor: pointer;
           background: #f5f7f9 !important;
-          border: 1px solid transparent;
+          border: 2px solid var(--art-gray-100);
           border-radius: 6px;
           box-shadow: $box-shadow;
           transition: box-shadow 0.1s;
 
           &.is-active {
-            border: 1px solid var(--main-color);
+            border: 2px solid var(--main-color);
           }
 
           &:nth-child(even) {

@@ -2,8 +2,8 @@
   <div class="region sales-overview console-box">
     <div class="card-header">
       <div class="title">
-        <h4>销售概述</h4>
-        <p>今年增长<span>+15%</span></p>
+        <h4 class="custom-text box-title">销售概述</h4>
+        <p class="custom-text subtitle">今年增长<span>+15%</span></p>
       </div>
     </div>
     <div class="chart" ref="chartRef"></div>

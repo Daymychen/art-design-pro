@@ -2,14 +2,16 @@
   <div class="region active-user console-box">
     <div class="chart" ref="chartRef"></div>
     <div class="text">
-      <h3>用户概述</h3>
-      <p>比上周 <span>+23%</span></p>
-      <p>我们为您创建了多个选项，可将它们组合在一起并定制为像素完美的页面</p>
+      <h3 class="custom-text box-title">用户概述</h3>
+      <p class="custom-text subtitle">比上周 <span>+23%</span></p>
+      <p class="custom-text subtitle"
+        >我们为您创建了多个选项，可将它们组合在一起并定制为像素完美的页面</p
+      >
     </div>
     <div class="list">
       <div v-for="(item, index) in list" :key="index">
         <p>{{ item.num }}</p>
-        <p>{{ item.name }}</p>
+        <p class="custom-text subtitle">{{ item.name }}</p>
       </div>
     </div>
   </div>
@@ -179,10 +181,10 @@
         flex: 1;
 
         p {
-          color: var(--art-gray-800);
           font-weight: 400;
 
           &:first-of-type {
+            color: var(--art-gray-900);
             font-size: 24px;
           }
 

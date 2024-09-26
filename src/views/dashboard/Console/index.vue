@@ -15,7 +15,7 @@
 
     <div class="bottom-wrap console-box">
       <div>
-        <h2>关于项目</h2>
+        <h2 class="custom-text box-title">关于项目</h2>
         <p>{{ systemName }} 是一套企业级的高颜值、高性能、高体验的通用型后台前端解决方案</p>
         <p>使用了 Vue3、TypeScript、Vite、Element Plus 等前沿技术</p>
 
@@ -102,6 +102,16 @@
       }
     }
 
+    // 主标题
+    :deep(.box-title) {
+      color: var(--art-gray-900) !important;
+    }
+
+    // 副标题
+    :deep(.subtitle) {
+      color: var(--art-gray-600) !important;
+    }
+
     .region,
     .dynamic {
       background: var(--art-main-bg-color);
@@ -132,7 +142,7 @@
       }
 
       p {
-        color: var(--art-gray-700);
+        color: var(--art-gray-600);
         margin-top: 5px;
         font-size: 14px;
       }
@@ -155,7 +165,7 @@
           text-align: center;
           cursor: pointer;
           background: var(--art-bg-color);
-          border: 1px solid var(--art-border-dashed-color);
+          border: 1px solid rgba(var(--art-gray-300-rgb), 0.9) !important;
           border-radius: 5px;
           transition: all 0.3s;
           color: var(--art-gray-800);

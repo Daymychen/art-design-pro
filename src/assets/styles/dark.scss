@@ -59,7 +59,7 @@ html.dark {
   }
 
   /* 让非 el- 开头的元素继承全局颜色、以及 pre code 元素的颜色 */
-  [class]:not([class^='el-']):not(pre code *) {
+  [class]:not([class^='el-']):not(pre code *):not(.custom-text) {
     color: inherit !important;
   }
   

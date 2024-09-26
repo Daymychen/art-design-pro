@@ -148,6 +148,7 @@
   const notice = ref(null)
   const systemThemeColor = computed(() => settingStore.systemThemeColor)
   const showSettingGuide = computed(() => settingStore.showSettingGuide)
+  const { t } = useI18n()
 
   onMounted(() => {
     initLanguage()
@@ -198,9 +199,9 @@
   }
 
   const loginOut = () => {
-    ElMessageBox.confirm('您确定退出登录当前账户吗？打开的标签页和个人设置将会被删除。', '提示', {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消'
+    ElMessageBox.confirm(t('common.logOutTips'), t('common.tips'), {
+      confirmButtonText: t('common.confirm'),
+      cancelButtonText: t('common.cancel')
     }).then(() => {
       userStore.logOut()
     })

@@ -9,9 +9,8 @@ export default {
   common: {
     tips: '提示',
     cancel: '取消',
-    define: '确定',
-    switchLangTips: '语言切换成功',
-    logOutTips: '您确定退出登录当前账户吗？打开的标签页和个人设置将会保存。'
+    confirm: '确定',
+    logOutTips: '您是否要退出登录?'
   },
   search: {
     placeholder: '搜索页面',

@@ -77,11 +77,11 @@
   .worktab .scroll-view .tabs li,
   .console-box,
   .console-box-2 {
-    border: 1px solid var(--art-border-color) !important;
+    border: 1px solid rgba(var(--art-gray-300-rgb),0.6) !important;
   }
 
   .menu-left {
-    border-right: 1px solid var(--art-border-color) !important;
+    border-right: 1px solid rgba(var(--art-gray-300-rgb),0.6) !important;
   }
 }
 

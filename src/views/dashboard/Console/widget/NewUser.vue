@@ -2,8 +2,8 @@
   <div class="region new-user console-box">
     <div class="card-header">
       <div class="title">
-        <h4>新用户</h4>
-        <p>这个月增长<span>+20%</span></p>
+        <h4 class="custom-text box-title">新用户</h4>
+        <p class="custom-text subtitle">这个月增长<span>+20%</span></p>
       </div>
       <el-radio-group v-model="radio2">
         <el-radio-button value="本月" label="本月"></el-radio-button>
