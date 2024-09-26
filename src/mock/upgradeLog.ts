@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.0.43',
+    title: '修复<script setup>多语言刷新后丢失BUG',
+    date: '2024-9-26',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.0.42',
     title: '修复 sass 控制台报错',
     date: '2024-9-25',
