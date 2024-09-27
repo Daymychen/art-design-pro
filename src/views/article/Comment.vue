@@ -12,15 +12,15 @@
           :style="{ background: randomColor() }"
           @click="openDrawer(item)"
         >
-          <p class="date">{{ item.date }}</p>
-          <p class="content">{{ item.content }}</p>
+          <p class="custom-text date">{{ item.date }}</p>
+          <p class="custom-text content">{{ item.content }}</p>
           <div class="bottom">
             <div class="left">
               <span><i class="iconfont-sys">&#xe6eb;</i>{{ item.collection }}</span>
               <span><i class="iconfont-sys">&#xe6e9;</i>{{ item.comment }}</span>
             </div>
             <div class="right">
-              <span class="dark-text">{{ item.userName }}</span>
+              <span class="custom-text">{{ item.userName }}</span>
             </div>
           </div>
         </li>
@@ -34,15 +34,15 @@
       <template #default>
         <div class="drawer-default">
           <div class="comment-box" :style="{ background: randomColor() }">
-            <p class="date">{{ clickItem.date }}</p>
-            <p class="content">{{ clickItem.content }}</p>
+            <p class="custom-text date">{{ clickItem.date }}</p>
+            <p class="custom-text content">{{ clickItem.content }}</p>
             <div class="bottom">
               <div class="left">
                 <span><i class="iconfont-sys">&#xe6eb;</i>{{ clickItem.collection }}</span>
                 <span><i class="iconfont-sys">&#xe6e9;</i>{{ clickItem.comment }}</span>
               </div>
               <div class="right">
-                <span class="dark-text">{{ clickItem.userName }}</span>
+                <span class="custom-text">{{ clickItem.userName }}</span>
               </div>
             </div>
           </div>

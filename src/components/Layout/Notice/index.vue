@@ -26,8 +26,16 @@
       <div class="scroll">
         <ul class="notice-list" v-show="barActiveIndex === 0">
           <li v-for="(item, index) in noticeList" :key="index">
-            <div class="icon" :style="{ background: getIcon(item.type)[0] + '!important' }">
-              <i class="iconfont-sys">{{ getIcon(item.type)[1] }}</i>
+            <div
+              class="icon"
+              :style="{ background: getNoticeStyle(item.type).backgroundColor + '!important' }"
+            >
+              <i
+                class="iconfont-sys"
+                :style="{ color: getNoticeStyle(item.type).iconColor + '!important' }"
+              >
+                {{ getNoticeStyle(item.type).icon }}
+              </i>
             </div>
             <div class="text">
               <h4>{{ item.title }}</h4>
@@ -80,6 +88,7 @@
   import avatar5 from '@/assets/img/avatar/avatar5.jpg'
   import avatar6 from '@/assets/img/avatar/avatar6.jpg'
   import { SystemMainColor } from '@/config/setting'
+  import { hexToRgba } from '@/utils/utils'
 
   const props = defineProps({
     value: {
@@ -116,11 +125,6 @@
   ]
 
   const noticeList = [
-    {
-      title: '通知中心样式优化',
-      time: '2024-8-30 09:00',
-      type: 'notice'
-    },
     {
       title: '新增国际化',
       time: '2024-6-13 0:10',
@@ -189,34 +193,58 @@
     barActiveIndex.value = index
   }
 
-  // 优化这个随机数，相邻不重复
   const getRandomColor = () => {
     const index = Math.floor(Math.random() * SystemMainColor.length)
     return SystemMainColor[index]
   }
 
-  const getIcon = (type: string) => {
-    let icon = '\ue747'
+  const getCssVariable = (str: string) =>
+    getComputedStyle(document.documentElement).getPropertyValue(str)
 
-    switch (type) {
-      case 'email':
-        icon = '\ue72e'
-        break
-      case 'message':
-        icon = '\ue747'
-        break
-      case 'collection':
-        icon = '\ue714'
-        break
-      case 'user':
-        icon = '\ue608'
-        break
-      case 'notice':
-        icon = '\ue6c2'
-        break
+  const noticeStyleMap = {
+    email: {
+      icon: '\ue72e',
+      iconColor: 'var(--el-color-warning)',
+      backgroundColor: '--el-color-warning'
+    },
+    message: {
+      icon: '\ue747',
+      iconColor: 'var(--el-color-success)',
+      backgroundColor: '--el-color-success'
+    },
+    collection: {
+      icon: '\ue714',
+      iconColor: 'var(--el-color-danger)',
+      backgroundColor: '--el-color-danger'
+    },
+    user: {
+      icon: '\ue608',
+      iconColor: 'var(--el-color-info)',
+      backgroundColor: '--el-color-info'
+    },
+    notice: {
+      icon: '\ue6c2',
+      iconColor: 'var(--el-color-primary)',
+      backgroundColor: '--el-color-primary'
+    }
+  }
+
+  const getNoticeStyle = (type: string) => {
+    const defaultStyle = {
+      icon: '\ue747',
+      iconColor: '#FFFFFF',
+      backgroundColor: getRandomColor()
     }
 
-    return [getRandomColor(), icon]
+    const style = noticeStyleMap[type as keyof typeof noticeStyleMap] || defaultStyle
+
+    return {
+      ...style,
+      backgroundColor:
+        style.backgroundColor !== defaultStyle.backgroundColor
+          ? hexToRgba(getCssVariable(style.backgroundColor), 0.13).rgba
+          : style.backgroundColor
+    }
   }
 
   const showNotice = (open: boolean) => {
