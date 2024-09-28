@@ -20,7 +20,8 @@
     z-index: 100;
     width: 100% !important;
 
-    .refresh {
+    .refresh-btn,
+    .screen-box {
       display: none !important;
     }
 
@@ -32,6 +33,10 @@
 
 @media screen and (max-width: $device-phone) {
   .top-bar {
+    .btn-box {
+      width: 40px;
+    }
+
     .menu {
       .left {
         .svg-icon {
@@ -45,10 +50,6 @@
             width: 26px;
             height: 26px;
           }
-        }
-
-        .btn {
-          padding: 0 10px;
         }
       }
     }

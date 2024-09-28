@@ -5,12 +5,24 @@
         <svg class="svg-icon" aria-hidden="true" @click="toHome()">
           <use xlink:href="#icon-zhaopian-copy"></use>
         </svg>
-        <i class="menu-btn btn iconfont-sys" @click="visibleMenu" v-if="showMenuButton">&#xe6ba;</i>
-        <i class="refresh btn iconfont-sys" @click="reload()" v-if="showRefreshButton">&#xe6b3;</i>
+        <!-- 菜单按钮 -->
+        <div class="btn-box">
+          <div class="btn menu-btn">
+            <i class="iconfont-sys" @click="visibleMenu" v-if="showMenuButton">&#xe6ba;</i>
+          </div>
+        </div>
+        <!-- 刷新按钮 -->
+        <div class="btn-box">
+          <div class="btn refresh-btn">
+            <i class="iconfont-sys" @click="reload()" v-if="showRefreshButton"> &#xe6b3; </i>
+          </div>
+        </div>
+        <!-- 面包屑 -->
         <breadcrumb v-if="showCrumbs" />
       </div>
 
       <div class="right">
+        <!-- 搜索 -->
         <div class="search-wrap">
           <div class="search-input" @click="openSearchDialog">
             <div class="left">
@@ -24,20 +36,30 @@
             </div>
           </div>
         </div>
-
-        <div class="screen" @click="fullScreenFun" v-if="!isFullScreen">
-          <i class="iconfont-sys btn">&#xe8ce;</i>
+        <!-- 全屏按钮 -->
+        <div class="btn-box screen-box" @click="fullScreenFun" v-if="!isFullScreen">
+          <div class="btn full-screen-btn">
+            <i class="iconfont-sys">&#xe8ce;</i>
+          </div>
         </div>
-        <div class="screen" @click="exitScreenFun" v-else>
-          <i class="iconfont-sys btn">&#xe62d;</i>
+        <div class="btn-box screen-box" @click="exitScreenFun" v-else>
+          <div class="btn exit-full-screen-btn">
+            <i class="iconfont-sys">&#xe62d;</i>
+          </div>
         </div>
-        <div class="notice notice-btn" @click="visibleNotice">
-          <i class="iconfont-sys notice-btn btn">&#xe6c2;</i>
-          <span class="count notice-btn"></span>
+        <!-- 通知 -->
+        <div class="btn-box notice-btn" @click="visibleNotice">
+          <div class="btn notice-button">
+            <i class="iconfont-sys notice-btn">&#xe6c2;</i>
+            <span class="count notice-btn"></span>
+          </div>
         </div>
-        <div class="lang" v-if="showLanguage">
+        <!-- 语言 -->
+        <div class="btn-box" v-if="showLanguage">
           <el-dropdown @command="changeLanguage">
-            <i class="iconfont-sys btn">&#xe611;</i>
+            <div class="btn language-btn">
+              <i class="iconfont-sys">&#xe611;</i>
+            </div>
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item command="zh">
@@ -50,11 +72,13 @@
             </template>
           </el-dropdown>
         </div>
-
-        <div class="setting-btn" @click="openSetting">
+        <!-- 设置 -->
+        <div class="btn-box" @click="openSetting">
           <el-popover :visible="showSettingGuide" placement="bottom-start" :width="190" :offset="0">
             <template #reference>
-              <i class="iconfont-sys btn">&#xe6d0;</i>
+              <div class="btn setting-btn">
+                <i class="iconfont-sys">&#xe6d0;</i>
+              </div>
             </template>
             <template #default>
               <p
@@ -64,7 +88,7 @@
             </template>
           </el-popover>
         </div>
-
+        <!-- 用户头像、菜单 -->
         <div class="user">
           <el-popover
             placement="bottom-end"

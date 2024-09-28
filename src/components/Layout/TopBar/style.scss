@@ -78,27 +78,76 @@
   background: transparent !important;
   transition: all 0.3s ease-in-out;
 
-  .iconfont-sys {
-    font-size: 19px;
-  }
-
-  .btn {
-    display: inline-block;
+  .btn-box {
+    width: 50px;
     height: 60px;
-    padding: 0 15px;
-    line-height: 60px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    &:hover {
-      color: var(--main-color);
-    }
+    .btn {
+      width: 38px;
+      height: 38px;
+      line-height: 38px;
+      text-align: center;
+      display: block;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-radius: 6px;
 
-    &:hover:not(.refresh):not(.setting-btn .btn) {
-      background-color: var(--art-gray-100);
+      i {
+        font-size: 19px;
+        display: block;
+      }
+  
+      &:hover {
+        color: var(--main-color);
+      }
+
+      &.refresh-btn:hover {
+        i {
+          animation: rotate180 0.5s;
+        }
+      }
+
+      &.language-btn:hover {
+        i {
+          animation: moveUp 0.4s;
+        }
+      }
+
+      &.setting-btn:hover {
+        i {
+          animation: rotate180 0.5s;
+        }
+      }
+
+      &.full-screen-btn:hover {
+        i {
+          animation: expand 0.6s forwards;
+        }
+      }
+
+      &.exit-full-screen-btn:hover {
+        i {
+          animation: shrink 0.6s forwards;
+        }
+      }
+
+      &.notice-button:hover {
+        i {
+          animation: shake 0.5s ease-in-out;
+        }
+      }
+  
+      &:hover {
+        background-color: rgba(var(--art-gray-200-rgb), 0.7);
+      }
     }
   }
+
+  
 
   .menu {
     position: relative;
@@ -120,13 +169,6 @@
         overflow: hidden;
         vertical-align: -0.15em;
         fill: currentcolor;
-      }
-
-      .refresh {
-
-        &:hover {
-          animation: rotate180 0.6s;
-        }
       }
 
       .el-route {
@@ -191,12 +233,7 @@
         }
       }
 
-      .screen {
-        cursor: pointer;
-        transition: background-color 0.3s;
-      }
-
-      .notice {
+      .btn-box {
         position: relative;
         cursor: pointer;
         transition: background-color 0.3s;
@@ -235,20 +272,6 @@
           border-radius: 50%;
         }
       }
-
-      .lang {
-
-        &:hover ul {
-          height: 80px;
-        }
-      }
-
-      .setting-btn {
-
-        &:hover {
-          animation: rotate180 0.6s;
-        }
-      }
     }
   }
 }
@@ -260,5 +283,53 @@
 
   100% {
     transform: rotate(180deg);
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+}
+
+@keyframes expand {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes shrink {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes moveUp {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+  100% {
+    transform: translateY(0);
   }
 }
