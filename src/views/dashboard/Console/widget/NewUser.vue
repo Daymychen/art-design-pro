@@ -29,8 +29,8 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="年龄" prop="age" />
-        <el-table-column label="进度">
+        <!-- <el-table-column label="年龄" prop="age" /> -->
+        <el-table-column label="进度" width="240">
           <template #default="scope">
             <el-progress :percentage="scope.row.pro" :color="scope.row.color" :stroke-width="4" />
           </template>

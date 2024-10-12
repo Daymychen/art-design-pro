@@ -69,7 +69,7 @@
         splitLine: {
           show: true,
           lineStyle: {
-            color: 'rgba(255, 255, 255, 0.2)',
+            color: !isDark.value ? 'rgba(255, 255, 255, 0.2)' : '#444',
             width: 1,
             type: 'dashed'
           }

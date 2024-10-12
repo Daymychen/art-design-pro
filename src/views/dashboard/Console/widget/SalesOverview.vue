@@ -2,7 +2,7 @@
   <div class="region sales-overview console-box">
     <div class="card-header">
       <div class="title">
-        <h4 class="custom-text box-title">销售概述</h4>
+        <h4 class="custom-text box-title">访问量</h4>
         <p class="custom-text subtitle">今年增长<span>+15%</span></p>
       </div>
     </div>
@@ -93,7 +93,7 @@
         splitLine: {
           show: true,
           lineStyle: {
-            color: isLight.value ? '#e8e8e8' : '#333',
+            color: isLight.value ? '#e8e8e8' : '#444',
             width: 1,
             type: 'dashed'
           }

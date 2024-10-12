@@ -1,6 +1,6 @@
 <template>
   <ul class="card" :style="{ marginTop: showWorkTab ? '0' : '10px' }">
-    <li class="console-box-2" v-for="(item, index) in dataList" :key="index" :style="dataListStyle">
+    <li class="console-box-2" v-for="(item, index) in dataList" :key="index">
       <span class="des custom-text subtitle">{{ item.des }}</span>
       <div>
         <CountTo
@@ -16,7 +16,7 @@
           {{ item.change }}
         </span>
       </div>
-      <i class="iconfont" :style="{ backgroundImage: `${item.color} !important` }">{{
+      <i class="iconfont custom-text" :style="{ backgroundImage: `${item.color} !important` }">{{
         item.icon
       }}</i>
     </li>
@@ -24,13 +24,15 @@
 </template>
 
 <script setup lang="ts">
+  import { SystemGradientColor, SystemMainColor } from '@/config/setting'
   import { useSettingStore } from '@/store/modules/setting'
   import { CountTo } from 'vue3-count-to'
 
   const settingStore = useSettingStore()
   const showWorkTab = computed(() => settingStore.showWorkTab)
+  const colorIndex = computed(() => SystemMainColor.indexOf(settingStore.systemThemeColor))
 
-  const dataList = [
+  const dataList = reactive([
     {
       des: '总访问次数',
       icon: '\ue765',
@@ -38,7 +40,7 @@
       duration: 1000,
       num: 9120,
       change: '+20%',
-      color: 'linear-gradient(310deg,#50D0FF,#50A3FF)'
+      color: SystemGradientColor[colorIndex.value]
     },
     {
       des: '在线访客数',
@@ -47,7 +49,7 @@
       duration: 1000,
       num: 182,
       change: '+10%',
-      color: 'linear-gradient(310deg,#61E7CC,#61D7E7)'
+      color: 'linear-gradient(310deg,#3BDBFF,#61DAE1)'
     },
     {
       des: '点击量',
@@ -56,7 +58,7 @@
       duration: 1000,
       num: 9520,
       change: '-12%',
-      color: 'linear-gradient(310deg,#f5365c,#f56036)'
+      color: 'linear-gradient(310deg,#F56A58,#F55540)'
     },
     {
       des: '新用户',
@@ -65,22 +67,9 @@
       duration: 1000,
       num: 156,
       change: '+30%',
-      color: 'linear-gradient(310deg,#5e72e4,#825ee4)'
+      color: 'linear-gradient(310deg,#A38BE4,#825ee4)'
     }
-  ]
-  const dataListStyle = {}
-
-  onMounted(() => {
-    computedItemWidth()
-  })
-
-  const computedItemWidth = () => {
-    // let count = dataList.length
-    // let width = 100 / count
-    // dataListStyle = {
-    //   width: `calc(${width}% - 20px)`
-    // }
-  }
+  ])
 </script>
 
 <style lang="scss" scoped>
@@ -101,7 +90,6 @@
       margin: 0 0 0 var(--console-margin);
       background: var(--art-main-bg-color);
       border-radius: 14px;
-      // box-shadow: 0 5px 27px rgb(0 0 0 / 5%);
 
       $icon-size: 46px;
 
