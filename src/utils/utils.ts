@@ -88,3 +88,50 @@ export function scrollToTop() {
 export const getCssVar = (name: string) => {
   return getComputedStyle(document.documentElement).getPropertyValue(name)
 }
+
+// 处理 Element Plus 主题颜色
+export function handleElementThemeColor(theme: string, isDark: boolean = false): void {
+  document.documentElement.style.setProperty('--el-color-primary', theme)
+  for (let i = 1; i <= 9; i++) {
+    document.documentElement.style.setProperty(
+      `--el-color-primary-light-${i}`,
+      `${getLightColor(theme, i / 10, isDark)}`
+    )
+  }
+  for (let i = 1; i <= 9; i++) {
+    document.documentElement.style.setProperty(
+      `--el-color-primary-dark-${i}`,
+      `${getDarkColor(theme, i / 10)}`
+    )
+  }
+}
+
+// hex颜色转rgb颜色
+export function hexToRgb(str: string): number[] {
+  str = str.replace('#', '')
+  const hexs = str.match(/../g)
+  if (!hexs) {
+    throw new Error('Invalid hex color')
+  }
+  return hexs.map((hex) => parseInt(hex, 16))
+}
+
+// 变浅颜色值
+export function getLightColor(color: string, level: number, isDark: boolean = false): string {
+  // 判断是否为暗黑模式
+  console.log(isDark)
+  if (isDark) {
+    return getDarkColor(color, level)
+  } else {
+    const rgb = hexToRgb(color)
+    const newRgb = rgb.map((value) => Math.floor((255 - value) * level + value))
+    return rgbToHex(newRgb[0], newRgb[1], newRgb[2])
+  }
+}
+
+// 变深颜色值
+export function getDarkColor(color: string, level: number): string {
+  const rgb = hexToRgb(color)
+  const newRgb = rgb.map((value) => Math.floor(value * (1 - level)))
+  return rgbToHex(newRgb[0], newRgb[1], newRgb[2])
+}

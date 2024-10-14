@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.0.50',
+    title: '修复暗黑主题模式下系统主题切换按钮颜色异常问题',
+    date: '2024-10-14',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.0.49',
     title: '修复菜单按钮不显示问题',
     date: '2024-10-14',

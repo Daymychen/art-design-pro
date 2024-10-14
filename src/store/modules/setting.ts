@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { MenuThemeType } from '@/types/store'
 import { ThemeList, ElementPlusTheme, DarkMenuStyles } from '@/config/setting'
 import { SystemThemeEnum, MenuThemeEnum } from '@/enums/appEnum'
-import { colourBlend } from '@/utils/utils'
+import { colourBlend, handleElementThemeColor } from '@/utils/utils'
 import { getSysStorage } from '@/utils/storage'
 
 export interface SettingState {
@@ -172,48 +172,13 @@ export const useSettingStore = defineStore({
 function setElementThemeColor(color: string) {
   const mixColor = '#ffffff'
   const elStyle = document.documentElement.style
-  // bStyle.getPropertyValue('--el-color-primary')
 
   elStyle.setProperty('--el-color-primary', color)
-  elStyle.setProperty('--van-primary-color', color)
-
-  // 设置系统字体颜色跟随系统主色
-  // elStyle.setProperty('--art-body-color', color)
-  // elStyle.setProperty('--art-text-gray-800', color)
-
-  for (let i = 1; i < 10; i++) {
-    const itemColor = colourBlend(color, mixColor, i / 10)
-    elStyle.setProperty(`--el-color-primary-light-${i}`, itemColor)
-    elStyle.setProperty(`--el-color-primary-dark-${i}`, itemColor)
-  }
+  handleElementThemeColor(color, useSettingStore().isDark)
 
   // 生成更淡一点的颜色
   for (let i = 1; i < 16; i++) {
     const itemColor = colourBlend(color, mixColor, i / 16)
     elStyle.setProperty(`--el-color-primary-custom-${i}`, itemColor)
   }
-
-  // 重写按钮颜色
-  // for (let i = 1; i < 9; i++) {
-  //   let elSuccessColor = '#2dce89'
-  //   let elInfoColor = '#11cdef'
-  //   let elWarningColor = '#fb6340'
-  //   let elDangerColor = '#f5365c'
-
-  //   let successColor = colourBlend(elSuccessColor, mixColor, i / 9)
-  //   elStyle.setProperty(`--el-color-success-dark-${i}`, successColor)
-  //   elStyle.setProperty(`--el-color-success-light-${i}`, successColor)
-
-  //   let infoColor = colourBlend(elInfoColor, mixColor, i / 9)
-  //   elStyle.setProperty(`--el-color-info-dark-${i}`, infoColor)
-  //   elStyle.setProperty(`--el-color-info-light-${i}`, infoColor)
-
-  //   let warningColor = colourBlend(elWarningColor, mixColor, i / 9)
-  //   elStyle.setProperty(`--el-color-warning-dark-${i}`, warningColor)
-  //   elStyle.setProperty(`--el-color-warning-light-${i}`, warningColor)
-
-  //   let dangerColor = colourBlend(elDangerColor, mixColor, i / 9)
-  //   elStyle.setProperty(`--el-color-danger-dark-${i}`, dangerColor)
-  //   elStyle.setProperty(`--el-color-danger-light-${i}`, dangerColor)
-  // }
 }
