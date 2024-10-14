@@ -56,7 +56,7 @@ export const SettingThemeList = [
 export const ThemeList: MenuThemeType[] = [
   {
     theme: MenuThemeEnum.DESIGN,
-    background: '#FCFCFC',
+    background: '#FFFFFF',
     systemNameColor: 'var(--art-text-gray-800)',
     iconColor: '#6B6B6B',
     textColor: '#29343D',

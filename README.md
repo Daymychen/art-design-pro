@@ -6,17 +6,17 @@
 
 ## 演示图
 
-### 默认主题
+### 浅色主题
 
-<p>
-  <img src="https://www.qiniu.lingchen.kim/Snipaste_2024-08-23_11-27-18.png">
-</p>
+![浅色主题](https://www.qiniu.lingchen.kim/Snipaste_2024-08-23_11-27-18.png)
+
+![浅色主题](https://www.qiniu.lingchen.kim/PixPin_2024-10-14_11-46-23.png)
 
 ### 暗黑主题
 
-<p>
-  <img src="https://www.qiniu.lingchen.kim/Snipaste_2024-09-02_11-35-52%202.png">
-</p>
+![暗黑主题](https://www.qiniu.lingchen.kim/Snipaste_2024-09-02_11-35-52%202.png)
+
+![暗黑主题](https://www.qiniu.lingchen.kim/PixPin_2024-10-14_11-47-06.png)
 
 ## 特点
 

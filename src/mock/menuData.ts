@@ -19,6 +19,12 @@ export const menuData: MenuListType[] = [
         title: '工作台',
         title_en: 'Workbench',
         path: '/dashboard/console'
+      },
+      {
+        id: 101,
+        title: '分析页',
+        title_en: 'Analysis',
+        path: '/dashboard/analysis'
       }
     ]
   },

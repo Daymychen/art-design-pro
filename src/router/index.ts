@@ -33,9 +33,19 @@ const routes = [
       {
         path: 'console',
         name: 'Console',
-        component: () => import(`@views/dashboard/Console/index.vue`),
+        component: () => import(`@views/dashboard/console/index.vue`),
         meta: {
           title: '工作台',
+          title_en: 'Workbench',
+          keepAlive: false
+        }
+      },
+      {
+        path: 'analysis',
+        name: 'Analysis',
+        component: () => import(`@views/dashboard/analysis/index.vue`),
+        meta: {
+          title: '分析页',
           title_en: 'Workbench',
           keepAlive: false
         }

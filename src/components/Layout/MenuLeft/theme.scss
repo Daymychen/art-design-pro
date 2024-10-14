@@ -215,6 +215,8 @@
 
     [level='0'].is-active {
       > .el-sub-menu__title {
+        width: calc(100% - $menu-spacing) !important;
+
         // 顶级菜单图标选中
         .iconfont-sys {
           width: 30px;

@@ -6,13 +6,17 @@ As a developer, I needed to build admin management systems for multiple projects
 
 ## Demo Images
 
-### Default Theme
+### Light Theme
 
-![Default Theme](https://www.qiniu.lingchen.kim/Snipaste_2024-08-23_11-27-18.png)
+![Light Theme](https://www.qiniu.lingchen.kim/Snipaste_2024-08-23_11-27-18.png)
+
+![Light Theme](https://www.qiniu.lingchen.kim/PixPin_2024-10-14_11-46-23.png)
 
 ### Dark Theme
 
 ![Dark Theme](https://www.qiniu.lingchen.kim/Snipaste_2024-09-02_11-35-52%202.png)
+
+![Dark Theme](https://www.qiniu.lingchen.kim/PixPin_2024-10-14_11-47-06.png)
 
 ## Features
 
