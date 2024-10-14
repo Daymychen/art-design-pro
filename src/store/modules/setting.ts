@@ -39,7 +39,7 @@ export const useSettingStore = defineStore({
     showRefreshButton: true,
     showCrumbs: true,
     autoClose: false,
-    showWorkTab: true,
+    showWorkTab: false,
     showLanguage: true,
     showNprogress: false,
     colorWeak: false,

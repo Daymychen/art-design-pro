@@ -88,12 +88,9 @@
 [data-box-mode='shadow-mode'] {
   .page-content,
   .worktab .scroll-view .tabs li,
-  .console-box {
-    box-shadow: 0 4px 20px rgba(238, 238, 238, 0.5);
-  }
-
+  .console-box,
   .console-box-2 {
-    box-shadow: 0 4px 20px rgba(238, 238, 238, 0.5);
+    box-shadow: 0 4px 20px rgb(0 0 0 / 3%);
   }
 
   .menu-left {
