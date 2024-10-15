@@ -54,6 +54,11 @@
   import { ArrowDown, ArrowLeft, ArrowRight, Close, CircleClose } from '@element-plus/icons-vue'
   import { useUserStore } from '@/store/modules/user'
   import { getMenuTitle } from '@/utils/menu'
+  import { ElMessage } from 'element-plus'
+  import { useThrottleFn } from '@vueuse/core'
+  import EmojiText from '@/utils/emojo'
+  import { useI18n } from 'vue-i18n'
+  const { t } = useI18n()
 
   const store = useWorktabStore()
   const list = computed(() => store.opened)
@@ -118,7 +123,15 @@
         'wheel',
         (event) => {
           if (scrollRef.value && tabsRef.value) {
+            // 检测滚动方向
+            if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
+              throttledMessage(`${t('worktab.tips[0]')} ${EmojiText[200]}`)
+              event.preventDefault()
+              return
+            }
+
             const xMin = scrollRef.value.offsetWidth - tabsRef.value.offsetWidth
+
             event.preventDefault()
             if (tabsRef.value.offsetWidth <= scrollRef.value.offsetWidth) return
             translateX.value = Math.min(Math.max(translateX.value - event.deltaY, xMin), xMax)
@@ -128,6 +141,10 @@
       )
     }
   }
+
+  const throttledMessage = useThrottleFn((message: string) => {
+    ElMessage({ message, type: 'warning' })
+  }, 3000)
 
   // 移动端添加触摸事件监听
   const addTouchListeners = () => {

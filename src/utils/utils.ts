@@ -118,8 +118,6 @@ export function hexToRgb(str: string): number[] {
 
 // 变浅颜色值
 export function getLightColor(color: string, level: number, isDark: boolean = false): string {
-  // 判断是否为暗黑模式
-  console.log(isDark)
   if (isDark) {
     return getDarkColor(color, level)
   } else {
