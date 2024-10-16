@@ -426,9 +426,9 @@ export const menuData: MenuListType[] = [
     children: [
       {
         id: 1101,
-        title: '作者博客',
-        title_en: 'Author blog',
-        path: 'https://www.lingchen.kim'
+        title: '官方文档',
+        title_en: 'Document',
+        path: 'https://www.lingchen.kim/art-design-pro/docs/'
       }
     ]
   }

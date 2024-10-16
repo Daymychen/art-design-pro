@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.0.63',
+    title: '新增注册、忘记密码页面',
+    date: '2024-10-16',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.0.62',
     title: '登录页面UI升级、增加滑动验证',
     date: '2024-10-16',

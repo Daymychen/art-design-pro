@@ -1,0 +1,24 @@
+.register {
+  .right-wrap {
+    .login-wrap {
+      .form {
+        .privacy-policy {
+          margin-top: 15px;
+
+          :deep(.el-checkbox__label) {
+            color: #333 !important;
+          }
+
+          a {
+            color: var(--main-color);
+            text-decoration: none;
+          }
+        }
+
+        .register-btn {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

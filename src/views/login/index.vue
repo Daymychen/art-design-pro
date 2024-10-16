@@ -58,7 +58,7 @@
 
           <div class="forget-password">
             <el-checkbox v-model="rememberPassword">记住密码</el-checkbox>
-            <a href="">忘记密码？</a>
+            <router-link to="/forget-password">忘记密码？</router-link>
           </div>
 
           <div style="margin-top: 30px">
@@ -76,7 +76,7 @@
           <div class="footer">
             <p>
               还没有账号？
-              <a href="">注册</a>
+              <router-link to="/register">注册</router-link>
             </p>
           </div>
         </div>

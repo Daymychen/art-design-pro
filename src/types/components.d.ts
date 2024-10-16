@@ -55,7 +55,6 @@ declare module 'vue' {
     Exception: typeof import('./../components/Views/Exception.vue')['default']
     FormInput: typeof import('./../components/Form/FormInput.vue')['default']
     FormSelect: typeof import('./../components/Form/FormSelect.vue')['default']
-    GG: typeof import('./../components/Form/GG.vue')['default']
     IconSelector: typeof import('./../components/Icons/IconSelector.vue')['default']
     MenuLeft: typeof import('./../components/Layout/MenuLeft/index.vue')['default']
     Network: typeof import('./../components/Widgets/Network.vue')['default']

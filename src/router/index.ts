@@ -73,6 +73,24 @@ const routes = [
     }
   },
   {
+    path: '/register',
+    component: () => import('@views/register/index.vue'),
+    meta: {
+      title: '注册',
+      notTab: true,
+      noLogin: true
+    }
+  },
+  {
+    path: '/forget-password',
+    component: () => import('@views/forget-password/index.vue'),
+    meta: {
+      title: '忘记密码',
+      notTab: true,
+      noLogin: true
+    }
+  },
+  {
     path: '/exception',
     component: Home,
     meta: {
@@ -480,9 +498,9 @@ router.beforeEach(async (to, from, next) => {
   const userStore = useUserStore()
   const worktabStore = useWorktabStore()
   const { meta, path, params, query } = to
-  const { title, title_en: titleEn, notTab } = meta
+  const { title, title_en: titleEn, notTab, noLogin } = meta
 
-  if (!userStore.isLogin && path !== '/login') {
+  if (!userStore.isLogin && path !== '/login' && !noLogin) {
     userStore.logOut()
     next('/login')
     return
