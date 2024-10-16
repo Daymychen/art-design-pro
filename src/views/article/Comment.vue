@@ -124,36 +124,36 @@
     }
 
     .title {
+      margin-top: 20px;
       font-size: 36px;
       font-weight: 500;
-      margin-top: 20px;
     }
 
     .desc {
-      color: #5b5b5b;
-      font-size: 14px;
       margin-top: 15px;
+      font-size: 14px;
+      color: #5b5b5b;
     }
 
     .list {
       margin-top: 40px;
 
       .offset {
-        width: calc(100% + 16px);
         display: flex;
         flex-wrap: wrap;
+        width: calc(100% + 16px);
       }
     }
 
     .comment-box {
-      width: calc(20% - 16px);
-      margin: 0 16px 16px 0;
-      padding: 16px;
-      box-sizing: border-box;
-      background-color: #eae2cb;
-      aspect-ratio: 16 / 12;
       position: relative;
+      box-sizing: border-box;
+      width: calc(20% - 16px);
+      aspect-ratio: 16 / 12;
+      padding: 16px;
+      margin: 0 16px 16px 0;
       cursor: pointer;
+      background-color: #eae2cb;
       transition: all 0.3s;
 
       &:hover {
@@ -161,37 +161,37 @@
       }
 
       .date {
-        color: #949494;
         font-size: 12px;
+        color: #949494;
       }
 
       .content {
-        color: #333;
-        font-size: 14px;
         margin-top: 16px;
+        font-size: 14px;
+        color: #333;
       }
 
       .bottom {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
         position: absolute;
         bottom: 16px;
         left: 0;
-        padding: 0 16px;
         box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 0 16px;
 
         .left {
           display: flex;
           align-items: center;
 
           span {
-            font-size: 12px;
-            color: #949494;
             display: flex;
             align-items: center;
             margin-right: 20px;
+            font-size: 12px;
+            color: #949494;
 
             i {
               margin-right: 5px;
@@ -201,8 +201,8 @@
 
         .right {
           span {
-            color: #333;
             font-size: 14px;
+            color: #333;
           }
         }
       }

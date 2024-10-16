@@ -41,7 +41,7 @@ export const useSettingStore = defineStore({
     autoClose: false,
     showWorkTab: false,
     showLanguage: true,
-    showNprogress: false,
+    showNprogress: true,
     colorWeak: false,
     showSettingGuide: true,
     pageTransition: 'slide-right',

@@ -74,9 +74,9 @@
       margin-bottom: 15px;
       line-height: 34px;
       cursor: pointer;
+      border: 1px solid var(--art-border-dashed-color);
       border-radius: 6px;
       transition: border 0.3s;
-      border: 1px solid var(--art-border-dashed-color);
 
       &:hover {
         border-color: var(--art-text-gray-400);

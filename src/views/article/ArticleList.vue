@@ -216,6 +216,7 @@
     .custom-segmented .el-segmented {
       height: 40px;
       padding: 6px;
+
       --el-border-radius-base: 8px;
     }
 
@@ -223,9 +224,9 @@
       margin-top: 20px;
 
       .offset {
-        width: calc(100% + 20px);
         display: flex;
         flex-wrap: wrap;
+        width: calc(100% + 20px);
 
         .item {
           box-sizing: border-box;
@@ -269,6 +270,7 @@
               font-size: 18px;
               font-weight: 500;
               color: #333;
+
               @include ellipsis();
             }
 

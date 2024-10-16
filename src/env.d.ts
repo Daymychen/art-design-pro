@@ -6,6 +6,8 @@ declare module '*.vue' {
   export default component
 }
 
+declare module 'nprogress'
+
 // 环境变量提示
 // interface ImportMetaEnv {
 //   VITE_BASE_API_URL: string

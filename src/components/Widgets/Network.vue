@@ -36,8 +36,8 @@
         }
 
         p {
-          font-size: 16px;
           margin-top: 20px;
+          font-size: 16px;
           color: var(--art-gray-600);
         }
 

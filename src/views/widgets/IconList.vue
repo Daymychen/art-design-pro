@@ -49,7 +49,7 @@
           flex-direction: column;
           justify-content: center;
           aspect-ratio: 1 / 1;
-          color: rgba(#ffffff, 0.8);
+          color: rgba(#fff, 0.8);
           text-align: center;
           border-right: 1px solid var(--art-border-color);
           border-bottom: 1px solid var(--art-border-color);

@@ -142,9 +142,9 @@
       }
 
       p {
-        color: var(--art-gray-600);
         margin-top: 5px;
         font-size: 14px;
+        color: var(--art-gray-600);
       }
 
       .button-wrap {
@@ -162,13 +162,13 @@
           margin: 0 15px 15px 0;
           font-size: 14px;
           line-height: 50px;
+          color: var(--art-gray-800);
           text-align: center;
           cursor: pointer;
           background: var(--art-bg-color);
           border: 1px solid rgba(var(--art-gray-300-rgb), 0.9) !important;
           border-radius: 5px;
           transition: all 0.3s;
-          color: var(--art-gray-800);
 
           &:hover {
             box-shadow: 0 5px 10px rgb(0 0 0 / 5%);

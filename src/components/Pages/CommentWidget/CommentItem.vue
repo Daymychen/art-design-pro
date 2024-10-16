@@ -105,47 +105,47 @@
         .avatar {
           width: 30px;
           height: 30px;
+          margin-right: 10px;
+          font-size: 12px;
+          font-weight: 500;
           line-height: 30px;
+          color: #fff;
           text-align: center;
           background-color: var(--main-color);
           border-radius: 50%;
-          color: #fff;
-          font-size: 12px;
-          font-weight: 500;
-          margin-right: 10px;
         }
 
         .name {
-          color: #000;
           display: block;
           font-size: 14px;
           font-weight: 500;
+          color: #000;
         }
       }
 
       .content {
-        color: var(--art-gray-800);
-        margin-top: 10px;
         display: block;
+        margin-top: 10px;
         font-size: 14px;
+        color: var(--art-gray-800);
       }
 
       .comment-info,
       .reply-info {
         display: flex;
         align-items: center;
-        margin-top: 10px;
         margin: 10px 0;
+        margin-top: 10px;
 
         .date {
-          color: var(--art-gray-500);
           font-size: 12px;
+          color: var(--art-gray-500);
         }
 
         .btn-text {
-          color: var(--art-gray-800);
-          font-size: 12px;
           margin-left: 20px;
+          font-size: 12px;
+          color: var(--art-gray-800);
           cursor: pointer;
           user-select: none;
 

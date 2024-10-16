@@ -7,6 +7,18 @@ import { useUserStore } from '@/store/modules/user'
 import { menuService } from '@/api/menuApi'
 import { routerMatch } from '@/utils/menu'
 import { useMenuStore } from '@/store/modules/menu'
+import { useSettingStore } from '@/store/modules/setting'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+
+// 顶部进度条配置
+NProgress.configure({
+  easing: 'ease', // 动画方式
+  speed: 600, // 递增进度条的速度
+  showSpinner: false, // 是否显示加载ico
+  trickleSpeed: 200, // 自动递增间隔
+  parent: 'body' //指定进度条的父容器
+})
 
 // 路由项扩展
 export type AppRouteRecordRaw = RouteRecordRaw & {
@@ -461,6 +473,10 @@ export const allRoutes = roleRoutes
 const isRouteRegistered = ref(false)
 
 router.beforeEach(async (to, from, next) => {
+  if (useSettingStore().showNprogress) {
+    NProgress.start()
+  }
+
   const userStore = useUserStore()
   const worktabStore = useWorktabStore()
   const { meta, path, params, query } = to
@@ -504,6 +520,12 @@ router.beforeEach(async (to, from, next) => {
   }
 
   next()
+})
+
+router.afterEach(() => {
+  if (useSettingStore().showNprogress) {
+    NProgress.done()
+  }
 })
 
 // 获取菜单，注册路由

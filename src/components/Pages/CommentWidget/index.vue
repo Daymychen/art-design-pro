@@ -89,16 +89,16 @@
 <style scoped lang="scss">
   .comment-module {
     .comment-header {
-      color: var(--art-gray-900);
+      padding-bottom: 20px;
       font-size: 18px;
       font-weight: 500;
-      padding-bottom: 20px;
+      color: var(--art-gray-900);
     }
 
     .comment-item {
-      border-bottom: 1px solid var(--art-border-dashed-color);
       padding-bottom: 10px;
       margin-bottom: 20px;
+      border-bottom: 1px solid var(--art-border-dashed-color);
     }
 
     form {
@@ -106,21 +106,21 @@
     }
 
     :deep(form) {
-      width: 100%;
-      margin: auto;
-      box-sizing: border-box;
-      padding-bottom: 50px;
       position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      padding-bottom: 50px;
+      margin: auto;
 
       > div {
         input,
         textarea {
-          width: 100%;
-          border: 1px solid var(--art-border-dashed-color);
-          display: block;
-          outline: none;
           box-sizing: border-box;
+          display: block;
+          width: 100%;
           margin-top: 10px;
+          border: 1px solid var(--art-border-dashed-color);
+          outline: none;
         }
 
         input {
@@ -134,22 +134,21 @@
         }
 
         .btn {
-          width: 60px;
-          height: 32px;
-          line-height: 30px;
-          color: #fff;
-          font-size: 14px;
-          border-radius: 4px;
-          text-align: center;
-          display: inline-block;
-          border: 0;
-          background-color: var(--main-color);
-          margin-top: 15px;
-          border: 0;
           position: absolute;
           right: 0;
           bottom: 0;
+          display: inline-block;
+          width: 60px;
+          height: 32px;
+          margin-top: 15px;
+          font-size: 14px;
+          line-height: 30px;
+          color: #fff;
+          text-align: center;
           cursor: pointer;
+          background-color: var(--main-color);
+          border: 0;
+          border-radius: 4px;
         }
       }
     }

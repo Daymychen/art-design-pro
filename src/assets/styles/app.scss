@@ -32,7 +32,7 @@
 
 // 顶部进度条颜色
 #nprogress .bar {
-  background: rgba($color: #409eff, $alpha: 0.8);
+  background-color: color-mix(in srgb, var(--main-color) 65%, white);
 }
 
 // 处理移动端组件兼容性
@@ -77,11 +77,11 @@
   .worktab .scroll-view .tabs li,
   .console-box,
   .console-box-2 {
-    border: 1px solid rgba(var(--art-gray-300-rgb),0.6) !important;
+    border: 1px solid rgba(var(--art-gray-300-rgb), 0.6) !important;
   }
 
   .menu-left {
-    border-right: 1px solid rgba(var(--art-gray-300-rgb),0.6) !important;
+    border-right: 1px solid rgba(var(--art-gray-300-rgb), 0.6) !important;
   }
 }
 

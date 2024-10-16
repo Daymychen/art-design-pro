@@ -38,17 +38,17 @@
 <style lang="scss" scoped>
   .page-content {
     .table-title {
-      font-size: 18px;
-      font-weight: 500;
-      padding: 10px 0 15px 0;
       display: flex;
       align-items: center;
+      padding: 10px 0 15px;
       padding-bottom: 30px;
+      font-size: 18px;
+      font-weight: 500;
       border-bottom: 1px solid var(--art-border-color);
 
       i {
-        font-size: 24px;
         margin-right: 10px;
+        font-size: 24px;
       }
     }
   }

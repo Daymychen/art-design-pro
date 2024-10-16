@@ -53,6 +53,7 @@
     "md-editor-v3": "^4.17.0",
     "mitt": "^3.0.1",
     "mockjs": "^1.1.0",
+    "nprogress": "^0.2.0",
     "pinia": "^2.2.2",
     "unplugin-auto-import": "^0.18.2",
     "unplugin-vue-components": "^0.27.4",

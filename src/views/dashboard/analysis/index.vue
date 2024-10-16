@@ -61,25 +61,25 @@
 
     // 卡片头部
     :deep(.custom-card-header) {
-      padding: 18px 20px;
+      position: relative;
       box-sizing: border-box;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      position: relative;
+      justify-content: space-between;
+      padding: 18px 20px;
 
       .title {
-        color: var(--art-text-gray-900);
         font-size: 20px;
         font-weight: 400;
+        color: var(--art-text-gray-900);
       }
 
       .subtitle {
-        font-size: 13px;
-        color: #737791;
         position: absolute;
         bottom: 2px;
         left: 21px;
+        font-size: 13px;
+        color: #737791;
       }
     }
 
@@ -97,7 +97,7 @@
   [data-box-mode='shadow-mode'] {
     .analysis-dashboard {
       :deep(.custom-card) {
-        box-shadow: 0 4px 20px rgba(238, 238, 238, 0.5);
+        box-shadow: 0 4px 20px rgb(238 238 238 / 50%);
       }
     }
   }
@@ -114,14 +114,14 @@
   .dark {
     .analysis-dashboard {
       :deep(.custom-card) {
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 4px 20px rgb(0 0 0 / 50%);
       }
     }
   }
 
-  @media (max-width: 1200px) {
+  @media (width <= 1200px) {
     .analysis-dashboard {
-      padding: 10px 0 0 0;
+      padding: 10px 0 0;
 
       .mt-20 {
         margin-top: 0;

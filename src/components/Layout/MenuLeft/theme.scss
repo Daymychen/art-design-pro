@@ -15,14 +15,14 @@
 
     .el-sub-menu__title:hover,
     .el-menu-item:hover {
-      border-radius: 6px;
       background-color: rgb(0 0 0 / 5%) !important;
+      border-radius: 6px;
     }
 
     .el-menu-item {
       height: 40px;
-      border-radius: 6px;
       margin-bottom: 10px;
+      border-radius: 6px;
 
       &:last-of-type {
         margin-bottom: 0;
@@ -194,13 +194,12 @@
 
     .el-sub-menu {
       width: calc(100% - $menu-spacing) !important;
-      
     }
 
     .el-sub-menu__title {
       width: calc(100% - $menu-spacing) !important;
       height: 52px;
-      margin: 10px 0;  // 调整每一个菜单项的间距
+      margin: 10px 0; // 调整每一个菜单项的间距
 
       &:hover {
         background: var(--art-gray-200) !important;
@@ -219,6 +218,8 @@
 
         // 顶级菜单图标选中
         .iconfont-sys {
+          position: relative;
+          left: -5px;
           width: 30px;
           height: 30px;
           line-height: 30px;
@@ -226,8 +227,6 @@
           text-align: center;
           background: var(--main-color) !important;
           border-radius: 6px;
-          position: relative;
-          left: -5px;
         }
 
         span {
@@ -259,8 +258,8 @@
       }
 
       .el-menu-item {
-        width: calc(100% - 19px);
         box-sizing: border-box;
+        width: calc(100% - 19px);
       }
 
       .el-sub-menu__icon-arrow {
@@ -281,11 +280,11 @@
           width: 6px;
           height: 6px;
           margin: auto;
+          margin-left: -18px;
           content: '';
           background: var(--art-gray-700);
           border-radius: 50%;
           transition: all 0.2s;
-          margin-left: -18px;
         }
       }
 
@@ -302,9 +301,9 @@
       .el-sub-menu.is-active {
         .el-sub-menu__title {
           .iconfont-sys {
-            padding: 0 5px !important;
             position: relative;
             left: -5px;
+            padding: 0 5px !important;
           }
         }
       }
@@ -312,7 +311,7 @@
   }
 }
 
-[data-box-mode='shadow-mode']{
+[data-box-mode='shadow-mode'] {
   .el-menu-design .el-sub-menu__title {
     width: 100% !important;
   }

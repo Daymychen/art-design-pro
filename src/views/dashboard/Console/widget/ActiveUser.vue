@@ -184,8 +184,8 @@
           font-weight: 400;
 
           &:first-of-type {
-            color: var(--art-gray-900);
             font-size: 24px;
+            color: var(--art-gray-900);
           }
 
           &:last-of-type {
@@ -200,7 +200,7 @@
     .dark {
       .active-user {
         .chart {
-          padding: 15px 0 0 0 !important;
+          padding: 15px 0 0 !important;
         }
       }
     }

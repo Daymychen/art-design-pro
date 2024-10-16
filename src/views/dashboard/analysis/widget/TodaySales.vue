@@ -63,13 +63,13 @@
     height: 330px;
 
     .export-btn {
-      padding: 6px 5px;
-      border-radius: 6px;
       display: flex;
       align-items: center;
+      padding: 6px 5px;
       color: var(--art-text-gray-600);
       cursor: pointer;
       border: 1px solid var(--art-border-dashed-color);
+      border-radius: 6px;
       transition: all 0.3s;
 
       &:hover {
@@ -78,8 +78,8 @@
       }
 
       .iconfont-sys {
-        font-size: 10px;
         margin-right: 5px;
+        font-size: 10px;
       }
 
       span {
@@ -89,33 +89,37 @@
 
     .sales-summary {
       padding: 20px;
+
       .sales-card {
-        height: 220px;
-        padding: 0 20px;
-        border-radius: 8px;
-        overflow: hidden;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        height: 220px;
+        padding: 0 20px;
+        overflow: hidden;
+        border-radius: 8px;
 
         .iconfont-sys {
           width: 40px;
           height: 40px;
-          line-height: 40px;
-          text-align: center;
           font-size: 18px;
+          line-height: 40px;
           color: #fff;
+          text-align: center;
           border-radius: 50%;
 
           &.red {
             background-color: #fa5a7d;
           }
+
           &.yellow {
             background-color: #ff947a;
           }
+
           &.green {
             background-color: #3cd856;
           }
+
           &.purple {
             background-color: #bf83ff;
           }
@@ -124,12 +128,15 @@
         &.red {
           background-color: #ffe2e5;
         }
+
         &.yellow {
           background-color: #fff4de;
         }
+
         &.green {
           background-color: #dcfce7;
         }
+
         &.purple {
           background-color: #f3e8ff;
         }
@@ -145,13 +152,15 @@
           margin-top: 10px;
           font-size: 16px;
           color: #425166 !important;
+
           @include ellipsis;
         }
 
         small {
-          color: #4079ed;
           display: block;
           margin-top: 10px;
+          color: #4079ed;
+
           @include ellipsis;
         }
       }
@@ -165,30 +174,36 @@
         .sales-card {
           .iconfont-sys {
             &.red {
-              background-color: rgba(250, 90, 125, 0.9);
+              background-color: rgb(250 90 125 / 90%);
             }
+
             &.yellow {
-              background-color: rgba(255, 148, 122, 0.9);
+              background-color: rgb(255 148 122 / 90%);
             }
+
             &.green {
-              background-color: rgba(60, 216, 86, 0.9);
+              background-color: rgb(60 216 86 / 90%);
             }
+
             &.purple {
-              background-color: rgba(191, 131, 255, 0.9);
+              background-color: rgb(191 131 255 / 90%);
             }
           }
 
           &.red {
-            background-color: rgba(255, 226, 229, 0.9);
+            background-color: rgb(255 226 229 / 90%);
           }
+
           &.yellow {
-            background-color: rgba(255, 244, 222, 0.9);
+            background-color: rgb(255 244 222 / 90%);
           }
+
           &.green {
-            background-color: rgba(220, 252, 231, 0.9);
+            background-color: rgb(220 252 231 / 90%);
           }
+
           &.purple {
-            background-color: rgba(243, 232, 255, 0.9);
+            background-color: rgb(243 232 255 / 90%);
           }
         }
       }
@@ -207,7 +222,7 @@
     }
   }
 
-  @media (max-width: 768px) {
+  @media (width <= 768px) {
     .today-sales {
       height: auto;
 

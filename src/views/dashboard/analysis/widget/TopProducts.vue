@@ -72,7 +72,7 @@
     }
   }
 
-  @media (max-width: 1200px) {
+  @media (width <= 1200px) {
     .custom-card {
       height: auto;
     }

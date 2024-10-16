@@ -1,5 +1,6 @@
 .drawer-con {
-  $box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2);
+  $box-shadow: 0 2px 8px 0 rgb(0 0 0 / 20%);
+
   padding: 0 5px 30px;
 
   .close-wrap {
@@ -28,10 +29,10 @@
     &::after {
       position: absolute;
       top: 10px;
-      border-bottom: 1px solid rgba(var(--art-gray-300-rgb), 0.8);
       width: 50px;
       margin: auto;
       content: '';
+      border-bottom: 1px solid rgba(var(--art-gray-300-rgb), 0.8);
     }
 
     &::before {
@@ -42,8 +43,6 @@
       right: 0;
     }
   }
-
-  
 
   .theme-wrap {
     display: flex;
@@ -81,7 +80,6 @@
           height: 100%;
 
           &:first-of-type {
-            
             > div {
               width: 15px;
               height: 2px;
@@ -283,25 +281,25 @@
   }
 
   .box-style {
-    padding: 4px;
     box-sizing: border-box;
-    border-radius: 7px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 4px;
     margin-top: 20px;
     background-color: var(--art-gray-200);
+    border-radius: 7px;
 
     .button {
       width: calc(50% - 3px);
       height: 34px;
-      line-height: 34px;
-      border-radius: 6px;
       font-size: 14px;
+      line-height: 34px;
       text-align: center;
       cursor: pointer;
       user-select: none;
-      transition: all .2s !important;
+      border-radius: 6px;
+      transition: all 0.2s !important;
 
       &.is-active {
         color: var(--art-gray-800);
@@ -310,7 +308,7 @@
 
       &:hover:not(.is-active) {
         color: var(--art-gray-800);
-        background-color: rgba($color: #000000, $alpha: 0.04);
+        background-color: rgba($color: #000, $alpha: 4%);
       }
     }
   }
@@ -343,15 +341,14 @@
 .dark {
   .drawer-con {
     .box-style {
-  
       .button {
         &.is-active {
           color: #fff !important;
           background-color: rgba(var(--art-gray-400-rgb), 0.7);
         }
-  
+
         &:hover:not(.is-active) {
-          background-color: rgba($color: #000000, $alpha: 0.2);
+          background-color: rgba($color: #000, $alpha: 20%);
         }
       }
     }
@@ -363,4 +360,3 @@
     display: none !important;
   }
 }
-
