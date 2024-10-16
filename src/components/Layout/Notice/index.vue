@@ -89,6 +89,7 @@
   import avatar6 from '@/assets/img/avatar/avatar6.jpg'
   import { SystemMainColor } from '@/config/setting'
   import { hexToRgba } from '@/utils/utils'
+  import { getCssVariable } from '@/utils/utils'
 
   const props = defineProps({
     value: {
@@ -197,9 +198,6 @@
     const index = Math.floor(Math.random() * SystemMainColor.length)
     return SystemMainColor[index]
   }
-
-  const getCssVariable = (str: string) =>
-    getComputedStyle(document.documentElement).getPropertyValue(str)
 
   const noticeStyleMap = {
     email: {

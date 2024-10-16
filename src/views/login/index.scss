@@ -74,48 +74,94 @@
       position: absolute;
       inset: 0;
       width: 440px;
-      height: 550px;
+      height: 610px;
+      padding: 0 5px;
       margin: auto;
       overflow: hidden;
       background-size: cover;
       border-radius: 5px;
-      box-shadow: 0 0 10px rgb(28 76 186 / 10%);
 
       .form {
         box-sizing: border-box;
         height: 100%;
-        padding: 40px 30px;
+        padding: 40px 0;
         background: #fff;
         widows: 100%;
 
-        h3 {
-          font-size: 23px;
-          font-weight: 500;
+        .title {
+          margin-left: -2px;
+          font-size: 34px;
+          font-weight: 600;
           color: var(--art-text-gray-800);
-          text-align: center;
         }
 
-        .input-label {
-          display: block;
-          padding: 8px 0;
-          font-size: 14px;
+        .sub-title {
+          margin-top: 10px;
+          font-size: 16px;
+          color: #8c8c8c;
         }
 
-        .code {
-          display: flex;
-          justify-content: space-between;
+        .input-wrap {
+          margin-top: 25px;
 
-          .el-input {
-            flex: 1;
-            margin-right: 20px;
+          .input-label {
+            display: block;
+            padding-bottom: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--art-text-gray-800);
+          }
+        }
+
+        .el-input,
+        .login-btn {
+          height: 46px;
+        }
+
+        .drag-verify {
+          position: relative;
+          padding-bottom: 20px;
+          margin-top: 25px;
+
+          .drag-verify-content {
+            position: relative;
+            z-index: 2;
+            box-sizing: border-box;
+            user-select: none;
+            border: 1px solid #e8e8e8;
+            border-radius: 8px;
+            transition: all 0.3s;
+
+            &.error {
+              border-color: #f56c6c;
+            }
           }
 
-          img {
-            width: 115px;
-            height: 40px;
-            cursor: pointer;
-            background: #f8f8f8 !important;
-            border-radius: 5px;
+          .error-text {
+            position: absolute;
+            top: 0;
+            z-index: 1;
+            margin-top: 10px;
+            font-size: 13px;
+            color: #f56c6c;
+            transition: all 0.3s;
+
+            &.show-error-text {
+              transform: translateY(40px);
+            }
+          }
+        }
+
+        .forget-password {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          font-size: 14px;
+          color: var(--art-text-gray-500);
+
+          a {
+            color: var(--main-color);
+            text-decoration: none;
           }
         }
 
@@ -123,6 +169,17 @@
           width: 100%;
           color: #fff;
           border: 0;
+        }
+
+        .footer {
+          margin-top: 20px;
+          font-size: 14px;
+          color: var(--art-text-gray-500);
+
+          a {
+            color: var(--main-color);
+            text-decoration: none;
+          }
         }
       }
     }
@@ -139,52 +196,50 @@
     }
 
     .right-wrap {
-      width: 100%;
-
-      .header {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-top: 20vh;
-        // padding-left: 30px;
-
-        .icon {
-          width: 40px;
-          height: 40px;
-        }
-
-        h1 {
-          margin-left: 15px;
-        }
-      }
+      width: 440px;
+      margin: auto;
 
       .login-wrap {
         position: relative;
         width: 100%;
         height: auto;
+        padding: 0;
         border-radius: 0;
         box-shadow: none;
 
         .form {
-          padding: 0 30px;
-
-          h3 {
-            display: none;
-          }
+          margin-top: 10vh;
         }
       }
     }
   }
 }
 
-@keyframes slideDown {
-  0% {
-    opacity: 0.3;
-    transform: translateY(80px);
-  }
+@media only screen and (max-width: $device-phone) {
+  .login {
+    position: fixed;
+    top: 0;
 
-  100% {
-    opacity: 1;
-    transform: translateY(0);
+    .right-wrap {
+      width: 330px;
+      margin: auto;
+
+      .login-wrap {
+        .form {
+          margin-top: 12vh;
+
+          .input-wrap {
+            .input-label {
+              display: none;
+            }
+          }
+
+          .input-wrap,
+          .drag-verify {
+            margin-top: 20px;
+          }
+        }
+      }
+    }
   }
 }

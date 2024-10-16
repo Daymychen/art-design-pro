@@ -6,11 +6,81 @@
   "description": "",
   "glyphs": [
     {
-      "icon_id": "38038714",
-      "name": "Ctrl",
-      "font_class": "Ctrl1",
+      "icon_id": "11855550",
+      "name": "勾",
+      "font_class": "gou",
       "unicode": "e621",
       "unicode_decimal": 58913
+    },
+    {
+      "icon_id": "18174963",
+      "name": "双箭头,双角符,右",
+      "font_class": "double-arrow-right-full",
+      "unicode": "ea50",
+      "unicode_decimal": 59984
+    },
+    {
+      "icon_id": "356524",
+      "name": "爱心",
+      "font_class": "aixin",
+      "unicode": "e68f",
+      "unicode_decimal": 59023
+    },
+    {
+      "icon_id": "690197",
+      "name": "动态点击",
+      "font_class": "iconfontdongtaidianji",
+      "unicode": "e696",
+      "unicode_decimal": 59030
+    },
+    {
+      "icon_id": "978324",
+      "name": "用户",
+      "font_class": "yonghu",
+      "unicode": "e698",
+      "unicode_decimal": 59032
+    },
+    {
+      "icon_id": "5791068",
+      "name": "最近访问",
+      "font_class": "zuijinfangwen",
+      "unicode": "e6e7",
+      "unicode_decimal": 59111
+    },
+    {
+      "icon_id": "6167209",
+      "name": "总访客量",
+      "font_class": "zongfangkeliang",
+      "unicode": "e699",
+      "unicode_decimal": 59033
+    },
+    {
+      "icon_id": "6426525",
+      "name": "点击量",
+      "font_class": "dianjiliang",
+      "unicode": "e69a",
+      "unicode_decimal": 59034
+    },
+    {
+      "icon_id": "12625629",
+      "name": "内容管理-访问",
+      "font_class": "neirongguanli-fangwen",
+      "unicode": "e8da",
+      "unicode_decimal": 59610
+    },
+    {
+      "icon_id": "16524878",
+      "name": "模块访问统计",
+      "font_class": "mokuaifangwentongji",
+      "unicode": "ed29",
+      "unicode_decimal": 60713
+    },
+    {
+      "icon_id": "19448531",
+      "name": "访问",
+      "font_class": "fangwen2",
+      "unicode": "e6a1",
+      "unicode_decimal": 59041
     },
     {
       "icon_id": "41850062",

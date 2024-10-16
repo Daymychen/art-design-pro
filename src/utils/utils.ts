@@ -23,6 +23,10 @@ export function exitScreen() {
   }
 }
 
+export function getCssVariable(str: string) {
+  return getComputedStyle(document.documentElement).getPropertyValue(str)
+}
+
 // 将hex颜色转成rgb  例如(#F55442, 1)
 export function hexToRgba(
   hex: string,

@@ -26,6 +26,7 @@
   const { setOptions, removeResize, resize } = useECharts(chartRef as Ref<HTMLDivElement>)
   const settingStore = useSettingStore()
   const menuOpen = computed(() => settingStore.menuOpen)
+  import { getCssVariable } from '@/utils/utils'
 
   // 收缩菜单时，重新计算图表大小
   watch(menuOpen, () => {
@@ -44,10 +45,6 @@
     { name: '日访问量', num: '1.2k' },
     { name: '周同比', num: '+5%' }
   ]
-
-  const getCssVariable = (str: string) => {
-    return getComputedStyle(document.documentElement).getPropertyValue(str)
-  }
 
   const createChart = () => {
     setOptions({

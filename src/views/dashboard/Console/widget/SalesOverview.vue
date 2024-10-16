@@ -17,6 +17,7 @@
   import { hexToRgba } from '@/utils/utils'
   import { useSettingStore } from '@/store/modules/setting'
   import { SystemThemeEnum } from '@/enums/appEnum'
+  import { getCssVariable } from '@/utils/utils'
 
   const chartRef = ref<HTMLDivElement>()
   const { setOptions, removeResize, resize } = useECharts(chartRef as Ref<HTMLDivElement>)
@@ -42,11 +43,6 @@
   onUnmounted(() => {
     removeResize()
   })
-
-  const getCssVariable = (str: string) => {
-    return getComputedStyle(document.documentElement).getPropertyValue(str)
-  }
-
   const createChart = () => {
     setOptions({
       grid: {
