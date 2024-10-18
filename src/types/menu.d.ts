@@ -8,4 +8,6 @@ export type MenuListType = {
   noMenu?: boolean // 是否在菜单中隐藏
   children?: MenuListType[]
   authList?: Array
+  showBadge?: boolean // 是否显示徽标
+  showTextBadge?: string // 是否显示新徽标
 }

@@ -28,16 +28,52 @@
             <el-button link :icon="EditPen" type="primary" @click="showDialog('edit')">
               编辑
             </el-button>
-            <el-button link :icon="Delete" style="color: #fa6962"> 删除 </el-button>
+            <el-button link :icon="Delete" style="color: #fa6962" @click="deleteUser">
+              删除
+            </el-button>
           </template>
         </el-table-column>
       </template>
     </art-table>
+
+    <el-dialog
+      v-model="dialogVisible"
+      :title="dialogType === 'add' ? '添加部门' : '编辑部门'"
+      width="30%"
+    >
+      <el-form :model="formData" label-width="60px">
+        <el-form-item label="名称" prop="name">
+          <el-input v-model="formData.name" />
+        </el-form-item>
+        <el-form-item label="排序" prop="sort">
+          <el-input v-model="formData.sort" />
+        </el-form-item>
+        <el-form-item label="状态" prop="status">
+          <el-switch v-model="formData.status" />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="dialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="dialogVisible = false">提交</el-button>
+        </div>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
   import { Delete, EditPen } from '@element-plus/icons-vue'
+  import { ElMessageBox } from 'element-plus'
+
+  const dialogType = ref('add')
+  const dialogVisible = ref(false)
+
+  const formData = reactive({
+    name: '',
+    sort: '1',
+    status: ''
+  })
 
   const tableData = reactive([
     {
@@ -143,7 +179,18 @@
   ])
 
   const showDialog = (type: string) => {
-    console.log(type)
+    dialogType.value = type
+    dialogVisible.value = true
+  }
+
+  const deleteUser = () => {
+    ElMessageBox.confirm('确定要删除该部门吗？', '删除部门', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'error'
+    }).then(() => {
+      console.log('删除部门')
+    })
   }
 </script>
 

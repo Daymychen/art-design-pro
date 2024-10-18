@@ -237,6 +237,10 @@
     }
 
     &:not(.el-menu--collapse) {
+      .el-sub-menu__title {
+        width: calc(100% - $menu-spacing) !important;
+      }
+
       .el-sub-menu__title,
       .el-menu-item {
         width: 100%;

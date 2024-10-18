@@ -203,6 +203,16 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         }
       },
       {
+        path: '/menu/permission',
+        name: 'Permission',
+        component: () => import('@views/menu/Permission.vue'),
+        meta: {
+          title: '权限控制',
+          title_en: 'Permission Control',
+          keepAlive: true
+        }
+      },
+      {
         path: '/menu/nested',
         name: 'Nested',
         meta: {

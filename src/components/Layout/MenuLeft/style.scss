@@ -7,6 +7,37 @@
   height: 100vh;
   user-select: none;
 
+  :deep(.badge) {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    bottom: 0;
+    width: 6px;
+    height: 6px;
+    margin: auto;
+    background: #ff3860;
+    border-radius: 50%;
+    animation: breathe 1.5s ease-in-out infinite;
+  }
+
+  :deep(.text-badge) {
+    position: absolute;
+    top: 0;
+    right: 12px;
+    bottom: 0;
+    width: 30px;
+    height: 20px;
+    margin: auto;
+    line-height: 20px;
+    text-align: center;
+    background: #fd4e4e;
+    border-radius: 5px;
+
+    small {
+      color: #fff !important;
+    }
+  }
+
   .header {
     position: relative;
     box-sizing: border-box;
@@ -82,5 +113,22 @@
       background: rgba($color: #000, $alpha: 50%);
       transition: opacity 0.2s ease-in-out;
     }
+  }
+}
+
+@keyframes breathe {
+  0% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
   }
 }

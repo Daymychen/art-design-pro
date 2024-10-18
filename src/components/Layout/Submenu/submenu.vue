@@ -4,6 +4,7 @@
       <template #title>
         <i class="iconfont-sys" :style="{ color: theme?.iconColor }">{{ item.icon }}</i>
         <span>{{ getMenuTitle(item) }}</span>
+        <div class="badge" style="right: 35px" v-if="item.showBadge"></div>
       </template>
       <!-- 递归菜单 -->
       <submenu :list="item.children" :isMobile="isMobile" @close="closeMenu" :level="level + 1" />
@@ -18,6 +19,10 @@
       <template #title>
         <i class="iconfont-sys">{{ item.icon }}</i>
         <span>{{ getMenuTitle(item) }}</span>
+        <div class="badge" v-if="item.showBadge"></div>
+        <div class="text-badge" v-if="item.showTextBadge">
+          <small class="custom-text">{{ item.showTextBadge }}</small>
+        </div>
       </template>
     </el-menu-item>
   </template>

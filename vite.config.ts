@@ -88,7 +88,7 @@ export default ({ mode }) => {
       }),
       // 打包分析
       visualizer({
-        open: true,
+        open: false,
         gzipSize: true,
         brotliSize: true,
         filename: 'dist/stats.html' // 分析图生成的文件名及路径

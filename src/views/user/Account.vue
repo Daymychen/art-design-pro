@@ -78,10 +78,46 @@
           <el-button link :icon="EditPen" type="primary" @click="showDialog('edit')">
             编辑
           </el-button>
-          <el-button link :icon="Delete" style="color: #fa6962"> 注销 </el-button>
+          <el-button link :icon="Delete" style="color: #fa6962" @click="deleteUser">
+            注销
+          </el-button>
         </el-table-column>
       </template>
     </art-table>
+
+    <el-dialog
+      v-model="dialogVisible"
+      :title="dialogType === 'add' ? '添加用户' : '编辑用户'"
+      width="30%"
+    >
+      <el-form :model="formData" label-width="60px">
+        <el-form-item label="用户名" prop="username">
+          <el-input v-model="formData.username" />
+        </el-form-item>
+        <el-form-item label="手机号" prop="phone">
+          <el-input v-model="formData.phone" />
+        </el-form-item>
+        <el-form-item label="性别" prop="sex">
+          <el-select v-model="formData.sex">
+            <el-option label="男" :value="1" />
+            <el-option label="女" :value="2" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="部门" prop="dep">
+          <el-select v-model="formData.dep">
+            <el-option label="董事会部" :value="1" />
+            <el-option label="市场部" :value="2" />
+            <el-option label="技术部" :value="3" />
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="dialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="dialogVisible = false">提交</el-button>
+        </div>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -89,6 +125,17 @@
   import { ACCOUNT_TABLE_DATA } from '@/mock/formData'
   import { EditPen, Delete } from '@element-plus/icons-vue'
   import { FormInstance } from 'element-plus'
+  import { ElMessageBox, ElMessage } from 'element-plus'
+
+  const dialogType = ref('add')
+  const dialogVisible = ref(false)
+
+  const formData = reactive({
+    username: '',
+    phone: '',
+    sex: '',
+    dep: ''
+  })
 
   const sexOptions = [
     {
@@ -138,8 +185,19 @@
 
   const tableData = ACCOUNT_TABLE_DATA
 
-  const showDialog = (type: any) => {
-    console.log(type)
+  const showDialog = (type: string) => {
+    dialogVisible.value = true
+    dialogType.value = type
+  }
+
+  const deleteUser = () => {
+    ElMessageBox.confirm('确定要注销该用户吗？', '注销用户', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'error'
+    }).then(() => {
+      ElMessage.success('注销成功')
+    })
   }
 
   const search = () => {}

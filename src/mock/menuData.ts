@@ -24,7 +24,8 @@ export const menuData: MenuListType[] = [
         id: 101,
         title: '分析页',
         title_en: 'Analysis',
-        path: '/dashboard/analysis'
+        path: '/dashboard/analysis',
+        showTextBadge: 'Hot'
       }
     ]
   },
@@ -167,6 +168,31 @@ export const menuData: MenuListType[] = [
           },
           {
             id: 4013,
+            title: '删除',
+            auth_mark: 'delete'
+          }
+        ]
+      },
+      {
+        id: 411,
+        title: '权限控制',
+        title_en: 'Permission control',
+        path: '/menu/permission',
+        icon: '\ue831',
+        showTextBadge: 'new',
+        authList: [
+          {
+            id: 4111,
+            title: '新增',
+            auth_mark: 'add'
+          },
+          {
+            id: 4112,
+            title: '编辑',
+            auth_mark: 'edit'
+          },
+          {
+            id: 4113,
             title: '删除',
             auth_mark: 'delete'
           }
