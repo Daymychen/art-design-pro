@@ -5,6 +5,8 @@ import viteCompression from 'vite-plugin-compression'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { visualizer } from 'rollup-plugin-visualizer'
+import viteImagemin from 'vite-plugin-imagemin'
 
 export default ({ mode }) => {
   const root = process.cwd()
@@ -48,20 +50,23 @@ export default ({ mode }) => {
       target: 'es2015',
       outDir: 'dist',
       chunkSizeWarningLimit: 2000,
-      // 配置 Rollup 插件优化生产环境的打包，减少打包体积。
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: true, // 生产环境去除 console
+          drop_debugger: true // 生产环境去除 debugger
+        }
+      },
       rollupOptions: {
         output: {
-          manualChunks(id) {
-            if (id.includes('node_modules')) {
-              return id.toString().split('node_modules/')[1].split('/')[0].toString()
-            }
+          manualChunks: {
+            vendor: ['vue', 'vue-router', 'pinia', 'element-plus']
           }
         }
       }
     },
     plugins: [
       vue(),
-      viteCompression(),
       // 自动导入 components 下面的组件，无需 import 引入
       Components({
         deep: true,
@@ -79,6 +84,52 @@ export default ({ mode }) => {
           enabled: true,
           filepath: './.auto-import.json',
           globalsPropValue: true
+        }
+      }),
+      // 打包分析
+      visualizer({
+        open: true,
+        gzipSize: true,
+        brotliSize: true,
+        filename: 'dist/stats.html' // 分析图生成的文件名及路径
+      }),
+      // 压缩
+      viteCompression({
+        verbose: true, // 是否在控制台输出压缩结果
+        disable: false, // 是否禁用
+        algorithm: 'gzip', // 压缩算法,可选 [ 'gzip' , 'brotliCompress' ,'deflate' , 'deflateRaw']
+        ext: '.gz', // 压缩后的文件名后缀
+        threshold: 10240, // 只有大小大于该值的资源会被处理 10240B = 10KB
+        deleteOriginFile: false // 压缩后是否删除原文件
+      }),
+      // 图片压缩
+      viteImagemin({
+        verbose: true, // 是否在控制台输出压缩结果
+        // 图片压缩配置
+        gifsicle: {
+          optimizationLevel: 7,
+          interlaced: false
+        },
+        optipng: {
+          optimizationLevel: 7
+        },
+        mozjpeg: {
+          quality: 20
+        },
+        pngquant: {
+          quality: [0.8, 0.9],
+          speed: 4
+        },
+        svgo: {
+          plugins: [
+            {
+              name: 'removeViewBox'
+            },
+            {
+              name: 'removeEmptyAttrs',
+              active: false
+            }
+          ]
         }
       })
     ],
