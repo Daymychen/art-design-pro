@@ -1,6 +1,7 @@
 /**
- * 菜单icon使用了系统图标库里面的图标，视觉效果会更好一些
- * 系统图标库位置：/src/assets/icons/system
+ * 菜单icon使用了系统图标库里面的图标，你可以换成自定义图标，但是请注意修改菜单的 class 类名 为 iconfont
+ * 系统图标库位置 class=iconfont-sys：/src/assets/icons/system
+ * 自定义图标库位置 class=iconfont：/src/assets/icons/icons
  */
 
 import { MenuListType } from '@/types/menu'
@@ -11,7 +12,7 @@ export const menuData: MenuListType[] = [
     title: 'Dashboard',
     title_en: 'Dashboard',
     name: 'Dashboard',
-    icon: '\ue721', // \ue721
+    icon: '\ue721', //
     path: '/dashboard',
     children: [
       {

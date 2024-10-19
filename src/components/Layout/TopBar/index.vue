@@ -91,6 +91,7 @@
         <!-- 用户头像、菜单 -->
         <div class="user">
           <el-popover
+            ref="userMenuPopover"
             placement="bottom-end"
             :width="210"
             :hide-after="0"
@@ -172,6 +173,7 @@
   const notice = ref(null)
   const systemThemeColor = computed(() => settingStore.systemThemeColor)
   const showSettingGuide = computed(() => settingStore.showSettingGuide)
+  const userMenuPopover = ref()
   const { t } = useI18n()
 
   onMounted(() => {
@@ -202,11 +204,6 @@
   }
 
   const goPage = (path: string) => {
-    if (path === 'loginOut') {
-      loginOut()
-      return
-    }
-
     router.push(path)
   }
 
@@ -223,13 +220,16 @@
   }
 
   const loginOut = () => {
-    ElMessageBox.confirm(t('common.logOutTips'), t('common.tips'), {
-      confirmButtonText: t('common.confirm'),
-      cancelButtonText: t('common.cancel'),
-      customClass: 'login-out-dialog'
-    }).then(() => {
-      userStore.logOut()
-    })
+    closeUserMenu()
+    setTimeout(() => {
+      ElMessageBox.confirm(t('common.logOutTips'), t('common.tips'), {
+        confirmButtonText: t('common.confirm'),
+        cancelButtonText: t('common.cancel'),
+        customClass: 'login-out-dialog'
+      }).then(() => {
+        userStore.logOut()
+      })
+    }, 200)
   }
 
   const reload = (time: number = 0) => {
@@ -279,6 +279,12 @@
 
   const visibleNotice = () => {
     showNotice.value = !showNotice.value
+  }
+
+  const closeUserMenu = () => {
+    setTimeout(() => {
+      userMenuPopover.value.hide()
+    }, 100)
   }
 </script>
 

@@ -51,7 +51,7 @@
                     <i class="iconfont">&#xe7c1;</i>
                     <span>{{ useDateFormat(item.create_time, 'YYYY-MM-DD') }}</span>
                     <div class="line"></div>
-                    <i class="iconfont">&#xe605;</i>
+                    <i class="iconfont">&#xe7ae;</i>
                     <span>{{ item.count }}</span>
                   </div>
                   <el-button v-auth="'edit'" size="small" @click.stop="toEdit(item)"

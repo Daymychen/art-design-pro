@@ -137,3 +137,17 @@ export function getDarkColor(color: string, level: number): string {
   const newRgb = rgb.map((value) => Math.floor(value * (1 - level)))
   return rgbToHex(newRgb[0], newRgb[1], newRgb[2])
 }
+
+// 获取当前时间，并返回一个问候语
+export function getGreeting() {
+  const hour = new Date().getHours()
+  if (hour < 6) {
+    return '凌晨了！'
+  } else if (hour < 12) {
+    return '上午好！'
+  } else if (hour < 18) {
+    return '下午好！'
+  } else {
+    return '晚上好！'
+  }
+}

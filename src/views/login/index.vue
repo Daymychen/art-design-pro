@@ -87,12 +87,12 @@
 
 <script setup lang="ts">
   import { SystemInfo } from '@/config/setting'
-  import { ElMessage } from 'element-plus'
+  import { ElMessage, ElNotification } from 'element-plus'
   import { useUserStore } from '@/store/modules/user'
   import { HOME_PAGE } from '@/router'
   import { ApiStatus } from '@/utils/http/status'
   import axios from 'axios'
-  import { getCssVariable } from '@/utils/utils'
+  import { getCssVariable, getGreeting } from '@/utils/utils'
 
   const userStore = useUserStore()
   const router = useRouter()
@@ -139,6 +139,7 @@
       if (code === ApiStatus.success) {
         userStore.setUserInfo(data)
         userStore.setLoginStatus(true)
+        showLoginSuccessNotice()
         router.push(HOME_PAGE)
       } else {
         ElMessage.error(res.data.message)
@@ -160,6 +161,18 @@
     } finally {
       loading.value = false // 无论成功还是失败，都停止加载
     }
+  }
+
+  // 登录成功提示
+  const showLoginSuccessNotice = () => {
+    setTimeout(() => {
+      ElNotification({
+        title: getGreeting(),
+        type: 'success',
+        showClose: false,
+        message: `欢迎登录 ${systemName}`
+      })
+    }, 300)
   }
 </script>
 

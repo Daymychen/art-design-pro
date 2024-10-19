@@ -302,6 +302,7 @@
     "watchWithFilter": true,
     "whenever": true,
     "ElMessageBox": true,
-    "ElMessage": true
+    "ElMessage": true,
+    "ElNotification": true
   }
 }

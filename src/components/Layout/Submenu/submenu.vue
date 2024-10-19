@@ -2,7 +2,7 @@
   <template v-for="item in list" :key="item.id">
     <el-sub-menu v-if="isNotEmpty(item.children)" :index="item.path || item.title" :level="level">
       <template #title>
-        <i class="iconfont-sys" :style="{ color: theme?.iconColor }">{{ item.icon }}</i>
+        <i class="menu-icon iconfont-sys" :style="{ color: theme?.iconColor }">{{ item.icon }}</i>
         <span>{{ getMenuTitle(item) }}</span>
         <div class="badge" style="right: 35px" v-if="item.showBadge"></div>
       </template>
@@ -17,7 +17,7 @@
       :level-item="level + 1"
     >
       <template #title>
-        <i class="iconfont-sys">{{ item.icon }}</i>
+        <i class="menu-icon iconfont-sys">{{ item.icon }}</i>
         <span>{{ getMenuTitle(item) }}</span>
         <div class="badge" v-if="item.showBadge"></div>
         <div class="text-badge" v-if="item.showTextBadge">

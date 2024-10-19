@@ -39,14 +39,14 @@
     }
   }
 
-  .iconfont-sys {
+  .menu-icon {
     font-size: 20px;
   }
 
   // 父级菜单
   .el-sub-menu__title {
     // 图标
-    .iconfont-sys {
+    .menu-icon {
       background-color: transparent !important;
     }
 
@@ -92,7 +92,7 @@
     }
 
     .el-sub-menu__title {
-      .iconfont-sys {
+      .menu-icon {
         margin-left: 3px !important;
       }
 
@@ -116,7 +116,7 @@
   .el-menu-dark.el-menu--collapse {
     .el-sub-menu.is-active {
       .el-sub-menu__title {
-        .iconfont-sys {
+        .menu-icon {
           color: var(--main-color) !important;
         }
       }
@@ -132,7 +132,7 @@
     }
 
     .el-sub-menu__title {
-      .iconfont-sys {
+      .menu-icon {
         margin-left: 3px !important;
       }
     }
@@ -171,7 +171,7 @@
   .el-menu-light.el-menu--collapse {
     .el-sub-menu.is-active {
       .el-sub-menu__title {
-        .iconfont-sys {
+        .menu-icon {
           color: var(--main-color) !important;
         }
       }
@@ -217,7 +217,7 @@
         width: calc(100% - $menu-spacing) !important;
 
         // 顶级菜单图标选中
-        .iconfont-sys {
+        .menu-icon {
           position: relative;
           left: -5px;
           width: 30px;
@@ -304,7 +304,7 @@
     &.el-menu--collapse {
       .el-sub-menu.is-active {
         .el-sub-menu__title {
-          .iconfont-sys {
+          .menu-icon {
             position: relative;
             left: -5px;
             padding: 0 5px !important;
