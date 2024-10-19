@@ -2,11 +2,19 @@
   <div class="top-bar" :style="{ width: topBarWidth() }">
     <div class="menu">
       <div class="left" style="display: flex">
+        <!-- 系统信息  -->
+        <div class="top-header" @click="toHome" v-if="isTopMenu">
+          <svg class="svg-icon2" aria-hidden="true">
+            <use xlink:href="#icon-zhaopian-copy"></use>
+          </svg>
+          <p v-if="width >= 1300">{{ SystemInfo.name }}</p>
+        </div>
+
         <svg class="svg-icon" aria-hidden="true" @click="toHome()">
           <use xlink:href="#icon-zhaopian-copy"></use>
         </svg>
         <!-- 菜单按钮 -->
-        <div class="btn-box">
+        <div class="btn-box" v-if="isLeftMenu">
           <div class="btn menu-btn">
             <i class="iconfont-sys" @click="visibleMenu" v-if="showMenuButton">&#xe6ba;</i>
           </div>
@@ -18,7 +26,10 @@
           </div>
         </div>
         <!-- 面包屑 -->
-        <breadcrumb v-if="showCrumbs" />
+        <breadcrumb v-if="showCrumbs && isLeftMenu" />
+
+        <!-- 菜单 -->
+        <MenuTop v-if="isTopMenu" :list="menuList" :width="menuTopWidth" />
       </div>
 
       <div class="right">
@@ -145,7 +156,7 @@
 <script setup lang="ts">
   import Breadcrumb from '../Breadcrumb/index.vue'
   import Notice from '../Notice/index.vue'
-  import { LanguageEnum, MenuWidth } from '@/enums/appEnum'
+  import { LanguageEnum, MenuTypeEnum, MenuWidth } from '@/enums/appEnum'
   import { useSettingStore } from '@/store/modules/setting'
   import { useUserStore } from '@/store/modules/user'
   import { fullScreen, exitScreen } from '@/utils/utils'
@@ -153,6 +164,8 @@
   import { HOME_PAGE } from '@/router'
   import { useI18n } from 'vue-i18n'
   import mittBus from '@/utils/mittBus'
+  import { useMenuStore } from '@/store/modules/menu'
+  import { SystemInfo } from '@/config/setting'
 
   const isWindows = navigator.userAgent.includes('Windows')
   const { locale } = useI18n()
@@ -174,7 +187,17 @@
   const systemThemeColor = computed(() => settingStore.systemThemeColor)
   const showSettingGuide = computed(() => settingStore.showSettingGuide)
   const userMenuPopover = ref()
+  const menuList = computed(() => useMenuStore().getMenuList)
+  const menuType = computed(() => settingStore.menuType)
+  const isLeftMenu = computed(() => menuType.value === MenuTypeEnum.LEFT)
+  const isTopMenu = computed(() => menuType.value === MenuTypeEnum.TOP)
   const { t } = useI18n()
+
+  const { width } = useWindowSize()
+
+  const menuTopWidth = computed(() => {
+    return width.value * 0.5
+  })
 
   onMounted(() => {
     initLanguage()
@@ -196,7 +219,13 @@
   }
 
   const topBarWidth = (): string => {
-    return menuOpen.value ? `calc(100% - ${MenuWidth.OPEN})` : `calc(100% - ${MenuWidth.CLOSE})`
+    if (menuType.value === MenuTypeEnum.TOP) {
+      return '100%'
+    } else if (menuType.value === MenuTypeEnum.LEFT) {
+      return menuOpen.value ? `calc(100% - ${MenuWidth.OPEN})` : `calc(100% - ${MenuWidth.CLOSE})`
+    } else {
+      return '100%'
+    }
   }
 
   const visibleMenu = () => {

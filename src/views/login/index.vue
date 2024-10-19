@@ -170,6 +170,7 @@
         title: getGreeting(),
         type: 'success',
         showClose: false,
+        duration: 3000,
         message: `欢迎登录 ${systemName}`
       })
     }, 300)

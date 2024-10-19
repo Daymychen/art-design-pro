@@ -19,6 +19,10 @@ export default {
     selectKeydown: '选择'
   },
   setting: {
+    menuType: {
+      title: '菜单布局',
+      list: ['垂直', '水平']
+    },
     theme: {
       title: '主题风格',
       list: ['浅色', '深色', '系统']

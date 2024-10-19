@@ -80,6 +80,52 @@
         </div>
       </div>
 
+      <div v-if="width > 1000">
+        <!-- 菜单布局 -->
+        <p class="title" style="margin-top: 10px">{{ $t('setting.menuType.title') }}</p>
+        <div class="menu-type">
+          <div class="menu-type-wrap">
+            <div class="item">
+              <div
+                class="box bl"
+                :class="{ 'is-active': isLeftMenu }"
+                @click="setMenuType(MenuTypeEnum.LEFT)"
+              >
+                <div class="bl-menu">
+                  <div class="line" v-for="i in 6" :key="i"></div>
+                </div>
+                <div class="bl-content">
+                  <div class="header"></div>
+                  <div class="row1">
+                    <div v-for="i in 2" :key="i"></div>
+                  </div>
+                  <div class="row2"></div>
+                </div>
+              </div>
+              <span class="name">{{ $t('setting.menuType.list[0]') }}</span>
+            </div>
+            <div class="item">
+              <div
+                class="box bt"
+                :class="{ 'is-active': isTopMenu }"
+                @click="setMenuType(MenuTypeEnum.TOP)"
+              >
+                <div class="bt-menu">
+                  <div class="line" v-for="i in 6" :key="i"></div>
+                </div>
+                <div class="bl-content">
+                  <div class="row1">
+                    <div v-for="i in 2" :key="i"></div>
+                  </div>
+                  <div class="row2"></div>
+                </div>
+              </div>
+              <span class="name">{{ $t('setting.menuType.list[1]') }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <p class="title" style="margin-top: 30px">{{ $t('setting.color.title') }}</p>
       <div class="main-color-wrap">
         <div class="offset">
@@ -177,7 +223,7 @@
 <script setup lang="ts">
   import { useSettingStore } from '@/store/modules/setting'
   import { SettingThemeList, ThemeList, SystemMainColor, SystemThemeStyles } from '@/config/setting'
-  import { SystemThemeEnum, MenuThemeEnum } from '@/enums/appEnum'
+  import { SystemThemeEnum, MenuThemeEnum, MenuTypeEnum } from '@/enums/appEnum'
   import { getDarkColor, getLightColor } from '@/utils/color'
   import { SystemThemeTypes } from '@/types/store'
   import mittBus from '@/utils/mittBus'
@@ -187,6 +233,24 @@
   const props = defineProps(['open'])
 
   const showDrawer = ref(false)
+
+  const { width } = useWindowSize()
+
+  const isTopMenuActive = ref(false)
+  const minWidth = 1000
+
+  // 观察窗口大小的变化以更新菜单类型
+  watch(width, (newWidth) => {
+    const newMenuType = newWidth < minWidth ? MenuTypeEnum.LEFT : MenuTypeEnum.TOP
+    if (isTopMenu.value) {
+      isTopMenuActive.value = true
+      setMenuType(newMenuType)
+    }
+
+    if (isTopMenuActive.value && newWidth >= minWidth) {
+      setMenuType(MenuTypeEnum.TOP)
+    }
+  })
 
   watch(
     () => props.open,
@@ -202,6 +266,8 @@
   const systemThemeColor = computed(() => store.systemThemeColor)
   const boxBorderMode = computed(() => store.boxBorderMode)
   const pageTransition = computed(() => store.pageTransition)
+  const isLeftMenu = computed(() => store.menuType === MenuTypeEnum.LEFT)
+  const isTopMenu = computed(() => store.menuType === MenuTypeEnum.TOP)
   const uniqueOpened = ref(true)
   const showMenuButton = ref(true)
   const autoClose = ref(true)
@@ -295,6 +361,12 @@
     } else {
       setSystemTheme(SystemThemeEnum.LIGHT, SystemThemeEnum.AUTO)
     }
+  }
+
+  const setMenuType = (type: MenuTypeEnum) => {
+    if (type === MenuTypeEnum.LEFT) store.setMenuOpen(true)
+    store.setMenuType(type)
+    isAutoClose()
   }
 
   // 切换系统主题

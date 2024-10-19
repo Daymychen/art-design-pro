@@ -153,8 +153,26 @@
     user-select: none;
     background: var(--art-bg-color);
 
-    .left {
+    > .left {
       line-height: 60px;
+
+      .top-header {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        .svg-icon2 {
+          width: 32px;
+          height: 32px;
+          padding-left: 18px;
+        }
+
+        p {
+          margin: 0 10px 0 15px;
+          font-size: 18px;
+          font-weight: 500;
+        }
+      }
 
       .svg-icon {
         display: none;

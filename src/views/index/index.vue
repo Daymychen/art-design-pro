@@ -1,7 +1,7 @@
 <template>
   <div class="frame" :style="{ paddingLeft, paddingTop }">
     <!-- 左侧菜单 -->
-    <menu-left></menu-left>
+    <menu-left v-if="menuType === MenuTypeEnum.LEFT"></menu-left>
 
     <!-- 搜索组件 -->
     <search></search>
@@ -46,7 +46,7 @@
   import TopBar from '@comps/Layout/TopBar/index.vue'
   import WorkTab from '@comps/Layout/WorkTab/index.vue'
   import Setting from '@comps/Layout/Setting/index.vue'
-  import { MenuWidth } from '@/enums/appEnum'
+  import { MenuWidth, MenuTypeEnum } from '@/enums/appEnum'
   import { useMenuStore } from '@/store/modules/menu'
   import { useSettingStore } from '@/store/modules/setting'
 
@@ -68,11 +68,14 @@
   // 页面动画
   const pageTransition = computed(() => settingStore.pageTransition)
 
+  // 菜单类型
+  const menuType = computed(() => settingStore.menuType)
+
   // 根据菜单是否打开来设置左侧填充宽度
   const paddingLeft = computed(() => {
     const width = menuOpen.value ? MenuWidth.OPEN : MenuWidth.CLOSE
     menuStore.setMenuWidth(width) // 更新菜单宽度
-    return width
+    return menuType.value === MenuTypeEnum.LEFT ? width : 0
   })
 
   // 根据是否显示工作标签来设置最小高度

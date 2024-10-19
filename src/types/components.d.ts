@@ -58,6 +58,8 @@ declare module 'vue' {
     FormSelect: typeof import('./../components/Form/FormSelect.vue')['default']
     IconSelector: typeof import('./../components/Icons/IconSelector.vue')['default']
     MenuLeft: typeof import('./../components/Layout/MenuLeft/index.vue')['default']
+    MenuTop: typeof import('./../components/Layout/MenuTop/index.vue')['default']
+    MenuTopSubmenu: typeof import('./../components/Layout/MenuTop/MenuTopSubmenu.vue')['default']
     Network: typeof import('./../components/Widgets/Network.vue')['default']
     Notice: typeof import('./../components/Layout/Notice/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

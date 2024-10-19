@@ -19,6 +19,10 @@ export default {
     selectKeydown: 'Select'
   },
   setting: {
+    menuType: {
+      title: 'Menu Layout',
+      list: ['Vertical', 'Horizontal']
+    },
     theme: {
       title: 'Theme Style',
       list: ['Light', 'Dark', 'System']

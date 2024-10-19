@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia'
 import { MenuThemeType } from '@/types/store'
 import { ThemeList, ElementPlusTheme, DarkMenuStyles } from '@/config/setting'
-import { SystemThemeEnum, MenuThemeEnum } from '@/enums/appEnum'
+import { SystemThemeEnum, MenuThemeEnum, MenuTypeEnum } from '@/enums/appEnum'
 import { colourBlend, handleElementThemeColor } from '@/utils/utils'
 import { getSysStorage } from '@/utils/storage'
 
 export interface SettingState {
+  menuType: MenuTypeEnum // 菜单类型
   systemThemeType: SystemThemeEnum // 全局主题类型 light dark
   systemThemeMode: SystemThemeEnum // 全局主题模式 light dark auto
   menuThemeType: MenuThemeEnum // 菜单主题类型
@@ -29,6 +30,7 @@ export interface SettingState {
 export const useSettingStore = defineStore({
   id: 'settingStore',
   state: (): SettingState => ({
+    menuType: MenuTypeEnum.LEFT,
     systemThemeType: SystemThemeEnum.LIGHT,
     systemThemeMode: SystemThemeEnum.LIGHT,
     menuThemeType: MenuThemeEnum.DESIGN,
@@ -70,7 +72,7 @@ export const useSettingStore = defineStore({
       if (sys) {
         sys = JSON.parse(sys)
         const { setting } = sys.user
-
+        this.menuType = setting.menuType || MenuTypeEnum.LEFT
         this.systemThemeType = setting.systemThemeType || SystemThemeEnum.LIGHT
         this.systemThemeMode = setting.systemThemeMode || SystemThemeEnum.LIGHT
         this.menuThemeType = setting.menuThemeType || MenuThemeEnum.DESIGN
@@ -93,6 +95,9 @@ export const useSettingStore = defineStore({
       } else {
         setElementThemeColor(ElementPlusTheme.primary)
       }
+    },
+    setMenuType(type: MenuTypeEnum) {
+      this.menuType = type
     },
     setGlopTheme(theme: SystemThemeEnum, themeMode: SystemThemeEnum) {
       this.systemThemeType = theme
