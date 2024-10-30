@@ -539,19 +539,21 @@
 <style lang="scss">
   .setting-modal {
     background: transparent !important;
-  }
 
-  .el-drawer {
-    // 背景滤镜
-    background: rgba($color: #fff, $alpha: 50%) !important;
-    box-shadow: 0 0 30px rgb(0 0 0 / 10%) !important;
+    .el-drawer {
+      // 背景滤镜
+      background: rgba($color: #fff, $alpha: 50%) !important;
+      box-shadow: 0 0 30px rgb(0 0 0 / 10%) !important;
 
-    @include backdropBlur();
+      @include backdropBlur();
+    }
   }
 
   .dark {
-    .el-drawer {
-      background: rgba($color: #000, $alpha: 50%) !important;
+    .setting-modal {
+      .el-drawer {
+        background: rgba($color: #000, $alpha: 50%) !important;
+      }
     }
   }
 
@@ -559,16 +561,6 @@
   .el-drawer__body::-webkit-scrollbar {
     width: 0 !important;
   }
-
-  // .el-switch.is-checked .el-switch__core {
-  //   border-color: transparent !important;
-  //   background-image: linear-gradient(310deg,#18D6FF,#1890FF) !important;
-  // }
-
-  // .el-switch .el-switch__core {
-  //   border-color: transparent !important;
-  //   background: #E8E9E9 !important;
-  // }
 </style>
 
 <style lang="scss" scoped>

@@ -29,10 +29,10 @@
     "*.{vue,html}": [
       "eslint --fix",
       "prettier --write",
-      "stylelint --fix"
+      "stylelint --fix --allow-empty-input"
     ],
     "*.{scss,css}": [
-      "stylelint --fix",
+      "stylelint --fix --allow-empty-input",
       "prettier --write"
     ],
     "*.md": [

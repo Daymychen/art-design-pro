@@ -218,11 +218,6 @@
   outline: unset;
 }
 
-.el-table th,
-.el-table tr {
-  background-color: transparent !important;
-}
-
 // ipad 表单右侧按钮优化
 @media screen and (max-width: $device-ipad-pro) {
   .el-table-fixed-column--right {
