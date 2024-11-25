@@ -71,9 +71,7 @@ declare module 'vue' {
     Submenu: typeof import('./../components/Layout/Submenu/submenu.vue')['default']
     TableBar: typeof import('./../components/Table/TableBar.vue')['default']
     Templae: typeof import('./../components/Templae.vue')['default']
-    ThemeWidget: typeof import('./../components/Layout/Setting/ThemeWidget/index.vue')['default']
     TopBar: typeof import('./../components/Layout/TopBar/index.vue')['default']
-    TopMenu: typeof import('./../components/Layout/MixedMenu/TopMenu.vue')['default']
     WorkTab: typeof import('./../components/Layout/WorkTab/index.vue')['default']
   }
 }

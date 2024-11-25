@@ -192,8 +192,9 @@
 
   @media (max-width: $device-notebook) {
     .mixed-top-menu {
-      .scroll-bar {
-        width: 40vw;
+      :deep(.scrollbar-wrapper) {
+        width: 41vw;
+        margin: 0 30px;
       }
     }
   }
