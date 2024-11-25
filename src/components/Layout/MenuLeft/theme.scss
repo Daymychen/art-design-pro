@@ -33,9 +33,47 @@
 
 .menu-left {
   // ---------------------- Modify default style ----------------------
-  .header {
-    .svg-icon {
-      margin-left: 18px;
+
+  &.menu-left-dark,
+  &.menu-left-light {
+    .header {
+      .svg-icon {
+        margin-left: 22px !important;
+      }
+
+      p {
+        left: 60px !important;
+      }
+    }
+  }
+
+  &.menu-left-design.menu-left-close {
+    .header {
+      .svg-icon {
+        margin-left: 16px !important;
+      }
+    }
+
+    .el-sub-menu__title,
+    .el-menu-item {
+      width: 100% !important;
+    }
+  }
+
+  &.menu-left-dark.menu-left-close,
+  &.menu-left-light.menu-left-close {
+    .header {
+      .svg-icon {
+        margin-left: 20px !important;
+      }
+    }
+  }
+
+  &.menu-left-dark {
+    .header {
+      .svg-icon {
+        margin-left: 28px;
+      }
     }
   }
 
@@ -43,28 +81,20 @@
     font-size: 20px;
   }
 
-  // 父级菜单
-  .el-sub-menu__title {
-    // 图标
-    .iconfont-sys {
-      background-color: transparent !important;
-    }
-
-    span {
-      margin-left: 10px !important;
-      background-color: transparent !important;
-    }
+  // 菜单图标
+  .menu-icon {
+    margin-right: 10px;
   }
 
-  // 子菜单
+  // 菜单高度
+  .el-sub-menu__title,
   .el-menu-item {
-    height: 45px;
-    line-height: 45px;
+    height: 52px !important;
+    line-height: 52px !important;
+    transition: background-color 0s !important;
 
     span {
-      margin-left: 14px;
-      font-size: 13px;
-      background-color: transparent !important;
+      font-size: 14px !important;
     }
   }
 
@@ -73,16 +103,6 @@
     right: 20px;
     width: 15px !important;
     font-weight: bold;
-  }
-
-  // 鼠标移入背景色过渡时间加快
-  .el-sub-menu__title,
-  .el-menu-item {
-    transition: background-color 0s !important;
-
-    span {
-      font-size: 14px !important;
-    }
   }
 
   // ---------------------- Dark theme menu ----------------------
@@ -144,11 +164,8 @@
     // 选中颜色
     .el-menu-item.is-active {
       color: var(--main-color) !important;
-      background-image: linear-gradient(
-        to right,
-        var(--el-color-primary-custom-14),
-        var(--el-color-primary-custom-14)
-      );
+      background-color: var(--el-color-primary-light-9);
+      background-image: var(--el-color-primary-custom-14);
 
       &::before {
         position: absolute;
@@ -179,145 +196,32 @@
   }
 
   // ---------------------- Design theme menu ----------------------
+
   .el-menu-design {
-    overflow: hidden;
-    $menu-spacing: 8px; // 左右间距
-
-    // 右侧箭头
-    .el-icon {
-      color: var(--art-gray-900) !important;
+    .el-sub-menu__title,
+    .el-menu-item {
+      width: calc(100% - 16px);
+      margin: 0 auto;
+      margin-bottom: 5px;
+      border-radius: 6px;
     }
 
-    > .el-sub-menu {
-      margin-left: $menu-spacing;
+    .el-sub-menu__icon-arrow {
+      color: var(--art-gray-600);
     }
 
-    .el-sub-menu {
-      width: calc(100% - $menu-spacing) !important;
+    // 选中颜色
+    .el-menu-item.is-active {
+      color: var(--main-color) !important;
+      background-color: var(--el-color-primary-light-9);
+      background-image: var(--el-color-primary-custom-14);
     }
 
-    .el-sub-menu__title {
-      width: calc(100% - $menu-spacing) !important;
-      height: 52px;
-      margin: 10px 0; // 调整每一个菜单项的间距
-
-      &:hover {
-        background: var(--art-gray-200) !important;
-      }
+    // 鼠标移入背景色
+    .el-sub-menu__title:hover,
+    .el-menu-item:not(.is-active):hover {
+      background: var(--art-gray-100) !important;
     }
-
-    [level='0'] {
-      > .el-sub-menu__title {
-        padding-left: 15px !important;
-      }
-    }
-
-    [level='0'].is-active {
-      > .el-sub-menu__title {
-        width: calc(100% - $menu-spacing) !important;
-
-        // 顶级菜单图标选中
-        .iconfont-sys {
-          position: relative;
-          left: -5px;
-          width: 30px;
-          height: 30px;
-          line-height: 30px;
-          color: #fff !important;
-          text-align: center;
-          background: var(--main-color) !important;
-          border-radius: 6px;
-        }
-
-        span {
-          position: relative;
-          left: -2px;
-        }
-      }
-    }
-
-    &:not(.el-menu--collapse) {
-      .el-sub-menu__title {
-        width: calc(100% - $menu-spacing) !important;
-      }
-
-      .el-sub-menu__title,
-      .el-menu-item {
-        width: 100%;
-        border-radius: 0;
-      }
-
-      > .el-sub-menu.is-active {
-        position: relative;
-
-        > .el-sub-menu__title {
-          background-color: #fff !important;
-          border-radius: 8px;
-          box-shadow: 0 0 27px rgb(0 0 0 / 5%);
-
-          span {
-            color: var(--main-color) !important;
-          }
-        }
-      }
-
-      .el-menu-item {
-        box-sizing: border-box;
-        width: calc(100% - 19px);
-      }
-
-      .el-sub-menu__icon-arrow {
-        right: 15px;
-        color: var(--art-gray-600);
-      }
-
-      // 小圆点
-      .el-menu-item.is-active {
-        font-weight: 500;
-        color: var(--art-gray-800) !important;
-        background: transparent !important;
-
-        &::before {
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          width: 6px;
-          height: 6px;
-          margin: auto;
-          margin-left: -18px;
-          content: '';
-          background: var(--art-gray-700);
-          border-radius: 50%;
-          transition: all 0.2s;
-        }
-      }
-
-      // 鼠标移入背景色
-      .el-sub-menu__title:hover,
-      .el-menu-item:not(.is-active):hover {
-        background: rgba(var(--art-gray-200-rgb), 0.7) !important;
-        border-radius: 8px;
-      }
-    }
-
-    // 菜单折叠样式
-    &.el-menu--collapse {
-      .el-sub-menu.is-active {
-        .el-sub-menu__title {
-          .iconfont-sys {
-            position: relative;
-            left: -5px;
-            padding: 0 5px !important;
-          }
-        }
-      }
-    }
-  }
-}
-
-[data-box-mode='shadow-mode'] {
-  .el-menu-design .el-sub-menu__title {
-    width: 100% !important;
   }
 }
 

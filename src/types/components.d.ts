@@ -41,6 +41,7 @@ declare module 'vue' {
     ElRadioButton: typeof import('element-plus/es')['ElRadioButton']
     ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
     ElRow: typeof import('element-plus/es')['ElRow']
+    ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSegmented: typeof import('element-plus/es')['ElSegmented']
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElSkeleton: typeof import('element-plus/es')['ElSkeleton']
@@ -60,6 +61,7 @@ declare module 'vue' {
     MenuLeft: typeof import('./../components/Layout/MenuLeft/index.vue')['default']
     MenuTop: typeof import('./../components/Layout/MenuTop/index.vue')['default']
     MenuTopSubmenu: typeof import('./../components/Layout/MenuTop/MenuTopSubmenu.vue')['default']
+    MixedMenu: typeof import('./../components/Layout/MixedMenu/index.vue')['default']
     Network: typeof import('./../components/Widgets/Network.vue')['default']
     Notice: typeof import('./../components/Layout/Notice/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
@@ -69,7 +71,9 @@ declare module 'vue' {
     Submenu: typeof import('./../components/Layout/Submenu/submenu.vue')['default']
     TableBar: typeof import('./../components/Table/TableBar.vue')['default']
     Templae: typeof import('./../components/Templae.vue')['default']
+    ThemeWidget: typeof import('./../components/Layout/Setting/ThemeWidget/index.vue')['default']
     TopBar: typeof import('./../components/Layout/TopBar/index.vue')['default']
+    TopMenu: typeof import('./../components/Layout/MixedMenu/TopMenu.vue')['default']
     WorkTab: typeof import('./../components/Layout/WorkTab/index.vue')['default']
   }
 }

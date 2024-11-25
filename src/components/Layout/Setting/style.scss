@@ -187,6 +187,80 @@
               }
             }
           }
+
+          &.tl {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 5px;
+
+            .tl-left {
+              min-width: 10px;
+              margin: 2px 0;
+              background-color: #ddd;
+              border-radius: 2px;
+
+              > div {
+                width: 4px;
+                height: 2px;
+                margin: 4px auto;
+                background: #fff;
+              }
+            }
+
+            .tl-right {
+              width: calc(100% - 14px);
+
+              .bt-menu {
+                box-sizing: border-box;
+                display: flex;
+                align-items: center;
+                height: 10px;
+                padding: 0 3px;
+                margin: 2px auto;
+                overflow: hidden;
+                background-color: #ddd;
+                border-radius: 2px;
+
+                .line {
+                  width: 7px;
+                  height: 2px;
+                  margin-right: 2px;
+                  background: #fff;
+                }
+              }
+
+              .bl-content {
+                box-sizing: border-box;
+                height: 100%;
+
+                .row1 {
+                  display: flex;
+                  justify-content: space-between;
+                  margin-top: 4px;
+
+                  div {
+                    height: 12px;
+                    background-color: #edeef0;
+                    border-radius: 2px;
+
+                    &:first-of-type {
+                      width: 37%;
+                    }
+
+                    &:last-of-type {
+                      width: 55%;
+                    }
+                  }
+                }
+
+                .row2 {
+                  height: 12px;
+                  margin-top: 4px;
+                  background-color: #edeef0;
+                }
+              }
+            }
+          }
         }
 
         .name {

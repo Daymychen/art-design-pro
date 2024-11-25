@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.0.68',
+    title: '增加混合菜单模式',
+    date: '2024-11-25',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.0.67',
     title: '修复表格固定列透明问题、修复el-drawer背景问题',
     date: '2024-10-30',

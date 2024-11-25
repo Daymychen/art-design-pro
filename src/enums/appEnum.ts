@@ -3,7 +3,8 @@
 // 菜单类型
 export enum MenuTypeEnum {
   LEFT = 'left',
-  TOP = 'top'
+  TOP = 'top',
+  TOP_LEFT = 'top-left'
 }
 
 // App theme enum

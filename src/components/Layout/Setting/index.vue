@@ -47,7 +47,79 @@
         </div>
       </div>
 
-      <p class="title" style="margin-top: 30px">{{ $t('setting.menu.title') }}</p>
+      <div v-if="width > 1000">
+        <!-- 菜单布局 -->
+        <p class="title" style="margin-top: 30px">{{ $t('setting.menuType.title') }}</p>
+        <div class="menu-type">
+          <div class="menu-type-wrap">
+            <!-- 左侧菜单 -->
+            <div class="item">
+              <div
+                class="box bl"
+                :class="{ 'is-active': isLeftMenu }"
+                @click="setMenuType(MenuTypeEnum.LEFT)"
+              >
+                <div class="bl-menu">
+                  <div class="line" v-for="i in 6" :key="i"></div>
+                </div>
+                <div class="bl-content">
+                  <div class="header"></div>
+                  <div class="row1">
+                    <div v-for="i in 2" :key="i"></div>
+                  </div>
+                  <div class="row2"></div>
+                </div>
+              </div>
+              <span class="name">{{ $t('setting.menuType.list[0]') }}</span>
+            </div>
+            <!-- 顶部菜单 -->
+            <div class="item">
+              <div
+                class="box bt"
+                :class="{ 'is-active': isTopMenu }"
+                @click="setMenuType(MenuTypeEnum.TOP)"
+              >
+                <div class="bt-menu">
+                  <div class="line" v-for="i in 6" :key="i"></div>
+                </div>
+                <div class="bl-content">
+                  <div class="row1">
+                    <div v-for="i in 2" :key="i"></div>
+                  </div>
+                  <div class="row2"></div>
+                </div>
+              </div>
+              <span class="name">{{ $t('setting.menuType.list[1]') }}</span>
+            </div>
+            <!-- 混合菜单 -->
+            <div class="item">
+              <div
+                class="box tl"
+                :class="{ 'is-active': isTopLeftMenu }"
+                @click="setMenuType(MenuTypeEnum.TOP_LEFT)"
+              >
+                <div class="tl-left">
+                  <div class="line" v-for="i in 6" :key="i"></div>
+                </div>
+                <div class="tl-right">
+                  <div class="bt-menu">
+                    <div class="line" v-for="i in 6" :key="i"></div>
+                  </div>
+                  <div class="bl-content">
+                    <div class="row1">
+                      <div v-for="i in 2" :key="i"></div>
+                    </div>
+                    <div class="row2"></div>
+                  </div>
+                </div>
+              </div>
+              <span class="name">{{ $t('setting.menuType.list[2]') }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="title" style="margin-top: 20px">{{ $t('setting.menu.title') }}</p>
       <div class="menu-theme-wrap">
         <div>
           <div
@@ -80,52 +152,6 @@
         </div>
       </div>
 
-      <div v-if="width > 1000">
-        <!-- 菜单布局 -->
-        <p class="title" style="margin-top: 10px">{{ $t('setting.menuType.title') }}</p>
-        <div class="menu-type">
-          <div class="menu-type-wrap">
-            <div class="item">
-              <div
-                class="box bl"
-                :class="{ 'is-active': isLeftMenu }"
-                @click="setMenuType(MenuTypeEnum.LEFT)"
-              >
-                <div class="bl-menu">
-                  <div class="line" v-for="i in 6" :key="i"></div>
-                </div>
-                <div class="bl-content">
-                  <div class="header"></div>
-                  <div class="row1">
-                    <div v-for="i in 2" :key="i"></div>
-                  </div>
-                  <div class="row2"></div>
-                </div>
-              </div>
-              <span class="name">{{ $t('setting.menuType.list[0]') }}</span>
-            </div>
-            <div class="item">
-              <div
-                class="box bt"
-                :class="{ 'is-active': isTopMenu }"
-                @click="setMenuType(MenuTypeEnum.TOP)"
-              >
-                <div class="bt-menu">
-                  <div class="line" v-for="i in 6" :key="i"></div>
-                </div>
-                <div class="bl-content">
-                  <div class="row1">
-                    <div v-for="i in 2" :key="i"></div>
-                  </div>
-                  <div class="row2"></div>
-                </div>
-              </div>
-              <span class="name">{{ $t('setting.menuType.list[1]') }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <p class="title" style="margin-top: 30px">{{ $t('setting.color.title') }}</p>
       <div class="main-color-wrap">
         <div class="offset">
@@ -146,15 +172,15 @@
         <div v-if="false">{{ boxBorderMode }}</div>
         <div
           class="button"
-          :class="{ 'is-active': !boxBorderMode }"
-          @click="switchBoxMode(false, 'shadow-mode')"
+          :class="{ 'is-active': boxBorderMode }"
+          @click="switchBoxMode(false, 'border-mode')"
         >
           {{ $t('setting.box.list[0]') }}
         </div>
         <div
           class="button"
-          :class="{ 'is-active': boxBorderMode }"
-          @click="switchBoxMode(false, 'border-mode')"
+          :class="{ 'is-active': !boxBorderMode }"
+          @click="switchBoxMode(false, 'shadow-mode')"
         >
           {{ $t('setting.box.list[1]') }}
         </div>
@@ -268,6 +294,7 @@
   const pageTransition = computed(() => store.pageTransition)
   const isLeftMenu = computed(() => store.menuType === MenuTypeEnum.LEFT)
   const isTopMenu = computed(() => store.menuType === MenuTypeEnum.TOP)
+  const isTopLeftMenu = computed(() => store.menuType === MenuTypeEnum.TOP_LEFT)
   const uniqueOpened = ref(true)
   const showMenuButton = ref(true)
   const autoClose = ref(true)

@@ -21,7 +21,7 @@ export default {
   setting: {
     menuType: {
       title: 'Menu Layout',
-      list: ['Vertical', 'Horizontal']
+      list: ['Vertical', 'Horizontal', 'Mixed']
     },
     theme: {
       title: 'Theme Style',
@@ -35,7 +35,7 @@ export default {
     },
     box: {
       title: 'Box Style',
-      list: ['Shadow', 'Border']
+      list: ['Border', 'Shadow']
     },
     basics: {
       title: 'Basic Config',

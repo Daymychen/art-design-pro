@@ -1,7 +1,7 @@
 <template>
   <div class="frame" :style="{ paddingLeft, paddingTop }">
     <!-- 左侧菜单 -->
-    <menu-left v-if="menuType === MenuTypeEnum.LEFT"></menu-left>
+    <menu-left v-if="showLeftMenu"></menu-left>
 
     <!-- 搜索组件 -->
     <search></search>
@@ -57,6 +57,9 @@
   const settingStore = useSettingStore()
   const menuStore = useMenuStore()
 
+  // 是否显示左侧菜单
+  const showLeftMenu = computed(() => menuType.value !== MenuTypeEnum.TOP)
+
   // 菜单是否打开
   const menuOpen = computed(() => settingStore.menuOpen)
 
@@ -75,7 +78,7 @@
   const paddingLeft = computed(() => {
     const width = menuOpen.value ? MenuWidth.OPEN : MenuWidth.CLOSE
     menuStore.setMenuWidth(width) // 更新菜单宽度
-    return menuType.value === MenuTypeEnum.LEFT ? width : 0
+    return menuType.value !== MenuTypeEnum.TOP ? width : 0
   })
 
   // 根据是否显示工作标签来设置最小高度

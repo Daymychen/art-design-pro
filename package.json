@@ -60,8 +60,7 @@
     "vue": "^3.4.35",
     "vue-i18n": "^9.14.0",
     "vue-router": "^4.4.2",
-    "vue3-count-to": "^1.1.2",
-    "vuex": "^4.1.0"
+    "vue3-count-to": "^1.1.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.4.1",

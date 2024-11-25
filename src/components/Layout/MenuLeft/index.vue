@@ -44,7 +44,7 @@
   import { HOME_PAGE } from '@/router/index'
   import { useSettingStore } from '@/store/modules/setting'
   import { SystemInfo } from '@/config/setting'
-  import { MenuWidth } from '@/enums/appEnum'
+  import { MenuTypeEnum, MenuWidth } from '@/enums/appEnum'
   import { useMenuStore } from '@/store/modules/menu'
 
   const route = useRoute()
@@ -56,7 +56,18 @@
   const collapse = computed(() => !settingStore.menuOpen)
   const uniqueOpened = computed(() => settingStore.uniqueOpened)
   const defaultOpenedsArray = ref([])
-  const menuList = computed(() => useMenuStore().getMenuList)
+  // const menuList = computed(() => useMenuStore().getMenuList)
+
+  const menuList = computed(() => {
+    const list = useMenuStore().getMenuList
+    if (settingStore.menuType === MenuTypeEnum.TOP_LEFT) {
+      const currentTopPath = '/' + route.path.split('/')[1]
+      const currentTopMenu = list.find((menu) => menu.path === currentTopPath)
+      return currentTopMenu?.children || []
+    }
+
+    return list
+  })
 
   const routerPath = computed(() => {
     if (route.path === '/user/user') {

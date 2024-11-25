@@ -28,8 +28,11 @@
         <!-- 面包屑 -->
         <breadcrumb v-if="showCrumbs && isLeftMenu" />
 
-        <!-- 菜单 -->
+        <!-- 顶部菜单 -->
         <MenuTop v-if="isTopMenu" :list="menuList" :width="menuTopWidth" />
+
+        <!-- 混合菜单-顶部 -->
+        <MixedMenu v-if="isTopLeftMenu" :list="menuList" :width="menuTopWidth" />
       </div>
 
       <div class="right">
@@ -156,6 +159,7 @@
 <script setup lang="ts">
   import Breadcrumb from '../Breadcrumb/index.vue'
   import Notice from '../Notice/index.vue'
+  import MixedMenu from '../MixedMenu/index.vue'
   import { LanguageEnum, MenuTypeEnum, MenuWidth } from '@/enums/appEnum'
   import { useSettingStore } from '@/store/modules/setting'
   import { useUserStore } from '@/store/modules/user'
@@ -191,6 +195,7 @@
   const menuType = computed(() => settingStore.menuType)
   const isLeftMenu = computed(() => menuType.value === MenuTypeEnum.LEFT)
   const isTopMenu = computed(() => menuType.value === MenuTypeEnum.TOP)
+  const isTopLeftMenu = computed(() => menuType.value === MenuTypeEnum.TOP_LEFT)
   const { t } = useI18n()
 
   const { width } = useWindowSize()
@@ -221,10 +226,8 @@
   const topBarWidth = (): string => {
     if (menuType.value === MenuTypeEnum.TOP) {
       return '100%'
-    } else if (menuType.value === MenuTypeEnum.LEFT) {
-      return menuOpen.value ? `calc(100% - ${MenuWidth.OPEN})` : `calc(100% - ${MenuWidth.CLOSE})`
     } else {
-      return '100%'
+      return menuOpen.value ? `calc(100% - ${MenuWidth.OPEN})` : `calc(100% - ${MenuWidth.CLOSE})`
     }
   }
 

@@ -34,7 +34,7 @@ export const useSettingStore = defineStore({
     systemThemeType: SystemThemeEnum.LIGHT,
     systemThemeMode: SystemThemeEnum.LIGHT,
     menuThemeType: MenuThemeEnum.DESIGN,
-    boxBorderMode: false,
+    boxBorderMode: true,
     uniqueOpened: true,
     systemThemeColor: ElementPlusTheme.primary,
     showMenuButton: true,
