@@ -330,12 +330,6 @@ export const menuData: MenuListType[] = [
         title: '图标选择器',
         title_en: 'Icon selector',
         path: '/widgets/icon-selector'
-      },
-      {
-        id: 505,
-        title: '通知',
-        title_en: 'Notification',
-        path: '/widgets/notification'
       }
     ]
   },

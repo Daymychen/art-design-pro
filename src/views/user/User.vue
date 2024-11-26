@@ -10,19 +10,19 @@
 
           <div class="outer-info">
             <div>
-              <i class="iconfont">&#xe806;</i>
+              <i class="iconfont-sys">&#xe72e;</i>
               <span>576123721@mall.com</span>
             </div>
             <div>
-              <i class="iconfont">&#xe7fd;</i>
+              <i class="iconfont-sys">&#xe608;</i>
               <span>交互专家</span>
             </div>
             <div>
-              <i class="iconfont">&#xe63f;</i>
+              <i class="iconfont-sys">&#xe736;</i>
               <span>广东省深圳市</span>
             </div>
             <div>
-              <i class="iconfont">&#xe7d9;</i>
+              <i class="iconfont-sys">&#xe811;</i>
               <span>字节跳动－某某平台部－UED</span>
             </div>
           </div>

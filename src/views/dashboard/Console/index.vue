@@ -22,22 +22,22 @@
         <div class="button-wrap">
           <div class="btn" @click="goPage('https://www.lingchen.kim/art-design-pro/docs/')">
             <span>项目官网</span>
-            <i class="iconfont">&#xe7e7;</i>
+            <i class="iconfont-sys">&#xe703;</i>
           </div>
           <div
             class="btn"
             @click="goPage('https://www.lingchen.kim/art-design-pro/docs/guide/introduce.html')"
           >
             <span>文档</span>
-            <i class="iconfont">&#xe7e7;</i>
+            <i class="iconfont-sys">&#xe703;</i>
           </div>
           <div class="btn" @click="goPage('https://github.com/Daymychen')">
             <span>Github</span>
-            <i class="iconfont">&#xe7e7;</i>
+            <i class="iconfont-sys">&#xe703;</i>
           </div>
           <div class="btn" @click="goPage('https://www.lingchen.kim')">
             <span>博客</span>
-            <i class="iconfont">&#xe7e7;</i>
+            <i class="iconfont-sys">&#xe703;</i>
           </div>
         </div>
       </div>

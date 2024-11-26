@@ -8,5 +8,7 @@
 <script setup lang="ts">
   import IconSelector from '@comps/Icons/IconSelector.vue'
 
-  const getIcon = () => {}
+  const getIcon = (icon: string) => {
+    console.log(icon)
+  }
 </script>

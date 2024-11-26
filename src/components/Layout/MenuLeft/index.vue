@@ -7,7 +7,7 @@
   >
     <div class="header" @click="toHome" :style="{ background: theme.background }">
       <svg class="svg-icon" aria-hidden="true">
-        <use xlink:href="#icon-zhaopian-copy"></use>
+        <use xlink:href="#iconsys-zhaopian-copy"></use>
       </svg>
       <p :style="{ color: theme.systemNameColor, opacity: collapse ? 0 : 1 }">
         {{ SystemInfo.name }}

@@ -394,14 +394,6 @@ export const roleRoutes: AppRouteRecordRaw[] = [
           title: '图标选择器',
           keepAlive: true
         }
-      },
-      {
-        path: '/widgets/notification',
-        component: () => import('@views/widgets/Notification.vue'),
-        meta: {
-          title: '通知',
-          keepAlive: true
-        }
       }
     ]
   },

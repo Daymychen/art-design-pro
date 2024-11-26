@@ -1,10 +1,34 @@
 <template>
   <div class="page-content">
-    <div class="el-tabs-content">
-      <ul class="icon-list" v-show="activeName === 'icons'">
-        <li v-for="icon in iconsList" :key="icon" @click="copyIcon(icon)">
-          <i class="iconfont" v-html="icon"></i>
-          <span>{{ icon }}</span>
+    <div class="form">
+      <el-select v-model="iconType" placeholder="Select" size="large" style="width: 240px">
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        />
+      </el-select>
+      <div class="colors-icon">
+        <el-checkbox v-model="isColorsIcon" label="彩色图标" size="large" />
+      </div>
+    </div>
+    <div class="list">
+      <ul class="icon-list">
+        <li v-for="icon in systemIconClasses" :key="icon.className" @click="copyIcon(icon)">
+          <i
+            class="iconfont-sys custom-text"
+            v-if="iconType === 'unicode'"
+            v-html="icon.unicode"
+            :style="getIconStyle()"
+          ></i>
+          <i
+            class="custom-text"
+            :class="`iconfont-sys ${icon.className}`"
+            v-else
+            :style="getIconStyle()"
+          ></i>
+          <span>{{ iconType === 'unicode' ? icon.unicode : icon.className }}</span>
         </li>
       </ul>
     </div>
@@ -12,20 +36,51 @@
 </template>
 
 <script lang="ts" setup>
-  import { iconsList } from '@/assets/icons/icons'
+  import { extractIconClasses, IconfontType } from '@/utils/iconfont'
   import { ElMessage } from 'element-plus'
 
-  let activeName = 'icons'
+  const iconType = ref('fontClass')
+  const options = [
+    {
+      value: 'unicode',
+      label: 'Unicode'
+    },
+    {
+      value: 'fontClass',
+      label: 'Font class'
+    }
+  ]
+  const systemIconClasses = ref<IconfontType[]>([])
 
-  const copyIcon = (text: string) => {
+  const isColorsIcon = ref(true)
+
+  onMounted(() => {
+    systemIconClasses.value = extractIconClasses()
+  })
+
+  const copyIcon = (text: IconfontType) => {
+    if (!text) return
+
     let copyipt = document.createElement('input')
-    copyipt.setAttribute('value', text)
+    copyipt.setAttribute(
+      'value',
+      (iconType.value === 'unicode' ? text.unicode : text.className) || ''
+    )
     document.body.appendChild(copyipt)
     copyipt.select()
     document.execCommand('copy')
     document.body.removeChild(copyipt)
 
     ElMessage.success(`已复制`)
+  }
+
+  const getRandomColor = () => {
+    const colors = ['#2d8cf0', '#19be6b', '#ff9900', '#f24965', '#9463f7']
+    return colors[Math.floor(Math.random() * colors.length)]
+  }
+
+  const getIconStyle = () => {
+    return isColorsIcon.value ? { color: getRandomColor() } : { color: 'var(--art-text-gray-700)' }
   }
 </script>
 
@@ -36,7 +91,23 @@
 
     $border-color: #eee;
 
-    .el-tabs-content {
+    .form {
+      display: flex;
+      align-items: center;
+
+      .colors-icon {
+        box-sizing: border-box;
+        height: 40px;
+        padding: 0 30px;
+        margin-left: 10px;
+        border: 1px solid var(--art-border-dashed-color);
+        border-radius: 8px;
+      }
+    }
+
+    .list {
+      margin-top: 20px;
+
       .icon-list {
         display: grid;
         grid-template-columns: repeat(12, 1fr);
@@ -49,6 +120,7 @@
           flex-direction: column;
           justify-content: center;
           aspect-ratio: 1 / 1;
+          overflow: hidden;
           color: rgba(#fff, 0.8);
           text-align: center;
           border-right: 1px solid var(--art-border-color);
@@ -61,7 +133,7 @@
 
           i {
             font-size: 26px;
-            color: #333;
+            transition: color 0.3s ease;
           }
 
           span {
@@ -77,7 +149,7 @@
 
   @media screen and (max-width: $device-notebook) {
     .page-content {
-      .el-tabs-content {
+      .list {
         .icon-list {
           grid-template-columns: repeat(8, 1fr);
         }
@@ -87,7 +159,7 @@
 
   @media screen and (max-width: $device-ipad-vertical) {
     .page-content {
-      .el-tabs-content {
+      .list {
         .icon-list {
           grid-template-columns: repeat(5, 1fr);
         }
@@ -97,7 +169,7 @@
 
   @media screen and (max-width: $device-phone) {
     .page-content {
-      .el-tabs-content {
+      .list {
         .icon-list {
           grid-template-columns: repeat(3, 1fr);
         }

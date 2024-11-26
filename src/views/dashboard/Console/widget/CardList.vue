@@ -16,9 +16,11 @@
           {{ item.change }}
         </span>
       </div>
-      <i class="iconfont custom-text" :style="{ backgroundImage: `${item.color} !important` }">{{
-        item.icon
-      }}</i>
+      <i
+        class="iconfont-sys custom-text"
+        :style="{ backgroundImage: `${item.color} !important` }"
+        >{{ item.icon }}</i
+      >
     </li>
   </ul>
 </template>
@@ -35,7 +37,7 @@
   const dataList = reactive([
     {
       des: '总访问次数',
-      icon: '\ue765',
+      icon: '\ue721',
       startVal: 0,
       duration: 1000,
       num: 9120,
@@ -44,7 +46,7 @@
     },
     {
       des: '在线访客数',
-      icon: '\ue682',
+      icon: '\ue724',
       startVal: 0,
       duration: 1000,
       num: 182,
@@ -53,7 +55,7 @@
     },
     {
       des: '点击量',
-      icon: '\ue672',
+      icon: '\ue7aa',
       startVal: 0,
       duration: 1000,
       num: 9520,
@@ -62,7 +64,7 @@
     },
     {
       des: '新用户',
-      icon: '\ue686',
+      icon: '\ue82a',
       startVal: 0,
       duration: 1000,
       num: 156,
@@ -93,7 +95,7 @@
 
       $icon-size: 46px;
 
-      .iconfont {
+      .iconfont-sys {
         position: absolute;
         top: 0;
         right: 15px;

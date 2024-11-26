@@ -11,7 +11,7 @@
   >
     <div class="drawer-con">
       <div class="close-wrap">
-        <i class="iconfont" @click="closeDrawer">&#xe7a3;</i>
+        <i class="iconfont-sys" @click="closeDrawer">&#xe7dc;</i>
       </div>
 
       <p class="title">{{ $t('setting.theme.title') }}</p>

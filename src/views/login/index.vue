@@ -3,7 +3,7 @@
     <div class="left-wrap">
       <div class="logo">
         <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-zhaopian-copy"></use>
+          <use xlink:href="#iconsys-zhaopian-copy"></use>
         </svg>
         <h1 class="title">{{ systemName }}</h1>
       </div>
@@ -13,7 +13,7 @@
     <div class="right-wrap">
       <div class="header">
         <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-zhaopian-copy"></use>
+          <use xlink:href="#iconsys-zhaopian-copy"></use>
         </svg>
         <h1>{{ systemName }}</h1>
       </div>

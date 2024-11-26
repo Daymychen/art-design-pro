@@ -2,22 +2,22 @@
   <div class="icon-selector">
     <div class="select" @click="visible = true">
       <div class="icon">
-        <i class="iconfont icons" v-html="selectValue"></i>
+        <i :class="`iconfont-sys ${selectValue}`"></i>
       </div>
       <div class="text"> 图标选择器 </div>
       <div class="arrow">
-        <i class="iconfont">&#xe7e9;</i>
+        <i class="iconfont-sys">&#xe709;</i>
       </div>
     </div>
 
-    <el-dialog title="选择图标" width="50%" v-model="visible">
-      <div>
+    <el-dialog title="选择图标" width="40%" v-model="visible" align-center>
+      <el-scrollbar height="400px">
         <ul v-show="activeName === 'icons'">
-          <li v-for="icon in iconsList" :key="icon" @click="selectorIcon(icon)">
-            <i class="iconfont" v-html="icon"></i>
+          <li v-for="icon in iconsList" :key="icon.className" @click="selectorIcon(icon.className)">
+            <i :class="`iconfont-sys ${icon.className}`"></i>
           </li>
         </ul>
-      </div>
+      </el-scrollbar>
 
       <template #footer>
         <span class="dialog-footer">
@@ -30,10 +30,11 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, onMounted } from 'vue'
-  import { iconsList } from '@/assets/icons/icons'
+  import { extractIconClasses } from '@/utils/iconfont'
 
-  const props = defineProps({
+  const iconsList = extractIconClasses()
+
+  defineProps({
     defaultIcon: {
       type: String,
       default: '&#xe7c6;'
@@ -44,15 +45,7 @@
 
   const activeName = ref('icons')
   const visible = ref(false)
-  const selectValue = ref('')
-
-  onMounted(() => {
-    initIcon()
-  })
-
-  const initIcon = () => {
-    selectValue.value = props.defaultIcon
-  }
+  const selectValue = ref('iconsys-bianji_2')
 
   const selectorIcon = (icon: string) => {
     visible.value = false
@@ -68,11 +61,11 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      width: 130px;
-      height: 34px;
-      padding: 0 8px;
+      width: 150px;
+      height: 40px;
+      padding: 0 15px;
       margin-bottom: 15px;
-      line-height: 34px;
+      line-height: 40px;
       cursor: pointer;
       border: 1px solid var(--art-border-dashed-color);
       border-radius: 6px;
@@ -85,10 +78,13 @@
       .icon {
         display: flex;
         align-items: center;
-        color: var(--art-gray-900);
+        width: 20px;
+        color: var(--art-gray-700);
 
         i {
-          font-size: 14px;
+          display: block;
+          margin: 0 auto;
+          font-size: 16px;
         }
       }
 
@@ -96,7 +92,7 @@
         display: flex;
         align-items: center;
         height: calc(100% - 2px);
-        font-size: 13px;
+        font-size: 14px;
         color: var(--art-gray-700);
       }
 
@@ -135,7 +131,7 @@
         }
 
         i {
-          font-size: 26px;
+          font-size: 22px;
           color: #000;
         }
       }

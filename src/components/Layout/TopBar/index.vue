@@ -5,13 +5,13 @@
         <!-- 系统信息  -->
         <div class="top-header" @click="toHome" v-if="isTopMenu">
           <svg class="svg-icon2" aria-hidden="true">
-            <use xlink:href="#icon-zhaopian-copy"></use>
+            <use xlink:href="#iconsys-zhaopian-copy"></use>
           </svg>
           <p v-if="width >= 1300">{{ SystemInfo.name }}</p>
         </div>
 
         <svg class="svg-icon" aria-hidden="true" @click="toHome()">
-          <use xlink:href="#icon-zhaopian-copy"></use>
+          <use xlink:href="#iconsys-zhaopian-copy"></use>
         </svg>
         <!-- 菜单按钮 -->
         <div class="btn-box" v-if="isLeftMenu">

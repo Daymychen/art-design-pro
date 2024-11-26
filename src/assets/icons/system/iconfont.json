@@ -2,7 +2,7 @@
   "id": "3682552",
   "name": "Any Design Pro-System",
   "font_family": "iconfont-sys",
-  "css_prefix_text": "icon-",
+  "css_prefix_text": "iconsys-",
   "description": "",
   "glyphs": [
     {
@@ -53,13 +53,6 @@
       "font_class": "zanwushuju5",
       "unicode": "e693",
       "unicode_decimal": 59027
-    },
-    {
-      "icon_id": "11217278",
-      "name": "暂无数据",
-      "font_class": "zanwushuju3",
-      "unicode": "e694",
-      "unicode_decimal": 59028
     },
     {
       "icon_id": "11363720",

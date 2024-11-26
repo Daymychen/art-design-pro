@@ -11,7 +11,6 @@ import '@styles/el-ui.scss'                         // 优化element样式
 import '@styles/mobile.scss'                        // 移动端样式优化
 import '@styles/change.scss'                        // 主题切换过渡优化
 import '@icons/system/iconfont.js'                  // 系统彩色图标
-import '@icons/icons/iconfont.css'                  // 系统提供的图标库
 import '@icons/system/iconfont.css'                 // 系统图标
 import 'element-plus/theme-chalk/dark/css-vars.css' // Element 暗黑主题
 import '@styles/element.scss'                       // Element 自定义主题

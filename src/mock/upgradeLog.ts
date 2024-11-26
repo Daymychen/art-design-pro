@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.0.69',
+    title: '图标库重构',
+    date: '2024-11-26',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.0.68',
     title: '增加混合菜单模式',
     date: '2024-11-25',
