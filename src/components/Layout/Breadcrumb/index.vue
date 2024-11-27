@@ -26,7 +26,7 @@
 
     //如果不是首页
     if (!isHome(matched[0])) {
-      matched.map((item) => {
+      matched.map((item: any) => {
         let { path, meta } = item
         list.push({
           path,
@@ -50,5 +50,5 @@
 </script>
 
 <style lang="scss" scoped>
-  @import './style';
+  @use './style';
 </style>

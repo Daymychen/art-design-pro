@@ -1,3 +1,6 @@
+@use '@styles/variables.scss' as *;
+@use '@styles/mixin.scss' as *;
+
 .user-menu-popover {
   .user-menu-box {
     padding-top: 10px;

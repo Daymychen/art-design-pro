@@ -24,7 +24,7 @@
   const scrollThreshold = 2000 // 设置阈值
 
   // 监听滚动位置
-  watch(y, (newY) => {
+  watch(y, (newY: number) => {
     showButton.value = newY > scrollThreshold
   })
 

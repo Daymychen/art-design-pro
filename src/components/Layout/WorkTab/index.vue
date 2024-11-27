@@ -121,7 +121,7 @@
     if (tabsRef.value) {
       tabsRef.value.addEventListener(
         'wheel',
-        (event) => {
+        (event: WheelEvent) => {
           if (scrollRef.value && tabsRef.value) {
             // 检测滚动方向
             if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
@@ -175,7 +175,7 @@
   }
 
   const getCurTabIndex = () => {
-    return list.value.findIndex((tab) => tab.path === currentRoute.value.path)
+    return list.value.findIndex((tab: any) => tab.path === currentRoute.value.path)
   }
 
   const getCurTabEl = () => {
@@ -255,5 +255,5 @@
 </script>
 
 <style lang="scss" scoped>
-  @import './style';
+  @use './style';
 </style>

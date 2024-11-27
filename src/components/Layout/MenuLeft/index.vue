@@ -86,7 +86,7 @@
 
   watch(
     () => collapse.value,
-    (collapse) => {
+    (collapse: boolean) => {
       if (!collapse) {
         showMobileModel.value = true
       }
@@ -141,11 +141,11 @@
 </script>
 
 <style lang="scss" scoped>
-  @import './style';
+  @use './style';
 </style>
 
 <style lang="scss">
-  @import './theme';
+  @use './theme';
 
   .menu-left {
     // 展开的宽度

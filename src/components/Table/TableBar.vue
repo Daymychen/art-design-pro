@@ -111,7 +111,7 @@
   const changeColumn = (show: any, index: number) => {
     let columns = props.columns
 
-    columns.map((item: any, i) => {
+    columns.map((item: any, i: number) => {
       if (index === i) {
         item.show = show
       }

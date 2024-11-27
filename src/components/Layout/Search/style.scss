@@ -1,3 +1,5 @@
+@use '@styles/variables.scss' as *;
+
 .search-widget {
   :deep(.search-modal) {
     background-color: rgba($color: #000, $alpha: 20%);

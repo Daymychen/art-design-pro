@@ -303,6 +303,13 @@
     "whenever": true,
     "ElMessageBox": true,
     "ElMessage": true,
-    "ElNotification": true
+    "ElNotification": true,
+    "DirectiveBinding": true,
+    "MaybeRef": true,
+    "MaybeRefOrGetter": true,
+    "onWatcherCleanup": true,
+    "useId": true,
+    "useModel": true,
+    "useTemplateRef": true
   }
 }

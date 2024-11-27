@@ -266,7 +266,7 @@
   const minWidth = 1000
 
   // 观察窗口大小的变化以更新菜单类型
-  watch(width, (newWidth) => {
+  watch(width, (newWidth: number) => {
     const newMenuType = newWidth < minWidth ? MenuTypeEnum.LEFT : MenuTypeEnum.TOP
     if (isTopMenu.value) {
       isTopMenuActive.value = true
@@ -280,7 +280,7 @@
 
   watch(
     () => props.open,
-    (val) => (showDrawer.value = val)
+    (val: boolean) => (showDrawer.value = val)
   )
 
   const settingThemeList = SettingThemeList
@@ -330,7 +330,7 @@
 
   watch(
     () => store.showWorkTab,
-    (e) => {
+    (e: boolean) => {
       showWorkTab.value = e
     }
   )
@@ -591,5 +591,5 @@
 </style>
 
 <style lang="scss" scoped>
-  @import './style';
+  @use './style';
 </style>

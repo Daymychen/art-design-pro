@@ -321,6 +321,6 @@
 </script>
 
 <style lang="scss" scoped>
-  @import './style';
-  @import './mobile';
+  @use './style';
+  @use './mobile';
 </style>

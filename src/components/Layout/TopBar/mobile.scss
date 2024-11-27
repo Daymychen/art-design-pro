@@ -1,3 +1,5 @@
+@use '@styles/variables.scss' as *;
+
 @media screen and (max-width: $device-ipad-pro) {
   .top-bar {
     .menu {

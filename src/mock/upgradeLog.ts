@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.0.70',
+    title: 'vue、typescript、sass版本升级',
+    date: '2024-11-27',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.0.69',
     title: '图标库重构',
     date: '2024-11-26',
