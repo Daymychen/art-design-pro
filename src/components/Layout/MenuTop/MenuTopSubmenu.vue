@@ -1,7 +1,13 @@
 <template>
-  <el-sub-menu v-if="isNotEmpty(item.children)" :index="item.path || item.title" :level="level">
+  <el-sub-menu
+    v-if="isNotEmpty(item.children)"
+    :index="item.path || item.meta.title"
+    :level="level"
+  >
     <template #title>
-      <i class="menu-icon iconfont-sys" :style="{ color: theme?.iconColor }">{{ item.icon }}</i>
+      <i class="menu-icon iconfont-sys" :style="{ color: theme?.iconColor }">{{
+        item.meta.icon
+      }}</i>
       <span>{{ getMenuTitle(item) }}</span>
     </template>
     <!-- 递归菜单 -->
@@ -16,15 +22,15 @@
   </el-sub-menu>
 
   <el-menu-item
-    v-if="!isNotEmpty(item.children) && !item.noMenu"
-    :index="item.path || item.title"
+    v-if="!isNotEmpty(item.children) && !item.meta.isHide"
+    :index="item.path || item.meta.title"
     @click="goPage(item)"
     :level-item="level + 1"
   >
     <template #title>
-      <i class="menu-icon iconfont-sys">{{ item.icon }}</i>
+      <i class="menu-icon iconfont-sys">{{ item.meta.icon }}</i>
       <span>{{ getMenuTitle(item) }}</span>
-      <div class="badge" v-if="item.showBadge"></div>
+      <div class="badge" v-if="item.meta.showBadge"></div>
     </template>
   </el-menu-item>
 </template>
@@ -32,7 +38,7 @@
 <script lang="ts" setup>
   import { router } from '@/router'
   import { MenuListType } from '@/types/menu'
-  import { getMenuTitle } from '@/utils/menu'
+  import { getMenuTitle, openLink } from '@/utils/menu'
 
   defineProps({
     item: {
@@ -53,10 +59,11 @@
   const emit = defineEmits(['close'])
 
   const goPage = (item: MenuListType) => {
-    const isNewSite = item.path.indexOf('http') !== -1
+    let { link, isIframe } = item.meta
 
-    if (isNewSite) {
-      window.open(item.path, '_blank')
+    // 打开链接
+    if (link) {
+      openLink(link, isIframe)
       return
     }
 

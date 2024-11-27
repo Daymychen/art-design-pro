@@ -80,8 +80,6 @@ export const useWorktabStore = defineStore({
       const currentPath = path
       const list = this.opened
 
-      console.log(path)
-
       for (let i = 0; i < list.length; i++) {
         if (list[i].path === currentPath) {
           this.opened.splice(i + 1)

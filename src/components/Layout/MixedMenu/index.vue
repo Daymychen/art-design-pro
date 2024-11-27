@@ -11,14 +11,14 @@
       @scroll="handleScroll"
     >
       <div class="scroll-bar">
-        <template v-for="item in list" :key="item.title">
+        <template v-for="item in list" :key="item.meta.title">
           <div
             class="item"
             :class="{ active: isActive(item) }"
             @click="toPage(item)"
-            v-if="!item.noMenu"
+            v-if="!item.meta.isHide"
           >
-            <i class="iconfont-sys">{{ item.icon }}</i>
+            <i class="iconfont-sys">{{ item.meta.icon }}</i>
             <span>{{ getMenuTitle(item) }}</span>
           </div>
         </template>
@@ -35,7 +35,7 @@
   import { MenuListType } from '@/types/menu'
   const router = useRouter()
   const route = useRoute()
-  import { getMenuTitle } from '@/utils/menu'
+  import { getMenuTitle, openLink } from '@/utils/menu'
   import { ref, onMounted } from 'vue'
   import { ArrowLeft, ArrowRight } from '@element-plus/icons-vue'
 
@@ -48,10 +48,10 @@
 
   const toPage = (item: MenuListType) => {
     if (item.children?.length) {
-      let firstChild = item.children.find((child) => !child.noMenu) || item.children[0]
-      let isLink = firstChild.path.includes('http')
-      if (isLink) {
-        window.open(firstChild.path)
+      let firstChild = item.children.find((child) => !child.meta.isHide) || item.children[0]
+      let { link, isIframe } = firstChild.meta
+      if (link) {
+        openLink(link, isIframe)
       } else {
         router.push(firstChild.path)
       }

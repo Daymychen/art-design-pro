@@ -133,6 +133,6 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../login/index';
-  @import './index';
+  @use '../login/index' as login;
+  @use './index' as register;
 </style>

@@ -6,17 +6,17 @@
 
     <art-table :data="tableData">
       <template #default>
-        <el-table-column prop="title" label="菜单名称" />
+        <el-table-column prop="meta.title" label="菜单名称" />
         <el-table-column prop="path" label="路由" />
 
-        <el-table-column prop="permission" label="可操作权限">
+        <el-table-column prop="meta.authList" label="可操作权限">
           <template #default="scope">
             <el-popover
               placement="top-start"
               title="操作"
               :width="200"
               trigger="click"
-              v-for="(item, index) in scope.row.authList"
+              v-for="(item, index) in scope.row.meta.authList"
               :key="index"
             >
               <div style="margin: 0; text-align: right">

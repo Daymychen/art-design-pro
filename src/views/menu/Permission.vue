@@ -15,25 +15,31 @@
         <code>
           {
             id: 3,
-            title: '菜单管理',
-            title_en: 'Menu manguage',
-            icon: '\ue8a4',
             path: '/menu',
             name: 'Menu',
+            meta: {
+              title: '菜单管理',
+              title_en: 'Menu manguage',
+              icon: '\ue8a4',
+            },
             children: [
               {
                 id: 401,
-                title: '菜单权限',
-                title_en: 'Menu permissions',
                 path: '/menu/menu',
-                icon: '\ue8a4',
+                meta: {
+                  title: '菜单权限',
+                  title_en: 'Menu permissions',
+                  icon: '\ue8a4',
+                }
               },
               {
                 id: 411,
-                title: '权限控制',
-                title_en: 'Permission control',
                 path: '/menu/permission',
-                icon: '\ue80a',
+                meta: {
+                  title: '权限控制',
+                  title_en: 'Permission control',
+                  icon: '\ue80a',
+                }
               },
             ]
           }
@@ -70,27 +76,29 @@
         <code>
           {
             id: 411,
-            title: '权限控制',
-            title_en: 'Permission control',
             path: '/menu/permission',
-            icon: '\ue80a',
-            authList: [
-              {
-                id: 4111,
-                title: '新增',
-                auth_mark: 'add'
-              },
-              {
-                id: 4112,
-                title: '编辑',
-                auth_mark: 'edit'
-              },
-              {
-                id: 4113,
-                title: '删除',
-                auth_mark: 'delete'
-              }
-            ]
+            meta: {
+              title: '权限控制',
+              title_en: 'Permission control',
+              icon: '\ue80a',
+              authList: [
+                {
+                  id: 4111,
+                  title: '新增',
+                  auth_mark: 'add'
+                },
+                {
+                  id: 4112,
+                  title: '编辑',
+                  auth_mark: 'edit'
+                },
+                {
+                  id: 4113,
+                  title: '删除',
+                  auth_mark: 'delete'
+                }
+              ]
+            },
           }
         </code>
       </pre>

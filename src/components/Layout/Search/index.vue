@@ -90,7 +90,7 @@
   import { MenuListType } from '@/types/menu'
   import { Search } from '@element-plus/icons-vue'
   import mittBus from '@/utils/mittBus'
-  import { getMenuTitle } from '@/utils/menu'
+  import { getMenuTitle, openLink } from '@/utils/menu'
   import { useMenuStore } from '@/store/modules/menu'
 
   const router = useRouter()
@@ -149,11 +149,11 @@
     const titleField = language.value === LanguageEnum.ZH ? 'title' : 'title_en'
     const lowerVal = val.toLowerCase() // 将查询值转换为小写
     const searchItem = (item: MenuListType): MenuListType | null => {
-      // 如果当前项有 noMenu: true，直接过滤掉
-      if (item.noMenu) return null
+      // 如果当前项有 isHide: true，直接过滤掉
+      if (item.meta.isHide) return null
 
       // 将 item[titleField] 转换为小写进行比较
-      const lowerItemTitle = item[titleField]!.toLowerCase()
+      const lowerItemTitle = item.meta[titleField]!.toLowerCase()
 
       // 查找子项并过滤符合条件的子项
       const children = item.children ? fuzzyQueryList(item.children, val) : []
@@ -257,9 +257,9 @@
 
     addHistory(item)
 
-    // 如果 path 是以 http 开头则跳转到新的页面
-    if (item.path.startsWith('http')) {
-      window.open(item.path)
+    let { link, isIframe } = item.meta
+    if (link) {
+      openLink(link, isIframe)
       return
     }
     router.push(item.path)
@@ -292,7 +292,7 @@
 
   const cleanItem = (item: MenuListType) => {
     delete item.children
-    delete item.authList
+    delete item.meta.authList
   }
 
   const deleteHistory = (index: number) => {

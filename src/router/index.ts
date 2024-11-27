@@ -58,7 +58,6 @@ const routes = [
         component: () => import(`@views/dashboard/analysis/index.vue`),
         meta: {
           title: '分析页',
-          title_en: 'Workbench',
           keepAlive: false
         }
       }
@@ -69,7 +68,7 @@ const routes = [
     component: () => import('@views/login/index.vue'),
     meta: {
       title: '登录',
-      notTab: true
+      isHideTab: true
     }
   },
   {
@@ -77,7 +76,7 @@ const routes = [
     component: () => import('@views/register/index.vue'),
     meta: {
       title: '注册',
-      notTab: true,
+      isHideTab: true,
       noLogin: true
     }
   },
@@ -86,7 +85,7 @@ const routes = [
     component: () => import('@views/forget-password/index.vue'),
     meta: {
       title: '忘记密码',
-      notTab: true,
+      isHideTab: true,
       noLogin: true
     }
   },
@@ -95,8 +94,7 @@ const routes = [
     component: Home,
     meta: {
       title: '异常页面',
-      title_en: 'Exception',
-      keepAlive: true
+      title_en: 'Exception'
     },
     children: [
       {
@@ -104,8 +102,7 @@ const routes = [
         component: () => import('@/views/exception/403.vue'),
         meta: {
           title: '403',
-          title_en: '403',
-          keepAlive: true
+          title_en: '403'
         }
       },
       {
@@ -113,8 +110,7 @@ const routes = [
         component: () => import('@views/exception/404.vue'),
         meta: {
           title: '404',
-          title_en: '404',
-          keepAlive: true
+          title_en: '404'
         }
       },
       {
@@ -122,8 +118,25 @@ const routes = [
         component: () => import('@views/exception/500.vue'),
         meta: {
           title: '500',
-          title_en: '500',
-          keepAlive: true
+          title_en: '500'
+        }
+      }
+    ]
+  },
+  {
+    path: '/outside',
+    component: Home,
+    meta: {
+      title: '内嵌页面',
+      title_en: 'Outside'
+    },
+    children: [
+      {
+        path: '/outside/iframe',
+        component: () => import('@/views/outside/Iframe.vue'),
+        meta: {
+          title: 'iframe',
+          title_en: 'iframe'
         }
       }
     ]
@@ -159,8 +172,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         name: 'Account',
         component: () => import('@views/user/Account.vue'),
         meta: {
-          title: '账号管理',
-          keepAlive: true
+          title: '账号管理'
         }
       },
       {
@@ -168,8 +180,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         name: 'Department',
         component: () => import('@views/user/Department.vue'),
         meta: {
-          title: '部门管理',
-          keepAlive: true
+          title: '部门管理'
         }
       },
       {
@@ -177,8 +188,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         name: 'Role',
         component: () => import('@views/user/Role.vue'),
         meta: {
-          title: '角色权限',
-          keepAlive: true
+          title: '角色权限'
         }
       }
     ]
@@ -198,8 +208,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         component: () => import('@views/menu/Menu.vue'),
         meta: {
           title: '菜单管理',
-          title_en: 'Menu Management',
-          keepAlive: true
+          title_en: 'Menu Management'
         }
       },
       {
@@ -208,8 +217,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         component: () => import('@views/menu/Permission.vue'),
         meta: {
           title: '权限控制',
-          title_en: 'Permission Control',
-          keepAlive: true
+          title_en: 'Permission Control'
         }
       },
       {
@@ -226,8 +234,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
             component: () => import('@views/menu/nested/menu1.vue'),
             meta: {
               title: '菜单1',
-              title_en: 'Menu 1',
-              keepAlive: true
+              title_en: 'Menu 1'
             }
           },
           {
@@ -244,8 +251,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
                 component: () => import('@views/menu/nested/menu2/menu2-1.vue'),
                 meta: {
                   title: '菜单2-1',
-                  title_en: 'Menu 2-1',
-                  keepAlive: true
+                  title_en: 'Menu 2-1'
                 }
               }
             ]
@@ -264,8 +270,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
                 component: () => import('@views/menu/nested/menu3/menu3-1.vue'),
                 meta: {
                   title: '菜单3-1',
-                  title_en: 'Menu 3-1',
-                  keepAlive: true
+                  title_en: 'Menu 3-1'
                 }
               },
               {
@@ -282,8 +287,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
                     component: () => import('@views/menu/nested/menu3/menu3-2/menu3-2-1.vue'),
                     meta: {
                       title: '菜单3-2-1',
-                      title_en: 'Menu 3-2-1',
-                      keepAlive: true
+                      title_en: 'Menu 3-2-1'
                     }
                   }
                 ]
@@ -332,16 +336,14 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         path: '/article/article-publish',
         component: () => import('@views/article/ArticlePublish.vue'),
         meta: {
-          title: '文章发布',
-          keepAlive: false
+          title: '文章发布'
         }
       },
       {
         path: '/article/article-list',
         component: () => import('@views/article/ArticleList.vue'),
         meta: {
-          title: '文章列表',
-          keepAlive: true
+          title: '文章列表'
         }
       },
       {
@@ -349,24 +351,21 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         component: () => import('@views/article/ArticleDetail.vue'),
         meta: {
           title: '文章详情',
-          keepAlive: false,
-          notTab: true
+          isHideTab: true
         }
       },
       {
         path: '/article/classify',
         component: () => import('@views/article/Classify.vue'),
         meta: {
-          title: '文章分类',
-          keepAlive: true
+          title: '文章分类'
         }
       },
       {
         path: '/article/comment',
         component: () => import('@views/article/Comment.vue'),
         meta: {
-          title: '留言',
-          keepAlive: true
+          title: '留言'
         }
       }
     ]
@@ -383,16 +382,14 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         path: '/widgets/icon-list',
         component: () => import('@views/widgets/IconList.vue'),
         meta: {
-          title: '图标库',
-          keepAlive: true
+          title: '图标库'
         }
       },
       {
         path: '/widgets/icon-selector',
         component: () => import('@views/widgets/IconSelector.vue'),
         meta: {
-          title: '图标选择器',
-          keepAlive: true
+          title: '图标选择器'
         }
       }
     ]
@@ -409,8 +406,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         path: '/message/message',
         component: () => import('@views/message/Index.vue'),
         meta: {
-          title: '系统消息',
-          keepAlive: true
+          title: '系统消息'
         }
       }
     ]
@@ -427,8 +423,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         path: '/system/setting',
         component: () => import('@views/system/Setting.vue'),
         meta: {
-          title: '系统设置',
-          keepAlive: true
+          title: '系统设置'
         }
       },
       {
@@ -443,8 +438,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         path: '/system/log',
         component: () => import('@views/system/Log.vue'),
         meta: {
-          title: '系统日志',
-          keepAlive: true
+          title: '系统日志'
         }
       }
     ]
@@ -461,8 +455,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         path: '/safeguard/server',
         component: () => import('@views/safeguard/Server.vue'),
         meta: {
-          title: '服务器管理',
-          keepAlive: true
+          title: '服务器管理'
         }
       }
     ]
@@ -479,8 +472,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         path: '/plan/index',
         component: () => import('@views/plan/index.vue'),
         meta: {
-          title: '更新计划',
-          keepAlive: true
+          title: '更新计划'
         }
       }
     ]
@@ -500,7 +492,7 @@ router.beforeEach(async (to, from, next) => {
   const userStore = useUserStore()
   const worktabStore = useWorktabStore()
   const { meta, path, params, query } = to
-  const { title, title_en: titleEn, notTab, noLogin } = meta
+  const { title, title_en: titleEn, isHideTab, noLogin } = meta
 
   if (!userStore.isLogin && path !== '/login' && !noLogin) {
     userStore.logOut()
@@ -525,7 +517,7 @@ router.beforeEach(async (to, from, next) => {
     return
   }
 
-  if (!notTab) {
+  if (!isHideTab) {
     worktabStore.router({
       title: title as string,
       title_en: titleEn as string,

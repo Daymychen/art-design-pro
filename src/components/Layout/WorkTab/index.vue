@@ -14,7 +14,7 @@
           :id="`scroll-li-${index}`"
           @click="clickTab(item.path)"
         >
-          {{ getMenuTitle(item) }}
+          {{ getWorkTabTitle(item) }}
           <el-icon v-if="index !== 0" @click.stop="closeWorktab('current', item.path)">
             <Close />
           </el-icon>
@@ -53,7 +53,7 @@
   import { useWorktabStore } from '@/store/modules/worktab'
   import { ArrowDown, ArrowLeft, ArrowRight, Close, CircleClose } from '@element-plus/icons-vue'
   import { useUserStore } from '@/store/modules/user'
-  import { getMenuTitle } from '@/utils/menu'
+  import { getWorkTabTitle } from '@/utils/menu'
   import { ElMessage } from 'element-plus'
   import { useThrottleFn } from '@vueuse/core'
   import EmojiText from '@/utils/emojo'

@@ -20,6 +20,10 @@
         v-slot="{ Component, route }"
         :style="{ minHeight }"
       >
+        <!-- 路由信息，方便开发者调试 -->
+        <div v-if="isOpenRouteInfo === 'true'">
+          {{ route.meta }}
+        </div>
         <transition :name="pageTransition" mode="out-in" appear>
           <keep-alive :max="10">
             <component :is="Component" :key="route.path" v-if="route.meta.keepAlive" />
@@ -52,44 +56,38 @@
 
   // 网络状态
   const { isOnline } = useNetwork()
-
   // 获取菜单和设置信息的 store
   const settingStore = useSettingStore()
   const menuStore = useMenuStore()
-
   // 是否显示左侧菜单
   const showLeftMenu = computed(() => menuType.value !== MenuTypeEnum.TOP)
-
   // 菜单是否打开
   const menuOpen = computed(() => settingStore.menuOpen)
-
   // 是否显示工作标签
   const showWorkTab = computed(() => settingStore.showWorkTab)
-
   // 是否需要刷新
   const refresh = computed(() => settingStore.refresh)
   // 页面动画
   const pageTransition = computed(() => settingStore.pageTransition)
-
   // 菜单类型
   const menuType = computed(() => settingStore.menuType)
-
   // 根据菜单是否打开来设置左侧填充宽度
   const paddingLeft = computed(() => {
     const width = menuOpen.value ? MenuWidth.OPEN : MenuWidth.CLOSE
     menuStore.setMenuWidth(width) // 更新菜单宽度
     return menuType.value !== MenuTypeEnum.TOP ? width : 0
   })
-
   // 根据是否显示工作标签来设置最小高度
   const minHeight = computed(() => `calc(100vh - ${showWorkTab.value ? 120 : 75}px)`)
-
   const paddingTop = computed(() => {
     return showWorkTab.value ? '110px' : '60px'
   })
 
   // 是否刷新页面的状态
   const isRefresh = ref(true)
+
+  // 是否开启路由信息
+  const isOpenRouteInfo = import.meta.env.VITE_OPEN_ROUTE_INFO
 
   // 监听刷新状态变化并调用 reload 函数
   watch(refresh, () => {

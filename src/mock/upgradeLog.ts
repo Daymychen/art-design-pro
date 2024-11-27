@@ -1,7 +1,14 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.0.80',
+    title: '菜单数据结构重构',
+    date: '2024-11-27',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.0.70',
-    title: 'vue、typescript、sass版本升级',
+    title: 'vue、typescript、sass 版本升级',
     date: '2024-11-27',
     status: 'complete',
     statusText: '完成'

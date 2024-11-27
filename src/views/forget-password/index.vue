@@ -65,5 +65,5 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../login/index';
+  @use '../login/index';
 </style>

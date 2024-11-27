@@ -74,7 +74,7 @@ export function validateStorageData() {
       worktab: {
         current: {
           title: 'string',
-          title_en: 'string',
+          // title_en: 'string',
           path: 'string',
           params: 'object',
           query: 'object'

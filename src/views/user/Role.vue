@@ -198,7 +198,7 @@
 
   const defaultProps = {
     children: 'children',
-    label: 'title'
+    label: (data: any) => data.meta?.title || ''
   }
 
   const deleteRole = () => {

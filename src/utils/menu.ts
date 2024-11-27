@@ -22,7 +22,8 @@ function processMenuItem(
   roleRoutes: AppRouteRecordRaw[],
   routesToAdd: AppRouteRecordRaw[]
 ) {
-  const { path, children = [], authList = [], title, title_en } = item
+  const { path, children = [], meta } = item
+  const { title, title_en, authList, keepAlive, isHide, isHideTab } = meta
 
   const matchingRoute = roleRoutes.find((route) => route.path === path)
 
@@ -31,7 +32,10 @@ function processMenuItem(
       ...(matchingRoute.meta || {}),
       title,
       title_en,
-      authList // 直接将 authList 添加到 meta 中
+      authList,
+      keepAlive,
+      isHide,
+      isHideTab
     }
 
     if (children.length > 0) {
@@ -57,10 +61,24 @@ const getTitleProp = () => {
 
 // 获取多语言菜单标题
 export const getMenuTitle = (item: any) => {
-  return item[getTitleProp()]
+  return item.meta[getTitleProp()]
 }
 
 // 获取 meta 多语言菜单标题
 export const getMetaMenuTitle = (item: any) => {
   return item.meta[getTitleProp()]
+}
+
+// 获取标签页多语言标题
+export const getWorkTabTitle = (item: any) => {
+  return item[getTitleProp()]
+}
+
+// 打开链接
+export const openLink = (link: string, isIframe: boolean = false) => {
+  if (isIframe) {
+    return router.push({ path: '/outside/iframe', query: { url: link } })
+  } else {
+    return window.open(link, '_blank')
+  }
 }

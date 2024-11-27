@@ -170,7 +170,7 @@
         title: getGreeting(),
         type: 'success',
         showClose: false,
-        duration: 3000,
+        duration: 2500,
         zIndex: 10000,
         message: `欢迎登录 ${systemName}`
       })
@@ -179,5 +179,5 @@
 </script>
 
 <style lang="scss" scoped>
-  @import './index';
+  @use './index';
 </style>
