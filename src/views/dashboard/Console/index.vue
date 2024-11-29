@@ -238,7 +238,7 @@
     }
 
     @media screen and (max-width: $device-ipad-vertical) {
-      :deep(.card) {
+      :deep(.card-list) {
         width: calc(100% + 15px);
         margin-left: -15px;
 
@@ -304,7 +304,7 @@
     }
 
     @media screen and (max-width: $device-phone) {
-      :deep(.card) {
+      :deep(.card-list) {
         width: 100%;
         margin: 0;
 

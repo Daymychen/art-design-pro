@@ -133,22 +133,6 @@
         e.preventDefault()
       }
     })
-
-    // 定期检查是否打开了开发者工具
-    const checkDevTools = () => {
-      if (isLock.value) {
-        const threshold = 160
-        const widthThreshold = window.outerWidth - window.innerWidth > threshold
-        const heightThreshold = window.outerHeight - window.innerHeight > threshold
-
-        if (widthThreshold || heightThreshold) {
-          // 如果检测到开发者工具，强制刷新页面
-          window.location.reload()
-        }
-      }
-    }
-
-    setInterval(checkDevTools, 1000)
   }
 
   watch(isLock, (newValue) => {
