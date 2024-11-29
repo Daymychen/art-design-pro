@@ -85,5 +85,17 @@ export default {
     label: ['账号', '密码', '验证码'],
     btn: '登录',
     tips: ['请输入账号', '请输入密码', '请输入验证码']
+  },
+  lockScreen: {
+    pwdError: '密码错误',
+    lock: {
+      inputPlaceholder: '请输入锁屏密码',
+      btnText: '锁定'
+    },
+    unlock: {
+      inputPlaceholder: '请输入解锁密码',
+      btnText: '解锁',
+      backBtnText: '返回登录'
+    }
   }
 }

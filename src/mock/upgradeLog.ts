@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.0.81',
+    title: '新增屏幕锁定',
+    date: '2024-11-29',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.0.80',
     title: '菜单数据结构重构',
     date: '2024-11-27',

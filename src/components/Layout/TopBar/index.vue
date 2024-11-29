@@ -61,6 +61,12 @@
             <i class="iconfont-sys">&#xe62d;</i>
           </div>
         </div>
+        <!-- 锁定屏幕 -->
+        <div class="btn-box lock-btn" @click="visibleLock">
+          <div class="btn lock-button">
+            <i class="iconfont-sys notice-btn">&#xe817;</i>
+          </div>
+        </div>
         <!-- 通知 -->
         <div class="btn-box notice-btn" @click="visibleNotice">
           <div class="btn notice-button">
@@ -311,6 +317,10 @@
 
   const visibleNotice = () => {
     showNotice.value = !showNotice.value
+  }
+
+  const visibleLock = () => {
+    mittBus.emit('openLockScreen')
   }
 
   const closeUserMenu = () => {

@@ -8,6 +8,8 @@ declare module '*.vue' {
 
 declare module 'nprogress'
 
+declare module 'crypto-js'
+
 // 环境变量提示
 // interface ImportMetaEnv {
 //   VITE_BASE_API_URL: string

@@ -10,6 +10,8 @@ import { MenuListType } from '@/types/menu'
 interface UserState {
   language: LanguageEnum // 语言
   isLogin: boolean // 是否登录
+  isLock: boolean // 是否锁屏
+  lockPassword: string // 锁屏密码
   info: Partial<UserInfo> // 用户信息
   searchHistory: MenuListType[] // 搜索历史
 }
@@ -19,6 +21,8 @@ export const useUserStore = defineStore({
   state: (): UserState => ({
     language: LanguageEnum.ZH,
     isLogin: false,
+    isLock: false,
+    lockPassword: '',
     info: {},
     searchHistory: []
   }),
@@ -39,12 +43,14 @@ export const useUserStore = defineStore({
 
       if (sys) {
         sys = JSON.parse(sys)
-        const { info, isLogin, language, searchHistory } = sys.user
+        const { info, isLogin, language, searchHistory, isLock, lockPassword } = sys.user
 
         this.info = info || {}
         this.isLogin = isLogin || false
+        this.isLock = isLock || false
         this.language = language || LanguageEnum.ZH
         this.searchHistory = searchHistory || []
+        this.lockPassword = lockPassword || ''
       }
     },
     // 用户数据持久化存储
@@ -54,6 +60,8 @@ export const useUserStore = defineStore({
           info: this.info,
           isLogin: this.isLogin,
           language: this.language,
+          isLock: this.isLock,
+          lockPassword: this.lockPassword,
           searchHistory: this.searchHistory,
           worktab: this.getWorktabState,
           setting: this.getSettingState
@@ -72,11 +80,19 @@ export const useUserStore = defineStore({
     setSearchHistory(list: Array<MenuListType>) {
       this.searchHistory = list
     },
+    setLockStatus(isLock: boolean) {
+      this.isLock = isLock
+    },
+    setLockPassword(password: string) {
+      this.lockPassword = password
+    },
     logOut() {
       setTimeout(() => {
         document.getElementsByTagName('html')[0].removeAttribute('class') // 移除暗黑主题
         this.info = {}
         this.isLogin = false
+        this.isLock = false
+        this.lockPassword = ''
         useWorktabStore().opened = []
         this.saveUserData()
         router.push('/login')

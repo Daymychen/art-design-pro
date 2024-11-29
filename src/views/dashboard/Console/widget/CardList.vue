@@ -1,5 +1,5 @@
 <template>
-  <ul class="card" :style="{ marginTop: showWorkTab ? '0' : '10px' }">
+  <ul class="card-list" :style="{ marginTop: showWorkTab ? '0' : '10px' }">
     <li class="console-box-2" v-for="(item, index) in dataList" :key="index">
       <span class="des custom-text subtitle">{{ item.des }}</span>
       <div>
@@ -75,11 +75,12 @@
 </script>
 
 <style lang="scss" scoped>
-  .card {
+  .card-list {
     box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
     width: calc(100% + var(--console-margin));
+    margin-top: 0 !important;
     margin-left: calc(0px - var(--console-margin));
     background-color: transparent !important;
 

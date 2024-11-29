@@ -6,6 +6,9 @@
     <!-- 搜索组件 -->
     <search></search>
 
+    <!-- 锁屏组件 -->
+    <lock-screen></lock-screen>
+
     <!-- 顶栏 -->
     <top-bar>
       <template #default>

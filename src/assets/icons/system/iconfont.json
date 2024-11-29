@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "25562744",
+      "name": "锁",
+      "font_class": "suo",
+      "unicode": "e817",
+      "unicode_decimal": 59415
+    },
+    {
       "icon_id": "11855550",
       "name": "勾",
       "font_class": "gou",

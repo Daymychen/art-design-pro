@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'iconfont-sys'; /* Project id 3682552 */
   src:
-    url('iconfont.woff2?t=1732590922573') format('woff2'),
-    url('iconfont.woff?t=1732590922573') format('woff'),
-    url('iconfont.ttf?t=1732590922573') format('truetype');
+    url('iconfont.woff2?t=1732850197343') format('woff2'),
+    url('iconfont.woff?t=1732850197343') format('woff'),
+    url('iconfont.ttf?t=1732850197343') format('truetype');
 }
 
 .iconfont-sys {
@@ -12,6 +12,10 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.iconsys-suo:before {
+  content: '\e817';
 }
 
 .iconsys-gou:before {

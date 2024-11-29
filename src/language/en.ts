@@ -92,5 +92,17 @@ export default {
     label: ['Account', 'Password', 'Verification Code'],
     btn: 'Sign in',
     tips: ['Please input account number', 'Please input password', 'Please input verification code']
+  },
+  lockScreen: {
+    pwdError: 'Password error',
+    lock: {
+      inputPlaceholder: 'Please input lock screen password',
+      btnText: 'Lock'
+    },
+    unlock: {
+      inputPlaceholder: 'Please input unlock password',
+      btnText: 'Unlock',
+      backBtnText: 'Back to login'
+    }
   }
 }
