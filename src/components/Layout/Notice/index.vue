@@ -9,8 +9,8 @@
     @click.stop=""
   >
     <div class="header">
-      <span class="text">通知</span>
-      <span class="btn">标为已读</span>
+      <span class="text">{{ $t('notice.title') }}</span>
+      <span class="btn">{{ $t('notice.btnRead') }}</span>
     </div>
     <ul class="bar">
       <li
@@ -63,15 +63,15 @@
 
         <div class="empty-tips" v-show="barActiveIndex === 0 && noticeList.length === 0">
           <i class="iconfont-sys">&#xe8d7;</i>
-          <p>暂无{{ barList[barActiveIndex].name }}</p>
+          <p>{{ $t('notice.text[0]') }}{{ barList[barActiveIndex].name }}</p>
         </div>
         <div class="empty-tips" v-show="barActiveIndex === 1 && msgList.length === 0">
           <i class="iconfont-sys">&#xe8d7;</i>
-          <p>暂无{{ barList[barActiveIndex].name }}</p>
+          <p>{{ $t('notice.text[0]') }}{{ barList[barActiveIndex].name }}</p>
         </div>
         <div class="empty-tips" v-show="barActiveIndex === 2 && pendingList.length === 0">
           <i class="iconfont-sys">&#xe8d7;</i>
-          <p>暂无{{ barList[barActiveIndex].name }}</p>
+          <p>{{ $t('notice.text[0]') }}{{ barList[barActiveIndex].name }}</p>
         </div>
       </div>
     </div>
@@ -90,6 +90,9 @@
   import { SystemMainColor } from '@/config/setting'
   import { hexToRgba } from '@/utils/utils'
   import { getCssVariable } from '@/utils/utils'
+  import { useI18n } from 'vue-i18n'
+
+  const { t } = useI18n()
 
   const props = defineProps({
     value: {
@@ -110,20 +113,20 @@
   const barActiveIndex = ref(0)
   const pendingList: any = []
 
-  const barList = [
+  const barList = ref([
     {
-      name: '通知',
+      name: computed(() => t('notice.bar[0]')),
       num: 1
     },
     {
-      name: '消息',
+      name: computed(() => t('notice.bar[1]')),
       num: 1
     },
     {
-      name: '代办',
+      name: computed(() => t('notice.bar[2]')),
       num: 0
     }
-  ]
+  ])
 
   const noticeList = [
     {

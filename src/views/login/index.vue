@@ -11,6 +11,23 @@
       <img class="left-img" src="@imgs/login/lf_icon.svg" />
     </div>
     <div class="right-wrap">
+      <div class="language-wrap">
+        <el-dropdown @command="changeLanguage">
+          <div class="btn language-btn">
+            <i class="iconfont-sys">&#xe611;</i>
+          </div>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item command="zh">
+                <span class="menu-txt">中文</span>
+              </el-dropdown-item>
+              <el-dropdown-item command="en">
+                <span class="menu-txt">English</span>
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+      </div>
       <div class="header">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#iconsys-zhaopian-copy"></use>
@@ -19,16 +36,18 @@
       </div>
       <div class="login-wrap">
         <div class="form">
-          <h3 class="title">欢迎回来</h3>
-          <p class="sub-title">输入您的账号和密码登录</p>
+          <h3 class="title">{{ $t('login.title') }}</h3>
+          <p class="sub-title">{{ $t('login.subTitle') }}</p>
           <div class="input-wrap">
-            <span class="input-label" v-if="showInputLabel">账号</span>
-            <el-input placeholder="请输入账号" size="large" v-model.trim="username" />
+            <el-input
+              :placeholder="$t('login.placeholder[0]')"
+              size="large"
+              v-model.trim="username"
+            />
           </div>
           <div class="input-wrap">
-            <span class="input-label" v-if="showInputLabel">密码</span>
             <el-input
-              placeholder="请输入密码"
+              :placeholder="$t('login.placeholder[1]')"
               size="large"
               v-model.trim="password"
               type="password"
@@ -45,20 +64,20 @@
                 v-model:value="isPassing"
                 :width="width < 500 ? 328 : 438"
                 radius="8px"
-                text="按住滑块拖动"
-                successText="验证成功"
+                :text="$t('login.sliderText')"
+                :successText="$t('login.sliderSuccessText')"
                 :progressBarBg="getCssVariable('--el-color-primary')"
                 @pass="onPass"
               />
             </div>
-            <p class="error-text" :class="{ 'show-error-text': !isPassing && isClickPass }"
-              >请拖动滑块完成验证</p
-            >
+            <p class="error-text" :class="{ 'show-error-text': !isPassing && isClickPass }">{{
+              $t('login.placeholder[2]')
+            }}</p>
           </div>
 
           <div class="forget-password">
-            <el-checkbox v-model="rememberPassword">记住密码</el-checkbox>
-            <router-link to="/forget-password">忘记密码？</router-link>
+            <el-checkbox v-model="rememberPassword">{{ $t('login.rememberPwd') }}</el-checkbox>
+            <router-link to="/forget-password">{{ $t('login.forgetPwd') }}</router-link>
           </div>
 
           <div style="margin-top: 30px">
@@ -69,14 +88,14 @@
               @click="login"
               :loading="loading"
             >
-              登录
+              {{ $t('login.btnText') }}
             </el-button>
           </div>
 
           <div class="footer">
             <p>
-              还没有账号？
-              <router-link to="/register">注册</router-link>
+              {{ $t('login.noAccount') }}
+              <router-link to="/register">{{ $t('login.register') }}</router-link>
             </p>
           </div>
         </div>
@@ -93,12 +112,13 @@
   import { ApiStatus } from '@/utils/http/status'
   import axios from 'axios'
   import { getCssVariable, getGreeting } from '@/utils/utils'
+  import { LanguageEnum } from '@/enums/appEnum'
+  import { useI18n } from 'vue-i18n'
 
   const userStore = useUserStore()
   const router = useRouter()
   const isPassing = ref(false)
   const isClickPass = ref(false)
-  const showInputLabel = ref(false)
 
   const systemName = SystemInfo.name
   const username = ref(SystemInfo.login.username)
@@ -175,6 +195,12 @@
         message: `欢迎登录 ${systemName}`
       })
     }, 300)
+  }
+
+  const { locale } = useI18n()
+  const changeLanguage = (lang: LanguageEnum) => {
+    locale.value = lang
+    userStore.setLanguage(lang)
   }
 </script>
 

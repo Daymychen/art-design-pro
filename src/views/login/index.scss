@@ -68,6 +68,17 @@
     width: calc(100% - 520px);
     height: 100%;
 
+    .language-wrap {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      z-index: 100;
+
+      .btn {
+        cursor: pointer;
+      }
+    }
+
     .header {
       display: none;
     }
