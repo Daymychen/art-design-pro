@@ -3,8 +3,6 @@ import { ElMessage } from 'element-plus'
 import { useUserStore } from '@/store/modules/user'
 import EmojiText from '../emojo'
 
-const userStore = useUserStore()
-
 const axiosInstance = axios.create({
   timeout: 15000, // 请求超时时间(毫秒)
   baseURL: import.meta.env.VITE_API_URL, // API地址
@@ -30,7 +28,7 @@ const axiosInstance = axios.create({
 // 请求拦截器
 axiosInstance.interceptors.request.use(
   (request: InternalAxiosRequestConfig) => {
-    const { token } = userStore.info
+    const { token } = useUserStore().info
 
     // 如果 token 存在，则设置请求头
     if (token) {
