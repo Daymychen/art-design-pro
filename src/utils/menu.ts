@@ -3,7 +3,7 @@ import { MenuListType } from '@/types/menu'
 import { LanguageEnum } from '@/enums/appEnum'
 import { useUserStore } from '@/store/modules/user'
 
-// 动态匹配路由
+// 动态注册路由
 export function routerMatch(menuList: MenuListType[], roleRoutes: AppRouteRecordRaw[]) {
   const routesToAdd: AppRouteRecordRaw[] = []
 

@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.0.84',
+    title: '提升菜单权限代码可读性',
+    date: '2024-11-30',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.0.83',
     title: '修复移端样式问题',
     date: '2024-11-29',
