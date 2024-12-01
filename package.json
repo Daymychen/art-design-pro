@@ -100,6 +100,7 @@
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-imagemin": "^0.6.1",
     "vue-demi": "^0.14.9",
+    "vue-img-cutter": "^3.0.5",
     "vue-tsc": "~2.1.6"
   }
 }

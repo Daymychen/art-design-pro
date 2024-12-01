@@ -10,6 +10,8 @@ declare module 'nprogress'
 
 declare module 'crypto-js'
 
+declare module 'vue-img-cutter'
+
 // 环境变量提示
 // interface ImportMetaEnv {
 //   VITE_BASE_API_URL: string

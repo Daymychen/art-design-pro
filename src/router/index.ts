@@ -396,6 +396,13 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         meta: {
           title: '图标选择器'
         }
+      },
+      {
+        path: '/widgets/image-crop',
+        component: () => import('@views/widgets/ImageCrop.vue'),
+        meta: {
+          title: '图像裁剪'
+        }
       }
     ]
   },

@@ -392,6 +392,15 @@ export const menuData: MenuListType[] = [
           title_en: 'Icon selector',
           keepAlive: true
         }
+      },
+      {
+        id: 505,
+        path: '/widgets/image-crop',
+        meta: {
+          title: '图像裁剪',
+          title_en: 'Image crop',
+          keepAlive: true
+        }
       }
     ]
   },
