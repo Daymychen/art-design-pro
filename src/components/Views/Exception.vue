@@ -34,6 +34,8 @@
 <style lang="scss" scoped>
   .state-page {
     display: flex;
+    background-color: transparent !important;
+    border: 0 !important;
 
     .tips {
       display: flex;

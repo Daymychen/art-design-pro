@@ -32,3 +32,9 @@ export enum LanguageEnum {
   ZH = 'zh',
   EN = 'en'
 }
+
+// Icon type
+export enum IconTypeEnum {
+  CLASS_NAME = 'className',
+  UNICODE = 'unicode'
+}

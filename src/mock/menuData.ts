@@ -79,32 +79,7 @@ export const menuData: MenuListType[] = [
           ]
         }
       },
-      {
-        id: 203,
-        path: '/article/classify',
-        meta: {
-          title: '文章分类',
-          title_en: 'Article category',
-          keepAlive: true,
-          authList: [
-            {
-              id: 2031,
-              title: '新增',
-              auth_mark: 'add'
-            },
-            {
-              id: 2032,
-              title: '编辑',
-              auth_mark: 'edit'
-            },
-            {
-              id: 2033,
-              title: '删除',
-              auth_mark: 'delete'
-            }
-          ]
-        }
-      },
+
       {
         id: 204,
         path: '/article/detail',
@@ -421,27 +396,6 @@ export const menuData: MenuListType[] = [
     ]
   },
   {
-    id: 7,
-    path: '/message',
-    name: 'Message',
-    meta: {
-      title: '消息中心',
-      title_en: 'Message center',
-      icon: '\ue6e9'
-    },
-    children: [
-      {
-        id: 701,
-        path: '/message/message',
-        meta: {
-          title: '系统消息',
-          title_en: 'System message',
-          keepAlive: true
-        }
-      }
-    ]
-  },
-  {
     id: 8,
     path: '/exception',
     name: 'Exception',
@@ -552,9 +506,9 @@ export const menuData: MenuListType[] = [
     children: [
       {
         id: 1110,
-        path: '/plan/index',
+        path: '/plan/log',
         meta: {
-          title: '更新计划',
+          title: '更新日志',
           title_en: 'Update Plan',
           keepAlive: true
         }
@@ -573,7 +527,7 @@ export const menuData: MenuListType[] = [
     children: [
       {
         id: 1101,
-        path: 'https://www.baidu.com',
+        path: '',
         meta: {
           title: '官方文档',
           title_en: 'Document',

@@ -1,119 +1,285 @@
 <template>
-  <div class="page-content">
-    <table-bar :showTop="false" :columns="columns" @changeColumn="changeColumn">
-      <template #top>
-        <el-form label-width="55px">
-          <el-row :gutter="20">
-            <el-col :xs="24" :sm="12" :lg="6">
-              <el-form-item label="名称：">
-                <el-input placeholder="名称"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :xs="24" :sm="12" :lg="6">
-              <el-form-item label="地址：">
-                <el-input placeholder="地址"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </el-form>
-      </template>
-      <template #bottom>
-        <el-button @click="showDialog('add')" style="width: 100px">新增</el-button>
-      </template>
-    </table-bar>
-
-    <art-table :data="serverList" :showPage="false" ref="table">
-      <el-table-column v-if="columns[0].show" label="名称" prop="name" />
-      <el-table-column v-if="columns[1].show" label="地址" prop="ip" />
-      <el-table-column v-if="columns[2].show" label="用户名" prop="username" />
-      <el-table-column v-if="columns[3].show" label="状态" prop="status">
-        <template #default="scope">
-          <el-tag :type="scope.row.status === 1 ? 'success' : 'info'">
-            {{ scope.row.status === 1 ? '启用' : '禁用' }}
-          </el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column v-if="columns[4].show" label="创建日期" prop="create_time" />
-      <el-table-column fixed="right" label="操作">
-        <template #default="scope">
-          <el-button link :icon="EditPen" type="primary" @click="showDialog('edit')">
-            编辑
-          </el-button>
-          <el-button link :icon="Delete" style="color: #fa6962" @click="deleteUser(scope)">
-            删除
-          </el-button>
-        </template>
-      </el-table-column>
-    </art-table>
-
-    <el-dialog :title="dialogTitle" width="500px" v-model="dvEdit" top="30vh">
-      <el-form ref="form" :model="form" label-width="60px">
-        <el-form-item label="名称">
-          <el-input v-model="form.username"></el-input>
-        </el-form-item>
-        <el-form-item label="地址">
-          <el-input v-model="form.mibile"></el-input>
-        </el-form-item>
-        <el-form-item label="用户名">
-          <el-input v-model="form.email"></el-input>
-        </el-form-item>
-      </el-form>
-
-      <template #footer>
-        <div class="dialog-footer">
-          <el-button @click="dvEdit = false">取 消</el-button>
-          <el-button type="primary" @click="onSubmit">确 定</el-button>
+  <div class="page-content server">
+    <div class="list">
+      <div class="middle">
+        <div class="item" v-for="item in serverList" :key="item.name">
+          <div class="header">
+            <span class="name">{{ item.name }}</span>
+            <span class="ip">{{ item.ip }}</span>
+          </div>
+          <div class="box">
+            <div class="left">
+              <img src="@imgs/safeguard/server.png" alt="服务器" />
+              <el-button-group class="ml-4">
+                <el-button type="primary" size="default">开机</el-button>
+                <el-button type="danger" size="default">关机</el-button>
+                <el-button type="warning" size="default">重启</el-button>
+              </el-button-group>
+            </div>
+            <div class="right">
+              <div>
+                <p>CPU</p>
+                <el-progress :percentage="item.cup" :text-inside="true" :stroke-width="17" />
+              </div>
+              <div>
+                <p>RAM</p>
+                <el-progress
+                  :percentage="item.memory"
+                  status="success"
+                  :text-inside="true"
+                  :stroke-width="17"
+                />
+              </div>
+              <div>
+                <p>SWAP</p>
+                <el-progress
+                  :percentage="item.swap"
+                  status="warning"
+                  :text-inside="true"
+                  :stroke-width="17"
+                />
+              </div>
+              <div>
+                <p>DISK</p>
+                <el-progress
+                  :percentage="item.disk"
+                  status="success"
+                  :text-inside="true"
+                  :stroke-width="17"
+                />
+              </div>
+            </div>
+          </div>
         </div>
-      </template>
-    </el-dialog>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { Delete, EditPen } from '@element-plus/icons-vue'
+  import { reactive, onMounted, onUnmounted } from 'vue'
 
-  const dvEdit = ref(false)
+  interface ServerInfo {
+    name: string
+    ip: string
+    cup: number
+    memory: number
+    swap: number
+    disk: number
+  }
 
-  const dialogTitle = ref('')
-  const form = reactive({
-    username: '',
-    mibile: '',
-    email: '',
-    sex: 1,
-    dep: '',
-    status: true
-  })
-  const serverList = reactive([
+  const serverList = reactive<ServerInfo[]>([
     {
-      name: 'blog',
-      ip: '43.133.133.133',
-      username: 'SuperMan',
-      account: 'root',
-      status: 1,
-      create_time: '2021-1-5'
+      name: '开发服务器',
+      ip: '192.168.1.100',
+      cup: 85,
+      memory: 65,
+      swap: 45,
+      disk: 92
+    },
+    {
+      name: '测试服务器',
+      ip: '192.168.1.101',
+      cup: 32,
+      memory: 78,
+      swap: 90,
+      disk: 45
+    },
+    {
+      name: '预发布服务器',
+      ip: '192.168.1.102',
+      cup: 95,
+      memory: 42,
+      swap: 67,
+      disk: 88
+    },
+    {
+      name: '线上服务器',
+      ip: '192.168.1.103',
+      cup: 58,
+      memory: 93,
+      swap: 25,
+      disk: 73
     }
   ])
-  const columns = reactive([
-    { name: '名称', show: true },
-    { name: '地址', show: true },
-    { name: '用户名', show: true },
-    { name: '状态', show: true },
-    { name: '创建日期', show: true }
-  ])
 
-  const showDialog = (type: string) => {
-    dvEdit.value = true
-    dialogTitle.value = type === 'add' ? '新增' : '编辑'
+  // 生成随机数据的函数
+  function generateRandomValue(min = 0, max = 100): number {
+    return Math.floor(Math.random() * (max - min + 1)) + min
   }
-  const onSubmit = () => {
-    dvEdit.value = false
+
+  // 更新服务器数据
+  function updateServerData() {
+    serverList.forEach((server) => {
+      server.cup = generateRandomValue()
+      server.memory = generateRandomValue()
+      server.swap = generateRandomValue()
+      server.disk = generateRandomValue()
+    })
   }
-  const deleteUser = (scope: unknown) => {
-    console.log(scope)
-  }
-  const changeColumn = (columns: any) => {
-    columns.value = columns
-  }
+
+  // 修改 timer 类型为 number | null
+  let timer: number | null = null
+
+  onMounted(() => {
+    timer = window.setInterval(updateServerData, 3000)
+  })
+
+  onUnmounted(() => {
+    if (timer !== null) {
+      window.clearInterval(timer)
+      timer = null
+    }
+  })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .server {
+    .list {
+      width: 100%;
+
+      .middle {
+        display: flex;
+        flex-wrap: wrap;
+        width: calc(100% + 20px);
+
+        .item {
+          box-sizing: border-box;
+          width: calc(50% - 20px);
+          margin: 0 20px 20px 0;
+          border: 1px solid var(--el-border-color-light);
+          border-radius: 4px;
+
+          .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            border-bottom: 1px solid var(--el-border-color-light);
+
+            .name {
+              font-size: 15px;
+              font-weight: 500;
+            }
+
+            .ip {
+              font-size: 14px;
+              color: var(--el-text-color-secondary);
+            }
+          }
+
+          .box {
+            display: flex;
+            align-items: center;
+            padding: 40px;
+
+            .left {
+              margin: 0 40px;
+
+              img {
+                display: block;
+                width: 190px;
+              }
+
+              .el-button-group {
+                display: flex;
+                justify-content: center;
+                margin-top: -10px;
+              }
+            }
+
+            .right {
+              flex: 1;
+              margin-top: 5px;
+
+              > div {
+                margin: 15px 0;
+
+                p {
+                  margin-bottom: 4px;
+                  font-size: 14px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: $device-notebook) {
+    .server {
+      .list {
+        .middle {
+          .item {
+            .header {
+              padding: 10px 20px;
+            }
+
+            .box {
+              padding: 20px;
+
+              .left {
+                margin: 0 20px 0 0;
+              }
+
+              .right {
+                margin-top: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: $device-ipad-pro) {
+    .server {
+      .list {
+        .middle {
+          .item {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: $device-phone) {
+    .server {
+      .list {
+        .middle {
+          .item {
+            width: 100%;
+
+            .header {
+              padding: 10px 20px;
+            }
+
+            .box {
+              display: block;
+              padding: 20px;
+
+              .left {
+                margin: 0;
+
+                img {
+                  width: 150px;
+                  margin: 0 auto;
+                }
+
+                .el-button-group {
+                  margin-top: 10px;
+                }
+              }
+
+              .right {
+                margin-top: 30px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+</style>

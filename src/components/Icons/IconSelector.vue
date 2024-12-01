@@ -1,10 +1,18 @@
 <template>
   <div class="icon-selector">
-    <div class="select" @click="visible = true">
+    <div class="select" @click="visible = true" :style="{ width: props.width }">
       <div class="icon">
-        <i :class="`iconfont-sys ${selectValue}`"></i>
+        <i
+          :class="`iconfont-sys ${selectValue}`"
+          v-show="props.iconType === IconTypeEnum.CLASS_NAME"
+        ></i>
+        <i
+          class="iconfont-sys"
+          v-html="selectValue"
+          v-show="props.iconType === IconTypeEnum.UNICODE"
+        ></i>
       </div>
-      <div class="text"> 图标选择器 </div>
+      <div class="text"> {{ selectValue || props.text }} </div>
       <div class="arrow">
         <i class="iconfont-sys">&#xe709;</i>
       </div>
@@ -13,8 +21,16 @@
     <el-dialog title="选择图标" width="40%" v-model="visible" align-center>
       <el-scrollbar height="400px">
         <ul v-show="activeName === 'icons'">
-          <li v-for="icon in iconsList" :key="icon.className" @click="selectorIcon(icon.className)">
-            <i :class="`iconfont-sys ${icon.className}`"></i>
+          <li v-for="icon in iconsList" :key="icon.className" @click="selectorIcon(icon)">
+            <i
+              :class="`iconfont-sys ${icon.className}`"
+              v-show="iconType === IconTypeEnum.CLASS_NAME"
+            ></i>
+            <i
+              class="iconfont-sys"
+              v-html="icon.unicode"
+              v-show="iconType === IconTypeEnum.UNICODE"
+            ></i>
           </li>
         </ul>
       </el-scrollbar>
@@ -30,27 +46,51 @@
 </template>
 
 <script setup lang="ts">
+  import { IconTypeEnum } from '@/enums/appEnum'
   import { extractIconClasses } from '@/utils/iconfont'
-
-  const iconsList = extractIconClasses()
-
-  defineProps({
-    defaultIcon: {
-      type: String,
-      default: '&#xe7c6;'
-    }
-  })
 
   const emits = defineEmits(['getIcon'])
 
+  const iconsList = extractIconClasses()
+
+  const props = defineProps({
+    iconType: {
+      type: String as PropType<IconTypeEnum>,
+      default: IconTypeEnum.CLASS_NAME
+    },
+    defaultIcon: {
+      type: String,
+      default: '&#xe7c6;'
+    },
+    text: {
+      type: String,
+      default: '图标选择器'
+    },
+    width: {
+      type: String,
+      default: '200px'
+    }
+  })
+
+  watch(
+    () => props.defaultIcon,
+    (newVal) => {
+      selectValue.value = newVal
+    }
+  )
+
   const activeName = ref('icons')
   const visible = ref(false)
-  const selectValue = ref('iconsys-bianji_2')
+  const selectValue = ref('')
 
-  const selectorIcon = (icon: string) => {
+  const selectorIcon = (icon: any) => {
+    if (props.iconType === IconTypeEnum.CLASS_NAME) {
+      selectValue.value = icon.className
+    } else {
+      selectValue.value = icon.unicode
+    }
     visible.value = false
-    selectValue.value = icon
-    emits('getIcon', icon)
+    emits('getIcon', selectValue.value)
   }
 </script>
 
@@ -61,7 +101,6 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      width: 150px;
       height: 40px;
       padding: 0 15px;
       margin-bottom: 15px;
@@ -90,10 +129,14 @@
 
       .text {
         display: flex;
+        display: inline-block;
         align-items: center;
-        height: calc(100% - 2px);
+        width: 50%;
         font-size: 14px;
-        color: var(--art-gray-700);
+        line-height: 40px;
+        color: var(--art-gray-600);
+
+        @include ellipsis();
       }
 
       .arrow {

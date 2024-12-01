@@ -60,6 +60,7 @@ export function extractIconClasses(): IconfontType[] {
   return iconInfos
 }
 
-function getUnicode(charCode: string): string {
+export function getUnicode(charCode: string): string {
+  if (!charCode) return ''
   return charCode.charCodeAt(0).toString(16).padStart(4, '0')
 }

@@ -367,13 +367,6 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         }
       },
       {
-        path: '/article/classify',
-        component: () => import('@views/article/Classify.vue'),
-        meta: {
-          title: '文章分类'
-        }
-      },
-      {
         path: '/article/comment',
         component: () => import('@views/article/Comment.vue'),
         meta: {
@@ -402,23 +395,6 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         component: () => import('@views/widgets/IconSelector.vue'),
         meta: {
           title: '图标选择器'
-        }
-      }
-    ]
-  },
-  {
-    path: '/message',
-    component: Home,
-    name: 'Message',
-    meta: {
-      title: '消息中心'
-    },
-    children: [
-      {
-        path: '/message/message',
-        component: () => import('@views/message/Index.vue'),
-        meta: {
-          title: '系统消息'
         }
       }
     ]
@@ -481,10 +457,10 @@ export const roleRoutes: AppRouteRecordRaw[] = [
     },
     children: [
       {
-        path: '/plan/index',
-        component: () => import('@views/plan/index.vue'),
+        path: '/plan/log',
+        component: () => import('@views/plan/log.vue'),
         meta: {
-          title: '更新计划'
+          title: '更新日志'
         }
       }
     ]
