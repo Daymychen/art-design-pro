@@ -403,6 +403,13 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         meta: {
           title: '图像裁剪'
         }
+      },
+      {
+        path: '/widgets/excel',
+        component: () => import('@views/widgets/Excel.vue'),
+        meta: {
+          title: 'Excel'
+        }
       }
     ]
   },

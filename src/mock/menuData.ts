@@ -401,6 +401,15 @@ export const menuData: MenuListType[] = [
           title_en: 'Image crop',
           keepAlive: true
         }
+      },
+      {
+        id: 506,
+        path: '/widgets/excel',
+        meta: {
+          title: 'Excel 导入导出',
+          title_en: 'Excel import and export',
+          keepAlive: true
+        }
       }
     ]
   },

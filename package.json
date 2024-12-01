@@ -50,6 +50,7 @@
     "default-passive-events": "^2.0.0",
     "echarts": "^5.4.0",
     "element-plus": "^2.8.0",
+    "file-saver": "^2.0.5",
     "highlight.js": "^11.10.0",
     "md-editor-v3": "^4.17.0",
     "mitt": "^3.0.1",
@@ -61,7 +62,8 @@
     "vue": "^3.5.12",
     "vue-i18n": "^9.14.0",
     "vue-router": "^4.4.2",
-    "vue3-count-to": "^1.1.2"
+    "vue3-count-to": "^1.1.2",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.4.1",
