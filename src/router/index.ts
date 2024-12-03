@@ -410,6 +410,13 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         meta: {
           title: 'Excel'
         }
+      },
+      {
+        path: '/widgets/video',
+        component: () => import('@views/widgets/Video.vue'),
+        meta: {
+          title: '视频播放器'
+        }
       }
     ]
   },

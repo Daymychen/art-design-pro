@@ -410,6 +410,15 @@ export const menuData: MenuListType[] = [
           title_en: 'Excel import and export',
           keepAlive: true
         }
+      },
+      {
+        id: 507,
+        path: '/widgets/video',
+        meta: {
+          title: '视频播放器',
+          title_en: 'Video',
+          keepAlive: true
+        }
       }
     ]
   },
