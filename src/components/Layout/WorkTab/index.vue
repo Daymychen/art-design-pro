@@ -13,6 +13,7 @@
           :class="{ 'activ-tab': item.path === activeTab }"
           :id="`scroll-li-${index}`"
           @click="clickTab(item.path)"
+          @contextmenu.prevent="(e: MouseEvent) => showMenu(e, item.path)"
         >
           {{ getWorkTabTitle(item) }}
           <el-icon v-if="index !== 0" @click.stop="closeWorktab('current', item.path)">
@@ -24,7 +25,7 @@
 
     <div class="right">
       <el-dropdown @command="closeWorktab">
-        <el-icon class="btn">
+        <el-icon class="btn console-box">
           <ArrowDown />
         </el-icon>
         <template #dropdown>
@@ -45,44 +46,129 @@
         </template>
       </el-dropdown>
     </div>
+    <MenuRight ref="menuRef" :menu-items="menuItems" @select="handleSelect" />
   </div>
 </template>
 
 <script setup lang="ts">
+  // 导入必要的组件和工具
   import { computed, onMounted, ref, watch } from 'vue'
-  import { useWorktabStore } from '@/store/modules/worktab'
-  import { ArrowDown, ArrowLeft, ArrowRight, Close, CircleClose } from '@element-plus/icons-vue'
-  import { useUserStore } from '@/store/modules/user'
-  import { getWorkTabTitle } from '@/utils/menu'
+  import { useRoute, useRouter } from 'vue-router'
+  import { useI18n } from 'vue-i18n'
   import { ElMessage } from 'element-plus'
   import { useThrottleFn } from '@vueuse/core'
-  import EmojiText from '@/utils/emojo'
-  import { useI18n } from 'vue-i18n'
-  const { t } = useI18n()
+  import { ArrowDown, ArrowLeft, ArrowRight, Close, CircleClose } from '@element-plus/icons-vue'
 
+  import { useWorktabStore } from '@/store/modules/worktab'
+  import { useUserStore } from '@/store/modules/user'
+
+  import { getWorkTabTitle } from '@/utils/menu'
+  import EmojiText from '@/utils/emojo'
+  import type { MenuItemType } from '@/components/Widgets/MenuRight.vue'
+
+  const { t } = useI18n()
   const store = useWorktabStore()
-  const list = computed(() => store.opened)
+  const userStore = useUserStore()
   const route = useRoute()
   const router = useRouter()
   const { currentRoute } = router
-  const translateX = ref(0)
-  const activeTab = computed(() => currentRoute.value.path)
-  const transition = ref('')
-  const scrollRef = ref<HTMLElement | null>(null)
-  const tabsRef = ref<HTMLElement | null>(null)
-  const userStore = useUserStore()
 
-  let startX = 0
-  let currentX = 0
+  // 初始化状态和引用
+  const scrollRef = ref<HTMLElement | null>(null) // 滚动容器引用
+  const tabsRef = ref<HTMLElement | null>(null) // 标签列表容器引用
+  const menuRef = ref() // 右键菜单引用
 
-  // 初始化 DOM 元素
-  onMounted(() => {
-    listenerScroll()
-    addTouchListeners()
-    worktabAutoPosition()
+  // 滚动相关状态
+  const translateX = ref(0) // 标签列表水平偏移量
+  const transition = ref('') // 过渡动画样式
+  const clickedPath = ref('') // 当前点击的标签路径
+  let startX = 0 // 触摸开始位置
+  let currentX = 0 // 当前触摸位置
+
+  // 计算属性
+  const list = computed(() => store.opened) // 打开的标签页列表
+  const activeTab = computed(() => currentRoute.value.path) // 当前激活的标签页
+
+  // 右键菜单选项
+  const menuItems = computed(() => {
+    const currentPath = route.path
+    const clickedIndex = list.value.findIndex((tab) => tab.path === clickedPath.value)
+
+    return [
+      {
+        key: 'left',
+        label: t('worktab.btn[0]'),
+        icon: 'ArrowLeft',
+        disabled: clickedIndex === 0 || currentPath !== clickedPath.value
+      },
+      {
+        key: 'right',
+        label: t('worktab.btn[1]'),
+        icon: 'ArrowRight',
+        disabled: currentPath !== clickedPath.value
+      },
+      {
+        key: 'other',
+        label: t('worktab.btn[2]'),
+        icon: 'Close'
+      },
+      {
+        key: 'all',
+        label: t('worktab.btn[3]'),
+        icon: 'CircleClose'
+      }
+    ]
   })
 
-  // 监听路由变化
+  // 获取当前标签页索引和元素
+  const getCurTabIndex = () => list.value.findIndex((tab) => tab.path === currentRoute.value.path)
+  const getCurTabEl = () => document.getElementById(`scroll-li-${getCurTabIndex()}`) as HTMLElement
+
+  // 设置过渡动画
+  const setTransition = () => {
+    transition.value = 'transform 0.5s ease-in-out'
+    setTimeout(() => {
+      transition.value = ''
+    }, 300)
+  }
+
+  // 自动定位当前标签页到可视区域
+  const worktabAutoPosition = () => {
+    if (!scrollRef.value || !tabsRef.value) return
+
+    const scrollWidth = scrollRef.value.offsetWidth
+    const ulWidth = tabsRef.value.offsetWidth
+    const curTabEl = getCurTabEl()
+
+    if (!curTabEl) return
+
+    const { offsetLeft, clientWidth } = curTabEl
+    const curTabRight = offsetLeft + clientWidth
+    const targetLeft = scrollWidth - curTabRight
+
+    if (
+      (offsetLeft > Math.abs(translateX.value) && curTabRight <= scrollWidth) ||
+      (translateX.value < targetLeft && targetLeft < 0)
+    )
+      return
+
+    requestAnimationFrame(() => {
+      if (curTabRight > scrollWidth) {
+        translateX.value = Math.max(targetLeft - 6, scrollWidth - ulWidth)
+      } else if (offsetLeft < Math.abs(translateX.value)) {
+        translateX.value = -offsetLeft
+      }
+    })
+  }
+
+  // 生命周期钩子
+  onMounted(() => {
+    listenerScroll() // 监听滚动事件
+    addTouchListeners() // 添加触摸事件监听
+    worktabAutoPosition() // 初始定位
+  })
+
+  // 监听路由变化，自动定位标签页
   watch(
     () => currentRoute.value,
     () => {
@@ -91,7 +177,7 @@
     }
   )
 
-  // 切换语言后自动定位
+  // 监听语言变化，重置标签页位置
   watch(
     () => userStore.language,
     () => {
@@ -102,19 +188,65 @@
     }
   )
 
+  // 标签页操作方法
   const clickTab = (path: string) => {
     router.push(path)
   }
 
-  const setTransition = () => {
-    transition.value = 'transform 0.5s ease-in-out'
+  // 关闭标签页的不同方式
+  const closeWorktab = (type: string, tabPath: string) => {
+    let path = typeof tabPath === 'string' ? tabPath : route.path
+
+    switch (type) {
+      case 'current':
+        store.remove(path, router)
+        break
+      case 'left':
+        store.removeLeft(path)
+        break
+      case 'right':
+        store.removeRight(path)
+        break
+      case 'other':
+        store.removeOther(path)
+        break
+      case 'all':
+        store.removeAll(path, router)
+        break
+    }
 
     setTimeout(() => {
-      transition.value = ''
-    }, 300)
+      worktabClosePosition()
+    }, 100)
   }
 
-  // hover 滑动定位
+  // 关闭标签页后的位置调整
+  const worktabClosePosition = () => {
+    if (!scrollRef.value || !tabsRef.value) return
+
+    const { offsetLeft, clientWidth } = getCurTabEl()
+    const scrollWidth = scrollRef.value.offsetWidth
+    const ulWidth = tabsRef.value.offsetWidth
+    const curTabLeft = offsetLeft + clientWidth
+
+    requestAnimationFrame(() => {
+      translateX.value = curTabLeft > scrollWidth ? scrollWidth - ulWidth : 0
+    })
+  }
+
+  // 右键菜单相关方法
+  const showMenu = (e: MouseEvent, path?: string) => {
+    clickedPath.value = path || ''
+    menuRef.value?.show(e)
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
+  const handleSelect = (item: MenuItemType) => {
+    closeWorktab(item.key, route.path)
+  }
+
+  // 滚动事件处理
   const listenerScroll = () => {
     const xMax = 0
 
@@ -146,7 +278,7 @@
     ElMessage({ message, type: 'warning' })
   }, 3000)
 
-  // 移动端添加触摸事件监听
+  // 触摸事件处理
   const addTouchListeners = () => {
     if (tabsRef.value) {
       tabsRef.value.addEventListener('touchstart', handleTouchStart)
@@ -172,85 +304,6 @@
 
   const handleTouchEnd = () => {
     setTransition()
-  }
-
-  const getCurTabIndex = () => {
-    return list.value.findIndex((tab: any) => tab.path === currentRoute.value.path)
-  }
-
-  const getCurTabEl = () => {
-    return document.getElementById(`scroll-li-${getCurTabIndex()}`) as HTMLElement
-  }
-
-  const worktabAutoPosition = () => {
-    if (!scrollRef.value || !tabsRef.value) return
-
-    const scrollWidth = scrollRef.value.offsetWidth
-    const ulWidth = tabsRef.value.offsetWidth
-
-    const curTabEl = getCurTabEl()
-
-    if (!curTabEl) {
-      // 如果当前 tab 元素不存在，直接返回
-      return
-    }
-
-    const { offsetLeft, clientWidth } = curTabEl
-    const curTabRight = offsetLeft + clientWidth
-    const targetLeft = scrollWidth - curTabRight
-
-    if (
-      (offsetLeft > Math.abs(translateX.value) && curTabRight <= scrollWidth) ||
-      (translateX.value < targetLeft && targetLeft < 0)
-    )
-      return
-
-    requestAnimationFrame(() => {
-      if (curTabRight > scrollWidth) {
-        translateX.value = Math.max(targetLeft - 6, scrollWidth - ulWidth)
-      } else if (offsetLeft < Math.abs(translateX.value)) {
-        translateX.value = -offsetLeft
-      }
-    })
-  }
-
-  const worktabClosePosition = () => {
-    if (!scrollRef.value || !tabsRef.value) return
-
-    const { offsetLeft, clientWidth } = getCurTabEl()
-    const scrollWidth = scrollRef.value.offsetWidth
-    const ulWidth = tabsRef.value.offsetWidth
-    const curTabLeft = offsetLeft + clientWidth
-
-    requestAnimationFrame(() => {
-      translateX.value = curTabLeft > scrollWidth ? scrollWidth - ulWidth : 0
-    })
-  }
-
-  const closeWorktab = (type: string, tabPath: string) => {
-    let path = typeof tabPath === 'string' ? tabPath : route.path
-
-    switch (type) {
-      case 'current':
-        store.remove(path, router)
-        break
-      case 'left':
-        store.removeLeft(path)
-        break
-      case 'right':
-        store.removeRight(path)
-        break
-      case 'other':
-        store.removeOther(path)
-        break
-      case 'all':
-        store.removeAll(path, router)
-        break
-    }
-
-    setTimeout(() => {
-      worktabClosePosition()
-    }, 100)
   }
 </script>
 

@@ -63,6 +63,7 @@ declare module 'vue' {
     IconSelector: typeof import('./../components/Icons/IconSelector.vue')['default']
     LockScreen: typeof import('./../components/Layout/LockScreen/index.vue')['default']
     MenuLeft: typeof import('./../components/Layout/MenuLeft/index.vue')['default']
+    MenuRight: typeof import('./../components/Widgets/MenuRight.vue')['default']
     MenuTop: typeof import('./../components/Layout/MenuTop/index.vue')['default']
     MenuTopSubmenu: typeof import('./../components/Layout/MenuTop/MenuTopSubmenu.vue')['default']
     MixedMenu: typeof import('./../components/Layout/MixedMenu/index.vue')['default']

@@ -399,7 +399,8 @@ export const menuData: MenuListType[] = [
         meta: {
           title: '图像裁剪',
           title_en: 'Image crop',
-          keepAlive: true
+          keepAlive: true,
+          showTextBadge: 'new'
         }
       },
       {
@@ -408,7 +409,8 @@ export const menuData: MenuListType[] = [
         meta: {
           title: 'Excel 导入导出',
           title_en: 'Excel import and export',
-          keepAlive: true
+          keepAlive: true,
+          showTextBadge: 'new'
         }
       },
       {
@@ -417,7 +419,8 @@ export const menuData: MenuListType[] = [
         meta: {
           title: '视频播放器',
           title_en: 'Video',
-          keepAlive: true
+          keepAlive: true,
+          showTextBadge: 'new'
         }
       }
     ]

@@ -67,6 +67,7 @@
     .btn {
       position: relative;
       top: 0;
+      box-sizing: border-box;
       width: 32px;
       height: 32px;
       font-size: 16px;
@@ -75,7 +76,6 @@
       cursor: pointer;
       background: var(--art-main-bg-color);
       border-radius: 3px;
-      box-shadow: var(--art-box-shadow);
 
       &:hover ul {
         display: inline;
