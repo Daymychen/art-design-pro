@@ -23,6 +23,7 @@
 
 <script setup lang="ts">
   import { MenuListType } from '@/types/menu'
+  import { getIframeTitle, isIframe } from '@/utils/utils'
 
   const route = useRoute()
 
@@ -38,6 +39,10 @@
   })
 
   const routerPath = computed(() => {
+    // 处理 iframe 路径
+    if (isIframe(route.path)) {
+      return getIframeTitle()
+    }
     return route.path
   })
 </script>
@@ -54,6 +59,14 @@
   .menu-top {
     .el-menu {
       border: none;
+    }
+  }
+
+  @media only screen and (max-width: $device-notebook) {
+    .menu-top {
+      .el-menu {
+        width: 42vw !important;
+      }
     }
   }
 </style>

@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.0.91',
+    title: 'iframe页面跳转优化',
+    date: '2024-12-05',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.0.90',
     title: '面包屑支持路由跳转',
     date: '2024-12-05',

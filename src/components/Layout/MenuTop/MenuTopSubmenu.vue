@@ -63,7 +63,7 @@
 
     // 打开链接
     if (link) {
-      openLink(link, isIframe)
+      openLink(link, isIframe, item)
       return
     }
 

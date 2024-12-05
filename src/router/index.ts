@@ -144,7 +144,7 @@ const routes = [
     },
     children: [
       {
-        path: '/outside/iframe',
+        path: '/outside/iframe/:path',
         component: () => import('@/views/outside/Iframe.vue'),
         meta: {
           title: 'iframe',
@@ -513,7 +513,7 @@ router.beforeEach(async (to, from, next) => {
   setWorktab(to)
 
   // 设置页面标题
-  setPageTitle(to.meta.title as string)
+  setPageTitle(to)
   next()
 })
 
@@ -563,9 +563,17 @@ function checkRouteExist({ to, next }: GuardParams) {
 }
 
 // 设置页面标题
-function setPageTitle(title: string) {
-  if (title) {
-    document.title = `${title} - ${SystemInfo.name}`
+function setPageTitle(to: RouteLocationNormalized) {
+  const { meta } = to
+
+  if (meta.title) {
+    if (meta.title === 'iframe') {
+      const title2 = to.path.split('/').pop()
+      const decodeTitle = decodeURIComponent(title2 || '')
+      document.title = `${decodeTitle} - ${SystemInfo.name}`
+    } else {
+      document.title = `${meta.title} - ${SystemInfo.name}`
+    }
   }
 }
 

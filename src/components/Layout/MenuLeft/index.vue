@@ -46,6 +46,7 @@
   import { SystemInfo } from '@/config/setting'
   import { MenuTypeEnum, MenuWidth } from '@/enums/appEnum'
   import { useMenuStore } from '@/store/modules/menu'
+  import { getIframeTitle, isIframe } from '@/utils/utils'
 
   const route = useRoute()
   const router = useRouter()
@@ -58,12 +59,36 @@
   const defaultOpenedsArray = ref([])
   // const menuList = computed(() => useMenuStore().getMenuList)
 
+  const findMenuChildrenByTitle = (menuList: any[], title: string): any[] => {
+    for (const menu of menuList) {
+      if (menu.meta.title === title) {
+        return menuList
+      }
+      if (menu.children) {
+        const found = findMenuChildrenByTitle(menu.children, title)
+        if (found.length > 0) {
+          return found
+        }
+      }
+    }
+    return []
+  }
+
   const menuList = computed(() => {
     const list = useMenuStore().getMenuList
-    if (settingStore.menuType === MenuTypeEnum.TOP_LEFT) {
-      const currentTopPath = '/' + route.path.split('/')[1]
-      const currentTopMenu = list.find((menu) => menu.path === currentTopPath)
-      return currentTopMenu?.children || []
+    const isTopLeftMenu = settingStore.menuType === MenuTypeEnum.TOP_LEFT
+
+    if (isTopLeftMenu) {
+      const title = getIframeTitle()
+
+      // 处理 iframe 路径
+      if (isIframe(route.path)) {
+        return findMenuChildrenByTitle(list, title)
+      }
+
+      // 处理一级菜单
+      const currentTopPath = `/${route.path.split('/')[1]}`
+      return list.find((menu) => menu.path === currentTopPath)?.children || []
     }
 
     return list
@@ -72,6 +97,11 @@
   const routerPath = computed(() => {
     if (route.path === '/user/user') {
       // defaultOpenedsArray.value = []
+    }
+
+    // 处理 iframe 路径
+    if (isIframe(route.path)) {
+      return getIframeTitle()
     }
     return route.path
   })

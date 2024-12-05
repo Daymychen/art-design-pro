@@ -12,16 +12,14 @@
 
 <script setup lang="ts">
   import { ref, onMounted } from 'vue'
-  import { useRoute } from 'vue-router'
 
-  const route = useRoute()
   const iframeRef = ref<HTMLIFrameElement | null>(null)
   const isLoading = ref(true)
   const iframeUrl = ref('')
 
   onMounted(() => {
     // 从路由参数中获取iframe的URL
-    iframeUrl.value = (route.query.url as string) || ''
+    iframeUrl.value = sessionStorage.getItem('iframeUrl') || ''
   })
 
   const handleIframeLoad = () => {

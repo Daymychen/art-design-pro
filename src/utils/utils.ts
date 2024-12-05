@@ -151,3 +151,13 @@ export function getGreeting() {
     return '晚上好！'
   }
 }
+
+// 判断是不是iframe
+export function isIframe(url: string) {
+  return url.includes('/outside/iframe')
+}
+
+// 获取iframe的title
+export function getIframeTitle() {
+  return decodeURIComponent(location.href.split('/').pop() || '')
+}

@@ -38,6 +38,7 @@
   import { getMenuTitle, openLink } from '@/utils/menu'
   import { ref, onMounted } from 'vue'
   import { ArrowLeft, ArrowRight } from '@element-plus/icons-vue'
+  import { getIframeTitle, isIframe } from '@/utils/utils'
 
   defineProps({
     list: {
@@ -51,7 +52,7 @@
       let firstChild = item.children.find((child) => !child.meta.isHide) || item.children[0]
       let { link, isIframe } = firstChild.meta
       if (link) {
-        openLink(link, isIframe)
+        openLink(link, isIframe, firstChild)
       } else {
         router.push(firstChild.path)
       }
@@ -62,9 +63,15 @@
 
   const isActive = (item: MenuListType): boolean => {
     const currentPath = route.path
+
+    if (isIframe(currentPath)) {
+      return item.children?.some((child) => child.meta.title === getIframeTitle()) ?? false
+    }
+
     if (item.children?.length) {
       return item.children.some((child) => child.path === currentPath)
     }
+
     return item.path === currentPath
   }
 
@@ -193,7 +200,7 @@
   @media (max-width: $device-notebook) {
     .mixed-top-menu {
       :deep(.scrollbar-wrapper) {
-        width: 41vw;
+        width: 36vw;
         margin: 0 30px;
       }
     }

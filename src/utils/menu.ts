@@ -76,9 +76,10 @@ export const getWorkTabTitle = (item: any) => {
 }
 
 // 打开链接
-export const openLink = (link: string, isIframe: boolean = false) => {
+export const openLink = (link: string, isIframe: boolean = false, item?: MenuListType) => {
   if (isIframe) {
-    return router.push({ path: '/outside/iframe', query: { url: link } })
+    sessionStorage.setItem('iframeUrl', link)
+    return router.push({ path: `/outside/iframe/${encodeURIComponent(item?.meta.title || '')}` })
   } else {
     return window.open(link, '_blank')
   }

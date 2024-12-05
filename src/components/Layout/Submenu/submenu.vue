@@ -42,7 +42,7 @@
   defineProps({
     title: {
       type: String,
-      default: '666'
+      default: ''
     },
     list: {
       type: [Array] as PropType<MenuListType[]>,
@@ -66,7 +66,7 @@
 
     // 打开链接
     if (link) {
-      openLink(link, isIframe)
+      openLink(link, isIframe, item)
       return
     }
 

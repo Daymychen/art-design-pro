@@ -10,7 +10,7 @@
             {{ item.meta.icon }}
           </i> -->
           <span>
-            {{ getMetaMenuTitle(item) }}
+            {{ getMetaMenuTitle(item) === 'iframe' ? getIframeTitle() : getMetaMenuTitle(item) }}
           </span>
         </div>
         <i v-if="!isLastItem(index)" aria-hidden="true">/</i>
@@ -72,6 +72,13 @@
 
   // 监听路由变化
   watch(() => route.path, getBreadcrumb, { immediate: true })
+
+  // 获取iframe标题
+  const getIframeTitle = (): string => {
+    const title = location.href.split('/').pop()
+    const decodeTitle = decodeURIComponent(title || '')
+    return decodeTitle
+  }
 </script>
 
 <style lang="scss" scoped>
