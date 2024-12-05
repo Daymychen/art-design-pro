@@ -55,7 +55,7 @@ const routes = [
     },
     children: [
       {
-        path: 'console',
+        path: '/dashboard/console',
         name: 'Console',
         component: () => import(`@views/dashboard/console/index.vue`),
         meta: {
@@ -65,7 +65,7 @@ const routes = [
         }
       },
       {
-        path: 'analysis',
+        path: '/dashboard/analysis',
         name: 'Analysis',
         component: () => import(`@views/dashboard/analysis/index.vue`),
         meta: {
@@ -110,7 +110,7 @@ const routes = [
     },
     children: [
       {
-        path: '403',
+        path: '/exception/403',
         component: () => import('@/views/exception/403.vue'),
         meta: {
           title: '403',
@@ -118,7 +118,7 @@ const routes = [
         }
       },
       {
-        path: '404',
+        path: '/exception/404',
         component: () => import('@views/exception/404.vue'),
         meta: {
           title: '404',
@@ -126,7 +126,7 @@ const routes = [
         }
       },
       {
-        path: '500',
+        path: '/exception/500',
         component: () => import('@views/exception/500.vue'),
         meta: {
           title: '500',

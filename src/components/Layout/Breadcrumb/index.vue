@@ -1,54 +1,95 @@
 <template>
-  <div class="breadcrumb">
+  <nav class="breadcrumb" aria-label="breadcrumb">
     <ul>
-      <li v-for="(item, index) in breadList" :key="index">
-        <span>{{ getMetaMenuTitle(item) }}</span>
-        <i v-if="index !== breadList.length - 1">/</i>
+      <li v-for="(item, index) in breadList" :key="item.path">
+        <div
+          :class="{ clickable: !isLastItem(index) }"
+          @click="!isLastItem(index) && handleClick(item.path)"
+        >
+          <!-- <i v-if="item.meta.icon" class="iconfont-sys">
+            {{ item.meta.icon }}
+          </i> -->
+          <span>
+            {{ getMetaMenuTitle(item) }}
+          </span>
+        </div>
+        <i v-if="!isLastItem(index)" aria-hidden="true">/</i>
       </li>
     </ul>
-  </div>
+  </nav>
 </template>
 
 <script setup lang="ts">
+  import { ref, watch } from 'vue'
+  import { useRouter, useRoute } from 'vue-router'
   import { getMetaMenuTitle } from '@/utils/menu'
-  import { RouteLocationMatched } from 'vue-router'
+  import type { RouteLocationMatched, RouteRecordRaw } from 'vue-router'
+
+  export interface BreadcrumbItem {
+    path: string
+    meta: RouteRecordRaw['meta']
+  }
 
   const route = useRoute()
-  const breadList: any = ref([])
+  const router = useRouter()
+  const breadList = ref<BreadcrumbItem[]>([])
 
-  const isHome = (route: RouteLocationMatched) => {
-    return route.name === '/'
-  }
+  // 计算函数
+  const isLastItem = (index: number) => index === breadList.value.length - 1
+  const isHome = (route: RouteLocationMatched) => route.name === '/'
 
+  // 获取面包屑数据
   const getBreadcrumb = () => {
-    let { matched } = route
-    let list: any = []
-
-    //如果不是首页
-    if (!isHome(matched[0])) {
-      matched.map((item: any) => {
-        let { path, meta } = item
-        list.push({
-          path,
-          meta
-        })
-      })
+    const { matched } = route
+    if (isHome(matched[0])) {
+      breadList.value = []
+      return
     }
-    breadList.value = list
+
+    breadList.value = matched.map(({ path, meta }) => ({ path, meta }))
   }
 
-  watch(
-    () => route.path,
-    () => {
-      // console.log(route.meta)
-      getBreadcrumb()
-    },
-    {
-      immediate: true
+  // 处理面包屑点击
+  const handleClick = async (path: string) => {
+    const currentRoute = router.getRoutes().find((route) => route.path === path)
+
+    if (!currentRoute?.children?.length) {
+      await router.push(path)
+      return
     }
-  )
+
+    const firstValidChild = currentRoute.children.find(
+      (child) => !child.redirect && !child.meta?.isHide
+    )
+
+    if (firstValidChild) {
+      const fullPath = `/${firstValidChild.path}`.replace('//', '/')
+      await router.push(fullPath)
+    } else {
+      await router.push(path)
+    }
+  }
+
+  // 监听路由变化
+  watch(() => route.path, getBreadcrumb, { immediate: true })
 </script>
 
 <style lang="scss" scoped>
   @use './style';
+
+  ul {
+    li {
+      display: flex;
+      align-items: center;
+
+      .clickable {
+        cursor: pointer;
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: var(--el-color-primary);
+        }
+      }
+    }
+  }
 </style>

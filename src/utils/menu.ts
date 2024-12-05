@@ -23,7 +23,7 @@ function processMenuItem(
   routesToAdd: AppRouteRecordRaw[]
 ) {
   const { path, children = [], meta } = item
-  const { title, title_en, authList, keepAlive, isHide, isHideTab } = meta
+  const { title, title_en, icon, authList, keepAlive, isHide, isHideTab } = meta
 
   const matchingRoute = roleRoutes.find((route) => route.path === path)
 
@@ -32,6 +32,7 @@ function processMenuItem(
       ...(matchingRoute.meta || {}),
       title,
       title_en,
+      icon,
       authList,
       keepAlive,
       isHide,
