@@ -1,6 +1,6 @@
 export type MenuListType = {
   id: number
-  name?: string // 菜单名称
+  name?: string // 组件名
   path: string // 路由
   meta: {
     title: string // 菜单名称

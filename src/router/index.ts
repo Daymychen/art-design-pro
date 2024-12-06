@@ -418,6 +418,20 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         meta: {
           title: '视频播放器'
         }
+      },
+      {
+        path: '/widgets/count-to',
+        component: () => import('@views/widgets/CountTo.vue'),
+        meta: {
+          title: '数字滚动'
+        }
+      },
+      {
+        path: '/widgets/wang-editor',
+        component: () => import('@views/widgets/WangEditor.vue'),
+        meta: {
+          title: '富文本编辑器'
+        }
       }
     ]
   },

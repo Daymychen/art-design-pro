@@ -202,8 +202,8 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
-    border: 1px solid var(--art-border-color);
-    border-radius: 8px;
+    border: 1px solid rgba(var(--art-gray-300-rgb), 0.8);
+    border-radius: 6px;
 
     .iconfont-sys {
       font-size: 20px !important;

@@ -422,6 +422,26 @@ export const menuData: MenuListType[] = [
           keepAlive: true,
           showTextBadge: 'new'
         }
+      },
+      {
+        id: 508,
+        path: '/widgets/count-to',
+        meta: {
+          title: '数字滚动',
+          title_en: 'Count to',
+          keepAlive: false,
+          showTextBadge: 'new'
+        }
+      },
+      {
+        id: 509,
+        path: '/widgets/wang-editor',
+        meta: {
+          title: '富文本编辑器',
+          title_en: 'Rich text editor',
+          keepAlive: true,
+          showTextBadge: 'new'
+        }
       }
     ]
   },

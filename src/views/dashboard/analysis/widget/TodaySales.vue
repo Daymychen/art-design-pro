@@ -13,7 +13,14 @@
         <el-col :span="6" :xs="24" v-for="(item, index) in salesData" :key="index">
           <div :class="['sales-card', item.class]">
             <i class="iconfont-sys" :class="item.class">{{ item.iconfont }}</i>
-            <h2>{{ item.value }}</h2>
+            <h2>
+              <CountTo
+                class="number custom-text box-title"
+                :endVal="item.value"
+                :duration="1000"
+                separator=""
+              ></CountTo>
+            </h2>
             <p>{{ item.label }}</p>
             <small>{{ item.change }} from yesterday</small>
           </div>
@@ -25,32 +32,33 @@
 
 <script setup lang="ts">
   import { ref } from 'vue'
+  import { CountTo } from 'vue3-count-to'
 
   const salesData = ref([
     {
       label: 'Total Sales',
-      value: '$1k',
+      value: 999,
       change: '+15%',
       iconfont: '\ue7d9',
       class: 'red'
     },
     {
       label: 'Total Order',
-      value: '300',
+      value: 300,
       change: '+5%',
       iconfont: '\ue70f',
       class: 'yellow'
     },
     {
       label: 'Product Sold',
-      value: '5',
+      value: 56,
       change: '+2%',
       iconfont: '\ue712',
       class: 'green'
     },
     {
       label: 'New Customers',
-      value: '8',
+      value: 68,
       change: '+8%',
       iconfont: '\ue77f',
       class: 'purple'
