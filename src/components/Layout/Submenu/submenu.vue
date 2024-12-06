@@ -62,11 +62,11 @@
   const emit = defineEmits(['close'])
 
   const goPage = (item: MenuListType) => {
-    let { link, isIframe } = item.meta
+    let { link } = item.meta
 
     // 打开链接
     if (link) {
-      openLink(link, isIframe, item)
+      openLink(link, item.meta.isIframe)
       return
     }
 

@@ -52,7 +52,7 @@
       let firstChild = item.children.find((child) => !child.meta.isHide) || item.children[0]
       let { link, isIframe } = firstChild.meta
       if (link) {
-        openLink(link, isIframe, firstChild)
+        openLink(link, isIframe)
       } else {
         router.push(firstChild.path)
       }

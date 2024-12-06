@@ -11,15 +11,21 @@
 </template>
 
 <script setup lang="ts">
+  import { getIframeRoutes } from '@/utils/menu'
   import { ref, onMounted } from 'vue'
+
+  const route = useRoute()
 
   const iframeRef = ref<HTMLIFrameElement | null>(null)
   const isLoading = ref(true)
   const iframeUrl = ref('')
 
   onMounted(() => {
-    // 从路由参数中获取iframe的URL
-    iframeUrl.value = sessionStorage.getItem('iframeUrl') || ''
+    const iframeRoute = getIframeRoutes().find((item: any) => item.path === route.path)
+
+    if (iframeRoute?.meta) {
+      iframeUrl.value = iframeRoute.meta.link
+    }
   })
 
   const handleIframeLoad = () => {

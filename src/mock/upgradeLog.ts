@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.0.92',
+    title: '重构：增强iframe处理和菜单交互',
+    date: '2024-12-06',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.0.91',
     title: 'iframe页面跳转优化',
     date: '2024-12-05',

@@ -9,7 +9,12 @@ export const menuService = {
   getMenuList(
     delay: number = 300
   ): Promise<{ menuList: MenuListType[]; closeLoading: () => void }> {
-    const loading = createLoading
+    const loading = ElLoading.service({
+      lock: true,
+      background: 'rgba(0, 0, 0, 0)',
+      svg: fourDotsSpinnerSvg,
+      svgViewBox: '0 0 40 40'
+    })
 
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -21,10 +26,3 @@ export const menuService = {
     })
   }
 }
-
-const createLoading = ElLoading.service({
-  lock: true,
-  background: 'rgba(0, 0, 0, 0)',
-  svg: fourDotsSpinnerSvg,
-  svgViewBox: '0 0 40 40'
-})

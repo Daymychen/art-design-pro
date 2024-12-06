@@ -57,22 +57,6 @@
   const collapse = computed(() => !settingStore.menuOpen)
   const uniqueOpened = computed(() => settingStore.uniqueOpened)
   const defaultOpenedsArray = ref([])
-  // const menuList = computed(() => useMenuStore().getMenuList)
-
-  const findMenuChildrenByTitle = (menuList: any[], title: string): any[] => {
-    for (const menu of menuList) {
-      if (menu.meta.title === title) {
-        return menuList
-      }
-      if (menu.children) {
-        const found = findMenuChildrenByTitle(menu.children, title)
-        if (found.length > 0) {
-          return found
-        }
-      }
-    }
-    return []
-  }
 
   const menuList = computed(() => {
     const list = useMenuStore().getMenuList
@@ -93,6 +77,21 @@
 
     return list
   })
+
+  const findMenuChildrenByTitle = (menuList: any[], title: string): any[] => {
+    for (const menu of menuList) {
+      if (menu.meta.title === title && menu.meta.isIframe) {
+        return menuList
+      }
+      if (menu.children) {
+        const found = findMenuChildrenByTitle(menu.children, title)
+        if (found.length > 0) {
+          return found
+        }
+      }
+    }
+    return []
+  }
 
   const routerPath = computed(() => {
     if (route.path === '/user/user') {

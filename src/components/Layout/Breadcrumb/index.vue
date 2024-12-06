@@ -3,12 +3,9 @@
     <ul>
       <li v-for="(item, index) in breadList" :key="item.path">
         <div
-          :class="{ clickable: !isLastItem(index) }"
-          @click="!isLastItem(index) && handleClick(item.path)"
+          :class="{ clickable: item.path !== '/outside' && !isLastItem(index) }"
+          @click="!isLastItem(index) && handleClick(item)"
         >
-          <!-- <i v-if="item.meta.icon" class="iconfont-sys">
-            {{ item.meta.icon }}
-          </i> -->
           <span>
             {{ getMetaMenuTitle(item) === 'iframe' ? getIframeTitle() : getMetaMenuTitle(item) }}
           </span>
@@ -50,7 +47,13 @@
   }
 
   // 处理面包屑点击
-  const handleClick = async (path: string) => {
+  const handleClick = async (item: BreadcrumbItem) => {
+    const { path } = item
+
+    if (path === '/outside') {
+      return
+    }
+
     const currentRoute = router.getRoutes().find((route) => route.path === path)
 
     if (!currentRoute?.children?.length) {

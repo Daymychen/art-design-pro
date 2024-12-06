@@ -95,6 +95,7 @@ export const useUserStore = defineStore({
         this.lockPassword = ''
         useWorktabStore().opened = []
         this.saveUserData()
+        sessionStorage.removeItem('iframeRoutes')
         router.push('/login')
       }, 300)
     }

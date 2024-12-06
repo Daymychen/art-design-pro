@@ -11,11 +11,12 @@ import Home from '@views/index/index.vue'
 import { SystemInfo } from '@/config/setting'
 import { useUserStore } from '@/store/modules/user'
 import { menuService } from '@/api/menuApi'
-import { routerMatch } from '@/utils/menu'
+import { getIframeRoutes, routerMatch } from '@/utils/menu'
 import { useMenuStore } from '@/store/modules/menu'
 import { useSettingStore } from '@/store/modules/setting'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
+import { isIframe } from '@/utils/utils'
 
 // 创建路由守卫参数类型别名
 type GuardParams = {
@@ -530,14 +531,30 @@ function setWorktab(to: RouteLocationNormalized) {
   const worktabStore = useWorktabStore()
   const { meta, path, params, query } = to
   const { title, title_en, isHideTab } = meta
+
   if (!isHideTab) {
-    worktabStore.router({
-      title: title as string,
-      title_en: title_en as string,
-      path,
-      params,
-      query
-    })
+    if (isIframe(path)) {
+      const iframeRoute = getIframeRoutes().find((route: any) => route.path === to.path)
+
+      if (iframeRoute?.meta) {
+        const { title, title_en } = iframeRoute.meta
+        worktabStore.router({
+          title,
+          title_en,
+          path,
+          params,
+          query
+        })
+      }
+    } else {
+      worktabStore.router({
+        title: title as string,
+        title_en: title_en as string,
+        path,
+        params,
+        query
+      })
+    }
   }
 }
 
@@ -579,7 +596,7 @@ function setPageTitle(to: RouteLocationNormalized) {
 
 // 处理路由注册
 async function handleRegisterRoutes({ to, next }: GuardParams) {
-  if (!isRouteRegistered.value) {
+  if (!isRouteRegistered.value && useUserStore().isLogin) {
     try {
       await registerRoutes()
       next({ ...to, replace: true })
