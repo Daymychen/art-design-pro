@@ -8,13 +8,13 @@
 
 ### 浅色主题
 
-![浅色主题](https://www.qiniu.lingchen.kim/Snipaste_2024-08-23_11-27-18.png)
+![浅色主题](https://www.qiniu.lingchen.kim/PixPin_2024-12-06_19-05-51.png)
 
 ![浅色主题](https://www.qiniu.lingchen.kim/PixPin_2024-10-14_11-46-23.png)
 
 ### 暗黑主题
 
-![暗黑主题](https://www.qiniu.lingchen.kim/Snipaste_2024-09-02_11-35-52%202.png)
+![暗黑主题](https://www.qiniu.lingchen.kim/PixPin_2024-12-06_19-06-06.png)
 
 ![暗黑主题](https://www.qiniu.lingchen.kim/PixPin_2024-10-14_11-47-06.png)
 
@@ -34,6 +34,7 @@
 
 - 丰富主题切换
 - 全局搜索
+- 锁屏
 - 多标签页
 - 全局面包屑
 - 多语言
