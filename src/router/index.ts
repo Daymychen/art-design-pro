@@ -432,6 +432,20 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         meta: {
           title: '富文本编辑器'
         }
+      },
+      {
+        path: '/widgets/context-menu',
+        component: () => import('@views/widgets/ContextMenu.vue'),
+        meta: {
+          title: '右键菜单'
+        }
+      },
+      {
+        path: '/widgets/watermark',
+        component: () => import('@views/widgets/Watermark.vue'),
+        meta: {
+          title: '水印'
+        }
       }
     ]
   },

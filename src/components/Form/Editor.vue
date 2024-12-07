@@ -46,7 +46,7 @@
     //   keys: ['menu-key1', 'menu-key2']
     // }
     // 排除某些菜单
-    excludeKeys: ['fontFamily', 'group-video', 'fontSize', 'lineHeight']
+    excludeKeys: ['fontFamily'] //'group-video', 'fontSize', 'lineHeight'
   }
 
   const editorConfig = {
@@ -199,6 +199,7 @@
 <style lang="scss">
   /* 编辑器容器 */
   .editor-wrapper {
+    z-index: 5000;
     width: 100%;
     height: 100%;
     overflow: hidden;

@@ -224,8 +224,12 @@
           <span>{{ $t('setting.basics.list[8]') }}</span>
           <el-switch v-model="autoClose" @change="setAutoClose" />
         </div>
-        <div class="item" style="display: flex">
+        <div class="item">
           <span>{{ $t('setting.basics.list[9]') }}</span>
+          <el-switch v-model="watermarkVisible" @change="setWatermarkVisible" />
+        </div>
+        <div class="item" style="display: flex">
+          <span>{{ $t('setting.basics.list[10]') }}</span>
           <el-select
             v-model="pageTransition"
             placeholder="Select"
@@ -295,6 +299,7 @@
   const isLeftMenu = computed(() => store.menuType === MenuTypeEnum.LEFT)
   const isTopMenu = computed(() => store.menuType === MenuTypeEnum.TOP)
   const isTopLeftMenu = computed(() => store.menuType === MenuTypeEnum.TOP_LEFT)
+  const watermarkVisible = computed(() => store.watermarkVisible)
   const uniqueOpened = ref(true)
   const showMenuButton = ref(true)
   const autoClose = ref(true)
@@ -550,6 +555,11 @@
       setSystemTheme(SystemThemeEnum.LIGHT)
     }
     store.setColorWeak()
+    isAutoClose()
+  }
+
+  const setWatermarkVisible = () => {
+    store.setWatermarkVisible(!watermarkVisible.value)
     isAutoClose()
   }
 

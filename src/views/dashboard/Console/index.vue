@@ -16,7 +16,7 @@
     <div class="bottom-wrap console-box">
       <div>
         <h2 class="custom-text box-title">关于项目</h2>
-        <p>{{ systemName }} 是一套企业级的高颜值、高性能、高体验的通用型后台前端解决方案</p>
+        <p>{{ systemName }} 是一款专注于用户体验和视觉设计的后台管理系统模版</p>
         <p>使用了 Vue3、TypeScript、Vite、Element Plus 等前沿技术</p>
 
         <div class="button-wrap">

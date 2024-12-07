@@ -143,12 +143,12 @@
           }
 
           .el-icon {
+            margin-right: 8px;
             font-size: 16px;
             color: var(--art-gray-800);
           }
 
           .menu-label {
-            margin-left: 8px;
             color: var(--art-gray-700);
           }
 

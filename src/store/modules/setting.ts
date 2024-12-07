@@ -25,6 +25,7 @@ export interface SettingState {
   pageTransition: string // 页面切换动画
   menuOpen: boolean // 菜单是否展开
   refresh: boolean
+  watermarkVisible: boolean // 水印是否显示
 }
 
 export const useSettingStore = defineStore({
@@ -41,14 +42,15 @@ export const useSettingStore = defineStore({
     showRefreshButton: true,
     showCrumbs: true,
     autoClose: false,
-    showWorkTab: false,
+    showWorkTab: true,
     showLanguage: true,
     showNprogress: true,
     colorWeak: false,
     showSettingGuide: true,
     pageTransition: 'slide-right',
     menuOpen: true,
-    refresh: false
+    refresh: false,
+    watermarkVisible: false
   }),
   getters: {
     getMenuTheme(): MenuThemeType {
@@ -90,7 +92,7 @@ export const useSettingStore = defineStore({
         this.showSettingGuide = setting.showSettingGuide
         this.pageTransition = setting.pageTransition
         this.menuOpen = setting.menuOpen
-
+        this.watermarkVisible = setting.watermarkVisible
         setElementThemeColor(setting.systemThemeColor)
       } else {
         setElementThemeColor(ElementPlusTheme.primary)
@@ -170,6 +172,10 @@ export const useSettingStore = defineStore({
     // 刷新当前页
     reload() {
       this.refresh = !this.refresh
+    },
+    // 设置水印是否显示
+    setWatermarkVisible(visible: boolean) {
+      this.watermarkVisible = visible
     }
   }
 })

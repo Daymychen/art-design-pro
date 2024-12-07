@@ -17,6 +17,7 @@ declare module 'vue' {
     Editor: typeof import('./../components/Form/Editor.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElButtonGroup: typeof import('element-plus/es')['ElButtonGroup']
+    ElCard: typeof import('element-plus/es')['ElCard']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
     ElCheckboxGroup: typeof import('element-plus/es')['ElCheckboxGroup']
     ElCol: typeof import('element-plus/es')['ElCol']
@@ -55,6 +56,7 @@ declare module 'vue' {
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElTree: typeof import('element-plus/es')['ElTree']
     ElUpload: typeof import('element-plus/es')['ElUpload']
+    ElWatermark: typeof import('element-plus/es')['ElWatermark']
     ExcelExport: typeof import('./../components/Form/ExcelExport.vue')['default']
     ExcelImport: typeof import('./../components/Form/ExcelImport.vue')['default']
     Exception: typeof import('./../components/Views/Exception.vue')['default']
@@ -78,6 +80,7 @@ declare module 'vue' {
     Templae: typeof import('./../components/Templae.vue')['default']
     TopBar: typeof import('./../components/Layout/TopBar/index.vue')['default']
     VideoPlayer: typeof import('./../components/Widgets/VideoPlayer.vue')['default']
+    Watermark: typeof import('./../components/Widgets/Watermark.vue')['default']
     WorkTab: typeof import('./../components/Layout/WorkTab/index.vue')['default']
   }
 }

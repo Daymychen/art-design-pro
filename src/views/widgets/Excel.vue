@@ -19,14 +19,14 @@
 
     <el-button type="danger" @click="handleClear">清除数据</el-button>
 
-    <el-table :data="tableData" style="margin-top: 10px">
+    <art-table :data="tableData" style="margin-top: 10px">
       <el-table-column
         v-for="key in Object.keys(headers)"
         :key="key"
         :prop="key"
         :label="headers[key as keyof typeof headers]"
       />
-    </el-table>
+    </art-table>
   </div>
 </template>
 

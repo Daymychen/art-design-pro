@@ -231,8 +231,10 @@
         .item {
           box-sizing: border-box;
           width: calc(20% - 20px);
-          margin: 0 20px 30px 0;
+          margin: 0 20px 20px 0;
           cursor: pointer;
+          border: 1px solid var(--art-border-color);
+          border-radius: 6px;
 
           &:hover {
             .el-button {
@@ -249,7 +251,7 @@
               height: 100%;
               object-fit: cover;
               background: #f1f2f5;
-              border-radius: 6px;
+              border-radius: 6px 6px 0 0;
             }
 
             .type {
@@ -265,9 +267,10 @@
           }
 
           .bottom {
+            padding: 5px 10px;
+
             h2 {
-              margin-top: 10px;
-              font-size: 18px;
+              font-size: 16px;
               font-weight: 500;
               color: #333;
 
@@ -285,15 +288,15 @@
               .text {
                 display: flex;
                 align-items: center;
+                color: var(--art-text-gray-600);
 
                 i {
                   margin-right: 5px;
                   font-size: 14px;
-                  color: #555;
                 }
 
                 span {
-                  font-size: 12px;
+                  font-size: 13px;
                 }
 
                 .line {

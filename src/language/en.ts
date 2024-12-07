@@ -49,6 +49,7 @@ export default {
         'Show top progress bar',
         'Color Weakness Mode',
         'Auto close settings center',
+        'Global watermark',
         'Page animation'
       ]
     }

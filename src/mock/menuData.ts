@@ -33,6 +33,117 @@ export const menuData: MenuListType[] = [
     ]
   },
   {
+    id: 5,
+    path: '/widgets',
+    name: 'Widgets',
+    meta: {
+      title: '组件中心',
+      title_en: 'Components',
+      icon: '\ue81a'
+    },
+    children: [
+      {
+        id: 501,
+        path: '',
+        meta: {
+          title: '组件总览',
+          title_en: 'Element UI',
+          keepAlive: false,
+          link: 'https://element-plus.org/zh-CN/component/overview.html',
+          isIframe: true
+        }
+      },
+      {
+        id: 503,
+        path: '/widgets/icon-list',
+        meta: {
+          title: 'Icon 图标',
+          title_en: 'Icon',
+          keepAlive: true
+        }
+      },
+      {
+        id: 504,
+        path: '/widgets/icon-selector',
+        meta: {
+          title: '图标选择器',
+          title_en: 'Icon selector',
+          keepAlive: true
+        }
+      },
+      {
+        id: 505,
+        path: '/widgets/image-crop',
+        meta: {
+          title: '图像裁剪',
+          title_en: 'Image crop',
+          keepAlive: true,
+          showTextBadge: 'new'
+        }
+      },
+      {
+        id: 506,
+        path: '/widgets/excel',
+        meta: {
+          title: 'Excel 导入导出',
+          title_en: 'Excel import and export',
+          keepAlive: true,
+          showTextBadge: 'new'
+        }
+      },
+      {
+        id: 507,
+        path: '/widgets/video',
+        meta: {
+          title: '视频播放器',
+          title_en: 'Video',
+          keepAlive: true,
+          showTextBadge: 'new'
+        }
+      },
+      {
+        id: 508,
+        path: '/widgets/count-to',
+        meta: {
+          title: '数字滚动',
+          title_en: 'Count to',
+          keepAlive: false,
+          showTextBadge: 'new'
+        }
+      },
+      {
+        id: 509,
+        path: '/widgets/wang-editor',
+        meta: {
+          title: '富文本编辑器',
+          title_en: 'Rich text editor',
+          keepAlive: true,
+          showTextBadge: 'new'
+        }
+      },
+      {
+        id: 510,
+        path: '/widgets/watermark',
+        meta: {
+          title: '水印',
+          title_en: 'Watermark',
+          keepAlive: true,
+          showTextBadge: 'new'
+        }
+      },
+      {
+        id: 511,
+        path: '/widgets/context-menu',
+        meta: {
+          title: '右键菜单',
+          title_en: 'Context menu',
+          keepAlive: true,
+          showTextBadge: 'new'
+        }
+      }
+    ]
+  },
+  {
     id: 4,
     path: '/article',
     name: 'Article',
@@ -42,22 +153,6 @@ export const menuData: MenuListType[] = [
       icon: '\ue7ae'
     },
     children: [
-      {
-        id: 201,
-        path: '/article/article-publish',
-        meta: {
-          title: '文章发布',
-          title_en: 'Article publish',
-          keepAlive: true,
-          authList: [
-            {
-              id: 2010,
-              title: '发布',
-              auth_mark: 'article/article-publish/add'
-            }
-          ]
-        }
-      },
       {
         id: 202,
         path: '/article/article-list',
@@ -97,6 +192,22 @@ export const menuData: MenuListType[] = [
           title: '留言管理',
           title_en: 'Comment',
           keepAlive: true
+        }
+      },
+      {
+        id: 201,
+        path: '/article/article-publish',
+        meta: {
+          title: '文章发布',
+          title_en: 'Article publish',
+          keepAlive: true,
+          authList: [
+            {
+              id: 2010,
+              title: '发布',
+              auth_mark: 'article/article-publish/add'
+            }
+          ]
         }
       }
     ]
@@ -349,98 +460,6 @@ export const menuData: MenuListType[] = [
           title: '失败页',
           title_en: 'Fail page',
           keepAlive: true
-        }
-      }
-    ]
-  },
-
-  {
-    id: 5,
-    path: '/widgets',
-    name: 'Widgets',
-    meta: {
-      title: '组件中心',
-      title_en: 'Components',
-      icon: '\ue81a'
-    },
-    children: [
-      {
-        id: 501,
-        path: '',
-        meta: {
-          title: '组件总览',
-          title_en: 'Element UI',
-          keepAlive: false,
-          link: 'https://element-plus.org/zh-CN/component/overview.html',
-          isIframe: true
-        }
-      },
-      {
-        id: 503,
-        path: '/widgets/icon-list',
-        meta: {
-          title: 'Icon 图标',
-          title_en: 'Icon',
-          keepAlive: true
-        }
-      },
-      {
-        id: 504,
-        path: '/widgets/icon-selector',
-        meta: {
-          title: '图标选择器',
-          title_en: 'Icon selector',
-          keepAlive: true
-        }
-      },
-      {
-        id: 505,
-        path: '/widgets/image-crop',
-        meta: {
-          title: '图像裁剪',
-          title_en: 'Image crop',
-          keepAlive: true,
-          showTextBadge: 'new'
-        }
-      },
-      {
-        id: 506,
-        path: '/widgets/excel',
-        meta: {
-          title: 'Excel 导入导出',
-          title_en: 'Excel import and export',
-          keepAlive: true,
-          showTextBadge: 'new'
-        }
-      },
-      {
-        id: 507,
-        path: '/widgets/video',
-        meta: {
-          title: '视频播放器',
-          title_en: 'Video',
-          keepAlive: true,
-          showTextBadge: 'new'
-        }
-      },
-      {
-        id: 508,
-        path: '/widgets/count-to',
-        meta: {
-          title: '数字滚动',
-          title_en: 'Count to',
-          keepAlive: false,
-          showTextBadge: 'new'
-        }
-      },
-      {
-        id: 509,
-        path: '/widgets/wang-editor',
-        meta: {
-          title: '富文本编辑器',
-          title_en: 'Rich text editor',
-          keepAlive: true,
-          showTextBadge: 'new'
         }
       }
     ]

@@ -43,6 +43,9 @@
 
     <!-- 个性化设置 -->
     <setting />
+
+    <!-- 水印组件 -->
+    <Watermark :visible="watermarkVisible"></Watermark>
   </div>
 </template>
 
@@ -74,6 +77,8 @@
   const pageTransition = computed(() => settingStore.pageTransition)
   // 菜单类型
   const menuType = computed(() => settingStore.menuType)
+  // 水印是否显示
+  const watermarkVisible = computed(() => settingStore.watermarkVisible)
   // 根据菜单是否打开来设置左侧填充宽度
   const paddingLeft = computed(() => {
     const width = menuOpen.value ? MenuWidth.OPEN : MenuWidth.CLOSE

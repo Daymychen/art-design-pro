@@ -1,64 +1,79 @@
 <template>
-  <div class="page-content">
-    <div class="article-edit">
-      <div>
-        <div class="editor-wrap">
-          <!-- 文章标题、类型 -->
-          <el-row :gutter="10">
-            <el-col :span="18">
-              <el-input v-model.trim="articleName" placeholder="文章标题" maxlength="100" />
-            </el-col>
-            <el-col :span="6">
-              <el-select v-model="articleType" placeholder="请选择文章类型" filterable>
-                <el-option
-                  v-for="item in articleTypes"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item.id"
-                />
-              </el-select>
-            </el-col>
-          </el-row>
+  <div class="article-edit">
+    <div>
+      <div class="editor-wrap">
+        <!-- 文章标题、类型 -->
+        <el-row :gutter="10">
+          <el-col :span="18">
+            <el-input
+              v-model.trim="articleName"
+              placeholder="请输入文章标题（最多100个字符）"
+              maxlength="100"
+            />
+          </el-col>
+          <el-col :span="6">
+            <el-select v-model="articleType" placeholder="请选择文章类型" filterable>
+              <el-option
+                v-for="item in articleTypes"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id"
+              />
+            </el-select>
+          </el-col>
+        </el-row>
 
-          <!-- 富文本编辑器 -->
-          <editor class="el-top" v-model="editorHtml"></editor>
+        <!-- 富文本编辑器 -->
+        <editor class="el-top" v-model="editorHtml"></editor>
 
+        <div class="form-wrap">
+          <h2>发布设置</h2>
           <!-- 图片上传 -->
-          <div class="el-top">
-            <el-upload
-              class="upload-demo"
-              drag
-              :action="uploadImageUrl"
-              multiple
-              :headers="uploadHeaders"
-              :on-success="onSuccess"
-              :on-error="onError"
-            >
-              <el-icon class="el-icon--upload"><upload-filled /></el-icon>
-              <div class="el-upload__text"> 将图片拖到此处或者 <em>点击上传</em> </div>
-              <template #tip>
-                <div class="el-upload__tip"> jpg/png files with a size less than 500kb </div>
-              </template>
-            </el-upload>
-          </div>
+          <el-form>
+            <el-form-item label="封面">
+              <div class="el-top upload-container">
+                <el-upload
+                  class="cover-uploader"
+                  :action="uploadImageUrl"
+                  :headers="uploadHeaders"
+                  :show-file-list="false"
+                  :on-success="onSuccess"
+                  :on-error="onError"
+                  :before-upload="beforeUpload"
+                >
+                  <div v-if="!cover" class="upload-placeholder">
+                    <el-icon class="upload-icon"><Plus /></el-icon>
+                    <div class="upload-text">点击上传封面</div>
+                  </div>
+                  <img v-else :src="cover" class="cover-image" />
+                </el-upload>
+                <div class="el-upload__tip">建议尺寸 16:9，jpg/png 格式</div>
+              </div>
+            </el-form-item>
+            <el-form-item label="可见">
+              <el-switch v-model="visible" />
+            </el-form-item>
+          </el-form>
 
-          <el-button type="primary" class="el-top" @click="submit">
-            {{ pageMode === PageModeEnum.Edit ? '保存' : '发布' }}
-          </el-button>
+          <div style="display: flex; justify-content: flex-end">
+            <el-button type="primary" @click="submit" style="width: 100px">
+              {{ pageMode === PageModeEnum.Edit ? '保存' : '发布' }}
+            </el-button>
+          </div>
         </div>
       </div>
+    </div>
 
-      <!-- <div class="outline-wrap">
+    <!-- <div class="outline-wrap">
         <div class="item" v-for="(item, index) in outlineList" :key="index">
           <p :class="`level${item.level}`">{{ item.text }}</p>
         </div>
       </div> -->
-    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { UploadFilled } from '@element-plus/icons-vue'
+  import { Plus } from '@element-plus/icons-vue'
   import { ArticleService } from '@/api/articleApi'
   import { ApiStatus } from '@/utils/http/status'
   import { ElMessage } from 'element-plus'
@@ -84,8 +99,8 @@
   const articleTypes = ref() // 类型列表
   const editorHtml = ref('') // 编辑器内容
   const createDate = ref('') // 创建时间
-  const summary = ref('') // 摘要
   const cover = ref('') // 图片
+  const visible = ref(true) // 可见
   // const outlineList = ref()
 
   onMounted(() => {
@@ -217,8 +232,7 @@
       html_content: editorHtml.value,
       home_img: cover.value,
       blog_class: articleType.value,
-      create_time: createDate.value,
-      brief: summary.value
+      create_time: createDate.value
     }
   }
 
@@ -228,7 +242,6 @@
       if (!validateArticle()) return
 
       editorHtml.value = delCodeTrim(editorHtml.value)
-      getSummary()
 
       const params = buildParams()
       const res = await ArticleService.addArticle(params)
@@ -248,7 +261,6 @@
       if (!validateArticle()) return
 
       editorHtml.value = delCodeTrim(editorHtml.value)
-      getSummary()
 
       const params = buildParams()
       const res = await ArticleService.editArticle(articleId, params)
@@ -264,11 +276,6 @@
 
   const delCodeTrim = (content: string): string => {
     return content.replace(/(\s*)<\/code>/g, '</code>')
-  }
-
-  // 获取摘要
-  const getSummary = (maxlength: number = 200) => {
-    summary.value = editorHtml.value.replace(/<[^>]+>/g, '').substring(0, maxlength)
   }
 
   const onSuccess = (response: any) => {
@@ -290,44 +297,116 @@
   const scrollToTop = () => {
     window.scrollTo({ top: 0 })
   }
+
+  // 添加上传前的校验
+  const beforeUpload = (file: File) => {
+    const isImage = file.type.startsWith('image/')
+    const isLt2M = file.size / 1024 / 1024 < 2
+
+    if (!isImage) {
+      ElMessage.error('只能上传图片文件!')
+      return false
+    }
+    if (!isLt2M) {
+      ElMessage.error('图片大小不能超过 2MB!')
+      return false
+    }
+    return true
+  }
 </script>
 
 <style lang="scss" scoped>
-  .page-content {
-    height: 100%;
+  .article-edit {
+    .editor-wrap {
+      max-width: 1000px;
+      margin: 20px auto;
 
-    .article-edit {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
+      .el-top {
+        margin-top: 10px;
+      }
 
-      .editor-wrap {
-        max-width: 800px;
+      .form-wrap {
+        padding: 20px;
+        margin-top: 20px;
+        background-color: #fff;
+        border: 1px solid var(--art-border-color);
+        border-radius: 6px;
 
-        .el-top {
-          margin-top: 10px;
+        h2 {
+          margin-bottom: 20px;
+          font-size: 20px;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .outline-wrap {
+      box-sizing: border-box;
+      width: 280px;
+      padding: 20px;
+      border: 1px solid #e3e3e3;
+      border-radius: 8px;
+
+      .item {
+        p {
+          height: 30px;
+          font-size: 13px;
+          line-height: 30px;
+          cursor: pointer;
+        }
+
+        .level3 {
+          padding-left: 10px;
+        }
+      }
+    }
+
+    .upload-container {
+      .cover-uploader {
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        border-radius: 6px;
+        transition: var(--el-transition-duration);
+
+        &:hover {
+          border-color: var(--el-color-primary);
+        }
+
+        .upload-placeholder {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          width: 260px;
+          height: 160px;
+          border: 1px dashed #d9d9d9;
+          border-radius: 6px;
+
+          .upload-icon {
+            font-size: 28px;
+            color: #8c939d;
+          }
+
+          .upload-text {
+            margin-top: 8px;
+            font-size: 14px;
+            color: #8c939d;
+          }
+        }
+
+        .cover-image {
+          display: block;
+          width: 260px;
+          height: 160px;
+          object-fit: cover;
         }
       }
 
-      .outline-wrap {
-        box-sizing: border-box;
-        width: 280px;
-        padding: 20px;
-        border: 1px solid #e3e3e3;
-        border-radius: 8px;
-
-        .item {
-          p {
-            height: 30px;
-            font-size: 13px;
-            line-height: 30px;
-            cursor: pointer;
-          }
-
-          .level3 {
-            padding-left: 10px;
-          }
-        }
+      .el-upload__tip {
+        margin-top: 8px;
+        font-size: 12px;
+        color: #666;
       }
     }
   }
