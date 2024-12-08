@@ -446,6 +446,20 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         meta: {
           title: '水印'
         }
+      },
+      {
+        path: '/widgets/qrcode',
+        component: () => import('@views/widgets/QRcode.vue'),
+        meta: {
+          title: '二维码'
+        }
+      },
+      {
+        path: '/widgets/drag',
+        component: () => import('@views/widgets/Drag.vue'),
+        meta: {
+          title: '拖拽'
+        }
       }
     ]
   },

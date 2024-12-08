@@ -140,6 +140,26 @@ export const menuData: MenuListType[] = [
           keepAlive: true,
           showTextBadge: 'new'
         }
+      },
+      {
+        id: 512,
+        path: '/widgets/qrcode',
+        meta: {
+          title: '二维码',
+          title_en: 'QR code',
+          keepAlive: true,
+          showTextBadge: 'new'
+        }
+      },
+      {
+        id: 513,
+        path: '/widgets/drag',
+        meta: {
+          title: '拖拽',
+          title_en: 'Drag',
+          keepAlive: true,
+          showTextBadge: 'new'
+        }
       }
     ]
   },
