@@ -51,7 +51,7 @@
   const route = useRoute()
   const router = useRouter()
   const settingStore = useSettingStore()
-  const menuOpenWidth = MenuWidth.OPEN
+  const menuOpenWidth = computed(() => settingStore.getMenuOpenWidth)
   const menuCloseWidth = MenuWidth.CLOSE
 
   const collapse = computed(() => !settingStore.menuOpen)

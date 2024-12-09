@@ -50,6 +50,7 @@ export default {
         'Color Weakness Mode',
         'Auto close settings center',
         'Global watermark',
+        'Menu width',
         'Page animation'
       ]
     }

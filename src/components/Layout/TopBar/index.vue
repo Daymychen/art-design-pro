@@ -233,7 +233,9 @@
     if (menuType.value === MenuTypeEnum.TOP) {
       return '100%'
     } else {
-      return menuOpen.value ? `calc(100% - ${MenuWidth.OPEN})` : `calc(100% - ${MenuWidth.CLOSE})`
+      return menuOpen.value
+        ? `calc(100% - ${settingStore.getMenuOpenWidth})`
+        : `calc(100% - ${MenuWidth.CLOSE})`
     }
   }
 

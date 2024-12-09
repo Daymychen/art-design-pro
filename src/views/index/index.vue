@@ -81,7 +81,7 @@
   const watermarkVisible = computed(() => settingStore.watermarkVisible)
   // 根据菜单是否打开来设置左侧填充宽度
   const paddingLeft = computed(() => {
-    const width = menuOpen.value ? MenuWidth.OPEN : MenuWidth.CLOSE
+    const width = menuOpen.value ? settingStore.getMenuOpenWidth : MenuWidth.CLOSE
     menuStore.setMenuWidth(width) // 更新菜单宽度
     return menuType.value !== MenuTypeEnum.TOP ? width : 0
   })

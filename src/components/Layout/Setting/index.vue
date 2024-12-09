@@ -230,6 +230,19 @@
         </div>
         <div class="item" style="display: flex">
           <span>{{ $t('setting.basics.list[10]') }}</span>
+          <el-input-number
+            :min="180"
+            :max="320"
+            size="default"
+            :step="10"
+            style="width: 120px"
+            v-model="menuOpenWidth"
+            controls-position="right"
+            @change="setMenuOpenSize"
+          />
+        </div>
+        <div class="item" style="display: flex">
+          <span>{{ $t('setting.basics.list[11]') }}</span>
           <el-select
             v-model="pageTransition"
             placeholder="Select"
@@ -300,6 +313,7 @@
   const isTopMenu = computed(() => store.menuType === MenuTypeEnum.TOP)
   const isTopLeftMenu = computed(() => store.menuType === MenuTypeEnum.TOP_LEFT)
   const watermarkVisible = computed(() => store.watermarkVisible)
+  const menuOpenWidth = ref(store.menuOpenWidth)
   const uniqueOpened = ref(true)
   const showMenuButton = ref(true)
   const autoClose = ref(true)
@@ -563,6 +577,13 @@
     isAutoClose()
   }
 
+  const setMenuOpenSize = () => {
+    if (menuOpenWidth.value) {
+      store.setMenuOpenWidth(menuOpenWidth.value)
+      isAutoClose()
+    }
+  }
+
   const initColorWeak = () => {
     if (colorWeak.value) {
       let el = document.getElementsByTagName('html')[0]
@@ -571,6 +592,13 @@
       }, 100)
     }
   }
+
+  watch(
+    () => store.menuOpenWidth,
+    (newVal) => {
+      menuOpenWidth.value = newVal
+    }
+  )
 </script>
 
 <style lang="scss">

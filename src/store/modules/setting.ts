@@ -7,6 +7,7 @@ import { getSysStorage } from '@/utils/storage'
 
 export interface SettingState {
   menuType: MenuTypeEnum // 菜单类型
+  menuOpenWidth: number // 菜单展开宽度
   systemThemeType: SystemThemeEnum // 全局主题类型 light dark
   systemThemeMode: SystemThemeEnum // 全局主题模式 light dark auto
   menuThemeType: MenuThemeEnum // 菜单主题类型
@@ -32,6 +33,7 @@ export const useSettingStore = defineStore({
   id: 'settingStore',
   state: (): SettingState => ({
     menuType: MenuTypeEnum.LEFT,
+    menuOpenWidth: 252,
     systemThemeType: SystemThemeEnum.LIGHT,
     systemThemeMode: SystemThemeEnum.LIGHT,
     menuThemeType: MenuThemeEnum.DESIGN,
@@ -64,6 +66,10 @@ export const useSettingStore = defineStore({
     // 是否为暗黑模式
     isDark(): boolean {
       return this.systemThemeType === SystemThemeEnum.DARK
+    },
+    // 获取菜单展开宽度
+    getMenuOpenWidth(): string {
+      return this.menuOpenWidth + 'px' || '252px'
     }
   },
   actions: {
@@ -75,6 +81,7 @@ export const useSettingStore = defineStore({
         sys = JSON.parse(sys)
         const { setting } = sys.user
         this.menuType = setting.menuType || MenuTypeEnum.LEFT
+        this.menuOpenWidth = Number(setting.menuOpenWidth) || 252
         this.systemThemeType = setting.systemThemeType || SystemThemeEnum.LIGHT
         this.systemThemeMode = setting.systemThemeMode || SystemThemeEnum.LIGHT
         this.menuThemeType = setting.menuThemeType || MenuThemeEnum.DESIGN
@@ -100,6 +107,9 @@ export const useSettingStore = defineStore({
     },
     setMenuType(type: MenuTypeEnum) {
       this.menuType = type
+    },
+    setMenuOpenWidth(width: number) {
+      this.menuOpenWidth = width
     },
     setGlopTheme(theme: SystemThemeEnum, themeMode: SystemThemeEnum) {
       this.systemThemeType = theme

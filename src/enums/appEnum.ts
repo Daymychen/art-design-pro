@@ -21,9 +21,8 @@ export enum MenuThemeEnum {
   DESIGN = 'design'
 }
 
-// Menu open or close width
+// Menu close width
 export enum MenuWidth {
-  OPEN = '250px',
   CLOSE = '70px'
 }
 
