@@ -55,15 +55,12 @@
   import { computed, onMounted, ref, watch } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
   import { useI18n } from 'vue-i18n'
-  import { ElMessage } from 'element-plus'
-  import { useThrottleFn } from '@vueuse/core'
   import { ArrowDown, ArrowLeft, ArrowRight, Close, CircleClose } from '@element-plus/icons-vue'
 
   import { useWorktabStore } from '@/store/modules/worktab'
   import { useUserStore } from '@/store/modules/user'
 
   import { getWorkTabTitle } from '@/utils/menu'
-  import EmojiText from '@/utils/emojo'
   import type { MenuItemType } from '@/components/Widgets/MenuRight.vue'
 
   const { t } = useI18n()
@@ -255,28 +252,21 @@
         'wheel',
         (event: WheelEvent) => {
           if (scrollRef.value && tabsRef.value) {
-            // 检测滚动方向
-            if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
-              throttledMessage(`${t('worktab.tips[0]')} ${EmojiText[200]}`)
-              event.preventDefault()
-              return
-            }
+            event.preventDefault()
+
+            if (tabsRef.value.offsetWidth <= scrollRef.value.offsetWidth) return
 
             const xMin = scrollRef.value.offsetWidth - tabsRef.value.offsetWidth
-
-            event.preventDefault()
-            if (tabsRef.value.offsetWidth <= scrollRef.value.offsetWidth) return
-            translateX.value = Math.min(Math.max(translateX.value - event.deltaY, xMin), xMax)
+            // 使用 deltaX 来处理水平滚动，使用 deltaY 来处理垂直滚动
+            const delta =
+              Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY
+            translateX.value = Math.min(Math.max(translateX.value - delta, xMin), xMax)
           }
         },
         { passive: false }
       )
     }
   }
-
-  const throttledMessage = useThrottleFn((message: string) => {
-    ElMessage({ message, type: 'warning' })
-  }, 3000)
 
   // 触摸事件处理
   const addTouchListeners = () => {

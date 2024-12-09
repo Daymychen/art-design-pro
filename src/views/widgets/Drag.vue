@@ -1,7 +1,7 @@
 <!-- https://vue-draggable-plus.pages.dev/ -->
 <template>
   <div class="page-content">
-    <el-row :gutter="20">
+    <el-row>
       <el-card shadow="never" style="width: 300px; margin-right: 20px">
         <template #header>
           <span class="card-header">基础示例</span>

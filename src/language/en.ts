@@ -61,8 +61,7 @@ export default {
     text: ['No']
   },
   worktab: {
-    btn: ['Close left', 'Close right', 'Close outher', 'Close All'],
-    tips: ['Slide up and down to move the tab position']
+    btn: ['Close left', 'Close right', 'Close outher', 'Close All']
   },
   console: {
     card: [

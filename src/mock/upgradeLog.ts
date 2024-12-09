@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.0.96',
+    title: '多标签支持左右滑动',
+    date: '2024-12-09',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.0.95',
     title: '新增二维码、拖拽组件',
     date: '2024-12-08',
