@@ -46,10 +46,10 @@
     cursor: pointer;
     background-color: rgba(var(--art-gray-200-rgb), 0.7);
     border-radius: 6px;
-    transition: background-color 0.1s;
 
     &:hover {
-      background-color: var(--art-gray-300);
+      color: var(--main-color);
+      background-color: rgba(var(--art-gray-300-rgb), 0.5);
     }
   }
 </style>
