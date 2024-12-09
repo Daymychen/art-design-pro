@@ -3,8 +3,7 @@
   <div v-if="visible" class="watermark-container" :style="{ zIndex: zIndex }">
     <el-watermark
       :content="content"
-      :font-size="fontSize"
-      :font-color="fontColor"
+      :font="{ fontSize: fontSize, color: fontColor }"
       :rotate="rotate"
       :gap="[gapX, gapY]"
       :offset="[offsetX, offsetY]"
@@ -35,7 +34,7 @@
     content: SystemInfo.name,
     visible: false,
     fontSize: 16,
-    fontColor: 'rgba(0, 0, 0, 0.15)',
+    fontColor: 'rgba(128, 128, 128, 0.2)',
     rotate: -22,
     gapX: 100,
     gapY: 100,

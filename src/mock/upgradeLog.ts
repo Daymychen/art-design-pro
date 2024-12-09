@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.0.97',
+    title: '修复暗黑模式水印不显示问题',
+    date: '2024-12-09',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.0.96',
     title: '多标签支持左右滑动',
     date: '2024-12-09',
