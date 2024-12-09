@@ -7,13 +7,20 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AddButton: typeof import('./../components/Form/FormButton/AddButton.vue')['default']
     ArtTable: typeof import('./../components/Table/ArtTable.vue')['default']
     BackToTop: typeof import('./../components/Widgets/BackToTop.vue')['default']
     Breadcrumb: typeof import('./../components/Layout/Breadcrumb/index.vue')['default']
+    ButtonGroup: typeof import('./../components/Form/ButtonGroup.vue')['default']
+    ButtonMore: typeof import('./../components/Form/ButtonMore.vue')['default']
+    ButtonTable: typeof import('./../components/Form/ButtonTable.vue')['default']
+    ButtonText: typeof import('./../components/Form/ButtonText.vue')['default']
     CommentItem: typeof import('./../components/Pages/CommentWidget/CommentItem.vue')['default']
     CommentWidget: typeof import('./../components/Pages/CommentWidget/index.vue')['default']
     CutterImg: typeof import('./../components/Widgets/CutterImg.vue')['default']
+    DeleteButton: typeof import('./../components/Form/FormButton/DeleteButton.vue')['default']
     DragVerify: typeof import('./../components/Form/DragVerify.vue')['default']
+    EditButton: typeof import('./../components/Form/FormButton/EditButton.vue')['default']
     Editor: typeof import('./../components/Form/Editor.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElButtonGroup: typeof import('element-plus/es')['ElButtonGroup']
@@ -61,6 +68,7 @@ declare module 'vue' {
     ExcelExport: typeof import('./../components/Form/ExcelExport.vue')['default']
     ExcelImport: typeof import('./../components/Form/ExcelImport.vue')['default']
     Exception: typeof import('./../components/Views/Exception.vue')['default']
+    FormBasicButton: typeof import('./../components/Form/FormButton/FormBasicButton.vue')['default']
     FormInput: typeof import('./../components/Form/FormInput.vue')['default']
     FormSelect: typeof import('./../components/Form/FormSelect.vue')['default']
     IconSelector: typeof import('./../components/Icons/IconSelector.vue')['default']

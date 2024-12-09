@@ -34,29 +34,11 @@
 
         <el-table-column label="编辑时间" prop="date"> 2022-3-12 12:00:00 </el-table-column>
 
-        <el-table-column fixed="right" label="操作" width="240">
+        <el-table-column fixed="right" label="操作" width="180">
           <template #default="scope">
-            <el-button
-              link
-              :icon="EditPen"
-              type="primary"
-              @click="showDialog('edit', scope.row)"
-              v-auth="'edit'"
-            >
-              编辑
-            </el-button>
-            <el-button link :icon="Plus" type="primary" @click="showModel('menu')" v-auth="'add'">
-              新增
-            </el-button>
-            <el-button
-              link
-              :icon="Delete"
-              style="color: #fa6962"
-              v-auth="'delete'"
-              @click="deleteMenu()"
-            >
-              删除
-            </el-button>
+            <button-table type="add" v-auth="'add'" @click="showModel('menu')" />
+            <button-table type="edit" v-auth="'edit'" @click="showDialog('edit', scope.row)" />
+            <button-table type="delete" v-auth="'delete'" @click="deleteMenu" />
           </template>
         </el-table-column>
       </template>
@@ -183,7 +165,6 @@
 </template>
 
 <script setup lang="ts">
-  import { Delete, EditPen, Plus } from '@element-plus/icons-vue'
   import { useMenuStore } from '@/store/modules/menu'
   import type { FormInstance, FormRules } from 'element-plus'
   import { ElMessage, ElMessageBox } from 'element-plus'

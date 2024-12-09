@@ -27,17 +27,18 @@
             {{ formatDate(scope.row.date) }}
           </template>
         </el-table-column>
-        <el-table-column fixed="right" label="操作">
+        <el-table-column fixed="right" label="操作" width="100px">
           <template #default="scope">
-            <el-button link :icon="View" type="primary" @click="showPermissionDialog()">
-              菜单权限
-            </el-button>
-            <el-button link :icon="EditPen" type="primary" @click="showDialog('edit', scope.row)">
-              编辑
-            </el-button>
-            <el-button link :icon="Delete" style="color: #fa6962" @click="deleteRole">
-              删除
-            </el-button>
+            <el-row>
+              <button-more
+                :list="[
+                  { key: 'permission', label: '菜单权限' },
+                  { key: 'edit', label: '编辑角色' },
+                  { key: 'delete', label: '删除角色' }
+                ]"
+                @click="buttonMoreClick($event, scope.row)"
+              />
+            </el-row>
           </template>
         </el-table-column>
       </template>
@@ -83,8 +84,8 @@
 </template>
 
 <script setup lang="ts">
+  import { ButtonMoreItem } from '@/components/Form/ButtonMore.vue'
   import { useMenuStore } from '@/store/modules/menu'
-  import { Delete, EditPen, View } from '@element-plus/icons-vue'
   import { ElMessage, ElMessageBox } from 'element-plus'
   import type { FormInstance, FormRules } from 'element-plus'
 
@@ -219,6 +220,16 @@
       form.name = ''
       form.des = ''
       form.status = true
+    }
+  }
+
+  const buttonMoreClick = (item: ButtonMoreItem, row: any) => {
+    if (item.key === 'permission') {
+      showPermissionDialog()
+    } else if (item.key === 'edit') {
+      showDialog('edit', row)
+    } else if (item.key === 'delete') {
+      deleteRole()
     }
   }
 

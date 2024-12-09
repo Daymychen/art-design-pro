@@ -23,14 +23,10 @@
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column fixed="right" label="操作">
+        <el-table-column fixed="right" label="操作" width="150px">
           <template #default="scope">
-            <el-button link :icon="EditPen" type="primary" @click="showDialog('edit', scope.row)">
-              编辑
-            </el-button>
-            <el-button link :icon="Delete" style="color: #fa6962" @click="deleteUser">
-              删除
-            </el-button>
+            <button-table type="edit" @click="showDialog('edit', scope.row)" />
+            <button-table type="delete" @click="deleteDepartment" />
           </template>
         </el-table-column>
       </template>
@@ -64,7 +60,6 @@
 </template>
 
 <script setup lang="ts">
-  import { Delete, EditPen } from '@element-plus/icons-vue'
   import { ElMessageBox, ElMessage } from 'element-plus'
   import type { FormInstance, FormRules } from 'element-plus'
 
@@ -212,7 +207,7 @@
     }
   }
 
-  const deleteUser = () => {
+  const deleteDepartment = () => {
     ElMessageBox.confirm('确定要删除该部门吗？', '删除部门', {
       confirmButtonText: '确定',
       cancelButtonText: '取消',

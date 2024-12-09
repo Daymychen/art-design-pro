@@ -74,14 +74,10 @@
           </template>
         </el-table-column>
         <el-table-column label="创建日期" prop="create_time" sortable v-if="columns[5].show" />
-        <el-table-column fixed="right" label="操作" width="180px">
+        <el-table-column fixed="right" label="操作" width="150px">
           <template #default="scope">
-            <el-button link :icon="EditPen" type="primary" @click="showDialog('edit', scope.row)">
-              编辑
-            </el-button>
-            <el-button link :icon="Delete" style="color: #fa6962" @click="deleteUser">
-              注销
-            </el-button>
+            <button-table type="edit" @click="showDialog('edit', scope.row)" />
+            <button-table type="delete" @click="deleteUser" />
           </template>
         </el-table-column>
       </template>
@@ -101,8 +97,8 @@
         </el-form-item>
         <el-form-item label="性别" prop="sex">
           <el-select v-model="formData.sex">
-            <el-option label="男" :value="1" />
-            <el-option label="女" :value="2" />
+            <el-option label="男" value="男" />
+            <el-option label="女" value="女" />
           </el-select>
         </el-form-item>
         <el-form-item label="部门" prop="dep">
@@ -125,7 +121,6 @@
 
 <script setup lang="ts">
   import { ACCOUNT_TABLE_DATA } from '@/mock/formData'
-  import { EditPen, Delete } from '@element-plus/icons-vue'
   import { FormInstance } from 'element-plus'
   import { ElMessageBox, ElMessage } from 'element-plus'
   import type { FormRules } from 'element-plus'
@@ -142,11 +137,11 @@
 
   const sexOptions = [
     {
-      value: '1',
+      value: '男',
       label: '男'
     },
     {
-      value: '2',
+      value: '女',
       label: '女'
     }
   ]
@@ -195,12 +190,12 @@
     if (type === 'edit' && row) {
       formData.username = row.username
       formData.phone = row.mobile
-      formData.sex = row.sex
+      formData.sex = row.sex === 1 ? '男' : '女'
       formData.dep = row.dep
     } else {
       formData.username = ''
       formData.phone = ''
-      formData.sex = ''
+      formData.sex = '男'
       formData.dep = ''
     }
   }
