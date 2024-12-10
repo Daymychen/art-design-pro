@@ -460,6 +460,13 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         meta: {
           title: '拖拽'
         }
+      },
+      {
+        path: '/widgets/text-scroll',
+        component: () => import('@views/widgets/TextScroll.vue'),
+        meta: {
+          title: '文字滚动'
+        }
       }
     ]
   },

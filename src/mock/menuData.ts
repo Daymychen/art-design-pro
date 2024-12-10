@@ -160,6 +160,16 @@ export const menuData: MenuListType[] = [
           keepAlive: true,
           showTextBadge: 'new'
         }
+      },
+      {
+        id: 514,
+        path: '/widgets/text-scroll',
+        meta: {
+          title: '文字滚动',
+          title_en: 'Text scroll',
+          keepAlive: true,
+          showTextBadge: 'new'
+        }
       }
     ]
   },

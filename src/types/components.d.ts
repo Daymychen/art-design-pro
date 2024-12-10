@@ -80,6 +80,7 @@ declare module 'vue' {
     Submenu: typeof import('./../components/Layout/Submenu/submenu.vue')['default']
     TableBar: typeof import('./../components/Table/TableBar.vue')['default']
     Templae: typeof import('./../components/Templae.vue')['default']
+    TextScroll: typeof import('./../components/Widgets/TextScroll.vue')['default']
     TopBar: typeof import('./../components/Layout/TopBar/index.vue')['default']
     VideoPlayer: typeof import('./../components/Widgets/VideoPlayer.vue')['default']
     Watermark: typeof import('./../components/Widgets/Watermark.vue')['default']

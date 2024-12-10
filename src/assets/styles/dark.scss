@@ -48,7 +48,8 @@ html.dark {
     h5,
     h6,
     .lang .btn,
-    .top-bar .user .name, .dark-text {
+    .top-bar .user .name,
+    .dark-text {
       color: $font-color !important;
     }
   }
@@ -62,7 +63,11 @@ html.dark {
   [class]:not([class^='el-']):not(pre code *):not(.custom-text) {
     color: inherit !important;
   }
-  
+
+  // 让自定义class继承原来的背景色
+  [class*='custom-bg'] {
+    background-color: inherit !important;
+  }
 
   // ✅ 左侧菜单样式
   .menu-left {
@@ -84,7 +89,7 @@ html.dark {
         background: rgba(var(--art-gray-200-rgb), 0.6) !important;
       }
 
-      [level-item="2"].is-active:not(.el-menu--collapse) {
+      [level-item='2'].is-active:not(.el-menu--collapse) {
         &.is-active {
           &:before {
             margin-left: -10px !important;
