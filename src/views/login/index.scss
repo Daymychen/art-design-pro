@@ -25,7 +25,7 @@
   .left-wrap {
     position: relative;
     box-sizing: border-box;
-    width: 520px;
+    width: 50vw;
     height: 100%;
     padding: 20px;
     overflow: hidden;
@@ -42,7 +42,7 @@
         margin: 3px 0 0 10px;
         font-size: 20px;
         font-weight: 400;
-        color: var(--art-text-gray-900);
+        color: var(--art-text-gray-100);
       }
     }
 
@@ -52,30 +52,67 @@
       left: 0;
       width: 100%;
       height: 100%;
+      object-fit: cover;
     }
 
     .left-img {
       position: relative;
       z-index: 10;
       display: block;
+      width: 560px;
       margin: auto;
-      margin-top: 300px;
+      margin-top: 15vh;
+    }
+
+    .text-wrap {
+      position: absolute;
+      bottom: 80px;
+      width: 100%;
+      text-align: center;
+
+      h1 {
+        font-size: 26px;
+        font-weight: 400;
+        color: #f9f9f9;
+      }
+
+      p {
+        margin-top: 10px;
+        font-size: 14px;
+        color: #c4cada;
+      }
     }
   }
 
   .right-wrap {
     position: relative;
-    width: calc(100% - 520px);
+    flex: 1;
     height: 100%;
 
-    .language-wrap {
+    .top-right-wrap {
       position: fixed;
       top: 30px;
       right: 30px;
       z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
 
       .btn {
+        display: inline-block;
+        padding: 5px;
+        margin-left: 15px;
         cursor: pointer;
+        user-select: none;
+        transition: all 0.3s;
+
+        i {
+          font-size: 18px;
+        }
+
+        &:hover {
+          color: var(--main-color) !important;
+        }
       }
     }
 
@@ -98,20 +135,19 @@
         box-sizing: border-box;
         height: 100%;
         padding: 40px 0;
-        background: #fff;
         widows: 100%;
 
         .title {
           margin-left: -2px;
           font-size: 34px;
           font-weight: 600;
-          color: var(--art-text-gray-800);
+          color: var(--art-text-gray-900) !important;
         }
 
         .sub-title {
           margin-top: 10px;
-          font-size: 16px;
-          color: #8c8c8c;
+          font-size: 14px;
+          color: var(--art-text-gray-500) !important;
         }
 
         .input-wrap {
@@ -141,7 +177,6 @@
             z-index: 2;
             box-sizing: border-box;
             user-select: none;
-            border: 1px solid #e8e8e8;
             border-radius: 8px;
             transition: all 0.3s;
 
@@ -199,6 +234,21 @@
   }
 }
 
+@media only screen and (max-width: $device-notebook) {
+  .login {
+    .left-wrap {
+      .left-img {
+        width: 480px;
+        margin-top: 10vh;
+      }
+
+      .text-wrap {
+        bottom: 40px;
+      }
+    }
+  }
+}
+
 @media only screen and (max-width: $device-ipad-pro) {
   .login {
     width: 100%;
@@ -209,12 +259,11 @@
     }
 
     .right-wrap {
-      width: 440px;
       margin: auto;
 
       .login-wrap {
         position: relative;
-        width: 100%;
+        width: 440px;
         height: auto;
         padding: 0;
         border-radius: 0;
@@ -234,10 +283,14 @@
     top: 0;
 
     .right-wrap {
-      width: 330px;
+      box-sizing: border-box;
+      width: 100% !important;
+      padding: 0 30px;
       margin: auto;
 
       .login-wrap {
+        width: 100%;
+
         .form {
           margin-top: 12vh;
 

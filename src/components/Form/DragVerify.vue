@@ -16,7 +16,7 @@
       :style="progressBarStyle"
     >
     </div>
-    <div class="dv_text" :style="textStyle" ref="messageRef">
+    <div class="dv_text custom-text" :style="textStyle" ref="messageRef">
       <slot name="textBefore" v-if="$slots.textBefore"></slot>
       {{ message }}
       <slot name="textAfter" v-if="$slots.textAfter"></slot>
@@ -186,7 +186,7 @@
     position: relative;
     overflow: hidden;
     text-align: center;
-    background-color: #e8e8e8;
+    border: 1px solid var(--art-border-dashed-color);
 
     .dv_handler {
       position: absolute;

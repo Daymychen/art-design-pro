@@ -1,17 +1,15 @@
 <template>
   <div class="login">
     <div class="left-wrap">
-      <div class="logo">
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#iconsys-zhaopian-copy"></use>
-        </svg>
-        <h1 class="title">{{ systemName }}</h1>
-      </div>
-      <img class="left-bg" src="@imgs/login/lf_bg.png" />
-      <img class="left-img" src="@imgs/login/lf_icon.svg" />
+      <left-view></left-view>
     </div>
     <div class="right-wrap">
-      <div class="language-wrap">
+      <div class="top-right-wrap">
+        <div class="btn theme-btn" @click="toggleTheme">
+          <i class="iconfont-sys">
+            {{ isDark ? '&#xe6b5;' : '&#xe6a0;' }}
+          </i>
+        </div>
         <el-dropdown @command="changeLanguage">
           <div class="btn language-btn">
             <i class="iconfont-sys">&#xe611;</i>
@@ -56,17 +54,20 @@
               @keyup.enter="login"
             />
           </div>
-
           <div class="drag-verify">
             <div class="drag-verify-content" :class="{ error: !isPassing && isClickPass }">
+              <!-- :background="isDark ? '#181818' : '#eee'" -->
               <DragVerify
                 ref="dragVerify"
                 v-model:value="isPassing"
                 :width="width < 500 ? 328 : 438"
                 radius="8px"
                 :text="$t('login.sliderText')"
+                textColor="var(--art-gray-800)"
                 :successText="$t('login.sliderSuccessText')"
                 :progressBarBg="getCssVariable('--el-color-primary')"
+                background="var(--art-gray-200)"
+                handlerBg="var(--art-main-bg-color)"
                 @pass="onPass"
               />
             </div>
@@ -77,7 +78,9 @@
 
           <div class="forget-password">
             <el-checkbox v-model="rememberPassword">{{ $t('login.rememberPwd') }}</el-checkbox>
-            <router-link to="/forget-password">{{ $t('login.forgetPwd') }}</router-link>
+            <router-link class="custom-text" to="/forget-password">{{
+              $t('login.forgetPwd')
+            }}</router-link>
           </div>
 
           <div style="margin-top: 30px">
@@ -95,7 +98,9 @@
           <div class="footer">
             <p>
               {{ $t('login.noAccount') }}
-              <router-link to="/register">{{ $t('login.register') }}</router-link>
+              <router-link class="custom-text" to="/register">{{
+                $t('login.register')
+              }}</router-link>
             </p>
           </div>
         </div>
@@ -105,6 +110,7 @@
 </template>
 
 <script setup lang="ts">
+  import LeftView from '@/components/Pages/Login/LeftView.vue'
   import { SystemInfo } from '@/config/setting'
   import { ElMessage, ElNotification } from 'element-plus'
   import { useUserStore } from '@/store/modules/user'
@@ -112,8 +118,9 @@
   import { ApiStatus } from '@/utils/http/status'
   import axios from 'axios'
   import { getCssVariable, getGreeting } from '@/utils/utils'
-  import { LanguageEnum } from '@/enums/appEnum'
+  import { LanguageEnum, SystemThemeEnum } from '@/enums/appEnum'
   import { useI18n } from 'vue-i18n'
+  import { useSettingStore } from '@/store/modules/setting'
 
   const userStore = useUserStore()
   const router = useRouter()
@@ -126,6 +133,9 @@
   const loading = ref(false)
   const rememberPassword = ref(true)
   const { width } = useWindowSize()
+
+  const store = useSettingStore()
+  const isDark = computed(() => store.isDark)
 
   const onPass = () => {}
 
@@ -197,10 +207,20 @@
     }, 300)
   }
 
+  // 切换语言
   const { locale } = useI18n()
+
   const changeLanguage = (lang: LanguageEnum) => {
     locale.value = lang
     userStore.setLanguage(lang)
+  }
+
+  // 切换主题
+  import { useTheme } from '@/composables/useTheme'
+
+  const toggleTheme = () => {
+    let { LIGHT, DARK } = SystemThemeEnum
+    useTheme().switchTheme(useSettingStore().systemThemeType === LIGHT ? DARK : LIGHT)
   }
 </script>
 

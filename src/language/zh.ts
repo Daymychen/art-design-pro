@@ -83,6 +83,10 @@ export default {
     }
   },
   login: {
+    leftView: {
+      title: '专注于用户体验的后台管理系统模版',
+      subTitle: '美观实用的界面，经过视觉优化，确保卓越的用户体验'
+    },
     title: '欢迎回来',
     subTitle: '输入您的账号和密码登录',
     placeholder: ['请输入账号', '请输入密码', '请拖动滑块完成验证'],

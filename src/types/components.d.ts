@@ -65,6 +65,7 @@ declare module 'vue' {
     FormInput: typeof import('./../components/Form/FormInput.vue')['default']
     FormSelect: typeof import('./../components/Form/FormSelect.vue')['default']
     IconSelector: typeof import('./../components/Icons/IconSelector.vue')['default']
+    LeftView: typeof import('./../components/Pages/Login/LeftView.vue')['default']
     LockScreen: typeof import('./../components/Layout/LockScreen/index.vue')['default']
     MenuLeft: typeof import('./../components/Layout/MenuLeft/index.vue')['default']
     MenuRight: typeof import('./../components/Widgets/MenuRight.vue')['default']

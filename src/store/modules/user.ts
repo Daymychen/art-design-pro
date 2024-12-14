@@ -88,7 +88,7 @@ export const useUserStore = defineStore({
     },
     logOut() {
       setTimeout(() => {
-        document.getElementsByTagName('html')[0].removeAttribute('class') // 移除暗黑主题
+        // document.getElementsByTagName('html')[0].removeAttribute('class') // 移除暗黑主题
         this.info = {}
         this.isLogin = false
         this.isLock = false

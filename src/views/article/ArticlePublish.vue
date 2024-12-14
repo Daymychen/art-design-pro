@@ -328,7 +328,7 @@
       .form-wrap {
         padding: 20px;
         margin-top: 20px;
-        background-color: #fff;
+        background-color: var(--art-main-bg-color);
         border: 1px solid var(--art-border-color);
         border-radius: 6px;
 

@@ -1,14 +1,7 @@
 <template>
   <div class="login register">
     <div class="left-wrap">
-      <div class="logo">
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#iconsys-zhaopian-copy"></use>
-        </svg>
-        <h1 class="title">{{ systemName }}</h1>
-      </div>
-      <img class="left-bg" src="@imgs/login/lf_bg.png" />
-      <img class="left-img" src="@imgs/login/lf_icon.svg" />
+      <left-view></left-view>
     </div>
     <div class="right-wrap">
       <div class="header">
@@ -55,7 +48,7 @@
 
 <script setup lang="ts">
   import { SystemInfo } from '@/config/setting'
-
+  import LeftView from '@/components/Pages/Login/LeftView.vue'
   const router = useRouter()
   const showInputLabel = ref(false)
 

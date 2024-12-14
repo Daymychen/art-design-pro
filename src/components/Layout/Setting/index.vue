@@ -265,11 +265,13 @@
 
 <script setup lang="ts">
   import { useSettingStore } from '@/store/modules/setting'
-  import { SettingThemeList, ThemeList, SystemMainColor, SystemThemeStyles } from '@/config/setting'
+  import { SettingThemeList, ThemeList, SystemMainColor } from '@/config/setting'
   import { SystemThemeEnum, MenuThemeEnum, MenuTypeEnum } from '@/enums/appEnum'
-  import { getDarkColor, getLightColor } from '@/utils/color'
-  import { SystemThemeTypes } from '@/types/store'
   import mittBus from '@/utils/mittBus'
+  import { useTheme } from '@/composables/useTheme'
+  const { setSystemTheme, setSystemAutoTheme, switchTheme } = useTheme()
+
+  // 删除原来的相关方法定义，直接使用从useTheme中导入的方法
 
   const store = useSettingStore()
 
@@ -401,13 +403,13 @@
   }
 
   // 主题跟随系统
-  const setSystemAutoTheme = () => {
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setSystemTheme(SystemThemeEnum.DARK, SystemThemeEnum.AUTO)
-    } else {
-      setSystemTheme(SystemThemeEnum.LIGHT, SystemThemeEnum.AUTO)
-    }
-  }
+  // const setSystemAutoTheme = () => {
+  //   if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  //     setSystemTheme(SystemThemeEnum.DARK, SystemThemeEnum.AUTO)
+  //   } else {
+  //     setSystemTheme(SystemThemeEnum.LIGHT, SystemThemeEnum.AUTO)
+  //   }
+  // }
 
   const setMenuType = (type: MenuTypeEnum) => {
     if (type === MenuTypeEnum.LEFT) store.setMenuOpen(true)
@@ -416,42 +418,43 @@
   }
 
   // 切换系统主题
-  const switchTheme = (theme: SystemThemeEnum) => {
-    if (theme === SystemThemeEnum.AUTO) {
-      setSystemAutoTheme()
-    } else {
-      setSystemTheme(theme)
-    }
-  }
+  // const switchTheme = (theme: SystemThemeEnum) => {
+  //   if (theme === SystemThemeEnum.AUTO) {
+  //     setSystemAutoTheme()
+  //   } else {
+  //     setSystemTheme(theme)
+  //   }
+  // }
 
   // 设置系统主题
-  const setSystemTheme = (theme: SystemThemeEnum, themeMode?: SystemThemeEnum) => {
-    let el = document.getElementsByTagName('html')[0]
-    let isDark = theme === SystemThemeEnum.DARK
+  // const setSystemTheme = (theme: SystemThemeEnum, themeMode?: SystemThemeEnum) => {
+  //   console.log(theme, themeMode)
+  //   let el = document.getElementsByTagName('html')[0]
+  //   let isDark = theme === SystemThemeEnum.DARK
 
-    if (!themeMode) {
-      themeMode = theme
-    }
+  //   if (!themeMode) {
+  //     themeMode = theme
+  //   }
 
-    const currentTheme = SystemThemeStyles[theme as keyof SystemThemeTypes]
+  //   const currentTheme = SystemThemeStyles[theme as keyof SystemThemeTypes]
 
-    if (currentTheme) {
-      el.setAttribute('class', currentTheme.className)
-    }
+  //   if (currentTheme) {
+  //     el.setAttribute('class', currentTheme.className)
+  //   }
 
-    // 设置按钮颜色加深或变浅
-    let primary = systemThemeColor.value
+  //   // 设置按钮颜色加深或变浅
+  //   let primary = systemThemeColor.value
 
-    for (let i = 1; i <= 9; i++) {
-      document.documentElement.style.setProperty(
-        `--el-color-primary-light-${i}`,
-        isDark ? `${getDarkColor(primary, i / 10)}` : `${getLightColor(primary, i / 10)}`
-      )
-    }
+  //   for (let i = 1; i <= 9; i++) {
+  //     document.documentElement.style.setProperty(
+  //       `--el-color-primary-light-${i}`,
+  //       isDark ? `${getDarkColor(primary, i / 10)}` : `${getLightColor(primary, i / 10)}`
+  //     )
+  //   }
 
-    setSystemThemeModel(theme, themeMode)
-    isAutoClose()
-  }
+  //   setSystemThemeModel(theme, themeMode)
+  //   isAutoClose()
+  // }
 
   const showWorkTabFunc = () => {
     store.setWorkTab(!store.showWorkTab)
@@ -459,10 +462,10 @@
   }
 
   // 系统主题变量存储到 vuex 里面
-  const setSystemThemeModel = (theme: SystemThemeEnum, themeMode: SystemThemeEnum) => {
-    store.setGlopTheme(theme, themeMode)
-    isAutoClose()
-  }
+  // const setSystemThemeModel = (theme: SystemThemeEnum, themeMode: SystemThemeEnum) => {
+  //   store.setGlopTheme(theme, themeMode)
+  //   isAutoClose()
+  // }
 
   // 自动关闭
   const isAutoClose = () => {

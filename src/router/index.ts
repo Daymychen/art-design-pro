@@ -81,7 +81,8 @@ const routes = [
     component: () => import('@views/login/index.vue'),
     meta: {
       title: '登录',
-      isHideTab: true
+      isHideTab: true,
+      setTheme: true
     }
   },
   {
@@ -90,7 +91,8 @@ const routes = [
     meta: {
       title: '注册',
       isHideTab: true,
-      noLogin: true
+      noLogin: true,
+      setTheme: true
     }
   },
   {
@@ -99,7 +101,8 @@ const routes = [
     meta: {
       title: '忘记密码',
       isHideTab: true,
-      noLogin: true
+      noLogin: true,
+      setTheme: true
     }
   },
   {
@@ -548,6 +551,9 @@ router.beforeEach(async (to, from, next) => {
     NProgress.start()
   }
 
+  // 设置登录注册页面主题
+  setSystemTheme(to)
+
   // 检查是否登录或者不需要登录
   checkLogin({ to, next })
 
@@ -604,6 +610,15 @@ function setWorktab(to: RouteLocationNormalized) {
         query
       })
     }
+  }
+}
+
+import { useTheme } from '@/composables/useTheme'
+
+// 设置登录注册页面主题
+function setSystemTheme(to: RouteLocationNormalized) {
+  if (to.meta.setTheme) {
+    useTheme().switchTheme(useSettingStore().systemThemeType)
   }
 }
 

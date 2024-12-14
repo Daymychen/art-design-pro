@@ -90,6 +90,10 @@ export default {
     }
   },
   login: {
+    leftView: {
+      title: 'An Admin template focused on user experience',
+      subTitle: 'A sleek and practical interface for a great user experience'
+    },
     title: 'Welcome back',
     subTitle: 'Please enter your account and password to login',
     placeholder: [

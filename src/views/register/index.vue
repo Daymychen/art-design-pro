@@ -1,14 +1,7 @@
 <template>
   <div class="login register">
     <div class="left-wrap">
-      <div class="logo">
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#iconsys-zhaopian-copy"></use>
-        </svg>
-        <h1 class="title">{{ systemName }}</h1>
-      </div>
-      <img class="left-bg" src="@imgs/login/lf_bg.png" />
-      <img class="left-img" src="@imgs/login/lf_icon.svg" />
+      <left-view></left-view>
     </div>
     <div class="right-wrap">
       <div class="header">
@@ -54,7 +47,12 @@
             <el-form-item prop="agreement">
               <el-checkbox v-model="formData.agreement">
                 {{ $t('register.agreeText') }}
-                <router-link to="/privacy-policy">{{ $t('register.privacyPolicy') }}</router-link>
+                <router-link
+                  class="custom-text"
+                  style="color: var(--main-color); text-decoration: none"
+                  to="/privacy-policy"
+                  >{{ $t('register.privacyPolicy') }}</router-link
+                >
               </el-checkbox>
             </el-form-item>
 
@@ -73,7 +71,9 @@
             <div class="footer">
               <p>
                 {{ $t('register.hasAccount') }}
-                <router-link to="/login">{{ $t('register.toLogin') }}</router-link>
+                <router-link class="custom-text" to="/login">{{
+                  $t('register.toLogin')
+                }}</router-link>
               </p>
             </div>
           </el-form>
@@ -84,6 +84,7 @@
 </template>
 
 <script setup lang="ts">
+  import LeftView from '@/components/Pages/Login/LeftView.vue'
   import { SystemInfo } from '@/config/setting'
   import { ElMessage } from 'element-plus'
   import type { FormInstance, FormRules } from 'element-plus'
