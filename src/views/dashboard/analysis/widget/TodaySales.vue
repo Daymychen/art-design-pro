@@ -105,7 +105,7 @@
         height: 220px;
         padding: 0 20px;
         overflow: hidden;
-        border-radius: 8px;
+        border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
 
         .iconfont-sys {
           width: 40px;

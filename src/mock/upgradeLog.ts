@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.1.3',
+    title: '新增自定义圆角',
+    date: '2024-12-15',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.1.2',
     title: '登录注册等页面样式升级',
     date: '2024-12-15',

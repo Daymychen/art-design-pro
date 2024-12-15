@@ -142,7 +142,7 @@
         var(--el-color-primary-light-3),
         var(--el-color-primary-light-1)
       );
-      border-radius: 8px;
+      border-radius: calc(var(--custom-radius) / 2 + 4px) !important;
     }
 
     .text {

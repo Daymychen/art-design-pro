@@ -64,7 +64,7 @@
     progressBarBg: '#1385FF',
     completedBg: '#57D187',
     circle: false,
-    radius: '6px',
+    radius: 'calc(var(--custom-radius) / 2 + 2px)',
     handlerIcon: '&#xea50;',
     successIcon: '&#xe621;',
     handlerBg: '#fff',

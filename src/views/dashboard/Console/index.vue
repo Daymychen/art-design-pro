@@ -112,10 +112,12 @@
       color: var(--art-gray-600) !important;
     }
 
+    :deep(.card-list li),
     .region,
-    .dynamic {
+    .dynamic,
+    .bottom-wrap {
       background: var(--art-main-bg-color);
-      border-radius: 16px;
+      border-radius: calc(var(--custom-radius) + 4px) !important;
     }
 
     .column {
@@ -133,7 +135,6 @@
       padding: 20px;
       margin-top: var(--console-margin);
       background: var(--art-main-bg-color);
-      border-radius: 12px;
 
       h2 {
         margin-top: 10px;
@@ -167,7 +168,7 @@
           cursor: pointer;
           background: var(--art-bg-color);
           border: 1px solid rgba(var(--art-gray-300-rgb), 0.9) !important;
-          border-radius: 5px;
+          border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
           transition: all 0.3s;
 
           &:hover {

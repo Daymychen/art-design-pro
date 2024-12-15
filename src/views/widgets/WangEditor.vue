@@ -13,7 +13,6 @@
   <h2>文本样式</h2>
   <p><strong>这是加粗的文字</strong></p>
   <p><em>这是斜体文字</em></p>
-  <p><span style="color: #ff0000;">这是红色文字</span></p>
   
   <h2>列表示例</h2>
   <ul>

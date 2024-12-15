@@ -10,7 +10,7 @@
   overflow: hidden;
   background: var(--art-main-bg-color);
   border: 1px solid var(--art-border-color);
-  border-radius: 10px;
+  border-radius: calc(var(--custom-radius) / 2 + 6px) !important;
   box-shadow:
     0 8px 26px -4px hsl(0deg 0% 8% / 15%),
     0 8px 9px -5px hsl(0deg 0% 8% / 6%);

@@ -330,7 +330,7 @@
         margin-top: 20px;
         background-color: var(--art-main-bg-color);
         border: 1px solid var(--art-border-color);
-        border-radius: 6px;
+        border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
 
         h2 {
           margin-bottom: 20px;

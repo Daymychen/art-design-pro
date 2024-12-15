@@ -210,7 +210,7 @@
           padding: 0 10px;
           cursor: pointer;
           border: 1px solid var(--art-border-dashed-color);
-          border-radius: 8px;
+          border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
 
           .left {
             > i {

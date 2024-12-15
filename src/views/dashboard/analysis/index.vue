@@ -52,7 +52,7 @@
 
     :deep(.custom-card) {
       background: var(--art-main-bg-color);
-      border-radius: 16px;
+      border-radius: calc(var(--custom-radius) + 4px) !important;
     }
 
     // 卡片头部

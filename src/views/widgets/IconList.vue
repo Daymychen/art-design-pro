@@ -101,7 +101,7 @@
         padding: 0 30px;
         margin-left: 10px;
         border: 1px solid var(--art-border-dashed-color);
-        border-radius: 8px;
+        border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
       }
     }
 

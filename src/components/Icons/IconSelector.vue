@@ -107,7 +107,7 @@
       line-height: 40px;
       cursor: pointer;
       border: 1px solid var(--art-border-dashed-color);
-      border-radius: 6px;
+      border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
       transition: border 0.3s;
 
       &:hover {

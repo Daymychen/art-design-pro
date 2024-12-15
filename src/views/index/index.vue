@@ -133,7 +133,7 @@
         padding: 20px;
         overflow: hidden;
         background: var(--art-main-bg-color);
-        border-radius: 6px;
+        border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
       }
     }
   }

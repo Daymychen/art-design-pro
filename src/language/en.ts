@@ -51,7 +51,8 @@ export default {
         'Auto close settings center',
         'Global watermark',
         'Menu width',
-        'Page animation'
+        'Page animation',
+        'Custom radius'
       ]
     }
   },

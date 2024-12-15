@@ -11,7 +11,7 @@
   --el-font-weight-primary: 400 !important;
 
   // 边框、按钮圆角...
-  --el-border-radius-base: 8px !important;
+  --el-border-radius-base: calc(var(--custom-radius) / 2 + 2px) !important;
 
   --el-border-radius-small: 10px !important;
   --el-messagebox-border-radius: 10px !important;

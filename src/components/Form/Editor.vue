@@ -204,7 +204,7 @@
     height: 100%;
     overflow: hidden;
     border: 1px solid rgba(var(--art-gray-300-rgb), 0.8);
-    border-radius: 6px;
+    border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
 
     .iconfont-sys {
       font-size: 20px !important;
@@ -302,6 +302,10 @@
       border-radius: 12px;
     }
 
+    a {
+      color: #318ef4;
+    }
+
     /* 表格样式优化 */
     .w-e-text-container [data-slate-editor] .table-container th {
       border-right: none;
@@ -313,7 +317,8 @@
 
     /* 引用 */
     .w-e-text-container [data-slate-editor] blockquote {
-      border-left: 4px solid #ddd;
+      background-color: rgba(var(--art-gray-300-rgb), 0.25);
+      border-left: 4px solid var(--art-gray-300);
     }
 
     /* 输入区域弹出 bar  */

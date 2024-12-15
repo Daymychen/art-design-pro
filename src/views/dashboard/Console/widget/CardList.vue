@@ -92,7 +92,6 @@
       padding: 0 18px;
       margin: 0 0 0 var(--console-margin);
       background: var(--art-main-bg-color);
-      border-radius: 14px;
 
       $icon-size: 46px;
 

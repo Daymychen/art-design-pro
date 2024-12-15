@@ -84,7 +84,7 @@
     overflow: hidden;
     background-color: var(--el-color-primary-light-9) !important;
     border: 1px solid var(--main-color);
-    border-radius: 6px;
+    border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
 
     .left-icon {
       position: absolute;

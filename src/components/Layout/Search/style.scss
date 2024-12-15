@@ -11,7 +11,7 @@
 
   :deep(.el-dialog) {
     padding: 0 15px;
-    border-radius: 14px;
+    border-radius: calc(var(--custom-radius) / 2 + 8px) !important;
   }
 
   .el-input {
@@ -20,7 +20,7 @@
     :deep(.el-input__wrapper) {
       background-color: rgba(var(--art-gray-200-rgb), 0.8);
       border: 1px solid var(--art-border-dashed-color);
-      border-radius: 6px !important;
+      border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
       box-shadow: none;
     }
 
@@ -76,7 +76,7 @@
         font-weight: 400;
         color: var(--art-gray-700);
         background: var(--art-gray-100);
-        border-radius: 8px;
+        border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
 
         &.highlighted {
           color: #fff !important;
@@ -115,7 +115,7 @@
         color: var(--art-gray-800);
         cursor: pointer;
         background: var(--art-gray-100);
-        border-radius: 8px;
+        border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
 
         &.highlighted {
           color: #fff !important;

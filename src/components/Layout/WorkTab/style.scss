@@ -32,7 +32,7 @@
         cursor: pointer;
         background: var(--art-main-bg-color);
         border: 1px solid transparent;
-        border-radius: 6px;
+        border-radius: calc(var(--custom-radius) / 2.5 + 2px) !important;
         transition: color 0.1s;
 
         &:hover {

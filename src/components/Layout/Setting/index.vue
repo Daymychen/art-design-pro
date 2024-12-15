@@ -258,6 +258,23 @@
             />
           </el-select>
         </div>
+        <div class="item" style="display: flex">
+          <span>{{ $t('setting.basics.list[12]') }}</span>
+          <el-select
+            v-model="customRadius"
+            placeholder="Select"
+            size="default"
+            style="width: 120px"
+            @change="setCustomRadius"
+          >
+            <el-option
+              v-for="item in customRadiusOps"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </div>
       </div>
     </div>
   </el-drawer>
@@ -311,6 +328,7 @@
   const systemThemeColor = computed(() => store.systemThemeColor)
   const boxBorderMode = computed(() => store.boxBorderMode)
   const pageTransition = computed(() => store.pageTransition)
+  const customRadius = computed(() => store.customRadius)
   const isLeftMenu = computed(() => store.menuType === MenuTypeEnum.LEFT)
   const isTopMenu = computed(() => store.menuType === MenuTypeEnum.TOP)
   const isTopLeftMenu = computed(() => store.menuType === MenuTypeEnum.TOP_LEFT)
@@ -346,6 +364,29 @@
     {
       value: 'slide-bottom',
       label: 'slide-bottom'
+    }
+  ]
+
+  const customRadiusOps = [
+    {
+      value: '0',
+      label: '0'
+    },
+    {
+      value: '0.25',
+      label: '0.25'
+    },
+    {
+      value: '0.5',
+      label: '0.5'
+    },
+    {
+      value: '0.75',
+      label: '0.75'
+    },
+    {
+      value: '1',
+      label: '1'
     }
   ]
 
@@ -402,70 +443,16 @@
     }
   }
 
-  // 主题跟随系统
-  // const setSystemAutoTheme = () => {
-  //   if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-  //     setSystemTheme(SystemThemeEnum.DARK, SystemThemeEnum.AUTO)
-  //   } else {
-  //     setSystemTheme(SystemThemeEnum.LIGHT, SystemThemeEnum.AUTO)
-  //   }
-  // }
-
   const setMenuType = (type: MenuTypeEnum) => {
     if (type === MenuTypeEnum.LEFT) store.setMenuOpen(true)
     store.setMenuType(type)
     isAutoClose()
   }
 
-  // 切换系统主题
-  // const switchTheme = (theme: SystemThemeEnum) => {
-  //   if (theme === SystemThemeEnum.AUTO) {
-  //     setSystemAutoTheme()
-  //   } else {
-  //     setSystemTheme(theme)
-  //   }
-  // }
-
-  // 设置系统主题
-  // const setSystemTheme = (theme: SystemThemeEnum, themeMode?: SystemThemeEnum) => {
-  //   console.log(theme, themeMode)
-  //   let el = document.getElementsByTagName('html')[0]
-  //   let isDark = theme === SystemThemeEnum.DARK
-
-  //   if (!themeMode) {
-  //     themeMode = theme
-  //   }
-
-  //   const currentTheme = SystemThemeStyles[theme as keyof SystemThemeTypes]
-
-  //   if (currentTheme) {
-  //     el.setAttribute('class', currentTheme.className)
-  //   }
-
-  //   // 设置按钮颜色加深或变浅
-  //   let primary = systemThemeColor.value
-
-  //   for (let i = 1; i <= 9; i++) {
-  //     document.documentElement.style.setProperty(
-  //       `--el-color-primary-light-${i}`,
-  //       isDark ? `${getDarkColor(primary, i / 10)}` : `${getLightColor(primary, i / 10)}`
-  //     )
-  //   }
-
-  //   setSystemThemeModel(theme, themeMode)
-  //   isAutoClose()
-  // }
-
   const showWorkTabFunc = () => {
     store.setWorkTab(!store.showWorkTab)
     isAutoClose()
   }
-
-  // 系统主题变量存储到 vuex 里面
-  // const setSystemThemeModel = (theme: SystemThemeEnum, themeMode: SystemThemeEnum) => {
-  //   store.setGlopTheme(theme, themeMode)
-  //   isAutoClose()
-  // }
 
   // 自动关闭
   const isAutoClose = () => {
@@ -518,6 +505,11 @@
 
   const setPageTransition = (transition: string) => {
     store.setPageTransition(transition)
+    isAutoClose()
+  }
+
+  const setCustomRadius = (radius: string) => {
+    store.setCustomRadius(radius)
     isAutoClose()
   }
 

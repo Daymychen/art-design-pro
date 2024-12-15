@@ -77,8 +77,7 @@ export const menuData: MenuListType[] = [
         meta: {
           title: '图像裁剪',
           title_en: 'Image crop',
-          keepAlive: true,
-          showTextBadge: 'new'
+          keepAlive: true
         }
       },
       {
@@ -87,8 +86,7 @@ export const menuData: MenuListType[] = [
         meta: {
           title: 'Excel 导入导出',
           title_en: 'Excel import and export',
-          keepAlive: true,
-          showTextBadge: 'new'
+          keepAlive: true
         }
       },
       {
@@ -97,8 +95,7 @@ export const menuData: MenuListType[] = [
         meta: {
           title: '视频播放器',
           title_en: 'Video',
-          keepAlive: true,
-          showTextBadge: 'new'
+          keepAlive: true
         }
       },
       {
@@ -107,8 +104,7 @@ export const menuData: MenuListType[] = [
         meta: {
           title: '数字滚动',
           title_en: 'Count to',
-          keepAlive: false,
-          showTextBadge: 'new'
+          keepAlive: false
         }
       },
       {
@@ -117,8 +113,7 @@ export const menuData: MenuListType[] = [
         meta: {
           title: '富文本编辑器',
           title_en: 'Rich text editor',
-          keepAlive: true,
-          showTextBadge: 'new'
+          keepAlive: true
         }
       },
       {
@@ -127,8 +122,7 @@ export const menuData: MenuListType[] = [
         meta: {
           title: '水印',
           title_en: 'Watermark',
-          keepAlive: true,
-          showTextBadge: 'new'
+          keepAlive: true
         }
       },
       {
@@ -137,8 +131,7 @@ export const menuData: MenuListType[] = [
         meta: {
           title: '右键菜单',
           title_en: 'Context menu',
-          keepAlive: true,
-          showTextBadge: 'new'
+          keepAlive: true
         }
       },
       {
@@ -147,8 +140,7 @@ export const menuData: MenuListType[] = [
         meta: {
           title: '二维码',
           title_en: 'QR code',
-          keepAlive: true,
-          showTextBadge: 'new'
+          keepAlive: true
         }
       },
       {
@@ -157,8 +149,7 @@ export const menuData: MenuListType[] = [
         meta: {
           title: '拖拽',
           title_en: 'Drag',
-          keepAlive: true,
-          showTextBadge: 'new'
+          keepAlive: true
         }
       },
       {
@@ -167,8 +158,7 @@ export const menuData: MenuListType[] = [
         meta: {
           title: '文字滚动',
           title_en: 'Text scroll',
-          keepAlive: true,
-          showTextBadge: 'new'
+          keepAlive: true
         }
       }
     ]

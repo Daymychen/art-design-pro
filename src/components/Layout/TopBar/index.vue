@@ -119,7 +119,7 @@
             trigger="hover"
             :show-arrow="false"
             popper-class="user-menu-popover"
-            popper-style="border: 1px solid var(--art-border-dashed-color); border-radius: 10px; padding: 5px 16px; 5px 16px;"
+            popper-style="border: 1px solid var(--art-border-dashed-color); border-radius: calc(var(--custom-radius) / 2 + 4px); padding: 5px 16px; 5px 16px;"
           >
             <template #reference>
               <img class="cover" src="@imgs/user/avatar.png" />

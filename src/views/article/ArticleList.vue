@@ -234,7 +234,7 @@
           margin: 0 20px 20px 0;
           cursor: pointer;
           border: 1px solid var(--art-border-color);
-          border-radius: 6px;
+          border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
 
           &:hover {
             .el-button {
@@ -251,7 +251,8 @@
               height: 100%;
               object-fit: cover;
               background: #f1f2f5;
-              border-radius: 6px 6px 0 0;
+              border-radius: calc(var(--custom-radius) / 2 + 2px)
+                calc(var(--custom-radius) / 2 + 2px) 0 0;
             }
 
             .type {

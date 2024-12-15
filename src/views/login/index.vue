@@ -61,7 +61,6 @@
                 ref="dragVerify"
                 v-model:value="isPassing"
                 :width="width < 500 ? 328 : 438"
-                radius="8px"
                 :text="$t('login.sliderText')"
                 textColor="var(--art-gray-800)"
                 :successText="$t('login.sliderSuccessText')"
