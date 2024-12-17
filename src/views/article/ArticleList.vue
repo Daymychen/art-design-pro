@@ -40,7 +40,13 @@
 
             <template #default>
               <div class="top">
-                <el-image class="cover" :src="item.home_img" lazy fit="cover" />
+                <el-image class="cover" :src="item.home_img" lazy fit="cover">
+                  <template #error>
+                    <div class="image-slot">
+                      <el-icon><icon-picture /></el-icon>
+                    </div>
+                  </template>
+                </el-image>
 
                 <span class="type">{{ item.type_name }}</span>
               </div>
@@ -86,15 +92,15 @@
 </template>
 
 <script setup lang="ts">
+  import { Picture as IconPicture } from '@element-plus/icons-vue'
+
   import { ref, onMounted, computed } from 'vue'
-  // import { ArticleService } from '@/api/articleApi'
   import { ArticleType } from '@/api/model/articleModel'
-  import { ApiStatus } from '@/utils/http/status'
   import { router } from '@/router'
   import { useDateFormat } from '@vueuse/core'
   import { Search } from '@element-plus/icons-vue'
   import EmojiText from '@/utils/emojo'
-  import axios from 'axios'
+  import { ArticleList } from '@/mock/temp/articleList'
 
   const yearVal = ref('All')
 
@@ -145,14 +151,11 @@
     //   year
     // }
 
-    const res = await axios.get('https://www.qiniu.lingchen.kim/blog_list.json')
-    if (res.data.code === ApiStatus.success) {
-      articleList.value = res.data.data
-      isLoading.value = false
+    articleList.value = ArticleList
+    isLoading.value = false
 
-      if (backTop) {
-        scrollToTop()
-      }
+    if (backTop) {
+      scrollToTop()
     }
 
     // const res = await ArticleService.getArticleList(params)
@@ -247,12 +250,20 @@
             aspect-ratio: 16/9.5;
 
             .cover {
+              display: flex;
+              align-items: center;
+              justify-content: center;
               width: 100%;
               height: 100%;
               object-fit: cover;
-              background: #f1f2f5;
+              background: var(--art-gray-200);
               border-radius: calc(var(--custom-radius) / 2 + 2px)
                 calc(var(--custom-radius) / 2 + 2px) 0 0;
+
+              .image-slot {
+                font-size: 26px;
+                color: var(--art-gray-400);
+              }
             }
 
             .type {

@@ -11,7 +11,7 @@
           <div class="outer-info">
             <div>
               <i class="iconfont-sys">&#xe72e;</i>
-              <span>576123721@mall.com</span>
+              <span>jdkjjfnndf@mall.com</span>
             </div>
             <div>
               <i class="iconfont-sys">&#xe608;</i>
@@ -244,7 +244,7 @@
     border: none !important;
     box-shadow: none !important;
 
-    $box-radius: 12px;
+    $box-radius: calc(var(--custom-radius) + 4px);
 
     .box-style {
       border: 1px solid var(--art-border-color);
@@ -275,6 +275,7 @@
             left: 0;
             width: 100%;
             height: 200px;
+            object-fit: cover;
           }
 
           .avatar {

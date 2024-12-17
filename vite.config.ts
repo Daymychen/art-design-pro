@@ -5,8 +5,8 @@ import viteCompression from 'vite-plugin-compression'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import { visualizer } from 'rollup-plugin-visualizer'
 import viteImagemin from 'vite-plugin-imagemin'
+// import { visualizer } from 'rollup-plugin-visualizer'
 
 export default ({ mode }) => {
   const root = process.cwd()
@@ -87,12 +87,12 @@ export default ({ mode }) => {
         }
       }),
       // 打包分析
-      visualizer({
-        open: false,
-        gzipSize: true,
-        brotliSize: true,
-        filename: 'dist/stats.html' // 分析图生成的文件名及路径
-      }),
+      // visualizer({
+      //   open: true,
+      //   gzipSize: true,
+      //   brotliSize: true,
+      //   filename: 'dist/stats.html' // 分析图生成的文件名及路径
+      // }),
       // 压缩
       viteCompression({
         verbose: true, // 是否在控制台输出压缩结果
