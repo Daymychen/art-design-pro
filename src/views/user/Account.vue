@@ -32,7 +32,7 @@
       </template>
     </table-bar>
 
-    <art-table :data="tableData">
+    <art-table :data="tableData" selection>
       <template #default>
         <el-table-column
           label="用户名"

@@ -1,6 +1,6 @@
 <template>
   <div class="page-content">
-    <el-row :gutter="20" style="margin-left: 25px">
+    <el-row :gutter="20" style="margin-left: 15px">
       <el-button v-auth="'add'" @click="showModel('menu', null, true)">添加菜单</el-button>
     </el-row>
 

@@ -37,10 +37,10 @@
       </template>
       <template #default>
         <VueDraggable target="tbody" v-model="userList" :animation="150">
-          <el-table :data="userList">
+          <art-table :data="userList" :pagination="false">
             <el-table-column label="姓名" prop="name" />
             <el-table-column label="角色" prop="role" />
-          </el-table>
+          </art-table>
         </VueDraggable>
       </template>
     </el-card>
@@ -51,13 +51,13 @@
       </template>
       <template #default>
         <VueDraggable target="tbody" handle=".handle" v-model="userList" :animation="150">
-          <el-table :data="userList">
+          <art-table :data="userList" :pagination="false">
             <el-table-column label="姓名" prop="name" />
             <el-table-column label="角色" prop="role" />
             <el-table-column label="操作" width="100">
               <el-button size="default" class="handle"> 移动 </el-button>
             </el-table-column>
-          </el-table>
+          </art-table>
         </VueDraggable>
       </template>
     </el-card>

@@ -87,4 +87,7 @@ declare module 'vue' {
     Watermark: typeof import('./../components/Widgets/Watermark.vue')['default']
     WorkTab: typeof import('./../components/Layout/WorkTab/index.vue')['default']
   }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
+  }
 }

@@ -4,7 +4,7 @@
       <span class="title custom-text">Top Products</span>
     </div>
     <div class="custom-card-body">
-      <el-table :data="products" style="width: 100%">
+      <art-table :data="products" style="width: 100%" :pagination="false">
         <el-table-column prop="name" label="Name" width="200" />
         <el-table-column prop="popularity" label="Popularity">
           <template #default="scope">
@@ -31,7 +31,7 @@
             >
           </template>
         </el-table-column>
-      </el-table>
+      </art-table>
     </div>
   </div>
 </template>

@@ -11,7 +11,7 @@
         <el-radio-button value="今年" label="今年"></el-radio-button>
       </el-radio-group>
     </div>
-    <art-table :data="tableData">
+    <art-table :data="tableData" :pagination="false">
       <template #default>
         <el-table-column label="头像" prop="avatar" width="150px">
           <template #default="scope">
@@ -29,7 +29,6 @@
             </div>
           </template>
         </el-table-column>
-        <!-- <el-table-column label="年龄" prop="age" /> -->
         <el-table-column label="进度" width="240">
           <template #default="scope">
             <el-progress :percentage="scope.row.pro" :color="scope.row.color" :stroke-width="4" />

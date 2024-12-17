@@ -2,7 +2,7 @@
   <div class="page-content">
     <h3 class="table-title"><i class="iconfont-sys">&#xe74d;</i>更新日志</h3>
 
-    <art-table :data="upgradeLogList">
+    <art-table :data="upgradeLogList" :pagination="false">
       <el-table-column label="版本号" prop="version" width="200" />
       <el-table-column label="内容" prop="title" width="400" />
       <el-table-column label="时间" prop="date" />
