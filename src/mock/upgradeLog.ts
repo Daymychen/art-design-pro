@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.1.31',
+    title: '修复顶栏菜单刷新按钮间隙',
+    date: '2024-12-17',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.1.3',
     title: '新增自定义圆角',
     date: '2024-12-15',

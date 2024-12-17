@@ -14,19 +14,23 @@
           <use xlink:href="#iconsys-zhaopian-copy"></use>
         </svg>
         <!-- 菜单按钮 -->
-        <div class="btn-box" v-if="isLeftMenu">
+        <div class="btn-box" v-if="isLeftMenu && showMenuButton">
           <div class="btn menu-btn">
-            <i class="iconfont-sys" @click="visibleMenu" v-if="showMenuButton">&#xe6ba;</i>
+            <i class="iconfont-sys" @click="visibleMenu">&#xe6ba;</i>
           </div>
         </div>
         <!-- 刷新按钮 -->
-        <div class="btn-box">
+        <div class="btn-box" v-if="showRefreshButton">
           <div class="btn refresh-btn">
-            <i class="iconfont-sys" @click="reload()" v-if="showRefreshButton"> &#xe6b3; </i>
+            <i class="iconfont-sys" @click="reload()"> &#xe6b3; </i>
           </div>
         </div>
+
         <!-- 面包屑 -->
-        <breadcrumb v-if="showCrumbs && isLeftMenu" />
+        <breadcrumb
+          v-if="showCrumbs && isLeftMenu"
+          :style="{ paddingLeft: !showRefreshButton && !showMenuButton ? '10px' : '0' }"
+        />
 
         <!-- 顶部菜单 -->
         <MenuTop v-if="isTopMenu" :list="menuList" :width="menuTopWidth" />
