@@ -4,8 +4,9 @@ import { useUserStore } from '@/store/modules/user'
 import { useSettingStore } from '@/store/modules/setting'
 import { useWorktabStore } from '@/store/modules/worktab'
 
+// 初始化本地数据
 export function initState() {
-  if (validateStorageData()) {
+  if (validateStorageData() || isLocalStorageEmpty()) {
     const userStore = useUserStore()
     const worktabStore = useWorktabStore()
     const settingStore = useSettingStore()
@@ -74,7 +75,6 @@ export function validateStorageData() {
       worktab: {
         current: {
           title: 'string',
-          // title_en: 'string',
           path: 'string',
           params: 'object',
           query: 'object'
@@ -103,7 +103,7 @@ export function validateStorageData() {
   }
 
   try {
-    const data = JSON.parse(getSysStorage() || '{}')
+    const data = getLocalStorageData()
     // 模拟本地数据类型错误
     // data.user.language = 2024
 
@@ -121,6 +121,16 @@ export function validateStorageData() {
     handleError()
     return false
   }
+}
+
+// 获取本地存储数据
+function getLocalStorageData() {
+  return JSON.parse(getSysStorage() || '{}')
+}
+
+// 本地存储是否为空
+function isLocalStorageEmpty() {
+  return Object.keys(getLocalStorageData()).length === 0
 }
 
 // 将 vuex 中的数据保存到 localStorage 中（在即将离开页面(刷新或关闭)时执行）

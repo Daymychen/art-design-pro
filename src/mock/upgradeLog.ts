@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.1.5',
+    title: '修复首次进入系统数据未初始化BUG',
+    date: '2024-12-17',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.1.4',
     title: '重新封装表格组件',
     date: '2024-12-17',

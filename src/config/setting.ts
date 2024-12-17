@@ -123,6 +123,7 @@ export const SystemMainColor = [
   '#FF80C8'
 ]
 
+// 系统渐变色
 export const SystemGradientColor = [
   'linear-gradient(310deg, #50D0FF, #50A3FF)',
   'linear-gradient(310deg, #998DF3, #B48DF3)',
@@ -132,3 +133,9 @@ export const SystemGradientColor = [
   'linear-gradient(310deg, #FFAB4D, #F9901F)',
   'linear-gradient(310deg, #FF99D3, #FF80C8)'
 ]
+
+// 系统设置中心配置
+export const SystemSetting = {
+  defaultMenuWidth: 252, // 菜单展开宽度默认值
+  defaultCustomRadius: '0.5' // 圆角默认值
+}

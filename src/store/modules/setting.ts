@@ -1,12 +1,11 @@
 import { defineStore } from 'pinia'
 import { MenuThemeType } from '@/types/store'
-import { ThemeList, ElementPlusTheme, DarkMenuStyles } from '@/config/setting'
+import { ThemeList, ElementPlusTheme, DarkMenuStyles, SystemSetting } from '@/config/setting'
 import { SystemThemeEnum, MenuThemeEnum, MenuTypeEnum } from '@/enums/appEnum'
 import { colourBlend, handleElementThemeColor } from '@/utils/utils'
 import { getSysStorage } from '@/utils/storage'
 
-const DEFAULT_MENU_WIDTH = 252 // 菜单展开宽度默认值
-const DEFAULT_CUSTOM_RADIUS = '0.5' // 圆角默认值
+const { defaultMenuWidth, defaultCustomRadius } = SystemSetting
 
 export interface SettingState {
   menuType: MenuTypeEnum // 菜单类型
@@ -37,7 +36,7 @@ export const useSettingStore = defineStore({
   id: 'settingStore',
   state: (): SettingState => ({
     menuType: MenuTypeEnum.LEFT,
-    menuOpenWidth: DEFAULT_MENU_WIDTH,
+    menuOpenWidth: defaultMenuWidth,
     systemThemeType: SystemThemeEnum.LIGHT,
     systemThemeMode: SystemThemeEnum.LIGHT,
     menuThemeType: MenuThemeEnum.DESIGN,
@@ -57,7 +56,7 @@ export const useSettingStore = defineStore({
     menuOpen: true,
     refresh: false,
     watermarkVisible: false,
-    customRadius: DEFAULT_CUSTOM_RADIUS
+    customRadius: defaultCustomRadius
   }),
   getters: {
     getMenuTheme(): MenuThemeType {
@@ -74,11 +73,11 @@ export const useSettingStore = defineStore({
     },
     // 获取菜单展开宽度
     getMenuOpenWidth(): string {
-      return this.menuOpenWidth + 'px' || DEFAULT_MENU_WIDTH + 'px'
+      return this.menuOpenWidth + 'px' || defaultMenuWidth + 'px'
     },
     // 获取自定义圆角
     getCustomRadius(): string {
-      return this.customRadius + 'rem' || DEFAULT_CUSTOM_RADIUS + 'rem'
+      return this.customRadius + 'rem' || defaultCustomRadius + 'rem'
     }
   },
   actions: {
@@ -90,7 +89,7 @@ export const useSettingStore = defineStore({
         sys = JSON.parse(sys)
         const { setting } = sys.user
         this.menuType = setting.menuType || MenuTypeEnum.LEFT
-        this.menuOpenWidth = Number(setting.menuOpenWidth) || DEFAULT_MENU_WIDTH
+        this.menuOpenWidth = Number(setting.menuOpenWidth) || defaultMenuWidth
         this.systemThemeType = setting.systemThemeType || SystemThemeEnum.LIGHT
         this.systemThemeMode = setting.systemThemeMode || SystemThemeEnum.LIGHT
         this.menuThemeType = setting.menuThemeType || MenuThemeEnum.DESIGN
@@ -109,7 +108,7 @@ export const useSettingStore = defineStore({
         this.pageTransition = setting.pageTransition
         this.menuOpen = setting.menuOpen
         this.watermarkVisible = setting.watermarkVisible
-        this.customRadius = setting.customRadius || DEFAULT_CUSTOM_RADIUS
+        this.customRadius = setting.customRadius || defaultCustomRadius
         this.setCustomRadius(this.customRadius)
         setElementThemeColor(setting.systemThemeColor)
       } else {
