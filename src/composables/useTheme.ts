@@ -7,7 +7,27 @@ import { getDarkColor, getLightColor } from '@/utils/color'
 export function useTheme() {
   const settingStore = useSettingStore()
 
+  // 禁用过渡效果
+  const disableTransitions = () => {
+    const style = document.createElement('style')
+    style.setAttribute('id', 'disable-transitions')
+    style.textContent = '* { transition: none !important; }'
+    document.head.appendChild(style)
+  }
+
+  // 启用过渡效果
+  const enableTransitions = () => {
+    const style = document.getElementById('disable-transitions')
+    if (style) {
+      style.remove()
+    }
+  }
+
+  // 设置系统主题
   const setSystemTheme = (theme: SystemThemeEnum, themeMode?: SystemThemeEnum) => {
+    // 临时禁用过渡效果
+    disableTransitions()
+
     const el = document.getElementsByTagName('html')[0]
     const isDark = theme === SystemThemeEnum.DARK
 
@@ -33,6 +53,13 @@ export function useTheme() {
 
     // 更新store中的主题设置
     settingStore.setGlopTheme(theme, themeMode)
+
+    // 使用 requestAnimationFrame 确保在下一帧恢复过渡效果
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        enableTransitions()
+      })
+    })
   }
 
   // 自动设置系统主题

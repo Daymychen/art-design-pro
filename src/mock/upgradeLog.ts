@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.1.71',
+    title: '切换主题时禁用过渡效果',
+    date: '2024-12-18',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.1.7',
     title: '图标默认使用unicode，顶部菜单增加主题切换按钮',
     date: '2024-12-18',
