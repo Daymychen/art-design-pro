@@ -12,7 +12,7 @@
       <el-row :gutter="20">
         <el-col :span="6" :xs="24" v-for="(item, index) in salesData" :key="index">
           <div :class="['sales-card', item.class]">
-            <i class="iconfont-sys" :class="item.class">{{ item.iconfont }}</i>
+            <i class="iconfont-sys" :class="item.class" v-html="item.iconfont"></i>
             <h2>
               <CountTo
                 class="number custom-text box-title"
@@ -39,28 +39,28 @@
       label: 'Total Sales',
       value: 999,
       change: '+15%',
-      iconfont: '\ue7d9',
+      iconfont: '&#xe7d9',
       class: 'red'
     },
     {
       label: 'Total Order',
       value: 300,
       change: '+5%',
-      iconfont: '\ue70f',
+      iconfont: '&#xe70f',
       class: 'yellow'
     },
     {
       label: 'Product Sold',
       value: 56,
       change: '+2%',
-      iconfont: '\ue712',
+      iconfont: '&#xe712',
       class: 'green'
     },
     {
       label: 'New Customers',
       value: 68,
       change: '+8%',
-      iconfont: '\ue77f',
+      iconfont: '&#xe77f',
       class: 'purple'
     }
   ])

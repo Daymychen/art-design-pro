@@ -39,7 +39,7 @@
   import { extractIconClasses, IconfontType } from '@/utils/iconfont'
   import { ElMessage } from 'element-plus'
 
-  const iconType = ref('fontClass')
+  const iconType = ref('unicode')
   const options = [
     {
       value: 'unicode',

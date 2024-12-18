@@ -18,7 +18,7 @@
             @click="toPage(item)"
             v-if="!item.meta.isHide"
           >
-            <i class="iconfont-sys">{{ item.meta.icon }}</i>
+            <i class="iconfont-sys" v-html="item.meta.icon"></i>
             <span>{{ getMenuTitle(item) }}</span>
           </div>
         </template>

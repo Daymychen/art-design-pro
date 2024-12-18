@@ -54,6 +54,7 @@
             </div>
           </div>
         </div>
+
         <!-- 全屏按钮 -->
         <div class="btn-box screen-box" @click="fullScreenFun" v-if="!isFullScreen">
           <div class="btn full-screen-btn">
@@ -112,6 +113,13 @@
             </template>
           </el-popover>
         </div>
+        <!-- 切换主题 -->
+        <div class="btn-box" @click="toggleTheme">
+          <div class="btn">
+            <i class="iconfont-sys">{{ isDark ? '&#xe6b5;' : '&#xe725;' }}</i>
+          </div>
+        </div>
+
         <!-- 用户头像、菜单 -->
         <div class="user">
           <el-popover
@@ -170,7 +178,7 @@
   import Breadcrumb from '../Breadcrumb/index.vue'
   import Notice from '../Notice/index.vue'
   import MixedMenu from '../MixedMenu/index.vue'
-  import { LanguageEnum, MenuTypeEnum, MenuWidth } from '@/enums/appEnum'
+  import { LanguageEnum, MenuTypeEnum, MenuWidth, SystemThemeEnum } from '@/enums/appEnum'
   import { useSettingStore } from '@/store/modules/setting'
   import { useUserStore } from '@/store/modules/user'
   import { fullScreen, exitScreen } from '@/utils/utils'
@@ -206,6 +214,7 @@
   const isLeftMenu = computed(() => menuType.value === MenuTypeEnum.LEFT)
   const isTopMenu = computed(() => menuType.value === MenuTypeEnum.TOP)
   const isTopLeftMenu = computed(() => menuType.value === MenuTypeEnum.TOP_LEFT)
+  const isDark = computed(() => settingStore.isDark)
   const { t } = useI18n()
 
   const { width } = useWindowSize()
@@ -333,6 +342,14 @@
     setTimeout(() => {
       userMenuPopover.value.hide()
     }, 100)
+  }
+
+  // 切换主题
+  import { useTheme } from '@/composables/useTheme'
+
+  const toggleTheme = () => {
+    let { LIGHT, DARK } = SystemThemeEnum
+    useTheme().switchTheme(useSettingStore().systemThemeType === LIGHT ? DARK : LIGHT)
   }
 </script>
 

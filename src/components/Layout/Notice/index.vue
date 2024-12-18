@@ -33,8 +33,8 @@
               <i
                 class="iconfont-sys"
                 :style="{ color: getNoticeStyle(item.type).iconColor + '!important' }"
+                v-html="getNoticeStyle(item.type).icon"
               >
-                {{ getNoticeStyle(item.type).icon }}
               </i>
             </div>
             <div class="text">
@@ -204,27 +204,27 @@
 
   const noticeStyleMap = {
     email: {
-      icon: '\ue72e',
+      icon: '&#xe72e;',
       iconColor: 'var(--el-color-warning)',
       backgroundColor: '--el-color-warning'
     },
     message: {
-      icon: '\ue747',
+      icon: '&#xe747;',
       iconColor: 'var(--el-color-success)',
       backgroundColor: '--el-color-success'
     },
     collection: {
-      icon: '\ue714',
+      icon: '&#xe714;',
       iconColor: 'var(--el-color-danger)',
       backgroundColor: '--el-color-danger'
     },
     user: {
-      icon: '\ue608',
+      icon: '&#xe608;',
       iconColor: 'var(--el-color-info)',
       backgroundColor: '--el-color-info'
     },
     notice: {
-      icon: '\ue6c2',
+      icon: '&#xe6c2;',
       iconColor: 'var(--el-color-primary)',
       backgroundColor: '--el-color-primary'
     }
@@ -232,7 +232,7 @@
 
   const getNoticeStyle = (type: string) => {
     const defaultStyle = {
-      icon: '\ue747',
+      icon: '&#xe747;',
       iconColor: '#FFFFFF',
       backgroundColor: getRandomColor()
     }

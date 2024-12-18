@@ -5,9 +5,11 @@
     :level="level"
   >
     <template #title>
-      <i class="menu-icon iconfont-sys" :style="{ color: theme?.iconColor }">{{
-        item.meta.icon
-      }}</i>
+      <i
+        class="menu-icon iconfont-sys"
+        :style="{ color: theme?.iconColor }"
+        v-html="item.meta.icon"
+      ></i>
       <span>{{ getMenuTitle(item) }}</span>
     </template>
     <!-- 递归菜单 -->
@@ -28,7 +30,7 @@
     :level-item="level + 1"
   >
     <template #title>
-      <i class="menu-icon iconfont-sys">{{ item.meta.icon }}</i>
+      <i class="menu-icon iconfont-sys" v-html="item.meta.icon"></i>
       <span>{{ getMenuTitle(item) }}</span>
       <div class="badge" v-if="item.meta.showBadge"></div>
     </template>

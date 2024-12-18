@@ -6,11 +6,11 @@
   "description": "",
   "glyphs": [
     {
-      "icon_id": "792344",
-      "name": "moon-b-月亮",
-      "font_class": "moonbyueliang",
-      "unicode": "e6a0",
-      "unicode_decimal": 59040
+      "icon_id": "42510079",
+      "name": "暗黑模式",
+      "font_class": "anheimoshi3",
+      "unicode": "e725",
+      "unicode_decimal": 59173
     },
     {
       "icon_id": "34314475",
@@ -18,20 +18,6 @@
       "font_class": "baitianmoshi3",
       "unicode": "e6b5",
       "unicode_decimal": 59061
-    },
-    {
-      "icon_id": "36447227",
-      "name": "服务器",
-      "font_class": "fuwuqi3",
-      "unicode": "e74b",
-      "unicode_decimal": 59211
-    },
-    {
-      "icon_id": "39903220",
-      "name": "服务器-黑",
-      "font_class": "fuwuqi4",
-      "unicode": "e75e",
-      "unicode_decimal": 59230
     },
     {
       "icon_id": "25562744",

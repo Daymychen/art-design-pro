@@ -19,8 +19,8 @@
       <i
         class="iconfont-sys custom-text"
         :style="{ backgroundImage: `${item.color} !important` }"
-        >{{ item.icon }}</i
-      >
+        v-html="item.icon"
+      ></i>
     </li>
   </ul>
 </template>
@@ -37,7 +37,7 @@
   const dataList = reactive([
     {
       des: '总访问次数',
-      icon: '\ue721',
+      icon: '&#xe721;',
       startVal: 0,
       duration: 1000,
       num: 9120,
@@ -46,7 +46,7 @@
     },
     {
       des: '在线访客数',
-      icon: '\ue724',
+      icon: '&#xe724;',
       startVal: 0,
       duration: 1000,
       num: 182,
@@ -55,7 +55,7 @@
     },
     {
       des: '点击量',
-      icon: '\ue7aa',
+      icon: '&#xe7aa;',
       startVal: 0,
       duration: 1000,
       num: 9520,
@@ -64,7 +64,7 @@
     },
     {
       des: '新用户',
-      icon: '\ue82a',
+      icon: '&#xe82a;',
       startVal: 0,
       duration: 1000,
       num: 156,

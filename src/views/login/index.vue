@@ -7,7 +7,7 @@
       <div class="top-right-wrap">
         <div class="btn theme-btn" @click="toggleTheme">
           <i class="iconfont-sys">
-            {{ isDark ? '&#xe6b5;' : '&#xe6a0;' }}
+            {{ isDark ? '&#xe6b5;' : '&#xe725;' }}
           </i>
         </div>
         <el-dropdown @command="changeLanguage">

@@ -8,7 +8,7 @@ export const menuData: MenuListType[] = [
     meta: {
       title: 'Dashboard',
       title_en: 'Dashboard',
-      icon: '\ue721'
+      icon: '&#xe721;'
     },
     children: [
       {
@@ -39,7 +39,7 @@ export const menuData: MenuListType[] = [
     meta: {
       title: '组件中心',
       title_en: 'Components',
-      icon: '\ue81a'
+      icon: '&#xe81a;'
     },
     children: [
       {
@@ -170,7 +170,7 @@ export const menuData: MenuListType[] = [
     meta: {
       title: '文章管理',
       title_en: 'Article manguage',
-      icon: '\ue7ae'
+      icon: '&#xe7ae;'
     },
     children: [
       {
@@ -239,7 +239,7 @@ export const menuData: MenuListType[] = [
     meta: {
       title: '用户管理',
       title_en: 'User manguage',
-      icon: '\ue86e'
+      icon: '&#xe86e;'
     },
     children: [
       {
@@ -289,7 +289,7 @@ export const menuData: MenuListType[] = [
     meta: {
       title: '菜单管理',
       title_en: 'Menu manguage',
-      icon: '\ue8a4'
+      icon: '&#xe8a4;'
     },
     children: [
       {
@@ -298,7 +298,7 @@ export const menuData: MenuListType[] = [
         meta: {
           title: '菜单权限',
           title_en: 'Menu permissions',
-          icon: '\ue8a4',
+          icon: '&#xe8a4;',
           keepAlive: true,
           authList: [
             {
@@ -325,7 +325,7 @@ export const menuData: MenuListType[] = [
         meta: {
           title: '权限控制',
           title_en: 'Permission control',
-          icon: '\ue831',
+          icon: '&#xe831;',
           showTextBadge: 'new',
           keepAlive: true,
           authList: [
@@ -353,7 +353,7 @@ export const menuData: MenuListType[] = [
         meta: {
           title: '嵌套菜单',
           title_en: 'Nested menu',
-          icon: '\ue676',
+          icon: '&#xe676;',
           keepAlive: true,
           authList: [
             {
@@ -380,7 +380,7 @@ export const menuData: MenuListType[] = [
             meta: {
               title: '菜单1',
               title_en: 'menu1',
-              icon: '\ue676',
+              icon: '&#xe676;',
               keepAlive: true
             }
           },
@@ -390,7 +390,7 @@ export const menuData: MenuListType[] = [
             meta: {
               title: '菜单2',
               title_en: 'menu2',
-              icon: '\ue676',
+              icon: '&#xe676;',
               keepAlive: true
             },
             children: [
@@ -400,7 +400,7 @@ export const menuData: MenuListType[] = [
                 meta: {
                   title: '菜单2-1',
                   title_en: 'menu2-1',
-                  icon: '\ue676',
+                  icon: '&#xe676;',
                   keepAlive: true
                 }
               }
@@ -412,7 +412,7 @@ export const menuData: MenuListType[] = [
             meta: {
               title: '菜单3',
               title_en: 'menu3',
-              icon: '\ue676',
+              icon: '&#xe676;',
               keepAlive: true
             },
             children: [
@@ -422,7 +422,7 @@ export const menuData: MenuListType[] = [
                 meta: {
                   title: '菜单3-1',
                   title_en: 'menu3-1',
-                  icon: '\ue676',
+                  icon: '&#xe676;',
                   keepAlive: true
                 }
               },
@@ -432,7 +432,7 @@ export const menuData: MenuListType[] = [
                 meta: {
                   title: '菜单3-2',
                   title_en: 'menu3-2',
-                  icon: '\ue676',
+                  icon: '&#xe676;',
                   keepAlive: true
                 },
                 children: [
@@ -442,7 +442,7 @@ export const menuData: MenuListType[] = [
                     meta: {
                       title: '菜单3-2-1',
                       title_en: 'menu3-2-1',
-                      icon: '\ue676',
+                      icon: '&#xe676;',
                       keepAlive: true
                     }
                   }
@@ -461,7 +461,7 @@ export const menuData: MenuListType[] = [
     meta: {
       title: '结果页面',
       title_en: 'Result page',
-      icon: '\ue715'
+      icon: '&#xe715;'
     },
     children: [
       {
@@ -491,7 +491,7 @@ export const menuData: MenuListType[] = [
     meta: {
       title: '异常页面',
       title_en: 'Exception',
-      icon: '\ue820'
+      icon: '&#xe820;'
     },
     children: [
       {
@@ -530,7 +530,7 @@ export const menuData: MenuListType[] = [
     meta: {
       title: '系统设置',
       title_en: 'System setting',
-      icon: '\ue7b9'
+      icon: '&#xe7b9;'
     },
     children: [
       {
@@ -569,7 +569,7 @@ export const menuData: MenuListType[] = [
     meta: {
       title: '运维管理',
       title_en: 'Safeguard',
-      icon: '\ue816'
+      icon: '&#xe816;'
     },
     children: [
       {
@@ -590,7 +590,7 @@ export const menuData: MenuListType[] = [
     meta: {
       title: '版本计划',
       title_en: 'Version Plan',
-      icon: '\ue712'
+      icon: '&#xe712;'
     },
     children: [
       {
@@ -611,7 +611,7 @@ export const menuData: MenuListType[] = [
     meta: {
       title: '帮助中心',
       title_en: 'Help center',
-      icon: '\ue719'
+      icon: '&#xe719;'
     },
     children: [
       {
