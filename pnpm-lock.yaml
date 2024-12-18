@@ -62,12 +62,6 @@ importers:
       qrcode.vue:
         specifier: ^3.6.0
         version: 3.6.0(vue@3.5.13(typescript@5.6.3))
-      unplugin-auto-import:
-        specifier: ^0.18.2
-        version: 0.18.5(@vueuse/core@11.3.0(vue@3.5.13(typescript@5.6.3)))(rollup@4.27.4)
-      unplugin-vue-components:
-        specifier: ^0.27.4
-        version: 0.27.4(@babel/parser@7.26.2)(rollup@4.27.4)(vue@3.5.13(typescript@5.6.3))
       vue:
         specifier: ^3.5.12
         version: 3.5.13(typescript@5.6.3)
@@ -180,6 +174,12 @@ importers:
       typescript-eslint:
         specifier: ^8.9.0
         version: 8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.6.3)
+      unplugin-auto-import:
+        specifier: ^0.18.3
+        version: 0.18.5(@vueuse/core@11.3.0(vue@3.5.13(typescript@5.6.3)))(rollup@4.27.4)
+      unplugin-vue-components:
+        specifier: ^0.27.4
+        version: 0.27.4(@babel/parser@7.26.2)(rollup@4.27.4)(vue@3.5.13(typescript@5.6.3))
       vite:
         specifier: ^5.4.1
         version: 5.4.11(@types/node@22.10.0)(sass@1.81.0)(terser@5.36.0)

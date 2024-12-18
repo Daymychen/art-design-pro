@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.1.73',
+    title: '去除 package.json 中重复配置',
+    date: '2024-12-18',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.1.72',
     title: '修复自定义菜单宽度引起的顶部菜单过长BUG',
     date: '2024-12-18',
