@@ -32,6 +32,7 @@
 </template>
 
 <script setup lang="ts">
+  import { useSettingStore } from '@/store/modules/setting'
   import { MenuListType } from '@/types/menu'
   const router = useRouter()
   const route = useRoute()
@@ -39,6 +40,8 @@
   import { ref, onMounted } from 'vue'
   import { ArrowLeft, ArrowRight } from '@element-plus/icons-vue'
   import { getIframeTitle, isIframe } from '@/utils/utils'
+  const settingStore = useSettingStore()
+  const menuopenwidth = computed(() => settingStore.getMenuOpenWidth)
 
   defineProps({
     list: {
@@ -121,7 +124,7 @@
     }
 
     :deep(.scrollbar-wrapper) {
-      width: 51vw;
+      width: calc(62vw - v-bind(menuopenwidth));
       margin: 0 30px;
     }
 
@@ -200,7 +203,7 @@
   @media (max-width: $device-notebook) {
     .mixed-top-menu {
       :deep(.scrollbar-wrapper) {
-        width: 36vw;
+        width: calc(50vw - v-bind(menuopenwidth));
         margin: 0 30px;
       }
     }
