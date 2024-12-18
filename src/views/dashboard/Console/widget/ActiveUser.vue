@@ -59,20 +59,23 @@
         type: 'value',
         axisLabel: {
           show: true,
-          color: isDark.value ? '#999' : '#fff',
-          fontSize: 13,
-          fontWeight: 'bold'
+          color: '#999',
+          fontSize: 13
         },
         splitLine: {
           show: true,
           lineStyle: {
-            color: !isDark.value ? 'rgba(255, 255, 255, 0.2)' : '#444',
+            color: isDark.value ? 'rgba(255, 255, 255, 0.1)' : '#EFF1F3',
             width: 1,
             type: 'dashed'
           }
         },
         axisLine: {
-          show: false
+          show: true,
+          lineStyle: {
+            color: isDark.value ? 'rgba(255, 255, 255, 0.1)' : '#EFF1F3',
+            width: 1
+          }
         }
       },
       xAxis: {
@@ -83,13 +86,16 @@
           show: false
         },
         axisLine: {
-          show: false
+          show: true,
+          lineStyle: {
+            color: isDark.value ? 'rgba(255, 255, 255, 0.1)' : '#EFF1F3',
+            width: 1
+          }
         },
         axisLabel: {
           show: true,
-          color: isDark.value ? '#999' : '#fff',
-          fontSize: 13,
-          fontWeight: 'bold'
+          color: '#999',
+          fontSize: 13
         }
       },
       series: [
@@ -97,7 +103,7 @@
           data: [160, 100, 150, 80, 190, 100, 175, 120, 160],
           type: 'bar',
           barMaxWidth: 20,
-          color: isDark.value ? getCssVariable('--main-color') : '#fff',
+          color: getCssVariable('--main-color'),
           itemStyle: {
             borderRadius: [6, 6, 6, 6]
           }
@@ -136,12 +142,12 @@
       height: 220px;
       padding: 20px 0 20px 20px;
       // 跟随系统主色
-      background-image: linear-gradient(
-        90deg,
-        var(--el-color-primary-light-1),
-        var(--el-color-primary-light-3),
-        var(--el-color-primary-light-1)
-      );
+      // background-image: linear-gradient(
+      //   90deg,
+      //   var(--el-color-primary-light-1),
+      //   var(--el-color-primary-light-3),
+      //   var(--el-color-primary-light-1)
+      // );
       border-radius: calc(var(--custom-radius) / 2 + 4px) !important;
     }
 

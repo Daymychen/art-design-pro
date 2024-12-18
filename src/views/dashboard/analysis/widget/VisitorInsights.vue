@@ -86,11 +86,11 @@
           symbol: 'none',
           data: [260, 200, 150, 130, 180, 270, 340, 380, 300, 220, 170, 130],
           lineStyle: {
-            color: '#EF4444',
+            color: '#2B8DFA',
             width: 3
           },
           itemStyle: {
-            color: '#EF4444'
+            color: '#2B8DFA'
           }
         },
         {
@@ -100,25 +100,11 @@
           symbol: 'none',
           data: [280, 350, 300, 250, 230, 210, 240, 280, 320, 350, 300, 200],
           lineStyle: {
-            color: '#3CD856',
+            color: '#18C653',
             width: 3
           },
           itemStyle: {
-            color: '#3CD856'
-          }
-        },
-        {
-          name: 'Unique Customers',
-          type: 'line',
-          smooth: true,
-          symbol: 'none',
-          data: [340, 330, 270, 200, 180, 220, 270, 310, 290, 250, 210, 130],
-          lineStyle: {
-            color: '#A700FF',
-            width: 3
-          },
-          itemStyle: {
-            color: '#A700FF'
+            color: '#18C653'
           }
         }
       ]

@@ -64,8 +64,7 @@
           color: '#999',
           margin: 20,
           interval: 0,
-          fontSize: 13,
-          fontWeight: 'bold'
+          fontSize: 13
         },
         axisLine: {
           show: false
@@ -76,8 +75,7 @@
         axisLabel: {
           show: true,
           color: '#999',
-          fontSize: 13,
-          fontWeight: 'bold'
+          fontSize: 13
         },
         axisLine: {
           show: isLight.value ? true : false,

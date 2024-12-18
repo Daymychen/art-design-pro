@@ -105,61 +105,52 @@
         height: 220px;
         padding: 0 20px;
         overflow: hidden;
+        border: 1px solid rgba(var(--art-gray-300-rgb), 0.7) !important;
         border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
 
         .iconfont-sys {
-          width: 40px;
-          height: 40px;
-          font-size: 18px;
-          line-height: 40px;
+          width: 44px;
+          height: 44px;
+          font-size: 20px;
+          line-height: 44px;
           color: #fff;
           text-align: center;
           border-radius: 50%;
+          // color: var(--el-color-primary);
+          // background-color: var(--el-color-primary-light-9);
 
           &.red {
-            background-color: #fa5a7d;
+            color: #1b84ff !important;
+            background-color: #e9f3ff !important;
           }
 
           &.yellow {
-            background-color: #ff947a;
+            color: #f8285a !important;
+            background-color: #ffeef3 !important;
           }
 
           &.green {
-            background-color: #3cd856;
+            color: #17c653 !important;
+            background-color: #dfffea !important;
           }
 
           &.purple {
-            background-color: #bf83ff;
+            color: #7239ea !important;
+            background-color: #f8f5ff !important;
           }
-        }
-
-        &.red {
-          background-color: #ffe2e5;
-        }
-
-        &.yellow {
-          background-color: #fff4de;
-        }
-
-        &.green {
-          background-color: #dcfce7;
-        }
-
-        &.purple {
-          background-color: #f3e8ff;
         }
 
         h2 {
           margin-top: 10px;
-          font-size: 22px;
-          font-weight: 500;
-          color: #151d48 !important;
+          font-size: 26px;
+          font-weight: 400;
+          color: var(--art-text-gray-900) !important;
         }
 
         p {
           margin-top: 10px;
           font-size: 16px;
-          color: #425166 !important;
+          color: var(--art-text-gray-700) !important;
 
           @include ellipsis;
         }
@@ -167,7 +158,7 @@
         small {
           display: block;
           margin-top: 10px;
-          color: #4079ed;
+          color: var(--art-text-gray-500) !important;
 
           @include ellipsis;
         }
@@ -181,37 +172,12 @@
       .sales-summary {
         .sales-card {
           .iconfont-sys {
-            &.red {
-              background-color: rgb(250 90 125 / 90%);
-            }
-
-            &.yellow {
-              background-color: rgb(255 148 122 / 90%);
-            }
-
-            &.green {
-              background-color: rgb(60 216 86 / 90%);
-            }
-
+            &.red,
+            &.yellow,
+            &.green,
             &.purple {
-              background-color: rgb(191 131 255 / 90%);
+              background-color: #222 !important;
             }
-          }
-
-          &.red {
-            background-color: rgb(255 226 229 / 90%);
-          }
-
-          &.yellow {
-            background-color: rgb(255 244 222 / 90%);
-          }
-
-          &.green {
-            background-color: rgb(220 252 231 / 90%);
-          }
-
-          &.purple {
-            background-color: rgb(243 232 255 / 90%);
           }
         }
       }

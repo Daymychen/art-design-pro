@@ -99,7 +99,7 @@
           barWidth: '15',
           itemStyle: {
             borderRadius: [4, 4, 0, 0],
-            color: '#4AB58E'
+            color: '#2B8DFA'
           }
         },
         {
@@ -109,7 +109,7 @@
           barWidth: '15',
           itemStyle: {
             borderRadius: [4, 4, 4, 4],
-            color: '#FFCF00'
+            color: '#95E0FB'
           }
         }
       ]
@@ -142,13 +142,13 @@
         text-align: center;
 
         &:first-of-type .label .iconfont-sys {
-          color: #4ab58e !important;
-          background-color: #e2fff3 !important;
+          color: #2b8dfa !important;
+          background-color: #e6f7ff !important;
         }
 
         &:last-of-type .label .iconfont-sys {
-          color: #ffa800 !important;
-          background-color: #fff4de !important;
+          color: #1cb8fc !important;
+          background-color: #e6f7ff !important;
         }
 
         .label {
@@ -195,11 +195,11 @@
           font-weight: 400;
 
           &.text-color-green {
-            color: #4ab58e !important;
+            color: #2b8dfa !important;
           }
 
           &.text-color-orange {
-            color: #ffa800 !important;
+            color: #1cb8fc !important;
           }
         }
       }
@@ -220,6 +220,22 @@
 
       &-footer {
         margin-top: 0;
+      }
+    }
+  }
+
+  .dark {
+    .custom-card {
+      &-footer {
+        .total-item {
+          &:first-of-type .label .iconfont-sys {
+            background-color: #222 !important;
+          }
+
+          &:last-of-type .label .iconfont-sys {
+            background-color: #222 !important;
+          }
+        }
       }
     }
   }
