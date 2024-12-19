@@ -30,16 +30,28 @@
         </el-icon>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item :icon="ArrowLeft" command="left">
+            <el-dropdown-item
+              :icon="ArrowLeft"
+              command="left"
+              :disabled="activeTabIndex === 0 || activeTabIndex === 1"
+            >
               <span>{{ $t('worktab.btn[0]') }}</span>
             </el-dropdown-item>
-            <el-dropdown-item :icon="ArrowRight" command="right">
+            <el-dropdown-item
+              :icon="ArrowRight"
+              command="right"
+              :disabled="activeTabIndex === list.length - 1"
+            >
               <span>{{ $t('worktab.btn[1]') }}</span>
             </el-dropdown-item>
-            <el-dropdown-item :icon="Close" command="other">
+            <el-dropdown-item
+              :icon="Close"
+              command="other"
+              :disabled="list.length === 1 || (list.length === 2 && activeTabIndex === 1)"
+            >
               <span>{{ $t('worktab.btn[2]') }}</span>
             </el-dropdown-item>
-            <el-dropdown-item :icon="CircleClose" command="all">
+            <el-dropdown-item :icon="CircleClose" command="all" :disabled="list.length === 1">
               <span>{{ $t('worktab.btn[3]') }}</span>
             </el-dropdown-item>
           </el-dropdown-menu>
@@ -82,44 +94,52 @@
   let startX = 0 // 触摸开始位置
   let currentX = 0 // 当前触摸位置
 
-  // 计算属性
-  const list = computed(() => store.opened) // 打开的标签页列表
-  const activeTab = computed(() => currentRoute.value.path) // 当前激活的标签页
+  // 打开的标签页列表
+  const list = computed(() => store.opened)
+  // 当前激活的标签页
+  const activeTab = computed(() => currentRoute.value.path)
+  // 获取当前激活 tab 的 index
+  const activeTabIndex = computed(() => list.value.findIndex((tab) => tab.path === activeTab.value))
 
   // 右键菜单选项
   const menuItems = computed(() => {
-    const currentPath = route.path
     const clickedIndex = list.value.findIndex((tab) => tab.path === clickedPath.value)
+    const isLastTab = clickedIndex === list.value.length - 1
+    const isFirstOrSecondTab = clickedIndex === 0 || clickedIndex === 1
+    const isOneTab = list.value.length === 1
+    const disableOther = list.value.length === 2 && clickedIndex === 1
 
     return [
       {
         key: 'left',
         label: t('worktab.btn[0]'),
         icon: 'ArrowLeft',
-        disabled: clickedIndex === 0 || currentPath !== clickedPath.value
+        disabled: isFirstOrSecondTab
       },
       {
         key: 'right',
         label: t('worktab.btn[1]'),
         icon: 'ArrowRight',
-        disabled: currentPath !== clickedPath.value
+        disabled: isLastTab
       },
       {
         key: 'other',
         label: t('worktab.btn[2]'),
-        icon: 'Close'
+        icon: 'Close',
+        disabled: isOneTab || disableOther
       },
       {
         key: 'all',
         label: t('worktab.btn[3]'),
-        icon: 'CircleClose'
+        icon: 'CircleClose',
+        disabled: isOneTab
       }
     ]
   })
 
   // 获取当前标签页索引和元素
-  const getCurTabIndex = () => list.value.findIndex((tab) => tab.path === currentRoute.value.path)
-  const getCurTabEl = () => document.getElementById(`scroll-li-${getCurTabIndex()}`) as HTMLElement
+  const getCurTabEl = () =>
+    document.getElementById(`scroll-li-${activeTabIndex.value}`) as HTMLElement
 
   // 设置过渡动画
   const setTransition = () => {
@@ -206,6 +226,7 @@
         break
       case 'other':
         store.removeOther(path)
+
         break
       case 'all':
         store.removeAll(path, router)
@@ -240,7 +261,22 @@
   }
 
   const handleSelect = (item: MenuItemType) => {
-    closeWorktab(item.key, route.path)
+    const { key } = item
+    const activeIndex = list.value.findIndex((tab) => tab.path === activeTab.value)
+    const clickedIndex = list.value.findIndex((tab) => tab.path === clickedPath.value)
+
+    // 处理标签跳转逻辑
+    const shouldNavigate =
+      (key === 'left' && activeIndex < clickedIndex) ||
+      (key === 'right' && activeIndex > clickedIndex) ||
+      key === 'other'
+
+    if (shouldNavigate) {
+      router.push(clickedPath.value)
+    }
+
+    // 关闭标签页
+    closeWorktab(key, clickedPath.value)
   }
 
   // 滚动事件处理

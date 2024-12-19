@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.1.91',
+    title: '多标签关闭逻辑优化',
+    date: '2024-12-19',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.1.9',
     title: '分析页多语言',
     date: '2024-12-19',
