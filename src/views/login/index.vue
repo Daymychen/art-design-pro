@@ -16,12 +16,18 @@
           </div>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item command="zh">
-                <span class="menu-txt">中文</span>
-              </el-dropdown-item>
-              <el-dropdown-item command="en">
-                <span class="menu-txt">English</span>
-              </el-dropdown-item>
+              <div class="lang-btn-item">
+                <el-dropdown-item command="zh">
+                  <span class="menu-txt">简体中文</span>
+                  <i v-if="locale === 'zh'" class="iconfont-sys">&#xe621;</i>
+                </el-dropdown-item>
+              </div>
+              <div class="lang-btn-item">
+                <el-dropdown-item command="en">
+                  <span class="menu-txt">English</span>
+                  <i v-if="locale === 'en'" class="iconfont-sys">&#xe621;</i>
+                </el-dropdown-item>
+              </div>
             </el-dropdown-menu>
           </template>
         </el-dropdown>

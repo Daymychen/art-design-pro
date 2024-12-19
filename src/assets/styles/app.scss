@@ -71,6 +71,24 @@
   display: none;
 }
 
+// 语言切换按钮菜单样式优化
+.lang-btn-item {
+  .el-dropdown-menu__item {
+    padding-left: 13px !important;
+    padding-right: 6px !important;
+  }
+
+  .menu-txt {
+    min-width: 60px;
+    display: block;
+  }
+
+  i {
+    font-size: 10px;
+    margin-left: 10px;
+  }
+}
+
 // ✅ 盒子边框 ｜ 盒子阴影
 [data-box-mode='border-mode'] {
   .page-content,
