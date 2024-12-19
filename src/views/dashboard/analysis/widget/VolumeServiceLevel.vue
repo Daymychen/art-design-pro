@@ -1,7 +1,7 @@
 <template>
   <div class="custom-card volume-service-level">
     <div class="custom-card-header">
-      <span class="title custom-text">Volume vs Service Level</span>
+      <span class="title custom-text">{{ t('analysis.volumeServiceLevel.title') }}</span>
     </div>
     <div class="custom-card-body">
       <div ref="chartRef" class="chart-container"></div>
@@ -13,6 +13,8 @@
   import { ref, onMounted, computed, watch } from 'vue'
   import { useSettingStore } from '@/store/modules/setting'
   import { useECharts } from '@/utils/echarts/useECharts'
+  import { useI18n } from 'vue-i18n'
+  const { t } = useI18n()
 
   const store = useSettingStore()
   const isDark = computed(() => store.isDark)
@@ -50,7 +52,10 @@
       }
     },
     legend: {
-      data: ['Volume', 'Services'],
+      data: [
+        t('analysis.volumeServiceLevel.legend.volume'),
+        t('analysis.volumeServiceLevel.legend.services')
+      ],
       bottom: 20,
       itemWidth: 10,
       itemHeight: 10,
@@ -89,7 +94,7 @@
     },
     series: [
       {
-        name: 'Volume',
+        name: t('analysis.volumeServiceLevel.legend.volume'),
         type: 'bar',
         stack: 'total',
         data: chartData.map((item) => item.volume),
@@ -100,7 +105,7 @@
         barWidth: '15'
       },
       {
-        name: 'Services',
+        name: t('analysis.volumeServiceLevel.legend.services'),
         type: 'bar',
         stack: 'total',
         data: chartData.map((item) => item.services),

@@ -6,7 +6,7 @@ export function checkSystemUpgrade() {
   setTimeout(() => {
     const version = import.meta.env.VITE_VERSION
     const content = upgradeLogList.value[0].title
-    const message = `<p style="color: #333; padding-bottom: 5px;">系统已升级到 ${version} 版本，此次更新带来了以下改进：</p>${content}`
+    const message = `<p style="color: var(--art-gray-text-800) !important; padding-bottom: 5px;">系统已升级到 ${version} 版本，此次更新带来了以下改进：</p>${content}`
 
     // 跳过版本为1.0.0的提示
     if (version === '1.0.0') return

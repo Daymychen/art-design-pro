@@ -1,11 +1,11 @@
 <template>
   <div class="custom-card today-sales">
     <div class="custom-card-header">
-      <span class="title custom-text">Today's Sales</span>
-      <span class="subtitle">Sales Summery</span>
+      <span class="title custom-text">{{ t('analysis.todaySales.title') }}</span>
+      <span class="subtitle">{{ t('analysis.todaySales.subtitle') }}</span>
       <div class="export-btn">
         <i class="iconfont-sys">&#xe6d1;</i>
-        <span>Export</span>
+        <span>{{ t('analysis.todaySales.export') }}</span>
       </div>
     </div>
     <div class="sales-summary">
@@ -22,7 +22,7 @@
               ></CountTo>
             </h2>
             <p>{{ item.label }}</p>
-            <small>{{ item.change }} from yesterday</small>
+            <small>{{ item.change }} {{ t('analysis.todaySales.fromYesterday') }}</small>
           </div>
         </el-col>
       </el-row>
@@ -33,33 +33,36 @@
 <script setup lang="ts">
   import { ref } from 'vue'
   import { CountTo } from 'vue3-count-to'
+  import { useI18n } from 'vue-i18n'
+
+  const { t } = useI18n()
 
   const salesData = ref([
     {
-      label: 'Total Sales',
+      label: t('analysis.todaySales.cards.totalSales.label'),
       value: 999,
-      change: '+15%',
+      change: t('analysis.todaySales.cards.totalSales.change'),
       iconfont: '&#xe7d9',
       class: 'red'
     },
     {
-      label: 'Total Order',
+      label: t('analysis.todaySales.cards.totalOrder.label'),
       value: 300,
-      change: '+5%',
+      change: t('analysis.todaySales.cards.totalOrder.change'),
       iconfont: '&#xe70f',
       class: 'yellow'
     },
     {
-      label: 'Product Sold',
+      label: t('analysis.todaySales.cards.productSold.label'),
       value: 56,
-      change: '+2%',
+      change: t('analysis.todaySales.cards.productSold.change'),
       iconfont: '&#xe712',
       class: 'green'
     },
     {
-      label: 'New Customers',
+      label: t('analysis.todaySales.cards.newCustomers.label'),
       value: 68,
-      change: '+8%',
+      change: t('analysis.todaySales.cards.newCustomers.change'),
       iconfont: '&#xe77f',
       class: 'purple'
     }
@@ -73,7 +76,9 @@
     .export-btn {
       display: flex;
       align-items: center;
-      padding: 6px 5px;
+      justify-content: center;
+      min-width: 66px;
+      padding: 6px 0;
       color: var(--art-text-gray-600);
       cursor: pointer;
       border: 1px solid var(--art-border-dashed-color);
@@ -105,8 +110,8 @@
         height: 220px;
         padding: 0 20px;
         overflow: hidden;
-        border: 1px solid rgba(var(--art-gray-300-rgb), 0.7) !important;
-        border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
+        border: 1px solid rgba(var(--art-gray-300-rgb), 0.6) !important;
+        border-radius: calc(var(--custom-radius) / 2 + 4px) !important;
 
         .iconfont-sys {
           width: 44px;

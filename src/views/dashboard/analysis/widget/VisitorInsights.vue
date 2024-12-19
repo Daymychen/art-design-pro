@@ -1,7 +1,7 @@
 <template>
   <div class="custom-card visitor-insights">
     <div class="custom-card-header">
-      <span class="title custom-text">Visitor Insights</span>
+      <span class="title custom-text">{{ t('analysis.visitorInsights.title') }}</span>
     </div>
     <div class="card-body">
       <div ref="chartRef" style="height: 250px"></div>
@@ -13,6 +13,9 @@
   import { ref, onMounted, onUnmounted, computed, watch } from 'vue'
   import { useECharts } from '@/utils/echarts/useECharts'
   import { useSettingStore } from '@/store/modules/setting'
+  import { useI18n } from 'vue-i18n'
+
+  const { t } = useI18n()
 
   const store = useSettingStore()
   const isDark = computed(() => store.isDark)
@@ -44,7 +47,11 @@
         containLabel: true
       },
       legend: {
-        data: ['Loyal Customers', 'New Customers', 'Unique Customers'],
+        data: [
+          t('analysis.visitorInsights.legend.loyalCustomers'),
+          t('analysis.visitorInsights.legend.newCustomers'),
+          t('analysis.visitorInsights.legend.uniqueCustomers')
+        ],
         bottom: 0,
         left: 'center',
         itemWidth: 14,
@@ -80,7 +87,7 @@
       },
       series: [
         {
-          name: 'Loyal Customers',
+          name: t('analysis.visitorInsights.legend.loyalCustomers'),
           type: 'line',
           smooth: true,
           symbol: 'none',
@@ -94,7 +101,7 @@
           }
         },
         {
-          name: 'New Customers',
+          name: t('analysis.visitorInsights.legend.newCustomers'),
           type: 'line',
           smooth: true,
           symbol: 'none',

@@ -1,7 +1,7 @@
 <template>
   <div class="custom-card target-vs-reality">
     <div class="custom-card-header">
-      <span class="title custom-text">Target vs Reality</span>
+      <span class="title custom-text">{{ t('analysis.targetVsReality.title') }}</span>
     </div>
     <div class="custom-card-body">
       <div ref="chartRef" style="height: 160px"></div>
@@ -11,8 +11,8 @@
         <div class="label">
           <i class="iconfont-sys">&#xe77f;</i>
           <div class="label-text">
-            <span>Reality Sales</span>
-            <span>Global</span>
+            <span>{{ t('analysis.targetVsReality.realitySales.label') }}</span>
+            <span>{{ t('analysis.targetVsReality.realitySales.sublabel') }}</span>
           </div>
         </div>
         <div class="value text-color-green">8,823</div>
@@ -21,8 +21,8 @@
         <div class="label">
           <i class="iconfont-sys">&#xe77c;</i>
           <div class="label-text">
-            <span>Target Sales</span>
-            <span>Commercial</span>
+            <span>{{ t('analysis.targetVsReality.targetSales.label') }}</span>
+            <span>{{ t('analysis.targetVsReality.targetSales.sublabel') }}</span>
           </div>
         </div>
         <div class="value text-color-orange">12,122</div>
@@ -35,6 +35,8 @@
   import { ref, onMounted, onUnmounted } from 'vue'
   import { useECharts } from '@/utils/echarts/useECharts'
   import { useSettingStore } from '@/store/modules/setting'
+  import { useI18n } from 'vue-i18n'
+  const { t } = useI18n()
 
   const chartRef = ref<HTMLDivElement>()
 

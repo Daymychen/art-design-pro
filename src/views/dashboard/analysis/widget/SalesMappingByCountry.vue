@@ -1,7 +1,7 @@
 <template>
   <div class="custom-card sales-mapping-country">
     <div class="custom-card-header">
-      <span class="title custom-text">Sales Mapping by Country</span>
+      <span class="title custom-text">{{ t('analysis.salesMappingCountry.title') }}</span>
     </div>
     <div class="custom-card-body">
       <div ref="chartRef" class="sales-mapping-chart"></div>
@@ -14,6 +14,9 @@
   import { useECharts } from '@/utils/echarts/useECharts'
   import type { EChartsOption } from 'echarts'
   import { useSettingStore } from '@/store/modules/setting'
+  import { useI18n } from 'vue-i18n'
+
+  const { t } = useI18n()
 
   const chartRef = ref<HTMLDivElement>()
   const { setOptions, removeResize, resize } = useECharts(chartRef as Ref<HTMLDivElement>)

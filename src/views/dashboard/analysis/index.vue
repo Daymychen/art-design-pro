@@ -117,8 +117,6 @@
 
   @media (width <= 1200px) {
     .analysis-dashboard {
-      padding: 10px 0 0;
-
       .mt-20 {
         margin-top: 0;
       }

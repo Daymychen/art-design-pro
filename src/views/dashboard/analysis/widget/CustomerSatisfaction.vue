@@ -1,7 +1,7 @@
 <template>
   <div class="custom-card customer-satisfaction">
     <div class="custom-card-header">
-      <span class="title custom-text">Customer Satisfaction</span>
+      <span class="title custom-text">{{ t('analysis.customerSatisfaction.title') }}</span>
     </div>
     <div class="custom-card-body">
       <div ref="chartRef" style="height: 300px; margin-top: 10px"></div>
@@ -14,6 +14,8 @@
   import { useECharts } from '@/utils/echarts/useECharts'
   import * as echarts from 'echarts'
   import { useSettingStore } from '@/store/modules/setting'
+  import { useI18n } from 'vue-i18n'
+  const { t } = useI18n()
 
   const store = useSettingStore()
   const isDark = computed(() => store.isDark)
@@ -56,7 +58,10 @@
           confine: true
         },
         legend: {
-          data: ['Last Month', 'This Month'],
+          data: [
+            t('analysis.customerSatisfaction.legend.lastMonth'),
+            t('analysis.customerSatisfaction.legend.thisMonth')
+          ],
           bottom: 0,
           textStyle: {
             fontSize: 12,
@@ -82,7 +87,7 @@
         },
         series: [
           {
-            name: 'Last Month',
+            name: t('analysis.customerSatisfaction.legend.lastMonth'),
             type: 'line',
             smooth: true,
             data: [1800, 2800, 1800, 2300, 2600, 2500, 3500],
@@ -97,14 +102,13 @@
               width: 2,
               color: '#0086E1'
             },
-            symbol: 'circle',
-            symbolSize: 7,
+            symbol: 'none',
             itemStyle: {
               color: '#0095FF'
             }
           },
           {
-            name: 'This Month',
+            name: t('analysis.customerSatisfaction.legend.thisMonth'),
             type: 'line',
             smooth: true,
             data: [4800, 3500, 4300, 3700, 4500, 3500, 5500],
@@ -119,8 +123,7 @@
               width: 2,
               color: '#04C283'
             },
-            symbol: 'circle',
-            symbolSize: 7,
+            symbol: 'none',
             itemStyle: {
               color: '#07E098'
             }

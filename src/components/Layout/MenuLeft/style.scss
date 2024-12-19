@@ -27,8 +27,9 @@
     top: 0;
     right: 12px;
     bottom: 0;
-    width: 30px;
+    min-width: 20px;
     height: 20px;
+    padding: 0 5px;
     margin: auto;
     line-height: 20px;
     text-align: center;

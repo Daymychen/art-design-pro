@@ -1,7 +1,7 @@
 <template>
   <div class="custom-card total-revenue">
     <div class="custom-card-header">
-      <span class="title custom-text">Total Revenue</span>
+      <span class="title custom-text">{{ t('analysis.totalRevenue.title') }}</span>
     </div>
     <div class="custom-card-body">
       <div ref="chartRef" style="height: 300px"></div>
@@ -14,6 +14,9 @@
   import type { Ref } from 'vue'
   import { useECharts } from '@/utils/echarts/useECharts'
   import { useSettingStore } from '@/store/modules/setting'
+  import { useI18n } from 'vue-i18n'
+
+  const { t } = useI18n()
 
   const store = useSettingStore()
   const isDark = computed(() => store.isDark)
@@ -47,7 +50,10 @@
       containLabel: true
     },
     legend: {
-      data: ['Online Sales', 'Offline Sales'],
+      data: [
+        t('analysis.totalRevenue.legend.onlineSales'),
+        t('analysis.totalRevenue.legend.offlineSales')
+      ],
       bottom: 0,
       icon: 'circle',
       itemWidth: 10,
@@ -85,7 +91,7 @@
     },
     series: [
       {
-        name: 'Online Sales',
+        name: t('analysis.totalRevenue.legend.onlineSales'),
         type: 'bar',
         data: [12, 13, 5, 15, 10, 15, 18],
         barWidth: '15',
@@ -95,7 +101,7 @@
         }
       },
       {
-        name: 'Offline Sales',
+        name: t('analysis.totalRevenue.legend.offlineSales'),
         type: 'bar',
         data: [10, 11, 20, 5, 11, 13, 10],
         barWidth: '15',

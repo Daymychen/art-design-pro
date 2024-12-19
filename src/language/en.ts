@@ -150,5 +150,109 @@ export default {
       btnText: 'Unlock',
       backBtnText: 'Back to login'
     }
+  },
+  // Analysis page language example
+  analysis: {
+    todaySales: {
+      title: "Today's Sales",
+      subtitle: 'Sales Summary',
+      export: 'Export',
+      cards: {
+        totalSales: {
+          label: 'Total Sales',
+          change: '+15%'
+        },
+        totalOrder: {
+          label: 'Total Order',
+          change: '+5%'
+        },
+        productSold: {
+          label: 'Product Sold',
+          change: '+2%'
+        },
+        newCustomers: {
+          label: 'New Customers',
+          change: '+8%'
+        }
+      },
+      fromYesterday: 'from yesterday'
+    },
+    visitorInsights: {
+      title: 'Visitor Insights',
+      legend: {
+        loyalCustomers: 'Loyal Customers',
+        newCustomers: 'New Customers',
+        uniqueCustomers: 'Unique Customers'
+      }
+    },
+    totalRevenue: {
+      title: 'Total Revenue',
+      legend: {
+        onlineSales: 'Online Sales',
+        offlineSales: 'Offline Sales'
+      }
+    },
+    customerSatisfaction: {
+      title: 'Customer Satisfaction',
+      legend: {
+        lastMonth: 'Last Month',
+        thisMonth: 'This Month'
+      }
+    },
+    targetVsReality: {
+      title: 'Target vs Reality',
+      realitySales: {
+        label: 'Reality Sales',
+        sublabel: 'Global'
+      },
+      targetSales: {
+        label: 'Target Sales',
+        sublabel: 'Commercial'
+      }
+    },
+    topProducts: {
+      title: 'Top Products',
+      columns: {
+        name: 'Name',
+        popularity: 'Popularity',
+        sales: 'Sales'
+      },
+      products: {
+        homeDecor: {
+          name: 'Home Decor Range',
+          sales: '10%'
+        },
+        disneyBag: {
+          name: 'Disney Princess Pink Bag 18"',
+          sales: '29%'
+        },
+        bathroom: {
+          name: 'Bathroom Essentials',
+          sales: '65%'
+        },
+        smartwatch: {
+          name: 'Apple Smartwatches',
+          sales: '32%'
+        },
+        fitness: {
+          name: 'Fitness Tracker',
+          sales: '78%'
+        },
+        earbuds: {
+          name: 'Wireless Earbuds',
+          sales: '41%'
+        }
+      }
+    },
+    salesMappingCountry: {
+      title: 'Sales Mapping by Country'
+    },
+    volumeServiceLevel: {
+      title: 'Volume vs Service Level',
+      legend: {
+        volume: 'Volume',
+        services: 'Services'
+      }
+    }
   }
 }

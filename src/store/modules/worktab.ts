@@ -3,6 +3,7 @@ import { WorkTabType } from '@/types/store'
 import { HOME_PAGE } from '@/router/index'
 import { Router } from 'vue-router'
 import { getSysStorage } from '@/utils/storage'
+import { router } from '@/router'
 
 interface WorktabState {
   opened: WorkTabType[]
@@ -27,6 +28,8 @@ export const useWorktabStore = defineStore({
         const { worktab } = sys.user
         this.current = worktab.current || {}
         this.opened = worktab.opened || []
+
+        this.checkFirstHomePage()
       }
     },
     // 选项卡路由
@@ -100,9 +103,18 @@ export const useWorktabStore = defineStore({
         this.opened = []
         router.push(HOME_PAGE)
       } else {
-        this.opened = this.opened.filter((item) => {
-          return item.path === path
-        })
+        this.opened = this.opened.filter((item) => item.path === HOME_PAGE)
+
+        // 如果过滤后没有首页标签，则添加首页标签
+        if (this.opened.length === 0) {
+          router.push(HOME_PAGE)
+        }
+      }
+    },
+    // 检查第一个标签页是否为首页，如果不是首页则清空所有标签并跳转到首页
+    checkFirstHomePage() {
+      if (this.opened.length && this.opened[0].path !== HOME_PAGE) {
+        this.removeAll(HOME_PAGE, router)
       }
     }
   }

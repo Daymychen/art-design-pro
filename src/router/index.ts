@@ -39,7 +39,7 @@ export type AppRouteRecordRaw = RouteRecordRaw & {
 }
 
 // 首页
-export const HOME_PAGE = '/dashboard/console'
+export const HOME_PAGE = '/dashboard/analysis'
 
 // 不需要权限的路由
 const routes = [
@@ -71,6 +71,7 @@ const routes = [
         component: () => import(`@views/dashboard/analysis/index.vue`),
         meta: {
           title: '分析页',
+          title_en: 'Analysis',
           keepAlive: false
         }
       }

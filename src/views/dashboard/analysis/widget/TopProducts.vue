@@ -1,12 +1,12 @@
 <template>
   <div class="custom-card top-products">
     <div class="custom-card-header">
-      <span class="title custom-text">Top Products</span>
+      <span class="title custom-text">{{ t('analysis.topProducts.title') }}</span>
     </div>
     <div class="custom-card-body">
       <art-table :data="products" style="width: 100%" :pagination="false">
-        <el-table-column prop="name" label="Name" width="200" />
-        <el-table-column prop="popularity" label="Popularity">
+        <el-table-column prop="name" :label="t('analysis.topProducts.columns.name')" width="200" />
+        <el-table-column prop="popularity" :label="t('analysis.topProducts.columns.popularity')">
           <template #default="scope">
             <el-progress
               :percentage="scope.row.popularity"
@@ -16,7 +16,7 @@
             />
           </template>
         </el-table-column>
-        <el-table-column prop="sales" label="Sales" width="80">
+        <el-table-column prop="sales" :label="t('analysis.topProducts.columns.sales')" width="80">
           <template #default="scope">
             <span
               :style="{
@@ -38,15 +38,42 @@
 
 <script setup lang="ts">
   import { hexToRgb } from '@/utils/color'
-  import { ref } from 'vue'
+  import { computed } from 'vue'
+  import { useI18n } from 'vue-i18n'
+  const { t } = useI18n()
 
-  const products = ref([
-    { name: 'Home Decor Range', popularity: 10, sales: '10%' },
-    { name: 'Disney Princess Pink Bag 18"', popularity: 29, sales: '29%' },
-    { name: 'Bathroom Essentials', popularity: 65, sales: '65%' },
-    { name: 'Apple Smartwatches', popularity: 32, sales: '32%' },
-    { name: 'Fitness Tracker', popularity: 78, sales: '78%' },
-    { name: 'Wireless Earbuds', popularity: 41, sales: '41%' }
+  // 使用 computed 来创建响应式的产品数据
+  const products = computed(() => [
+    {
+      name: t('analysis.topProducts.products.homeDecor.name'),
+      popularity: 10,
+      sales: t('analysis.topProducts.products.homeDecor.sales')
+    },
+    {
+      name: t('analysis.topProducts.products.disneyBag.name'),
+      popularity: 29,
+      sales: t('analysis.topProducts.products.disneyBag.sales')
+    },
+    {
+      name: t('analysis.topProducts.products.bathroom.name'),
+      popularity: 65,
+      sales: t('analysis.topProducts.products.bathroom.sales')
+    },
+    {
+      name: t('analysis.topProducts.products.smartwatch.name'),
+      popularity: 32,
+      sales: t('analysis.topProducts.products.smartwatch.sales')
+    },
+    {
+      name: t('analysis.topProducts.products.fitness.name'),
+      popularity: 78,
+      sales: t('analysis.topProducts.products.fitness.sales')
+    },
+    {
+      name: t('analysis.topProducts.products.earbuds.name'),
+      popularity: 41,
+      sales: t('analysis.topProducts.products.earbuds.sales')
+    }
   ])
 
   const getColor = (percentage: number) => {

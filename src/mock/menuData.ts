@@ -1,4 +1,5 @@
 import { MenuListType } from '@/types/menu'
+import { upgradeLogList } from './upgradeLog'
 
 export const menuData: MenuListType[] = [
   {
@@ -13,20 +14,20 @@ export const menuData: MenuListType[] = [
     children: [
       {
         id: 101,
-        path: '/dashboard/console',
-        meta: {
-          title: '工作台',
-          title_en: 'Workbench',
-          keepAlive: true
-        }
-      },
-      {
-        id: 101,
         path: '/dashboard/analysis',
         meta: {
           title: '分析页',
           title_en: 'Analysis',
           showTextBadge: 'Hot',
+          keepAlive: true
+        }
+      },
+      {
+        id: 102,
+        path: '/dashboard/console',
+        meta: {
+          title: '工作台',
+          title_en: 'Workbench',
           keepAlive: true
         }
       }
@@ -599,6 +600,7 @@ export const menuData: MenuListType[] = [
         meta: {
           title: '更新日志',
           title_en: 'Update Plan',
+          showTextBadge: `${upgradeLogList.value[0].version}`,
           keepAlive: true
         }
       }
