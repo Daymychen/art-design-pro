@@ -15,19 +15,17 @@
 
     .tabs {
       float: left;
-      padding: 8px 0;
       white-space: nowrap;
       background: transparent !important;
 
       li {
-        box-sizing: border-box;
         display: inline-block;
         height: 32px;
         padding: 0 8px 0 12px;
         margin-right: 6px;
         font-size: 13px;
-        line-height: 30px;
-        color: #6e7380;
+        line-height: 32px;
+        color: var(--art-text-gray-600);
         text-align: center;
         cursor: pointer;
         background: var(--art-main-bg-color);
@@ -62,7 +60,6 @@
 
   .right {
     display: flex;
-    margin-top: 8px;
 
     .btn {
       position: relative;

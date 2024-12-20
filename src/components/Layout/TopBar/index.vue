@@ -56,14 +56,12 @@
         </div>
 
         <!-- 全屏按钮 -->
-        <div class="btn-box screen-box" @click="fullScreenFun" v-if="!isFullScreen">
-          <div class="btn full-screen-btn">
-            <i class="iconfont-sys">&#xe8ce;</i>
-          </div>
-        </div>
-        <div class="btn-box screen-box" @click="exitScreenFun" v-else>
-          <div class="btn exit-full-screen-btn">
-            <i class="iconfont-sys">&#xe62d;</i>
+        <div class="btn-box screen-box" @click="toggleFullScreen">
+          <div
+            class="btn"
+            :class="{ 'full-screen-btn': !isFullscreen, 'exit-full-screen-btn': isFullscreen }"
+          >
+            <i class="iconfont-sys">{{ isFullscreen ? '&#xe62d;' : '&#xe8ce;' }}</i>
           </div>
         </div>
         <!-- 锁定屏幕 -->
@@ -187,7 +185,7 @@
   import { LanguageEnum, MenuTypeEnum, MenuWidth, SystemThemeEnum } from '@/enums/appEnum'
   import { useSettingStore } from '@/store/modules/setting'
   import { useUserStore } from '@/store/modules/user'
-  import { fullScreen, exitScreen } from '@/utils/utils'
+  import { useFullscreen } from '@vueuse/core'
   import { ElMessageBox } from 'element-plus'
   import { HOME_PAGE } from '@/router'
   import { useI18n } from 'vue-i18n'
@@ -209,7 +207,6 @@
   const showCrumbs = computed(() => settingStore.showCrumbs)
   const userInfo = computed(() => userStore.getUserInfo)
   const language = computed(() => userStore.language)
-  const isFullScreen = ref(false)
   const showNotice = ref(false)
   const notice = ref(null)
   const systemThemeColor = computed(() => settingStore.systemThemeColor)
@@ -235,17 +232,13 @@
   })
 
   onUnmounted(() => {
-    document.addEventListener('click', bodyCloseNotice)
+    document.removeEventListener('click', bodyCloseNotice)
   })
 
-  const fullScreenFun = () => {
-    fullScreen()
-    isFullScreen.value = true
-  }
+  const { isFullscreen, toggle: toggleFullscreen } = useFullscreen()
 
-  const exitScreenFun = () => {
-    exitScreen()
-    isFullScreen.value = false
+  const toggleFullScreen = () => {
+    toggleFullscreen()
   }
 
   const topBarWidth = (): string => {

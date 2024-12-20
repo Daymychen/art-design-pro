@@ -1,28 +1,3 @@
-// 全屏
-export function fullScreen() {
-  const el: any = document.documentElement
-  const rfs =
-    el.requestFullScreen ||
-    el.webkitRequestFullScreen ||
-    el.mozRequestFullScreen ||
-    el.msRequestFullScreen
-
-  if (rfs) {
-    rfs.call(el)
-  }
-}
-
-//退出全屏
-export function exitScreen() {
-  const el: any = document
-  const cfs =
-    el.cancelFullScreen || el.webkitCancelFullScreen || el.mozCancelFullScreen || el.exitFullScreen
-
-  if (cfs) {
-    cfs.call(el)
-  }
-}
-
 export function getCssVariable(str: string) {
   return getComputedStyle(document.documentElement).getPropertyValue(str)
 }

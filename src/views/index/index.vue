@@ -88,7 +88,7 @@
   // 根据是否显示工作标签来设置最小高度
   const minHeight = computed(() => `calc(100vh - ${showWorkTab.value ? 120 : 75}px)`)
   const paddingTop = computed(() => {
-    return showWorkTab.value ? '110px' : '60px'
+    return showWorkTab.value ? '106px' : '60px'
   })
 
   // 是否刷新页面的状态
