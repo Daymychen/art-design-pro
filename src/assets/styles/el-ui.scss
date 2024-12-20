@@ -16,24 +16,8 @@
   --el-border-radius-small: 10px !important;
   --el-messagebox-border-radius: 10px !important;
 
-  // 默认按钮颜色
-  .el-button--primary {
-    --el-button-font-color: #ffffff;
-    --el-button-active-font-color: #e6e6e6;
-    --el-button-background-color: var(--main-color);
-    --el-button-border-color: var(--main-color);
-    --el-button-hover-color: var(--main-color);
-    --el-button-active-background-color: var(--main-color);
-    --el-button-active-border-color: var(--main-color);
-  }
-
   .region .el-radio-button__original-radio:checked + .el-radio-button__inner {
     color: var(--main-color);
-  }
-
-  .el-button:active {
-    color: var(--main-color);
-    border-color: var(--el-color-primary-light-6);
   }
 }
 
@@ -105,10 +89,6 @@
 
 // 修改el-button样式
 .el-button {
-  &:active {
-    color: #fff !important;
-  }
-
   &.el-button--text {
     background-color: transparent !important;
     padding: 0 !important;
