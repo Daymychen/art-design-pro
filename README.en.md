@@ -24,6 +24,7 @@ As a developer, I needed to build admin management systems for multiple projects
 - Built-in common business component templates
 - Provides multiple theme modes and customizable themes
 - Beautiful UI design, excellent user experience, and attention to detail
+- System fully supports customization, meeting your personalized needs
 
 ## Functionality
 
@@ -63,7 +64,3 @@ pnpm dev
 # Build for production
 pnpm build
 ```
-
-## Future Plans
-
-I will continue to update Art Design Pro, introducing more practical features including dynamic forms, global error handling and log collection, animations and transition effects, workflow engine integration, image cropping and compression, shortcut key support, etc. I will also write usage documentation to help developers get started more quickly.

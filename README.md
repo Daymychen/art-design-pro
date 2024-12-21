@@ -8,15 +8,15 @@
 
 ### 浅色主题
 
-![浅色主题](https://www.qiniu.lingchen.kim/PixPin_2024-12-06_19-05-51.png)
+![浅色主题](https://www.qiniu.lingchen.kim/PixPin_2024-12-06_19-05-51-1.png)
 
-![浅色主题](https://www.qiniu.lingchen.kim/PixPin_2024-10-14_11-46-23.png)
+![浅色主题](https://www.qiniu.lingchen.kim/PixPin_2024-10-14_11-46-23-2.png)
 
 ### 暗黑主题
 
-![暗黑主题](https://www.qiniu.lingchen.kim/PixPin_2024-12-06_19-06-06.png)
+![暗黑主题](https://www.qiniu.lingchen.kim/PixPin_2024-12-06_19-06-06-3.png)
 
-![暗黑主题](https://www.qiniu.lingchen.kim/PixPin_2024-10-14_11-47-06.png)
+![暗黑主题](https://www.qiniu.lingchen.kim/PixPin_2024-10-14_11-47-06-4.png)
 
 ## 特点
 
@@ -24,6 +24,7 @@
 - 内置常用业务组件模版
 - 提供多种主题模式，可以自定义主题
 - 漂亮的 UI设计、极致的用户体验和细节处理
+- 系统全面支持自定义设置，满足您的个性化需求
 
 ## 技术栈
 
@@ -68,7 +69,3 @@ pnpm dev
 # 生产环境打包
 pnpm build
 ```
-
-## 未来的计划
-
-我将持续更新 Art Design Pro，引入更多实用功能，包括动态表单、全局错误处理和日志收集、动画和过渡效果、工作流引擎集成、图片裁剪和压缩、快捷键支持等。同时编写使用文档，帮助开发者更快速上手。
