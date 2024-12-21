@@ -1,5 +1,5 @@
 <template>
-  <div class="region sales-overview console-box">
+  <div class="region sales-overview art-custom-card">
     <div class="card-header">
       <div class="title">
         <h4 class="custom-text box-title">访问量</h4>

@@ -7,6 +7,7 @@
         :style="{ transform: `translateX(${translateX}px)`, transition: `${transition}` }"
       >
         <li
+          class="art-custom-card"
           v-for="(item, index) in list"
           :key="item.path"
           :ref="item.path"

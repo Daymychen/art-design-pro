@@ -13,29 +13,32 @@
       <TodoList></TodoList>
     </div>
 
-    <div class="bottom-wrap console-box">
+    <div class="bottom-wrap art-custom-card">
       <div>
         <h2 class="custom-text box-title">关于项目</h2>
         <p>{{ systemName }} 是一款专注于用户体验和视觉设计的后台管理系统模版</p>
         <p>使用了 Vue3、TypeScript、Vite、Element Plus 等前沿技术</p>
 
         <div class="button-wrap">
-          <div class="btn" @click="goPage('https://www.lingchen.kim/art-design-pro/docs/')">
+          <div
+            class="btn art-custom-card"
+            @click="goPage('https://www.lingchen.kim/art-design-pro/docs/')"
+          >
             <span>项目官网</span>
             <i class="iconfont-sys">&#xe703;</i>
           </div>
           <div
-            class="btn"
+            class="btn art-custom-card"
             @click="goPage('https://www.lingchen.kim/art-design-pro/docs/guide/introduce.html')"
           >
             <span>文档</span>
             <i class="iconfont-sys">&#xe703;</i>
           </div>
-          <div class="btn" @click="goPage('https://github.com/Daymychen')">
+          <div class="btn art-custom-card" @click="goPage('https://github.com/Daymychen')">
             <span>Github</span>
             <i class="iconfont-sys">&#xe703;</i>
           </div>
-          <div class="btn" @click="goPage('https://www.lingchen.kim')">
+          <div class="btn art-custom-card" @click="goPage('https://www.lingchen.kim')">
             <span>博客</span>
             <i class="iconfont-sys">&#xe703;</i>
           </div>
@@ -167,7 +170,6 @@
           text-align: center;
           cursor: pointer;
           background: var(--art-bg-color);
-          border: 1px solid rgba(var(--art-gray-300-rgb), 0.9) !important;
           border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
           transition: all 0.3s;
 

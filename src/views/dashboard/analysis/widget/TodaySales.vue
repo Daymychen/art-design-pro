@@ -1,5 +1,5 @@
 <template>
-  <div class="custom-card today-sales">
+  <div class="custom-card art-custom-card today-sales">
     <div class="custom-card-header">
       <span class="title custom-text">{{ t('analysis.todaySales.title') }}</span>
       <span class="subtitle">{{ t('analysis.todaySales.subtitle') }}</span>
@@ -11,7 +11,7 @@
     <div class="sales-summary">
       <el-row :gutter="20">
         <el-col :span="6" :xs="24" v-for="(item, index) in salesData" :key="index">
-          <div :class="['sales-card', item.class]">
+          <div :class="['sales-card art-custom-card', item.class]">
             <i class="iconfont-sys" :class="item.class" v-html="item.iconfont"></i>
             <h2>
               <CountTo
@@ -110,7 +110,6 @@
         height: 220px;
         padding: 0 20px;
         overflow: hidden;
-        border: 1px solid rgba(var(--art-gray-300-rgb), 0.6) !important;
         border-radius: calc(var(--custom-radius) / 2 + 4px) !important;
 
         .iconfont-sys {

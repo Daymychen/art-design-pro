@@ -1,5 +1,5 @@
 <template>
-  <div class="custom-card sales-mapping-country">
+  <div class="custom-card art-custom-card sales-mapping-country">
     <div class="custom-card-header">
       <span class="title custom-text">{{ t('analysis.salesMappingCountry.title') }}</span>
     </div>

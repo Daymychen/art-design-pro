@@ -1,5 +1,5 @@
 <template>
-  <div class="custom-card volume-service-level">
+  <div class="custom-card art-custom-card volume-service-level">
     <div class="custom-card-header">
       <span class="title custom-text">{{ t('analysis.volumeServiceLevel.title') }}</span>
     </div>

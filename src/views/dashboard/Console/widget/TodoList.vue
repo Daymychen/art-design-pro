@@ -1,5 +1,5 @@
 <template>
-  <div class="region todo-list console-box">
+  <div class="region todo-list art-custom-card">
     <div class="card-header">
       <div class="title">
         <h4 class="custom-text box-title">代办事项</h4>

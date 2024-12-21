@@ -89,24 +89,6 @@
     }
   }
 
-  // 盒子阴影
-  [data-box-mode='shadow-mode'] {
-    .analysis-dashboard {
-      :deep(.custom-card) {
-        box-shadow: 0 4px 20px rgb(238 238 238 / 50%);
-      }
-    }
-  }
-
-  // 盒子边框
-  [data-box-mode='border-mode'] {
-    .analysis-dashboard {
-      :deep(.custom-card) {
-        border: 1px solid rgba(var(--art-gray-300-rgb), 0.6) !important;
-      }
-    }
-  }
-
   .dark {
     .analysis-dashboard {
       :deep(.custom-card) {

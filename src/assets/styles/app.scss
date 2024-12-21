@@ -89,29 +89,27 @@
   }
 }
 
-// ✅ 盒子边框 ｜ 盒子阴影
+// 盒子边框
 [data-box-mode='border-mode'] {
   .page-content,
-  .worktab .scroll-view .tabs li,
-  .console-box,
-  .console-box-2 {
-    border: 1px solid rgba(var(--art-gray-300-rgb), 0.6) !important;
+  .art-custom-card {
+    border: 1px solid var(--art-card-border) !important;
   }
 
   .menu-left {
-    border-right: 1px solid rgba(var(--art-gray-300-rgb), 0.6) !important;
+    border-right: 1px solid var(--art-card-border) !important;
   }
 }
 
+// 盒子阴影
 [data-box-mode='shadow-mode'] {
   .page-content,
-  .worktab .scroll-view .tabs li,
-  .console-box,
-  .console-box-2 {
-    box-shadow: 0 4px 20px rgb(0 0 0 / 3%);
+  .art-custom-card {
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.04) !important;
+    border: 1px solid rgba(var(--art-gray-300-rgb), 0.4) !important;
   }
 
   .menu-left {
-    border-right: none;
+    border-right: 1px solid rgba(var(--art-gray-300-rgb), 0.4) !important;
   }
 }

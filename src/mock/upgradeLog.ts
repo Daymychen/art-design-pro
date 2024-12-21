@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.1.95',
+    title: '卡片阴影效果优化',
+    date: '2024-12-21',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.1.94',
     title: '修复按钮点击文字颜色消失BUG（建议所有用户更新）',
     date: '2024-12-20',

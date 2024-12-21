@@ -1,6 +1,6 @@
 <template>
   <ul class="card-list" :style="{ marginTop: showWorkTab ? '0' : '10px' }">
-    <li class="console-box-2" v-for="(item, index) in dataList" :key="index">
+    <li class="art-custom-card" v-for="(item, index) in dataList" :key="index">
       <span class="des custom-text subtitle">{{ item.des }}</span>
       <div>
         <CountTo

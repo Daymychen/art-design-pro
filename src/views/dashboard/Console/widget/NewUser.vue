@@ -1,5 +1,5 @@
 <template>
-  <div class="region new-user console-box">
+  <div class="region new-user art-custom-card">
     <div class="card-header">
       <div class="title">
         <h4 class="custom-text box-title">新用户</h4>

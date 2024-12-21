@@ -1,5 +1,5 @@
 <template>
-  <div class="custom-card customer-satisfaction">
+  <div class="custom-card art-custom-card customer-satisfaction">
     <div class="custom-card-header">
       <span class="title custom-text">{{ t('analysis.customerSatisfaction.title') }}</span>
     </div>

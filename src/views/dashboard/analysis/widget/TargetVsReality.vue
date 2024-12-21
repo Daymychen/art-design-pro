@@ -1,5 +1,5 @@
 <template>
-  <div class="custom-card target-vs-reality">
+  <div class="custom-card art-custom-card target-vs-reality">
     <div class="custom-card-header">
       <span class="title custom-text">{{ t('analysis.targetVsReality.title') }}</span>
     </div>

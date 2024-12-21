@@ -1,5 +1,5 @@
 <template>
-  <div class="region active-user console-box">
+  <div class="region active-user art-custom-card">
     <div class="chart" ref="chartRef"></div>
     <div class="text">
       <h3 class="custom-text box-title">用户概述</h3>
