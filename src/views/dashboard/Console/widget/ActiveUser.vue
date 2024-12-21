@@ -19,6 +19,7 @@
 
 <script setup lang="ts">
   import { ref, computed, onMounted, onUnmounted } from 'vue'
+  import * as echarts from 'echarts'
   import { useECharts } from '@/utils/echarts/useECharts'
   import { useSettingStore } from '@/store/modules/setting'
 
@@ -102,10 +103,19 @@
         {
           data: [160, 100, 150, 80, 190, 100, 175, 120, 160],
           type: 'bar',
-          barMaxWidth: 20,
-          color: getCssVariable('--main-color'),
+          barMaxWidth: 36,
           itemStyle: {
-            borderRadius: [6, 6, 6, 6]
+            borderRadius: [6, 6, 6, 6],
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              {
+                offset: 0,
+                color: getCssVariable('--el-color-primary-light-4')
+              },
+              {
+                offset: 1,
+                color: getCssVariable('--el-color-primary')
+              }
+            ])
           }
         }
       ]

@@ -58,7 +58,20 @@
       xAxis: {
         type: 'category',
         boundaryGap: false,
-        data: ['2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021'],
+        data: [
+          '1月',
+          '2月',
+          '3月',
+          '4月',
+          '5月',
+          '6月',
+          '7月',
+          '8月',
+          '9月',
+          '10月',
+          '11月',
+          '12月'
+        ],
         axisLabel: {
           show: true,
           color: '#999',
@@ -95,11 +108,11 @@
       },
       series: [
         {
-          name: '销售',
+          name: '访客',
           color: getCssVariable('--main-color'),
           type: 'line',
           stack: '总量',
-          data: [80, 40, 300, 200, 500, 250, 160, 304, 180],
+          data: [50, 25, 40, 20, 70, 35, 65, 30, 35, 20, 40, 44],
           smooth: true,
           symbol: 'none',
           lineStyle: {

@@ -50,14 +50,14 @@
       value: 300,
       change: t('analysis.todaySales.cards.totalOrder.change'),
       iconfont: '&#xe70f',
-      class: 'yellow'
+      class: 'green'
     },
     {
       label: t('analysis.todaySales.cards.productSold.label'),
       value: 56,
       change: t('analysis.todaySales.cards.productSold.change'),
       iconfont: '&#xe712',
-      class: 'green'
+      class: 'yellow'
     },
     {
       label: t('analysis.todaySales.cards.newCustomers.label'),
@@ -113,33 +113,33 @@
         border-radius: calc(var(--custom-radius) / 2 + 4px) !important;
 
         .iconfont-sys {
-          width: 44px;
-          height: 44px;
+          width: 48px;
+          height: 48px;
           font-size: 20px;
-          line-height: 44px;
+          line-height: 48px;
           color: #fff;
+          color: var(--el-color-primary);
           text-align: center;
+          background-color: var(--el-color-primary-light-9);
           border-radius: 50%;
-          // color: var(--el-color-primary);
-          // background-color: var(--el-color-primary-light-9);
 
           &.red {
-            color: #1b84ff !important;
+            color: #298cff !important;
             background-color: #e9f3ff !important;
           }
 
           &.yellow {
-            color: #f8285a !important;
+            color: #ff4d50 !important;
             background-color: #ffeef3 !important;
           }
 
           &.green {
-            color: #17c653 !important;
+            color: #27c65d !important;
             background-color: #dfffea !important;
           }
 
           &.purple {
-            color: #7239ea !important;
+            color: #8758ea !important;
             background-color: #f8f5ff !important;
           }
         }

@@ -2,13 +2,14 @@
   <ul class="card-list" :style="{ marginTop: showWorkTab ? '0' : '10px' }">
     <li class="art-custom-card" v-for="(item, index) in dataList" :key="index">
       <span class="des custom-text subtitle">{{ item.des }}</span>
-      <div>
-        <CountTo
-          class="number custom-text box-title"
-          :endVal="item.num"
-          :duration="1000"
-          separator=""
-        ></CountTo>
+      <CountTo
+        class="number custom-text box-title"
+        :endVal="item.num"
+        :duration="1000"
+        separator=""
+      ></CountTo>
+      <div class="change-box">
+        <span class="change-text">较上周</span>
         <span
           class="change"
           :style="{ color: item.change.indexOf('+') === -1 ? 'red' : '#52c41a' }"
@@ -16,23 +17,17 @@
           {{ item.change }}
         </span>
       </div>
-      <i
-        class="iconfont-sys custom-text"
-        :style="{ backgroundImage: `${item.color} !important` }"
-        v-html="item.icon"
-      ></i>
+      <i class="iconfont-sys custom-text" v-html="item.icon"></i>
     </li>
   </ul>
 </template>
 
 <script setup lang="ts">
-  import { SystemGradientColor, SystemMainColor } from '@/config/setting'
   import { useSettingStore } from '@/store/modules/setting'
   import { CountTo } from 'vue3-count-to'
 
   const settingStore = useSettingStore()
   const showWorkTab = computed(() => settingStore.showWorkTab)
-  const colorIndex = computed(() => SystemMainColor.indexOf(settingStore.systemThemeColor))
 
   const dataList = reactive([
     {
@@ -41,8 +36,7 @@
       startVal: 0,
       duration: 1000,
       num: 9120,
-      change: '+20%',
-      color: SystemGradientColor[colorIndex.value]
+      change: '+20%'
     },
     {
       des: '在线访客数',
@@ -50,8 +44,7 @@
       startVal: 0,
       duration: 1000,
       num: 182,
-      change: '+10%',
-      color: 'linear-gradient(310deg,#3BDBFF,#61DAE1)'
+      change: '+10%'
     },
     {
       des: '点击量',
@@ -59,8 +52,7 @@
       startVal: 0,
       duration: 1000,
       num: 9520,
-      change: '-12%',
-      color: 'linear-gradient(310deg,#F56A58,#F55540)'
+      change: '-12%'
     },
     {
       des: '新用户',
@@ -68,8 +60,7 @@
       startVal: 0,
       duration: 1000,
       num: 156,
-      change: '+30%',
-      color: 'linear-gradient(310deg,#A38BE4,#825ee4)'
+      change: '+30%'
     }
   ])
 </script>
@@ -87,57 +78,74 @@
     li {
       position: relative;
       box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       width: calc(25% - var(--console-margin));
-      height: 90px;
+      height: 140px;
       padding: 0 18px;
       margin: 0 0 0 var(--console-margin);
       background: var(--art-main-bg-color);
 
-      $icon-size: 46px;
+      $icon-size: 52px;
 
       .iconfont-sys {
         position: absolute;
         top: 0;
-        right: 15px;
+        right: 20px;
         bottom: 0;
         width: $icon-size;
         height: $icon-size;
         margin: auto;
         overflow: hidden;
-        font-size: 20px;
+        font-size: 22px;
         line-height: $icon-size;
-        color: #fff !important;
+        color: var(--el-color-primary) !important;
         text-align: center;
-        background-color: #2c90ff;
+        background-color: var(--el-color-primary-light-9);
         border-radius: 12px;
       }
 
       .des {
         display: block;
         height: 14px;
-        margin-top: 20px;
-        font-size: 13px;
-        font-weight: 500;
+        font-size: 14px;
         line-height: 14px;
       }
 
-      > div {
+      .number {
+        display: block;
+        margin-top: 10px;
+        font-size: 28px;
+        font-weight: 400;
+      }
+
+      .change-box {
         display: flex;
         align-items: center;
+        margin-top: 10px;
 
-        .number {
+        .change-text {
           display: block;
-          margin-top: 5px;
-          font-size: 28px;
-          font-weight: 400;
-          // color: var(--art-text-gray-800);
+          font-size: 13px;
+          color: var(--art-text-gray-600);
         }
 
         .change {
           display: block;
-          margin: 13px 0 0 10px;
+          margin-left: 5px;
           font-size: 13px;
           font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .dark {
+    .card-list {
+      li {
+        .iconfont-sys {
+          background-color: #232323 !important;
         }
       }
     }
