@@ -1,72 +1,78 @@
 <template>
-  <template v-for="item in list" :key="item.id">
-    <el-sub-menu
-      v-if="isNotEmpty(item.children)"
-      :index="item.path || item.meta.title"
-      :level="level"
-    >
+  <template v-for="item in filteredMenuItems" :key="item.id">
+    <!-- 包含子菜单的项目 -->
+    <el-sub-menu v-if="hasChildren(item)" :index="item.path || item.meta.title" :level="level">
       <template #title>
-        <i
-          class="menu-icon iconfont-sys"
-          :style="{ color: theme?.iconColor }"
-          v-html="item.meta.icon"
-        ></i>
+        <MenuItemIcon :icon="item.meta.icon" :color="theme?.iconColor" />
         <span class="menu-name">{{ getMenuTitle(item) }}</span>
-        <div class="badge" style="right: 35px" v-if="item.meta.showBadge"></div>
+        <div v-if="item.meta.showBadge" class="badge" style="right: 35px" />
       </template>
-      <!-- 递归菜单 -->
-      <submenu :list="item.children" :isMobile="isMobile" @close="closeMenu" :level="level + 1" />
+      <submenu
+        :list="item.children"
+        :is-mobile="isMobile"
+        :level="level + 1"
+        :theme="theme"
+        @close="closeMenu"
+      />
     </el-sub-menu>
 
+    <!-- 普通菜单项 -->
     <el-menu-item
-      v-if="!isNotEmpty(item.children) && !item.meta.isHide"
+      v-else
       :index="item.path || item.meta.title"
-      @click="goPage(item)"
       :level-item="level + 1"
+      @click="goPage(item)"
     >
+      <MenuItemIcon :icon="item.meta.icon" />
       <template #title>
-        <i class="menu-icon iconfont-sys" v-html="item.meta.icon"></i>
         <span class="menu-name">{{ getMenuTitle(item) }}</span>
-        <div class="badge" v-if="item.meta.showBadge"></div>
-        <div class="text-badge" v-if="item.meta.showTextBadge">
-          <small class="custom-text">{{ item.meta.showTextBadge }}</small>
+        <div v-if="item.meta.showBadge" class="badge" />
+        <div v-if="item.meta.showTextBadge" class="text-badge custom-text">
+          {{ item.meta.showTextBadge }}
         </div>
       </template>
     </el-menu-item>
   </template>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
+  import { computed } from 'vue'
   import { router } from '@/router'
-  import { MenuListType } from '@/types/menu'
+  import type { MenuListType } from '@/types/menu'
   import { getMenuTitle, openLink } from '@/utils/menu'
 
-  defineProps({
-    title: {
-      type: String,
-      default: ''
-    },
-    list: {
-      type: [Array] as PropType<MenuListType[]>,
-      default: () => []
-    },
-    theme: {
-      type: Object,
-      default: () => {}
-    },
-    isMobile: Boolean,
-    level: {
-      type: Number,
-      default: 0
+  // 类型定义
+  interface Props {
+    title?: string
+    list?: MenuListType[]
+    theme?: {
+      iconColor?: string
     }
+    isMobile?: boolean
+    level?: number
+  }
+
+  // Props定义
+  const props = withDefaults(defineProps<Props>(), {
+    title: '',
+    list: () => [],
+    theme: () => ({}),
+    isMobile: false,
+    level: 0
   })
 
-  const emit = defineEmits(['close'])
+  // Emits定义
+  const emit = defineEmits<{
+    (e: 'close'): void
+  }>()
 
+  // 计算属性
+  const filteredMenuItems = computed(() => filterRoutes(props.list))
+
+  // 跳转页面
   const goPage = (item: MenuListType) => {
-    let { link } = item.meta
+    const { link } = item.meta
 
-    // 打开链接
     if (link) {
       openLink(link, item.meta.isIframe)
       return
@@ -76,11 +82,40 @@
     router.push(item.path)
   }
 
-  const closeMenu = () => {
-    emit('close')
+  // 关闭菜单
+  const closeMenu = () => emit('close')
+
+  // 判断是否有子菜单
+  const hasChildren = (item: MenuListType): boolean => {
+    return Boolean(item.children?.length)
   }
 
-  const isNotEmpty = (children: MenuListType[] | undefined) => {
-    return children && children.length > 0
+  // 过滤菜单项
+  const filterRoutes = (items: MenuListType[]): MenuListType[] => {
+    return items
+      .filter((item) => !item.meta.isHide)
+      .map((item) => ({
+        ...item,
+        children: item.children ? filterRoutes(item.children) : undefined
+      }))
   }
+</script>
+
+<script lang="ts">
+  // 抽取图标组件
+  const MenuItemIcon = defineComponent({
+    name: 'MenuItemIcon',
+    props: {
+      icon: String,
+      color: String
+    },
+    setup(props) {
+      return () =>
+        h('i', {
+          class: 'menu-icon iconfont-sys',
+          style: props.color ? { color: props.color } : undefined,
+          innerHTML: props.icon
+        })
+    }
+  })
 </script>

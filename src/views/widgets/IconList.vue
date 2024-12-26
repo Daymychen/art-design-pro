@@ -52,7 +52,7 @@
   ]
   const systemIconClasses = ref<IconfontType[]>([])
 
-  const isColorsIcon = ref(true)
+  const isColorsIcon = ref(false)
 
   onMounted(() => {
     systemIconClasses.value = extractIconClasses()

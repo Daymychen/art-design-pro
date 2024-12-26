@@ -14,6 +14,15 @@ export const menuData: MenuListType[] = [
     children: [
       {
         id: 101,
+        path: '/dashboard/console',
+        meta: {
+          title: '工作台',
+          title_en: 'Workbench',
+          keepAlive: true
+        }
+      },
+      {
+        id: 102,
         path: '/dashboard/analysis',
         meta: {
           title: '分析页',
@@ -21,18 +30,10 @@ export const menuData: MenuListType[] = [
           showTextBadge: 'Hot',
           keepAlive: true
         }
-      },
-      {
-        id: 102,
-        path: '/dashboard/console',
-        meta: {
-          title: '工作台',
-          title_en: 'Workbench',
-          keepAlive: true
-        }
       }
     ]
   },
+
   {
     id: 5,
     path: '/widgets',
@@ -160,6 +161,16 @@ export const menuData: MenuListType[] = [
           title: '文字滚动',
           title_en: 'Text scroll',
           keepAlive: true
+        }
+      },
+      {
+        id: 515,
+        path: '/widgets/fireworks',
+        meta: {
+          title: '礼花',
+          title_en: 'Fireworks',
+          keepAlive: true,
+          showTextBadge: 'New'
         }
       }
     ]

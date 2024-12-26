@@ -11,13 +11,14 @@
 
     <!-- 顶栏 -->
     <top-bar>
-      <template #default>
-        <work-tab v-if="showWorkTab"></work-tab>
-      </template>
+      <work-tab v-if="showWorkTab"></work-tab>
     </top-bar>
 
     <!-- 内容区域 -->
     <div class="container">
+      <!-- 节日文本滚动 -->
+      <festival-text-scroll></festival-text-scroll>
+
       <router-view
         v-if="isRefresh && isOnline"
         v-slot="{ Component, route }"
@@ -42,7 +43,10 @@
     </div>
 
     <!-- 个性化设置 -->
-    <setting />
+    <setting></setting>
+
+    <!-- 烟花组件 -->
+    <fireworks></fireworks>
 
     <!-- 水印组件 -->
     <Watermark :visible="watermarkVisible"></Watermark>
@@ -79,6 +83,7 @@
   const menuType = computed(() => settingStore.menuType)
   // 水印是否显示
   const watermarkVisible = computed(() => settingStore.watermarkVisible)
+
   // 根据菜单是否打开来设置左侧填充宽度
   const paddingLeft = computed(() => {
     const width = menuOpen.value ? settingStore.getMenuOpenWidth : MenuWidth.CLOSE

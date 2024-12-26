@@ -4,6 +4,7 @@ import { ThemeList, ElementPlusTheme, DarkMenuStyles, SystemSetting } from '@/co
 import { SystemThemeEnum, MenuThemeEnum, MenuTypeEnum } from '@/enums/appEnum'
 import { colourBlend, handleElementThemeColor } from '@/utils/utils'
 import { getSysStorage } from '@/utils/storage'
+import { useCeremony } from '@/composables/useCeremony'
 
 const { defaultMenuWidth, defaultCustomRadius } = SystemSetting
 
@@ -30,6 +31,9 @@ export interface SettingState {
   refresh: boolean
   watermarkVisible: boolean // 水印是否显示
   customRadius: string // 自定义圆角
+  holidayFireworksLoaded: boolean // 是否加载完礼花
+  showFestivalText: boolean // 是否显示节日文本
+  festivalDate: string // 节日日期
 }
 
 export const useSettingStore = defineStore({
@@ -56,7 +60,10 @@ export const useSettingStore = defineStore({
     menuOpen: true,
     refresh: false,
     watermarkVisible: false,
-    customRadius: defaultCustomRadius
+    customRadius: defaultCustomRadius,
+    holidayFireworksLoaded: false,
+    showFestivalText: false,
+    festivalDate: ''
   }),
   getters: {
     getMenuTheme(): MenuThemeType {
@@ -78,6 +85,10 @@ export const useSettingStore = defineStore({
     // 获取自定义圆角
     getCustomRadius(): string {
       return this.customRadius + 'rem' || defaultCustomRadius + 'rem'
+    },
+    // 节日礼花否显示
+    isShowFireworks(): boolean {
+      return this.festivalDate === useCeremony().currentFestivalData.value?.date ? false : true
     }
   },
   actions: {
@@ -109,6 +120,9 @@ export const useSettingStore = defineStore({
         this.menuOpen = setting.menuOpen
         this.watermarkVisible = setting.watermarkVisible
         this.customRadius = setting.customRadius || defaultCustomRadius
+        this.holidayFireworksLoaded = setting.holidayFireworksLoaded
+        this.showFestivalText = setting.showFestivalText
+        this.festivalDate = setting.festivalDate
         this.setCustomRadius(this.customRadius)
         setElementThemeColor(setting.systemThemeColor)
       } else {
@@ -202,6 +216,18 @@ export const useSettingStore = defineStore({
     setCustomRadius(radius: string) {
       this.customRadius = radius
       document.documentElement.style.setProperty('--custom-radius', `${radius}rem`)
+    },
+    // 设置是否加载完礼花
+    setholidayFireworksLoaded(isLoad: boolean) {
+      this.holidayFireworksLoaded = isLoad
+    },
+    // 设置是否显示节日文本
+    setShowFestivalText(show: boolean) {
+      this.showFestivalText = show
+    },
+    // 设置节日日期
+    setFestivalDate(date: string) {
+      this.festivalDate = date
     }
   }
 })

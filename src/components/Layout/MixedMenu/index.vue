@@ -124,7 +124,7 @@
     }
 
     :deep(.scrollbar-wrapper) {
-      width: calc(62vw - v-bind(menuopenwidth));
+      width: calc(60vw - v-bind(menuopenwidth));
       margin: 0 30px;
     }
 
@@ -203,7 +203,7 @@
   @media (max-width: $device-notebook) {
     .mixed-top-menu {
       :deep(.scrollbar-wrapper) {
-        width: calc(50vw - v-bind(menuopenwidth));
+        width: calc(48vw - v-bind(menuopenwidth));
         margin: 0 30px;
       }
     }

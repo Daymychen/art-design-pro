@@ -39,7 +39,7 @@ export type AppRouteRecordRaw = RouteRecordRaw & {
 }
 
 // 首页
-export const HOME_PAGE = '/dashboard/analysis'
+export const HOME_PAGE = '/dashboard/console'
 
 // 不需要权限的路由
 const routes = [
@@ -470,6 +470,13 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         component: () => import('@views/widgets/TextScroll.vue'),
         meta: {
           title: '文字滚动'
+        }
+      },
+      {
+        path: '/widgets/fireworks',
+        component: () => import('@views/widgets/Fireworks.vue'),
+        meta: {
+          title: '礼花'
         }
       }
     ]

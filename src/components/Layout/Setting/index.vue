@@ -1,107 +1,85 @@
 <template>
-  <el-drawer
-    size="300px"
-    v-model="showDrawer"
-    :lock-scroll="false"
-    :with-header="false"
-    :before-close="closeDrawer"
-    @open="toggleDrawer(true)"
-    @close="toggleDrawer(false)"
-    modal-class="setting-modal"
-  >
-    <div class="drawer-con">
-      <div class="close-wrap">
-        <i class="iconfont-sys" @click="closeDrawer">&#xe7dc;</i>
-      </div>
-
-      <p class="title">{{ $t('setting.theme.title') }}</p>
-      <div class="theme-wrap">
-        <div
-          class="item"
-          v-for="(item, index) in settingThemeList"
-          :key="item.theme"
-          @click="switchTheme(item.theme)"
-        >
-          <div class="box" :class="{ 'is-active': item.theme === systemThemeMode }">
-            <div :style="{ background: item.color[0] + '!important' }">
-              <div
-                v-for="(cItem, index) in 3"
-                :key="index"
-                :class="'line' + index"
-                :style="{ background: item.leftLineColor }"
-              ></div>
-            </div>
-            <div
-              :style="{ background: index === 2 ? item.color[1] : item.color[0] + '!important' }"
-            >
-              <div
-                v-for="(cItem, index) in 3"
-                :key="index"
-                :class="'line' + index"
-                :style="{ background: item.rightLineColor }"
-              ></div>
-            </div>
-          </div>
-          <p class="name">{{ $t(`setting.theme.list[${index}]`) }}</p>
-          <div class="active" v-show="item.theme === systemThemeMode"></div>
+  <div class="setting">
+    <el-drawer
+      size="300px"
+      v-model="showDrawer"
+      :lock-scroll="false"
+      :with-header="false"
+      :before-close="closeDrawer"
+      @open="toggleDrawer(true)"
+      @close="toggleDrawer(false)"
+      modal-class="setting-modal"
+    >
+      <div class="drawer-con">
+        <div class="close-wrap">
+          <i class="iconfont-sys" @click="closeDrawer">&#xe7dc;</i>
         </div>
-      </div>
 
-      <div v-if="width > 1000">
-        <!-- 菜单布局 -->
-        <p class="title" style="margin-top: 30px">{{ $t('setting.menuType.title') }}</p>
-        <div class="menu-type">
-          <div class="menu-type-wrap">
-            <!-- 左侧菜单 -->
-            <div class="item">
-              <div
-                class="box bl"
-                :class="{ 'is-active': isLeftMenu }"
-                @click="setMenuType(MenuTypeEnum.LEFT)"
-              >
-                <div class="bl-menu">
-                  <div class="line" v-for="i in 6" :key="i"></div>
-                </div>
-                <div class="bl-content">
-                  <div class="header"></div>
-                  <div class="row1">
-                    <div v-for="i in 2" :key="i"></div>
-                  </div>
-                  <div class="row2"></div>
-                </div>
+        <p class="title">{{ $t('setting.theme.title') }}</p>
+        <div class="theme-wrap">
+          <div
+            class="item"
+            v-for="(item, index) in settingThemeList"
+            :key="item.theme"
+            @click="switchTheme(item.theme)"
+          >
+            <div class="box" :class="{ 'is-active': item.theme === systemThemeMode }">
+              <div :style="{ background: item.color[0] + '!important' }">
+                <div
+                  v-for="(cItem, index) in 3"
+                  :key="index"
+                  :class="'line' + index"
+                  :style="{ background: item.leftLineColor }"
+                ></div>
               </div>
-              <span class="name">{{ $t('setting.menuType.list[0]') }}</span>
-            </div>
-            <!-- 顶部菜单 -->
-            <div class="item">
               <div
-                class="box bt"
-                :class="{ 'is-active': isTopMenu }"
-                @click="setMenuType(MenuTypeEnum.TOP)"
+                :style="{ background: index === 2 ? item.color[1] : item.color[0] + '!important' }"
               >
-                <div class="bt-menu">
-                  <div class="line" v-for="i in 6" :key="i"></div>
-                </div>
-                <div class="bl-content">
-                  <div class="row1">
-                    <div v-for="i in 2" :key="i"></div>
-                  </div>
-                  <div class="row2"></div>
-                </div>
+                <div
+                  v-for="(cItem, index) in 3"
+                  :key="index"
+                  :class="'line' + index"
+                  :style="{ background: item.rightLineColor }"
+                ></div>
               </div>
-              <span class="name">{{ $t('setting.menuType.list[1]') }}</span>
             </div>
-            <!-- 混合菜单 -->
-            <div class="item">
-              <div
-                class="box tl"
-                :class="{ 'is-active': isTopLeftMenu }"
-                @click="setMenuType(MenuTypeEnum.TOP_LEFT)"
-              >
-                <div class="tl-left">
-                  <div class="line" v-for="i in 6" :key="i"></div>
+            <p class="name">{{ $t(`setting.theme.list[${index}]`) }}</p>
+            <div class="active" v-show="item.theme === systemThemeMode"></div>
+          </div>
+        </div>
+
+        <div v-if="width > 1000">
+          <!-- 菜单布局 -->
+          <p class="title" style="margin-top: 30px">{{ $t('setting.menuType.title') }}</p>
+          <div class="menu-type">
+            <div class="menu-type-wrap">
+              <!-- 左侧菜单 -->
+              <div class="item">
+                <div
+                  class="box bl"
+                  :class="{ 'is-active': isLeftMenu }"
+                  @click="setMenuType(MenuTypeEnum.LEFT)"
+                >
+                  <div class="bl-menu">
+                    <div class="line" v-for="i in 6" :key="i"></div>
+                  </div>
+                  <div class="bl-content">
+                    <div class="header"></div>
+                    <div class="row1">
+                      <div v-for="i in 2" :key="i"></div>
+                    </div>
+                    <div class="row2"></div>
+                  </div>
                 </div>
-                <div class="tl-right">
+                <span class="name">{{ $t('setting.menuType.list[0]') }}</span>
+              </div>
+              <!-- 顶部菜单 -->
+              <div class="item">
+                <div
+                  class="box bt"
+                  :class="{ 'is-active': isTopMenu }"
+                  @click="setMenuType(MenuTypeEnum.TOP)"
+                >
                   <div class="bt-menu">
                     <div class="line" v-for="i in 6" :key="i"></div>
                   </div>
@@ -112,172 +90,199 @@
                     <div class="row2"></div>
                   </div>
                 </div>
+                <span class="name">{{ $t('setting.menuType.list[1]') }}</span>
               </div>
-              <span class="name">{{ $t('setting.menuType.list[2]') }}</span>
+              <!-- 混合菜单 -->
+              <div class="item">
+                <div
+                  class="box tl"
+                  :class="{ 'is-active': isTopLeftMenu }"
+                  @click="setMenuType(MenuTypeEnum.TOP_LEFT)"
+                >
+                  <div class="tl-left">
+                    <div class="line" v-for="i in 6" :key="i"></div>
+                  </div>
+                  <div class="tl-right">
+                    <div class="bt-menu">
+                      <div class="line" v-for="i in 6" :key="i"></div>
+                    </div>
+                    <div class="bl-content">
+                      <div class="row1">
+                        <div v-for="i in 2" :key="i"></div>
+                      </div>
+                      <div class="row2"></div>
+                    </div>
+                  </div>
+                </div>
+                <span class="name">{{ $t('setting.menuType.list[2]') }}</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <p class="title" style="margin-top: 20px">{{ $t('setting.menu.title') }}</p>
-      <div class="menu-theme-wrap">
-        <div>
-          <div
-            class="item"
-            v-for="item in menuThemeList"
-            :key="item.theme"
-            @click="setMenuTheme(item.theme)"
-          >
-            <div class="box" :class="{ 'is-active': item.theme === currentMenuTheme }">
-              <div class="top" :style="{ background: item.tabBarBackground + '!important' }"></div>
-              <div class="left" :style="{ background: item.background + '!important' }">
+        <p class="title" style="margin-top: 20px">{{ $t('setting.menu.title') }}</p>
+        <div class="menu-theme-wrap">
+          <div>
+            <div
+              class="item"
+              v-for="item in menuThemeList"
+              :key="item.theme"
+              @click="setMenuTheme(item.theme)"
+            >
+              <div class="box" :class="{ 'is-active': item.theme === currentMenuTheme }">
                 <div
-                  v-for="(cItem, index) in 3"
-                  :key="index"
-                  :class="'line' + index"
-                  :style="{ background: item.leftLineColor }"
-                />
+                  class="top"
+                  :style="{ background: item.tabBarBackground + '!important' }"
+                ></div>
+                <div class="left" :style="{ background: item.background + '!important' }">
+                  <div
+                    v-for="(cItem, index) in 3"
+                    :key="index"
+                    :class="'line' + index"
+                    :style="{ background: item.leftLineColor }"
+                  />
+                </div>
+                <div class="right">
+                  <div
+                    v-for="(cItem, index) in 3"
+                    :key="index"
+                    :class="'line' + index"
+                    :style="{ background: item.rightLineColor }"
+                  />
+                </div>
               </div>
-              <div class="right">
-                <div
-                  v-for="(cItem, index) in 3"
-                  :key="index"
-                  :class="'line' + index"
-                  :style="{ background: item.rightLineColor }"
-                />
-              </div>
+              <div class="active" v-if="item.theme === currentMenuTheme"></div>
             </div>
-            <div class="active" v-if="item.theme === currentMenuTheme"></div>
           </div>
         </div>
-      </div>
 
-      <p class="title" style="margin-top: 30px">{{ $t('setting.color.title') }}</p>
-      <div class="main-color-wrap">
-        <div class="offset">
+        <p class="title" style="margin-top: 30px">{{ $t('setting.color.title') }}</p>
+        <div class="main-color-wrap">
+          <div class="offset">
+            <div
+              v-for="color in mainColor"
+              :key="color"
+              :style="{ background: `${color} !important` }"
+              @click="setElementTheme(color)"
+            >
+              <i class="iconfont-sys" v-show="color == systemThemeColor">&#xe616;</i>
+            </div>
+          </div>
+        </div>
+
+        <p class="title" style="margin-top: 40px">{{ $t('setting.box.title') }}</p>
+
+        <div class="box-style">
+          <div v-if="false">{{ boxBorderMode }}</div>
           <div
-            v-for="color in mainColor"
-            :key="color"
-            :style="{ background: `${color} !important` }"
-            @click="setElementTheme(color)"
+            class="button"
+            :class="{ 'is-active': boxBorderMode }"
+            @click="switchBoxMode(false, 'border-mode')"
           >
-            <i class="iconfont-sys" v-show="color == systemThemeColor">&#xe616;</i>
+            {{ $t('setting.box.list[0]') }}
+          </div>
+          <div
+            class="button"
+            :class="{ 'is-active': !boxBorderMode }"
+            @click="switchBoxMode(false, 'shadow-mode')"
+          >
+            {{ $t('setting.box.list[1]') }}
+          </div>
+        </div>
+
+        <p class="title" style="margin-top: 50px">{{ $t('setting.basics.title') }}</p>
+        <div class="basic-box">
+          <div class="item" style="display: flex">
+            <span>{{ $t('setting.basics.list[0]') }}</span>
+            <el-switch v-model="uniqueOpened" @change="setUniqueOpened" />
+          </div>
+          <div class="item">
+            <span>{{ $t('setting.basics.list[1]') }}</span>
+            <el-switch v-model="showMenuButton" @change="setButton" />
+          </div>
+          <div class="item">
+            <span>{{ $t('setting.basics.list[2]') }}</span>
+            <el-switch v-model="showRefreshButton" @change="setShowRefreshButton" />
+          </div>
+          <div class="item mobile-hide">
+            <span>{{ $t('setting.basics.list[3]') }}</span>
+            <el-switch v-model="showCrumbs" @change="setCrumbs" />
+          </div>
+          <div class="item">
+            <span>{{ $t('setting.basics.list[4]') }}</span>
+            <el-switch v-model="showWorkTab" @change="showWorkTabFunc" />
+          </div>
+          <div class="item">
+            <span>{{ $t('setting.basics.list[5]') }}</span>
+            <el-switch v-model="showLanguage" @change="setLanguage" />
+          </div>
+          <div class="item">
+            <span>{{ $t('setting.basics.list[6]') }}</span>
+            <el-switch v-model="showNprogress" @change="setNprogress" />
+          </div>
+          <div class="item">
+            <span>{{ $t('setting.basics.list[7]') }}</span>
+            <el-switch v-model="colorWeak" @change="setColorWeak()" />
+          </div>
+          <div class="item">
+            <span>{{ $t('setting.basics.list[8]') }}</span>
+            <el-switch v-model="autoClose" @change="setAutoClose" />
+          </div>
+          <div class="item">
+            <span>{{ $t('setting.basics.list[9]') }}</span>
+            <el-switch v-model="watermarkVisible" @change="setWatermarkVisible" />
+          </div>
+          <div class="item" style="display: flex">
+            <span>{{ $t('setting.basics.list[10]') }}</span>
+            <el-input-number
+              :min="180"
+              :max="320"
+              size="default"
+              :step="10"
+              style="width: 120px"
+              v-model="menuOpenWidth"
+              controls-position="right"
+              @change="setMenuOpenSize"
+            />
+          </div>
+          <div class="item" style="display: flex">
+            <span>{{ $t('setting.basics.list[11]') }}</span>
+            <el-select
+              v-model="pageTransition"
+              placeholder="Select"
+              size="default"
+              style="width: 120px"
+              @change="setPageTransition"
+            >
+              <el-option
+                v-for="item in pageTransitionOps"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </div>
+          <div class="item" style="display: flex">
+            <span>{{ $t('setting.basics.list[12]') }}</span>
+            <el-select
+              v-model="customRadius"
+              placeholder="Select"
+              size="default"
+              style="width: 120px"
+              @change="setCustomRadius"
+            >
+              <el-option
+                v-for="item in customRadiusOps"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
           </div>
         </div>
       </div>
-
-      <p class="title" style="margin-top: 40px">{{ $t('setting.box.title') }}</p>
-
-      <div class="box-style">
-        <div v-if="false">{{ boxBorderMode }}</div>
-        <div
-          class="button"
-          :class="{ 'is-active': boxBorderMode }"
-          @click="switchBoxMode(false, 'border-mode')"
-        >
-          {{ $t('setting.box.list[0]') }}
-        </div>
-        <div
-          class="button"
-          :class="{ 'is-active': !boxBorderMode }"
-          @click="switchBoxMode(false, 'shadow-mode')"
-        >
-          {{ $t('setting.box.list[1]') }}
-        </div>
-      </div>
-
-      <p class="title" style="margin-top: 50px">{{ $t('setting.basics.title') }}</p>
-      <div class="basic-box">
-        <div class="item" style="display: flex">
-          <span>{{ $t('setting.basics.list[0]') }}</span>
-          <el-switch v-model="uniqueOpened" @change="setUniqueOpened" />
-        </div>
-        <div class="item">
-          <span>{{ $t('setting.basics.list[1]') }}</span>
-          <el-switch v-model="showMenuButton" @change="setButton" />
-        </div>
-        <div class="item">
-          <span>{{ $t('setting.basics.list[2]') }}</span>
-          <el-switch v-model="showRefreshButton" @change="setShowRefreshButton" />
-        </div>
-        <div class="item mobile-hide">
-          <span>{{ $t('setting.basics.list[3]') }}</span>
-          <el-switch v-model="showCrumbs" @change="setCrumbs" />
-        </div>
-        <div class="item">
-          <span>{{ $t('setting.basics.list[4]') }}</span>
-          <el-switch v-model="showWorkTab" @change="showWorkTabFunc" />
-        </div>
-        <div class="item">
-          <span>{{ $t('setting.basics.list[5]') }}</span>
-          <el-switch v-model="showLanguage" @change="setLanguage" />
-        </div>
-        <div class="item">
-          <span>{{ $t('setting.basics.list[6]') }}</span>
-          <el-switch v-model="showNprogress" @change="setNprogress" />
-        </div>
-        <div class="item">
-          <span>{{ $t('setting.basics.list[7]') }}</span>
-          <el-switch v-model="colorWeak" @change="setColorWeak()" />
-        </div>
-        <div class="item">
-          <span>{{ $t('setting.basics.list[8]') }}</span>
-          <el-switch v-model="autoClose" @change="setAutoClose" />
-        </div>
-        <div class="item">
-          <span>{{ $t('setting.basics.list[9]') }}</span>
-          <el-switch v-model="watermarkVisible" @change="setWatermarkVisible" />
-        </div>
-        <div class="item" style="display: flex">
-          <span>{{ $t('setting.basics.list[10]') }}</span>
-          <el-input-number
-            :min="180"
-            :max="320"
-            size="default"
-            :step="10"
-            style="width: 120px"
-            v-model="menuOpenWidth"
-            controls-position="right"
-            @change="setMenuOpenSize"
-          />
-        </div>
-        <div class="item" style="display: flex">
-          <span>{{ $t('setting.basics.list[11]') }}</span>
-          <el-select
-            v-model="pageTransition"
-            placeholder="Select"
-            size="default"
-            style="width: 120px"
-            @change="setPageTransition"
-          >
-            <el-option
-              v-for="item in pageTransitionOps"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            />
-          </el-select>
-        </div>
-        <div class="item" style="display: flex">
-          <span>{{ $t('setting.basics.list[12]') }}</span>
-          <el-select
-            v-model="customRadius"
-            placeholder="Select"
-            size="default"
-            style="width: 120px"
-            @change="setCustomRadius"
-          >
-            <el-option
-              v-for="item in customRadiusOps"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            />
-          </el-select>
-        </div>
-      </div>
-    </div>
-  </el-drawer>
+    </el-drawer>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -286,6 +291,9 @@
   import { SystemThemeEnum, MenuThemeEnum, MenuTypeEnum } from '@/enums/appEnum'
   import mittBus from '@/utils/mittBus'
   import { useTheme } from '@/composables/useTheme'
+  import { useCeremony } from '@/composables/useCeremony'
+  const { openFestival, cleanup } = useCeremony()
+
   const { setSystemTheme, setSystemAutoTheme, switchTheme } = useTheme()
 
   // 删除原来的相关方法定义，直接使用从useTheme中导入的方法
@@ -402,11 +410,13 @@
     listenerSystemTheme()
     initUserSetting()
     initSystemTheme()
+    openFestival()
   })
 
   onUnmounted(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
     mediaQuery.removeEventListener('change', initSystemTheme)
+    cleanup()
   })
 
   const initUserSetting = () => {

@@ -11,7 +11,7 @@
       <div class="change-box">
         <span class="change-text">较上周</span>
         <span
-          class="change"
+          class="change custom-text"
           :style="{ color: item.change.indexOf('+') === -1 ? 'red' : '#52c41a' }"
         >
           {{ item.change }}

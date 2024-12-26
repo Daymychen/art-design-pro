@@ -8,6 +8,7 @@
   z-index: 101;
   height: 100vh;
   user-select: none;
+  scrollbar-width: none;
 
   :deep(.badge) {
     position: absolute;
@@ -31,14 +32,12 @@
     height: 20px;
     padding: 0 5px;
     margin: auto;
+    font-size: 12px;
     line-height: 20px;
+    color: #fff;
     text-align: center;
     background: #fd4e4e;
     border-radius: 5px;
-
-    small {
-      color: #fff !important;
-    }
   }
 
   .header {
@@ -72,7 +71,11 @@
     box-sizing: border-box;
     height: calc(100vh - 60px);
     overflow-y: auto;
+    // 防止菜单内的滚动影响整个页面滚动
+    overscroll-behavior: contain;
     border-right: 0;
+    scrollbar-width: none;
+    -ms-scroll-chaining: contain;
 
     &::-webkit-scrollbar {
       width: 0 !important;

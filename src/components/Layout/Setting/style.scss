@@ -1,5 +1,10 @@
 @use '@styles/variables.scss' as *;
 
+// 去除火狐浏览器滚动条
+:deep(.el-drawer__body) {
+  scrollbar-width: none;
+}
+
 .drawer-con {
   $box-shadow: 0 2px 8px 0 rgb(0 0 0 / 20%);
 
