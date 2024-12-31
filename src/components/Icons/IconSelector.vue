@@ -1,6 +1,11 @@
 <template>
   <div class="icon-selector">
-    <div class="select" @click="visible = true" :style="{ width: props.width }">
+    <div
+      class="select"
+      @click="handleClick"
+      :style="{ width: props.width }"
+      :class="[size, { 'is-disabled': disabled }, { 'has-icon': selectValue }]"
+    >
       <div class="icon">
         <i
           :class="`iconfont-sys ${selectValue}`"
@@ -12,9 +17,10 @@
           v-show="props.iconType === IconTypeEnum.UNICODE"
         ></i>
       </div>
-      <div class="text"> {{ selectValue || props.text }} </div>
+      <div class="text"> {{ props.text }} </div>
       <div class="arrow">
-        <i class="iconfont-sys">&#xe709;</i>
+        <i class="iconfont-sys arrow-icon">&#xe709;</i>
+        <i class="iconfont-sys clear-icon" @click.stop="clearIcon">&#xe83a;</i>
       </div>
     </div>
 
@@ -60,7 +66,7 @@
     },
     defaultIcon: {
       type: String,
-      default: '&#xe7c6;'
+      default: ''
     },
     text: {
       type: String,
@@ -69,19 +75,29 @@
     width: {
       type: String,
       default: '200px'
+    },
+    size: {
+      type: String as PropType<'large' | 'default' | 'small'>,
+      default: 'large'
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   })
+
+  const selectValue = ref(props.defaultIcon)
 
   watch(
     () => props.defaultIcon,
     (newVal) => {
       selectValue.value = newVal
-    }
+    },
+    { immediate: true }
   )
 
   const activeName = ref('icons')
   const visible = ref(false)
-  const selectValue = ref('')
 
   const selectorIcon = (icon: any) => {
     if (props.iconType === IconTypeEnum.CLASS_NAME) {
@@ -90,6 +106,17 @@
       selectValue.value = icon.unicode
     }
     visible.value = false
+    emits('getIcon', selectValue.value)
+  }
+
+  const handleClick = () => {
+    if (!props.disabled) {
+      visible.value = true
+    }
+  }
+
+  const clearIcon = () => {
+    selectValue.value = ''
     emits('getIcon', selectValue.value)
   }
 </script>
@@ -101,14 +128,30 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 40px;
+      height: 32px;
       padding: 0 15px;
-      margin-bottom: 15px;
-      line-height: 40px;
       cursor: pointer;
       border: 1px solid var(--art-border-dashed-color);
       border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
       transition: border 0.3s;
+
+      &:hover:not(.is-disabled).has-icon {
+        .arrow-icon {
+          display: none;
+        }
+
+        .clear-icon {
+          display: block !important;
+        }
+      }
+
+      &.large {
+        height: 40px;
+      }
+
+      &.small {
+        height: 24px;
+      }
 
       &:hover {
         border-color: var(--art-text-gray-400);
@@ -133,7 +176,6 @@
         align-items: center;
         width: 50%;
         font-size: 14px;
-        line-height: 40px;
         color: var(--art-gray-600);
 
         @include ellipsis();
@@ -147,6 +189,26 @@
         i {
           font-size: 13px;
           color: var(--art-gray-600);
+        }
+
+        .clear-icon {
+          display: none;
+        }
+      }
+
+      &.is-disabled {
+        cursor: not-allowed;
+        background-color: var(--el-disabled-bg-color);
+        border-color: var(--el-border-color-lighter);
+
+        .icon,
+        .text,
+        .arrow {
+          color: var(--el-text-color-placeholder);
+        }
+
+        &:hover {
+          border-color: var(--el-border-color-lighter);
         }
       }
     }

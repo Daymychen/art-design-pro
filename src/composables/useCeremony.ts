@@ -28,7 +28,7 @@ export function useCeremony() {
     INITIAL_DELAY: 300, // 初始延迟时间，单位毫秒
     FIREWORK_INTERVAL: 1000, // 烟花效果触发间隔，单位毫秒
     TEXT_DELAY: 2000, // 文本显示延迟时间，单位毫秒
-    MAX_TRIGGERS: 10 // 最大触发次数
+    MAX_TRIGGERS: 6 // 最大触发次数
   } as const
 
   // 根据节日列表显示节日祝福

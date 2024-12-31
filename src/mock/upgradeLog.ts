@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.2.1',
+    title: '图标选择器优化',
+    date: '2024-12-31',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.2.0',
     title: '新增礼花组件以及BUG修复',
     date: '2024-12-26',

@@ -3,11 +3,26 @@
     <div class="select">
       <div class="item">
         <h3>Unicode</h3>
-        <icon-selector :iconType="iconType1" @getIcon="getIcon" />
+        <icon-selector :iconType="IconTypeEnum.UNICODE" @getIcon="getIcon" defaultIcon="&#xe6b5;" />
       </div>
       <div class="item">
         <h3>ClassName</h3>
-        <icon-selector :iconType="iconType2" @getIcon="getIcon" width="260px" />
+        <icon-selector
+          :iconType="IconTypeEnum.CLASS_NAME"
+          @getIcon="getIcon"
+          width="260px"
+          defaultIcon="iconsys-baitianmoshi3"
+        />
+      </div>
+      <div class="item">
+        <h3>禁用</h3>
+        <icon-selector
+          :iconType="IconTypeEnum.CLASS_NAME"
+          @getIcon="getIcon"
+          width="260px"
+          defaultIcon="iconsys-baitianmoshi3"
+          disabled
+        />
       </div>
     </div>
   </div>
@@ -17,10 +32,7 @@
   import IconSelector from '@comps/Icons/IconSelector.vue'
   import { IconTypeEnum } from '@/enums/appEnum'
 
-  const iconType1 = ref(IconTypeEnum.UNICODE)
-
-  const iconType2 = ref(IconTypeEnum.CLASS_NAME)
-
+  // 获取选择的图标
   const getIcon = (icon: string) => {
     console.log(icon)
   }

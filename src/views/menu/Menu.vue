@@ -168,7 +168,6 @@
   import { useMenuStore } from '@/store/modules/menu'
   import type { FormInstance, FormRules } from 'element-plus'
   import { ElMessage, ElMessageBox } from 'element-plus'
-  import { getUnicode } from '@/utils/iconfont'
   import { IconTypeEnum } from '@/enums/appEnum'
 
   const menuList = computed(() => useMenuStore().getMenuList)
@@ -285,7 +284,7 @@
           form.name = row.meta.title
           form.path = row.path
           form.label = row.name
-          form.icon = row.meta.icon ? `&#x${getUnicode(row.meta.icon)}` : ''
+          form.icon = row.meta.icon
           form.sort = row.meta.sort || 1
           form.isMenu = row.meta.isMenu
           form.keepAlive = row.meta.keepAlive
