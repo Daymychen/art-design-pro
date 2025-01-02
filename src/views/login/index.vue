@@ -227,6 +227,23 @@
     let { LIGHT, DARK } = SystemThemeEnum
     useTheme().switchTheme(useSettingStore().systemThemeType === LIGHT ? DARK : LIGHT)
   }
+
+  // 监听回车键
+  import { onMounted, onUnmounted } from 'vue'
+  
+  onMounted(() => {
+    document.addEventListener('keyup', handleKeyUp)
+  })
+
+  onUnmounted(() => {
+    document.removeEventListener('keyup', handleKeyUp)
+  })
+
+  const handleKeyUp = (event: KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      login()
+    }
+  }
 </script>
 
 <style lang="scss" scoped>
