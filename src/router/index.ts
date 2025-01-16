@@ -482,6 +482,23 @@ export const roleRoutes: AppRouteRecordRaw[] = [
     ]
   },
   {
+    path: '/chat',
+    component: Home,
+    name: 'Chat',
+    meta: {
+      title: '聊天'
+    },
+    children: [
+      {
+        path: '/chat/index',
+        component: () => import('@views/chat/index.vue'),
+        meta: {
+          title: '聊天'
+        }
+      }
+    ]
+  },
+  {
     path: '/system',
     component: Home,
     name: 'System',

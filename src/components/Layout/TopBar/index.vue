@@ -21,7 +21,7 @@
         </div>
         <!-- 刷新按钮 -->
         <div class="btn-box" v-if="showRefreshButton">
-          <div class="btn refresh-btn">
+          <div class="btn refresh-btn" :style="{ marginLeft: !isLeftMenu ? '10px' : '0' }">
             <i class="iconfont-sys" @click="reload()"> &#xe6b3; </i>
           </div>
         </div>
@@ -65,7 +65,7 @@
           </div>
         </div>
         <!-- 锁定屏幕 -->
-        <div class="btn-box lock-btn" @click="visibleLock">
+        <div class="btn-box lock-btn" @click="visibleLock" v-if="!isMobile">
           <div class="btn lock-button">
             <i class="iconfont-sys notice-btn">&#xe817;</i>
           </div>
@@ -75,6 +75,13 @@
           <div class="btn notice-button">
             <i class="iconfont-sys notice-btn">&#xe6c2;</i>
             <span class="count notice-btn"></span>
+          </div>
+        </div>
+        <!-- 聊天 -->
+        <div class="btn-box chat-btn" @click="openChat">
+          <div class="btn">
+            <i class="iconfont-sys">&#xe89a;</i>
+            <span class="dot"></span>
           </div>
         </div>
         <!-- 语言 -->
@@ -221,6 +228,7 @@
   const { t } = useI18n()
 
   const { width } = useWindowSize()
+  const isMobile = computed(() => width.value < 500)
 
   const menuTopWidth = computed(() => {
     return width.value * 0.5
@@ -331,6 +339,10 @@
 
   const visibleNotice = () => {
     showNotice.value = !showNotice.value
+  }
+
+  const openChat = () => {
+    mittBus.emit('openChat')
   }
 
   const visibleLock = () => {

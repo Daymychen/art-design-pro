@@ -36,7 +36,6 @@
 
     .user-menu {
       padding: 16px 0;
-      // border-bottom: 1px solid var(--art-border-color);
       margin-top: 10px;
       border-top: 1px solid var(--art-border-color);
 
@@ -85,7 +84,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50px;
+    width: 46px;
     height: 60px;
 
     .btn {
@@ -101,6 +100,7 @@
       i {
         display: block;
         font-size: 19px;
+        color: var(--art-gray-600);
       }
 
       &.refresh-btn:hover {
@@ -142,6 +142,28 @@
       &:hover {
         color: var(--main-color);
         background-color: rgba(var(--art-gray-200-rgb), 0.7);
+      }
+
+      &.menu-btn {
+        margin-left: 10px;
+      }
+    }
+
+    &.chat-btn {
+      .btn {
+        position: relative;
+
+        .dot {
+          position: absolute;
+          top: 8px;
+          right: 8px;
+          display: block;
+          width: 6px;
+          height: 6px;
+          background: var(--art-success) !important;
+          border-radius: 50%;
+          animation: breathing 1.5s ease-in-out infinite;
+        }
       }
     }
   }
@@ -198,14 +220,14 @@
         position: relative;
         display: flex;
         align-items: center;
-        margin-right: 15px;
+        margin-right: 12px;
 
         .search-input {
           box-sizing: border-box;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          width: 180px;
+          width: 160px;
           height: 36px;
           padding: 0 10px;
           cursor: pointer;
@@ -354,5 +376,22 @@
 
   100% {
     transform: translateY(0);
+  }
+}
+
+@keyframes breathing {
+  0% {
+    opacity: 0.4;
+    transform: scale(0.9);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  100% {
+    opacity: 0.4;
+    transform: scale(0.9);
   }
 }

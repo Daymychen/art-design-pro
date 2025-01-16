@@ -45,6 +45,9 @@
     <!-- 个性化设置 -->
     <setting></setting>
 
+    <!-- 聊天组件 -->
+    <chat></chat>
+
     <!-- 烟花组件 -->
     <fireworks></fireworks>
 

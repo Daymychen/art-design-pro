@@ -33,7 +33,6 @@ export const menuData: MenuListType[] = [
       }
     ]
   },
-
   {
     id: 5,
     path: '/widgets',
@@ -169,6 +168,28 @@ export const menuData: MenuListType[] = [
         meta: {
           title: '礼花',
           title_en: 'Fireworks',
+          keepAlive: true,
+          showTextBadge: 'New'
+        }
+      }
+    ]
+  },
+  {
+    id: 126,
+    path: '/chat',
+    name: 'Chat',
+    meta: {
+      title: '聊天页面',
+      title_en: 'Chat',
+      icon: '&#xe70a;'
+    },
+    children: [
+      {
+        id: 12601,
+        path: '/chat/index',
+        meta: {
+          title: '聊天',
+          title_en: 'Chat',
           keepAlive: true,
           showTextBadge: 'New'
         }

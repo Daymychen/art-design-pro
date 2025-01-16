@@ -26,7 +26,7 @@
 
     <div class="right">
       <el-dropdown @command="closeWorktab">
-        <el-icon class="btn console-box">
+        <el-icon class="btn console-box art-custom-card">
           <ArrowDown />
         </el-icon>
         <template #dropdown>
