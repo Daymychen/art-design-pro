@@ -306,19 +306,24 @@
 
   const { width } = useWindowSize()
 
-  const isTopMenuActive = ref(false)
-  const minWidth = 1000
+  // 记录窗口宽度变化前的菜单类型
+  const beforeMenuType = ref<MenuTypeEnum>()
+  const hasChangedMenu = ref(false) // 添加标记来跟踪是否已经改变过菜单
 
-  // 观察窗口大小的变化以更新菜单类型
   watch(width, (newWidth: number) => {
-    const newMenuType = newWidth < minWidth ? MenuTypeEnum.LEFT : MenuTypeEnum.TOP
-    if (isTopMenu.value) {
-      isTopMenuActive.value = true
-      setMenuType(newMenuType)
-    }
-
-    if (isTopMenuActive.value && newWidth >= minWidth) {
-      setMenuType(MenuTypeEnum.TOP)
+    if (newWidth < 1000) {
+      if (!hasChangedMenu.value) {
+        beforeMenuType.value = menuType.value
+        setMenuType(MenuTypeEnum.LEFT)
+        store.setMenuOpen(false)
+        hasChangedMenu.value = true
+      }
+    } else {
+      if (hasChangedMenu.value && beforeMenuType.value) {
+        setMenuType(beforeMenuType.value)
+        store.setMenuOpen(true)
+        hasChangedMenu.value = false
+      }
     }
   })
 
@@ -337,6 +342,7 @@
   const boxBorderMode = computed(() => store.boxBorderMode)
   const pageTransition = computed(() => store.pageTransition)
   const customRadius = computed(() => store.customRadius)
+  const menuType = computed(() => store.menuType)
   const isLeftMenu = computed(() => store.menuType === MenuTypeEnum.LEFT)
   const isTopMenu = computed(() => store.menuType === MenuTypeEnum.TOP)
   const isTopLeftMenu = computed(() => store.menuType === MenuTypeEnum.TOP_LEFT)
@@ -454,7 +460,7 @@
   }
 
   const setMenuType = (type: MenuTypeEnum) => {
-    if (type === MenuTypeEnum.LEFT) store.setMenuOpen(true)
+    if (type === MenuTypeEnum.LEFT || type === MenuTypeEnum.TOP_LEFT) store.setMenuOpen(true)
     store.setMenuType(type)
     isAutoClose()
   }

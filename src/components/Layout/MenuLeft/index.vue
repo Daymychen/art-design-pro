@@ -143,7 +143,7 @@
 
   const setMenuModel = () => {
     // 小屏幕折叠菜单
-    if (screenWidth < 900) {
+    if (screenWidth < 800) {
       settingStore.setMenuOpen(false)
     }
   }

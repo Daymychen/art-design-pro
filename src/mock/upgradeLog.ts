@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.3.1',
+    title: '修复窗口大小变化自动匹配合适的菜单模式',
+    date: '2025-01-17',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.3.0',
     title: '新增聊天组件',
     date: '2025-01-16',

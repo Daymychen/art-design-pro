@@ -7,7 +7,7 @@
           <svg class="svg-icon2" aria-hidden="true">
             <use xlink:href="#iconsys-zhaopian-copy"></use>
           </svg>
-          <p v-if="width >= 1300">{{ SystemInfo.name }}</p>
+          <p v-if="width >= 1400">{{ SystemInfo.name }}</p>
         </div>
 
         <svg class="svg-icon" aria-hidden="true" @click="toHome()">
