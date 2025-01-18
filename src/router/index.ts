@@ -609,6 +609,7 @@ router.afterEach(() => {
 // 设置标签页
 function setWorktab(to: RouteLocationNormalized) {
   const worktabStore = useWorktabStore()
+  const settingStore = useSettingStore()
   const { meta, path, params, query } = to
   const { title, title_en, isHideTab } = meta
 
@@ -627,13 +628,15 @@ function setWorktab(to: RouteLocationNormalized) {
         })
       }
     } else {
-      worktabStore.router({
-        title: title as string,
-        title_en: title_en as string,
-        path,
-        params,
-        query
-      })
+      if (settingStore.showWorkTab) {
+        worktabStore.router({
+          title: title as string,
+          title_en: title_en as string,
+          path,
+          params,
+          query
+        })
+      }
     }
   }
 }

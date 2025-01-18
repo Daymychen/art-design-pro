@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.3.2',
+    title: '修复多标签页关闭后仍然添加的bug',
+    date: '2025-01-18',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.3.1',
     title: '修复窗口大小变化自动匹配合适的菜单模式',
     date: '2025-01-17',
