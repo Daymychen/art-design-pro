@@ -25,7 +25,8 @@
             <i class="iconfont-sys" @click="reload()"> &#xe6b3; </i>
           </div>
         </div>
-
+        <!-- 快速入口 -->
+        <fast-enter v-if="width >= 1200" />
         <!-- 面包屑 -->
         <breadcrumb
           v-if="showCrumbs && isLeftMenu"

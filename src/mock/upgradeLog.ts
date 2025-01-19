@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.4.0',
+    title: '新增快速入口',
+    date: '2025-01-18',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.3.2',
     title: '修复多标签页关闭后仍然添加的bug',
     date: '2025-01-18',

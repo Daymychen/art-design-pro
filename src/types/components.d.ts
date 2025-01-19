@@ -67,6 +67,7 @@ declare module 'vue' {
     ExcelExport: typeof import('./../components/Form/ExcelExport.vue')['default']
     ExcelImport: typeof import('./../components/Form/ExcelImport.vue')['default']
     Exception: typeof import('./../components/Views/Exception.vue')['default']
+    FastEnter: typeof import('./../components/Layout/FastEnter/index.vue')['default']
     FestivalTextScroll: typeof import('./../components/Widgets/FestivalTextScroll.vue')['default']
     Fireworks: typeof import('./../components/Ceremony/Fireworks.vue')['default']
     FormInput: typeof import('./../components/Form/FormInput.vue')['default']

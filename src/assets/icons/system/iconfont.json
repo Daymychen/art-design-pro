@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "7381405",
+      "name": "bilibili-s",
+      "font_class": "bilibili-s",
+      "unicode": "e6b4",
+      "unicode_decimal": 59060
+    },
+    {
       "icon_id": "42510079",
       "name": "暗黑模式",
       "font_class": "anheimoshi3",
