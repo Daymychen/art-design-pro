@@ -1,3 +1,4 @@
+<!-- 表格组件，带分页（默认分页大于一页时显示） -->
 <template>
   <div class="art-table" :class="{ 'header-background': showHeaderBackground }">
     <el-table

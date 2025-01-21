@@ -32,7 +32,7 @@
       </template>
     </table-bar>
 
-    <art-table :data="tableData" selection>
+    <art-table :data="tableData" selection :currentPage="1" :pageSize="10" :total="50">
       <template #default>
         <el-table-column
           label="用户名"
