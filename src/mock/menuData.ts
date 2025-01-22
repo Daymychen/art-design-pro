@@ -7,7 +7,7 @@ export const menuData: MenuListType[] = [
     name: 'Dashboard',
     path: '/dashboard',
     meta: {
-      title: 'Dashboard',
+      title: '仪表盘',
       title_en: 'Dashboard',
       icon: '&#xe721;'
     },
@@ -43,17 +43,6 @@ export const menuData: MenuListType[] = [
       icon: '&#xe81a;'
     },
     children: [
-      {
-        id: 501,
-        path: '',
-        meta: {
-          title: '组件总览',
-          title_en: 'Element UI',
-          keepAlive: false,
-          link: 'https://element-plus.org/zh-CN/component/overview.html',
-          isIframe: true
-        }
-      },
       {
         id: 503,
         path: '/widgets/icon-list',
@@ -171,6 +160,17 @@ export const menuData: MenuListType[] = [
           keepAlive: true,
           showTextBadge: 'New'
         }
+      },
+      {
+        id: 516,
+        path: '',
+        meta: {
+          title: '组件总览',
+          title_en: 'Element UI',
+          keepAlive: false,
+          link: 'https://element-plus.org/zh-CN/component/overview.html',
+          isIframe: true
+        }
       }
     ]
   },
@@ -277,17 +277,6 @@ export const menuData: MenuListType[] = [
     children: [
       {
         id: 301,
-        path: '/user/user',
-        meta: {
-          title: '个人中心',
-          title_en: 'User center',
-          isHide: true,
-          keepAlive: true,
-          isHideTab: true
-        }
-      },
-      {
-        id: 302,
         path: '/user/account',
         meta: {
           title: '账号管理',
@@ -296,7 +285,7 @@ export const menuData: MenuListType[] = [
         }
       },
       {
-        id: 303,
+        id: 302,
         path: '/user/department',
         meta: {
           title: '部门管理',
@@ -305,12 +294,23 @@ export const menuData: MenuListType[] = [
         }
       },
       {
-        id: 304,
+        id: 303,
         path: '/user/role',
         meta: {
           title: '角色权限',
           title_en: 'Roles',
           keepAlive: true
+        }
+      },
+      {
+        id: 304,
+        path: '/user/user',
+        meta: {
+          title: '个人中心',
+          title_en: 'User center',
+          isHide: true,
+          keepAlive: true,
+          isHideTab: true
         }
       }
     ]

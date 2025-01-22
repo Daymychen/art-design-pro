@@ -29,7 +29,7 @@
         <fast-enter v-if="width >= 1200" />
         <!-- 面包屑 -->
         <breadcrumb
-          v-if="showCrumbs && isLeftMenu"
+          v-if="(showCrumbs && isLeftMenu) || (showCrumbs && isDualMenu)"
           :style="{ paddingLeft: !showRefreshButton && !showMenuButton ? '10px' : '0' }"
         />
 
@@ -223,6 +223,7 @@
   const menuList = computed(() => useMenuStore().getMenuList)
   const menuType = computed(() => settingStore.menuType)
   const isLeftMenu = computed(() => menuType.value === MenuTypeEnum.LEFT)
+  const isDualMenu = computed(() => menuType.value === MenuTypeEnum.DUAL_MENU)
   const isTopMenu = computed(() => menuType.value === MenuTypeEnum.TOP)
   const isTopLeftMenu = computed(() => menuType.value === MenuTypeEnum.TOP_LEFT)
   const isDark = computed(() => settingStore.isDark)
@@ -251,12 +252,18 @@
   }
 
   const topBarWidth = (): string => {
-    if (menuType.value === MenuTypeEnum.TOP) {
-      return '100%'
-    } else {
-      return menuOpen.value
-        ? `calc(100% - ${settingStore.getMenuOpenWidth})`
-        : `calc(100% - ${MenuWidth.CLOSE})`
+    const { TOP, DUAL_MENU } = MenuTypeEnum
+    const { getMenuOpenWidth } = settingStore
+
+    switch (menuType.value) {
+      case TOP:
+        return '100%'
+      case DUAL_MENU:
+        return `calc(100% - 80px - ${getMenuOpenWidth})`
+      default:
+        return menuOpen.value
+          ? `calc(100% - ${getMenuOpenWidth})`
+          : `calc(100% - ${MenuWidth.CLOSE})`
     }
   }
 

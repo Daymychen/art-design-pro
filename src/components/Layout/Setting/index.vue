@@ -15,6 +15,7 @@
           <i class="iconfont-sys" @click="closeDrawer">&#xe7dc;</i>
         </div>
 
+        <!-- 主题风格 -->
         <p class="title">{{ $t('setting.theme.title') }}</p>
         <div class="theme-wrap">
           <div
@@ -52,57 +53,35 @@
           <!-- 菜单布局 -->
           <p class="title" style="margin-top: 30px">{{ $t('setting.menuType.title') }}</p>
           <div class="menu-type">
-            <div class="menu-type-wrap">
-              <!-- 左侧菜单 -->
-              <div class="item">
-                <div
-                  class="box bl"
-                  :class="{ 'is-active': isLeftMenu }"
-                  @click="setMenuType(MenuTypeEnum.LEFT)"
-                >
-                  <div class="bl-menu">
-                    <div class="line" v-for="i in 6" :key="i"></div>
-                  </div>
-                  <div class="bl-content">
-                    <div class="header"></div>
-                    <div class="row1">
-                      <div v-for="i in 2" :key="i"></div>
+            <el-scrollbar :horizontal="true">
+              <div class="menu-type-wrap">
+                <!-- 左侧菜单 -->
+                <div class="item">
+                  <div
+                    class="box bl"
+                    :class="{ 'is-active': isLeftMenu }"
+                    @click="setMenuType(MenuTypeEnum.LEFT)"
+                  >
+                    <div class="bl-menu">
+                      <div class="line" v-for="i in 6" :key="i"></div>
                     </div>
-                    <div class="row2"></div>
-                  </div>
-                </div>
-                <span class="name">{{ $t('setting.menuType.list[0]') }}</span>
-              </div>
-              <!-- 顶部菜单 -->
-              <div class="item">
-                <div
-                  class="box bt"
-                  :class="{ 'is-active': isTopMenu }"
-                  @click="setMenuType(MenuTypeEnum.TOP)"
-                >
-                  <div class="bt-menu">
-                    <div class="line" v-for="i in 6" :key="i"></div>
-                  </div>
-                  <div class="bl-content">
-                    <div class="row1">
-                      <div v-for="i in 2" :key="i"></div>
+                    <div class="bl-content">
+                      <div class="header"></div>
+                      <div class="row1">
+                        <div v-for="i in 2" :key="i"></div>
+                      </div>
+                      <div class="row2"></div>
                     </div>
-                    <div class="row2"></div>
                   </div>
+                  <span class="name">{{ $t('setting.menuType.list[0]') }}</span>
                 </div>
-                <span class="name">{{ $t('setting.menuType.list[1]') }}</span>
-              </div>
-              <!-- 混合菜单 -->
-              <div class="item">
-                <div
-                  class="box tl"
-                  :class="{ 'is-active': isTopLeftMenu }"
-                  @click="setMenuType(MenuTypeEnum.TOP_LEFT)"
-                >
-                  <div class="tl-left">
-                    <div class="line" v-for="i in 6" :key="i"></div>
-                  </div>
-                  <div class="tl-right">
+                <!-- 顶部菜单 -->
+                <div class="item">
+                  <div
+                    class="box bt"
+                    :class="{ 'is-active': isTopMenu }"
+                    @click="setMenuType(MenuTypeEnum.TOP)"
+                  >
                     <div class="bt-menu">
                       <div class="line" v-for="i in 6" :key="i"></div>
                     </div>
@@ -113,10 +92,59 @@
                       <div class="row2"></div>
                     </div>
                   </div>
+                  <span class="name">{{ $t('setting.menuType.list[1]') }}</span>
                 </div>
-                <span class="name">{{ $t('setting.menuType.list[2]') }}</span>
+                <!-- 混合菜单 -->
+                <div class="item">
+                  <div
+                    class="box tl"
+                    :class="{ 'is-active': isTopLeftMenu }"
+                    @click="setMenuType(MenuTypeEnum.TOP_LEFT)"
+                  >
+                    <div class="tl-left">
+                      <div class="line" v-for="i in 6" :key="i"></div>
+                    </div>
+                    <div class="tl-right">
+                      <div class="bt-menu">
+                        <div class="line" v-for="i in 6" :key="i"></div>
+                      </div>
+                      <div class="bl-content">
+                        <div class="row1">
+                          <div v-for="i in 2" :key="i"></div>
+                        </div>
+                        <div class="row2"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <span class="name">{{ $t('setting.menuType.list[2]') }}</span>
+                </div>
+                <!-- 双列菜单 -->
+                <div class="item" style="padding-right: 7px">
+                  <div
+                    class="box dl"
+                    :class="{ 'is-active': isDualMenu }"
+                    @click="setMenuType(MenuTypeEnum.DUAL_MENU)"
+                  >
+                    <div class="tl1-left" style="width: 8px !important">
+                      <div class="line" v-for="i in 1" :key="i"></div>
+                    </div>
+                    <div class="tl2-left">
+                      <div class="line" v-for="i in 6" :key="i"></div>
+                    </div>
+                    <div class="tl-right">
+                      <div class="bt-menu"></div>
+                      <div class="bl-content">
+                        <div class="row1">
+                          <div v-for="i in 2" :key="i"></div>
+                        </div>
+                        <div class="row2"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <span class="name">{{ $t('setting.menuType.list[3]') }}</span>
+                </div>
               </div>
-            </div>
+            </el-scrollbar>
           </div>
         </div>
 
@@ -129,7 +157,13 @@
               :key="item.theme"
               @click="setMenuTheme(item.theme)"
             >
-              <div class="box" :class="{ 'is-active': item.theme === currentMenuTheme }">
+              <div
+                class="box"
+                :class="{ 'is-active': item.theme === currentMenuTheme }"
+                :style="{
+                  cursor: isDualMenu || isTopMenu || isDark ? 'no-drop' : 'pointer'
+                }"
+              >
                 <div
                   class="top"
                   :style="{ background: item.tabBarBackground + '!important' }"
@@ -335,6 +369,7 @@
   const settingThemeList = SettingThemeList
   const menuThemeList = ThemeList
   const mainColor = SystemMainColor
+  const isDark = computed(() => store.isDark)
   const currentGlopTheme = computed(() => store.systemThemeType)
   const systemThemeMode = computed(() => store.systemThemeMode)
   const currentMenuTheme = computed(() => store.menuThemeType)
@@ -346,6 +381,7 @@
   const isLeftMenu = computed(() => store.menuType === MenuTypeEnum.LEFT)
   const isTopMenu = computed(() => store.menuType === MenuTypeEnum.TOP)
   const isTopLeftMenu = computed(() => store.menuType === MenuTypeEnum.TOP_LEFT)
+  const isDualMenu = computed(() => store.menuType === MenuTypeEnum.DUAL_MENU)
   const watermarkVisible = computed(() => store.watermarkVisible)
   const menuOpenWidth = ref(store.menuOpenWidth)
   const uniqueOpened = ref(true)
@@ -440,6 +476,9 @@
   }
 
   const setMenuTheme = (theme: MenuThemeEnum) => {
+    if (isDualMenu.value || isTopMenu.value || isDark.value) {
+      return
+    }
     store.setMenuTheme(theme)
     isAutoClose()
   }
@@ -462,6 +501,10 @@
   const setMenuType = (type: MenuTypeEnum) => {
     if (type === MenuTypeEnum.LEFT || type === MenuTypeEnum.TOP_LEFT) store.setMenuOpen(true)
     store.setMenuType(type)
+    if (type === MenuTypeEnum.DUAL_MENU) {
+      store.setMenuTheme(MenuThemeEnum.DESIGN)
+      store.setMenuOpen(true)
+    }
     isAutoClose()
   }
 

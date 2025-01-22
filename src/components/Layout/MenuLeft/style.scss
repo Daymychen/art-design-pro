@@ -1,15 +1,101 @@
 @use '@styles/variables.scss' as *;
 
-// 菜单基础样式
-.menu-left {
+.left-menu-or-dual-menu {
   position: fixed;
   top: 0;
   left: 0;
   z-index: 101;
+  display: flex;
   height: 100vh;
   user-select: none;
   scrollbar-width: none;
 
+  .dual-menu-left {
+    position: relative;
+    width: 80px;
+    height: 100%;
+    border-right: 1px solid var(--art-card-border) !important;
+
+    // 隐藏滚动条
+    :deep(.el-scrollbar__bar.is-vertical) {
+      display: none;
+    }
+
+    .svg-icon {
+      display: block;
+      width: 34px;
+      height: 34px;
+      margin: 15px auto;
+      cursor: pointer;
+    }
+
+    ul {
+      li {
+        > div {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          text-align: center;
+          cursor: pointer;
+          border-radius: 5px;
+
+          i {
+            display: block;
+            font-size: 20px;
+          }
+
+          span {
+            display: block;
+            width: 100%;
+            font-size: 12px;
+          }
+
+          &.is-active {
+            background: var(--main-color);
+
+            i,
+            span {
+              color: #fff !important;
+            }
+          }
+        }
+      }
+    }
+
+    .switch-btn {
+      position: absolute;
+      right: 0;
+      bottom: 15px;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      i {
+        display: block;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+        line-height: 40px;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: all 0.1s;
+        // background-color: var(--art-gray-200);
+
+        &:hover {
+          background-color: var(--art-gray-200);
+        }
+      }
+    }
+  }
+}
+
+// 菜单基础样式
+.menu-left {
   :deep(.badge) {
     position: absolute;
     top: 0;
@@ -61,9 +147,16 @@
       top: 0;
       bottom: 0;
       left: 64px;
+      box-sizing: border-box;
       margin-left: 10px;
       font-size: 18px;
-      font-weight: 400 !important;
+
+      &.is-dual-menu-name {
+        right: 0;
+        left: 0;
+        margin: auto;
+        text-align: center;
+      }
     }
   }
 

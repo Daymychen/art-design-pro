@@ -21,7 +21,7 @@ export default {
   setting: {
     menuType: {
       title: 'Menu Layout',
-      list: ['Vertical', 'Horizontal', 'Mixed']
+      list: ['Vertical', 'Horizontal', 'Mixed', 'Dual']
     },
     theme: {
       title: 'Theme Style',

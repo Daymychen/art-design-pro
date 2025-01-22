@@ -4,7 +4,8 @@
 export enum MenuTypeEnum {
   LEFT = 'left',
   TOP = 'top',
-  TOP_LEFT = 'top-left'
+  TOP_LEFT = 'top-left',
+  DUAL_MENU = 'dual-menu'
 }
 
 // App theme enum

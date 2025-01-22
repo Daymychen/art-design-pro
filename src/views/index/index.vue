@@ -1,7 +1,7 @@
 <template>
   <div class="frame" :style="{ paddingLeft, paddingTop }">
     <!-- 左侧菜单 -->
-    <menu-left v-if="showLeftMenu"></menu-left>
+    <menu-left v-if="showLeftMenu || isDualMenu"></menu-left>
 
     <!-- 搜索组件 -->
     <search></search>
@@ -73,7 +73,9 @@
   const settingStore = useSettingStore()
   const menuStore = useMenuStore()
   // 是否显示左侧菜单
-  const showLeftMenu = computed(() => menuType.value !== MenuTypeEnum.TOP)
+  const showLeftMenu = computed(
+    () => menuType.value === MenuTypeEnum.LEFT || menuType.value === MenuTypeEnum.TOP_LEFT
+  )
   // 菜单是否打开
   const menuOpen = computed(() => settingStore.menuOpen)
   // 是否显示工作标签
@@ -86,11 +88,18 @@
   const menuType = computed(() => settingStore.menuType)
   // 水印是否显示
   const watermarkVisible = computed(() => settingStore.watermarkVisible)
+  // 是否是双列菜单
+  const isDualMenu = computed(() => settingStore.menuType === MenuTypeEnum.DUAL_MENU)
 
   // 根据菜单是否打开来设置左侧填充宽度
   const paddingLeft = computed(() => {
     const width = menuOpen.value ? settingStore.getMenuOpenWidth : MenuWidth.CLOSE
     menuStore.setMenuWidth(width) // 更新菜单宽度
+
+    // 双列菜单
+    if (menuType.value === MenuTypeEnum.DUAL_MENU) {
+      return `calc(${width} + 80px)`
+    }
     return menuType.value !== MenuTypeEnum.TOP ? width : 0
   })
   // 根据是否显示工作标签来设置最小高度

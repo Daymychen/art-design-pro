@@ -34,6 +34,7 @@ export interface SettingState {
   holidayFireworksLoaded: boolean // 是否加载完礼花
   showFestivalText: boolean // 是否显示节日文本
   festivalDate: string // 节日日期
+  dualMenuShowText: boolean // 双列菜单是否显示文本
 }
 
 export const useSettingStore = defineStore({
@@ -63,7 +64,8 @@ export const useSettingStore = defineStore({
     customRadius: defaultCustomRadius,
     holidayFireworksLoaded: false,
     showFestivalText: false,
-    festivalDate: ''
+    festivalDate: '',
+    dualMenuShowText: false
   }),
   getters: {
     getMenuTheme(): MenuThemeType {
@@ -123,6 +125,7 @@ export const useSettingStore = defineStore({
         this.holidayFireworksLoaded = setting.holidayFireworksLoaded
         this.showFestivalText = setting.showFestivalText
         this.festivalDate = setting.festivalDate
+        this.dualMenuShowText = setting.dualMenuShowText
         this.setCustomRadius(this.customRadius)
         setElementThemeColor(setting.systemThemeColor)
       } else {
@@ -228,6 +231,10 @@ export const useSettingStore = defineStore({
     // 设置节日日期
     setFestivalDate(date: string) {
       this.festivalDate = date
+    },
+    // 设置双列菜单是否显示文本
+    setDualMenuShowText(show: boolean) {
+      this.dualMenuShowText = show
     }
   }
 })

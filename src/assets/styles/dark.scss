@@ -70,7 +70,8 @@ html.dark {
   }
 
   // ✅ 左侧菜单样式
-  .menu-left {
+  .menu-left,
+  .dual-menu {
     .el-menu-dark {
       // 选中颜色
       .el-menu-item.is-active {

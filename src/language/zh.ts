@@ -21,7 +21,7 @@ export default {
   setting: {
     menuType: {
       title: '菜单布局',
-      list: ['垂直', '水平', '混合']
+      list: ['垂直', '水平', '混合', '双列']
     },
     theme: {
       title: '主题风格',

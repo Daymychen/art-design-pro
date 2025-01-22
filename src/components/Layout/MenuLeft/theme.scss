@@ -41,7 +41,7 @@
         margin-left: 22px !important;
       }
 
-      p {
+      p:not(.is-dual-menu-name) {
         left: 60px !important;
       }
     }

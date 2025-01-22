@@ -58,6 +58,9 @@ As a developer, I needed to build admin management systems for multiple projects
 # Install dependencies
 pnpm install
 
+# If pnpm install fails, try using the following command to install dependencies
+pnpm install --ignore-scripts
+
 # Start local development environment
 pnpm dev
 
