@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.6.0',
+    title: '新增定价页面',
+    date: '2025-01-24',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.5.1',
     title: '修复笔记本顶部菜单宽度问题',
     date: '2025-01-23',

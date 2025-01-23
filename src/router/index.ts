@@ -157,6 +157,14 @@ const routes = [
         }
       }
     ]
+  },
+  {
+    path: '/template/pricing',
+    component: () => import('@views/template/pricing.vue'),
+    meta: {
+      title: '定价',
+      isHideTab: true
+    }
   }
 ] as AppRouteRecordRaw[]
 
@@ -482,16 +490,16 @@ export const roleRoutes: AppRouteRecordRaw[] = [
     ]
   },
   {
-    path: '/chat',
+    path: '/template',
     component: Home,
-    name: 'Chat',
+    name: 'Template',
     meta: {
-      title: '聊天'
+      title: '模板'
     },
     children: [
       {
-        path: '/chat/index',
-        component: () => import('@views/chat/index.vue'),
+        path: '/template/chat',
+        component: () => import('@views/template/chat.vue'),
         meta: {
           title: '聊天'
         }

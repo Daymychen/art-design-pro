@@ -176,20 +176,30 @@ export const menuData: MenuListType[] = [
   },
   {
     id: 126,
-    path: '/chat',
-    name: 'Chat',
+    path: '/template',
+    name: 'Template',
     meta: {
-      title: '聊天页面',
-      title_en: 'Chat',
-      icon: '&#xe70a;'
+      title: '模板中心',
+      title_en: 'Template',
+      icon: '&#xe860;'
     },
     children: [
       {
         id: 12601,
-        path: '/chat/index',
+        path: '/template/chat',
         meta: {
           title: '聊天',
           title_en: 'Chat',
+          keepAlive: true,
+          showTextBadge: 'New'
+        }
+      },
+      {
+        id: 12602,
+        path: '/template/pricing',
+        meta: {
+          title: '定价',
+          title_en: 'Pricing',
           keepAlive: true,
           showTextBadge: 'New'
         }

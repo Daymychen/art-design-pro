@@ -102,7 +102,7 @@
       description: '即时通讯功能',
       icon: '&#xe70a;',
       iconColor: '#60C041',
-      path: '/chat/index'
+      path: '/template/chat'
     },
     {
       name: '官方文档',
@@ -138,6 +138,7 @@
     { name: '登录', path: '/login' },
     { name: '注册', path: '/register' },
     { name: '忘记密码', path: '/forget-password' },
+    { name: '定价', path: '/template/pricing' },
     { name: '个人中心', path: '/user/user' },
     { name: '留言管理', path: '/article/comment' }
   ]

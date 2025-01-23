@@ -126,5 +126,5 @@ export const SystemMainColor = [
 // 系统设置中心配置
 export const SystemSetting = {
   defaultMenuWidth: 252, // 菜单展开宽度默认值
-  defaultCustomRadius: '0.5' // 圆角默认值
+  defaultCustomRadius: '0.75' // 圆角默认值
 }
