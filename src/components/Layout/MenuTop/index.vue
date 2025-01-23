@@ -65,7 +65,7 @@
   @media only screen and (max-width: $device-notebook) {
     .menu-top {
       .el-menu {
-        width: 42vw !important;
+        width: 38vw !important;
       }
     }
   }
