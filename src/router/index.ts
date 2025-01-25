@@ -503,6 +503,20 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         meta: {
           title: '聊天'
         }
+      },
+      {
+        path: '/template/cards',
+        component: () => import('@views/template/cards.vue'),
+        meta: {
+          title: '卡片'
+        }
+      },
+      {
+        path: '/template/banners',
+        component: () => import('@views/template/banners.vue'),
+        meta: {
+          title: '横幅'
+        }
       }
     ]
   },

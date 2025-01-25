@@ -196,6 +196,26 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 12602,
+        path: '/template/cards',
+        meta: {
+          title: '卡片',
+          title_en: 'Cards',
+          keepAlive: false,
+          showTextBadge: 'New'
+        }
+      },
+      {
+        id: 12603,
+        path: '/template/banners',
+        meta: {
+          title: '横幅',
+          title_en: 'Banners',
+          keepAlive: false,
+          showTextBadge: 'New'
+        }
+      },
+      {
+        id: 12622,
         path: '/template/pricing',
         meta: {
           title: '定价',
