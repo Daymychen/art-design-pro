@@ -20,7 +20,7 @@
             meta: {
               title: '菜单管理',
               title_en: 'Menu manguage',
-              icon: '&#xe8a4;',
+              icon: '&amp;#xe8a4;',
             },
             children: [
               {
@@ -29,7 +29,7 @@
                 meta: {
                   title: '菜单权限',
                   title_en: 'Menu permissions',
-                  icon: '&#xe8a4;',
+                  icon: '&amp;#xe8a4;',
                 }
               },
               {
@@ -38,7 +38,7 @@
                 meta: {
                   title: '权限控制',
                   title_en: 'Permission control',
-                  icon: '&#xe80a;',
+                  icon: '&amp;#xe80a;',
                 },
               },
             ],
@@ -80,7 +80,7 @@
             meta: {
               title: '权限控制',
               title_en: 'Permission control',
-              icon: '&#xe80a;',
+              icon: '&amp;#xe80a;',
               authList: [
                 {
                   id: 4111,
