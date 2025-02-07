@@ -517,6 +517,13 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         meta: {
           title: '横幅'
         }
+      },
+      {
+        path: '/template/charts',
+        component: () => import('@views/template/charts.vue'),
+        meta: {
+          title: '图表'
+        }
       }
     ]
   },

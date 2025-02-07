@@ -215,6 +215,16 @@ export const menuData: MenuListType[] = [
         }
       },
       {
+        id: 12604,
+        path: '/template/charts',
+        meta: {
+          title: '图表',
+          title_en: 'Charts',
+          keepAlive: false,
+          showTextBadge: 'New'
+        }
+      },
+      {
         id: 12622,
         path: '/template/pricing',
         meta: {
