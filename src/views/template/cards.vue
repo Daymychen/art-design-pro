@@ -67,6 +67,49 @@
       </el-col>
     </el-row>
 
+    <h1 class="page-title">图表卡片</h1>
+    <el-row :gutter="20">
+      <el-col :xs="24" :sm="12" :md="6">
+        <LineChartCard
+          :value="2545"
+          label="新用户"
+          :percentage="1.2"
+          :height="11"
+          :chartData="[120, 132, 101, 134, 90, 230, 210]"
+        />
+      </el-col>
+      <el-col :xs="24" :sm="12" :md="6">
+        <BarChartCard
+          :value="15480"
+          label="浏览量"
+          :percentage="-4.15"
+          :height="11"
+          :chartData="[120, 100, 150, 140, 90, 120, 130, 110]"
+        />
+      </el-col>
+      <el-col :xs="24" :sm="12" :md="6">
+        <LineChartCard
+          :value="2545"
+          label="粉丝数"
+          :percentage="1.2"
+          :height="11"
+          :showAreaColor="true"
+          :chartData="[120, 132, 101, 134, 90, 230, 210]"
+        />
+      </el-col>
+      <el-col :xs="24" :sm="12" :md="6">
+        <DonutChartCard
+          :value="36358"
+          title="粉丝量"
+          :percentage="18"
+          :data="[70, 30]"
+          :height="11"
+          currentYear="2022"
+          previousYear="2021"
+        />
+      </el-col>
+    </el-row>
+
     <h1 class="page-title">图片卡片</h1>
     <el-row :gutter="20">
       <el-col :xs="24" :sm="12" :md="6" v-for="card in imageCards" :key="card.id">

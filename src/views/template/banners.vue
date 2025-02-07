@@ -122,7 +122,7 @@
 
 <style lang="scss" scoped>
   .banners {
-    padding: 20px 0;
+    padding-top: 20px;
 
     .page-title {
       margin: 20px 0 15px;

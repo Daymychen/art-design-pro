@@ -42,9 +42,9 @@
   withDefaults(defineProps<Props>(), {
     height: '11rem',
     buttonText: '查看',
-    buttonColor: '#fff', // Element-Plus 默认主色
+    buttonColor: '#fff',
     buttonTextColor: '#333',
-    backgroundColor: 'var(--main-color)',
+    backgroundColor: 'var(--el-color-primary-light-2)',
     titleColor: 'white',
     subtitleColor: 'white',
     backgroundImage: ''
