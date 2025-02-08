@@ -524,6 +524,13 @@ export const roleRoutes: AppRouteRecordRaw[] = [
         meta: {
           title: '图表'
         }
+      },
+      {
+        path: '/template/calendar',
+        component: () => import('@views/template/calendar.vue'),
+        meta: {
+          title: '日历'
+        }
       }
     ]
   },

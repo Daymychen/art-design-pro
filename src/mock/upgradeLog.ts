@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v1.9.0',
+    title: '新增日历组件',
+    date: '2025-02-09',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.8.0',
     title: '新增图表组件',
     date: '2025-02-08',

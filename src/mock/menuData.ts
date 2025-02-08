@@ -225,6 +225,16 @@ export const menuData: MenuListType[] = [
         }
       },
       {
+        id: 12605,
+        path: '/template/calendar',
+        meta: {
+          title: '日历',
+          title_en: 'Calendar',
+          keepAlive: true,
+          showTextBadge: 'New'
+        }
+      },
+      {
         id: 12622,
         path: '/template/pricing',
         meta: {
