@@ -160,7 +160,7 @@
           display: block;
           width: 6px;
           height: 6px;
-          background: var(--art-success) !important;
+          background: var(--el-color-success) !important;
           border-radius: 50%;
           animation: breathing 1.5s ease-in-out infinite;
         }
@@ -281,7 +281,7 @@
           display: block;
           width: 6px;
           height: 6px;
-          background: var(--art-danger) !important;
+          background: var(--el-color-danger) !important;
           border-radius: 50%;
         }
       }

@@ -3,7 +3,7 @@ import { MenuThemeType, SystemThemeTypes } from '@/types/store'
 
 // Element plus theme
 export const ElementPlusTheme = {
-  primary: '#1485FF'
+  primary: '#5D87FF'
 }
 
 // 系统信息
@@ -114,9 +114,9 @@ export const DarkMenuStyles: MenuThemeType[] = [
 
 // 系统主色
 export const SystemMainColor = [
-  '#1485FF',
+  '#5D87FF',
   '#B48DF3',
-  '#7A7FFF',
+  '#1D84FF',
   '#60C041',
   '#38C0FC',
   '#F9901F',

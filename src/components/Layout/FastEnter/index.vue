@@ -101,7 +101,7 @@
       name: '聊天',
       description: '即时通讯功能',
       icon: '&#xe70a;',
-      iconColor: '#60C041',
+      iconColor: '#13DEB9',
       path: '/template/chat'
     },
     {

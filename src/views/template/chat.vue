@@ -30,7 +30,7 @@
             </div>
             <div class="info-bottom">
               <span class="email">{{ item.email }}</span>
-              <el-badge v-if="item.unread" :value="item.unread" class="unread-badge" />
+              <!-- <el-badge v-if="item.unread" :value="item.unread" class="unread-badge" /> -->
             </div>
           </div>
         </div>
@@ -425,12 +425,11 @@
 
           .status-dot {
             position: absolute;
-            right: 0;
-            bottom: 0;
-            width: 10px;
-            height: 10px;
-            background-color: var(--el-color-danger);
-            border: 2px solid #fff;
+            right: 1px;
+            bottom: 1px;
+            width: 9px;
+            height: 9px;
+            background-color: var(--el-color-error);
             border-radius: 50%;
 
             &.online {
@@ -518,11 +517,11 @@
             border-radius: 50%;
 
             &.online {
-              background-color: var(--art-success);
+              background-color: var(--el-color-success);
             }
 
             &.offline {
-              background-color: var(--art-danger);
+              background-color: var(--el-color-danger);
             }
           }
 

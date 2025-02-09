@@ -3,7 +3,7 @@
     <div class="card-header">
       <div class="title">
         <h4 class="custom-text box-title">动态</h4>
-        <p class="custom-text subtitle">新增<span>+6</span></p>
+        <p class="custom-text subtitle">新增<span class="text-success">+6</span></p>
       </div>
     </div>
 

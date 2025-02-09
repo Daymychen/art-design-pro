@@ -101,51 +101,12 @@
 
 // 修改el-tag样式
 .el-tag {
-  height: 28px !important;
-  line-height: 28px !important;
-  padding: 0 14px !important;
+  height: 26px !important;
+  line-height: 26px !important;
   border: 0 !important;
   border-radius: 6px !important;
   font-weight: bold;
   transition: all 0s !important;
-}
-
-.el-tag--success {
-  background-color: rgba(#dcfce7, 0.85) !important;
-}
-
-.el-tag--success {
-  background-color: --main-color !important;
-}
-
-.dark {
-  .el-tag {
-    color: #eee !important;
-  }
-
-  .el-tag--primary {
-    background-color: #409eff !important;
-  }
-
-  .el-tag--success {
-    background-color: #49bb78 !important;
-  }
-
-  .el-tag--info {
-    background-color: #a1afc0 !important;
-  }
-
-  .el-tag--warning {
-    background-color: #f7ae55 !important;
-  }
-
-  .el-tag--danger {
-    background-color: #e53e3e !important;
-  }
-
-  .el-message {
-    border: 1px solid var(--art-border-color) !important;
-  }
 }
 
 .el-checkbox-group {

@@ -449,6 +449,8 @@
 
   onMounted(() => {
     mittBus.on('openSetting', openSetting)
+
+    initSystemColor()
     listenerSystemTheme()
     initUserSetting()
     initSystemTheme()
@@ -460,6 +462,13 @@
     mediaQuery.removeEventListener('change', initSystemTheme)
     cleanup()
   })
+
+  //  如果主题色不在列表中，则设置为列表中的第一个元素
+  const initSystemColor = () => {
+    if (!SystemMainColor.includes(systemThemeColor.value)) {
+      setElementTheme(SystemMainColor[0])
+    }
+  }
 
   const initUserSetting = () => {
     uniqueOpened.value = store.uniqueOpened

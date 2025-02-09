@@ -7,7 +7,7 @@
           title="欢迎回来，管理员！"
           subtitle="今日系统访问量增长了23%，运行状态良好。"
           buttonText="查看详情"
-          buttonColor="#FF6692"
+          buttonColor="rgb(var(--art-secondary))"
           buttonTextColor="#fff"
           @click="handleBannerClick"
         />
@@ -17,7 +17,7 @@
           title="欢迎使用本系统!"
           subtitle="这是一个基于Vue3和Element Plus的后台管理系统模板。"
           buttonText="开始使用"
-          buttonColor="#46CAEB"
+          buttonColor="rgb(var(--art-success))"
           buttonTextColor="#fff"
           backgroundColor="#D4F1F7"
           titleColor="#333"
@@ -70,7 +70,7 @@
           title="新消息提醒"
           description="您有3条未读消息需要处理。"
           buttonText="立即查看"
-          buttonColor="#F8C20B"
+          buttonColor="rgb(var(--art-warning))"
         />
       </el-col>
       <el-col :xs="24" :sm="12" :md="12" :lg="6">
@@ -79,7 +79,7 @@
           title="数据分析报告"
           description="本周数据分析报告已生成完毕。"
           buttonText="下载报告"
-          buttonColor="#FF6692"
+          buttonColor="rgb(var(--art-error))"
         />
       </el-col>
       <el-col :xs="24" :sm="12" :md="12" :lg="6">
@@ -88,7 +88,7 @@
           title="系统更新提示"
           description="新版本V2.1.0已发布，建议及时更新。"
           buttonText="更新"
-          buttonColor="#5D87FF"
+          buttonColor="rgb(var(--art-primary))"
           :showCancel="true"
           cancelButtonText="取消"
           cancelButtonColor="#eee"

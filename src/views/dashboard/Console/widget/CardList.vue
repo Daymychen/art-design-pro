@@ -12,7 +12,7 @@
         <span class="change-text">较上周</span>
         <span
           class="change custom-text"
-          :style="{ color: item.change.indexOf('+') === -1 ? 'red' : '#52c41a' }"
+          :class="[item.change.indexOf('+') === -1 ? 'text-danger' : 'text-success']"
         >
           {{ item.change }}
         </span>

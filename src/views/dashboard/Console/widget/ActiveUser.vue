@@ -3,7 +3,7 @@
     <div class="chart" ref="chartRef"></div>
     <div class="text">
       <h3 class="custom-text box-title">用户概述</h3>
-      <p class="custom-text subtitle">比上周 <span>+23%</span></p>
+      <p class="custom-text subtitle">比上周 <span class="text-success">+23%</span></p>
       <p class="custom-text subtitle"
         >我们为您创建了多个选项，可将它们组合在一起并定制为像素完美的页面</p
       >
@@ -173,10 +173,6 @@
       p {
         margin-top: 5px;
         font-size: 14px;
-
-        span {
-          color: rgb(82 196 26) !important;
-        }
 
         &:last-of-type {
           height: 42px;

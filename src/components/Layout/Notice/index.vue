@@ -88,8 +88,6 @@
   import avatar5 from '@/assets/img/avatar/avatar5.jpg'
   import avatar6 from '@/assets/img/avatar/avatar6.jpg'
   import { SystemMainColor } from '@/config/setting'
-  import { hexToRgba } from '@/utils/utils'
-  import { getCssVariable } from '@/utils/utils'
   import { useI18n } from 'vue-i18n'
 
   const { t } = useI18n()
@@ -205,28 +203,28 @@
   const noticeStyleMap = {
     email: {
       icon: '&#xe72e;',
-      iconColor: 'var(--el-color-warning)',
-      backgroundColor: '--el-color-warning'
+      iconColor: 'rgb(var(--art-warning))',
+      backgroundColor: 'rgb(var(--art-bg-warning))'
     },
     message: {
       icon: '&#xe747;',
-      iconColor: 'var(--el-color-success)',
-      backgroundColor: '--el-color-success'
+      iconColor: 'rgb(var(--art-success))',
+      backgroundColor: 'rgb(var(--art-bg-success))'
     },
     collection: {
       icon: '&#xe714;',
-      iconColor: 'var(--el-color-danger)',
-      backgroundColor: '--el-color-danger'
+      iconColor: 'rgb(var(--art-danger))',
+      backgroundColor: 'rgb(var(--art-bg-danger))'
     },
     user: {
       icon: '&#xe608;',
-      iconColor: 'var(--el-color-info)',
-      backgroundColor: '--el-color-info'
+      iconColor: 'rgb(var(--art-info))',
+      backgroundColor: 'rgb(var(--art-bg-info))'
     },
     notice: {
       icon: '&#xe6c2;',
-      iconColor: 'var(--el-color-primary)',
-      backgroundColor: '--el-color-primary'
+      iconColor: 'rgb(var(--art-primary))',
+      backgroundColor: 'rgb(var(--art-bg-primary))'
     }
   }
 
@@ -241,10 +239,7 @@
 
     return {
       ...style,
-      backgroundColor:
-        style.backgroundColor !== defaultStyle.backgroundColor
-          ? hexToRgba(getCssVariable(style.backgroundColor), 0.13).rgba
-          : style.backgroundColor
+      backgroundColor: style.backgroundColor
     }
   }
 

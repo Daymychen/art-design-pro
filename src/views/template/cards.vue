@@ -140,11 +140,11 @@
       count: 1235,
       description: '鞋子、牛仔裤、派对服装、手表',
       icon: '&#xe812;',
-      iconColor: '#5d87ff',
+      iconColor: 'rgb(var(--art-primary))',
       iconSize: 20,
-      iconBgColor: '#35C76C',
-      textColor: '#5d87ff',
-      backgroundColor: '#ECF2FF',
+      iconBgColor: 'rgb(var(--art-info))',
+      textColor: 'rgb(var(--art-primary))',
+      backgroundColor: 'rgb(var(--art-bg-primary))',
       showArrow: false
     },
     {
@@ -153,11 +153,11 @@
       count: 5000,
       description: '日活跃用户超过5,000+',
       icon: '&#xe724;',
-      iconColor: '#ffae1f',
+      iconColor: 'rgb(var(--art-warning))',
       iconSize: 20,
-      iconBgColor: '#46CAEB',
-      textColor: '#ffae1f',
-      backgroundColor: '#fef5e5',
+      iconBgColor: 'rgb(var(--art-success))',
+      textColor: 'rgb(var(--art-warning))',
+      backgroundColor: 'rgb(var(--art-bg-warning))',
       showArrow: false
     },
     {
@@ -166,11 +166,11 @@
       count: 35000,
       description: '月收入超过¥350,000+',
       icon: '&#xe70e;',
-      iconColor: '#49beff',
+      iconColor: 'rgb(var(--art-secondary))',
       iconSize: 20,
-      iconBgColor: '#FF6692',
-      textColor: '#49beff',
-      backgroundColor: '#e8f7ff',
+      iconBgColor: 'rgb(var(--art-secondary))',
+      textColor: 'rgb(var(--art-secondary))',
+      backgroundColor: 'rgb(var(--art-bg-secondary))',
       showArrow: false
     },
     {
@@ -179,11 +179,11 @@
       count: 4800,
       description: '平均评分4.8/5',
       icon: '&#xe82d;',
-      iconColor: '#fa896b',
+      iconColor: 'rgb(var(--art-error))',
       iconSize: 20,
-      iconBgColor: '#F8C20B',
-      textColor: '#fa896b',
-      backgroundColor: '#fdede8',
+      iconBgColor: 'rgb(var(--art-error))',
+      textColor: 'rgb(var(--art-error))',
+      backgroundColor: 'rgb(var(--art-bg-error))',
       showArrow: false
     }
   ]
@@ -193,40 +193,40 @@
       id: 1,
       title: '完成进度',
       percentage: 75,
-      color: '#67C23A',
+      color: 'rgb(var(--art-success))',
       icon: '&#xe812;',
-      iconColor: '#36c76c',
-      iconBgColor: '#EBFAF0',
+      iconColor: 'rgb(var(--art-success))',
+      iconBgColor: 'rgb(var(--art-bg-success))',
       iconSize: 20
     },
     {
       id: 2,
       title: '项目进度',
       percentage: 65,
-      color: '#409EFF',
+      color: 'rgb(var(--art-primary))',
       icon: '&#xe724;',
-      iconColor: '#409EFF',
-      iconBgColor: '#F0F7FF',
+      iconColor: 'rgb(var(--art-primary))',
+      iconBgColor: 'rgb(var(--art-bg-primary))',
       iconSize: 20
     },
     {
       id: 3,
       title: '学习进度',
       percentage: 45,
-      color: '#FF6692',
+      color: 'rgb(var(--art-error))',
       icon: '&#xe724;',
-      iconColor: '#FF6692',
-      iconBgColor: '#fdf5f5',
+      iconColor: 'rgb(var(--art-error))',
+      iconBgColor: 'rgb(var(--art-bg-error))',
       iconSize: 20
     },
     {
       id: 4,
       title: '任务进度',
       percentage: 90,
-      color: '#46CAEB',
+      color: 'rgb(var(--art-secondary))',
       icon: '&#xe724;',
-      iconColor: '#46CAEB',
-      iconBgColor: '#EBF9FF',
+      iconColor: 'rgb(var(--art-secondary))',
+      iconBgColor: 'rgb(var(--art-bg-secondary))',
       iconSize: 20
     }
   ]

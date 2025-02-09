@@ -1,0 +1,17 @@
+// 自定义Element 暗黑主题
+
+@forward 'element-plus/theme-chalk/src/dark/var.scss' //
+  with (
+  $colors: (
+    //
+    'white': #ffffff,
+    'black': #000000,
+    'success': ('base': #13deb9),
+    'warning': ('base': #ffae1f),
+    'danger': ('base': #ff4d4f),
+    'info': ('base': #539bff),
+    'error': ('base': #fa896b)
+  )
+);
+
+@use 'element-plus/theme-chalk/src/dark/css-vars.scss' as *;

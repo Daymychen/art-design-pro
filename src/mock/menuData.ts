@@ -234,6 +234,7 @@ export const menuData: MenuListType[] = [
           showTextBadge: 'New'
         }
       },
+
       {
         id: 12622,
         path: '/template/pricing',

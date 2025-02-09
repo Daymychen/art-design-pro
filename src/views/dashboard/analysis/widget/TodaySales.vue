@@ -11,8 +11,8 @@
     <div class="sales-summary">
       <el-row :gutter="20">
         <el-col :span="6" :xs="24" v-for="(item, index) in salesData" :key="index">
-          <div :class="['sales-card art-custom-card', item.class]">
-            <i class="iconfont-sys" :class="item.class" v-html="item.iconfont"></i>
+          <div :class="['sales-card art-custom-card']">
+            <i class="iconfont-sys custom-text" :class="item.class" v-html="item.iconfont"></i>
             <h2>
               <CountTo
                 class="number custom-text box-title"
@@ -43,28 +43,28 @@
       value: 999,
       change: t('analysis.todaySales.cards.totalSales.change'),
       iconfont: '&#xe7d9',
-      class: 'red'
+      class: 'bg-primary'
     },
     {
       label: t('analysis.todaySales.cards.totalOrder.label'),
       value: 300,
       change: t('analysis.todaySales.cards.totalOrder.change'),
       iconfont: '&#xe70f',
-      class: 'green'
+      class: 'bg-success'
     },
     {
       label: t('analysis.todaySales.cards.productSold.label'),
       value: 56,
       change: t('analysis.todaySales.cards.productSold.change'),
       iconfont: '&#xe712',
-      class: 'yellow'
+      class: 'bg-warning'
     },
     {
       label: t('analysis.todaySales.cards.newCustomers.label'),
       value: 68,
       change: t('analysis.todaySales.cards.newCustomers.change'),
       iconfont: '&#xe77f',
-      class: 'purple'
+      class: 'bg-error'
     }
   ])
 </script>
@@ -122,26 +122,6 @@
           text-align: center;
           background-color: var(--el-color-primary-light-9);
           border-radius: 50%;
-
-          &.red {
-            color: #298cff !important;
-            background-color: #e9f3ff !important;
-          }
-
-          &.yellow {
-            color: #ff4d50 !important;
-            background-color: #ffeef3 !important;
-          }
-
-          &.green {
-            color: #27c65d !important;
-            background-color: #dfffea !important;
-          }
-
-          &.purple {
-            color: #8758ea !important;
-            background-color: #f8f5ff !important;
-          }
         }
 
         h2 {

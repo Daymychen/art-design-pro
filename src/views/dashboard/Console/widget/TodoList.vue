@@ -3,7 +3,7 @@
     <div class="card-header">
       <div class="title">
         <h4 class="custom-text box-title">代办事项</h4>
-        <p class="custom-text subtitle">待处理<span>+6</span></p>
+        <p class="custom-text subtitle">待处理<span class="text-danger">3</span></p>
       </div>
     </div>
 
@@ -61,16 +61,6 @@
     padding: 0 25px;
     margin-left: var(--console-margin);
 
-    .card-header {
-      .title {
-        p {
-          span {
-            color: red !important;
-          }
-        }
-      }
-    }
-
     .list {
       height: calc(100% - 100px);
       margin-top: 10px;
@@ -83,7 +73,6 @@
         justify-content: center;
         height: 70px;
         overflow: hidden;
-        // border-bottom: 1px solid #EBEEF5;
         border-bottom: 1px solid var(--art-border-color);
 
         p {

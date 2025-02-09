@@ -3,7 +3,7 @@
     <div class="card-header">
       <div class="title">
         <h4 class="custom-text box-title">访问量</h4>
-        <p class="custom-text subtitle">今年增长<span>+15%</span></p>
+        <p class="custom-text subtitle">今年增长<span class="text-success">+15%</span></p>
       </div>
     </div>
     <div class="chart" ref="chartRef"></div>

@@ -19,7 +19,7 @@
               class="calendar-event"
               @click.stop="handleEventClick(event)"
             >
-              <div class="event-tag" :class="[`event-${event.type || 'primary'}`]">
+              <div class="event-tag custom-text" :class="[`${event.type || 'bg-primary'}`]">
                 {{ event.content }}
               </div>
             </div>
@@ -83,34 +83,34 @@
     date: string
     endDate?: string
     content: string
-    type?: 'primary' | 'success' | 'warning' | 'danger'
+    type?: 'bg-primary' | 'bg-success' | 'bg-warning' | 'bg-danger'
   }
 
   // 常量定义
   const eventTypes = [
-    { label: '基本', value: 'primary' },
-    { label: '成功', value: 'success' },
-    { label: '警告', value: 'warning' },
-    { label: '危险', value: 'danger' }
+    { label: '基本', value: 'bg-primary' },
+    { label: '成功', value: 'bg-success' },
+    { label: '警告', value: 'bg-warning' },
+    { label: '危险', value: 'bg-danger' }
   ] as const
 
   // 状态管理
   const currentDate = ref(new Date('2025-02-07'))
   const events = ref<CalendarEvent[]>([
-    { date: '2025-02-01', content: '产品需求评审', type: 'primary' },
+    { date: '2025-02-01', content: '产品需求评审', type: 'bg-primary' },
     {
       date: '2025-02-03',
       endDate: '2025-02-05',
       content: '项目周报会议（跨日期）',
-      type: ''
+      type: 'bg-primary'
     },
-    { date: '2025-02-10', content: '瑜伽课程', type: 'success' },
-    { date: '2025-02-15', content: '团队建设活动', type: 'primary' },
-    { date: '2025-02-20', content: '健身训练', type: 'success' },
-    { date: '2025-02-20', content: '代码评审', type: 'danger' },
-    { date: '2025-02-20', content: '团队午餐', type: 'primary' },
-    { date: '2025-02-20', content: '项目进度汇报', type: 'warning' },
-    { date: '2025-02-28', content: '月度总结会', type: 'warning' }
+    { date: '2025-02-10', content: '瑜伽课程', type: 'bg-success' },
+    { date: '2025-02-15', content: '团队建设活动', type: 'bg-primary' },
+    { date: '2025-02-20', content: '健身训练', type: 'bg-success' },
+    { date: '2025-02-20', content: '代码评审', type: 'bg-danger' },
+    { date: '2025-02-20', content: '团队午餐', type: 'bg-primary' },
+    { date: '2025-02-20', content: '项目进度汇报', type: 'bg-warning' },
+    { date: '2025-02-28', content: '月度总结会', type: 'bg-warning' }
   ])
 
   // 弹窗状态管理
@@ -121,7 +121,7 @@
     date: '',
     endDate: '',
     content: '',
-    type: 'primary'
+    type: 'bg-primary'
   })
 
   // 计算属性
@@ -145,7 +145,7 @@
       date: '',
       endDate: '',
       content: '',
-      type: 'primary'
+      type: 'bg-primary'
     }
     editingEventIndex.value = -1
   }
@@ -156,7 +156,7 @@
     eventForm.value = {
       date: day,
       content: '',
-      type: 'primary'
+      type: 'bg-primary'
     }
     editingEventIndex.value = -1
     dialogVisible.value = true
@@ -262,32 +262,9 @@
       font-size: 13px;
       font-weight: 500;
       line-height: 24px;
-
-      // 默认样式 (primary)
-      color: var(--el-color-primary);
       text-overflow: ellipsis;
       white-space: nowrap;
-      background-color: var(--el-color-primary-light-9);
-      border-left: 4px solid var(--el-color-primary);
       border-radius: 4px;
-
-      &.event-success {
-        color: var(--el-color-success);
-        background-color: var(--el-color-success-light-9);
-        border-left-color: var(--el-color-success);
-      }
-
-      &.event-warning {
-        color: var(--el-color-warning);
-        background-color: var(--el-color-warning-light-9);
-        border-left-color: var(--el-color-warning);
-      }
-
-      &.event-danger {
-        color: var(--el-color-danger);
-        background-color: var(--el-color-danger-light-9);
-        border-left-color: var(--el-color-danger);
-      }
 
       &:hover {
         opacity: 0.8;

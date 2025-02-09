@@ -234,11 +234,11 @@
           border-radius: 50%;
 
           &.online {
-            background-color: var(--art-success);
+            background-color: var(--el-color-success);
           }
 
           &.offline {
-            background-color: var(--art-danger);
+            background-color: var(--el-color-danger);
           }
         }
 

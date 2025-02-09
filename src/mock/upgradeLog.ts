@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v2.0.0',
+    title: '系统主题色升级',
+    date: '2025-02-09',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v1.9.0',
     title: '新增日历组件',
     date: '2025-02-09',

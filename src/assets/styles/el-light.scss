@@ -1,18 +1,18 @@
 // https://github.com/element-plus/element-plus/blob/dev/packages/theme-chalk/src/common/var.scss
+// 自定义Element 亮色主题
 
-@forward 'element-plus/theme-chalk/src/common/var.scss' // Element 自定义主题
+@forward 'element-plus/theme-chalk/src/common/var.scss' //
   with (
   //
-  $colors:
-    (
+  $colors: (
       //
       'white': #ffffff,
       'black': #000000,
-      'success': ('base': #52c41a),
-      'warning': ('base': #faad14),
+      'success': ('base': #13deb9),
+      'warning': ('base': #ffae1f),
       'danger': ('base': #ff4d4f),
-      'info': ('base': #8c8c8c),
-      'error': ('base': #ff4d4f)
+      'info': ('base': #539bff),
+      'error': ('base': #fa896b)
     ),
   $button: (
     //

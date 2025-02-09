@@ -3,7 +3,7 @@
     <div class="card-header">
       <div class="title">
         <h4 class="custom-text box-title">新用户</h4>
-        <p class="custom-text subtitle">这个月增长<span>+20%</span></p>
+        <p class="custom-text subtitle">这个月增长<span class="text-success">+20%</span></p>
       </div>
       <el-radio-group v-model="radio2">
         <el-radio-button value="本月" label="本月"></el-radio-button>
@@ -58,7 +58,7 @@
       age: 22,
       percentage: 60,
       pro: 0,
-      color: '#2C90FF !important',
+      color: 'rgb(var(--art-primary)) !important',
       avatar: avatar1
     },
     {
@@ -68,7 +68,7 @@
       age: 21,
       percentage: 20,
       pro: 0,
-      color: '#BC7FEB !important',
+      color: 'rgb(var(--art-secondary)) !important',
       avatar: avatar2
     },
     {
@@ -78,7 +78,7 @@
       age: 23,
       percentage: 60,
       pro: 0,
-      color: '#95DE64 !important',
+      color: 'rgb(var(--art-warning)) !important',
       avatar: avatar3
     },
     {
@@ -88,7 +88,7 @@
       age: 28,
       percentage: 50,
       pro: 0,
-      color: '#B7CBE2 !important',
+      color: 'rgb(var(--art-info)) !important',
       avatar: avatar4
     },
     {
@@ -98,7 +98,7 @@
       age: 26,
       percentage: 70,
       pro: 0,
-      color: '#909399 !important',
+      color: 'rgb(var(--art-error)) !important',
       avatar: avatar5
     },
     {
@@ -108,7 +108,7 @@
       age: 25,
       percentage: 90,
       pro: 0,
-      color: '#9BB4F3 !important',
+      color: 'rgb(var(--art-success)) !important',
       avatar: avatar6
     }
   ])
