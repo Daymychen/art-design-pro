@@ -16,9 +16,25 @@
     ),
   $button: (
     //
-    'hover-bg-color': transparent,
-    'hover-border-color': var(--el-color-primary)
-  )
+    'hover-bg-color': var(--el-color-primary-light-9),
+    'hover-border-color': var(--el-color-primary),
+    'border-color': var(--el-color-primary),
+    'text-color': var(--el-color-primary)
+  ),
+  $dialog: (
+    //
+    'border-radius': '14px'
+  ),
+  $messagebox: (
+    //
+    'border-radius': '12px'
+  ),
+  // $dropdown: ( //
+  //   'menu-box-shadow': getCssVar('box-shadow-light'),
+  //   'menuItem-hover-fill': 'var(--art-gray-200)',
+  //   'menuItem-hover-color': 'red', // 文字颜色
+  //   'menu-index': 10,
+   // ),
 );
 
 @use 'element-plus/theme-chalk/src/index.scss' as *;

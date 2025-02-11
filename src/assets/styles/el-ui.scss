@@ -59,6 +59,33 @@
   }
 }
 
+// 修改 el-dropdown 样式
+.el-dropdown-menu {
+  min-width: 116px !important;
+  padding: 6px !important;
+  border-radius: 10px !important;
+  border: none !important;
+
+  .el-dropdown-menu__item {
+    padding: 8px 16px !important;
+    border-radius: 8px !important;
+
+    &:hover {
+      color: var(--art-gray-900) !important;
+      background-color: var(--art-gray-200) !important;
+    }
+  }
+}
+
+.el-popper {
+  margin-top: -6px !important;
+}
+
+// 隐藏三角
+.el-popper__arrow {
+  display: none;
+}
+
 .el-dropdown-selfdefine:focus {
   outline: none !important;
 }
@@ -144,9 +171,28 @@
   font-size: 22px !important;
 }
 
+// 修改 el-message-box 样式
 .el-message-box__headerbtn .el-message-box__close,
 .el-dialog__headerbtn .el-dialog__close {
-  color: #999 !important;
+  color: var(--art-gray-500) !important;
+  top: 7px !important;
+  right: 7px !important;
+  padding: 7px !important;
+  border-radius: 5px !important;
+  transition: all 0.3s !important;
+
+  &:hover {
+    background-color: var(--art-gray-200) !important;
+    color: var(--art-gray-800) !important;
+  }
+}
+
+.el-message-box {
+  padding: 25px 20px !important;
+}
+
+.el-message-box__title {
+  font-weight: 500 !important;
 }
 
 .el-table__column-filter-trigger i {
@@ -173,4 +219,80 @@
 .login-out-dialog {
   padding: 30px 20px !important;
   border-radius: 10px !important;
+}
+
+// 修改 dialog 动画
+.dialog-fade-enter-active {
+  .el-dialog {
+    animation: dialog-open 0.3s cubic-bezier(0.32, 0.14, 0.15, 0.86);
+  }
+}
+
+.dialog-fade-leave-active {
+  animation: fade-out 0.2s linear;
+
+  .el-dialog {
+    animation: dialog-close 0.2s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  }
+}
+
+@keyframes dialog-open {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes dialog-close {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+}
+
+// 遮罩层动画
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+// 修改 el-select 样式
+.el-select-dropdown__list {
+  padding: 5px !important;
+
+  .el-select-dropdown__item {
+    height: 38px !important;
+    line-height: 38px !important;
+    border-radius: 6px !important;
+
+    &.is-selected {
+      color: var(--art-gray-900) !important;
+      font-weight: 400 !important;
+      background-color: var(--art-gray-200) !important;
+    }
+
+    &:hover {
+      background-color: var(--art-gray-200) !important;
+    }
+  }
+
+  .el-select-dropdown__item:hover ~ .is-selected,
+  .el-select-dropdown__item.is-selected:has(~ .el-select-dropdown__item:hover) {
+    background-color: transparent !important;
+  }
 }
