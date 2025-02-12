@@ -42,72 +42,81 @@
         <div class="form">
           <h3 class="title">{{ $t('login.title') }}</h3>
           <p class="sub-title">{{ $t('login.subTitle') }}</p>
-          <div class="input-wrap">
-            <el-input
-              :placeholder="$t('login.placeholder[0]')"
-              size="large"
-              v-model.trim="username"
-            />
-          </div>
-          <div class="input-wrap">
-            <el-input
-              :placeholder="$t('login.placeholder[1]')"
-              size="large"
-              v-model.trim="password"
-              type="password"
-              radius="8px"
-              autocomplete="off"
-              @keyup.enter="login"
-            />
-          </div>
-          <div class="drag-verify">
-            <div class="drag-verify-content" :class="{ error: !isPassing && isClickPass }">
-              <!-- :background="isDark ? '#181818' : '#eee'" -->
-              <DragVerify
-                ref="dragVerify"
-                v-model:value="isPassing"
-                :width="width < 500 ? 328 : 438"
-                :text="$t('login.sliderText')"
-                textColor="var(--art-gray-800)"
-                :successText="$t('login.sliderSuccessText')"
-                :progressBarBg="getCssVariable('--el-color-primary')"
-                background="var(--art-gray-200)"
-                handlerBg="var(--art-main-bg-color)"
-                @pass="onPass"
+          <el-form
+            ref="formRef"
+            :model="formData"
+            :rules="rules"
+            @keyup.enter="handleSubmit"
+            style="margin-top: 25px"
+          >
+            <el-form-item prop="username">
+              <el-input
+                :placeholder="$t('login.placeholder[0]')"
+                size="large"
+                v-model.trim="formData.username"
               />
+            </el-form-item>
+            <el-form-item prop="password">
+              <el-input
+                :placeholder="$t('login.placeholder[1]')"
+                size="large"
+                v-model.trim="formData.password"
+                type="password"
+                radius="8px"
+                autocomplete="off"
+              />
+            </el-form-item>
+            <div class="drag-verify">
+              <div class="drag-verify-content" :class="{ error: !isPassing && isClickPass }">
+                <!-- :background="isDark ? '#181818' : '#eee'" -->
+                <DragVerify
+                  ref="dragVerify"
+                  v-model:value="isPassing"
+                  :width="width < 500 ? 328 : 438"
+                  :text="$t('login.sliderText')"
+                  textColor="var(--art-gray-800)"
+                  :successText="$t('login.sliderSuccessText')"
+                  :progressBarBg="getCssVariable('--el-color-primary')"
+                  background="var(--art-gray-200)"
+                  handlerBg="var(--art-main-bg-color)"
+                  @pass="onPass"
+                />
+              </div>
+              <p class="error-text" :class="{ 'show-error-text': !isPassing && isClickPass }">{{
+                $t('login.placeholder[2]')
+              }}</p>
             </div>
-            <p class="error-text" :class="{ 'show-error-text': !isPassing && isClickPass }">{{
-              $t('login.placeholder[2]')
-            }}</p>
-          </div>
 
-          <div class="forget-password">
-            <el-checkbox v-model="rememberPassword">{{ $t('login.rememberPwd') }}</el-checkbox>
-            <router-link class="custom-text" to="/forget-password">{{
-              $t('login.forgetPwd')
-            }}</router-link>
-          </div>
-
-          <div style="margin-top: 30px">
-            <el-button
-              class="login-btn"
-              size="large"
-              type="primary"
-              @click="login"
-              :loading="loading"
-            >
-              {{ $t('login.btnText') }}
-            </el-button>
-          </div>
-
-          <div class="footer">
-            <p>
-              {{ $t('login.noAccount') }}
-              <router-link class="custom-text" to="/register">{{
-                $t('login.register')
+            <div class="forget-password">
+              <el-checkbox v-model="formData.rememberPassword">{{
+                $t('login.rememberPwd')
+              }}</el-checkbox>
+              <router-link class="custom-text" to="/forget-password">{{
+                $t('login.forgetPwd')
               }}</router-link>
-            </p>
-          </div>
+            </div>
+
+            <div style="margin-top: 30px">
+              <el-button
+                class="login-btn"
+                size="large"
+                type="primary"
+                @click="handleSubmit"
+                :loading="loading"
+              >
+                {{ $t('login.btnText') }}
+              </el-button>
+            </div>
+
+            <div class="footer">
+              <p>
+                {{ $t('login.noAccount') }}
+                <router-link class="custom-text" to="/register">{{
+                  $t('login.register')
+                }}</router-link>
+              </p>
+            </div>
+          </el-form>
         </div>
       </div>
     </div>
@@ -122,10 +131,12 @@
   import { HOME_PAGE } from '@/router'
   import { ApiStatus } from '@/utils/http/status'
   import axios from 'axios'
-  import { getCssVariable, getGreeting } from '@/utils/utils'
+  import { getCssVariable } from '@/utils/utils'
   import { LanguageEnum, SystemThemeEnum } from '@/enums/appEnum'
   import { useI18n } from 'vue-i18n'
+  const { t } = useI18n()
   import { useSettingStore } from '@/store/modules/setting'
+  import type { FormInstance, FormRules } from 'element-plus'
 
   const userStore = useUserStore()
   const router = useRouter()
@@ -133,10 +144,19 @@
   const isClickPass = ref(false)
 
   const systemName = SystemInfo.name
-  const username = ref(SystemInfo.login.username)
-  const password = ref(SystemInfo.login.password)
+  const formRef = ref<FormInstance>()
+  const formData = reactive({
+    username: SystemInfo.login.username,
+    password: SystemInfo.login.password,
+    rememberPassword: true
+  })
+
+  const rules = computed<FormRules>(() => ({
+    username: [{ required: true, message: t('login.placeholder[0]'), trigger: 'blur' }],
+    password: [{ required: true, message: t('login.placeholder[1]'), trigger: 'blur' }]
+  }))
+
   const loading = ref(false)
-  const rememberPassword = ref(true)
   const { width } = useWindowSize()
 
   const store = useSettingStore()
@@ -144,70 +164,49 @@
 
   const onPass = () => {}
 
-  const login = async () => {
-    if (!username.value) {
-      ElMessage.error('请输入账号')
-      return
-    }
+  const handleSubmit = async () => {
+    if (!formRef.value) return
 
-    if (!password.value) {
-      ElMessage.error('请输入密码')
-      return
-    }
+    await formRef.value.validate(async (valid) => {
+      if (valid) {
+        if (!isPassing.value) {
+          isClickPass.value = true
+          return
+        }
 
-    if (!isPassing.value) {
-      isClickPass.value = true
-      return
-    }
+        loading.value = true
+        try {
+          const res = await axios.post('/api/login', {
+            username: formData.username,
+            password: formData.password
+          })
 
-    loading.value = true
-
-    const params = {
-      username: username.value,
-      password: password.value
-    }
-
-    try {
-      // 模拟登录
-      const res = await axios.post('/api/login', params)
-      let { code, data } = res.data
-      if (code === ApiStatus.success) {
-        userStore.setUserInfo(data)
-        userStore.setLoginStatus(true)
-        showLoginSuccessNotice()
-        router.push(HOME_PAGE)
-      } else {
-        ElMessage.error(res.data.message)
+          let { code, data } = res.data
+          if (code === ApiStatus.success) {
+            userStore.setUserInfo(data)
+            userStore.setLoginStatus(true)
+            showLoginSuccessNotice()
+            router.push(HOME_PAGE)
+          } else {
+            ElMessage.error(res.data.message)
+          }
+        } finally {
+          loading.value = false
+        }
       }
-
-      // 封装 axios 登录，替换掉 .env 中的 VITE_API_URL 为你的 api 地址
-      // const res = await UserService.login(params);
-
-      // if (res.code === ApiStatus.success) {
-      //   const { token, data } = res;
-
-      //   if (token) {
-      //     const user = { ...data, token };
-      //     userStore.setUserInfo(user);
-      //     userStore.setLoginStatus(true);
-      //     router.push(HOME_PAGE); // 登录成功后跳转到主页
-      //   }
-      // }
-    } finally {
-      loading.value = false // 无论成功还是失败，都停止加载
-    }
+    })
   }
 
   // 登录成功提示
   const showLoginSuccessNotice = () => {
     setTimeout(() => {
       ElNotification({
-        title: getGreeting(),
+        title: t('login.success.title'),
         type: 'success',
         showClose: false,
         duration: 2500,
         zIndex: 10000,
-        message: `欢迎登录 ${systemName}`
+        message: `${t('login.success.message')}, ${systemName}!`
       })
     }, 300)
   }

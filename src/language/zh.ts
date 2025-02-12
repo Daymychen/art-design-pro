@@ -91,20 +91,17 @@ export default {
     title: '欢迎回来',
     subTitle: '输入您的账号和密码登录',
     placeholder: ['请输入账号', '请输入密码', '请拖动滑块完成验证'],
-    rule: [
-      '请再次输入密码',
-      '两次输入密码不一致!',
-      '长度在 3 到 20 个字符',
-      '密码长度不能小于6位',
-      '请同意隐私协议'
-    ],
     sliderText: '按住滑块拖动',
     sliderSuccessText: '验证成功',
     rememberPwd: '记住密码',
     forgetPwd: '忘记密码',
     btnText: '登录',
     noAccount: '还没有账号？',
-    register: '注册'
+    register: '注册',
+    success: {
+      title: '登录成功',
+      message: '欢迎回来'
+    }
   },
   forgetPassword: {
     title: '忘记密码？',
@@ -117,6 +114,13 @@ export default {
     title: '创建账号',
     subTitle: '欢迎加入我们，请填写以下信息完成注册',
     placeholder: ['请输入账号', '请输入密码', '请再次输入密码'],
+    rule: [
+      '请再次输入密码',
+      '两次输入密码不一致!',
+      '长度在 3 到 20 个字符',
+      '密码长度不能小于6位',
+      '请同意隐私协议'
+    ],
     agreeText: '我同意',
     privacyPolicy: '《隐私政策》',
     submitBtnText: '注册',
@@ -238,5 +242,11 @@ export default {
         services: '服务'
       }
     }
+  },
+  greeting: {
+    dawn: '凌晨了！',
+    morning: '上午好！',
+    afternoon: '下午好！',
+    evening: '晚上好！'
   }
 }

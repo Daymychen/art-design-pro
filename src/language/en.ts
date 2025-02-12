@@ -108,7 +108,11 @@ export default {
     forgetPwd: 'Forget password',
     btnText: 'Login',
     noAccount: 'No account yet?',
-    register: 'Register'
+    register: 'Register',
+    success: {
+      title: 'Login successful',
+      message: 'Welcome back'
+    }
   },
   forgetPassword: {
     title: 'Forget password?',
@@ -254,5 +258,11 @@ export default {
         services: 'Services'
       }
     }
+  },
+  greeting: {
+    dawn: 'Good morning!',
+    morning: 'Good morning!',
+    afternoon: 'Good afternoon!',
+    evening: 'Good evening!'
   }
 }
