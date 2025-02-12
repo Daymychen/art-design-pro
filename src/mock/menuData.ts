@@ -27,7 +27,6 @@ export const menuData: MenuListType[] = [
         meta: {
           title: '分析页',
           title_en: 'Analysis',
-          showTextBadge: 'Hot',
           keepAlive: true
         }
       }
@@ -158,7 +157,7 @@ export const menuData: MenuListType[] = [
           title: '礼花',
           title_en: 'Fireworks',
           keepAlive: true,
-          showTextBadge: 'New'
+          showTextBadge: 'Hot'
         }
       },
       {
@@ -169,7 +168,8 @@ export const menuData: MenuListType[] = [
           title_en: 'Element UI',
           keepAlive: false,
           link: 'https://element-plus.org/zh-CN/component/overview.html',
-          isIframe: true
+          isIframe: true,
+          showBadge: true
         }
       }
     ]
@@ -190,8 +190,7 @@ export const menuData: MenuListType[] = [
         meta: {
           title: '聊天',
           title_en: 'Chat',
-          keepAlive: true,
-          showTextBadge: 'New'
+          keepAlive: true
         }
       },
       {
@@ -200,8 +199,7 @@ export const menuData: MenuListType[] = [
         meta: {
           title: '卡片',
           title_en: 'Cards',
-          keepAlive: false,
-          showTextBadge: 'New'
+          keepAlive: false
         }
       },
       {
@@ -210,8 +208,7 @@ export const menuData: MenuListType[] = [
         meta: {
           title: '横幅',
           title_en: 'Banners',
-          keepAlive: false,
-          showTextBadge: 'New'
+          keepAlive: false
         }
       },
       {
@@ -220,8 +217,7 @@ export const menuData: MenuListType[] = [
         meta: {
           title: '图表',
           title_en: 'Charts',
-          keepAlive: false,
-          showTextBadge: 'New'
+          keepAlive: false
         }
       },
       {
@@ -230,8 +226,7 @@ export const menuData: MenuListType[] = [
         meta: {
           title: '日历',
           title_en: 'Calendar',
-          keepAlive: true,
-          showTextBadge: 'New'
+          keepAlive: true
         }
       },
 
@@ -241,8 +236,7 @@ export const menuData: MenuListType[] = [
         meta: {
           title: '定价',
           title_en: 'Pricing',
-          keepAlive: true,
-          showTextBadge: 'New'
+          keepAlive: true
         }
       }
     ]

@@ -1,5 +1,5 @@
 <template>
-  <div class="page-content" :style="{ height: minHeight }">
+  <div class="chat" :style="{ height: minHeight }">
     <el-row>
       <el-col :span="12">
         <div class="grid-content ep-bg-purple" />
@@ -9,6 +9,33 @@
       </el-col>
     </el-row>
     <div class="person-list">
+      <div class="person-item-header">
+        <div class="user-info">
+          <el-avatar :size="50" :src="selectedPerson?.avatar" />
+          <div class="user-details">
+            <div class="name custom-text">{{ selectedPerson?.name }}</div>
+            <div class="email custom-text">{{ selectedPerson?.email }}</div>
+          </div>
+        </div>
+        <div class="search-box">
+          <el-input v-model="searchQuery" placeholder="搜索联系人" prefix-icon="Search" clearable />
+        </div>
+        <el-dropdown trigger="click" placement="bottom-start">
+          <span class="sort-btn">
+            排序方式
+            <el-icon class="el-icon--right">
+              <arrow-down />
+            </el-icon>
+          </span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item>按时间排序</el-dropdown-item>
+              <el-dropdown-item>按名称排序</el-dropdown-item>
+              <el-dropdown-item>全部标为已读</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+      </div>
       <el-scrollbar>
         <div
           v-for="item in personList"
@@ -25,7 +52,7 @@
           </div>
           <div class="person-info">
             <div class="info-top">
-              <span class="person-name">{{ item.name }}</span>
+              <span class="person-name custom-text">{{ item.name }}</span>
               <span class="last-time">{{ item.lastTime }}</span>
             </div>
             <div class="info-bottom">
@@ -58,7 +85,7 @@
                   <span class="sender-name">{{ message.sender }}</span>
                   <span class="message-time">{{ message.time }}</span>
                 </div>
-                <div class="message-text">{{ message.content }}</div>
+                <div class="message-text custom-text">{{ message.content }}</div>
               </div>
             </div>
           </template>
@@ -101,7 +128,18 @@
   import mittBus from '@/utils/mittBus'
   import meAvatar from '@/assets/img/avatar/avatar5.jpg'
   import aiAvatar from '@/assets/img/avatar/avatar10.jpg'
+  import avatar2 from '@/assets/img/avatar/avatar2.jpg'
+  import avatar3 from '@/assets/img/avatar/avatar3.jpg'
+  import avatar4 from '@/assets/img/avatar/avatar4.jpg'
+  import avatar5 from '@/assets/img/avatar/avatar5.jpg'
+  import avatar6 from '@/assets/img/avatar/avatar6.jpg'
+  import avatar7 from '@/assets/img/avatar/avatar7.jpg'
+  import avatar8 from '@/assets/img/avatar/avatar8.jpg'
+  import avatar9 from '@/assets/img/avatar/avatar9.jpg'
+  import avatar10 from '@/assets/img/avatar/avatar10.jpg'
   import { useSettingStore } from '@/store/modules/setting'
+
+  const searchQuery = ref('')
 
   // 抽屉显示状态
   const isDrawerVisible = ref(false)
@@ -137,7 +175,7 @@
       id: 2,
       name: '马克·史密斯',
       email: 'max@kt.com',
-      avatar: '',
+      avatar: avatar2,
       online: true,
       lastTime: '2周前',
       unread: 6
@@ -146,7 +184,7 @@
       id: 3,
       name: '肖恩·宾',
       email: 'sean@dellito.com',
-      avatar: '',
+      avatar: avatar3,
       online: false,
       lastTime: '5小时前',
       unread: 5
@@ -155,7 +193,7 @@
       id: 4,
       name: '爱丽丝·约翰逊',
       email: 'alice@domain.com',
-      avatar: '',
+      avatar: avatar4,
       online: true,
       lastTime: '1小时前',
       unread: 2
@@ -164,7 +202,7 @@
       id: 5,
       name: '鲍勃·布朗',
       email: 'bob@domain.com',
-      avatar: '',
+      avatar: avatar5,
       online: false,
       lastTime: '3天前',
       unread: 1
@@ -173,7 +211,7 @@
       id: 6,
       name: '查理·戴维斯',
       email: 'charlie@domain.com',
-      avatar: '',
+      avatar: avatar6,
       online: true,
       lastTime: '10分钟前',
       unread: 0
@@ -182,7 +220,7 @@
       id: 7,
       name: '戴安娜·普林斯',
       email: 'diana@domain.com',
-      avatar: '',
+      avatar: avatar7,
       online: true,
       lastTime: '15分钟前',
       unread: 3
@@ -191,7 +229,7 @@
       id: 8,
       name: '伊桑·亨特',
       email: 'ethan@domain.com',
-      avatar: '',
+      avatar: avatar8,
       online: true,
       lastTime: '5分钟前',
       unread: 0
@@ -200,7 +238,7 @@
       id: 9,
       name: '杰西卡·琼斯',
       email: 'jessica@domain.com',
-      avatar: '',
+      avatar: avatar9,
       online: false,
       lastTime: '1天前',
       unread: 4
@@ -209,7 +247,7 @@
       id: 10,
       name: '彼得·帕克',
       email: 'peter@domain.com',
-      avatar: '',
+      avatar: avatar10,
       online: true,
       lastTime: '2小时前',
       unread: 1
@@ -218,7 +256,7 @@
       id: 11,
       name: '克拉克·肯特',
       email: 'clark@domain.com',
-      avatar: '',
+      avatar: avatar3,
       online: true,
       lastTime: '30分钟前',
       unread: 2
@@ -227,7 +265,7 @@
       id: 12,
       name: '布鲁斯·韦恩',
       email: 'bruce@domain.com',
-      avatar: '',
+      avatar: avatar5,
       online: false,
       lastTime: '3天前',
       unread: 0
@@ -236,28 +274,10 @@
       id: 13,
       name: '韦德·威尔逊',
       email: 'wade@domain.com',
-      avatar: '',
+      avatar: avatar6,
       online: true,
       lastTime: '10分钟前',
       unread: 5
-    },
-    {
-      id: 14,
-      name: '娜塔莎·罗曼诺夫',
-      email: 'natasha@domain.com',
-      avatar: '',
-      online: true,
-      lastTime: '1小时前',
-      unread: 3
-    },
-    {
-      id: 15,
-      name: '托尼·斯塔克',
-      email: 'tony@domain.com',
-      avatar: '',
-      online: false,
-      lastTime: '2周前',
-      unread: 0
     }
   ])
 
@@ -381,6 +401,8 @@
   onMounted(() => {
     scrollToBottom()
     mittBus.on('openChat', openChat)
+
+    selectedPerson.value = personList.value[0]
   })
 </script>
 
@@ -393,18 +415,52 @@
 </style>
 
 <style lang="scss" scoped>
-  .page-content {
+  .chat {
     display: flex;
+    overflow: hidden;
+    background-color: var(--art-main-bg-color);
+    border: 1px solid var(--art-border-color);
+    border-radius: 10px;
 
     .person-list {
       box-sizing: border-box;
       width: 360px;
       height: 100%;
       padding: 20px;
-      margin-right: 20px;
-      background-color: var(--art-main-bg-color);
-      border: 1px solid var(--art-border-color);
-      border-radius: 6px;
+      border-right: 1px solid var(--art-border-color);
+
+      .person-item-header {
+        padding-bottom: 20px;
+
+        .user-info {
+          display: flex;
+          gap: 12px;
+          align-items: center;
+
+          .user-details {
+            .name {
+              font-size: 16px;
+              font-weight: 500;
+              color: var(--art-gray-900);
+            }
+
+            .email {
+              margin-top: 4px;
+              font-size: 13px;
+              color: var(--art-gray-500);
+            }
+          }
+        }
+
+        .search-box {
+          margin-top: 12px;
+        }
+
+        .sort-btn {
+          margin-top: 20px;
+          cursor: pointer;
+        }
+      }
 
       .person-item {
         display: flex;
@@ -487,9 +543,6 @@
       box-sizing: border-box;
       flex: 1;
       height: 100%;
-      background-color: var(--art-main-bg-color);
-      border: 1px solid var(--art-border-color);
-      border-radius: 6px;
     }
 
     .header {
@@ -579,7 +632,7 @@
               }
 
               .message-text {
-                background-color: #f8f5ff;
+                background-color: var(--art-gray-200);
               }
             }
           }
@@ -596,6 +649,7 @@
 
               .message-text {
                 background-color: #e9f3ff;
+                background-color: rgb(var(--art-bg-secondary));
               }
             }
           }
@@ -669,38 +723,21 @@
   }
 
   @media only screen and (max-width: $device-ipad-pro) {
-    .page-content {
+    .chat {
       flex-direction: column;
 
       .person-list {
         width: 100%;
-        height: 30%;
-        margin-right: 0;
+        height: 170px;
+        border-right: none;
+
+        .person-item-header {
+          display: none;
+        }
       }
 
       .chat-modal {
         height: calc(70% - 30px);
-        margin-top: 20px;
-      }
-    }
-  }
-
-  .dark {
-    .chat-container {
-      .chat-messages {
-        .message-item {
-          &.message-left {
-            .message-text {
-              background-color: #232323 !important;
-            }
-          }
-
-          &.message-right {
-            .message-text {
-              background-color: #182331 !important;
-            }
-          }
-        }
       }
     }
   }
