@@ -110,6 +110,26 @@
       </el-col>
     </el-row>
 
+    <h1 class="page-title">数据列表卡片</h1>
+    <el-row :gutter="20">
+      <el-col :xs="24" :sm="12" :lg="8">
+        <DataListCard :list="dataList" title="待办事项" subtitle="今日待处理任务" />
+      </el-col>
+      <el-col :xs="24" :sm="12" :lg="8">
+        <DataListCard
+          :maxCount="4"
+          :list="dataList"
+          title="最近活动"
+          subtitle="近期活动列表"
+          :showMoreButton="true"
+          @more="handleMore"
+        />
+      </el-col>
+      <el-col :xs="24" :sm="12" :lg="8">
+        <TimelineListCard :list="timelineData" title="最近交易" subtitle="2024年12月20日" />
+      </el-col>
+    </el-row>
+
     <h1 class="page-title">图片卡片</h1>
     <el-row :gutter="20">
       <el-col :xs="24" :sm="12" :md="6" v-for="card in imageCards" :key="card.id">
@@ -273,6 +293,82 @@
       date: '12月22日 周四'
     }
   ]
+
+  const dataList = [
+    {
+      title: '新加坡之行',
+      status: '进行中',
+      time: '5分钟',
+      class: 'bg-primary',
+      icon: '&#xe6f2;'
+    },
+    {
+      title: '归档数据',
+      status: '进行中',
+      time: '10分钟',
+      class: 'bg-secondary',
+      icon: '&#xe806;'
+    },
+    {
+      title: '客户会议',
+      status: '待处理',
+      time: '15分钟',
+      class: 'bg-warning',
+      icon: '&#xe6fb;'
+    },
+    {
+      title: '筛选任务团队',
+      status: '进行中',
+      time: '20分钟',
+      class: 'bg-danger',
+      icon: '&#xe813;'
+    },
+    {
+      title: '发送信封给小王',
+      status: '已完成',
+      time: '20分钟',
+      class: 'bg-success',
+      icon: '&#xe70c;'
+    }
+  ]
+
+  const timelineData = [
+    {
+      time: '上午 09:30',
+      status: 'rgb(73, 190, 255)',
+      content: '收到 John Doe 支付的 385.90 美元'
+    },
+    {
+      time: '上午 10:00',
+      status: 'rgb(54, 158, 255)',
+      content: '新销售记录',
+      code: 'ML-3467'
+    },
+    {
+      time: '上午 12:00',
+      status: 'rgb(103, 232, 207)',
+      content: '向 Michael 支付了 64.95 美元'
+    },
+    {
+      time: '下午 14:30',
+      status: 'rgb(255, 193, 7)',
+      content: '系统维护通知',
+      code: 'MT-2023'
+    },
+    {
+      time: '下午 15:45',
+      status: 'rgb(255, 105, 105)',
+      content: '紧急订单取消提醒',
+      code: 'OR-9876'
+    },
+    {
+      time: '下午 17:00',
+      status: 'rgb(103, 232, 207)',
+      content: '完成每日销售报表'
+    }
+  ]
+
+  const handleMore = () => {}
 </script>
 
 <style lang="scss" scoped>
