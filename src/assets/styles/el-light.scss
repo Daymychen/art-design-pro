@@ -29,12 +29,11 @@
     //
     'border-radius': '12px'
   ),
-  // $dropdown: ( //
-  //   'menu-box-shadow': getCssVar('box-shadow-light'),
-  //   'menuItem-hover-fill': 'var(--art-gray-200)',
-  //   'menuItem-hover-color': 'red', // 文字颜色
-  //   'menu-index': 10,
-   // ),
+  $popover: (
+    //
+    'padding': '14px',
+    'border-radius': '10px'
+  )
 );
 
 @use 'element-plus/theme-chalk/src/index.scss' as *;

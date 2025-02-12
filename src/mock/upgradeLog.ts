@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v2.0.3',
+    title: 'Element UI 组件箭头样式修复',
+    date: '2025-02-12',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v2.0.2',
     title: 'Element UI select、dialog、message-box、dropdown 组件样式优化',
     date: '2025-02-11',

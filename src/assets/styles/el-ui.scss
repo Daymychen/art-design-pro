@@ -77,13 +77,14 @@
   }
 }
 
-.el-popper {
+// 隐藏 select、dropdown 的三角
+.el-select__popper,
+.el-dropdown__popper {
   margin-top: -6px !important;
-}
 
-// 隐藏三角
-.el-popper__arrow {
-  display: none;
+  .el-popper__arrow {
+    display: none;
+  }
 }
 
 .el-dropdown-selfdefine:focus {
