@@ -664,7 +664,7 @@ function setWorktab(to: RouteLocationNormalized) {
         })
       }
     } else {
-      if (settingStore.showWorkTab) {
+      if (settingStore.showWorkTab || path === HOME_PAGE) {
         worktabStore.router({
           title: title as string,
           title_en: title_en as string,

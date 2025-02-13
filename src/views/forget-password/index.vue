@@ -36,7 +36,7 @@
           </div>
 
           <div style="margin-top: 15px">
-            <el-button style="width: 100%" size="large" plain @click="toLogin">
+            <el-button style="width: 100%; height: 46px" size="large" plain @click="toLogin">
               {{ $t('forgetPassword.backBtnText') }}
             </el-button>
           </div>
