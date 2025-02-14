@@ -48,7 +48,6 @@
               <el-checkbox v-model="formData.agreement">
                 {{ $t('register.agreeText') }}
                 <router-link
-                  class="custom-text"
                   style="color: var(--main-color); text-decoration: none"
                   to="/privacy-policy"
                   >{{ $t('register.privacyPolicy') }}</router-link
@@ -71,9 +70,7 @@
             <div class="footer">
               <p>
                 {{ $t('register.hasAccount') }}
-                <router-link class="custom-text" to="/login">{{
-                  $t('register.toLogin')
-                }}</router-link>
+                <router-link to="/login">{{ $t('register.toLogin') }}</router-link>
               </p>
             </div>
           </el-form>

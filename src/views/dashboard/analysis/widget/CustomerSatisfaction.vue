@@ -1,7 +1,7 @@
 <template>
   <div class="custom-card art-custom-card customer-satisfaction">
     <div class="custom-card-header">
-      <span class="title custom-text">{{ t('analysis.customerSatisfaction.title') }}</span>
+      <span class="title">{{ t('analysis.customerSatisfaction.title') }}</span>
     </div>
     <div class="custom-card-body">
       <div ref="chartRef" style="height: 300px; margin-top: 10px"></div>

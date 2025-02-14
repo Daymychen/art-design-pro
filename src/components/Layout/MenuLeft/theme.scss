@@ -15,7 +15,7 @@
 
     .el-sub-menu__title:hover,
     .el-menu-item:hover {
-      background-color: rgb(0 0 0 / 5%) !important;
+      background-color: var(--art-gray-200) !important;
       border-radius: 6px;
     }
 
@@ -26,6 +26,55 @@
 
       &:last-of-type {
         margin-bottom: 0;
+      }
+    }
+
+    .el-menu-item.is-active {
+      color: var(--art-gray-900) !important;
+      background-color: var(--art-gray-200) !important;
+    }
+  }
+}
+
+// 菜单折叠 hover 弹窗样式（黑色菜单）
+.menu-left-dark-popper {
+  .el-menu--vertical,
+  .el-menu--popup-container {
+    .el-menu--popup {
+      .el-sub-menu__title:hover,
+      .el-menu-item:hover {
+        background-color: rgb(255 255 255 / 8%) !important;
+      }
+
+      .el-menu-item.is-active {
+        color: #eee !important;
+        background-color: rgb(255 255 255 / 8%) !important;
+      }
+    }
+  }
+}
+
+.menu-left-dark {
+  // 菜单折叠 hover 弹窗样式
+  .el-menu--vertical,
+  .el-menu--popup-container {
+    .el-menu--popup {
+      padding: 8px;
+
+      .el-sub-menu__title:hover,
+      .el-menu-item:hover {
+        background-color: red !important;
+        border-radius: 6px;
+      }
+
+      .el-menu-item {
+        height: 40px;
+        margin-bottom: 10px;
+        border-radius: 6px;
+
+        &:last-of-type {
+          margin-bottom: 0;
+        }
       }
     }
   }
@@ -133,7 +182,7 @@
     }
   }
 
-  .el-menu-dark.el-menu--collapse {
+  .el-menu--collapse {
     .el-sub-menu.is-active {
       .el-sub-menu__title {
         .iconfont-sys {

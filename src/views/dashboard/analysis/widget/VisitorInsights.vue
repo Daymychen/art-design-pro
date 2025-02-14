@@ -1,7 +1,7 @@
 <template>
   <div class="custom-card art-custom-card visitor-insights">
     <div class="custom-card-header">
-      <span class="title custom-text">{{ t('analysis.visitorInsights.title') }}</span>
+      <span class="title">{{ t('analysis.visitorInsights.title') }}</span>
     </div>
     <div class="card-body">
       <div ref="chartRef" style="height: 250px"></div>

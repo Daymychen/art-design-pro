@@ -1,7 +1,7 @@
 <template>
   <div class="page-content success">
-    <i class="iconfont-sys icon custom-text">&#xe617;</i>
-    <h1 class="title custom-text">提交成功</h1>
+    <i class="iconfont-sys icon">&#xe617;</i>
+    <h1 class="title">提交成功</h1>
     <p class="msg"
       >提交结果页用于反馈一系列操作任务的处理结果，如果仅是简单操作，使用 Message
       全局提示反馈即可。灰色区域可以显示一些补充的信息。</p

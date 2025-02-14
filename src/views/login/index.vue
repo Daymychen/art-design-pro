@@ -91,9 +91,7 @@
               <el-checkbox v-model="formData.rememberPassword">{{
                 $t('login.rememberPwd')
               }}</el-checkbox>
-              <router-link class="custom-text" to="/forget-password">{{
-                $t('login.forgetPwd')
-              }}</router-link>
+              <router-link to="/forget-password">{{ $t('login.forgetPwd') }}</router-link>
             </div>
 
             <div style="margin-top: 30px">
@@ -111,9 +109,7 @@
             <div class="footer">
               <p>
                 {{ $t('login.noAccount') }}
-                <router-link class="custom-text" to="/register">{{
-                  $t('login.register')
-                }}</router-link>
+                <router-link to="/register">{{ $t('login.register') }}</router-link>
               </p>
             </div>
           </el-form>

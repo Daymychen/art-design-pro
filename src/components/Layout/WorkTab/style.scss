@@ -34,7 +34,7 @@
         transition: color 0.1s;
 
         &:hover {
-          color: var(--main-color);
+          color: var(--main-color) !important;
           transition: color 0.2s;
         }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="custom-card art-custom-card total-revenue">
     <div class="custom-card-header">
-      <span class="title custom-text">{{ t('analysis.totalRevenue.title') }}</span>
+      <span class="title">{{ t('analysis.totalRevenue.title') }}</span>
     </div>
     <div class="custom-card-body">
       <div ref="chartRef" style="height: 300px"></div>

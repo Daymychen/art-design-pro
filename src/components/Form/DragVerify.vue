@@ -16,7 +16,7 @@
       :style="progressBarStyle"
     >
     </div>
-    <div class="dv_text custom-text" :style="textStyle" ref="messageRef">
+    <div class="dv_text" :style="textStyle" ref="messageRef">
       <slot name="textBefore" v-if="$slots.textBefore"></slot>
       {{ message }}
       <slot name="textAfter" v-if="$slots.textAfter"></slot>

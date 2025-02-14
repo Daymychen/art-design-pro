@@ -2,8 +2,8 @@
   <div class="timeline-list-card">
     <div class="art-card art-custom-card">
       <div class="card-header">
-        <p class="card-title custom-text">{{ title }}</p>
-        <p class="card-subtitle custom-text">{{ subtitle }}</p>
+        <p class="card-title">{{ title }}</p>
+        <p class="card-subtitle">{{ subtitle }}</p>
       </div>
       <el-scrollbar :style="{ height: maxHeight }">
         <el-timeline>

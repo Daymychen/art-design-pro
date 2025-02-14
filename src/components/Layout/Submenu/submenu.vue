@@ -27,7 +27,7 @@
       <template #title>
         <span class="menu-name">{{ getMenuTitle(item) }}</span>
         <div v-if="item.meta.showBadge" class="badge" />
-        <div v-if="item.meta.showTextBadge" class="text-badge custom-text">
+        <div v-if="item.meta.showTextBadge" class="text-badge">
           {{ item.meta.showTextBadge }}
         </div>
       </template>

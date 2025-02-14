@@ -272,7 +272,7 @@
               right: 5px;
               padding: 5px 4px;
               font-size: 12px;
-              color: var(--art-gray-300);
+              color: rgba(#fff, 0.8);
               background: rgba($color: #000, $alpha: 60%);
               border-radius: 4px;
             }
@@ -309,6 +309,7 @@
 
                 span {
                   font-size: 13px;
+                  color: var(--art-gray-600);
                 }
 
                 .line {

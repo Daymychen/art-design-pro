@@ -179,6 +179,7 @@
           h3 {
             margin-bottom: 10px;
             font-size: 1.3rem;
+            color: var(--art-text-gray-900) !important;
           }
 
           .description {
@@ -188,7 +189,7 @@
             margin-bottom: 20px;
             overflow: hidden;
             font-size: 14px;
-            color: #666;
+            color: var(--art-text-gray-600);
             text-overflow: ellipsis;
             border-bottom: 1px solid var(--art-border-color);
             -webkit-box-orient: vertical;
@@ -205,7 +206,7 @@
             .period {
               margin-left: 10px;
               font-size: 14px;
-              color: #666;
+              color: var(--art-text-gray-600);
             }
           }
         }

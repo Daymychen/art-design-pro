@@ -3,30 +3,22 @@
   <div class="stats-card art-custom-card" :style="{ backgroundColor: backgroundColor }">
     <div class="stats-card__icon" :style="{ backgroundColor: iconBgColor }">
       <i
-        class="iconfont-sys custom-text"
+        class="iconfont-sys"
         v-html="icon"
         :style="{ color: iconColor, fontSize: iconSize + 'px' }"
       ></i>
     </div>
     <div class="stats-card__content">
-      <p class="stats-card__title custom-text" :style="{ color: textColor }" v-if="title">
+      <p class="stats-card__title" :style="{ color: textColor }" v-if="title">
         {{ title }}
       </p>
-      <CountTo
-        v-if="count"
-        class="stats-card__count custom-text"
-        :endVal="count"
-        :duration="1000"
-      ></CountTo>
-      <p
-        class="stats-card__description custom-text"
-        :style="{ color: textColor }"
-        v-if="description"
-        >{{ description }}</p
-      >
+      <CountTo v-if="count" class="stats-card__count" :endVal="count" :duration="1000"></CountTo>
+      <p class="stats-card__description" :style="{ color: textColor }" v-if="description">{{
+        description
+      }}</p>
     </div>
     <div class="stats-card__arrow" v-if="showArrow">
-      <i class="iconfont-sys custom-text">&#xe703;</i>
+      <i class="iconfont-sys">&#xe703;</i>
     </div>
   </div>
 </template>

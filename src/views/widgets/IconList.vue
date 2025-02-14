@@ -17,17 +17,12 @@
       <ul class="icon-list">
         <li v-for="icon in systemIconClasses" :key="icon.className" @click="copyIcon(icon)">
           <i
-            class="iconfont-sys custom-text"
+            class="iconfont-sys"
             v-if="iconType === 'unicode'"
             v-html="icon.unicode"
             :style="getIconStyle()"
           ></i>
-          <i
-            class="custom-text"
-            :class="`iconfont-sys ${icon.className}`"
-            v-else
-            :style="getIconStyle()"
-          ></i>
+          <i :class="`iconfont-sys ${icon.className}`" v-else :style="getIconStyle()"></i>
           <span>{{ iconType === 'unicode' ? icon.unicode : icon.className }}</span>
         </li>
       </ul>

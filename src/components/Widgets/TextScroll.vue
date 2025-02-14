@@ -2,7 +2,7 @@
 <template>
   <div ref="containerRef" class="text-scroll-container" :class="[`text-scroll--${props.type}`]">
     <div class="left-icon">
-      <i class="iconfont-sys custom-text">&#xe64a;</i>
+      <i class="iconfont-sys">&#xe64a;</i>
     </div>
     <div class="scroll-wrapper">
       <div
@@ -11,12 +11,12 @@
         :style="scrollStyle"
         ref="scrollContent"
       >
-        <div class="scroll-item custom-text" v-html="sanitizedContent"></div>
-        <div class="scroll-item custom-text" v-html="sanitizedContent"></div>
+        <div class="scroll-item" v-html="sanitizedContent"></div>
+        <div class="scroll-item" v-html="sanitizedContent"></div>
       </div>
     </div>
     <div class="right-icon" @click="handleRightIconClick" v-if="showClose">
-      <i class="iconfont-sys custom-text">&#xe83a;</i>
+      <i class="iconfont-sys">&#xe83a;</i>
     </div>
   </div>
 </template>

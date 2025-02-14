@@ -4,7 +4,7 @@
       <div class="left">
         <i
           v-if="icon"
-          class="iconfont-sys custom-text"
+          class="iconfont-sys"
           v-html="icon"
           :style="{
             color: iconColor,
@@ -16,13 +16,13 @@
       <div class="right">
         <CountTo
           :key="percentage"
-          class="percentage custom-text"
+          class="percentage"
           :style="{ textAlign: icon ? 'right' : 'left' }"
           :endVal="percentage"
           :duration="2000"
           suffix="%"
         />
-        <p class="title custom-text">{{ title }}</p>
+        <p class="title">{{ title }}</p>
       </div>
     </div>
     <el-progress

@@ -1,7 +1,7 @@
 <template>
   <div class="custom-card art-custom-card top-products">
     <div class="custom-card-header">
-      <span class="title custom-text">{{ t('analysis.topProducts.title') }}</span>
+      <span class="title">{{ t('analysis.topProducts.title') }}</span>
     </div>
     <div class="custom-card-body">
       <art-table :data="products" style="width: 100%" :pagination="false">

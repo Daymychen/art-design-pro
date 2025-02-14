@@ -1,7 +1,7 @@
 <template>
   <div class="custom-card art-custom-card today-sales">
     <div class="custom-card-header">
-      <span class="title custom-text">{{ t('analysis.todaySales.title') }}</span>
+      <span class="title">{{ t('analysis.todaySales.title') }}</span>
       <span class="subtitle">{{ t('analysis.todaySales.subtitle') }}</span>
       <div class="export-btn">
         <i class="iconfont-sys">&#xe6d1;</i>
@@ -12,10 +12,10 @@
       <el-row :gutter="20">
         <el-col :span="6" :xs="24" v-for="(item, index) in salesData" :key="index">
           <div :class="['sales-card art-custom-card']">
-            <i class="iconfont-sys custom-text" :class="item.class" v-html="item.iconfont"></i>
+            <i class="iconfont-sys" :class="item.class" v-html="item.iconfont"></i>
             <h2>
               <CountTo
-                class="number custom-text box-title"
+                class="number box-title"
                 :endVal="item.value"
                 :duration="1000"
                 separator=""
@@ -79,7 +79,7 @@
       justify-content: center;
       min-width: 66px;
       padding: 6px 0;
-      color: var(--art-text-gray-600);
+      color: var(--art-gray-600);
       cursor: pointer;
       border: 1px solid var(--art-border-dashed-color);
       border-radius: 6px;

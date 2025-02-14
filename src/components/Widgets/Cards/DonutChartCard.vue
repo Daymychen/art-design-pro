@@ -3,10 +3,10 @@
     <div class="card-body">
       <div class="card-content">
         <div class="data-section">
-          <p class="title custom-text">{{ title }}</p>
+          <p class="title">{{ title }}</p>
           <div>
-            <p class="value custom-text">{{ formatNumber(value) }}</p>
-            <div class="percentage custom-text" :class="{ 'is-increase': percentage > 0 }">
+            <p class="value">{{ formatNumber(value) }}</p>
+            <div class="percentage" :class="{ 'is-increase': percentage > 0 }">
               {{ percentage > 0 ? '+' : '' }}{{ percentage }}% 较去年
             </div>
           </div>

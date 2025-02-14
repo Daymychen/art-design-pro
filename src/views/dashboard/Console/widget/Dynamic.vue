@@ -2,8 +2,8 @@
   <div class="region dynamic art-custom-card">
     <div class="card-header">
       <div class="title">
-        <h4 class="custom-text box-title">动态</h4>
-        <p class="custom-text subtitle">新增<span class="text-success">+6</span></p>
+        <h4 class="box-title">动态</h4>
+        <p class="subtitle">新增<span class="text-success">+6</span></p>
       </div>
     </div>
 

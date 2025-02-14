@@ -26,7 +26,7 @@
 
     <el-dialog title="选择图标" width="40%" v-model="visible" align-center>
       <el-scrollbar height="400px">
-        <ul v-show="activeName === 'icons'">
+        <ul class="icons-list" v-show="activeName === 'icons'">
           <li v-for="icon in iconsList" :key="icon.className" @click="selectorIcon(icon)">
             <i
               :class="`iconfont-sys ${icon.className}`"
@@ -213,7 +213,7 @@
       }
     }
 
-    ul {
+    .icons-list {
       display: grid;
       grid-template-columns: repeat(10, 1fr);
       border-top: 1px solid var(--art-border-color);
@@ -237,7 +237,7 @@
 
         i {
           font-size: 22px;
-          color: #000;
+          color: var(--art-gray-800);
         }
       }
     }

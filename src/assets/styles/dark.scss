@@ -59,14 +59,16 @@ html.dark {
     filter: brightness(0.8) saturate(1.25);
   }
 
-  /* 让非 el- 开头的元素继承全局颜色、以及 pre code 元素的颜色 */
-  [class]:not([class^='el-']):not(pre code *):not(.custom-text) {
-    color: inherit !important;
+  .editor-wrapper {
+    *:not(pre code *) {
+      color: inherit !important;
+    }
   }
 
-  // 让自定义class继承原来的背景色
-  [class*='custom-bg'] {
-    background-color: inherit !important;
+  .img-cutter {
+    *:not([class^='el-']) {
+      color: inherit !important;
+    }
   }
 
   // ✅ 左侧菜单样式
@@ -179,6 +181,17 @@ html.dark {
     .w-e-modal {
       background-color: var(--art-color);
     }
+  }
+
+  // 工作台标签文字颜色
+  .worktab .scroll-view .tabs li {
+    color: var(--art-text-gray-800) !important;
+  }
+
+  // 顶部按钮文字颜色
+  .top-bar .btn-box .btn i,
+  .fast-enter-trigger .btn i {
+    color: var(--art-text-gray-700) !important;
   }
 }
 

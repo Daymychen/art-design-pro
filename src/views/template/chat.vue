@@ -13,8 +13,8 @@
         <div class="user-info">
           <el-avatar :size="50" :src="selectedPerson?.avatar" />
           <div class="user-details">
-            <div class="name custom-text">{{ selectedPerson?.name }}</div>
-            <div class="email custom-text">{{ selectedPerson?.email }}</div>
+            <div class="name">{{ selectedPerson?.name }}</div>
+            <div class="email">{{ selectedPerson?.email }}</div>
           </div>
         </div>
         <div class="search-box">
@@ -52,7 +52,7 @@
           </div>
           <div class="person-info">
             <div class="info-top">
-              <span class="person-name custom-text">{{ item.name }}</span>
+              <span class="person-name">{{ item.name }}</span>
               <span class="last-time">{{ item.lastTime }}</span>
             </div>
             <div class="info-bottom">
@@ -85,7 +85,7 @@
                   <span class="sender-name">{{ message.sender }}</span>
                   <span class="message-time">{{ message.time }}</span>
                 </div>
-                <div class="message-text custom-text">{{ message.content }}</div>
+                <div class="message-text">{{ message.content }}</div>
               </div>
             </div>
           </template>
@@ -580,7 +580,7 @@
 
           .status-text {
             font-size: 12px;
-            color: var(--art-gray-500);
+            color: var(--art-gray-600);
           }
         }
       }

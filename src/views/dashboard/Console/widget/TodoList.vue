@@ -2,15 +2,15 @@
   <div class="region todo-list art-custom-card">
     <div class="card-header">
       <div class="title">
-        <h4 class="custom-text box-title">代办事项</h4>
-        <p class="custom-text subtitle">待处理<span class="text-danger">3</span></p>
+        <h4 class="box-title">代办事项</h4>
+        <p class="subtitle">待处理<span class="text-danger">3</span></p>
       </div>
     </div>
 
     <div class="list">
       <div v-for="(item, index) in list" :key="index">
         <p class="title">{{ item.username }}</p>
-        <p class="date custom-text subtitle">{{ item.date }}</p>
+        <p class="date subtitle">{{ item.date }}</p>
         <el-checkbox v-model="item.complate" />
       </div>
     </div>

@@ -1,23 +1,18 @@
 <template>
   <ul class="card-list" :style="{ marginTop: showWorkTab ? '0' : '10px' }">
     <li class="art-custom-card" v-for="(item, index) in dataList" :key="index">
-      <span class="des custom-text subtitle">{{ item.des }}</span>
-      <CountTo
-        class="number custom-text box-title"
-        :endVal="item.num"
-        :duration="1000"
-        separator=""
-      ></CountTo>
+      <span class="des subtitle">{{ item.des }}</span>
+      <CountTo class="number box-title" :endVal="item.num" :duration="1000" separator=""></CountTo>
       <div class="change-box">
         <span class="change-text">较上周</span>
         <span
-          class="change custom-text"
+          class="change"
           :class="[item.change.indexOf('+') === -1 ? 'text-danger' : 'text-success']"
         >
           {{ item.change }}
         </span>
       </div>
-      <i class="iconfont-sys custom-text" v-html="item.icon"></i>
+      <i class="iconfont-sys" v-html="item.icon"></i>
     </li>
   </ul>
 </template>

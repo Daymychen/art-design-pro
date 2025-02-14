@@ -29,11 +29,7 @@
             @click="handleAppClick(app.path)"
           >
             <div class="app-icon">
-              <i
-                class="iconfont-sys custom-text"
-                v-html="app.icon"
-                :style="{ color: app.iconColor }"
-              ></i>
+              <i class="iconfont-sys" v-html="app.icon" :style="{ color: app.iconColor }"></i>
             </div>
             <div class="app-info">
               <h3>{{ app.name }}</h3>

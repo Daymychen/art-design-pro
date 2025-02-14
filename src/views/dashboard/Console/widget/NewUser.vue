@@ -2,8 +2,8 @@
   <div class="region new-user art-custom-card">
     <div class="card-header">
       <div class="title">
-        <h4 class="custom-text box-title">新用户</h4>
-        <p class="custom-text subtitle">这个月增长<span class="text-success">+20%</span></p>
+        <h4 class="box-title">新用户</h4>
+        <p class="subtitle">这个月增长<span class="text-success">+20%</span></p>
       </div>
       <el-radio-group v-model="radio2">
         <el-radio-button value="本月" label="本月"></el-radio-button>

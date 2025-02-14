@@ -1,7 +1,7 @@
 <template>
   <div class="custom-card art-custom-card sales-mapping-country">
     <div class="custom-card-header">
-      <span class="title custom-text">{{ t('analysis.salesMappingCountry.title') }}</span>
+      <span class="title">{{ t('analysis.salesMappingCountry.title') }}</span>
     </div>
     <div class="custom-card-body">
       <div ref="chartRef" class="sales-mapping-chart"></div>

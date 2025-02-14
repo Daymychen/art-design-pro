@@ -1,9 +1,6 @@
 <!-- 表格按钮，支持文字和图标 -->
 <template>
-  <div
-    :class="['btn-text custom-text', `btn-${props.type}`, useColor ? buttonColor : '']"
-    @click="handleClick"
-  >
+  <div :class="['btn-text', `btn-${props.type}`, useColor ? buttonColor : '']" @click="handleClick">
     <i v-if="props.type" class="iconfont-sys" v-html="getIcon(props.type)"></i>
     <span v-if="props.text">{{ props.text }}</span>
   </div>

@@ -5,20 +5,20 @@
         <img :src="props.icon" :alt="props.title" />
       </div>
       <div class="banner-text">
-        <p class="banner-title custom-text">{{ props.title }}</p>
-        <p class="banner-description custom-text">{{ props.description }}</p>
+        <p class="banner-title">{{ props.title }}</p>
+        <p class="banner-description">{{ props.description }}</p>
       </div>
       <div class="banner-buttons">
         <div
           v-if="showCancel"
-          class="banner-button custom-text cancel-button"
+          class="banner-button cancel-button"
           :style="{ backgroundColor: cancelButtonColor, color: cancelButtonTextColor }"
           @click="handleCancel"
         >
           {{ cancelButtonText }}
         </div>
         <div
-          class="banner-button custom-text"
+          class="banner-button"
           :style="{ backgroundColor: buttonColor, color: buttonTextColor }"
           @click="handleClick"
         >

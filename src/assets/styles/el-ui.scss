@@ -70,7 +70,7 @@
     padding: 8px 16px !important;
     border-radius: 8px !important;
 
-    &:hover {
+    &:hover:not(.is-disabled) {
       color: var(--art-gray-900) !important;
       background-color: var(--art-gray-200) !important;
     }

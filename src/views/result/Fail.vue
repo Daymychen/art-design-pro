@@ -1,7 +1,7 @@
 <template>
   <div class="page-content fail">
-    <i class="iconfont-sys icon custom-text">&#xe665;</i>
-    <h1 class="title custom-text">提交失败</h1>
+    <i class="iconfont-sys icon">&#xe665;</i>
+    <h1 class="title">提交失败</h1>
     <p class="msg">请核对并修改以下信息后，再重新提交。</p>
     <div class="res">
       <p>您提交的内容有如下错误：</p>

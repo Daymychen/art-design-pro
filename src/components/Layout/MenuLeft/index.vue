@@ -73,6 +73,7 @@
         :background-color="theme.background"
         :active-text-color="theme.textActiveColor"
         :default-openeds="defaultOpenedsArray"
+        :popper-class="`menu-left-${theme.theme}-popper`"
       >
         <submenu :list="menuList" :isMobile="isMobileModel" :theme="theme" @close="closeMenu" />
       </el-menu>

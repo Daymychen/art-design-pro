@@ -1,7 +1,7 @@
 <template>
   <div class="page-content">
     <div class="header">
-      <h2 class="custom-text">权限</h2>
+      <h2>权限</h2>
       <p>本项目实现了菜单权限、路由权限和按钮权限</p>
     </div>
 

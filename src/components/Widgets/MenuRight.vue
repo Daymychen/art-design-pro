@@ -8,7 +8,7 @@
             <!-- 普通菜单项 -->
             <li
               v-if="!item.children"
-              class="menu-item custom-text"
+              class="menu-item"
               :class="{ 'is-disabled': item.disabled }"
               @click="handleMenuClick(item)"
             >
@@ -27,7 +27,7 @@
                 <li
                   v-for="child in item.children"
                   :key="child.key"
-                  class="menu-item custom-text"
+                  class="menu-item"
                   :class="{ 'is-disabled': child.disabled }"
                   @click="handleMenuClick(child)"
                 >
@@ -149,7 +149,7 @@
           }
 
           .menu-label {
-            color: var(--art-gray-700);
+            color: var(--art-gray-800);
           }
 
           &.is-disabled {

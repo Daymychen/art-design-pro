@@ -56,12 +56,12 @@
           display: block;
           width: 25px;
           font-size: 16px;
-          color: var(--art-gray-800);
+          color: var(--art-text-gray-800);
         }
 
         span {
           font-size: 14px;
-          color: #000;
+          color: var(--art-text-gray-800);
         }
 
         &:hover {

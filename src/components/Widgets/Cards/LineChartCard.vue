@@ -3,10 +3,10 @@
     <div class="card-body">
       <div class="chart-header">
         <div class="metric">
-          <p class="value custom-text">{{ value }}</p>
-          <p class="label custom-text">{{ label }}</p>
+          <p class="value">{{ value }}</p>
+          <p class="label">{{ label }}</p>
         </div>
-        <div class="percentage custom-text" :class="{ 'is-increase': percentage > 0 }">
+        <div class="percentage" :class="{ 'is-increase': percentage > 0 }">
           {{ percentage > 0 ? '+' : '' }}{{ percentage }}%
         </div>
       </div>

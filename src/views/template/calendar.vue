@@ -19,7 +19,7 @@
               class="calendar-event"
               @click.stop="handleEventClick(event)"
             >
-              <div class="event-tag custom-text" :class="[`${event.type || 'bg-primary'}`]">
+              <div class="event-tag" :class="[`${event.type || 'bg-primary'}`]">
                 {{ event.content }}
               </div>
             </div>
@@ -128,7 +128,7 @@
   const isEditing = computed(() => editingEventIndex.value >= 0)
 
   // 工具函数
-  const formatDate = (date: string) => date.split('-').slice(1).join('-')
+  const formatDate = (date: string) => date.split('-')[2]
 
   const getEvents = (day: string) => {
     return events.value.filter((event) => {
@@ -241,7 +241,6 @@
       top: 4px;
       right: 4px;
       font-size: 14px;
-      color: var(--art-text-gray-500);
     }
 
     .calendar-events {

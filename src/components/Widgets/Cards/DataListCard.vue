@@ -2,17 +2,17 @@
   <div class="basic-list-card">
     <div class="art-card art-custom-card">
       <div class="card-header">
-        <p class="card-title custom-text">{{ title }}</p>
-        <p class="card-subtitle custom-text">{{ subtitle }}</p>
+        <p class="card-title">{{ title }}</p>
+        <p class="card-subtitle">{{ subtitle }}</p>
       </div>
       <el-scrollbar :style="{ height: maxHeight }">
         <div v-for="(item, index) in list" :key="index" class="list-item">
-          <div class="item-icon custom-text" :class="item.class" v-if="item.icon">
-            <i class="iconfont-sys custom-text" v-html="item.icon"></i>
+          <div class="item-icon" :class="item.class" v-if="item.icon">
+            <i class="iconfont-sys" v-html="item.icon"></i>
           </div>
           <div class="item-content">
-            <div class="item-title custom-text">{{ item.title }}</div>
-            <div class="item-status custom-text">{{ item.status }}</div>
+            <div class="item-title">{{ item.title }}</div>
+            <div class="item-status">{{ item.status }}</div>
           </div>
           <div class="item-time">{{ item.time }}</div>
         </div>

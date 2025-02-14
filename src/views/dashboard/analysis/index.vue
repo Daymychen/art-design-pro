@@ -75,7 +75,7 @@
         bottom: 2px;
         left: 21px;
         font-size: 13px;
-        color: #737791;
+        color: var(--art-gray-600);
       }
     }
 

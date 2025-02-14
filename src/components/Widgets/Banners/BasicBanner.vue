@@ -4,12 +4,10 @@
     :style="{ backgroundColor: backgroundColor, height: height }"
   >
     <div class="basic-banner__content">
-      <p class="basic-banner__title custom-text" :style="{ color: titleColor }"> {{ title }}</p>
-      <p class="basic-banner__subtitle custom-text" :style="{ color: subtitleColor }">{{
-        subtitle
-      }}</p>
+      <p class="basic-banner__title" :style="{ color: titleColor }"> {{ title }}</p>
+      <p class="basic-banner__subtitle" :style="{ color: subtitleColor }">{{ subtitle }}</p>
       <div
-        class="basic-banner__button custom-text"
+        class="basic-banner__button"
         :style="{ backgroundColor: buttonColor, color: buttonTextColor }"
         @click="handleClick"
       >

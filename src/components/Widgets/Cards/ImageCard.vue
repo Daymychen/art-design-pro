@@ -22,9 +22,9 @@
           {{ props.category }}
         </div>
         <!-- 标题 -->
-        <p class="title custom-text">{{ props.title }}</p>
+        <p class="title">{{ props.title }}</p>
         <!-- 统计信息 -->
-        <div class="stats custom-text">
+        <div class="stats">
           <span class="views">
             <el-icon><View /></el-icon>
             {{ props.views }}
