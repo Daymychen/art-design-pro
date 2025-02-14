@@ -15,7 +15,7 @@
     </top-bar>
 
     <!-- 内容区域 -->
-    <div class="container">
+    <div class="container" :style="{ maxWidth: containerWidth }">
       <!-- 节日文本滚动 -->
       <festival-text-scroll></festival-text-scroll>
 
@@ -90,6 +90,8 @@
   const watermarkVisible = computed(() => settingStore.watermarkVisible)
   // 是否是双列菜单
   const isDualMenu = computed(() => settingStore.menuType === MenuTypeEnum.DUAL_MENU)
+  // 容器宽度
+  const containerWidth = computed(() => settingStore.containerWidth)
 
   // 根据菜单是否打开来设置左侧填充宽度
   const paddingLeft = computed(() => {

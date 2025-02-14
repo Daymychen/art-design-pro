@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "31075625",
+      "name": "自动宽度-01",
+      "font_class": "zidongkuandu-01",
+      "unicode": "e694",
+      "unicode_decimal": 59028
+    },
+    {
+      "icon_id": "41769101",
+      "name": "固定宽度",
+      "font_class": "gudingkuandu",
+      "unicode": "e6de",
+      "unicode_decimal": 59102
+    },
+    {
       "icon_id": "7381405",
       "name": "bilibili-s",
       "font_class": "bilibili-s",

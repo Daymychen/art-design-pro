@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v2.0.8',
+    title: '新增容器宽度设置',
+    date: '2025-02-14',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v2.0.7',
     title: '修复多标签页关闭后空白BUG、优化登录注册页面样式',
     date: '2025-02-13',

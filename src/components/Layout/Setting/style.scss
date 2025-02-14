@@ -66,16 +66,26 @@
 
     .menu-type-wrap {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
+      width: calc(100% + 15px);
       padding-bottom: 10px;
 
       .item {
+        width: calc(33.333% - 15px);
         margin-right: 15px;
         text-align: center;
 
+        &:nth-child(3n) {
+          margin-right: 0;
+        }
+
+        &:nth-child(4n) {
+          margin-top: 20px;
+        }
+
         .box {
           box-sizing: border-box;
-          width: 70px;
           height: 50px;
           cursor: pointer;
           background-color: #f5f7f9;
@@ -377,16 +387,13 @@
   .theme-wrap {
     display: flex;
     flex-wrap: wrap;
+    width: calc(100% + 15px);
     margin-top: 25px;
 
     .item {
       box-sizing: border-box;
-      width: 70px;
+      width: calc(33.333% - 15px);
       margin-right: 15px;
-
-      &:last-of-type {
-        margin-right: 0;
-      }
 
       .box {
         position: relative;
@@ -480,7 +487,7 @@
       width: calc(100% + 15px);
 
       .item {
-        width: 70px;
+        width: calc(33.333% - 15px);
         margin-right: 15px;
         margin-bottom: 15px;
 
@@ -639,6 +646,46 @@
       &:hover:not(.is-active) {
         color: var(--art-gray-800);
         background-color: rgba($color: #000, $alpha: 4%);
+      }
+    }
+  }
+
+  .container-width {
+    display: flex;
+
+    .item {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      justify-content: center;
+      height: 60px;
+      margin-top: 20px;
+      margin-right: 15px;
+      margin-bottom: 15px;
+      cursor: pointer;
+      border: 2px solid var(--art-border-color);
+      border-radius: 10px;
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+
+      &.is-active {
+        border-color: var(--main-color);
+
+        i {
+          color: var(--main-color) !important;
+        }
+      }
+
+      i {
+        margin-right: 10px;
+        font-size: 22px;
+      }
+
+      span {
+        font-size: 14px;
+        background: transparent !important;
       }
     }
   }

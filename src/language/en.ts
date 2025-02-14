@@ -37,6 +37,10 @@ export default {
       title: 'Box Style',
       list: ['Border', 'Shadow']
     },
+    container: {
+      title: 'Container Width',
+      list: ['Full', 'Boxed']
+    },
     basics: {
       title: 'Basic Config',
       list: [

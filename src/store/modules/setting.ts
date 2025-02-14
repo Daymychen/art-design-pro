@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { MenuThemeType } from '@/types/store'
 import { ThemeList, ElementPlusTheme, DarkMenuStyles, SystemSetting } from '@/config/setting'
-import { SystemThemeEnum, MenuThemeEnum, MenuTypeEnum } from '@/enums/appEnum'
+import { SystemThemeEnum, MenuThemeEnum, MenuTypeEnum, ContainerWidthEnum } from '@/enums/appEnum'
 import { colourBlend, handleElementThemeColor } from '@/utils/utils'
 import { getSysStorage } from '@/utils/storage'
 import { useCeremony } from '@/composables/useCeremony'
@@ -35,6 +35,7 @@ export interface SettingState {
   showFestivalText: boolean // 是否显示节日文本
   festivalDate: string // 节日日期
   dualMenuShowText: boolean // 双列菜单是否显示文本
+  containerWidth: ContainerWidthEnum // 容器宽度
 }
 
 export const useSettingStore = defineStore({
@@ -65,7 +66,8 @@ export const useSettingStore = defineStore({
     holidayFireworksLoaded: false,
     showFestivalText: false,
     festivalDate: '',
-    dualMenuShowText: false
+    dualMenuShowText: false,
+    containerWidth: ContainerWidthEnum.FULL
   }),
   getters: {
     getMenuTheme(): MenuThemeType {
@@ -106,6 +108,7 @@ export const useSettingStore = defineStore({
         this.systemThemeType = setting.systemThemeType || SystemThemeEnum.LIGHT
         this.systemThemeMode = setting.systemThemeMode || SystemThemeEnum.LIGHT
         this.menuThemeType = setting.menuThemeType || MenuThemeEnum.DESIGN
+        this.containerWidth = setting.containerWidth || ContainerWidthEnum.FULL
         this.systemThemeColor = setting.systemThemeColor || ElementPlusTheme.primary
         this.boxBorderMode = setting.boxBorderMode
         this.uniqueOpened = setting.uniqueOpened
@@ -154,6 +157,10 @@ export const useSettingStore = defineStore({
     // 设置盒子模式
     setBorderMode() {
       this.boxBorderMode = !this.boxBorderMode
+    },
+    // 设置容器宽度
+    setContainerWidth(width: ContainerWidthEnum) {
+      this.containerWidth = width
     },
     // 设置菜单是否为手风琴模式
     setUniqueOpened() {

@@ -37,6 +37,10 @@ export default {
       title: '盒子样式',
       list: ['边框', '阴影']
     },
+    container: {
+      title: '容器宽度',
+      list: ['铺满', '定宽']
+    },
     basics: {
       title: '基础配置',
       list: [

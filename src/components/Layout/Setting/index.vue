@@ -49,39 +49,61 @@
           </div>
         </div>
 
+        <!-- 菜单布局 -->
         <div v-if="width > 1000">
-          <!-- 菜单布局 -->
           <p class="title" style="margin-top: 30px">{{ $t('setting.menuType.title') }}</p>
           <div class="menu-type">
-            <el-scrollbar :horizontal="true">
-              <div class="menu-type-wrap">
-                <!-- 左侧菜单 -->
-                <div class="item">
-                  <div
-                    class="box bl"
-                    :class="{ 'is-active': isLeftMenu }"
-                    @click="setMenuType(MenuTypeEnum.LEFT)"
-                  >
-                    <div class="bl-menu">
-                      <div class="line" v-for="i in 6" :key="i"></div>
-                    </div>
-                    <div class="bl-content">
-                      <div class="header"></div>
-                      <div class="row1">
-                        <div v-for="i in 2" :key="i"></div>
-                      </div>
-                      <div class="row2"></div>
-                    </div>
+            <div class="menu-type-wrap">
+              <!-- 左侧菜单 -->
+              <div class="item">
+                <div
+                  class="box bl"
+                  :class="{ 'is-active': isLeftMenu }"
+                  @click="setMenuType(MenuTypeEnum.LEFT)"
+                >
+                  <div class="bl-menu">
+                    <div class="line" v-for="i in 6" :key="i"></div>
                   </div>
-                  <span class="name">{{ $t('setting.menuType.list[0]') }}</span>
+                  <div class="bl-content">
+                    <div class="header"></div>
+                    <div class="row1">
+                      <div v-for="i in 2" :key="i"></div>
+                    </div>
+                    <div class="row2"></div>
+                  </div>
                 </div>
-                <!-- 顶部菜单 -->
-                <div class="item">
-                  <div
-                    class="box bt"
-                    :class="{ 'is-active': isTopMenu }"
-                    @click="setMenuType(MenuTypeEnum.TOP)"
-                  >
+                <span class="name">{{ $t('setting.menuType.list[0]') }}</span>
+              </div>
+              <!-- 顶部菜单 -->
+              <div class="item">
+                <div
+                  class="box bt"
+                  :class="{ 'is-active': isTopMenu }"
+                  @click="setMenuType(MenuTypeEnum.TOP)"
+                >
+                  <div class="bt-menu">
+                    <div class="line" v-for="i in 6" :key="i"></div>
+                  </div>
+                  <div class="bl-content">
+                    <div class="row1">
+                      <div v-for="i in 2" :key="i"></div>
+                    </div>
+                    <div class="row2"></div>
+                  </div>
+                </div>
+                <span class="name">{{ $t('setting.menuType.list[1]') }}</span>
+              </div>
+              <!-- 混合菜单 -->
+              <div class="item">
+                <div
+                  class="box tl"
+                  :class="{ 'is-active': isTopLeftMenu }"
+                  @click="setMenuType(MenuTypeEnum.TOP_LEFT)"
+                >
+                  <div class="tl-left">
+                    <div class="line" v-for="i in 6" :key="i"></div>
+                  </div>
+                  <div class="tl-right">
                     <div class="bt-menu">
                       <div class="line" v-for="i in 6" :key="i"></div>
                     </div>
@@ -92,62 +114,39 @@
                       <div class="row2"></div>
                     </div>
                   </div>
-                  <span class="name">{{ $t('setting.menuType.list[1]') }}</span>
                 </div>
-                <!-- 混合菜单 -->
-                <div class="item">
-                  <div
-                    class="box tl"
-                    :class="{ 'is-active': isTopLeftMenu }"
-                    @click="setMenuType(MenuTypeEnum.TOP_LEFT)"
-                  >
-                    <div class="tl-left">
-                      <div class="line" v-for="i in 6" :key="i"></div>
-                    </div>
-                    <div class="tl-right">
-                      <div class="bt-menu">
-                        <div class="line" v-for="i in 6" :key="i"></div>
-                      </div>
-                      <div class="bl-content">
-                        <div class="row1">
-                          <div v-for="i in 2" :key="i"></div>
-                        </div>
-                        <div class="row2"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <span class="name">{{ $t('setting.menuType.list[2]') }}</span>
-                </div>
-                <!-- 双列菜单 -->
-                <div class="item" style="padding-right: 7px">
-                  <div
-                    class="box dl"
-                    :class="{ 'is-active': isDualMenu }"
-                    @click="setMenuType(MenuTypeEnum.DUAL_MENU)"
-                  >
-                    <div class="tl1-left" style="width: 8px !important">
-                      <div class="line" v-for="i in 1" :key="i"></div>
-                    </div>
-                    <div class="tl2-left">
-                      <div class="line" v-for="i in 6" :key="i"></div>
-                    </div>
-                    <div class="tl-right">
-                      <div class="bt-menu"></div>
-                      <div class="bl-content">
-                        <div class="row1">
-                          <div v-for="i in 2" :key="i"></div>
-                        </div>
-                        <div class="row2"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <span class="name">{{ $t('setting.menuType.list[3]') }}</span>
-                </div>
+                <span class="name">{{ $t('setting.menuType.list[2]') }}</span>
               </div>
-            </el-scrollbar>
+              <!-- 双列菜单 -->
+              <div class="item" style="padding-right: 7px">
+                <div
+                  class="box dl"
+                  :class="{ 'is-active': isDualMenu }"
+                  @click="setMenuType(MenuTypeEnum.DUAL_MENU)"
+                >
+                  <div class="tl1-left" style="width: 8px !important">
+                    <div class="line" v-for="i in 1" :key="i"></div>
+                  </div>
+                  <div class="tl2-left">
+                    <div class="line" v-for="i in 6" :key="i"></div>
+                  </div>
+                  <div class="tl-right">
+                    <div class="bt-menu"></div>
+                    <div class="bl-content">
+                      <div class="row1">
+                        <div v-for="i in 2" :key="i"></div>
+                      </div>
+                      <div class="row2"></div>
+                    </div>
+                  </div>
+                </div>
+                <span class="name">{{ $t('setting.menuType.list[3]') }}</span>
+              </div>
+            </div>
           </div>
         </div>
 
+        <!-- 菜单风格 -->
         <p class="title" style="margin-top: 20px">{{ $t('setting.menu.title') }}</p>
         <div class="menu-theme-wrap">
           <div>
@@ -190,6 +189,7 @@
           </div>
         </div>
 
+        <!-- 系统主题色 -->
         <p class="title" style="margin-top: 30px">{{ $t('setting.color.title') }}</p>
         <div class="main-color-wrap">
           <div class="offset">
@@ -204,8 +204,8 @@
           </div>
         </div>
 
+        <!-- 盒子样式 -->
         <p class="title" style="margin-top: 40px">{{ $t('setting.box.title') }}</p>
-
         <div class="box-style">
           <div v-if="false">{{ boxBorderMode }}</div>
           <div
@@ -224,7 +224,23 @@
           </div>
         </div>
 
-        <p class="title" style="margin-top: 50px">{{ $t('setting.basics.title') }}</p>
+        <!-- 容器宽度 -->
+        <p class="title" style="margin-top: 50px">{{ $t('setting.container.title') }}</p>
+        <div class="container-width">
+          <div
+            class="item"
+            :class="{ 'is-active': containerWidth === item.value }"
+            v-for="item in containerWidthList"
+            :key="item.value"
+            @click="setContainerWidth(item.value)"
+          >
+            <i class="iconfont-sys" v-html="item.icon"></i>
+            <span>{{ $t(item.label) }}</span>
+          </div>
+        </div>
+
+        <!-- 基础配置 -->
+        <p class="title" style="margin-top: 40px">{{ $t('setting.basics.title') }}</p>
         <div class="basic-box">
           <div class="item" style="display: flex">
             <span>{{ $t('setting.basics.list[0]') }}</span>
@@ -326,6 +342,7 @@
   import mittBus from '@/utils/mittBus'
   import { useTheme } from '@/composables/useTheme'
   import { useCeremony } from '@/composables/useCeremony'
+  import { ContainerWidthEnum } from '@/enums/appEnum'
   const { openFestival, cleanup } = useCeremony()
 
   const { setSystemTheme, setSystemAutoTheme, switchTheme } = useTheme()
@@ -393,7 +410,7 @@
   const showLanguage = ref(true)
   const showNprogress = ref(true)
   const colorWeak = ref(false)
-
+  const containerWidth = computed(() => store.containerWidth)
   const pageTransitionOps = [
     {
       value: '',
@@ -437,6 +454,19 @@
     {
       value: '1',
       label: '1'
+    }
+  ]
+
+  const containerWidthList = [
+    {
+      value: ContainerWidthEnum.FULL,
+      label: 'setting.container.list[0]',
+      icon: '&#xe694;'
+    },
+    {
+      value: ContainerWidthEnum.BOXED,
+      label: 'setting.container.list[1]',
+      icon: '&#xe6de;'
     }
   ]
 
@@ -578,6 +608,12 @@
 
   const setCustomRadius = (radius: string) => {
     store.setCustomRadius(radius)
+    isAutoClose()
+  }
+
+  const setContainerWidth = (type: ContainerWidthEnum) => {
+    store.setContainerWidth(type)
+    store.reload()
     isAutoClose()
   }
 

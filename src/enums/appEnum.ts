@@ -38,3 +38,9 @@ export enum IconTypeEnum {
   CLASS_NAME = 'className',
   UNICODE = 'unicode'
 }
+
+// Container width
+export enum ContainerWidthEnum {
+  FULL = '100%',
+  BOXED = '1200px'
+}
