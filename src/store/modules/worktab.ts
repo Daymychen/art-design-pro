@@ -1,121 +1,175 @@
 import { defineStore } from 'pinia'
 import { WorkTabType } from '@/types/store'
 import { HOME_PAGE } from '@/router/index'
-import { Router } from 'vue-router'
-import { getSysStorage } from '@/utils/storage'
 import { router } from '@/router'
+import { getSysStorage } from '@/utils/storage'
 
 interface WorktabState {
   opened: WorkTabType[]
   current: Partial<WorkTabType>
+  keepAliveExclude: string[]
 }
 
 export const useWorktabStore = defineStore({
   id: 'worktabStore',
   state: (): WorktabState => ({
     current: {},
-    opened: []
+    opened: [],
+    keepAliveExclude: []
   }),
-  getters: {},
   actions: {
-    // 初始化State
+    /**
+     * 初始化状态，从系统存储中加载工作台配置
+     */
     initState() {
-      let sys = getSysStorage()
-
-      if (sys) {
-        sys = JSON.parse(sys)
-
+      const sysStorage = getSysStorage()
+      if (sysStorage) {
+        const sys = JSON.parse(sysStorage)
         const { worktab } = sys.user
         this.current = worktab.current || {}
         this.opened = worktab.opened || []
-
         this.checkFirstHomePage()
       }
     },
-    // 选项卡路由
-    router(to: WorkTabType) {
-      const index: number = this.opened.findIndex((i) => i.path === to.path)
 
-      // 新增 tab
-      if (index <= -1) {
-        this.opened.push(to)
-        this.current = to
-      } else {
-        this.current = this.opened[index]
+    /**
+     * 打开或激活一个选项卡
+     * @param tab 目标选项卡信息
+     */
+    openTab(tab: WorkTabType) {
+      // 若当前路由在排除列表中，则先移除
+      this.removeKeepAliveExclude(tab.name as string)
+      const index = this.opened.findIndex((i) => i.path === tab.path)
+      if (index === -1) {
+        this.opened.push(tab)
       }
+      this.current = this.opened.find((i) => i.path === tab.path) as WorkTabType
     },
-    // 关闭选项卡
-    remove(path: string, router: Router) {
-      const opened = this.opened
-      let index = opened.findIndex((i) => i.path === path)
 
-      if (index > -1) {
-        opened.splice(index, 1)
-      }
+    /**
+     * 关闭指定的选项卡，并处理激活状态和路由跳转
+     * @param path 要关闭的路由路径
+     */
+    removeTab(path: string) {
+      const noCurrentTab = this.opened.find((tab) => tab.path === path)
+      const index = this.opened.findIndex((tab) => tab.path === path)
+      if (index === -1) return
 
-      // 当页面全部关闭回到首页
-      if (!opened.length && path != HOME_PAGE) {
+      this.opened.splice(index, 1)
+
+      // 若关闭后无选项卡，且关闭的不是首页，则跳转首页
+      if (!this.opened.length && path !== HOME_PAGE) {
         router.push(HOME_PAGE)
+        return
       }
 
-      // 当前页
-      if (opened.length && path === this.current.path) {
-        if (opened.length === index) {
-          index--
+      // 若关闭的是当前激活标签，则标记其为缓存排除，并激活相邻标签
+      if (this.current.path === path) {
+        if (this.current.name) {
+          this.addKeepAliveExclude(this.current as WorkTabType)
         }
-        router.push(opened[index].path as string)
+        const newIndex = index >= this.opened.length ? this.opened.length - 1 : index
+        this.current = this.opened[newIndex]
+        router.push(this.current.path as string)
+      } else {
+        if (noCurrentTab?.name) {
+          this.addKeepAliveExclude(noCurrentTab)
+        }
       }
     },
-    // 关闭左侧页面
+
+    /**
+     * 关闭当前标签左侧（不包括首页）的所有选项卡
+     * @param path 当前选项卡的路由路径
+     */
     removeLeft(path: string) {
-      const currentPath = path
-      const list = this.opened
-
-      for (let i = 0; i < list.length; i++) {
-        if (list[i].path === currentPath) {
-          this.opened.splice(1, i - 1)
-          break
-        }
+      const index = this.opened.findIndex((tab) => tab.path === path)
+      if (index > 1) {
+        // 保留首页和当前标签
+        const tabsToRemove = this.opened.slice(1, index)
+        this.markTabsToRemove(tabsToRemove)
+        this.opened.splice(1, index - 1)
       }
     },
-    // 关闭右侧页面
+
+    /**
+     * 关闭当前标签右侧的所有选项卡
+     * @param path 当前选项卡的路由路径
+     */
     removeRight(path: string) {
-      const currentPath = path
-      const list = this.opened
-
-      for (let i = 0; i < list.length; i++) {
-        if (list[i].path === currentPath) {
-          this.opened.splice(i + 1)
-          break
-        }
+      const index = this.opened.findIndex((tab) => tab.path === path)
+      if (index !== -1 && index < this.opened.length - 1) {
+        const tabsToRemove = this.opened.slice(index + 1)
+        this.markTabsToRemove(tabsToRemove)
+        this.opened.splice(index + 1)
       }
     },
-    // 关闭其他页面
-    removeOther(path: string) {
-      this.opened = this.opened.filter((item) => {
-        return item.path === path || item.path === HOME_PAGE
-      })
+
+    /**
+     * 关闭除当前标签和首页外的所有选项卡
+     * @param path 当前选项卡的路由路径
+     */
+    removeOthers(path: string) {
+      const tabsToRemove = this.opened.filter((tab) => tab.path !== path && tab.path !== HOME_PAGE)
+      this.markTabsToRemove(tabsToRemove)
+      this.opened = this.opened.filter((tab) => tab.path === path || tab.path === HOME_PAGE)
     },
-    // 关闭全部页面
-    removeAll(path: string, router: Router) {
+
+    /**
+     * 关闭所有选项卡（当传入的 path 不是首页时关闭全部；首页时只保留首页）
+     * @param path 当前选项卡的路由路径
+     */
+    removeAll(path: string) {
       if (path !== HOME_PAGE) {
+        this.markTabsToRemove(this.opened)
         this.current = {}
         this.opened = []
         router.push(HOME_PAGE)
       } else {
-        this.opened = this.opened.filter((item) => item.path === HOME_PAGE)
-
-        // 如果过滤后没有首页标签，则添加首页标签
-        if (this.opened.length === 0) {
-          router.push(HOME_PAGE)
-        }
+        const tabsToRemove = this.opened.filter((tab) => tab.path !== HOME_PAGE)
+        this.markTabsToRemove(tabsToRemove)
+        this.opened = this.opened.filter((tab) => tab.path === HOME_PAGE)
+        if (this.opened.length === 0) router.push(HOME_PAGE)
       }
     },
-    // 检查第一个标签页是否为首页，如果不是首页则清空所有标签并跳转到首页
+
+    /**
+     * 检查第一个选项卡是否为首页，否则清空所有标签并跳转首页
+     */
     checkFirstHomePage() {
       if (this.opened.length && this.opened[0].path !== HOME_PAGE) {
-        this.removeAll(HOME_PAGE, router)
+        this.removeAll(HOME_PAGE)
       }
+    },
+
+    /**
+     * 将指定选项卡添加到 keepAlive 排除列表中，只有当该选项卡的 keepAlive 为 true 时才进行添加
+     * @param tab 选项卡对象
+     */
+    addKeepAliveExclude(tab: WorkTabType) {
+      if (tab.keepAlive && tab.name && !this.keepAliveExclude.includes(tab.name)) {
+        this.keepAliveExclude.push(tab.name)
+      }
+    },
+
+    /**
+     * 从 keepAlive 排除列表中移除指定组件名称
+     * @param name 路由组件名称
+     */
+    removeKeepAliveExclude(name: string) {
+      this.keepAliveExclude = this.keepAliveExclude.filter((item) => item !== name)
+    },
+
+    /**
+     * 将传入的一组选项卡的组件名称标记为排除缓存
+     * @param tabs 需要标记的选项卡数组
+     */
+    markTabsToRemove(tabs: WorkTabType[]) {
+      tabs.forEach((tab) => {
+        if (tab.name) {
+          this.addKeepAliveExclude(tab)
+        }
+      })
     }
   }
 })

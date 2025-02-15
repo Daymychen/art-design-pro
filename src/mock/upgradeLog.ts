@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v2.1.1',
+    title: '多标签页关闭页面后，页面清空缓存',
+    date: '2025-02-15',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v2.1.0',
     title: '暗黑主题样式优化，折叠菜单选中样式优化',
     date: '2025-02-15',

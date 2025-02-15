@@ -2,6 +2,7 @@ export type MenuListType = {
   id: number
   name?: string // 组件名
   path: string // 路由
+  name: string // 组件名
   meta: {
     title: string // 菜单名称
     title_en: string // 菜单英文名称
@@ -12,7 +13,7 @@ export type MenuListType = {
     isHideTab?: boolean // 是否在标签页中隐藏
     link?: string // 链接
     isIframe?: boolean // 是否是 iframe
-    keepAlive?: boolean // 是否缓存
+    keepAlive: boolean // 是否缓存
     authList?: Array // 可操作权限
   }
   children?: MenuListType[] // 子菜单

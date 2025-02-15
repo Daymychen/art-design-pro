@@ -53,6 +53,8 @@ export interface WorkTabType {
   title: string
   title_en?: string
   path: string
+  name: string
+  keepAlive: boolean
   params?: object
   query?: object
 }

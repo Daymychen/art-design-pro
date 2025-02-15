@@ -217,7 +217,7 @@
 
     switch (type) {
       case 'current':
-        store.remove(path, router)
+        store.removeTab(path)
         break
       case 'left':
         store.removeLeft(path)
@@ -226,11 +226,10 @@
         store.removeRight(path)
         break
       case 'other':
-        store.removeOther(path)
-
+        store.removeOthers(path)
         break
       case 'all':
-        store.removeAll(path, router)
+        store.removeAll(path)
         break
     }
 
@@ -243,7 +242,10 @@
   const worktabClosePosition = () => {
     if (!scrollRef.value || !tabsRef.value) return
 
-    const { offsetLeft, clientWidth } = getCurTabEl()
+    const curTabEl = getCurTabEl()
+    if (!curTabEl) return
+
+    const { offsetLeft, clientWidth } = curTabEl
     const scrollWidth = scrollRef.value.offsetWidth
     const ulWidth = tabsRef.value.offsetWidth
     const curTabLeft = offsetLeft + clientWidth

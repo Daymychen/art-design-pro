@@ -50,6 +50,7 @@ const routes = [
   {
     path: '/dashboard',
     component: Home,
+    name: 'Dashboard',
     meta: {
       title: '监控中心',
       title_en: 'Dashboard'
@@ -79,6 +80,7 @@ const routes = [
   },
   {
     path: '/login',
+    name: 'Login',
     component: () => import('@views/login/index.vue'),
     meta: {
       title: '登录',
@@ -88,6 +90,7 @@ const routes = [
   },
   {
     path: '/register',
+    name: 'Register',
     component: () => import('@views/register/index.vue'),
     meta: {
       title: '注册',
@@ -98,6 +101,7 @@ const routes = [
   },
   {
     path: '/forget-password',
+    name: 'ForgetPassword',
     component: () => import('@views/forget-password/index.vue'),
     meta: {
       title: '忘记密码',
@@ -109,6 +113,7 @@ const routes = [
   {
     path: '/exception',
     component: Home,
+    name: 'Exception',
     meta: {
       title: '异常页面',
       title_en: 'Exception'
@@ -116,6 +121,7 @@ const routes = [
     children: [
       {
         path: '/exception/403',
+        name: 'Exception403',
         component: () => import('@/views/exception/403.vue'),
         meta: {
           title: '403',
@@ -124,6 +130,7 @@ const routes = [
       },
       {
         path: '/exception/404',
+        name: 'Exception404',
         component: () => import('@views/exception/404.vue'),
         meta: {
           title: '404',
@@ -132,6 +139,7 @@ const routes = [
       },
       {
         path: '/exception/500',
+        name: 'Exception500',
         component: () => import('@views/exception/500.vue'),
         meta: {
           title: '500',
@@ -143,6 +151,7 @@ const routes = [
   {
     path: '/outside',
     component: Home,
+    name: 'Outside',
     meta: {
       title: '内嵌页面',
       title_en: 'Outside'
@@ -150,6 +159,7 @@ const routes = [
     children: [
       {
         path: '/outside/iframe/:path',
+        name: 'Iframe',
         component: () => import('@/views/outside/Iframe.vue'),
         meta: {
           title: 'iframe',
@@ -160,6 +170,7 @@ const routes = [
   },
   {
     path: '/template/pricing',
+    name: 'Pricing',
     component: () => import('@views/template/pricing.vue'),
     meta: {
       title: '定价',
@@ -359,6 +370,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
     children: [
       {
         path: '/article/article-publish',
+        name: 'ArticlePublish',
         component: () => import('@views/article/ArticlePublish.vue'),
         meta: {
           title: '文章发布'
@@ -366,6 +378,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
       },
       {
         path: '/article/article-list',
+        name: 'ArticleList',
         component: () => import('@views/article/ArticleList.vue'),
         meta: {
           title: '文章列表'
@@ -373,6 +386,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
       },
       {
         path: '/article/detail',
+        name: 'ArticleDetail',
         component: () => import('@views/article/ArticleDetail.vue'),
         meta: {
           title: '文章详情',
@@ -381,6 +395,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
       },
       {
         path: '/article/comment',
+        name: 'ArticleComment',
         component: () => import('@views/article/Comment.vue'),
         meta: {
           title: '留言'
@@ -398,6 +413,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
     children: [
       {
         path: '/widgets/icon-list',
+        name: 'IconList',
         component: () => import('@views/widgets/IconList.vue'),
         meta: {
           title: '图标库'
@@ -405,6 +421,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
       },
       {
         path: '/widgets/icon-selector',
+        name: 'IconSelector',
         component: () => import('@views/widgets/IconSelector.vue'),
         meta: {
           title: '图标选择器'
@@ -412,6 +429,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
       },
       {
         path: '/widgets/image-crop',
+        name: 'ImageCrop',
         component: () => import('@views/widgets/ImageCrop.vue'),
         meta: {
           title: '图像裁剪'
@@ -419,6 +437,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
       },
       {
         path: '/widgets/excel',
+        name: 'Excel',
         component: () => import('@views/widgets/Excel.vue'),
         meta: {
           title: 'Excel'
@@ -426,6 +445,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
       },
       {
         path: '/widgets/video',
+        name: 'Video',
         component: () => import('@views/widgets/Video.vue'),
         meta: {
           title: '视频播放器'
@@ -433,6 +453,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
       },
       {
         path: '/widgets/count-to',
+        name: 'CountTo',
         component: () => import('@views/widgets/CountTo.vue'),
         meta: {
           title: '数字滚动'
@@ -440,6 +461,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
       },
       {
         path: '/widgets/wang-editor',
+        name: 'WangEditor',
         component: () => import('@views/widgets/WangEditor.vue'),
         meta: {
           title: '富文本编辑器'
@@ -447,6 +469,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
       },
       {
         path: '/widgets/context-menu',
+        name: 'ContextMenu',
         component: () => import('@views/widgets/ContextMenu.vue'),
         meta: {
           title: '右键菜单'
@@ -454,6 +477,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
       },
       {
         path: '/widgets/watermark',
+        name: 'Watermark',
         component: () => import('@views/widgets/Watermark.vue'),
         meta: {
           title: '水印'
@@ -461,6 +485,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
       },
       {
         path: '/widgets/qrcode',
+        name: 'QRcode',
         component: () => import('@views/widgets/QRcode.vue'),
         meta: {
           title: '二维码'
@@ -468,6 +493,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
       },
       {
         path: '/widgets/drag',
+        name: 'Drag',
         component: () => import('@views/widgets/Drag.vue'),
         meta: {
           title: '拖拽'
@@ -475,6 +501,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
       },
       {
         path: '/widgets/text-scroll',
+        name: 'TextScroll',
         component: () => import('@views/widgets/TextScroll.vue'),
         meta: {
           title: '文字滚动'
@@ -482,6 +509,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
       },
       {
         path: '/widgets/fireworks',
+        name: 'Fireworks',
         component: () => import('@views/widgets/Fireworks.vue'),
         meta: {
           title: '礼花'
@@ -499,6 +527,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
     children: [
       {
         path: '/template/chat',
+        name: 'Chat',
         component: () => import('@views/template/chat.vue'),
         meta: {
           title: '聊天'
@@ -506,6 +535,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
       },
       {
         path: '/template/cards',
+        name: 'Cards',
         component: () => import('@views/template/cards.vue'),
         meta: {
           title: '卡片'
@@ -513,6 +543,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
       },
       {
         path: '/template/banners',
+        name: 'Banners',
         component: () => import('@views/template/banners.vue'),
         meta: {
           title: '横幅'
@@ -520,6 +551,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
       },
       {
         path: '/template/charts',
+        name: 'Charts',
         component: () => import('@views/template/charts.vue'),
         meta: {
           title: '图表'
@@ -527,6 +559,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
       },
       {
         path: '/template/calendar',
+        name: 'Calendar',
         component: () => import('@views/template/calendar.vue'),
         meta: {
           title: '日历'
@@ -544,6 +577,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
     children: [
       {
         path: '/system/setting',
+        name: 'Setting',
         component: () => import('@views/system/Setting.vue'),
         meta: {
           title: '系统设置'
@@ -559,6 +593,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
       },
       {
         path: '/system/log',
+        name: 'Log',
         component: () => import('@views/system/Log.vue'),
         meta: {
           title: '系统日志'
@@ -576,6 +611,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
     children: [
       {
         path: '/safeguard/server',
+        name: 'Server',
         component: () => import('@views/safeguard/Server.vue'),
         meta: {
           title: '服务器管理'
@@ -593,6 +629,7 @@ export const roleRoutes: AppRouteRecordRaw[] = [
     children: [
       {
         path: '/plan/log',
+        name: 'PlanLog',
         component: () => import('@views/plan/log.vue'),
         meta: {
           title: '更新日志'
@@ -646,8 +683,8 @@ router.afterEach(() => {
 function setWorktab(to: RouteLocationNormalized) {
   const worktabStore = useWorktabStore()
   const settingStore = useSettingStore()
-  const { meta, path, params, query } = to
-  const { title, title_en, isHideTab } = meta
+  const { meta, path, name, params, query } = to
+  const { title, title_en, isHideTab, keepAlive } = meta
 
   if (!isHideTab) {
     if (isIframe(path)) {
@@ -655,20 +692,24 @@ function setWorktab(to: RouteLocationNormalized) {
 
       if (iframeRoute?.meta) {
         const { title, title_en } = iframeRoute.meta
-        worktabStore.router({
+        worktabStore.openTab({
           title,
           title_en,
           path,
+          name: name as string,
+          keepAlive: keepAlive as boolean,
           params,
           query
         })
       }
     } else {
       if (settingStore.showWorkTab || path === HOME_PAGE) {
-        worktabStore.router({
+        worktabStore.openTab({
           title: title as string,
           title_en: title_en as string,
           path,
+          name: name as string,
+          keepAlive: keepAlive as boolean,
           params,
           query
         })

@@ -49,7 +49,7 @@ function handleError() {
     type: 'error',
     offset: 40,
     duration: 5000,
-    message: '检测到本地数据异常，请重新登录！'
+    message: '系统检测到本地数据异常，请重新登录系统恢复使用！'
   })
 
   logOut()
@@ -60,6 +60,7 @@ function logOut() {
     localStorage.clear()
     useUserStore().logOut()
     router.push('/login')
+    initState()
   }, 1000)
 }
 
@@ -76,6 +77,7 @@ export function validateStorageData() {
         current: {
           title: 'string',
           path: 'string',
+          name: 'string',
           params: 'object',
           query: 'object'
         },

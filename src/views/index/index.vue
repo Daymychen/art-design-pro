@@ -29,7 +29,7 @@
           {{ route.meta }}
         </div>
         <transition :name="pageTransition" mode="out-in" appear>
-          <keep-alive :max="10">
+          <keep-alive :max="10" :exclude="keepAliveExclude">
             <component :is="Component" :key="route.path" v-if="route.meta.keepAlive" />
           </keep-alive>
         </transition>
@@ -66,12 +66,14 @@
   import { MenuWidth, MenuTypeEnum } from '@/enums/appEnum'
   import { useMenuStore } from '@/store/modules/menu'
   import { useSettingStore } from '@/store/modules/setting'
+  import { useWorktabStore } from '@/store/modules/worktab'
 
   // 网络状态
   const { isOnline } = useNetwork()
   // 获取菜单和设置信息的 store
   const settingStore = useSettingStore()
   const menuStore = useMenuStore()
+  const worktabStore = useWorktabStore()
   // 是否显示左侧菜单
   const showLeftMenu = computed(
     () => menuType.value === MenuTypeEnum.LEFT || menuType.value === MenuTypeEnum.TOP_LEFT
@@ -92,6 +94,8 @@
   const isDualMenu = computed(() => settingStore.menuType === MenuTypeEnum.DUAL_MENU)
   // 容器宽度
   const containerWidth = computed(() => settingStore.containerWidth)
+  // keepAlive 排除的组件
+  const keepAliveExclude = computed(() => worktabStore.keepAliveExclude)
 
   // 根据菜单是否打开来设置左侧填充宽度
   const paddingLeft = computed(() => {
