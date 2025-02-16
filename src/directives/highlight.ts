@@ -22,8 +22,7 @@ function insertLineNumbers(block: HTMLElement) {
     .join('\n')
   block.innerHTML = numberedLines
 }
-
-// 添加复制按钮
+// 添加复制按钮：调整 DOM 结构，将代码部分包裹在 .code-wrapper 内
 function addCopyButton(block: HTMLElement) {
   const copyButton = document.createElement('i')
   copyButton.className = 'copy-button iconfont-sys'
@@ -38,7 +37,18 @@ function addCopyButton(block: HTMLElement) {
 
   const preElement = block.parentElement
   if (preElement) {
-    preElement.insertBefore(copyButton, block)
+    let codeWrapper: HTMLElement
+    // 如果代码块还没有被包裹，则创建包裹容器
+    if (!block.parentElement.classList.contains('code-wrapper')) {
+      codeWrapper = document.createElement('div')
+      codeWrapper.className = 'code-wrapper'
+      preElement.replaceChild(codeWrapper, block)
+      codeWrapper.appendChild(block)
+    } else {
+      codeWrapper = block.parentElement
+    }
+    // 将复制按钮添加到 pre 元素（而非 codeWrapper 内），这样它不会随滚动条滚动
+    preElement.appendChild(copyButton)
   }
 }
 

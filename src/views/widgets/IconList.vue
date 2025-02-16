@@ -106,8 +106,7 @@
       .icon-list {
         display: grid;
         grid-template-columns: repeat(12, 1fr);
-        border-top: 1px solid var(--art-border-color);
-        border-left: 1px solid var(--art-border-color);
+        width: calc(100% + 16px);
 
         li {
           box-sizing: border-box;
@@ -115,15 +114,17 @@
           flex-direction: column;
           justify-content: center;
           aspect-ratio: 1 / 1;
+          padding: 0 8px;
+          margin: 0 16px 16px 0;
           overflow: hidden;
           color: rgba(#fff, 0.8);
           text-align: center;
-          border-right: 1px solid var(--art-border-color);
-          border-bottom: 1px solid var(--art-border-color);
+          border: 1px solid rgb(var(--art-gray-300-rgb), 0.8);
+          border-radius: 12px !important;
 
           &:hover {
             cursor: pointer;
-            background: rgba($color: #2d8cf0, $alpha: 5%);
+            background: var(--art-gray-100);
           }
 
           i {
@@ -135,7 +136,7 @@
             display: block;
             margin-top: 10px;
             font-size: 12px;
-            color: #777;
+            color: var(--art-text-gray-600);
           }
         }
       }

@@ -126,7 +126,6 @@
   import { useUserStore } from '@/store/modules/user'
   import { HOME_PAGE } from '@/router'
   import { ApiStatus } from '@/utils/http/status'
-  import axios from 'axios'
   import { getCssVariable } from '@/utils/utils'
   import { LanguageEnum, SystemThemeEnum } from '@/enums/appEnum'
   import { useI18n } from 'vue-i18n'
@@ -172,19 +171,21 @@
 
         loading.value = true
         try {
-          const res = await axios.post('/api/login', {
-            username: formData.username,
-            password: formData.password
+          const res = await UserService.mockLogin({
+            body: JSON.stringify({
+              username: formData.username,
+              password: formData.password
+            })
           })
 
-          let { code, data } = res.data
-          if (code === ApiStatus.success) {
+          let { code, data } = res
+          if (code === ApiStatus.success && data) {
             userStore.setUserInfo(data)
             userStore.setLoginStatus(true)
             showLoginSuccessNotice()
             router.push(HOME_PAGE)
           } else {
-            ElMessage.error(res.data.message)
+            ElMessage.error(res.message)
           }
         } finally {
           loading.value = false
@@ -217,6 +218,7 @@
 
   // 切换主题
   import { useTheme } from '@/composables/useTheme'
+  import { UserService } from '@/api/usersApi'
 
   const toggleTheme = () => {
     let { LIGHT, DARK } = SystemThemeEnum

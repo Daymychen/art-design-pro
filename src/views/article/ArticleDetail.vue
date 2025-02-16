@@ -85,7 +85,14 @@
           }
         }
 
+        .code-wrapper {
+          overflow-x: auto;
+        }
+
         .line-number {
+          position: sticky;
+          left: 0;
+          z-index: 2;
           box-sizing: border-box;
           display: inline-block;
           width: 50px;
@@ -97,8 +104,8 @@
 
         .copy-button {
           position: absolute;
-          top: 10px;
-          right: 10px;
+          top: 6px;
+          right: 6px;
           z-index: 1;
           width: 40px;
           height: 40px;

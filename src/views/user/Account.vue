@@ -120,7 +120,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ACCOUNT_TABLE_DATA } from '@/mock/formData'
+  import { ACCOUNT_TABLE_DATA } from '@/mock/temp/formData'
   import { FormInstance } from 'element-plus'
   import { ElMessageBox, ElMessage } from 'element-plus'
   import type { FormRules } from 'element-plus'

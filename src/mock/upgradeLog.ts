@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v2.1.2',
+    title: '固定列表格文字穿透BUG修复、富文本复制代码按钮定位BUG修复、去除mockjs',
+    date: '2025-02-16',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v2.1.1',
     title: '多标签页关闭页面后，页面清空缓存',
     date: '2025-02-15',

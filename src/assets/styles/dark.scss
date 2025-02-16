@@ -121,11 +121,6 @@ html.dark {
     }
   }
 
-  // 表格 hover 背景色
-  .el-table__body tr:hover > td {
-    background-color: rgba(var(--art-gray-100-rgb), 0.6) !important;
-  }
-
   .page-content .article-list .item .left .outer > div {
     border-right-color: var(--dark-border-color) !important;
   }

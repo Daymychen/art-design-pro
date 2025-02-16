@@ -7,6 +7,7 @@
 
 .drawer-con {
   $box-shadow: 0 2px 8px 0 rgb(0 0 0 / 20%);
+  $box-radius: 8px;
 
   padding: 0 5px 30px;
 
@@ -90,7 +91,7 @@
           cursor: pointer;
           background-color: #f5f7f9;
           border: 2px solid transparent;
-          border-radius: 6px;
+          border-radius: $box-radius;
           box-shadow: $box-shadow;
 
           &.is-active {
@@ -403,7 +404,7 @@
         overflow: hidden;
         cursor: pointer;
         border: 2px solid var(--art-gray-100);
-        border-radius: 6px;
+        border-radius: $box-radius;
         box-shadow: $box-shadow;
         transition: box-shadow 0.1s;
 
@@ -503,7 +504,7 @@
           cursor: pointer;
           background: #f5f7f9 !important;
           border: 2px solid var(--art-gray-100);
-          border-radius: 6px;
+          border-radius: $box-radius;
           box-shadow: $box-shadow;
           transition: box-shadow 0.1s;
 
