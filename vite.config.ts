@@ -5,6 +5,7 @@ import viteCompression from 'vite-plugin-compression'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { fileURLToPath } from 'url'
 // import viteImagemin from 'vite-plugin-imagemin'
 // import { visualizer } from 'rollup-plugin-visualizer'
 
@@ -35,7 +36,7 @@ export default ({ mode }) => {
     // 路径别名
     resolve: {
       alias: {
-        '@': resolvePath('src'),
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
         '@views': resolvePath('src/views'),
         '@comps': resolvePath('src/components'),
         '@imgs': resolvePath('src/assets/img'),
@@ -63,6 +64,11 @@ export default ({ mode }) => {
             vendor: ['vue', 'vue-router', 'pinia', 'element-plus']
           }
         }
+      },
+      dynamicImportVarsOptions: {
+        warnOnError: true,
+        exclude: [],
+        include: ['src/views/**/*.vue']
       }
     },
     plugins: [

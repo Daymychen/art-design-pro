@@ -54,6 +54,7 @@
 <script setup lang="ts">
   import { useRouter } from 'vue-router'
   import { ref } from 'vue'
+  import { RoutesAlias } from '@/router/modules/routesAlias'
 
   const router = useRouter()
   const popoverRef = ref()
@@ -77,28 +78,28 @@
       description: '系统概览与数据统计',
       icon: '&#xe721;',
       iconColor: '#377dff',
-      path: '/dashboard/console'
+      path: RoutesAlias.Dashboard
     },
     {
       name: '分析页',
       description: '数据分析与可视化',
       icon: '&#xe812;',
       iconColor: '#ff3b30',
-      path: '/dashboard/analysis'
+      path: RoutesAlias.Analysis
     },
     {
       name: '礼花效果',
       description: '动画特效展示',
       icon: '&#xe7ed;',
       iconColor: '#7A7FFF',
-      path: '/widgets/fireworks'
+      path: RoutesAlias.Fireworks
     },
     {
       name: '聊天',
       description: '即时通讯功能',
       icon: '&#xe70a;',
       iconColor: '#13DEB9',
-      path: '/template/chat'
+      path: RoutesAlias.Chat
     },
     {
       name: '官方文档',
@@ -119,7 +120,7 @@
       description: '版本更新与变更记录',
       icon: '&#xe81c;',
       iconColor: '#38C0FC',
-      path: '/plan/log'
+      path: RoutesAlias.PlanLog
     },
     {
       name: '哔哩哔哩',

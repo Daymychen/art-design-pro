@@ -1,6 +1,7 @@
 import { fourDotsSpinnerSvg } from '@/assets/svg/loading'
-import { menuData } from '@/mock/menuData'
+import { asyncRoutes } from '@/router/modules/asyncRoutes'
 import { MenuListType } from '@/types/menu'
+import { processRoute } from '@/utils/menu'
 import { ElLoading } from 'element-plus'
 
 // 菜单接口
@@ -9,6 +10,9 @@ export const menuService = {
   getMenuList(
     delay: number = 300
   ): Promise<{ menuList: MenuListType[]; closeLoading: () => void }> {
+    // 生成菜单数据
+    const menuData: MenuListType[] = asyncRoutes.map((route) => processRoute(route))
+
     const loading = ElLoading.service({
       lock: true,
       background: 'rgba(0, 0, 0, 0)',

@@ -1,82 +1,42 @@
-import { AppRouteRecordRaw, router } from '@/router'
-import { MenuListType } from '@/types/menu'
+import { router } from '@/router'
 import { LanguageEnum } from '@/enums/appEnum'
 import { useUserStore } from '@/store/modules/user'
+import { MenuListType } from '@/types/menu'
 
-// 动态注册路由
-export function routerMatch(menuList: MenuListType[], roleRoutes: AppRouteRecordRaw[]) {
-  const routesToAdd: AppRouteRecordRaw[] = []
+// 创建递归函数处理嵌套路由
+/**
+ * 处理路由配置,转换为菜单数据结构
+ * @param route 路由配置对象
+ * @param parentPath 父级路径
+ * @returns 处理后的菜单项
+ */
+export const processRoute = (route: MenuListType, parentPath = ''): MenuListType => {
+  // 构建完整路径
+  const currentPath = route.path
+    ? parentPath
+      ? `${parentPath}/${route.path}`.replace(/\/+/g, '/') // 规范化路径,避免多余的斜杠
+      : route.path
+    : ''
 
-  menuList.forEach((item) => processMenuItem(item, roleRoutes, routesToAdd))
-
-  routesToAdd.forEach((route) => {
-    const { name } = route
-    if (name && !router.hasRoute(name)) {
-      router.addRoute(route)
-    }
-  })
-
-  saveIframeRoutes(routesToAdd)
-}
-
-function processMenuItem(
-  item: MenuListType,
-  roleRoutes: AppRouteRecordRaw[],
-  routesToAdd: AppRouteRecordRaw[]
-) {
-  const { path, children = [], meta } = item
-  const { title, title_en, icon, authList, keepAlive, isHide, isHideTab, isIframe, link } = meta
-
-  // 内嵌页面
-  if (isIframe) {
-    routesToAdd.push({
-      path: `/outside/iframe/${encodeURIComponent(title)}`,
-      name: path,
-      redirect: '',
-      meta: {
-        title,
-        title_en,
-        icon,
-        keepAlive,
-        link,
-        isIframe,
-        isHideTab,
-        isHide
-      }
-    })
-    return
-  }
-
-  const matchingRoute = roleRoutes.find((route) => route.path === path)
-
-  if (matchingRoute) {
-    matchingRoute.meta = {
-      ...(matchingRoute.meta || {}),
-      title,
-      title_en,
-      icon,
-      authList,
-      keepAlive,
-      isHide,
-      isHideTab
-    }
-
-    if (children.length > 0) {
-      children.forEach((child) => processMenuItem(child, matchingRoute.children || [], routesToAdd))
-    }
-
-    routesToAdd.push(matchingRoute)
-  } else {
-    // 匹配不上的路由
-    // console.error('【动态添加路由】找不到与路径匹配的路由:', path);
+  return {
+    id: route.id ?? Math.random(), // 使用空值合并运算符
+    name: route.name,
+    path: currentPath,
+    component: route.component,
+    meta: route.meta ?? {}, // 使用空值合并运算符
+    children: Array.isArray(route.children)
+      ? route.children.map((child) => processRoute(child, currentPath))
+      : []
   }
 }
 
-// 保存iframe路由
-export const saveIframeRoutes = (routes: AppRouteRecordRaw[]) => {
-  const iframeList = routes.filter((item) => item.meta?.isIframe)
-  if (iframeList.length > 0) {
-    sessionStorage.setItem('iframeRoutes', JSON.stringify(iframeList))
+/**
+ * 保存 iframe 路由到 sessionStorage 中
+ * @param list iframe 路由列表
+ */
+export const saveIframeRoutes = (list: MenuListType[]): void => {
+  if (list.length > 0) {
+    sessionStorage.setItem('iframeRoutes', JSON.stringify(list))
   }
 }
 

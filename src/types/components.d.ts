@@ -114,7 +114,6 @@ declare module 'vue' {
     VideoPlayer: typeof import('./../components/Widgets/VideoPlayer.vue')['default']
     Watermark: typeof import('./../components/Widgets/Watermark.vue')['default']
     WorkTab: typeof import('./../components/Layout/WorkTab/index.vue')['default']
-    WorldMap: typeof import('./../components/Widgets/WorldMap.vue')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']

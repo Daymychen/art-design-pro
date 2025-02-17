@@ -1,11 +1,21 @@
+import { upgradeLogList } from '@/mock/upgradeLog'
+import { RoutesAlias } from './routesAlias'
 import { MenuListType } from '@/types/menu'
-import { upgradeLogList } from './upgradeLog'
 
-export const menuData: MenuListType[] = [
+/**
+ * 菜单列表、异步路由
+ *
+ * 支持两种模式:
+ * 1. 前端静态配置 - 直接使用本文件中定义的路由配置
+ * 2. 后端动态配置 - 后端返回菜单数据，前端解析生成路由
+ *
+ */
+export const asyncRoutes: MenuListType[] = [
   {
     id: 1,
     name: 'Dashboard',
     path: '/dashboard',
+    component: RoutesAlias.Home,
     meta: {
       title: '仪表盘',
       title_en: 'Dashboard',
@@ -15,7 +25,9 @@ export const menuData: MenuListType[] = [
     children: [
       {
         id: 101,
-        path: '/dashboard/console',
+        path: 'console',
+        name: 'Console',
+        component: RoutesAlias.Dashboard,
         meta: {
           title: '工作台',
           title_en: 'Workbench',
@@ -24,7 +36,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 102,
-        path: '/dashboard/analysis',
+        path: 'analysis',
+        name: 'Analysis',
+        component: RoutesAlias.Analysis,
         meta: {
           title: '分析页',
           title_en: 'Analysis',
@@ -37,6 +51,7 @@ export const menuData: MenuListType[] = [
     id: 5,
     path: '/widgets',
     name: 'Widgets',
+    component: RoutesAlias.Home,
     meta: {
       title: '组件中心',
       title_en: 'Components',
@@ -46,7 +61,9 @@ export const menuData: MenuListType[] = [
     children: [
       {
         id: 503,
-        path: '/widgets/icon-list',
+        path: 'icon-list',
+        name: 'IconList',
+        component: RoutesAlias.IconList,
         meta: {
           title: 'Icon 图标',
           title_en: 'Icon',
@@ -55,7 +72,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 504,
-        path: '/widgets/icon-selector',
+        path: 'icon-selector',
+        name: 'IconSelector',
+        component: RoutesAlias.IconSelector,
         meta: {
           title: '图标选择器',
           title_en: 'Icon selector',
@@ -64,7 +83,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 505,
-        path: '/widgets/image-crop',
+        path: 'image-crop',
+        name: 'ImageCrop',
+        component: RoutesAlias.ImageCrop,
         meta: {
           title: '图像裁剪',
           title_en: 'Image crop',
@@ -73,7 +94,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 506,
-        path: '/widgets/excel',
+        path: 'excel',
+        name: 'Excel',
+        component: RoutesAlias.Excel,
         meta: {
           title: 'Excel 导入导出',
           title_en: 'Excel import and export',
@@ -82,7 +105,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 507,
-        path: '/widgets/video',
+        path: 'video',
+        name: 'Video',
+        component: RoutesAlias.Video,
         meta: {
           title: '视频播放器',
           title_en: 'Video',
@@ -91,7 +116,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 508,
-        path: '/widgets/count-to',
+        path: 'count-to',
+        name: 'CountTo',
+        component: RoutesAlias.CountTo,
         meta: {
           title: '数字滚动',
           title_en: 'Count to',
@@ -100,7 +127,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 509,
-        path: '/widgets/wang-editor',
+        path: 'wang-editor',
+        name: 'WangEditor',
+        component: RoutesAlias.WangEditor,
         meta: {
           title: '富文本编辑器',
           title_en: 'Rich text editor',
@@ -109,7 +138,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 510,
-        path: '/widgets/watermark',
+        path: 'watermark',
+        name: 'Watermark',
+        component: RoutesAlias.Watermark,
         meta: {
           title: '水印',
           title_en: 'Watermark',
@@ -118,7 +149,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 511,
-        path: '/widgets/context-menu',
+        path: 'context-menu',
+        name: 'ContextMenu',
+        component: RoutesAlias.ContextMenu,
         meta: {
           title: '右键菜单',
           title_en: 'Context menu',
@@ -127,7 +160,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 512,
-        path: '/widgets/qrcode',
+        path: 'qrcode',
+        name: 'Qrcode',
+        component: RoutesAlias.Qrcode,
         meta: {
           title: '二维码',
           title_en: 'QR code',
@@ -136,7 +171,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 513,
-        path: '/widgets/drag',
+        path: 'drag',
+        name: 'Drag',
+        component: RoutesAlias.Drag,
         meta: {
           title: '拖拽',
           title_en: 'Drag',
@@ -145,7 +182,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 514,
-        path: '/widgets/text-scroll',
+        path: 'text-scroll',
+        name: 'TextScroll',
+        component: RoutesAlias.TextScroll,
         meta: {
           title: '文字滚动',
           title_en: 'Text scroll',
@@ -154,7 +193,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 515,
-        path: '/widgets/fireworks',
+        path: 'fireworks',
+        name: 'Fireworks',
+        component: RoutesAlias.Fireworks,
         meta: {
           title: '礼花',
           title_en: 'Fireworks',
@@ -165,6 +206,8 @@ export const menuData: MenuListType[] = [
       {
         id: 516,
         path: '',
+        name: 'ElementUI',
+        component: '',
         meta: {
           title: '组件总览',
           title_en: 'Element UI',
@@ -180,6 +223,7 @@ export const menuData: MenuListType[] = [
     id: 126,
     path: '/template',
     name: 'Template',
+    component: RoutesAlias.Home,
     meta: {
       title: '模板中心',
       title_en: 'Template',
@@ -189,7 +233,9 @@ export const menuData: MenuListType[] = [
     children: [
       {
         id: 12601,
-        path: '/template/chat',
+        path: 'chat',
+        name: 'Chat',
+        component: RoutesAlias.Chat,
         meta: {
           title: '聊天',
           title_en: 'Chat',
@@ -198,7 +244,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 12602,
-        path: '/template/cards',
+        path: 'cards',
+        name: 'Cards',
+        component: RoutesAlias.Cards,
         meta: {
           title: '卡片',
           title_en: 'Cards',
@@ -207,7 +255,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 12603,
-        path: '/template/banners',
+        path: 'banners',
+        name: 'Banners',
+        component: RoutesAlias.Banners,
         meta: {
           title: '横幅',
           title_en: 'Banners',
@@ -216,7 +266,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 12604,
-        path: '/template/charts',
+        path: 'charts',
+        name: 'Charts',
+        component: RoutesAlias.Charts,
         meta: {
           title: '图表',
           title_en: 'Charts',
@@ -225,7 +277,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 12605,
-        path: '/template/calendar',
+        path: 'calendar',
+        name: 'Calendar',
+        component: RoutesAlias.Calendar,
         meta: {
           title: '日历',
           title_en: 'Calendar',
@@ -235,11 +289,14 @@ export const menuData: MenuListType[] = [
 
       {
         id: 12622,
-        path: '/template/pricing',
+        path: 'pricing',
+        name: 'Pricing',
+        component: RoutesAlias.Pricing,
         meta: {
           title: '定价',
           title_en: 'Pricing',
-          keepAlive: true
+          keepAlive: true,
+          isHideTab: true
         }
       }
     ]
@@ -248,6 +305,7 @@ export const menuData: MenuListType[] = [
     id: 4,
     path: '/article',
     name: 'Article',
+    component: RoutesAlias.Home,
     meta: {
       title: '文章管理',
       title_en: 'Article manguage',
@@ -257,7 +315,9 @@ export const menuData: MenuListType[] = [
     children: [
       {
         id: 202,
-        path: '/article/article-list',
+        path: 'article-list',
+        name: 'ArticleList',
+        component: RoutesAlias.ArticleList,
         meta: {
           title: '文章列表',
           title_en: 'Article list',
@@ -279,7 +339,9 @@ export const menuData: MenuListType[] = [
 
       {
         id: 204,
-        path: '/article/detail',
+        path: 'detail',
+        name: 'ArticleDetail',
+        component: RoutesAlias.ArticleDetail,
         meta: {
           title: '文章详情',
           title_en: 'Article category',
@@ -289,7 +351,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 205,
-        path: '/article/comment',
+        path: 'comment',
+        name: 'Comment',
+        component: RoutesAlias.Comment,
         meta: {
           title: '留言管理',
           title_en: 'Comment',
@@ -298,7 +362,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 201,
-        path: '/article/article-publish',
+        path: 'article-publish',
+        name: 'ArticlePublish',
+        component: RoutesAlias.ArticlePublish,
         meta: {
           title: '文章发布',
           title_en: 'Article publish',
@@ -318,6 +384,7 @@ export const menuData: MenuListType[] = [
     id: 2,
     name: 'User',
     path: '/user',
+    component: RoutesAlias.Home,
     meta: {
       title: '用户管理',
       title_en: 'User manguage',
@@ -327,7 +394,9 @@ export const menuData: MenuListType[] = [
     children: [
       {
         id: 301,
-        path: '/user/account',
+        path: 'account',
+        name: 'Account',
+        component: RoutesAlias.Account,
         meta: {
           title: '账号管理',
           title_en: 'Account manguage',
@@ -336,7 +405,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 302,
-        path: '/user/department',
+        path: 'department',
+        name: 'Department',
+        component: RoutesAlias.Department,
         meta: {
           title: '部门管理',
           title_en: 'Department manguage',
@@ -345,7 +416,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 303,
-        path: '/user/role',
+        path: 'role',
+        name: 'Role',
+        component: RoutesAlias.Role,
         meta: {
           title: '角色权限',
           title_en: 'Roles',
@@ -354,7 +427,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 304,
-        path: '/user/user',
+        path: 'user',
+        name: 'UserCenter',
+        component: RoutesAlias.UserCenter,
         meta: {
           title: '个人中心',
           title_en: 'User center',
@@ -369,6 +444,7 @@ export const menuData: MenuListType[] = [
     id: 3,
     path: '/menu',
     name: 'Menu',
+    component: RoutesAlias.Home,
     meta: {
       title: '菜单管理',
       title_en: 'Menu manguage',
@@ -378,7 +454,9 @@ export const menuData: MenuListType[] = [
     children: [
       {
         id: 401,
-        path: '/menu/menu',
+        path: 'menu',
+        name: 'Menus',
+        component: RoutesAlias.Menu,
         meta: {
           title: '菜单权限',
           title_en: 'Menu permissions',
@@ -405,7 +483,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 411,
-        path: '/menu/permission',
+        path: 'permission',
+        name: 'Permission',
+        component: RoutesAlias.Permission,
         meta: {
           title: '权限控制',
           title_en: 'Permission control',
@@ -433,34 +513,21 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 402,
-        path: '/menu/nested',
+        path: 'nested',
+        name: 'Nested',
+        component: '',
         meta: {
           title: '嵌套菜单',
           title_en: 'Nested menu',
           icon: '&#xe676;',
-          keepAlive: true,
-          authList: [
-            {
-              id: 4021,
-              title: '新增',
-              auth_mark: 'add'
-            },
-            {
-              id: 4022,
-              title: '编辑',
-              auth_mark: 'edit'
-            },
-            {
-              id: 4023,
-              title: '删除',
-              auth_mark: 'delete'
-            }
-          ]
+          keepAlive: true
         },
         children: [
           {
             id: 40201,
-            path: '/menu/nested/menu1',
+            path: 'menu1',
+            name: 'NestedMenu1',
+            component: RoutesAlias.NestedMenu1,
             meta: {
               title: '菜单1',
               title_en: 'menu1',
@@ -470,7 +537,9 @@ export const menuData: MenuListType[] = [
           },
           {
             id: 40202,
-            path: '/menu/nested/menu2',
+            path: 'menu2',
+            name: 'NestedMenu2',
+            component: '',
             meta: {
               title: '菜单2',
               title_en: 'menu2',
@@ -480,7 +549,9 @@ export const menuData: MenuListType[] = [
             children: [
               {
                 id: 4020201,
-                path: '/menu/nested/menu2/menu2-1',
+                path: 'menu2-1',
+                name: 'NestedMenu2-1',
+                component: RoutesAlias.NestedMenu21,
                 meta: {
                   title: '菜单2-1',
                   title_en: 'menu2-1',
@@ -492,7 +563,9 @@ export const menuData: MenuListType[] = [
           },
           {
             id: 40203,
-            path: '/menu/nested/menu3',
+            path: 'menu3',
+            name: 'NestedMenu3',
+            component: '',
             meta: {
               title: '菜单3',
               title_en: 'menu3',
@@ -502,7 +575,9 @@ export const menuData: MenuListType[] = [
             children: [
               {
                 id: 4020301,
-                path: '/menu/nested/menu3/menu3-1',
+                path: 'menu3-1',
+                name: 'NestedMenu3-1',
+                component: RoutesAlias.NestedMenu31,
                 meta: {
                   title: '菜单3-1',
                   title_en: 'menu3-1',
@@ -512,7 +587,9 @@ export const menuData: MenuListType[] = [
               },
               {
                 id: 4020302,
-                path: '/menu/nested/menu3/menu3-2',
+                path: 'menu3-2',
+                name: 'NestedMenu3-2',
+                component: '',
                 meta: {
                   title: '菜单3-2',
                   title_en: 'menu3-2',
@@ -522,7 +599,9 @@ export const menuData: MenuListType[] = [
                 children: [
                   {
                     id: 402030201,
-                    path: '/menu/nested/menu3/menu3-2/menu3-2-1',
+                    path: 'menu3-2-1',
+                    name: 'NestedMenu3-2-1',
+                    component: RoutesAlias.NestedMenu321,
                     meta: {
                       title: '菜单3-2-1',
                       title_en: 'menu3-2-1',
@@ -542,6 +621,7 @@ export const menuData: MenuListType[] = [
     id: 18,
     path: '/result',
     name: 'Result',
+    component: RoutesAlias.Home,
     meta: {
       title: '结果页面',
       title_en: 'Result page',
@@ -551,7 +631,9 @@ export const menuData: MenuListType[] = [
     children: [
       {
         id: 401,
-        path: '/result/success',
+        path: 'success',
+        name: 'Success',
+        component: RoutesAlias.Success,
         meta: {
           title: '成功页',
           title_en: 'Success page',
@@ -560,7 +642,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 402,
-        path: '/result/fail',
+        path: 'fail',
+        name: 'Fail',
+        component: RoutesAlias.Fail,
         meta: {
           title: '失败页',
           title_en: 'Fail page',
@@ -573,6 +657,7 @@ export const menuData: MenuListType[] = [
     id: 8,
     path: '/exception',
     name: 'Exception',
+    component: RoutesAlias.Home,
     meta: {
       title: '异常页面',
       title_en: 'Exception',
@@ -582,7 +667,9 @@ export const menuData: MenuListType[] = [
     children: [
       {
         id: 801,
-        path: '/exception/403',
+        path: '403',
+        name: '403',
+        component: RoutesAlias.Exception403,
         meta: {
           title: '403',
           title_en: '403',
@@ -591,7 +678,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 802,
-        path: '/exception/404',
+        path: '404',
+        name: '404',
+        component: RoutesAlias.Exception404,
         meta: {
           title: '404',
           title_en: '404',
@@ -600,7 +689,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 803,
-        path: '/exception/500',
+        path: '500',
+        name: '500',
+        component: RoutesAlias.Exception500,
         meta: {
           title: '500',
           title_en: '500',
@@ -613,6 +704,7 @@ export const menuData: MenuListType[] = [
     id: 9,
     path: '/system',
     name: 'System',
+    component: RoutesAlias.Home,
     meta: {
       title: '系统设置',
       title_en: 'System setting',
@@ -622,7 +714,9 @@ export const menuData: MenuListType[] = [
     children: [
       {
         id: 901,
-        path: '/system/setting',
+        path: 'setting',
+        name: 'Setting',
+        component: RoutesAlias.Setting,
         meta: {
           title: '系统设置',
           title_en: 'System setting',
@@ -631,7 +725,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 902,
-        path: '/system/api',
+        path: 'api',
+        name: 'Api',
+        component: RoutesAlias.Api,
         meta: {
           title: 'API管理',
           title_en: 'API manguage',
@@ -640,7 +736,9 @@ export const menuData: MenuListType[] = [
       },
       {
         id: 903,
-        path: '/system/log',
+        path: 'log',
+        name: 'Log',
+        component: RoutesAlias.Log,
         meta: {
           title: '系统日志',
           title_en: 'System log',
@@ -653,6 +751,7 @@ export const menuData: MenuListType[] = [
     id: 10,
     path: '/safeguard',
     name: 'Safeguard',
+    component: RoutesAlias.Home,
     meta: {
       title: '运维管理',
       title_en: 'Safeguard',
@@ -662,7 +761,9 @@ export const menuData: MenuListType[] = [
     children: [
       {
         id: 1010,
-        path: '/safeguard/server',
+        path: 'server',
+        name: 'Server',
+        component: RoutesAlias.Server,
         meta: {
           title: '服务器管理',
           title_en: 'Server manguage',
@@ -675,6 +776,7 @@ export const menuData: MenuListType[] = [
     id: 11,
     path: '/plan',
     name: 'Plan',
+    component: RoutesAlias.Home,
     meta: {
       title: '版本计划',
       title_en: 'Version Plan',
@@ -684,7 +786,9 @@ export const menuData: MenuListType[] = [
     children: [
       {
         id: 1110,
-        path: '/plan/log',
+        path: 'log',
+        name: 'PlanLog',
+        component: RoutesAlias.PlanLog,
         meta: {
           title: '更新日志',
           title_en: 'Update Plan',
@@ -696,8 +800,9 @@ export const menuData: MenuListType[] = [
   },
   {
     id: 12,
-    name: '0',
+    name: '',
     path: '',
+    component: RoutesAlias.Home,
     meta: {
       title: '帮助中心',
       title_en: 'Help center',
@@ -708,6 +813,7 @@ export const menuData: MenuListType[] = [
       {
         id: 1101,
         path: '',
+        name: 'Document',
         meta: {
           title: '官方文档',
           title_en: 'Document',

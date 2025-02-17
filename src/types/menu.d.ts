@@ -1,8 +1,8 @@
 export type MenuListType = {
   id: number
-  name?: string // 组件名
   path: string // 路由
   name: string // 组件名
+  component?: string // 改为字符串类型，表示组件路径
   meta: {
     title: string // 菜单名称
     title_en: string // 菜单英文名称

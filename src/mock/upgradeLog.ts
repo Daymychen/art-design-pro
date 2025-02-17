@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.0',
+    title: '路由重构，只需要配置一份路由数据，即可生成菜单和路由',
+    date: '2025-02-17',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v2.1.2',
     title: '固定列表格文字穿透BUG修复、富文本复制代码按钮定位BUG修复、去除mockjs',
     date: '2025-02-16',
