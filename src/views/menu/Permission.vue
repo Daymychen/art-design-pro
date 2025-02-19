@@ -7,7 +7,10 @@
 
     <div class="row">
       <h3>菜单权限</h3>
-      <p>菜单权限通过 src/mock/menuData.ts 配置，如果数据结构存在菜单就会显示</p>
+      <p
+        >菜单权限通过 src/router/modules/asyncRoutes.ts
+        配置，如果数据结构存在菜单就会显示并动态注册路由</p
+      >
       <p>注意：正式项目需要后端返回菜单数据结构</p>
 
       <b>代码示例：</b>
@@ -17,32 +20,43 @@
             id: 3,
             path: '/menu',
             name: 'Menu',
+            component: RoutesAlias.Home,
             meta: {
-              title: '菜单管理',
-              title_en: 'Menu manguage',
+              title: 'menus.menu.title',
               icon: '&#xe8a4;',
+              keepAlive: false
             },
             children: [
               {
                 id: 401,
-                path: '/menu/menu',
+                path: 'menu',
+                name: 'Menus',
+                component: RoutesAlias.Menu,
                 meta: {
-                  title: '菜单权限',
-                  title_en: 'Menu permissions',
+                  title: 'menus.menu.menu',
                   icon: '&#xe8a4;',
+                  keepAlive: true,
+                  authList: [
+                    {
+                      id: 4011,
+                      title: '新增',
+                      auth_mark: 'add'
+                    },
+                    {
+                      id: 4012,
+                      title: '编辑',
+                      auth_mark: 'edit'
+                    },
+                    {
+                      id: 4013,
+                      title: '删除',
+                      auth_mark: 'delete'
+                    }
+                  ]
                 }
               },
-              {
-                id: 411,
-                path: '/menu/permission',
-                meta: {
-                  title: '权限控制',
-                  title_en: 'Permission control',
-                  icon: '&#xe80a;',
-                },
-              },
-            ],
-          }
+            ]
+          },
         </code>
       </pre>
     </div>
@@ -52,9 +66,13 @@
       <p>路由权限通过菜单数据动态添加路由，如果两边的数据匹配成功则可以访问路由，否则无法访问</p>
       <pre>
         <code>
+          // 静态路由（不需要权限）
           // src/router/index.ts
-          const routes = []; // 不需要权限的路由
-          const roleRoutes = []; // 需要权限的路由
+          const staticRoutes = [];
+
+          // 动态路由（需要权限）
+          // src/router/modules/asyncRoutes.ts
+          const asyncRoutes = []; 
         </code>
       </pre>
     </div>
@@ -75,31 +93,46 @@
       <pre>
         <code>
           {
-            id: 411,
-            path: '/menu/permission',
+            id: 3,
+            path: '/menu',
+            name: 'Menu',
+            component: RoutesAlias.Home,
             meta: {
-              title: '权限控制',
-              title_en: 'Permission control',
-              icon: '&#xe80a;',
-              authList: [
-                {
-                  id: 4111,
-                  title: '新增',
-                  auth_mark: 'add'
-                },
-                {
-                  id: 4112,
-                  title: '编辑',
-                  auth_mark: 'edit'
-                },
-                {
-                  id: 4113,
-                  title: '删除',
-                  auth_mark: 'delete'
-                }
-              ]
+              title: 'menus.menu.title',
+              icon: '&#xe8a4;',
+              keepAlive: false
             },
-          }
+            children: [
+              {
+                id: 401,
+                path: 'menu',
+                name: 'Menus',
+                component: RoutesAlias.Menu,
+                meta: {
+                  title: 'menus.menu.menu',
+                  icon: '&#xe8a4;',
+                  keepAlive: true,
+                  authList: [
+                    {
+                      id: 4011,
+                      title: '新增',
+                      auth_mark: 'add'
+                    },
+                    {
+                      id: 4012,
+                      title: '编辑',
+                      auth_mark: 'edit'
+                    },
+                    {
+                      id: 4013,
+                      title: '删除',
+                      auth_mark: 'delete'
+                    }
+                  ]
+                }
+              },
+            ]
+          },
         </code>
       </pre>
     </div>

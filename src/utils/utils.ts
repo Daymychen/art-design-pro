@@ -131,8 +131,3 @@ export function getGreeting() {
 export function isIframe(url: string) {
   return url.includes('/outside/iframe')
 }
-
-// 获取iframe的title
-export function getIframeTitle() {
-  return decodeURIComponent(location.href.split('/').pop() || '')
-}

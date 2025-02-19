@@ -268,5 +268,97 @@ export default {
     morning: 'Good morning!',
     afternoon: 'Good afternoon!',
     evening: 'Good evening!'
+  },
+  menus: {
+    outside: {
+      title: 'Outside'
+    },
+    dashboard: {
+      title: 'Dashboard',
+      console: 'Console',
+      analysis: 'Analysis'
+    },
+    widgets: {
+      title: 'Components',
+      iconList: 'Icon List',
+      iconSelector: 'Icon Selector',
+      imageCrop: 'Image Crop',
+      excel: 'Excel Import Export',
+      video: 'Video Player',
+      countTo: 'Count To',
+      wangEditor: 'Wang Editor',
+      watermark: 'Watermark',
+      contextMenu: 'Context Menu',
+      qrcode: 'QR Code',
+      drag: 'Drag',
+      textScroll: 'Text Scroll',
+      fireworks: 'Fireworks',
+      elementUI: 'Component Overview'
+    },
+    template: {
+      title: 'Template',
+      chat: 'Chat',
+      cards: 'Cards',
+      banners: 'Banners',
+      charts: 'Charts',
+      calendar: 'Calendar',
+      pricing: 'Pricing'
+    },
+    article: {
+      title: 'Article Management',
+      articleList: 'Article List',
+      articleDetail: 'Article Detail',
+      comment: 'Comment',
+      articlePublish: 'Article Publish'
+    },
+    user: {
+      title: 'User Management',
+      account: 'Account',
+      department: 'Department',
+      role: 'Role',
+      userCenter: 'User Center'
+    },
+    menu: {
+      title: 'Menu Management',
+      menu: 'Menu',
+      permission: 'Permission',
+      nested: 'Nested Menu',
+      menu1: 'Menu 1',
+      menu2: 'Menu 2',
+      menu21: 'Menu 2-1',
+      menu3: 'Menu 3',
+      menu31: 'Menu 3-1',
+      menu32: 'Menu 3-2',
+      menu321: 'Menu 3-2-1'
+    },
+    result: {
+      title: 'Result Page',
+      success: 'Success',
+      fail: 'Fail'
+    },
+    exception: {
+      title: 'Exception',
+      notFound: '404',
+      notFoundEn: '404',
+      serverError: '500'
+    },
+    system: {
+      title: 'System Settings',
+      setting: 'Setting',
+      api: 'API',
+      log: 'Log'
+    },
+    safeguard: {
+      title: 'Safeguard',
+      server: 'Server'
+    },
+    plan: {
+      title: 'Version Plan',
+      log: 'Log'
+    },
+    help: {
+      title: 'Help Center',
+      document: 'Document'
+    }
   }
 }

@@ -10,7 +10,7 @@
         :style="{ color: theme?.iconColor }"
         v-html="item.meta.icon"
       ></i>
-      <span>{{ getMenuTitle(item) }}</span>
+      <span>{{ formatMenuTitle(item.meta.title) }}</span>
     </template>
     <!-- 递归菜单 -->
     <MenuTopSubmenu
@@ -31,7 +31,7 @@
   >
     <template #title>
       <i class="menu-icon iconfont-sys" v-html="item.meta.icon"></i>
-      <span>{{ getMenuTitle(item) }}</span>
+      <span>{{ formatMenuTitle(item.meta.title) }}</span>
       <div class="badge" v-if="item.meta.showBadge"></div>
     </template>
   </el-menu-item>
@@ -40,7 +40,7 @@
 <script lang="ts" setup>
   import { router } from '@/router'
   import { MenuListType } from '@/types/menu'
-  import { getMenuTitle, openLink } from '@/utils/menu'
+  import { formatMenuTitle } from '@/utils/menu'
 
   defineProps({
     item: {
@@ -61,14 +61,6 @@
   const emit = defineEmits(['close'])
 
   const goPage = (item: MenuListType) => {
-    let { link, isIframe } = item.meta
-
-    // 打开链接
-    if (link) {
-      openLink(link, isIframe)
-      return
-    }
-
     closeMenu()
     router.push(item.path)
   }

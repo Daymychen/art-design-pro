@@ -9,6 +9,8 @@ import { MenuListType } from '@/types/menu'
  * 1. 前端静态配置 - 直接使用本文件中定义的路由配置
  * 2. 后端动态配置 - 后端返回菜单数据，前端解析生成路由
  *
+ * 菜单标题（title）:
+ * 可以是 i18n 的 key，也可以是字符串，比如：'用户列表'
  */
 export const asyncRoutes: MenuListType[] = [
   {
@@ -17,8 +19,7 @@ export const asyncRoutes: MenuListType[] = [
     path: '/dashboard',
     component: RoutesAlias.Home,
     meta: {
-      title: '仪表盘',
-      title_en: 'Dashboard',
+      title: 'menus.dashboard.title',
       icon: '&#xe721;',
       keepAlive: false
     },
@@ -29,8 +30,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Console',
         component: RoutesAlias.Dashboard,
         meta: {
-          title: '工作台',
-          title_en: 'Workbench',
+          title: 'menus.dashboard.console',
           keepAlive: true
         }
       },
@@ -40,8 +40,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Analysis',
         component: RoutesAlias.Analysis,
         meta: {
-          title: '分析页',
-          title_en: 'Analysis',
+          title: 'menus.dashboard.analysis',
           keepAlive: true
         }
       }
@@ -53,8 +52,7 @@ export const asyncRoutes: MenuListType[] = [
     name: 'Widgets',
     component: RoutesAlias.Home,
     meta: {
-      title: '组件中心',
-      title_en: 'Components',
+      title: 'menus.widgets.title',
       icon: '&#xe81a;',
       keepAlive: false
     },
@@ -65,8 +63,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'IconList',
         component: RoutesAlias.IconList,
         meta: {
-          title: 'Icon 图标',
-          title_en: 'Icon',
+          title: 'menus.widgets.iconList',
           keepAlive: true
         }
       },
@@ -76,8 +73,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'IconSelector',
         component: RoutesAlias.IconSelector,
         meta: {
-          title: '图标选择器',
-          title_en: 'Icon selector',
+          title: 'menus.widgets.iconSelector',
           keepAlive: true
         }
       },
@@ -87,8 +83,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'ImageCrop',
         component: RoutesAlias.ImageCrop,
         meta: {
-          title: '图像裁剪',
-          title_en: 'Image crop',
+          title: 'menus.widgets.imageCrop',
           keepAlive: true
         }
       },
@@ -98,8 +93,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Excel',
         component: RoutesAlias.Excel,
         meta: {
-          title: 'Excel 导入导出',
-          title_en: 'Excel import and export',
+          title: 'menus.widgets.excel',
           keepAlive: true
         }
       },
@@ -109,8 +103,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Video',
         component: RoutesAlias.Video,
         meta: {
-          title: '视频播放器',
-          title_en: 'Video',
+          title: 'menus.widgets.video',
           keepAlive: true
         }
       },
@@ -120,8 +113,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'CountTo',
         component: RoutesAlias.CountTo,
         meta: {
-          title: '数字滚动',
-          title_en: 'Count to',
+          title: 'menus.widgets.countTo',
           keepAlive: false
         }
       },
@@ -131,8 +123,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'WangEditor',
         component: RoutesAlias.WangEditor,
         meta: {
-          title: '富文本编辑器',
-          title_en: 'Rich text editor',
+          title: 'menus.widgets.wangEditor',
           keepAlive: true
         }
       },
@@ -142,8 +133,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Watermark',
         component: RoutesAlias.Watermark,
         meta: {
-          title: '水印',
-          title_en: 'Watermark',
+          title: 'menus.widgets.watermark',
           keepAlive: true
         }
       },
@@ -153,8 +143,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'ContextMenu',
         component: RoutesAlias.ContextMenu,
         meta: {
-          title: '右键菜单',
-          title_en: 'Context menu',
+          title: 'menus.widgets.contextMenu',
           keepAlive: true
         }
       },
@@ -164,8 +153,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Qrcode',
         component: RoutesAlias.Qrcode,
         meta: {
-          title: '二维码',
-          title_en: 'QR code',
+          title: 'menus.widgets.qrcode',
           keepAlive: true
         }
       },
@@ -175,8 +163,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Drag',
         component: RoutesAlias.Drag,
         meta: {
-          title: '拖拽',
-          title_en: 'Drag',
+          title: 'menus.widgets.drag',
           keepAlive: true
         }
       },
@@ -186,8 +173,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'TextScroll',
         component: RoutesAlias.TextScroll,
         meta: {
-          title: '文字滚动',
-          title_en: 'Text scroll',
+          title: 'menus.widgets.textScroll',
           keepAlive: true
         }
       },
@@ -197,20 +183,18 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Fireworks',
         component: RoutesAlias.Fireworks,
         meta: {
-          title: '礼花',
-          title_en: 'Fireworks',
+          title: 'menus.widgets.fireworks',
           keepAlive: true,
           showTextBadge: 'Hot'
         }
       },
       {
         id: 516,
-        path: '',
+        path: '/outside/iframe/elementui',
         name: 'ElementUI',
         component: '',
         meta: {
-          title: '组件总览',
-          title_en: 'Element UI',
+          title: 'menus.widgets.elementUI',
           keepAlive: false,
           link: 'https://element-plus.org/zh-CN/component/overview.html',
           isIframe: true,
@@ -225,8 +209,7 @@ export const asyncRoutes: MenuListType[] = [
     name: 'Template',
     component: RoutesAlias.Home,
     meta: {
-      title: '模板中心',
-      title_en: 'Template',
+      title: 'menus.template.title',
       icon: '&#xe860;',
       keepAlive: false
     },
@@ -237,8 +220,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Chat',
         component: RoutesAlias.Chat,
         meta: {
-          title: '聊天',
-          title_en: 'Chat',
+          title: 'menus.template.chat',
           keepAlive: true
         }
       },
@@ -248,8 +230,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Cards',
         component: RoutesAlias.Cards,
         meta: {
-          title: '卡片',
-          title_en: 'Cards',
+          title: 'menus.template.cards',
           keepAlive: false
         }
       },
@@ -259,8 +240,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Banners',
         component: RoutesAlias.Banners,
         meta: {
-          title: '横幅',
-          title_en: 'Banners',
+          title: 'menus.template.banners',
           keepAlive: false
         }
       },
@@ -270,8 +250,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Charts',
         component: RoutesAlias.Charts,
         meta: {
-          title: '图表',
-          title_en: 'Charts',
+          title: 'menus.template.charts',
           keepAlive: false
         }
       },
@@ -281,8 +260,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Calendar',
         component: RoutesAlias.Calendar,
         meta: {
-          title: '日历',
-          title_en: 'Calendar',
+          title: 'menus.template.calendar',
           keepAlive: true
         }
       },
@@ -293,8 +271,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Pricing',
         component: RoutesAlias.Pricing,
         meta: {
-          title: '定价',
-          title_en: 'Pricing',
+          title: 'menus.template.pricing',
           keepAlive: true,
           isHideTab: true
         }
@@ -307,8 +284,7 @@ export const asyncRoutes: MenuListType[] = [
     name: 'Article',
     component: RoutesAlias.Home,
     meta: {
-      title: '文章管理',
-      title_en: 'Article manguage',
+      title: 'menus.article.title',
       icon: '&#xe7ae;',
       keepAlive: true
     },
@@ -319,8 +295,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'ArticleList',
         component: RoutesAlias.ArticleList,
         meta: {
-          title: '文章列表',
-          title_en: 'Article list',
+          title: 'menus.article.articleList',
           keepAlive: true,
           authList: [
             {
@@ -343,8 +318,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'ArticleDetail',
         component: RoutesAlias.ArticleDetail,
         meta: {
-          title: '文章详情',
-          title_en: 'Article category',
+          title: 'menus.article.articleDetail',
           isHide: true,
           keepAlive: true
         }
@@ -355,8 +329,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Comment',
         component: RoutesAlias.Comment,
         meta: {
-          title: '留言管理',
-          title_en: 'Comment',
+          title: 'menus.article.comment',
           keepAlive: true
         }
       },
@@ -366,8 +339,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'ArticlePublish',
         component: RoutesAlias.ArticlePublish,
         meta: {
-          title: '文章发布',
-          title_en: 'Article publish',
+          title: 'menus.article.articlePublish',
           keepAlive: true,
           authList: [
             {
@@ -386,8 +358,7 @@ export const asyncRoutes: MenuListType[] = [
     path: '/user',
     component: RoutesAlias.Home,
     meta: {
-      title: '用户管理',
-      title_en: 'User manguage',
+      title: 'menus.user.title',
       icon: '&#xe86e;',
       keepAlive: false
     },
@@ -398,8 +369,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Account',
         component: RoutesAlias.Account,
         meta: {
-          title: '账号管理',
-          title_en: 'Account manguage',
+          title: 'menus.user.account',
           keepAlive: true
         }
       },
@@ -409,8 +379,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Department',
         component: RoutesAlias.Department,
         meta: {
-          title: '部门管理',
-          title_en: 'Department manguage',
+          title: 'menus.user.department',
           keepAlive: false
         }
       },
@@ -420,8 +389,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Role',
         component: RoutesAlias.Role,
         meta: {
-          title: '角色权限',
-          title_en: 'Roles',
+          title: 'menus.user.role',
           keepAlive: true
         }
       },
@@ -431,8 +399,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'UserCenter',
         component: RoutesAlias.UserCenter,
         meta: {
-          title: '个人中心',
-          title_en: 'User center',
+          title: 'menus.user.userCenter',
           isHide: true,
           keepAlive: true,
           isHideTab: true
@@ -446,8 +413,7 @@ export const asyncRoutes: MenuListType[] = [
     name: 'Menu',
     component: RoutesAlias.Home,
     meta: {
-      title: '菜单管理',
-      title_en: 'Menu manguage',
+      title: 'menus.menu.title',
       icon: '&#xe8a4;',
       keepAlive: false
     },
@@ -458,8 +424,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Menus',
         component: RoutesAlias.Menu,
         meta: {
-          title: '菜单权限',
-          title_en: 'Menu permissions',
+          title: 'menus.menu.menu',
           icon: '&#xe8a4;',
           keepAlive: true,
           authList: [
@@ -487,8 +452,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Permission',
         component: RoutesAlias.Permission,
         meta: {
-          title: '权限控制',
-          title_en: 'Permission control',
+          title: 'menus.menu.permission',
           icon: '&#xe831;',
           showTextBadge: 'new',
           keepAlive: true,
@@ -517,8 +481,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Nested',
         component: '',
         meta: {
-          title: '嵌套菜单',
-          title_en: 'Nested menu',
+          title: 'menus.menu.nested',
           icon: '&#xe676;',
           keepAlive: true
         },
@@ -529,8 +492,7 @@ export const asyncRoutes: MenuListType[] = [
             name: 'NestedMenu1',
             component: RoutesAlias.NestedMenu1,
             meta: {
-              title: '菜单1',
-              title_en: 'menu1',
+              title: 'menus.menu.menu1',
               icon: '&#xe676;',
               keepAlive: true
             }
@@ -541,8 +503,7 @@ export const asyncRoutes: MenuListType[] = [
             name: 'NestedMenu2',
             component: '',
             meta: {
-              title: '菜单2',
-              title_en: 'menu2',
+              title: 'menus.menu.menu2',
               icon: '&#xe676;',
               keepAlive: true
             },
@@ -553,8 +514,7 @@ export const asyncRoutes: MenuListType[] = [
                 name: 'NestedMenu2-1',
                 component: RoutesAlias.NestedMenu21,
                 meta: {
-                  title: '菜单2-1',
-                  title_en: 'menu2-1',
+                  title: 'menus.menu.menu21',
                   icon: '&#xe676;',
                   keepAlive: true
                 }
@@ -567,8 +527,7 @@ export const asyncRoutes: MenuListType[] = [
             name: 'NestedMenu3',
             component: '',
             meta: {
-              title: '菜单3',
-              title_en: 'menu3',
+              title: 'menus.menu.menu3',
               icon: '&#xe676;',
               keepAlive: true
             },
@@ -579,8 +538,7 @@ export const asyncRoutes: MenuListType[] = [
                 name: 'NestedMenu3-1',
                 component: RoutesAlias.NestedMenu31,
                 meta: {
-                  title: '菜单3-1',
-                  title_en: 'menu3-1',
+                  title: 'menus.menu.menu31',
                   icon: '&#xe676;',
                   keepAlive: true
                 }
@@ -591,8 +549,7 @@ export const asyncRoutes: MenuListType[] = [
                 name: 'NestedMenu3-2',
                 component: '',
                 meta: {
-                  title: '菜单3-2',
-                  title_en: 'menu3-2',
+                  title: 'menus.menu.menu32',
                   icon: '&#xe676;',
                   keepAlive: true
                 },
@@ -603,8 +560,7 @@ export const asyncRoutes: MenuListType[] = [
                     name: 'NestedMenu3-2-1',
                     component: RoutesAlias.NestedMenu321,
                     meta: {
-                      title: '菜单3-2-1',
-                      title_en: 'menu3-2-1',
+                      title: 'menus.menu.menu321',
                       icon: '&#xe676;',
                       keepAlive: true
                     }
@@ -623,8 +579,7 @@ export const asyncRoutes: MenuListType[] = [
     name: 'Result',
     component: RoutesAlias.Home,
     meta: {
-      title: '结果页面',
-      title_en: 'Result page',
+      title: 'menus.result.title',
       icon: '&#xe715;',
       keepAlive: false
     },
@@ -635,8 +590,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Success',
         component: RoutesAlias.Success,
         meta: {
-          title: '成功页',
-          title_en: 'Success page',
+          title: 'menus.result.success',
           keepAlive: true
         }
       },
@@ -646,8 +600,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Fail',
         component: RoutesAlias.Fail,
         meta: {
-          title: '失败页',
-          title_en: 'Fail page',
+          title: 'menus.result.fail',
           keepAlive: true
         }
       }
@@ -659,8 +612,7 @@ export const asyncRoutes: MenuListType[] = [
     name: 'Exception',
     component: RoutesAlias.Home,
     meta: {
-      title: '异常页面',
-      title_en: 'Exception',
+      title: 'menus.exception.title',
       icon: '&#xe820;',
       keepAlive: false
     },
@@ -671,8 +623,7 @@ export const asyncRoutes: MenuListType[] = [
         name: '403',
         component: RoutesAlias.Exception403,
         meta: {
-          title: '403',
-          title_en: '403',
+          title: 'menus.exception.notFound',
           keepAlive: true
         }
       },
@@ -682,8 +633,7 @@ export const asyncRoutes: MenuListType[] = [
         name: '404',
         component: RoutesAlias.Exception404,
         meta: {
-          title: '404',
-          title_en: '404',
+          title: 'menus.exception.notFoundEn',
           keepAlive: true
         }
       },
@@ -693,8 +643,7 @@ export const asyncRoutes: MenuListType[] = [
         name: '500',
         component: RoutesAlias.Exception500,
         meta: {
-          title: '500',
-          title_en: '500',
+          title: 'menus.exception.serverError',
           keepAlive: true
         }
       }
@@ -706,8 +655,7 @@ export const asyncRoutes: MenuListType[] = [
     name: 'System',
     component: RoutesAlias.Home,
     meta: {
-      title: '系统设置',
-      title_en: 'System setting',
+      title: 'menus.system.title',
       icon: '&#xe7b9;',
       keepAlive: false
     },
@@ -718,8 +666,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Setting',
         component: RoutesAlias.Setting,
         meta: {
-          title: '系统设置',
-          title_en: 'System setting',
+          title: 'menus.system.setting',
           keepAlive: true
         }
       },
@@ -729,8 +676,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Api',
         component: RoutesAlias.Api,
         meta: {
-          title: 'API管理',
-          title_en: 'API manguage',
+          title: 'menus.system.api',
           keepAlive: true
         }
       },
@@ -740,8 +686,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Log',
         component: RoutesAlias.Log,
         meta: {
-          title: '系统日志',
-          title_en: 'System log',
+          title: 'menus.system.log',
           keepAlive: true
         }
       }
@@ -753,8 +698,7 @@ export const asyncRoutes: MenuListType[] = [
     name: 'Safeguard',
     component: RoutesAlias.Home,
     meta: {
-      title: '运维管理',
-      title_en: 'Safeguard',
+      title: 'menus.safeguard.title',
       icon: '&#xe816;',
       keepAlive: false
     },
@@ -765,8 +709,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Server',
         component: RoutesAlias.Server,
         meta: {
-          title: '服务器管理',
-          title_en: 'Server manguage',
+          title: 'menus.safeguard.server',
           keepAlive: true
         }
       }
@@ -778,8 +721,7 @@ export const asyncRoutes: MenuListType[] = [
     name: 'Plan',
     component: RoutesAlias.Home,
     meta: {
-      title: '版本计划',
-      title_en: 'Version Plan',
+      title: 'menus.plan.title',
       icon: '&#xe712;',
       keepAlive: false
     },
@@ -790,8 +732,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'PlanLog',
         component: RoutesAlias.PlanLog,
         meta: {
-          title: '更新日志',
-          title_en: 'Update Plan',
+          title: 'menus.plan.log',
           showTextBadge: `${upgradeLogList.value[0].version}`,
           keepAlive: true
         }
@@ -804,8 +745,7 @@ export const asyncRoutes: MenuListType[] = [
     path: '',
     component: RoutesAlias.Home,
     meta: {
-      title: '帮助中心',
-      title_en: 'Help center',
+      title: 'menus.help.title',
       icon: '&#xe719;',
       keepAlive: false
     },
@@ -815,8 +755,7 @@ export const asyncRoutes: MenuListType[] = [
         path: '',
         name: 'Document',
         meta: {
-          title: '官方文档',
-          title_en: 'Document',
+          title: 'menus.help.document',
           link: 'https://www.lingchen.kim/art-design-pro/docs/',
           isIframe: false,
           keepAlive: false

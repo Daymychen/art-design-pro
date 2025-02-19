@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { LanguageEnum } from '@/enums/appEnum'
-import { router } from '@/router'
+import { router, setPageTitle } from '@/router'
 import { UserInfo } from '@/types/store'
 import { useSettingStore } from './setting'
 import { useWorktabStore } from './worktab'
@@ -75,6 +75,7 @@ export const useUserStore = defineStore({
       this.isLogin = isLogin
     },
     setLanguage(lang: LanguageEnum) {
+      setPageTitle(router.currentRoute.value)
       this.language = lang
     },
     setSearchHistory(list: Array<MenuListType>) {

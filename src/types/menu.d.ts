@@ -5,7 +5,6 @@ export type MenuListType = {
   component?: string // 改为字符串类型，表示组件路径
   meta: {
     title: string // 菜单名称
-    title_en: string // 菜单英文名称
     icon?: string // 菜单图标
     showBadge?: boolean // 是否显示徽标
     showTextBadge?: string // 是否显示新徽标

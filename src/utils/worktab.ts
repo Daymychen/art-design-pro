@@ -16,10 +16,10 @@ export const setWorktab = (to: RouteLocationNormalized): void => {
     // 如果是 iframe 页面，则特殊处理工作标签页
     if (isIframe(path)) {
       const iframeRoute = getIframeRoutes().find((route: any) => route.path === to.path)
+
       if (iframeRoute?.meta) {
         worktabStore.openTab({
           title: iframeRoute.meta.title,
-          title_en: iframeRoute.meta.title_en,
           path,
           name: name as string,
           keepAlive: meta.keepAlive as boolean,
@@ -30,7 +30,6 @@ export const setWorktab = (to: RouteLocationNormalized): void => {
     } else if (useSettingStore().showWorkTab || path === HOME_PAGE) {
       worktabStore.openTab({
         title: meta.title as string,
-        title_en: meta.title_en as string,
         path,
         name: name as string,
         keepAlive: meta.keepAlive as boolean,

@@ -1,15 +1,25 @@
 import { upgradeLogList } from '@/mock/upgradeLog'
 import { ElNotification } from 'element-plus'
+import { useUserStore } from '@/store/modules/user'
 
-// 检测系统升级
-export function checkSystemUpgrade() {
+// 系统升级
+export function systemUpgrade() {
+  const version = import.meta.env.VITE_VERSION
+  // 跳过版本为1.0.0的提示
+  if (version === '1.0.0') return
+
   setTimeout(() => {
-    const version = import.meta.env.VITE_VERSION
-    const content = upgradeLogList.value[0].title
-    const message = `<p style="color: var(--art-gray-text-800) !important; padding-bottom: 5px;">系统已升级到 ${version} 版本，此次更新带来了以下改进：</p>${content}`
-
-    // 跳过版本为1.0.0的提示
-    if (version === '1.0.0') return
+    const { title: content, requireReLogin } = upgradeLogList.value[0]
+    // 系统升级公告
+    const message = [
+      `<p style="color: var(--art-gray-text-800) !important; padding-bottom: 5px;">`,
+      `系统已升级到 ${version} 版本，此次更新带来了以下改进：`,
+      `</p>`,
+      content,
+      requireReLogin
+        ? `<p style="color: var(--main-color); padding-top: 5px;">升级完成，请重新登录后继续使用。</p>`
+        : ''
+    ].join('')
 
     const oldSysKey = Object.keys(localStorage).find(
       (key) => key.startsWith('sys-v') && key !== `sys-v${version}`
@@ -29,6 +39,10 @@ export function checkSystemUpgrade() {
         localStorage.setItem('version', version)
         // 删除旧版本号
         localStorage.removeItem(oldSysKey)
+        // 需要重新登录
+        if (requireReLogin) {
+          useUserStore().logOut()
+        }
       }, 1000)
     }
   }, 1000)

@@ -252,5 +252,97 @@ export default {
     morning: '上午好！',
     afternoon: '下午好！',
     evening: '晚上好！'
+  },
+  menus: {
+    outside: {
+      title: '内嵌页面'
+    },
+    dashboard: {
+      title: '仪表盘',
+      console: '工作台',
+      analysis: '分析页'
+    },
+    widgets: {
+      title: '组件中心',
+      iconList: 'Icon 图标',
+      iconSelector: '图标选择器',
+      imageCrop: '图像裁剪',
+      excel: 'Excel 导入导出',
+      video: '视频播放器',
+      countTo: '数字滚动',
+      wangEditor: '富文本编辑器',
+      watermark: '水印',
+      contextMenu: '右键菜单',
+      qrcode: '二维码',
+      drag: '拖拽',
+      textScroll: '文字滚动',
+      fireworks: '礼花',
+      elementUI: '组件总览'
+    },
+    template: {
+      title: '模板中心',
+      chat: '聊天',
+      cards: '卡片',
+      banners: '横幅',
+      charts: '图表',
+      calendar: '日历',
+      pricing: '定价'
+    },
+    article: {
+      title: '文章管理',
+      articleList: '文章列表',
+      articleDetail: '文章详情',
+      comment: '留言管理',
+      articlePublish: '文章发布'
+    },
+    user: {
+      title: '用户管理',
+      account: '账号管理',
+      department: '部门管理',
+      role: '角色权限',
+      userCenter: '个人中心'
+    },
+    menu: {
+      title: '菜单管理',
+      menu: '菜单权限',
+      permission: '权限控制',
+      nested: '嵌套菜单',
+      menu1: '菜单1',
+      menu2: '菜单2',
+      menu21: '菜单2-1',
+      menu3: '菜单3',
+      menu31: '菜单3-1',
+      menu32: '菜单3-2',
+      menu321: '菜单3-2-1'
+    },
+    result: {
+      title: '结果页面',
+      success: '成功页',
+      fail: '失败页'
+    },
+    exception: {
+      title: '异常页面',
+      notFound: '404',
+      notFoundEn: '404',
+      serverError: '500'
+    },
+    system: {
+      title: '系统管理',
+      setting: '系统设置',
+      api: 'API管理',
+      log: '系统日志'
+    },
+    safeguard: {
+      title: '运维管理',
+      server: '服务器管理'
+    },
+    plan: {
+      title: '版本计划',
+      log: '更新日志'
+    },
+    help: {
+      title: '帮助中心',
+      document: '官方文档'
+    }
   }
 }

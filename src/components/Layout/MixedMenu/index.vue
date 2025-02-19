@@ -19,7 +19,7 @@
             v-if="!item.meta.isHide"
           >
             <i class="iconfont-sys" v-html="item.meta.icon"></i>
-            <span>{{ getMenuTitle(item) }}</span>
+            <span>{{ formatMenuTitle(item.meta.title) }}</span>
           </div>
         </template>
       </div>
@@ -36,10 +36,10 @@
   import { MenuListType } from '@/types/menu'
   const router = useRouter()
   const route = useRoute()
-  import { getMenuTitle, openLink } from '@/utils/menu'
   import { ref, onMounted } from 'vue'
   import { ArrowLeft, ArrowRight } from '@element-plus/icons-vue'
-  import { getIframeTitle, isIframe } from '@/utils/utils'
+  import { formatMenuTitle } from '@/utils/menu'
+
   const settingStore = useSettingStore()
   const menuopenwidth = computed(() => settingStore.getMenuOpenWidth)
 
@@ -53,12 +53,7 @@
   const toPage = (item: MenuListType) => {
     if (item.children?.length) {
       let firstChild = item.children.find((child) => !child.meta.isHide) || item.children[0]
-      let { link, isIframe } = firstChild.meta
-      if (link) {
-        openLink(link, isIframe)
-      } else {
-        router.push(firstChild.path)
-      }
+      router.push(firstChild.path)
     } else {
       router.push(item.path)
     }
@@ -66,10 +61,6 @@
 
   const isActive = (item: MenuListType): boolean => {
     const currentPath = route.path
-
-    if (isIframe(currentPath)) {
-      return item.children?.some((child) => child.meta.title === getIframeTitle()) ?? false
-    }
 
     if (item.children?.length) {
       return item.children.some((child) => child.path === currentPath)

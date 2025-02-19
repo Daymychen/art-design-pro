@@ -18,6 +18,7 @@ import { useTheme } from '@/composables/useTheme'
 import { RoutesAlias } from './modules/routesAlias'
 import { setWorktab } from '@/utils/worktab'
 import { registerAsyncRoutes } from './modules/dynamicRoutes'
+import { formatMenuTitle } from '@/utils/menu'
 
 /** 顶部进度条配置 */
 NProgress.configure({
@@ -43,19 +44,19 @@ const staticRoutes: AppRouteRecordRaw[] = [
     path: '/dashboard',
     component: Home,
     name: 'Dashboard',
-    meta: { title: '监控中心', title_en: 'Dashboard' },
+    meta: { title: 'menus.dashboard.title' },
     children: [
       {
         path: RoutesAlias.Dashboard,
         name: 'Console',
         component: () => import('@views/dashboard/console/index.vue'),
-        meta: { title: '工作台', title_en: 'Workbench', keepAlive: false }
+        meta: { title: 'menus.dashboard.console', keepAlive: false }
       },
       {
         path: RoutesAlias.Analysis,
         name: 'Analysis',
         component: () => import('@views/dashboard/analysis/index.vue'),
-        meta: { title: '分析页', title_en: 'Analysis', keepAlive: false }
+        meta: { title: 'menus.dashboard.analysis', keepAlive: false }
       }
     ]
   },
@@ -81,25 +82,25 @@ const staticRoutes: AppRouteRecordRaw[] = [
     path: '/exception',
     component: Home,
     name: 'Exception',
-    meta: { title: '异常页面', title_en: 'Exception' },
+    meta: { title: '异常页面' },
     children: [
       {
         path: RoutesAlias.Exception403,
         name: 'Exception403',
         component: () => import('@/views/exception/403.vue'),
-        meta: { title: '403', title_en: '403' }
+        meta: { title: '403' }
       },
       {
         path: RoutesAlias.Exception404,
         name: 'Exception404',
         component: () => import('@views/exception/404.vue'),
-        meta: { title: '404', title_en: '404' }
+        meta: { title: '404' }
       },
       {
         path: RoutesAlias.Exception500,
         name: 'Exception500',
         component: () => import('@views/exception/500.vue'),
-        meta: { title: '500', title_en: '500' }
+        meta: { title: '500' }
       }
     ]
   },
@@ -107,13 +108,13 @@ const staticRoutes: AppRouteRecordRaw[] = [
     path: '/outside',
     component: Home,
     name: 'Outside',
-    meta: { title: '内嵌页面', title_en: 'Outside' },
+    meta: { title: 'menus.outside.title' },
     children: [
       {
         path: '/outside/iframe/:path',
         name: 'Iframe',
         component: () => import('@/views/outside/Iframe.vue'),
-        meta: { title: 'iframe', title_en: 'iframe' }
+        meta: { title: 'iframe' }
       }
     ]
   },
@@ -121,7 +122,7 @@ const staticRoutes: AppRouteRecordRaw[] = [
     path: RoutesAlias.Pricing,
     name: 'Pricing',
     component: () => import('@views/template/pricing.vue'),
-    meta: { title: '定价', isHideTab: true }
+    meta: { title: 'menus.template.pricing', isHideTab: true }
   }
 ]
 
@@ -219,13 +220,10 @@ const setSystemTheme = (to: RouteLocationNormalized): void => {
  * 设置页面标题，根据路由元信息和系统信息拼接标题
  * @param to 当前路由对象
  */
-const setPageTitle = (to: RouteLocationNormalized): void => {
+export const setPageTitle = (to: RouteLocationNormalized): void => {
   const { title } = to.meta
   if (title) {
-    document.title =
-      title === 'iframe'
-        ? `${decodeURIComponent(to.path.split('/').pop() || '')} - ${SystemInfo.name}`
-        : `${title} - ${SystemInfo.name}`
+    document.title = `${formatMenuTitle(String(title))} - ${SystemInfo.name}`
   }
 }
 

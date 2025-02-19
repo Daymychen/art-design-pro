@@ -16,7 +16,7 @@
           @click="clickTab(item.path)"
           @contextmenu.prevent="(e: MouseEvent) => showMenu(e, item.path)"
         >
-          {{ getWorkTabTitle(item) }}
+          {{ formatMenuTitle(item.title) }}
           <el-icon v-if="index !== 0" @click.stop="closeWorktab('current', item.path)">
             <Close />
           </el-icon>
@@ -72,8 +72,8 @@
 
   import { useWorktabStore } from '@/store/modules/worktab'
   import { useUserStore } from '@/store/modules/user'
+  import { formatMenuTitle } from '@/utils/menu'
 
-  import { getWorkTabTitle } from '@/utils/menu'
   import type { MenuItemType } from '@/components/Widgets/MenuRight.vue'
 
   const { t } = useI18n()

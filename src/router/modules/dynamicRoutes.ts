@@ -21,13 +21,14 @@ const modules: Record<string, () => Promise<any>> = import.meta.glob('../../view
 function registerAsyncRoutes(router: Router, menuList: MenuListType[]): void {
   // 用于局部收集 iframe 类型路由
   const iframeRoutes: MenuListType[] = []
+  // 遍历菜单列表，注册路由
   menuList.forEach((route) => {
     if (route.name && !router.hasRoute(route.name)) {
       const routeConfig = convertRouteComponent(route, iframeRoutes)
       router.addRoute(routeConfig as RouteRecordRaw)
     }
   })
-  // 保存 iframe 路由（后续可能用于其他业务逻辑）
+  // 保存 iframe 路由
   saveIframeRoutes(iframeRoutes)
 }
 
@@ -55,16 +56,22 @@ function loadComponent(componentPath: string, routeName: string): () => Promise<
 function convertRouteComponent(route: MenuListType, iframeRoutes: MenuListType[]): RouteRecordRaw {
   const { component, children, ...routeConfig } = route
   const converted: any = {
-    ...routeConfig,
-    component:
-      RoutesAlias[component as keyof typeof RoutesAlias] ||
-      loadComponent(component as string, route.name)
+    ...routeConfig
   }
 
-  // 如果路由为 iframe 类型，则修改路径并收集到 iframeRoutes 数组中
+  // 处理 iframe 类型路由
   if (route.meta.isIframe) {
-    route.path = `/outside/iframe/${encodeURIComponent(route.meta.title)}`
+    // 处理 iframe 路由
+    converted.path = `/outside/iframe/${route.name}`
+    converted.component = () => import('@/views/outside/Iframe.vue')
+    // 收集 iframe 路由用于后续处理
     iframeRoutes.push(route)
+  } else {
+    // 处理普通路由组件
+    converted.component = component
+      ? RoutesAlias[component as keyof typeof RoutesAlias] ||
+        loadComponent(component as string, route.name)
+      : undefined
   }
 
   // 递归处理子路由

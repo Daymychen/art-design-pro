@@ -23,7 +23,6 @@
 
 <script setup lang="ts">
   import { MenuListType } from '@/types/menu'
-  import { getIframeTitle, isIframe } from '@/utils/utils'
 
   const route = useRoute()
 
@@ -39,10 +38,6 @@
   })
 
   const routerPath = computed(() => {
-    // 处理 iframe 路径
-    if (isIframe(route.path)) {
-      return getIframeTitle()
-    }
     return route.path
   })
 </script>

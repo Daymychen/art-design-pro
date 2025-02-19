@@ -88,6 +88,7 @@
   import { useMenuStore } from '@/store/modules/menu'
   import { ElMessage, ElMessageBox } from 'element-plus'
   import type { FormInstance, FormRules } from 'element-plus'
+  import { formatMenuTitle } from '@/utils/menu'
 
   const dialogVisible = ref(false)
   const permissionDialog = ref(false)
@@ -239,7 +240,7 @@
 
   const defaultProps = {
     children: 'children',
-    label: (data: any) => data.meta?.title || ''
+    label: (data: any) => formatMenuTitle(data.meta?.title) || ''
   }
 
   const deleteRole = () => {

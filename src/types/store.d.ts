@@ -51,7 +51,6 @@ export interface Setting {
 // 多标签
 export interface WorkTabType {
   title: string
-  title_en?: string
   path: string
   name: string
   keepAlive: boolean

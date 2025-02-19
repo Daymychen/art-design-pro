@@ -4,7 +4,7 @@
     <el-sub-menu v-if="hasChildren(item)" :index="item.path || item.meta.title" :level="level">
       <template #title>
         <MenuItemIcon :icon="item.meta.icon" :color="theme?.iconColor" />
-        <span class="menu-name">{{ getMenuTitle(item) }}</span>
+        <span class="menu-name">{{ formatMenuTitle(item.meta.title) }}</span>
         <div v-if="item.meta.showBadge" class="badge" style="right: 35px" />
       </template>
       <submenu
@@ -25,7 +25,7 @@
     >
       <MenuItemIcon :icon="item.meta.icon" />
       <template #title>
-        <span class="menu-name">{{ getMenuTitle(item) }}</span>
+        <span class="menu-name">{{ formatMenuTitle(item.meta.title) }}</span>
         <div v-if="item.meta.showBadge" class="badge" />
         <div v-if="item.meta.showTextBadge" class="text-badge">
           {{ item.meta.showTextBadge }}
@@ -39,7 +39,7 @@
   import { computed } from 'vue'
   import { router } from '@/router'
   import type { MenuListType } from '@/types/menu'
-  import { getMenuTitle, openLink } from '@/utils/menu'
+  import { formatMenuTitle } from '@/utils/menu'
 
   // 类型定义
   interface Props {
@@ -71,13 +71,6 @@
 
   // 跳转页面
   const goPage = (item: MenuListType) => {
-    const { link } = item.meta
-
-    if (link) {
-      openLink(link, item.meta.isIframe)
-      return
-    }
-
     closeMenu()
     router.push(item.path)
   }

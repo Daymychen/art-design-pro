@@ -1,6 +1,4 @@
-import { router } from '@/router'
-import { LanguageEnum } from '@/enums/appEnum'
-import { useUserStore } from '@/store/modules/user'
+import { $t } from '@/language'
 import { MenuListType } from '@/types/menu'
 
 // 创建递归函数处理嵌套路由
@@ -13,9 +11,11 @@ import { MenuListType } from '@/types/menu'
 export const processRoute = (route: MenuListType, parentPath = ''): MenuListType => {
   // 构建完整路径
   const currentPath = route.path
-    ? parentPath
-      ? `${parentPath}/${route.path}`.replace(/\/+/g, '/') // 规范化路径,避免多余的斜杠
-      : route.path
+    ? route.meta?.isIframe
+      ? route.path // isIframe 为 true 时直接使用原始路径
+      : parentPath
+        ? `${parentPath}/${route.path}`.replace(/\/+/g, '/') // 规范化路径,避免多余的斜杠
+        : route.path
     : ''
 
   return {
@@ -40,44 +40,16 @@ export const saveIframeRoutes = (list: MenuListType[]): void => {
   }
 }
 
-// 菜单标题映射
-const titlePropertyMap = {
-  [LanguageEnum.ZH]: 'title',
-  [LanguageEnum.EN]: 'title_en'
-}
-
-const getTitleProp = () => {
-  return titlePropertyMap[useUserStore().language]
-}
-
-// 获取多语言菜单标题
-export const getMenuTitle = (item: any) => {
-  return item.meta[getTitleProp()]
-}
-
-// 获取 meta 多语言菜单标题
-export const getMetaMenuTitle = (item: any) => {
-  return item.meta[getTitleProp()]
-}
-
-// 获取标签页多语言标题
-export const getWorkTabTitle = (item: any) => {
-  return item[getTitleProp()]
-}
-
-// 打开链接
-export const openLink = (link: string, isIframe: boolean = false) => {
-  if (isIframe) {
-    const iframeRoute = getIframeRoutes().find((route: any) => route.meta.link === link)
-    if (iframeRoute?.path) {
-      router.push({ path: iframeRoute.path })
-    }
-  } else {
-    return window.open(link, '_blank')
-  }
-}
-
 // 获取 iframe 路由
 export const getIframeRoutes = () => {
   return JSON.parse(sessionStorage.getItem('iframeRoutes') || '[]')
+}
+
+/**
+ * 格式化菜单标题
+ * @param title 菜单标题，可以是 i18n 的 key，也可以是字符串，比如：'用户列表'
+ * @returns 格式化后的菜单标题
+ */
+export const formatMenuTitle = (title: string) => {
+  return title.startsWith('menus.') ? $t(title) : title
 }

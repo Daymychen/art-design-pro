@@ -37,7 +37,7 @@
               highlighted: isHighlighted(pIndex, cIndex)
             }"
           >
-            {{ getMenuTitle(cItem) }}
+            {{ formatMenuTitle(cItem.meta.title) }}
             <i class="selected-icon iconfont-sys" v-show="isHighlighted(pIndex, cIndex)"
               >&#xe6e6;</i
             >
@@ -61,7 +61,7 @@
             @click="searchGoPage(item)"
             @mouseenter="historyHIndex = index"
           >
-            {{ getMenuTitle(item) }}
+            {{ formatMenuTitle(item.meta.title) }}
             <i class="selected-icon iconfont-sys" @click.stop="deleteHistory(index)">&#xe83a;</i>
           </div>
         </div>
@@ -85,17 +85,15 @@
 </template>
 
 <script lang="ts" setup>
-  import { LanguageEnum } from '@/enums/appEnum'
   import { useUserStore } from '@/store/modules/user'
   import { MenuListType } from '@/types/menu'
   import { Search } from '@element-plus/icons-vue'
   import mittBus from '@/utils/mittBus'
-  import { getMenuTitle, openLink } from '@/utils/menu'
   import { useMenuStore } from '@/store/modules/menu'
+  import { formatMenuTitle } from '@/utils/menu'
 
   const router = useRouter()
   const userStore = useUserStore()
-  const language = computed(() => userStore.language)
   const menuList = computed(() => useMenuStore().getMenuList)
 
   const showSearchDialog = ref(false)
@@ -146,15 +144,13 @@
 
   // 模糊查询
   const fuzzyQueryList = (arr: MenuListType[], val: string): MenuListType[] => {
-    const titleField = language.value === LanguageEnum.ZH ? 'title' : 'title_en'
     const lowerVal = val.toLowerCase() // 将查询值转换为小写
     const searchItem = (item: MenuListType): MenuListType | null => {
       // 如果当前项有 isHide: true，直接过滤掉
       if (item.meta.isHide) return null
 
-      // 将 item[titleField] 转换为小写进行比较
-      const lowerItemTitle = item.meta[titleField]!.toLowerCase()
-
+      // 将 item.meta.title 转换为小写进行比较
+      const lowerItemTitle = formatMenuTitle(item.meta.title).toLowerCase()
       // 查找子项并过滤符合条件的子项
       const children = item.children ? fuzzyQueryList(item.children, val) : []
 
@@ -257,11 +253,6 @@
 
     addHistory(item)
 
-    let { link, isIframe } = item.meta
-    if (link) {
-      openLink(link, isIframe)
-      return
-    }
     router.push(item.path)
     searchVal.value = ''
     searchResult.value = []

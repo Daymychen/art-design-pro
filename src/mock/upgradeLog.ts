@@ -1,5 +1,13 @@
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.1',
+    title: '菜单多语言配置重构',
+    date: '2025-02-17',
+    status: 'complete',
+    statusText: '完成',
+    requireReLogin: true // 需要重新登录
+  },
+  {
     version: 'v2.2.0',
     title: '路由重构，只需要配置一份路由数据，即可生成菜单和路由',
     date: '2025-02-17',

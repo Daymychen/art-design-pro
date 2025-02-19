@@ -7,7 +7,7 @@
           @click="!isLastItem(index) && handleClick(item)"
         >
           <span>
-            {{ getMetaMenuTitle(item) === 'iframe' ? getIframeTitle() : getMetaMenuTitle(item) }}
+            {{ formatMenuTitle(item.meta?.title as string) }}
           </span>
         </div>
         <i v-if="!isLastItem(index)" aria-hidden="true">/</i>
@@ -19,8 +19,8 @@
 <script setup lang="ts">
   import { ref, watch } from 'vue'
   import { useRouter, useRoute } from 'vue-router'
-  import { getMetaMenuTitle } from '@/utils/menu'
   import type { RouteLocationMatched, RouteRecordRaw } from 'vue-router'
+  import { formatMenuTitle } from '@/utils/menu'
 
   export interface BreadcrumbItem {
     path: string
@@ -75,13 +75,6 @@
 
   // 监听路由变化
   watch(() => route.path, getBreadcrumb, { immediate: true })
-
-  // 获取iframe标题
-  const getIframeTitle = (): string => {
-    const title = location.href.split('/').pop()
-    const decodeTitle = decodeURIComponent(title || '')
-    return decodeTitle
-  }
 </script>
 
 <style lang="scss" scoped>

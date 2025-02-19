@@ -40,4 +40,10 @@ Object.keys(messages).forEach((locale) => {
   })
 })
 
+interface Translation {
+  (key: string): string
+}
+
+export const $t = i18n.global.t as Translation
+
 export default i18n

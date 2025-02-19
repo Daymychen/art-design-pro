@@ -12,7 +12,7 @@
             <el-tooltip
               class="box-item"
               effect="dark"
-              :content="getMenuTitle(menu)"
+              :content="$t(menu.meta.title)"
               placement="right"
               :offset="25"
               :hide-after="0"
@@ -34,7 +34,7 @@
                   }"
                 ></i>
                 <span v-if="settingStore.dualMenuShowText">
-                  {{ getMenuTitle(menu) }}
+                  {{ $t(menu.meta.title) }}
                 </span>
               </div>
             </el-tooltip>
@@ -98,8 +98,7 @@
   import { SystemInfo } from '@/config/setting'
   import { MenuTypeEnum, MenuWidth } from '@/enums/appEnum'
   import { useMenuStore } from '@/store/modules/menu'
-  import { getIframeTitle, isIframe } from '@/utils/utils'
-  import { getMenuTitle, openLink } from '@/utils/menu'
+  import { isIframe } from '@/utils/utils'
 
   const route = useRoute()
   const router = useRouter()
@@ -122,11 +121,9 @@
     const list = useMenuStore().getMenuList
 
     if (isTopLeftMenu.value || isDualMenu.value) {
-      const title = getIframeTitle()
-
       // 处理 iframe 路径
       if (isIframe(route.path)) {
-        return findMenuChildrenByTitle(list, title)
+        return findIframeMenuList(route.path, list)
       }
 
       // 处理一级菜单
@@ -137,16 +134,25 @@
     return list
   })
 
-  const findMenuChildrenByTitle = (menuList: any[], title: string): any[] => {
-    for (const menu of menuList) {
-      if (menu.meta.title === title && menu.meta.isIframe) {
-        return menuList
-      }
-      if (menu.children) {
-        const found = findMenuChildrenByTitle(menu.children, title)
-        if (found.length > 0) {
-          return found
+  // 查找 iframe 对应的二级菜单列表
+  const findIframeMenuList = (currentPath: string, menuList: any[]) => {
+    // 递归查找包含当前路径的菜单项
+    const hasPath = (items: any[]) => {
+      for (const item of items) {
+        if (item.path === currentPath) {
+          return true
         }
+        if (item.children && hasPath(item.children)) {
+          return true
+        }
+      }
+      return false
+    }
+
+    // 遍历一级菜单查找匹配的子菜单
+    for (const menu of menuList) {
+      if (menu.children && hasPath(menu.children)) {
+        return menu.children
       }
     }
     return []
@@ -157,14 +163,6 @@
   })
 
   const routerPath = computed(() => {
-    if (route.path === '/user/user') {
-      // defaultOpenedsArray.value = []
-    }
-
-    // 处理 iframe 路径
-    if (isIframe(route.path)) {
-      return getIframeTitle()
-    }
     return route.path
   })
 
@@ -187,12 +185,7 @@
 
   const toFirstMenu = (menu: any) => {
     if (menu.children.length > 0) {
-      let { link, isIframe } = menu.children[0].meta
-      if (link) {
-        openLink(link, isIframe)
-      } else {
-        router.push(menu.children[0].path)
-      }
+      router.push(menu.children[0].path)
     } else {
       router.push(menu.path)
     }
