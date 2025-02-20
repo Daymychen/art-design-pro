@@ -135,6 +135,7 @@
 
   const userStore = useUserStore()
   const router = useRouter()
+  const dragVerify = ref(null)
   const isPassing = ref(false)
   const isClickPass = ref(false)
 
@@ -189,6 +190,8 @@
           }
         } finally {
           loading.value = false
+          isClickPass.value = false
+          dragVerify.value.reset()
         }
       }
     })
