@@ -4,7 +4,13 @@ export default {
     search: {
       title: 'Search'
     },
-    user: ['User center', 'Document', 'Github', 'Log out']
+    user: {
+      userCenter: 'User center',
+      docs: 'Document',
+      github: 'Github',
+      lockScreen: 'Lock screen',
+      logout: 'Log out'
+    }
   },
   common: {
     tips: 'Prompt',

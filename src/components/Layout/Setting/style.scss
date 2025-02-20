@@ -14,12 +14,20 @@
   .close-wrap {
     display: flex;
     justify-content: flex-end;
-    margin-top: 15px;
 
     i {
+      display: block;
+      padding: 8px;
+      font-size: 15px;
       font-weight: bold;
       color: var(--art-gray-600);
       cursor: pointer;
+      border-radius: 5px;
+
+      &:hover {
+        color: var(--art-gray-700);
+        background-color: rgb(var(--art-gray-300-rgb), 0.5);
+      }
     }
   }
 

@@ -71,21 +71,36 @@
   display: none;
 }
 
-// 语言切换按钮菜单样式优化
-.lang-btn-item {
-  .el-dropdown-menu__item {
-    padding-left: 13px !important;
-    padding-right: 6px !important;
+// 语言切换选中样式
+.langDropDownStyle {
+  // 选中项背景颜色
+  .is-selected {
+    background-color: rgba(var(--art-gray-200-rgb), 0.8) !important;
   }
 
-  .menu-txt {
-    min-width: 60px;
-    display: block;
-  }
+  // 语言切换按钮菜单样式优化
+  .lang-btn-item {
+    .el-dropdown-menu__item {
+      padding-left: 13px !important;
+      padding-right: 6px !important;
+      margin-bottom: 3px !important;
+    }
 
-  i {
-    font-size: 10px;
-    margin-left: 10px;
+    &:last-child {
+      .el-dropdown-menu__item {
+        margin-bottom: 0 !important;
+      }
+    }
+
+    .menu-txt {
+      min-width: 60px;
+      display: block;
+    }
+
+    i {
+      font-size: 10px;
+      margin-left: 10px;
+    }
   }
 }
 

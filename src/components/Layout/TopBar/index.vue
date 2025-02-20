@@ -65,12 +65,6 @@
             <i class="iconfont-sys">{{ isFullscreen ? '&#xe62d;' : '&#xe8ce;' }}</i>
           </div>
         </div>
-        <!-- 锁定屏幕 -->
-        <div class="btn-box lock-btn" @click="visibleLock" v-if="!isMobile">
-          <div class="btn lock-button">
-            <i class="iconfont-sys notice-btn">&#xe817;</i>
-          </div>
-        </div>
         <!-- 通知 -->
         <div class="btn-box notice-btn" @click="visibleNotice">
           <div class="btn notice-button">
@@ -87,22 +81,19 @@
         </div>
         <!-- 语言 -->
         <div class="btn-box" v-if="showLanguage">
-          <el-dropdown @command="changeLanguage">
+          <el-dropdown @command="changeLanguage" popper-class="langDropDownStyle">
             <div class="btn language-btn">
               <i class="iconfont-sys">&#xe611;</i>
             </div>
             <template #dropdown>
               <el-dropdown-menu>
-                <div class="lang-btn-item">
-                  <el-dropdown-item command="zh">
-                    <span class="menu-txt">简体中文</span>
-                    <i v-if="locale === 'zh'" class="iconfont-sys">&#xe621;</i>
-                  </el-dropdown-item>
-                </div>
-                <div class="lang-btn-item">
-                  <el-dropdown-item command="en">
-                    <span class="menu-txt">English</span>
-                    <i v-if="locale === 'en'" class="iconfont-sys">&#xe621;</i>
+                <div v-for="item in languageOptions" :key="item.value" class="lang-btn-item">
+                  <el-dropdown-item
+                    :command="item.value"
+                    :class="{ 'is-selected': locale === item.value }"
+                  >
+                    <span class="menu-txt">{{ item.label }}</span>
+                    <i v-if="locale === item.value" class="iconfont-sys">&#xe621;</i>
                   </el-dropdown-item>
                 </div>
               </el-dropdown-menu>
@@ -137,9 +128,9 @@
           <el-popover
             ref="userMenuPopover"
             placement="bottom-end"
-            :width="210"
+            :width="240"
             :hide-after="0"
-            :offset="20"
+            :offset="10"
             trigger="hover"
             :show-arrow="false"
             popper-class="user-menu-popover"
@@ -154,25 +145,30 @@
                   <img class="cover" src="@imgs/user/avatar.png" style="float: left" />
                   <div class="user-wrap">
                     <span class="name">{{ userInfo.username }}</span>
+                    <span class="email" v-if="userInfo.email">{{ userInfo.email }}</span>
                   </div>
                 </div>
                 <ul class="user-menu">
                   <li @click="goPage('/user/user')">
                     <i class="menu-icon iconfont-sys">&#xe734;</i>
-                    <span class="menu-txt">{{ $t('topBar.user[0]') }}</span>
+                    <span class="menu-txt">{{ $t('topBar.user.userCenter') }}</span>
                   </li>
                   <li @click="toDocs()">
                     <i class="menu-icon iconfont-sys" style="font-size: 15px">&#xe828;</i>
-                    <span class="menu-txt">{{ $t('topBar.user[1]') }}</span>
+                    <span class="menu-txt">{{ $t('topBar.user.docs') }}</span>
                   </li>
                   <li @click="toGithub()">
                     <i class="menu-icon iconfont-sys">&#xe8d6;</i>
-                    <span class="menu-txt">{{ $t('topBar.user[2]') }}</span>
+                    <span class="menu-txt">{{ $t('topBar.user.github') }}</span>
                   </li>
-                  <li @click="loginOut">
-                    <i class="menu-icon iconfont-sys">&#xe780;</i>
-                    <span class="menu-txt">{{ $t('topBar.user[3]') }}</span>
+                  <li @click="lockScreen()">
+                    <i class="menu-icon iconfont-sys">&#xe817;</i>
+                    <span class="menu-txt">{{ $t('topBar.user.lockScreen') }}</span>
                   </li>
+                  <div class="line"></div>
+                  <div class="logout-btn" @click="loginOut">
+                    {{ $t('topBar.user.logout') }}
+                  </div>
                 </ul>
               </div>
             </template>
@@ -230,7 +226,6 @@
   const { t } = useI18n()
 
   const { width } = useWindowSize()
-  const isMobile = computed(() => width.value < 500)
 
   const menuTopWidth = computed(() => {
     return width.value * 0.5
@@ -311,6 +306,7 @@
   }
 
   const changeLanguage = (lang: LanguageEnum) => {
+    if (locale.value === lang) return
     locale.value = lang
     userStore.setLanguage(lang)
     reload(50)
@@ -353,7 +349,7 @@
     mittBus.emit('openChat')
   }
 
-  const visibleLock = () => {
+  const lockScreen = () => {
     mittBus.emit('openLockScreen')
   }
 
@@ -370,6 +366,16 @@
     let { LIGHT, DARK } = SystemThemeEnum
     useTheme().switchTheme(useSettingStore().systemThemeType === LIGHT ? DARK : LIGHT)
   }
+
+  interface LanguageOption {
+    label: string
+    value: LanguageEnum
+  }
+
+  const languageOptions: LanguageOption[] = [
+    { label: '简体中文', value: LanguageEnum.ZH },
+    { label: 'English', value: LanguageEnum.EN }
+  ]
 </script>
 
 <style lang="scss" scoped>

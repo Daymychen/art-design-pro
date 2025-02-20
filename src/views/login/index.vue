@@ -10,22 +10,19 @@
             {{ isDark ? '&#xe6b5;' : '&#xe725;' }}
           </i>
         </div>
-        <el-dropdown @command="changeLanguage">
+        <el-dropdown @command="changeLanguage" popper-class="langDropDownStyle">
           <div class="btn language-btn">
-            <i class="iconfont-sys">&#xe611;</i>
+            <i class="iconfont-sys icon-language">&#xe611;</i>
           </div>
           <template #dropdown>
             <el-dropdown-menu>
-              <div class="lang-btn-item">
-                <el-dropdown-item command="zh">
-                  <span class="menu-txt">简体中文</span>
-                  <i v-if="locale === 'zh'" class="iconfont-sys">&#xe621;</i>
-                </el-dropdown-item>
-              </div>
-              <div class="lang-btn-item">
-                <el-dropdown-item command="en">
-                  <span class="menu-txt">English</span>
-                  <i v-if="locale === 'en'" class="iconfont-sys">&#xe621;</i>
+              <div v-for="lang in languageOptions" :key="lang.value" class="lang-btn-item">
+                <el-dropdown-item
+                  :command="lang.value"
+                  :class="{ 'is-selected': locale === lang.value }"
+                >
+                  <span class="menu-txt">{{ lang.label }}</span>
+                  <i v-if="locale === lang.value" class="iconfont-sys icon-check">&#xe621;</i>
                 </el-dropdown-item>
               </div>
             </el-dropdown-menu>
@@ -212,6 +209,7 @@
   const { locale } = useI18n()
 
   const changeLanguage = (lang: LanguageEnum) => {
+    if (locale.value === lang) return
     locale.value = lang
     userStore.setLanguage(lang)
   }
@@ -224,6 +222,12 @@
     let { LIGHT, DARK } = SystemThemeEnum
     useTheme().switchTheme(useSettingStore().systemThemeType === LIGHT ? DARK : LIGHT)
   }
+
+  // 语言配置
+  const languageOptions = [
+    { value: LanguageEnum.ZH, label: '简体中文' },
+    { value: LanguageEnum.EN, label: 'English' }
+  ]
 </script>
 
 <style lang="scss" scoped>

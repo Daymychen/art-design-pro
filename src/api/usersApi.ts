@@ -25,7 +25,8 @@ export class UserService {
           name: '张三',
           username: 'John Snow',
           avatar: '',
-          token: 'eaf1234567890'
+          token: 'eaf1234567890',
+          email: 'art.design@gmail.com'
         }
       }
     } else {

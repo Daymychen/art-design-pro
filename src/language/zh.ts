@@ -4,7 +4,13 @@ export default {
     search: {
       title: '搜索'
     },
-    user: ['个人中心', '使用文档', 'Github', '退出登录']
+    user: {
+      userCenter: '个人中心',
+      docs: '使用文档',
+      github: 'Github',
+      lockScreen: '锁定屏幕',
+      logout: '退出登录'
+    }
   },
   common: {
     tips: '提示',

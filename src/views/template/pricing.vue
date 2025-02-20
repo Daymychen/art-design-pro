@@ -122,7 +122,7 @@
 
 <style lang="scss" scoped>
   .pricing-container {
-    padding: 5rem 10rem !important;
+    padding: 5rem 1rem !important;
     background-color: transparent !important;
     border: none !important;
 
@@ -250,7 +250,7 @@
 
   @media only screen and (max-width: $device-notebook) {
     .pricing-container {
-      padding: 2rem 1rem !important;
+      padding: 2rem 0 !important;
 
       .pricing-cards {
         margin-top: 0;
