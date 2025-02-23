@@ -47,38 +47,83 @@ function loadComponent(componentPath: string, routeName: string): () => Promise<
   return module as () => Promise<any>
 }
 
-/**
- * 将菜单路由配置转换为 Vue Router 路由配置
- * @param route 菜单路由配置
- * @param iframeRoutes 用于收集 iframe 类型路由的数组
- * @returns 转换后的 Vue Router 路由对象
- */
-function convertRouteComponent(route: MenuListType, iframeRoutes: MenuListType[]): RouteRecordRaw {
+interface ConvertedRoute extends Omit<RouteRecordRaw, 'children'> {
+  id?: number
+  children?: ConvertedRoute[]
+  component?: RouteRecordRaw['component'] | (() => Promise<any>)
+}
+
+function convertRouteComponent(route: MenuListType, iframeRoutes: MenuListType[]): ConvertedRoute {
   const { component, children, ...routeConfig } = route
-  const converted: any = {
-    ...routeConfig
+
+  // 基础路由配置
+  const converted: ConvertedRoute = {
+    ...routeConfig,
+    component: undefined
   }
 
-  // 处理 iframe 类型路由
-  if (route.meta.isIframe) {
-    // 处理 iframe 路由
-    converted.path = `/outside/iframe/${route.name}`
-    converted.component = () => import('@/views/outside/Iframe.vue')
-    // 收集 iframe 路由用于后续处理
-    iframeRoutes.push(route)
-  } else {
-    // 处理普通路由组件
+  try {
+    if (route.meta.isIframe) {
+      handleIframeRoute(converted, route, iframeRoutes)
+    } else if (route.meta.isInMainContainer) {
+      handleLayoutRoute(converted, route, component)
+    } else {
+      // 处理普通路由组件
+      handleNormalRoute(converted, component, route.name)
+    }
+
+    // 递归处理子路由
+    if (children?.length) {
+      converted.children = children.map((child) => convertRouteComponent(child, iframeRoutes))
+    }
+
+    return converted
+  } catch (error) {
+    console.error(`路由转换失败: ${route.name}`, error)
+    throw error
+  }
+}
+
+// 处理 iframe 类型路由
+function handleIframeRoute(
+  converted: ConvertedRoute,
+  route: MenuListType,
+  iframeRoutes: MenuListType[]
+): void {
+  converted.path = `/outside/iframe/${route.name}`
+  converted.component = () => import('@/views/outside/Iframe.vue')
+  iframeRoutes.push(route)
+}
+
+// 处理一级级菜单路由
+function handleLayoutRoute(
+  converted: ConvertedRoute,
+  route: MenuListType,
+  component: string | undefined
+): void {
+  converted.component = () => import('@/views/index/index.vue')
+  converted.path = `/${(route.path?.split('/')[1] || '').trim()}`
+  converted.name = ''
+
+  converted.children = [
+    {
+      id: route.id,
+      path: route.path,
+      name: route.name,
+      component: loadComponent(component as string, route.name),
+      meta: route.meta
+    }
+  ]
+}
+
+// 处理普通路由
+function handleNormalRoute(converted: any, component: string | undefined, routeName: string): void {
+  if (component) {
     converted.component = component
       ? RoutesAlias[component as keyof typeof RoutesAlias] ||
-        loadComponent(component as string, route.name)
+        loadComponent(component as string, routeName)
       : undefined
   }
-
-  // 递归处理子路由
-  if (children && children.length > 0) {
-    converted.children = children.map((child) => convertRouteComponent(child, iframeRoutes))
-  }
-  return converted
 }
 
 export { registerAsyncRoutes, convertRouteComponent, loadComponent }

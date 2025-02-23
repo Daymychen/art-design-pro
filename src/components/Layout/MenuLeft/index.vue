@@ -8,7 +8,7 @@
       </svg>
       <el-scrollbar style="height: calc(100% - 135px)">
         <ul>
-          <li v-for="menu in firstLevelMenus" :key="menu.path" @click="toFirstMenu(menu)">
+          <li v-for="menu in firstLevelMenus" :key="menu.path" @click="handleMenuJump(menu, true)">
             <el-tooltip
               class="box-item"
               effect="dark"
@@ -19,7 +19,11 @@
               :disabled="settingStore.dualMenuShowText"
             >
               <div
-                :class="{ 'is-active': menu.path === firstLevelMenuPath }"
+                :class="{
+                  'is-active': menu.meta.isInMainContainer
+                    ? menu.path === route.path
+                    : menu.path === firstLevelMenuPath
+                }"
                 :style="{
                   margin: settingStore.dualMenuShowText ? '5px' : '15px',
                   height: settingStore.dualMenuShowText ? '60px' : '46px'
@@ -99,6 +103,7 @@
   import { MenuTypeEnum, MenuWidth } from '@/enums/appEnum'
   import { useMenuStore } from '@/store/modules/menu'
   import { isIframe } from '@/utils/utils'
+  import { handleMenuJump } from '@/utils/jump'
 
   const route = useRoute()
   const router = useRouter()
@@ -120,18 +125,26 @@
   const menuList = computed(() => {
     const list = useMenuStore().getMenuList
 
-    if (isTopLeftMenu.value || isDualMenu.value) {
-      // 处理 iframe 路径
-      if (isIframe(route.path)) {
-        return findIframeMenuList(route.path, list)
-      }
-
-      // 处理一级菜单
-      const currentTopPath = `/${route.path.split('/')[1]}`
-      return list.find((menu) => menu.path === currentTopPath)?.children || []
+    // 如果不是顶部左侧菜单或双列菜单，直接返回完整菜单列表
+    if (!isTopLeftMenu.value && !isDualMenu.value) {
+      return list
     }
 
-    return list
+    // 处理 iframe 路径
+    if (isIframe(route.path)) {
+      return findIframeMenuList(route.path, list)
+    }
+
+    const currentTopPath = `/${route.path.split('/')[1]}`
+
+    // 处理主容器内的一级菜单
+    if (route.meta.isInMainContainer) {
+      return list.filter((menu) => menu.meta.isInMainContainer)
+    }
+
+    // 返回当前顶级路径对应的子菜单
+    const currentMenu = list.find((menu) => menu.path === currentTopPath)
+    return currentMenu?.children ?? []
   })
 
   // 查找 iframe 对应的二级菜单列表
@@ -182,14 +195,6 @@
       }
     }
   )
-
-  const toFirstMenu = (menu: any) => {
-    if (menu.children.length > 0) {
-      router.push(menu.children[0].path)
-    } else {
-      router.push(menu.path)
-    }
-  }
 
   const toHome = () => {
     router.push(HOME_PAGE)

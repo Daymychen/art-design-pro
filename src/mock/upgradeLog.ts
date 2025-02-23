@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.3',
+    title: '支持一级菜单配置，修复菜单跳转BUG',
+    date: '2025-02-23',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v2.2.2',
     title: '将VITE升级到6.1，优化某些组件的UI',
     date: '2025-02-20',

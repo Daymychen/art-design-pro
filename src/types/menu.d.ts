@@ -14,6 +14,7 @@ export type MenuListType = {
     isIframe?: boolean // 是否是 iframe
     keepAlive: boolean // 是否缓存
     authList?: Array // 可操作权限
+    isInMainContainer?: boolean // 是否在主容器中
   }
   children?: MenuListType[] // 子菜单
 }

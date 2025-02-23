@@ -15,7 +15,7 @@
           <div
             class="item"
             :class="{ active: isActive(item) }"
-            @click="toPage(item)"
+            @click="handleMenuJump(item, true)"
             v-if="!item.meta.isHide"
           >
             <i class="iconfont-sys" v-html="item.meta.icon"></i>
@@ -34,11 +34,11 @@
 <script setup lang="ts">
   import { useSettingStore } from '@/store/modules/setting'
   import { MenuListType } from '@/types/menu'
-  const router = useRouter()
   const route = useRoute()
   import { ref, onMounted } from 'vue'
   import { ArrowLeft, ArrowRight } from '@element-plus/icons-vue'
   import { formatMenuTitle } from '@/utils/menu'
+  import { handleMenuJump } from '@/utils/jump'
 
   const settingStore = useSettingStore()
   const menuopenwidth = computed(() => settingStore.getMenuOpenWidth)
@@ -49,15 +49,6 @@
       default: () => []
     }
   })
-
-  const toPage = (item: MenuListType) => {
-    if (item.children?.length) {
-      let firstChild = item.children.find((child) => !child.meta.isHide) || item.children[0]
-      router.push(firstChild.path)
-    } else {
-      router.push(item.path)
-    }
-  }
 
   const isActive = (item: MenuListType): boolean => {
     const currentPath = route.path

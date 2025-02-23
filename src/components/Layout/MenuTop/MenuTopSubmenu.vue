@@ -38,8 +38,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { router } from '@/router'
   import { MenuListType } from '@/types/menu'
+  import { handleMenuJump } from '@/utils/jump'
   import { formatMenuTitle } from '@/utils/menu'
 
   defineProps({
@@ -62,7 +62,7 @@
 
   const goPage = (item: MenuListType) => {
     closeMenu()
-    router.push(item.path)
+    handleMenuJump(item)
   }
 
   const closeMenu = () => {

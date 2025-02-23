@@ -37,9 +37,9 @@
 
 <script setup lang="ts">
   import { computed } from 'vue'
-  import { router } from '@/router'
   import type { MenuListType } from '@/types/menu'
   import { formatMenuTitle } from '@/utils/menu'
+  import { handleMenuJump } from '@/utils/jump'
 
   // 类型定义
   interface Props {
@@ -72,7 +72,7 @@
   // 跳转页面
   const goPage = (item: MenuListType) => {
     closeMenu()
-    router.push(item.path)
+    handleMenuJump(item)
   }
 
   // 关闭菜单

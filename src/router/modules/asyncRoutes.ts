@@ -716,30 +716,6 @@ export const asyncRoutes: MenuListType[] = [
     ]
   },
   {
-    id: 11,
-    path: '/plan',
-    name: 'Plan',
-    component: RoutesAlias.Home,
-    meta: {
-      title: 'menus.plan.title',
-      icon: '&#xe712;',
-      keepAlive: false
-    },
-    children: [
-      {
-        id: 1110,
-        path: 'log',
-        name: 'PlanLog',
-        component: RoutesAlias.PlanLog,
-        meta: {
-          title: 'menus.plan.log',
-          showTextBadge: `${upgradeLogList.value[0].version}`,
-          keepAlive: true
-        }
-      }
-    ]
-  },
-  {
     id: 12,
     name: '',
     path: '',
@@ -762,5 +738,19 @@ export const asyncRoutes: MenuListType[] = [
         }
       }
     ]
+  },
+  // 一级菜单
+  {
+    id: 11912,
+    name: 'PlanLog',
+    path: '/plan/log',
+    component: '/plan/log',
+    meta: {
+      title: 'menus.plan.log',
+      showTextBadge: `${upgradeLogList.value[0].version}`,
+      icon: '&#xe712;',
+      keepAlive: false,
+      isInMainContainer: true
+    }
   }
 ]
