@@ -70,7 +70,8 @@ export default {
     title: '通知',
     btnRead: '标为已读',
     bar: ['通知', '消息', '代办'],
-    text: ['暂无']
+    text: ['暂无'],
+    viewAll: '查看全部'
   },
   worktab: {
     btn: ['关闭左侧', '关闭右侧', '关闭其它', '关闭全部']

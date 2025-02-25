@@ -70,7 +70,8 @@ export default {
     title: 'Notice',
     btnRead: 'Mark as read',
     bar: ['Notice', 'Message', 'Todo'],
-    text: ['No']
+    text: ['No'],
+    viewAll: 'View all'
   },
   worktab: {
     btn: ['Close left', 'Close right', 'Close outher', 'Close All']

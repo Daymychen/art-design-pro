@@ -22,7 +22,7 @@
                 </template>
               </el-input>
             </el-form-item>
-            <el-button type="primary" class="lock-btn" @click="handleLock">
+            <el-button type="primary" class="lock-btn" @click="handleLock" v-ripple>
               {{ $t(`lockScreen.lock.btnText`) }}
             </el-button>
           </el-form>
@@ -55,7 +55,8 @@
               </template>
             </el-input>
           </el-form-item>
-          <el-button type="primary" class="unlock-btn" @click="handleUnlock">
+
+          <el-button type="primary" class="unlock-btn" @click="handleUnlock" v-ripple>
             {{ $t(`lockScreen.unlock.btnText`) }}
           </el-button>
           <el-button text class="login-btn" @click="toLogin">

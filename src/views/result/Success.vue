@@ -10,9 +10,9 @@
       <p>已提交申请，等待部门审核。</p>
     </div>
     <div class="btn-group">
-      <el-button type="primary">返回修改</el-button>
-      <el-button>查看</el-button>
-      <el-button>打印</el-button>
+      <el-button type="primary" v-ripple>返回修改</el-button>
+      <el-button v-ripple>查看</el-button>
+      <el-button v-ripple>打印</el-button>
     </div>
   </div>
 </template>

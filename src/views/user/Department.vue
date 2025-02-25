@@ -5,8 +5,8 @@
         <el-input placeholder="部门名称"></el-input>
       </el-col>
       <el-col :xs="24" :sm="12" :lg="8" class="el-col2">
-        <el-button>搜索</el-button>
-        <el-button @click="showDialog('add')">新增部门</el-button>
+        <el-button v-ripple>搜索</el-button>
+        <el-button @click="showDialog('add')" v-ripple>新增部门</el-button>
       </el-col>
     </el-row>
 

@@ -1,11 +1,21 @@
 <template>
   <div class="page-content">
     <div class="action-buttons">
-      <el-button :disabled="isLaunching" @click="handleSingleLaunch">✨ 放个小烟花</el-button>
-      <el-button :disabled="isLaunching" @click="handleImageLaunch(bp)">🎉 打开幸运红包</el-button>
-      <el-button :disabled="isLaunching" @click="handleMultipleLaunch('')">🎆 璀璨烟火秀</el-button>
-      <el-button :disabled="isLaunching" @click="handleImageLaunch(sd)">❄️ 飘点小雪花</el-button>
-      <el-button :disabled="isLaunching" @click="handleMultipleLaunch(sd)">❄️ 浪漫暴风雪</el-button>
+      <el-button :disabled="isLaunching" v-ripple @click="handleSingleLaunch"
+        >✨ 放个小烟花</el-button
+      >
+      <el-button :disabled="isLaunching" v-ripple @click="handleImageLaunch(bp)"
+        >🎉 打开幸运红包</el-button
+      >
+      <el-button :disabled="isLaunching" v-ripple @click="handleMultipleLaunch('')"
+        >🎆 璀璨烟火秀</el-button
+      >
+      <el-button :disabled="isLaunching" v-ripple @click="handleImageLaunch(sd)"
+        >❄️ 飘点小雪花</el-button
+      >
+      <el-button :disabled="isLaunching" v-ripple @click="handleMultipleLaunch(sd)"
+        >❄️ 浪漫暴风雪</el-button
+      >
     </div>
 
     <el-descriptions

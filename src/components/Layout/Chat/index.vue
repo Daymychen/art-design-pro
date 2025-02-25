@@ -46,7 +46,7 @@
               <div class="input-actions">
                 <el-button :icon="Paperclip" circle plain />
                 <el-button :icon="Picture" circle plain />
-                <el-button type="primary" @click="sendMessage">发送</el-button>
+                <el-button type="primary" @click="sendMessage" v-ripple>发送</el-button>
               </div>
             </template>
           </el-input>
@@ -55,7 +55,7 @@
               <i class="iconfont-sys">&#xe634;</i>
               <i class="iconfont-sys">&#xe809;</i>
             </div>
-            <el-button type="primary" @click="sendMessage">发送</el-button>
+            <el-button type="primary" @click="sendMessage" v-ripple>发送</el-button>
           </div>
         </div>
       </div>

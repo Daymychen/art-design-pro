@@ -29,7 +29,7 @@
             </div>
 
             <div class="card-footer">
-              <el-button type="primary" class="purchase-btn">立即购买</el-button>
+              <el-button type="primary" class="purchase-btn" v-ripple>立即购买</el-button>
             </div>
           </el-card>
         </el-col>

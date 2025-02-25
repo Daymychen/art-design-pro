@@ -41,7 +41,7 @@
         </el-checkbox-group>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" style="width: 90px" @click="edit">
+        <el-button type="primary" style="width: 90px" v-ripple @click="edit">
           {{ isEdit ? '保存' : '编辑' }}
         </el-button>
       </el-form-item>

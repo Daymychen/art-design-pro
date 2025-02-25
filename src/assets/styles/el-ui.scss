@@ -297,3 +297,9 @@
     background-color: transparent !important;
   }
 }
+
+// 实现水波纹在文字下面效果
+.el-button > span {
+  position: relative;
+  z-index: 10;
+}

@@ -1,10 +1,16 @@
 export const upgradeLogList = ref([
   {
-    version: 'v2.2.3',
-    title: '支持一级菜单配置，修复菜单跳转BUG',
-    date: '2025-02-23',
+    version: 'v2.2.4',
+    title: '新增按钮水波纹效果、混合模式菜单选中BUG修复',
+    date: '2025-02-25',
     status: 'complete',
-    statusText: '完成'
+    statusText: '完成',
+    detail: [
+      '按钮增加水波纹指令',
+      '通知中心新增查看全部按钮',
+      '登录按钮 loading 效果',
+      '修复多层嵌套菜单混合模式下顶部菜单无法选中BUG'
+    ]
   },
   {
     version: 'v2.2.2',

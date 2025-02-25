@@ -62,6 +62,7 @@
                 type="primary"
                 @click="register"
                 :loading="loading"
+                v-ripple
               >
                 {{ $t('register.submitBtnText') }}
               </el-button>

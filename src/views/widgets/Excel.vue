@@ -17,7 +17,7 @@
       导出 Excel
     </ExcelExport>
 
-    <el-button type="danger" @click="handleClear">清除数据</el-button>
+    <el-button type="danger" @click="handleClear" v-ripple>清除数据</el-button>
 
     <art-table :data="tableData" style="margin-top: 10px">
       <el-table-column

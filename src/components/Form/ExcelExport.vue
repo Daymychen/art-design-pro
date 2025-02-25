@@ -1,5 +1,5 @@
 <template>
-  <el-button :type="type" :loading="isExporting" @click="handleExport">
+  <el-button :type="type" :loading="isExporting" v-ripple @click="handleExport">
     <slot>导出 Excel</slot>
   </el-button>
 </template>

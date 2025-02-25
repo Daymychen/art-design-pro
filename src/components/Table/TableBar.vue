@@ -3,8 +3,8 @@
     <div class="top-wrap" v-show="showSearchWrap">
       <slot name="top"> </slot>
       <div class="buttons">
-        <el-button type="primary" @click="search">搜索</el-button>
-        <el-button @click="reset">重置</el-button>
+        <el-button type="primary" @click="search" v-ripple>搜索</el-button>
+        <el-button @click="reset" v-ripple>重置</el-button>
       </div>
     </div>
     <div class="bottom-wrap" v-if="showBottom">

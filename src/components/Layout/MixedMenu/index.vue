@@ -54,7 +54,12 @@
     const currentPath = route.path
 
     if (item.children?.length) {
-      return item.children.some((child) => child.path === currentPath)
+      return item.children.some((child) => {
+        if (child.children?.length) {
+          return isActive(child)
+        }
+        return child.path === currentPath
+      })
     }
 
     return item.path === currentPath

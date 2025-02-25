@@ -97,7 +97,7 @@
             </el-form-item>
 
             <div class="el-form-item-right">
-              <el-button type="primary" style="width: 90px" @click="edit">
+              <el-button type="primary" style="width: 90px" v-ripple @click="edit">
                 {{ isEdit ? '保存' : '编辑' }}
               </el-button>
             </div>
@@ -121,7 +121,7 @@
             </el-form-item>
 
             <div class="el-form-item-right">
-              <el-button type="primary" style="width: 90px" @click="editPwd">
+              <el-button type="primary" style="width: 90px" v-ripple @click="editPwd">
                 {{ isEditPwd ? '保存' : '编辑' }}
               </el-button>
             </div>

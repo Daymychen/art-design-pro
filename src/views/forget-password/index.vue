@@ -30,6 +30,7 @@
               type="primary"
               @click="register"
               :loading="loading"
+              v-ripple
             >
               {{ $t('forgetPassword.submitBtnText') }}
             </el-button>

@@ -6,7 +6,7 @@
       :show-file-list="false"
       @change="handleFileChange"
     >
-      <el-button type="primary">
+      <el-button type="primary" v-ripple>
         <slot name="import-text">导入 Excel</slot>
       </el-button>
     </el-upload>

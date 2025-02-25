@@ -9,8 +9,8 @@
       <p><i class="iconfont-sys">&#xe71a;</i>您的账户还不具备申请资格</p>
     </div>
     <div class="btn-group">
-      <el-button type="primary">返回修改</el-button>
-      <el-button>查看</el-button>
+      <el-button type="primary" v-ripple>返回修改</el-button>
+      <el-button v-ripple>查看</el-button>
     </div>
   </div>
 </template>

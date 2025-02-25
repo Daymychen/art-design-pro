@@ -28,7 +28,7 @@
         </el-form>
       </template>
       <template #bottom>
-        <el-button @click="showDialog('add')">添加用户</el-button>
+        <el-button @click="showDialog('add')" v-ripple>添加用户</el-button>
       </template>
     </table-bar>
 

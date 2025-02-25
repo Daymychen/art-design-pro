@@ -98,6 +98,7 @@
                 type="primary"
                 @click="handleSubmit"
                 :loading="loading"
+                v-ripple
               >
                 {{ $t('login.btnText') }}
               </el-button>
@@ -167,6 +168,10 @@
         }
 
         loading.value = true
+
+        // 延时辅助函数
+        const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+
         try {
           const res = await UserService.mockLogin({
             body: JSON.stringify({
@@ -175,16 +180,17 @@
             })
           })
 
-          let { code, data } = res
-          if (code === ApiStatus.success && data) {
-            userStore.setUserInfo(data)
+          if (res.code === ApiStatus.success && res.data) {
+            userStore.setUserInfo(res.data)
             userStore.setLoginStatus(true)
+            await delay(1000)
             showLoginSuccessNotice()
             router.push(HOME_PAGE)
           } else {
             ElMessage.error(res.message)
           }
         } finally {
+          await delay(1000)
           loading.value = false
         }
       }

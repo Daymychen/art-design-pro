@@ -32,9 +32,9 @@
 
     <div class="mt-4">
       <el-button-group>
-        <el-button @click="start">开始</el-button>
-        <el-button @click="pause">暂停</el-button>
-        <el-button @click="reset">重置</el-button>
+        <el-button @click="start" v-ripple>开始</el-button>
+        <el-button @click="pause" v-ripple>暂停</el-button>
+        <el-button @click="reset" v-ripple>重置</el-button>
       </el-button-group>
     </div>
   </div>

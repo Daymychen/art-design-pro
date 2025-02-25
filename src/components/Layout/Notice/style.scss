@@ -5,8 +5,8 @@
   position: absolute;
   top: 60px;
   right: 20px;
-  width: 350px;
-  height: 450px;
+  width: 360px;
+  height: 500px;
   overflow: hidden;
   background: var(--art-main-bg-color);
   border: 1px solid var(--art-border-color);
@@ -87,7 +87,7 @@
     height: calc(100% - 95px);
 
     .scroll {
-      height: 100%;
+      height: calc(100% - 60px);
       overflow-y: scroll;
 
       &::-webkit-scrollbar {
@@ -223,6 +223,18 @@
           font-size: 12px;
           background: transparent !important;
         }
+      }
+    }
+
+    .btn-wrapper {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      padding: 0 15px;
+
+      .view-all {
+        width: 100%;
+        margin-top: 12px;
       }
     }
   }

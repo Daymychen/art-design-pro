@@ -4,7 +4,16 @@
 
     <art-table :data="upgradeLogList" :pagination="false">
       <el-table-column label="版本号" prop="version" width="200" />
-      <el-table-column label="内容" prop="title" width="400" />
+      <el-table-column label="内容" width="400">
+        <template #default="scope">
+          <div class="title">{{ scope.row.title }}</div>
+          <div v-if="scope.row.detail" style="margin-top: 10px">
+            <div class="detail-item" v-for="(item, index) in scope.row.detail" :key="index">
+              {{ index + 1 }}. {{ item }}
+            </div>
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column label="时间" prop="date" />
     </art-table>
   </div>
@@ -29,6 +38,14 @@
         margin-right: 10px;
         font-size: 24px;
       }
+    }
+
+    .title {
+      color: var(--art-gray-800);
+    }
+
+    .detail-item {
+      color: var(--art-gray-600);
     }
   }
 </style>

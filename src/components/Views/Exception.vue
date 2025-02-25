@@ -4,7 +4,7 @@
       <img :src="data.imgUrl" />
       <div class="right-wrap">
         <p>{{ data.desc }}</p>
-        <el-button color="#47A7FF" @click="backHome">{{ data.btnText }}</el-button>
+        <el-button color="#47A7FF" @click="backHome" v-ripple>{{ data.btnText }}</el-button>
       </div>
     </div>
   </div>

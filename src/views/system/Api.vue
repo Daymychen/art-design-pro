@@ -5,7 +5,7 @@
         <el-input placeholder="路径搜索"></el-input>
       </el-col>
       <el-col :xs="4" :sm="12" :lg="4">
-        <el-button>搜索</el-button>
+        <el-button v-ripple>搜索</el-button>
       </el-col>
     </el-row>
 

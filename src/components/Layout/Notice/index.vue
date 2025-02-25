@@ -24,6 +24,7 @@
     </ul>
     <div class="content">
       <div class="scroll">
+        <!-- 通知 -->
         <ul class="notice-list" v-show="barActiveIndex === 0">
           <li v-for="(item, index) in noticeList" :key="index">
             <div
@@ -43,6 +44,7 @@
             </div>
           </li>
         </ul>
+        <!-- 消息 -->
         <ul class="user-list" v-show="barActiveIndex === 1">
           <li v-for="(item, index) in msgList" :key="index">
             <div class="avatar">
@@ -54,6 +56,7 @@
             </div>
           </li>
         </ul>
+        <!-- 待办 -->
         <ul class="base" v-show="barActiveIndex === 3">
           <li v-for="(item, index) in pendingList" :key="index">
             <h4>{{ item.title }}</h4>
@@ -73,6 +76,11 @@
           <i class="iconfont-sys">&#xe8d7;</i>
           <p>{{ $t('notice.text[0]') }}{{ barList[barActiveIndex].name }}</p>
         </div>
+      </div>
+      <div class="btn-wrapper">
+        <el-button class="view-all" @click="handleViewAll" v-ripple>
+          {{ $t('notice.viewAll') }}
+        </el-button>
       </div>
     </div>
 
@@ -256,6 +264,25 @@
       }, 350)
     }
   }
+
+  // 查看全部
+  const handleViewAll = () => {
+    switch (barActiveIndex.value) {
+      case 0:
+        handleNoticeAll()
+        break
+      case 1:
+        handleMsgAll()
+        break
+      case 2:
+        handlePendingAll()
+        break
+    }
+  }
+
+  const handleNoticeAll = () => {}
+  const handleMsgAll = () => {}
+  const handlePendingAll = () => {}
 </script>
 
 <style lang="scss" scoped>
