@@ -3,7 +3,7 @@
     <div v-if="!isLock">
       <el-dialog v-model="visible" :width="370" :show-close="false" @open="handleDialogOpen">
         <div class="lock-content">
-          <img class="cover" src="@imgs/user/avatar.png" />
+          <img class="cover" :src="userInfo.avatar" />
           <div class="username">{{ userInfo.username }}</div>
           <el-form ref="formRef" :model="formData" :rules="rules" @submit.prevent="handleLock">
             <el-form-item prop="password">
@@ -32,7 +32,7 @@
 
     <div class="unlock-content" v-else>
       <div class="box">
-        <img class="cover" src="@imgs/user/avatar.png" />
+        <img class="cover" :src="userInfo.avatar" />
         <div class="username">{{ userInfo.username }}</div>
         <el-form
           ref="unlockFormRef"

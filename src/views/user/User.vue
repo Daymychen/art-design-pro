@@ -4,7 +4,7 @@
       <div class="left-wrap">
         <div class="user-wrap box-style">
           <img class="bg" src="@imgs/user/bg.png" />
-          <img class="avatar" src="@imgs/user/avatar.png" />
+          <img class="avatar" :src="userInfo.avatar" />
           <h2 class="name">{{ userInfo.username }}</h2>
           <p class="des">Art Design Pro 是一款漂亮的后台管理系统模版.</p>
 

@@ -14,6 +14,8 @@ interface UserState {
   lockPassword: string // 锁屏密码
   info: Partial<UserInfo> // 用户信息
   searchHistory: MenuListType[] // 搜索历史
+  accessToken: string // 添加访问令牌
+  refreshToken: string // 添加刷新令牌
 }
 
 export const useUserStore = defineStore({
@@ -24,7 +26,9 @@ export const useUserStore = defineStore({
     isLock: false,
     lockPassword: '',
     info: {},
-    searchHistory: []
+    searchHistory: [],
+    accessToken: '',
+    refreshToken: ''
   }),
   getters: {
     getUserInfo(): Partial<UserInfo> {
@@ -43,7 +47,8 @@ export const useUserStore = defineStore({
 
       if (sys) {
         sys = JSON.parse(sys)
-        const { info, isLogin, language, searchHistory, isLock, lockPassword } = sys.user
+        const { info, isLogin, language, searchHistory, isLock, lockPassword, refreshToken } =
+          sys.user
 
         this.info = info || {}
         this.isLogin = isLogin || false
@@ -51,6 +56,8 @@ export const useUserStore = defineStore({
         this.language = language || LanguageEnum.ZH
         this.searchHistory = searchHistory || []
         this.lockPassword = lockPassword || ''
+        this.refreshToken = refreshToken || ''
+        this.accessToken = sessionStorage.getItem('accessToken') || ''
       }
     },
     // 用户数据持久化存储
@@ -63,6 +70,7 @@ export const useUserStore = defineStore({
           isLock: this.isLock,
           lockPassword: this.lockPassword,
           searchHistory: this.searchHistory,
+          refreshToken: this.refreshToken,
           worktab: this.getWorktabState,
           setting: this.getSettingState
         }
@@ -87,13 +95,23 @@ export const useUserStore = defineStore({
     setLockPassword(password: string) {
       this.lockPassword = password
     },
+    setToken(accessToken: string, refreshToken?: string) {
+      this.accessToken = accessToken
+      if (refreshToken) {
+        this.refreshToken = refreshToken
+      }
+      sessionStorage.setItem('accessToken', accessToken)
+      this.saveUserData()
+    },
     logOut() {
       setTimeout(() => {
-        // document.getElementsByTagName('html')[0].removeAttribute('class') // 移除暗黑主题
         this.info = {}
         this.isLogin = false
         this.isLock = false
         this.lockPassword = ''
+        this.accessToken = ''
+        this.refreshToken = ''
+        sessionStorage.removeItem('accessToken')
         useWorktabStore().opened = []
         this.saveUserData()
         sessionStorage.removeItem('iframeRoutes')

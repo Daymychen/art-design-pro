@@ -10,7 +10,7 @@ export const menuService = {
   getMenuList(
     delay: number = 300
   ): Promise<{ menuList: MenuListType[]; closeLoading: () => void }> {
-    // 生成菜单数据
+    // 获取菜单数据
     const menuData: MenuListType[] = asyncRoutes.map((route) => processRoute(route))
 
     const loading = ElLoading.service({

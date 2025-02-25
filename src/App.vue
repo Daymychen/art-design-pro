@@ -10,6 +10,8 @@
   import en from 'element-plus/es/locale/lang/en'
   import { systemUpgrade } from './utils/upgrade'
   import { initState, saveUserData } from './utils/storage'
+  import { UserService } from './api/usersApi'
+  import { ApiStatus } from './utils/http/status'
 
   const userStore = useUserStore()
   const language = computed(() => userStore.language)
@@ -29,7 +31,18 @@
     saveUserData()
     setBodyClass(false)
     systemUpgrade()
+    getUserInfo()
   })
+
+  // 获取用户信息
+  const getUserInfo = async () => {
+    if (userStore.isLogin) {
+      const userRes = await UserService.getUserInfo()
+      if (userRes.code === ApiStatus.success) {
+        userStore.setUserInfo(userRes.data)
+      }
+    }
+  }
 
   // 提升暗黑主题下页面刷新视觉体验
   const setBodyClass = (addClass: boolean) => {

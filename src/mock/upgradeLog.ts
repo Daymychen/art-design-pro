@@ -1,5 +1,13 @@
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.5',
+    title: '获取token，用户信息逻辑优化、http请求参数传递优化',
+    date: '2025-02-26',
+    status: 'complete',
+    statusText: '完成',
+    requireReLogin: true // 需要重新登录
+  },
+  {
     version: 'v2.2.4',
     title: '新增按钮水波纹效果、混合模式菜单选中BUG修复',
     date: '2025-02-25',

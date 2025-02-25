@@ -86,12 +86,12 @@
   const router = useRouter()
 
   const userStore = useUserStore()
-  let { token } = userStore.info
+  let { accessToken } = userStore
 
   // 上传路径
   const uploadImageUrl = `${import.meta.env.VITE_API_URL}/api/common/upload`
   // 传递 token
-  const uploadHeaders = { Authorization: token }
+  const uploadHeaders = { Authorization: accessToken }
 
   let pageMode: PageModeEnum = PageModeEnum.Add // 页面类型 新增 ｜ 编辑
   const articleName = ref('') // 文章标题

@@ -31,7 +31,7 @@ export class ArticleService {
   static addArticle(params: any) {
     return request.post<BaseResult>({
       url: '/api/articles/',
-      params
+      data: params
     })
   }
 
@@ -39,7 +39,7 @@ export class ArticleService {
   static editArticle(id: number, params: any) {
     return request.put<BaseResult>({
       url: `/api/articles/${id}`,
-      params
+      data: params
     })
   }
 }
