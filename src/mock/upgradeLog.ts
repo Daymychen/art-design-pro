@@ -1,5 +1,18 @@
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.6',
+    title: '图表卡片新增小图表模式，优化token过期，菜单数据为空问题',
+    date: '2025-02-27',
+    status: 'complete',
+    statusText: '完成',
+    detail: [
+      '图表卡片新增小图表模式',
+      '优化token过期，菜单数据为空问题',
+      '聊天模版增加电话、视频、更多按钮',
+      '去除 vite.config.ts 无效的test模块'
+    ]
+  },
+  {
     version: 'v2.2.5',
     title: '获取token，用户信息逻辑优化、http请求参数传递优化',
     date: '2025-02-26',

@@ -215,16 +215,6 @@ export const asyncRoutes: MenuListType[] = [
     },
     children: [
       {
-        id: 12601,
-        path: 'chat',
-        name: 'Chat',
-        component: RoutesAlias.Chat,
-        meta: {
-          title: 'menus.template.chat',
-          keepAlive: true
-        }
-      },
-      {
         id: 12602,
         path: 'cards',
         name: 'Cards',
@@ -255,6 +245,16 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
+        id: 12601,
+        path: 'chat',
+        name: 'Chat',
+        component: RoutesAlias.Chat,
+        meta: {
+          title: 'menus.template.chat',
+          keepAlive: true
+        }
+      },
+      {
         id: 12605,
         path: 'calendar',
         name: 'Calendar',
@@ -264,7 +264,6 @@ export const asyncRoutes: MenuListType[] = [
           keepAlive: true
         }
       },
-
       {
         id: 12622,
         path: 'pricing',

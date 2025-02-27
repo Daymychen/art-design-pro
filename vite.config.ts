@@ -250,13 +250,6 @@ export default ({ mode }) => {
           }
         ]
       }
-    },
-    test: {
-      environment: 'jsdom',
-      globals: true,
-      deps: {
-        inline: ['element-plus']
-      }
     }
   })
 }

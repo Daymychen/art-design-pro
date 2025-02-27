@@ -17,7 +17,9 @@
           <div class="item-time">{{ item.time }}</div>
         </div>
       </el-scrollbar>
-      <el-button class="more-btn" v-if="showMoreButton" @click="handleMore">查看更多</el-button>
+      <el-button class="more-btn" v-if="showMoreButton" v-ripple @click="handleMore"
+        >查看更多</el-button
+      >
     </div>
   </div>
 </template>

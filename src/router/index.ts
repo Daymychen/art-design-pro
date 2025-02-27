@@ -185,9 +185,14 @@ async function getMenuData(): Promise<void> {
   try {
     // 获取菜单列表
     const { menuList, closeLoading } = await menuService.getMenuList()
+
+    // 如果菜单列表为空，执行登出操作并跳转到登录页
     if (!Array.isArray(menuList) || menuList.length === 0) {
-      throw new Error('菜单列表为空')
+      closeLoading()
+      useUserStore().logOut()
+      throw new Error('获取菜单列表失败，请重新登录！')
     }
+
     // 设置菜单列表
     useMenuStore().setMenuList(menuList as [])
     // 注册异步路由

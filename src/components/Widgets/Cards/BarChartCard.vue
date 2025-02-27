@@ -6,13 +6,18 @@
           <p class="value">{{ value }}</p>
           <p class="label">{{ label }}</p>
         </div>
-        <div class="percentage" :class="{ 'is-increase': percentage > 0 }">
+        <div
+          class="percentage"
+          :class="{ 'is-increase': percentage > 0, 'is-mini-chart': isMiniChart }"
+        >
           {{ percentage > 0 ? '+' : '' }}{{ percentage }}%
         </div>
+        <div class="date" v-if="date" :class="{ 'is-mini-chart': isMiniChart }">{{ date }}</div>
       </div>
       <div
         ref="chartRef"
         class="chart-container"
+        :class="{ 'is-mini-chart': isMiniChart }"
         :style="{ height: `calc(${height}rem - 5rem)` }"
       ></div>
     </div>
@@ -28,20 +33,24 @@
     value: number
     label: string
     percentage: number
+    date?: string
     height?: number
     color?: string
     chartData: number[]
     barWidth?: string
+    isMiniChart?: boolean
   }
 
   const props = withDefaults(defineProps<Props>(), {
     value: 0,
     label: '',
     percentage: 0,
+    date: '',
     height: 11,
     color: '',
     chartData: () => [],
-    barWidth: '26%'
+    barWidth: '26%',
+    isMiniChart: false
   })
 
   const options: () => EChartsOption = () => {
@@ -126,6 +135,19 @@
       &.is-increase {
         color: #67c23a;
       }
+
+      &.is-mini-chart {
+        position: absolute;
+        bottom: 20px;
+      }
+    }
+
+    .date {
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
+      font-size: 12px;
+      color: var(--art-text-gray-600);
     }
 
     .chart-container {
@@ -136,6 +158,13 @@
       width: calc(100% - 22px);
       height: 100px;
       margin: auto;
+
+      &.is-mini-chart {
+        position: absolute;
+        inset: 25px 20px auto auto;
+        width: 40%;
+        height: 60px !important;
+      }
     }
   }
 </style>

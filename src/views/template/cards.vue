@@ -67,7 +67,57 @@
       </el-col>
     </el-row>
 
-    <h1 class="page-title">图表卡片</h1>
+    <h1 class="page-title">图表卡片（小图表）</h1>
+    <el-row :gutter="20">
+      <el-col :xs="24" :sm="12" :md="6">
+        <LineChartCard
+          :isMiniChart="true"
+          :value="2545"
+          label="新用户"
+          date="过去7天"
+          :percentage="1.2"
+          :height="9.5"
+          :chartData="[120, 132, 101, 134, 90, 230, 210]"
+        />
+      </el-col>
+      <el-col :xs="24" :sm="12" :md="6">
+        <BarChartCard
+          :isMiniChart="true"
+          :value="15480"
+          label="浏览量"
+          date="过去 14 天"
+          :percentage="-4.15"
+          :height="9.5"
+          :chartData="[120, 100, 150, 140, 90, 120, 130]"
+        />
+      </el-col>
+      <el-col :xs="24" :sm="12" :md="6">
+        <LineChartCard
+          :isMiniChart="true"
+          :value="2545"
+          label="粉丝数"
+          date="过去 30 天"
+          :percentage="1.2"
+          :height="9.5"
+          :showAreaColor="true"
+          :chartData="[150, 180, 160, 200, 180, 220, 240]"
+        />
+      </el-col>
+      <el-col :xs="24" :sm="12" :md="6">
+        <DonutChartCard
+          :value="36358"
+          title="粉丝量"
+          :percentage="18"
+          :data="[50, 40]"
+          :height="9.5"
+          currentYear="2022"
+          previousYear="2021"
+          :radius="['50%', '70%']"
+        />
+      </el-col>
+    </el-row>
+
+    <h1 class="page-title">图表卡片（大图表）</h1>
     <el-row :gutter="20">
       <el-col :xs="24" :sm="12" :md="6">
         <LineChartCard
@@ -94,7 +144,7 @@
           :percentage="1.2"
           :height="11"
           :showAreaColor="true"
-          :chartData="[120, 132, 101, 134, 90, 230, 210]"
+          :chartData="[150, 180, 160, 200, 180, 220, 240]"
         />
       </el-col>
       <el-col :xs="24" :sm="12" :md="6">

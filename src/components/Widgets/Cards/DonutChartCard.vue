@@ -36,6 +36,7 @@
     previousYear?: string
     height?: number
     color?: string
+    radius?: [string, string]
     data: [number, number]
   }
 
@@ -47,6 +48,7 @@
     previousYear: '2021',
     height: 9,
     color: '',
+    radius: () => ['70%', '90%'],
     data: () => [0, 0]
   })
 
@@ -61,7 +63,7 @@
       series: [
         {
           type: 'pie',
-          radius: ['70%', '90%'],
+          radius: props.radius,
           avoidLabelOverlap: false,
           label: {
             show: false

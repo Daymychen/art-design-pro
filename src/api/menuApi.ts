@@ -10,8 +10,10 @@ export const menuService = {
   getMenuList(
     delay: number = 300
   ): Promise<{ menuList: MenuListType[]; closeLoading: () => void }> {
-    // 获取菜单数据
-    const menuData: MenuListType[] = asyncRoutes.map((route) => processRoute(route))
+    // 获取到的菜单数据
+    const menuList = asyncRoutes
+    // 处理后的菜单数据
+    const processedMenuList: MenuListType[] = menuList.map((route) => processRoute(route))
 
     const loading = ElLoading.service({
       lock: true,
@@ -23,7 +25,7 @@ export const menuService = {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({
-          menuList: menuData,
+          menuList: processedMenuList,
           closeLoading: () => loading.close()
         })
       }, delay)
