@@ -23,7 +23,7 @@
       :level-item="level + 1"
       @click="goPage(item)"
     >
-      <MenuItemIcon :icon="item.meta.icon" />
+      <MenuItemIcon :icon="item.meta.icon" :color="theme?.iconColor" />
       <template #title>
         <span class="menu-name">{{ formatMenuTitle(item.meta.title) }}</span>
         <div v-if="item.meta.showBadge" class="badge" />

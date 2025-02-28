@@ -9,7 +9,6 @@ export enum RoutesAlias {
   Exception500 = '/exception/500', // 500
   Success = '/result/Success', // 成功
   Fail = '/result/Fail', // 失败
-  Pricing = '/template/pricing', // 定价
   Dashboard = '/dashboard/console', // 工作台
   Analysis = '/dashboard/analysis', // 分析页
   IconList = '/widgets/IconList', // 图标列表
@@ -25,11 +24,13 @@ export enum RoutesAlias {
   Drag = '/widgets/Drag', // 拖拽
   TextScroll = '/widgets/TextScroll', // 文字滚动
   Fireworks = '/widgets/Fireworks', // 礼花效果
-  Chat = '/template/chat', // 聊天
-  Cards = '/template/cards', // 卡片
-  Banners = '/template/banners', // 横幅
-  Charts = '/template/charts', // 图表
-  Calendar = '/template/calendar', // 日历
+  Chat = '/template/Chat', // 聊天
+  Cards = '/template/Cards', // 卡片
+  Banners = '/template/Banners', // 横幅
+  Charts = '/template/Charts', // 图表
+  Map = '/template/Map', // 地图
+  Calendar = '/template/Calendar', // 日历
+  Pricing = '/template/Pricing', // 定价
   ArticleList = '/article/ArticleList', // 文章列表
   ArticleDetail = '/article/ArticleDetail', // 文章详情
   Comment = '/article/Comment', // 评论
@@ -48,5 +49,5 @@ export enum RoutesAlias {
   Api = '/system/Api', // API
   Log = '/system/Log', // 日志
   Server = '/safeguard/Server', // 服务器
-  PlanLog = '/plan/log' // 计划日志
+  ChangeLog = '/log/ChangeLog' // 更新日志
 }
