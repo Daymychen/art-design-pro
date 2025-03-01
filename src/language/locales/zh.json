@@ -259,6 +259,15 @@
     "evening": "晚上好！"
   },
   "menus": {
+    "login": {
+      "title": "登录"
+    },
+    "register": {
+      "title": "注册"
+    },
+    "forgetPassword": {
+      "title": "忘记密码"
+    },
     "outside": {
       "title": "内嵌页面"
     },

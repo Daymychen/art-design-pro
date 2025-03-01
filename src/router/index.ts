@@ -64,25 +64,25 @@ const staticRoutes: AppRouteRecordRaw[] = [
     path: RoutesAlias.Login,
     name: 'Login',
     component: () => import('@views/login/index.vue'),
-    meta: { title: '登录', isHideTab: true, setTheme: true }
+    meta: { title: 'menus.login.title', isHideTab: true, setTheme: true }
   },
   {
     path: RoutesAlias.Register,
     name: 'Register',
     component: () => import('@views/register/index.vue'),
-    meta: { title: '注册', isHideTab: true, noLogin: true, setTheme: true }
+    meta: { title: 'menus.register.title', isHideTab: true, noLogin: true, setTheme: true }
   },
   {
     path: RoutesAlias.ForgetPassword,
     name: 'ForgetPassword',
     component: () => import('@views/forget-password/index.vue'),
-    meta: { title: '忘记密码', isHideTab: true, noLogin: true, setTheme: true }
+    meta: { title: 'menus.forgetPassword.title', isHideTab: true, noLogin: true, setTheme: true }
   },
   {
     path: '/exception',
     component: Home,
     name: 'Exception',
-    meta: { title: '异常页面' },
+    meta: { title: 'menus.exception.title' },
     children: [
       {
         path: RoutesAlias.Exception403,
@@ -91,7 +91,7 @@ const staticRoutes: AppRouteRecordRaw[] = [
         meta: { title: '403' }
       },
       {
-        path: RoutesAlias.Exception404,
+        path: '/:catchAll(.*)',
         name: 'Exception404',
         component: () => import('@views/exception/404.vue'),
         meta: { title: '404' }
@@ -158,7 +158,11 @@ router.beforeEach(async (to, from, next) => {
   if (!isRouteRegistered.value && userStore.isLogin) {
     try {
       await getMenuData()
-      return next({ ...to, replace: true })
+      if (to.name === 'Exception404') {
+        return next({ path: to.path, query: to.query, replace: true })
+      } else {
+        return next({ ...to, replace: true })
+      }
     } catch (error) {
       console.error('Failed to register routes:', error)
       return next('/exception/500')
@@ -228,7 +232,9 @@ const setSystemTheme = (to: RouteLocationNormalized): void => {
 export const setPageTitle = (to: RouteLocationNormalized): void => {
   const { title } = to.meta
   if (title) {
-    document.title = `${formatMenuTitle(String(title))} - ${SystemInfo.name}`
+    setTimeout(() => {
+      document.title = `${formatMenuTitle(String(title))} - ${SystemInfo.name}`
+    }, 150)
   }
 }
 

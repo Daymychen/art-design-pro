@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.8',
+    title: '修复浏览器刷新页面警告、静态路由标题多语言',
+    date: '2025-03-01',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v2.2.7',
     title: '新增地图模版',
     date: '2025-02-28',

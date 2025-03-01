@@ -361,7 +361,6 @@
 
     try {
       await Promise.all(imageUrls.map((url) => preloadImage(url)))
-      console.log('All images preloaded')
     } catch (error) {
       console.error('Image preloading failed', error)
     }

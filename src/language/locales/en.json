@@ -274,6 +274,15 @@
     "evening": "Good evening!"
   },
   "menus": {
+    "login": {
+      "title": "Login"
+    },
+    "register": {
+      "title": "Register"
+    },
+    "forgetPassword": {
+      "title": "Forget Password"
+    },
     "outside": {
       "title": "Outside"
     },
