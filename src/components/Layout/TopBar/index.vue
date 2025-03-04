@@ -74,7 +74,7 @@
         </div>
         <!-- 聊天 -->
         <div class="btn-box chat-btn" @click="openChat">
-          <div class="btn">
+          <div class="btn chat-button">
             <i class="iconfont-sys">&#xe89a;</i>
             <span class="dot"></span>
           </div>
@@ -118,7 +118,7 @@
         </div>
         <!-- 切换主题 -->
         <div class="btn-box" @click="toggleTheme">
-          <div class="btn">
+          <div class="btn theme-btn">
             <i class="iconfont-sys">{{ isDark ? '&#xe6b5;' : '&#xe725;' }}</i>
           </div>
         </div>

@@ -115,7 +115,7 @@
     "sliderText": "Please slide to verify",
     "sliderSuccessText": "Verification successful",
     "rememberPwd": "Remember password",
-    "forgetPwd": "Forget password",
+    "forgetPwd": "Forgot password",
     "btnText": "Login",
     "noAccount": "No account yet?",
     "register": "Register",
@@ -125,7 +125,7 @@
     }
   },
   "forgetPassword": {
-    "title": "Forget password?",
+    "title": "Forgot password?",
     "subTitle": "Enter your email to reset your password",
     "placeholder": "Please enter your email",
     "submitBtnText": "Submit",
@@ -309,7 +309,7 @@
       "elementUI": "Component Overview"
     },
     "template": {
-      "title": "Template",
+      "title": "Template Center",
       "chat": "Chat",
       "cards": "Cards",
       "banners": "Banners",
@@ -368,7 +368,7 @@
     },
     "plan": {
       "title": "Version Plan",
-      "log": "Log"
+      "log": "Change Log"
     },
     "help": {
       "title": "Help Center",

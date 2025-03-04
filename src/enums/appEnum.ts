@@ -44,3 +44,13 @@ export enum ContainerWidthEnum {
   FULL = '100%',
   BOXED = '1200px'
 }
+
+// Background color enum
+export enum BgColorEnum {
+  PRIMARY = 'bg-primary',
+  SECONDARY = 'bg-secondary',
+  WARNING = 'bg-warning',
+  ERROR = 'bg-error',
+  SUCCESS = 'bg-success',
+  DANGER = 'bg-danger'
+}

@@ -1,49 +1,55 @@
 <!-- 表格按钮，支持文字和图标 -->
 <template>
-  <div :class="['btn-text', `btn-${props.type}`, useColor ? buttonColor : '']" @click="handleClick">
-    <i v-if="props.type" class="iconfont-sys" v-html="getIcon(props.type)"></i>
+  <div :class="['btn-text', buttonColor]" @click="handleClick">
+    <i v-if="iconContent" class="iconfont-sys" v-html="iconContent" :style="iconStyle"></i>
     <span v-if="props.text">{{ props.text }}</span>
   </div>
 </template>
 
 <script setup lang="ts">
+  import { BgColorEnum } from '@/enums/appEnum'
   import { computed } from 'vue'
 
   const props = withDefaults(
     defineProps<{
       text?: string
-      icon?: string
       type?: 'add' | 'edit' | 'delete' | 'more'
-      buttonClass?: string
-      useColor?: boolean
+      icon?: string // 自定义图标
+      iconClass?: BgColorEnum // 自定义按钮背景色、文字颜色
+      iconColor?: string // 外部传入的图标文字颜色
+      iconBgColor?: string // 外部传入的图标背景色
     }>(),
-    {
-      useColor: true
-    }
+    {}
   )
 
   const emit = defineEmits<{
     (e: 'click'): void
   }>()
 
+  // 默认按钮配置：type 对应的图标和默认颜色
   const defaultButtons = [
-    { type: 'add', icon: '&#xe602;', color: 'bg-primary' },
-    { type: 'edit', icon: '&#xe642;', color: 'bg-secondary' },
-    { type: 'delete', icon: '&#xe783;', color: 'bg-error' },
+    { type: 'add', icon: '&#xe602;', color: BgColorEnum.PRIMARY },
+    { type: 'edit', icon: '&#xe642;', color: BgColorEnum.SECONDARY },
+    { type: 'delete', icon: '&#xe783;', color: BgColorEnum.ERROR },
     { type: 'more', icon: '&#xe6df;', color: '' }
   ] as const
 
-  const getIcon = (type: 'add' | 'edit' | 'delete' | 'more') => {
-    return defaultButtons.find((btn) => btn.type === type)?.icon
-  }
+  // 计算最终使用的图标：优先使用外部传入的 icon，否则根据 type 获取默认图标
+  const iconContent = computed(() => {
+    return props.icon || defaultButtons.find((btn) => btn.type === props.type)?.icon || ''
+  })
 
-  const getButtonColor = (type: 'add' | 'edit' | 'delete' | 'more') => {
-    return defaultButtons.find((btn) => btn.type === type)?.color
-  }
-
+  // 计算按钮的背景色：优先使用外部传入的 iconClass，否则根据 type 选默认颜色
   const buttonColor = computed(() => {
-    if (!props.useColor) return ''
-    return props.buttonClass || (props.type ? getButtonColor(props.type) : '')
+    return props.iconClass || defaultButtons.find((btn) => btn.type === props.type)?.color || ''
+  })
+
+  // 计算图标的颜色与背景色，支持外部传入
+  const iconStyle = computed(() => {
+    return {
+      ...(props.iconColor ? { color: props.iconColor } : {}),
+      ...(props.iconBgColor ? { backgroundColor: props.iconBgColor } : {})
+    }
   })
 
   const handleClick = () => {
