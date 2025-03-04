@@ -5,8 +5,8 @@ import { getSysStorage } from '@/utils/storage'
 
 // 动态导入语言文件
 const messages = {
-  [LanguageEnum.EN]: () => import('./en'),
-  [LanguageEnum.ZH]: () => import('./zh')
+  [LanguageEnum.EN]: () => import('./locales/en.json'),
+  [LanguageEnum.ZH]: () => import('./locales/zh.json')
 }
 
 // 获取初始语言

@@ -245,6 +245,17 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
+        id: 12609,
+        path: 'map',
+        name: 'Map',
+        component: RoutesAlias.Map,
+        meta: {
+          title: 'menus.template.map',
+          keepAlive: true,
+          showTextBadge: 'new'
+        }
+      },
+      {
         id: 12601,
         path: 'chat',
         name: 'Chat',
@@ -741,9 +752,9 @@ export const asyncRoutes: MenuListType[] = [
   // 一级菜单
   {
     id: 11912,
-    name: 'PlanLog',
-    path: '/plan/log',
-    component: '/plan/log',
+    name: 'ChangeLog',
+    path: '/log/changeLog',
+    component: '/log/ChangeLog',
     meta: {
       title: 'menus.plan.log',
       showTextBadge: `${upgradeLogList.value[0].version}`,

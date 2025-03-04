@@ -120,7 +120,7 @@
       description: '版本更新与变更记录',
       icon: '&#xe81c;',
       iconColor: '#38C0FC',
-      path: RoutesAlias.PlanLog
+      path: RoutesAlias.ChangeLog
     },
     {
       name: '哔哩哔哩',

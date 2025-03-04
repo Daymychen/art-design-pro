@@ -1,5 +1,25 @@
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.8',
+    title: '修复浏览器刷新页面警告、静态路由标题多语言',
+    date: '2025-03-01',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
+    version: 'v2.2.7',
+    title: '新增地图模版',
+    date: '2025-02-28',
+    status: 'complete',
+    statusText: '完成',
+    detail: [
+      '新增地图模版',
+      '页面文件命名统一',
+      '国际化文件从.ts改为.json',
+      '左侧菜单一级图标颜色BUG修复'
+    ]
+  },
+  {
     version: 'v2.2.6',
     title: '图表卡片新增小图表模式，优化token过期，菜单数据为空问题',
     date: '2025-02-27',
