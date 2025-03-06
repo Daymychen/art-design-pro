@@ -57,8 +57,8 @@ export function useChart(initOptions?: EChartsOption) {
   })
 
   // 坐标轴标签样式
-  const getAxisLabelStyle = () => ({
-    show: true,
+  const getAxisLabelStyle = (show: boolean = true) => ({
+    show,
     color: useChartOps().fontColor,
     fontSize: useChartOps().fontSize
   })

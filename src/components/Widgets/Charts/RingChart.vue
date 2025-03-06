@@ -12,6 +12,9 @@
     height?: string
     color?: string[]
     radius?: string[]
+    showLabel?: boolean
+    borderRadius?: number
+    centerText?: string
   }
 
   const props = withDefaults(defineProps<Props>(), {
@@ -23,11 +26,14 @@
     ],
     height: useChartOps().chartHeight,
     color: () => [],
-    radius: () => ['50%', '80%']
+    radius: () => ['50%', '80%'],
+    showLabel: true,
+    borderRadius: 10,
+    centerText: ''
   })
 
   const options: () => EChartsOption = () => {
-    return {
+    const opt: EChartsOption = {
       series: [
         {
           name: '数据占比',
@@ -35,10 +41,10 @@
           radius: props.radius,
           avoidLabelOverlap: false,
           itemStyle: {
-            borderRadius: 10
+            borderRadius: props.borderRadius
           },
           label: {
-            show: true,
+            show: props.showLabel,
             formatter: '{b}\n{d}%',
             position: 'outside',
             color: '#999'
@@ -61,6 +67,21 @@
         }
       ]
     }
+
+    if (props.centerText) {
+      opt.title = {
+        text: props.centerText,
+        left: 'center',
+        top: 'center',
+        textStyle: {
+          fontSize: 18,
+          fontWeight: 500,
+          color: '#ADB0BC'
+        }
+      }
+    }
+
+    return opt
   }
 
   watch(isDark, () => {

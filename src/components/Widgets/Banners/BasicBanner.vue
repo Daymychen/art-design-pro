@@ -7,12 +7,14 @@
       <p class="basic-banner__title" :style="{ color: titleColor }"> {{ title }}</p>
       <p class="basic-banner__subtitle" :style="{ color: subtitleColor }">{{ subtitle }}</p>
       <div
+        v-if="showButton"
         class="basic-banner__button"
         :style="{ backgroundColor: buttonColor, color: buttonTextColor }"
         @click="handleClick"
       >
         {{ buttonText }}
       </div>
+      <slot></slot>
       <img
         v-if="backgroundImage"
         class="basic-banner__background-image"
@@ -27,7 +29,7 @@
   interface Props {
     height?: string
     title: string
-    subtitle: string
+    subtitle?: string
     buttonText?: string
     buttonColor?: string
     buttonTextColor?: string
@@ -35,6 +37,7 @@
     subtitleColor?: string
     backgroundColor?: string
     backgroundImage?: string
+    showButton?: boolean
   }
 
   withDefaults(defineProps<Props>(), {
@@ -45,7 +48,8 @@
     backgroundColor: 'var(--el-color-primary-light-2)',
     titleColor: 'white',
     subtitleColor: 'white',
-    backgroundImage: ''
+    backgroundImage: '',
+    showButton: true
   })
 
   const emit = defineEmits<{

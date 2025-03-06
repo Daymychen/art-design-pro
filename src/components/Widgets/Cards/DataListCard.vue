@@ -68,8 +68,6 @@
 
 <style lang="scss" scoped>
   .basic-list-card {
-    margin-top: 18px;
-
     .art-card {
       padding: 30px;
       background-color: var(--art-main-bg-color);

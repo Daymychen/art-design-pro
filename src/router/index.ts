@@ -57,6 +57,12 @@ const staticRoutes: AppRouteRecordRaw[] = [
         name: 'Analysis',
         component: () => import('@views/dashboard/analysis/index.vue'),
         meta: { title: 'menus.dashboard.analysis', keepAlive: false }
+      },
+      {
+        path: RoutesAlias.Ecommerce,
+        name: 'Ecommerce',
+        component: () => import('@views/dashboard/ecommerce/index.vue'),
+        meta: { title: 'menus.dashboard.ecommerce', keepAlive: false }
       }
     ]
   },

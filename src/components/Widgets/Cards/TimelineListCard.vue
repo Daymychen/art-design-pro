@@ -64,8 +64,6 @@
 
 <style lang="scss" scoped>
   .timeline-list-card {
-    margin-block-start: 18px;
-
     .art-card {
       padding: 30px;
       background-color: var(--art-main-bg-color);

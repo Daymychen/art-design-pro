@@ -19,20 +19,26 @@
 
   interface Props {
     data: number[]
-    xAxisData: string[]
+    xAxisData?: string[]
     height?: string
     color?: string
     lineWidth?: number
     showAreaColor?: boolean
+    showAxisLabel?: boolean
+    showAxisLine?: boolean
+    showSplitLine?: boolean
   }
 
   const props = withDefaults(defineProps<Props>(), {
     height: useChartOps().chartHeight,
     data: () => [0, 0, 0, 0, 0, 0, 0],
-    xAxisData: () => ['一月', '二月', '三月', '四月', '五月', '六月', '七月'],
+    xAxisData: () => [],
     color: '',
     lineWidth: 3,
-    showAreaColor: false
+    showAreaColor: false,
+    showAxisLabel: true,
+    showAxisLine: true,
+    showSplitLine: true
   })
 
   const options: () => EChartsOption = () => {
@@ -54,13 +60,13 @@
         boundaryGap: false,
         data: props.xAxisData,
         axisTick: getAxisTickStyle(),
-        axisLine: getAxisLineStyle(),
-        axisLabel: getAxisLabelStyle()
+        axisLine: getAxisLineStyle(props.showAxisLine),
+        axisLabel: getAxisLabelStyle(props.showAxisLabel)
       },
       yAxis: {
-        axisLabel: getAxisLabelStyle(),
-        axisLine: getAxisLineStyle(),
-        splitLine: getSplitLineStyle()
+        axisLabel: getAxisLabelStyle(props.showAxisLabel),
+        axisLine: getAxisLineStyle(props.showAxisLine),
+        splitLine: getSplitLineStyle(props.showSplitLine)
       },
       series: [
         {

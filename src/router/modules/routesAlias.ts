@@ -11,6 +11,7 @@ export enum RoutesAlias {
   Fail = '/result/Fail', // 失败
   Dashboard = '/dashboard/console', // 工作台
   Analysis = '/dashboard/analysis', // 分析页
+  Ecommerce = '/dashboard/ecommerce', // 电子商务
   IconList = '/widgets/IconList', // 图标列表
   IconSelector = '/widgets/IconSelector', // 图标选择器
   ImageCrop = '/widgets/ImageCrop', // 图片裁剪

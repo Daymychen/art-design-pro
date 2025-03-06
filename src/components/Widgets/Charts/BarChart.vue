@@ -24,14 +24,20 @@
     color?: string
     height?: string
     barWidth?: string | number
+    showAxisLabel?: boolean
+    showAxisLine?: boolean
+    showSplitLine?: boolean
   }
 
   const props = withDefaults(defineProps<Props>(), {
     data: () => [0, 0, 0, 0, 0, 0, 0],
-    xAxisData: () => ['一月', '二月', '三月', '四月', '五月', '六月', '七月'],
+    xAxisData: () => [],
     color: '',
     height: useChartOps().chartHeight,
-    barWidth: '40%'
+    barWidth: '40%',
+    showAxisLabel: true,
+    showAxisLine: true,
+    showSplitLine: true
   })
 
   const options: () => EChartsOption = () => {
@@ -63,13 +69,13 @@
         type: 'category',
         data: props.xAxisData,
         axisTick: getAxisTickStyle(),
-        axisLine: getAxisLineStyle(),
-        axisLabel: getAxisLabelStyle()
+        axisLine: getAxisLineStyle(props.showAxisLine),
+        axisLabel: getAxisLabelStyle(props.showAxisLabel)
       },
       yAxis: {
-        axisLabel: getAxisLabelStyle(),
-        axisLine: getAxisLineStyle(),
-        splitLine: getSplitLineStyle()
+        axisLabel: getAxisLabelStyle(props.showAxisLabel),
+        axisLine: getAxisLineStyle(props.showAxisLine),
+        splitLine: getSplitLineStyle(props.showSplitLine)
       },
       series: [
         {

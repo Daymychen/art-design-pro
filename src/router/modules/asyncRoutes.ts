@@ -43,6 +43,16 @@ export const asyncRoutes: MenuListType[] = [
           title: 'menus.dashboard.analysis',
           keepAlive: true
         }
+      },
+      {
+        id: 103,
+        path: 'ecommerce',
+        name: 'Ecommerce',
+        component: RoutesAlias.Ecommerce,
+        meta: {
+          title: 'menus.dashboard.ecommerce',
+          keepAlive: true
+        }
       }
     ]
   },

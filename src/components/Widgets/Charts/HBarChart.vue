@@ -28,7 +28,7 @@
 
   const props = withDefaults(defineProps<Props>(), {
     data: () => [0, 0, 0, 0, 0, 0, 0],
-    xAxisData: () => ['一月', '二月', '三月', '四月', '五月', '六月', '七月'],
+    xAxisData: () => [],
     color: '',
     height: useChartOps().chartHeight,
     barWidth: '36%'
