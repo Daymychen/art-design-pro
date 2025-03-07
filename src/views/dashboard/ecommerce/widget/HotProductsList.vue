@@ -1,40 +1,50 @@
 <template>
-  <div class="table">
-    <el-scrollbar style="height: 21.55rem">
-      <art-table :data="tableData" :pagination="false" style="margin-top: 0 !important">
-        <template #default>
-          <el-table-column label="产品" prop="product" width="220px">
-            <template #default="scope">
-              <div style="display: flex; align-items: center">
-                <img class="product-image" :src="scope.row.image" />
-                <div class="product-info">
-                  <div class="product-name">{{ scope.row.name }}</div>
-                  <div class="product-category">{{ scope.row.category }}</div>
+  <div class="card art-custom-card" style="height: 27.8rem">
+    <div class="card-header">
+      <p class="title">热销产品</p>
+      <p class="subtitle">本月销售情况</p>
+    </div>
+    <div class="table">
+      <el-scrollbar style="height: 21.55rem">
+        <art-table :data="tableData" :pagination="false" style="margin-top: 0 !important">
+          <template #default>
+            <el-table-column label="产品" prop="product" width="220px">
+              <template #default="scope">
+                <div style="display: flex; align-items: center">
+                  <img class="product-image" :src="scope.row.image" />
+                  <div class="product-info">
+                    <div class="product-name">{{ scope.row.name }}</div>
+                    <div class="product-category">{{ scope.row.category }}</div>
+                  </div>
                 </div>
-              </div>
-            </template>
-          </el-table-column>
-          <el-table-column label="价格" prop="price">
-            <template #default="scope">
-              <span class="price">¥{{ scope.row.price.toLocaleString() }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="库存" prop="stock">
-            <template #default="scope">
-              <div class="stock-badge" :class="getStockClass(scope.row.stock)">
-                {{ getStockStatus(scope.row.stock) }}
-              </div>
-            </template>
-          </el-table-column>
-          <el-table-column label="销量" prop="sales" />
-          <el-table-column label="销售趋势" width="240">
-            <template #default="scope">
-              <el-progress :percentage="scope.row.pro" :color="scope.row.color" :stroke-width="4" />
-            </template>
-          </el-table-column>
-        </template>
-      </art-table>
-    </el-scrollbar>
+              </template>
+            </el-table-column>
+            <el-table-column label="价格" prop="price">
+              <template #default="scope">
+                <span class="price">¥{{ scope.row.price.toLocaleString() }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="库存" prop="stock">
+              <template #default="scope">
+                <div class="stock-badge" :class="getStockClass(scope.row.stock)">
+                  {{ getStockStatus(scope.row.stock) }}
+                </div>
+              </template>
+            </el-table-column>
+            <el-table-column label="销量" prop="sales" />
+            <el-table-column label="销售趋势" width="240">
+              <template #default="scope">
+                <el-progress
+                  :percentage="scope.row.pro"
+                  :color="scope.row.color"
+                  :stroke-width="4"
+                />
+              </template>
+            </el-table-column>
+          </template>
+        </art-table>
+      </el-scrollbar>
+    </div>
   </div>
 </template>
 
@@ -42,12 +52,12 @@
   import { reactive, onMounted } from 'vue'
 
   // 导入产品图片
-  import product1 from '@/assets/img/avatar/avatar1.jpg'
-  import product2 from '@/assets/img/avatar/avatar2.jpg'
-  import product3 from '@/assets/img/avatar/avatar3.jpg'
-  import product4 from '@/assets/img/avatar/avatar4.jpg'
-  import product5 from '@/assets/img/avatar/avatar5.jpg'
-  import product6 from '@/assets/img/avatar/avatar6.jpg'
+  import product1 from '@/assets/img/3d/icon1.png'
+  import product2 from '@/assets/img/3d/icon2.png'
+  import product3 from '@/assets/img/3d/icon3.png'
+  import product4 from '@/assets/img/3d/icon4.png'
+  import product5 from '@/assets/img/3d/icon5.png'
+  import product6 from '@/assets/img/3d/icon6.png'
 
   const tableData = reactive([
     {

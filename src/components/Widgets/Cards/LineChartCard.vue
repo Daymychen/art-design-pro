@@ -69,7 +69,8 @@
       },
       xAxis: {
         type: 'category',
-        show: false
+        show: false,
+        boundaryGap: false
       },
       yAxis: {
         type: 'value',
@@ -176,9 +177,8 @@
       bottom: 0;
       left: 0;
       box-sizing: border-box;
-      width: calc(100% + 60px);
+      width: 100%;
       height: 90px;
-      margin: 0 -30px;
 
       &.is-mini-chart {
         position: absolute;

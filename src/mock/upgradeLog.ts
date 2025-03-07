@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.9',
+    title: '新增电子商务仪表盘',
+    date: '2025-03-07',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v2.2.81',
     title: 'ButtonTable 增加自定义图标模式、顶栏聊天图标添加 hover 动画',
     date: '2025-03-01',
