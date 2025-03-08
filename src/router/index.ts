@@ -127,7 +127,7 @@ const staticRoutes: AppRouteRecordRaw[] = [
   {
     path: RoutesAlias.Pricing,
     name: 'Pricing',
-    component: () => import('@views/template/pricing.vue'),
+    component: () => import('@views/template/Pricing.vue'),
     meta: { title: 'menus.template.pricing', isHideTab: true }
   }
 ]
