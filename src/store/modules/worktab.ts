@@ -36,16 +36,31 @@ export const useWorktabStore = defineStore({
      * 打开或激活一个选项卡
      * @param tab 目标选项卡信息
      */
-    openTab(tab: WorkTabType) {
-      // 若当前路由在排除列表中，则先移除
+    openTab(tab: WorkTabType): void {
       this.removeKeepAliveExclude(tab.name as string)
-      const index = this.opened.findIndex((i) => i.path === tab.path)
-      if (index === -1) {
-        this.opened.push(tab)
-      }
-      this.current = this.opened.find((i) => i.path === tab.path) as WorkTabType
-    },
 
+      const index = this.opened.findIndex((item) => item.path === tab.path)
+
+      if (index === -1) {
+        this.opened.push({ ...tab })
+      } else {
+        const existingTab = this.opened[index]
+        if (!this.areQueriesEqual(existingTab.query, tab.query)) {
+          this.opened[index] = {
+            ...existingTab,
+            query: tab.query,
+            // 可选：支持更多属性更新
+            title: tab.title || existingTab.title
+          }
+        }
+      }
+
+      this.current = this.opened[index === -1 ? this.opened.length - 1 : index]
+    },
+    // 辅助函数
+    areQueriesEqual(query1: any, query2: any): boolean {
+      return JSON.stringify(query1) === JSON.stringify(query2)
+    },
     /**
      * 关闭指定的选项卡，并处理激活状态和路由跳转
      * @param path 要关闭的路由路径

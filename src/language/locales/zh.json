@@ -178,8 +178,7 @@
       "title": "访客洞察",
       "legend": {
         "loyalCustomers": "忠实客户",
-        "newCustomers": "新客户",
-        "uniqueCustomers": "独立客户"
+        "newCustomers": "新客户"
       }
     },
     "totalRevenue": {

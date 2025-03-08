@@ -193,8 +193,7 @@
       "title": "Visitor Insights",
       "legend": {
         "loyalCustomers": "Loyal Customers",
-        "newCustomers": "New Customers",
-        "uniqueCustomers": "Unique Customers"
+        "newCustomers": "New Customers"
       }
     },
     "totalRevenue": {

@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.10',
+    title: '修复多标签无法携带参数BUG、本地存储修复无法手动删除BUG',
+    date: '2025-03-08',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v2.2.9',
     title: '新增电子商务仪表盘',
     date: '2025-03-07',

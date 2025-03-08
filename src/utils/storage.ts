@@ -19,8 +19,13 @@ export function initState() {
 
 // 获取系统存储数据
 export function getSysStorage() {
-  const version = localStorage.getItem('version') || import.meta.env.VITE_VERSION
+  const version = getSysVersion() || import.meta.env.VITE_VERSION
   return localStorage.getItem(`sys-v${version}`) as any
+}
+
+// 获取系统版本
+export function getSysVersion() {
+  return localStorage.getItem('version')
 }
 
 // 验证本地存储数据的类型
@@ -141,6 +146,8 @@ export function saveUserData() {
   const eventType = isiOS ? 'pagehide' : 'beforeunload'
 
   window.addEventListener(eventType, () => {
-    useUserStore().saveUserData()
+    if (getSysVersion() && getSysStorage()) {
+      useUserStore().saveUserData()
+    }
   })
 }

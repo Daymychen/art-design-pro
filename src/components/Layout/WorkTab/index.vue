@@ -13,7 +13,7 @@
           :ref="item.path"
           :class="{ 'activ-tab': item.path === activeTab }"
           :id="`scroll-li-${index}`"
-          @click="clickTab(item.path)"
+          @click="clickTab(item)"
           @contextmenu.prevent="(e: MouseEvent) => showMenu(e, item.path)"
         >
           {{ formatMenuTitle(item.title) }}
@@ -66,7 +66,7 @@
 <script setup lang="ts">
   // 导入必要的组件和工具
   import { computed, onMounted, ref, watch } from 'vue'
-  import { useRoute, useRouter } from 'vue-router'
+  import { LocationQueryRaw, useRoute, useRouter } from 'vue-router'
   import { useI18n } from 'vue-i18n'
   import { ArrowDown, ArrowLeft, ArrowRight, Close, CircleClose } from '@element-plus/icons-vue'
 
@@ -75,6 +75,7 @@
   import { formatMenuTitle } from '@/utils/menu'
 
   import type { MenuItemType } from '@/components/Widgets/MenuRight.vue'
+  import { WorkTabType } from '@/types/store'
 
   const { t } = useI18n()
   const store = useWorktabStore()
@@ -207,8 +208,11 @@
   )
 
   // 标签页操作方法
-  const clickTab = (path: string) => {
-    router.push(path)
+  const clickTab = (item: WorkTabType) => {
+    router.push({
+      path: item.path,
+      query: item.query as LocationQueryRaw
+    })
   }
 
   // 关闭标签页的不同方式

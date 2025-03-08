@@ -49,8 +49,7 @@
       legend: {
         data: [
           t('analysis.visitorInsights.legend.loyalCustomers'),
-          t('analysis.visitorInsights.legend.newCustomers'),
-          t('analysis.visitorInsights.legend.uniqueCustomers')
+          t('analysis.visitorInsights.legend.newCustomers')
         ],
         bottom: 0,
         left: 'center',
