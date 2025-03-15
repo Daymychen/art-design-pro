@@ -50,17 +50,24 @@
   const count4 = ref(5000)
 
   const countTo = ref()
+  // 添加一个标志位，用于控制是否正在计数
+  const isCounting = ref(false)
 
   // 控制方法
   const start = () => {
+    // 每次点击开始，先重置计数器
+    countTo.value?.reset()
+    isCounting.value = true
     countTo.value?.start()
   }
 
   const pause = () => {
+    isCounting.value = false
     countTo.value?.pause()
   }
 
   const reset = () => {
+    isCounting.value = false
     countTo.value?.reset()
   }
 </script>
