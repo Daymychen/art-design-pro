@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.11',
+    title: '优化容器高度不够显示滚动条问题',
+    date: '2025-03-09',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v2.2.10',
     title: '修复多标签无法携带参数BUG、本地存储修复无法手动删除BUG',
     date: '2025-03-08',

@@ -242,6 +242,10 @@
         <!-- 基础配置 -->
         <p class="title" style="margin-top: 40px">{{ $t('setting.basics.title') }}</p>
         <div class="basic-box">
+          <div class="item">
+            <span>{{ $t('setting.basics.list[4]') }}</span>
+            <el-switch v-model="showWorkTab" @change="showWorkTabFunc" />
+          </div>
           <div class="item" style="display: flex">
             <span>{{ $t('setting.basics.list[0]') }}</span>
             <el-switch v-model="uniqueOpened" @change="setUniqueOpened" />
@@ -258,10 +262,7 @@
             <span>{{ $t('setting.basics.list[3]') }}</span>
             <el-switch v-model="showCrumbs" @change="setCrumbs" />
           </div>
-          <div class="item">
-            <span>{{ $t('setting.basics.list[4]') }}</span>
-            <el-switch v-model="showWorkTab" @change="showWorkTabFunc" />
-          </div>
+
           <div class="item">
             <span>{{ $t('setting.basics.list[5]') }}</span>
             <el-switch v-model="showLanguage" @change="setLanguage" />

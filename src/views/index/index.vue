@@ -139,7 +139,6 @@
     box-sizing: border-box;
     width: 100%;
     min-height: 100vh;
-    padding: 108px 0 15px;
     overflow: hidden;
     background: var(--art-bg-color);
     transition: padding 0.3s ease-in-out;

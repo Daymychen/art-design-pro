@@ -144,11 +144,6 @@
 
     .el-col {
       margin-bottom: 20px;
-
-      // &:last-of-type {
-      //   // margin-bottom: 20px;
-      //   // border: 1px solid red;
-      // }
     }
   }
 </style>
