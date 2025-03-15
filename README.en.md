@@ -1,69 +1,78 @@
-English | [简体中文](./README.md)
+简体中文 | [English](./README.en.md)
 
-## About Art Design Pro
+## 关于 Art Design Pro
 
-As a developer, I needed to build admin management systems for multiple projects but found that traditional systems couldn't fully meet the requirements for user experience and visual design. Therefore, I created Art Design Pro, an open-source admin management solution focused on user experience and rapid development. Based on the ElementPlus design specifications, it has been visually optimized to provide a more beautiful and practical front-end interface, helping you easily build high-quality admin systems.
+作为一名开发者，我在多个项目中需要搭建后台管理系统，但发现传统系统在用户体验和视觉设计上不能完全满足需求。因此，我创建了 Art Design Pro，一款专注于用户体验和快速开发的开源后台管理解决方案。基于 ElementPlus 设计规范，进行了视觉上的精心优化，提供更美观、更实用的前端界面，帮助你轻松构建高质量的后台系统。
 
-## Demo Images
+## 演示图
 
-### Light Theme
+### 浅色主题
 
-![Light Theme](https://www.qiniu.lingchen.kim/PixPin_2024-12-06_19-05-51.png)
+![浅色主题](https://www.qiniu.lingchen.kim/art_design_pro_readme_cover1.png)
 
-![Light Theme](https://www.qiniu.lingchen.kim/PixPin_2024-10-14_11-46-23.png)
+![浅色主题](https://www.qiniu.lingchen.kim/art_design_pro_readme_cover2.png)
 
-### Dark Theme
+### 暗黑主题
 
-![Dark Theme](https://www.qiniu.lingchen.kim/PixPin_2024-12-06_19-06-06.png)
+![暗黑主题](https://www.qiniu.lingchen.kim/art_design_pro_readme_cover3.png)
 
-![Dark Theme](https://www.qiniu.lingchen.kim/PixPin_2024-10-14_11-47-06.png)
+![暗黑主题](https://www.qiniu.lingchen.kim/art_design_pro_readme_cover4.png)
 
-## Features
+## 特点
 
-- Uses the latest technology stack
-- Built-in common business component templates
-- Provides multiple theme modes and customizable themes
-- Beautiful UI design, excellent user experience, and attention to detail
-- System fully supports customization, meeting your personalized needs
+- 使用最新技术栈
+- 内置常用业务组件模版
+- 提供多种主题模式，可以自定义主题
+- 漂亮的 UI设计、极致的用户体验和细节处理
+- 系统全面支持自定义设置，满足您的个性化需求
 
-## Functionality
+## 技术栈
 
-- Rich theme switching
-- Global search
-- Lock screen
-- Multi-tabs
-- Global breadcrumbs
-- Multi-language support
-- Icon library
-- Rich text editor
-- Echarts charts
-- Utils toolkit
-- Network exception handling
-- Route-level authentication
-- Sidebar menu authentication
-- Authentication directives
-- Mobile adaptation
-- Excellent persistent storage solution
-- Local data storage validation
-- Code commit validation and formatting
-- Code commit standardization
+- 开发框架：Vue3、TypeScript、Vite、Element-Plus
+- 代码规范：Eslint、Prettier、Stylelint、Husky、Lint-staged、cz-git
 
-## Compatibility
+## 功能
 
-- Supports modern mainstream browsers such as Chrome, Safari, Firefox, etc.
+- 丰富主题切换
+- 全局搜索
+- 锁屏
+- 多标签页
+- 全局面包屑
+- 多语言
+- 图标库
+- 富文本编辑器
+- Echarts 图表
+- Utils工具包
+- 网络异常处理
+- 路由级别鉴权
+- 侧边栏菜单鉴权
+- 鉴权指令
+- 移动端适配
+- 优秀的持久化存储方案
+- 本地数据存储校验
+- 代码提交校验与格式化
+- 代码提交规范化
 
-## Installation and Running
+## 兼容性
+
+- 支持 Chrome、Safari、Firefox 等现代主流浏览器。
+
+## 安装运行
 
 ```bash
-# Install dependencies
+# 安装依赖
 pnpm install
 
-# If pnpm install fails, try using the following command to install dependencies
+# 如果 pnpm install 安装失败，尝试使用下面的命令安装依赖
 pnpm install --ignore-scripts
 
-# Start local development environment
+# 本地开发环境启动
 pnpm dev
 
-# Build for production
+# 生产环境打包
 pnpm build
 ```
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=Daymychen/art-design-pro&type=Date)](https://www.star-history.com/#Daymychen/art-design-pro&Date)
