@@ -14,13 +14,16 @@ const axiosInstance = axios.create({
     post: { 'Content-Type': 'application/json;charset=utf-8' }
   },
   transformResponse: [
-    (data) => {
-      // 响应数据转换
-      try {
-        return typeof data === 'string' && data.startsWith('{') ? JSON.parse(data) : data
-      } catch {
-        return data // 解析失败时返回原数据
+    (data, headers) => {
+      const contentType = headers['content-type']
+      if (contentType && contentType.includes('application/json')) {
+        try {
+          return JSON.parse(data)
+        } catch {
+          return data
+        }
       }
+      return data
     }
   ]
 })
