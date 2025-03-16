@@ -1,5 +1,18 @@
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.2',
+    title: '优化Axios响应数据转换逻辑等问题',
+    date: '2025-03-16',
+    status: 'complete',
+    statusText: '完成',
+    detail: [
+      '优化 Axios 响应数据转换逻辑',
+      '修复重复点击滚动数字的 bug',
+      '修复图像裁剪移动端层级问题',
+      '修复 ipad mini 菜单折叠 bug'
+    ]
+  },
+  {
     version: 'v2.2.11',
     title: '优化容器高度不够显示滚动条问题',
     date: '2025-03-09',
