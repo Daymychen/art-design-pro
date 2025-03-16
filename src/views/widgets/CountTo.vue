@@ -50,18 +50,39 @@
   const count4 = ref(5000)
 
   const countTo = ref()
+  const isCounting = ref(false)
 
   // 控制方法
   const start = () => {
-    countTo.value?.start()
+    if (isCounting.value) return
+
+    try {
+      countTo.value?.reset()
+      countTo.value?.start()
+      isCounting.value = true
+    } catch (error) {
+      console.error('启动计数器失败:', error)
+    }
   }
 
   const pause = () => {
-    countTo.value?.pause()
+    if (!isCounting.value) return
+
+    try {
+      countTo.value?.pause()
+      isCounting.value = false
+    } catch (error) {
+      console.error('暂停计数器失败:', error)
+    }
   }
 
   const reset = () => {
-    countTo.value?.reset()
+    try {
+      countTo.value?.reset()
+      isCounting.value = false
+    } catch (error) {
+      console.error('重置计数器失败:', error)
+    }
   }
 </script>
 
