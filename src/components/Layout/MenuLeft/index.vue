@@ -236,7 +236,7 @@
   }
 
   const closeMenu = () => {
-    if (document.body.clientWidth < 500) {
+    if (document.body.clientWidth < 800) {
       settingStore.setMenuOpen(false)
       showMobileModel.value = false
     }
