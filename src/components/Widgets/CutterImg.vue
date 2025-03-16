@@ -1,47 +1,45 @@
 <!-- github: https://github.com/acccccccb/vue-img-cutter/tree/master -->
 <template>
-  <div class="page-content">
-    <div class="cutter-container">
-      <div class="cutter-component">
-        <div class="title">{{ title }}</div>
-        <ImgCutter
-          ref="imgCutterModal"
-          @cutDown="cutDownImg"
-          @onPrintImg="cutterPrintImg"
-          @onImageLoadComplete="handleImageLoadComplete"
-          @onImageLoadError="handleImageLoadError"
-          @onClearAll="handleClearAll"
-          v-bind="cutterProps"
-          class="img-cutter"
-        >
-          <template #choose>
-            <el-button type="primary" plain v-ripple>选择图片</el-button>
-          </template>
-          <template #cancel>
-            <el-button type="danger" plain v-ripple>清除</el-button>
-          </template>
-          <template #confirm>
-            <!-- <el-button type="primary" style="margin-left: 10px">确定</el-button> -->
-            <div></div>
-          </template>
-        </ImgCutter>
-      </div>
+  <div class="cutter-container">
+    <div class="cutter-component">
+      <div class="title">{{ title }}</div>
+      <ImgCutter
+        ref="imgCutterModal"
+        @cutDown="cutDownImg"
+        @onPrintImg="cutterPrintImg"
+        @onImageLoadComplete="handleImageLoadComplete"
+        @onImageLoadError="handleImageLoadError"
+        @onClearAll="handleClearAll"
+        v-bind="cutterProps"
+        class="img-cutter"
+      >
+        <template #choose>
+          <el-button type="primary" plain v-ripple>选择图片</el-button>
+        </template>
+        <template #cancel>
+          <el-button type="danger" plain v-ripple>清除</el-button>
+        </template>
+        <template #confirm>
+          <!-- <el-button type="primary" style="margin-left: 10px">确定</el-button> -->
+          <div></div>
+        </template>
+      </ImgCutter>
+    </div>
 
-      <div v-if="showPreview" class="preview-container">
-        <div class="title">{{ previewTitle }}</div>
-        <div
-          class="preview-box"
-          :style="{
-            width: `${cutterProps.cutWidth}px`,
-            height: `${cutterProps.cutHeight}px`
-          }"
-        >
-          <img class="preview-img" :src="temImgPath" alt="预览图" v-if="temImgPath" />
-        </div>
-        <el-button class="download-btn" @click="downloadImg" :disabled="!temImgPath" v-ripple
-          >下载图片</el-button
-        >
+    <div v-if="showPreview" class="preview-container">
+      <div class="title">{{ previewTitle }}</div>
+      <div
+        class="preview-box"
+        :style="{
+          width: `${cutterProps.cutWidth}px`,
+          height: `${cutterProps.cutHeight}px`
+        }"
+      >
+        <img class="preview-img" :src="temImgPath" alt="预览图" v-if="temImgPath" />
       </div>
+      <el-button class="download-btn" @click="downloadImg" :disabled="!temImgPath" v-ripple
+        >下载图片</el-button
+      >
     </div>
   </div>
 </template>
@@ -232,7 +230,7 @@
 <style lang="scss" scoped>
   .cutter-container {
     display: flex;
-    flex-direction: row;
+    flex-flow: row wrap;
 
     .title {
       padding-bottom: 10px;
@@ -240,9 +238,11 @@
       font-weight: 500;
     }
 
-    .preview-container {
-      margin-left: 30px;
+    .cutter-component {
+      margin-right: 30px;
+    }
 
+    .preview-container {
       .preview-box {
         background-color: #f6f6f6 !important;
 
@@ -259,10 +259,15 @@
       }
     }
 
+    :deep(.toolBoxControl) {
+      z-index: 100;
+    }
+
     :deep(.dockMain) {
       right: 0;
       bottom: -50px;
       left: 0;
+      z-index: 10;
       background-color: var(--art-gray-200) !important;
       opacity: 1;
     }
