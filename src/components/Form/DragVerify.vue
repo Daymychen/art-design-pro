@@ -35,6 +35,8 @@
   </div>
 </template>
 <script setup lang="ts">
+  //
+
   import { ref, reactive, toRefs, onMounted, computed } from 'vue'
   const emit = defineEmits(['handlerMove', 'update:value', 'passCallback'])
   interface PropsType {
@@ -86,10 +88,39 @@
   const messageRef = ref()
   const handler = ref()
   const progressBar = ref()
+
+  // 禁止横向滑动
+  let startX: number, startY: number, moveX: number, moveY: number
+
+  const onTouchStart = (e: any) => {
+    startX = e.targetTouches[0].pageX
+    startY = e.targetTouches[0].pageY
+  }
+
+  const onTouchMove = (e: any) => {
+    moveX = e.targetTouches[0].pageX
+    moveY = e.targetTouches[0].pageY
+
+    if (Math.abs(moveX - startX) > Math.abs(moveY - startY)) {
+      e.preventDefault()
+    }
+  }
+
+  document.addEventListener('touchstart', onTouchStart)
+  document.addEventListener('touchmove', onTouchMove, { passive: false })
+
   onMounted(() => {
     dragVerify.value?.style.setProperty('--textColor', props.textColor)
     dragVerify.value?.style.setProperty('--width', Math.floor(props.width / 2) + 'px')
     dragVerify.value?.style.setProperty('--pwidth', -Math.floor(props.width / 2) + 'px')
+
+    document.addEventListener('touchstart', onTouchStart)
+    document.addEventListener('touchmove', onTouchMove, { passive: false })
+  })
+
+  onBeforeUnmount(() => {
+    document.removeEventListener('touchstart', onTouchStart)
+    document.removeEventListener('touchmove', onTouchMove)
   })
   const handlerStyle = {
     left: '0',

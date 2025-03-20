@@ -195,7 +195,6 @@
     :deep(.el-table) {
       th.el-table__cell {
         font-weight: 600;
-        background-color: transparent;
       }
 
       td.el-table__cell,
@@ -210,6 +209,11 @@
           background-color: var(--el-fill-color-light);
         }
       }
+    }
+
+    // 解决el-image 和 el-table冲突层级冲突问题
+    ::v-deep(.el-table__cell) {
+      position: static !important;
     }
   }
 </style>

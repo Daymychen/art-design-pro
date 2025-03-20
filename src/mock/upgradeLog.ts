@@ -1,5 +1,17 @@
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.3',
+    title: '样式优化',
+    date: '2025-03-19',
+    status: 'complete',
+    statusText: '完成',
+    detail: [
+      '修复表头文字穿透',
+      '修复 el-image 和 el-table 冲突层级问题',
+      '优化登录页面滑块验证部分浏览器兼容问题'
+    ]
+  },
+  {
     version: 'v2.2.2',
     title: '优化Axios响应数据转换逻辑等问题',
     date: '2025-03-16',

@@ -128,3 +128,9 @@
     border-right: 1px solid rgba(var(--art-gray-300-rgb), 0.4) !important;
   }
 }
+
+html,
+body {
+  touch-action: none; /* 禁用触摸事件 */
+  overflow-x: hidden; /* 禁用横向滚动 */
+}
