@@ -124,9 +124,11 @@
   import { useUserStore } from '@/store/modules/user'
   import { HOME_PAGE } from '@/router'
   import { ApiStatus } from '@/utils/http/status'
-  import { getCssVariable } from '@/utils/utils'
+  import { getCssVariable } from '@/utils/colors'
+  import { languageOptions } from '@/language'
   import { LanguageEnum, SystemThemeEnum } from '@/enums/appEnum'
   import { useI18n } from 'vue-i18n'
+
   const { t } = useI18n()
   import { useSettingStore } from '@/store/modules/setting'
   import type { FormInstance, FormRules } from 'element-plus'
@@ -240,12 +242,6 @@
     let { LIGHT, DARK } = SystemThemeEnum
     useTheme().switchTheme(useSettingStore().systemThemeType === LIGHT ? DARK : LIGHT)
   }
-
-  // 语言配置
-  const languageOptions = [
-    { value: LanguageEnum.ZH, label: '简体中文' },
-    { value: LanguageEnum.EN, label: 'English' }
-  ]
 </script>
 
 <style lang="scss" scoped>

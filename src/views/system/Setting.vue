@@ -51,10 +51,11 @@
 
 <script setup lang="ts">
   import { SystemInfo } from '@/config/setting'
+  import { WEB_LINKS } from '@/utils/links'
 
   const sys = reactive({
     name: SystemInfo.name,
-    website: 'https://www.lingchen.kim',
+    website: WEB_LINKS.BLOG,
     keepAliveTime: '10',
     pictureSize: '10'
   })

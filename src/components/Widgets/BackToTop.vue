@@ -16,8 +16,10 @@
 </template>
 
 <script setup lang="ts">
+  import { useCommon } from '@/composables/useCommon'
   import EmojiText from '@/utils/emojo'
   import { ref, watch } from 'vue'
+  const { scrollToTop } = useCommon()
 
   const { y } = useWindowScroll()
   const showButton = ref(false)
@@ -27,10 +29,6 @@
   watch(y, (newY: number) => {
     showButton.value = newY > scrollThreshold
   })
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0 })
-  }
 
   // 监听键盘 ^ 键，回到顶部
   const handleKeyDown = (event: KeyboardEvent) => {

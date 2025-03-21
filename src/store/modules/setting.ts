@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { MenuThemeType } from '@/types/store'
 import { ThemeList, ElementPlusTheme, DarkMenuStyles, SystemSetting } from '@/config/setting'
 import { SystemThemeEnum, MenuThemeEnum, MenuTypeEnum, ContainerWidthEnum } from '@/enums/appEnum'
-import { colourBlend, handleElementThemeColor } from '@/utils/utils'
+import { colourBlend, handleElementThemeColor } from '@/utils/colors'
 import { getSysStorage } from '@/utils/storage'
 import { useCeremony } from '@/composables/useCeremony'
 
@@ -150,7 +150,6 @@ export const useSettingStore = defineStore({
       this.menuThemeType = theme
     },
     setElementTheme(theme: string) {
-      // theme = theme.split(',')[2].replace(')', '')
       this.systemThemeColor = theme
       setElementThemeColor(theme)
     },

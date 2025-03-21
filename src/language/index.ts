@@ -9,6 +9,12 @@ const messages = {
   [LanguageEnum.ZH]: () => import('./locales/zh.json')
 }
 
+// 语言选项
+export const languageOptions = [
+  { value: LanguageEnum.ZH, label: '简体中文' },
+  { value: LanguageEnum.EN, label: 'English' }
+]
+
 // 获取初始语言
 const getDefaultLanguage = (): LanguageEnum => {
   const sys = getSysStorage()

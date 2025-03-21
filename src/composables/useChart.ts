@@ -3,7 +3,7 @@ import * as echarts from 'echarts'
 import type { EChartsOption } from 'echarts'
 import { useSettingStore } from '@/store/modules/setting'
 import { SystemThemeEnum } from '@/enums/appEnum'
-import { getCssVariable } from '@/utils/utils'
+import { getCssVariable } from '@/utils/colors'
 
 interface ChartThemeConfig {
   chartHeight: string

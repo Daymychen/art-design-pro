@@ -55,6 +55,7 @@
   import { useRouter } from 'vue-router'
   import { ref } from 'vue'
   import { RoutesAlias } from '@/router/modules/routesAlias'
+  import { WEB_LINKS } from '@/utils/links'
 
   const router = useRouter()
   const popoverRef = ref()
@@ -106,14 +107,14 @@
       description: '使用指南与开发文档',
       icon: '&#xe788;',
       iconColor: '#ffb100',
-      path: 'https://www.lingchen.kim/art-design-pro/docs/'
+      path: WEB_LINKS.DOCS
     },
     {
       name: '技术支持',
       description: '技术支持与问题反馈',
       icon: '&#xe86e;',
       iconColor: '#ff6b6b',
-      path: 'https://www.lingchen.kim/art-design-pro/docs/guide/community/communicate.html'
+      path: WEB_LINKS.COMMUNITY
     },
     {
       name: '更新日志',
@@ -127,7 +128,7 @@
       description: '技术分享与交流',
       icon: '&#xe6b4;',
       iconColor: '#FB7299',
-      path: 'https://space.bilibili.com/425500936?spm_id_from=333.1007.0.0'
+      path: WEB_LINKS.BILIBILI
     }
   ]
 

@@ -1,6 +1,7 @@
 import { upgradeLogList } from '@/mock/upgradeLog'
 import { RoutesAlias } from './routesAlias'
 import { MenuListType } from '@/types/menu'
+import { WEB_LINKS } from '@/utils/links'
 
 /**
  * 菜单列表、异步路由
@@ -753,7 +754,7 @@ export const asyncRoutes: MenuListType[] = [
         name: 'Document',
         meta: {
           title: 'menus.help.document',
-          link: 'https://www.lingchen.kim/art-design-pro/docs/',
+          link: WEB_LINKS.DOCS,
           isIframe: false,
           keepAlive: false
         }

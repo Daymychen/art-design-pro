@@ -5,7 +5,7 @@
 <script setup lang="ts">
   import * as echarts from 'echarts'
   import type { EChartsOption } from 'echarts'
-  import { getCssVariable, hexToRgba } from '@/utils/utils'
+  import { getCssVariable, hexToRgba } from '@/utils/colors'
   import { useChart, useChartOps } from '@/composables/useChart'
   const {
     chartRef,

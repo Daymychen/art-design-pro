@@ -81,6 +81,7 @@
   import EmojiText from '@/utils/emojo'
   import { PageModeEnum } from '@/enums/formEnum'
   import axios from 'axios'
+  import { useCommon } from '@/composables/useCommon'
 
   const route = useRoute()
   const router = useRouter()
@@ -104,7 +105,7 @@
   // const outlineList = ref()
 
   onMounted(() => {
-    scrollToTop()
+    useCommon().scrollToTop()
     getArticleTypes()
     initPageMode()
   })
@@ -292,10 +293,6 @@
     setTimeout(() => {
       router.go(-1)
     }, 800)
-  }
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0 })
   }
 
   // 添加上传前的校验

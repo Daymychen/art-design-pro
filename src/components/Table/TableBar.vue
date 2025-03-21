@@ -50,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-  import { useSettingStore } from '@/store/modules/setting'
+  import { useCommon } from '@/composables/useCommon'
   import { Search, RefreshRight, Operation } from '@element-plus/icons-vue'
 
   const emit = defineEmits(['search', 'reset', 'changeColumn'])
@@ -74,7 +74,6 @@
     }
   })
 
-  const settingStore = useSettingStore()
   const showSearchWrap = ref(true)
   const colOptions = ref([])
   const colSelect = ref([])
@@ -86,7 +85,7 @@
 
   // 刷新页面
   const refresh = () => {
-    settingStore.reload()
+    useCommon().refresh()
   }
 
   // 是否显示搜索区域

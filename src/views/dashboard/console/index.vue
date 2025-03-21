@@ -20,25 +20,19 @@
         <p>使用了 Vue3、TypeScript、Vite、Element Plus 等前沿技术</p>
 
         <div class="button-wrap">
-          <div
-            class="btn art-custom-card"
-            @click="goPage('https://www.lingchen.kim/art-design-pro/docs/')"
-          >
+          <div class="btn art-custom-card" @click="goPage(WEB_LINKS.DOCS)">
             <span>项目官网</span>
             <i class="iconfont-sys">&#xe703;</i>
           </div>
-          <div
-            class="btn art-custom-card"
-            @click="goPage('https://www.lingchen.kim/art-design-pro/docs/guide/introduce.html')"
-          >
+          <div class="btn art-custom-card" @click="goPage(WEB_LINKS.INTRODUCE)">
             <span>文档</span>
             <i class="iconfont-sys">&#xe703;</i>
           </div>
-          <div class="btn art-custom-card" @click="goPage('https://github.com/Daymychen')">
+          <div class="btn art-custom-card" @click="goPage(WEB_LINKS.GITHUB_HOME)">
             <span>Github</span>
             <i class="iconfont-sys">&#xe703;</i>
           </div>
-          <div class="btn art-custom-card" @click="goPage('https://www.lingchen.kim')">
+          <div class="btn art-custom-card" @click="goPage(WEB_LINKS.BLOG)">
             <span>博客</span>
             <i class="iconfont-sys">&#xe703;</i>
           </div>
@@ -57,9 +51,9 @@
   import Dynamic from './widget/Dynamic.vue'
   import { SystemInfo } from '@/config/setting'
   import TodoList from './widget/TodoList.vue'
-  import { scrollToTop } from '@/utils/utils'
   import { useSettingStore } from '@/store/modules/setting'
-
+  import { WEB_LINKS } from '@/utils/links'
+  import { useCommon } from '@/composables/useCommon'
   const settingStore = useSettingStore()
   const currentGlopTheme = computed(() => settingStore.systemThemeType)
 
@@ -69,7 +63,7 @@
   })
 
   const systemName = SystemInfo.name
-  scrollToTop()
+  useCommon().scrollToTop()
 
   const goPage = (url: string) => {
     // 跳转到新页面

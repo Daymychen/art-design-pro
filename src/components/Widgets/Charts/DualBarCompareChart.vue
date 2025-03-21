@@ -38,8 +38,6 @@
 </template>
 
 <script setup lang="ts">
-  import { computed, withDefaults } from 'vue'
-
   interface Props {
     topData: number[]
     bottomData: number[]
