@@ -1,0 +1,63 @@
+// 定义基础变量
+$bg-animation-color-light: #000;
+$bg-animation-color-dark: #fff;
+$bg-animation-duration: 0.5s;
+
+html {
+  --bg-animation-color: $bg-animation-color-light;
+
+  &.dark {
+    --bg-animation-color: $bg-animation-color-dark;
+  }
+
+  // View transition styles
+  &::view-transition-old(*) {
+    animation: none;
+  }
+
+  &::view-transition-new(*) {
+    animation: clip $bg-animation-duration ease-in;
+  }
+
+  &::view-transition-old(root) {
+    z-index: 1;
+  }
+
+  &::view-transition-new(root) {
+    z-index: 9999;
+  }
+
+  &.dark {
+    &::view-transition-old(*) {
+      animation: clip $bg-animation-duration ease-in reverse;
+    }
+
+    &::view-transition-new(*) {
+      animation: none;
+    }
+
+    &::view-transition-old(root) {
+      z-index: 9999;
+    }
+
+    &::view-transition-new(root) {
+      z-index: 1;
+    }
+  }
+}
+
+// 定义动画
+@keyframes clip {
+  from {
+    clip-path: circle(0% at var(--x) var(--y));
+  }
+
+  to {
+    clip-path: circle(var(--r) at var(--x) var(--y));
+  }
+}
+
+// body 相关样式
+body {
+  background-color: var(--bg-animation-color);
+}

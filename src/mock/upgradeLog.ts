@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.5',
+    title: '主题切换增加动画效果（只支持部分浏览器）',
+    date: '2025-03-22',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v2.2.4',
     title: '通用函数整合、外部链接整合、utils工具包优化',
     date: '2025-03-21',

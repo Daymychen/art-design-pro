@@ -10,6 +10,7 @@ import '@styles/pages.scss'                         // 公共页面样式
 import '@styles/el-ui.scss'                         // 优化element样式
 import '@styles/mobile.scss'                        // 移动端样式优化
 import '@styles/change.scss'                        // 主题切换过渡优化
+import '@styles/theme-animation.scss'               // 主题切换动画
 import '@icons/system/iconfont.js'                  // 系统彩色图标
 import '@icons/system/iconfont.css'                 // 系统图标
 import '@styles/el-light.scss'                      // Element 自定义主题（亮色）

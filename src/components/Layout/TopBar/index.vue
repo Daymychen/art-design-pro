@@ -13,6 +13,7 @@
         <svg class="svg-icon" aria-hidden="true" @click="toHome()">
           <use xlink:href="#iconsys-zhaopian-copy"></use>
         </svg>
+
         <!-- 菜单按钮 -->
         <div class="btn-box" v-if="isLeftMenu && showMenuButton">
           <div class="btn menu-btn">
@@ -117,7 +118,7 @@
           </el-popover>
         </div>
         <!-- 切换主题 -->
-        <div class="btn-box" @click="toggleTheme">
+        <div class="btn-box" @click="themeAnimation">
           <div class="btn theme-btn">
             <i class="iconfont-sys">{{ isDark ? '&#xe6b5;' : '&#xe725;' }}</i>
           </div>
@@ -186,7 +187,7 @@
   import Breadcrumb from '../Breadcrumb/index.vue'
   import Notice from '../Notice/index.vue'
   import MixedMenu from '../MixedMenu/index.vue'
-  import { LanguageEnum, MenuTypeEnum, MenuWidth, SystemThemeEnum } from '@/enums/appEnum'
+  import { LanguageEnum, MenuTypeEnum, MenuWidth } from '@/enums/appEnum'
   import { useSettingStore } from '@/store/modules/setting'
   import { useUserStore } from '@/store/modules/user'
   import { useFullscreen } from '@vueuse/core'
@@ -196,7 +197,7 @@
   import mittBus from '@/utils/mittBus'
   import { useMenuStore } from '@/store/modules/menu'
   import { SystemInfo } from '@/config/setting'
-
+  import { languageOptions } from '@/language'
   const isWindows = navigator.userAgent.includes('Windows')
   const { locale } = useI18n()
 
@@ -223,6 +224,10 @@
   const isTopMenu = computed(() => menuType.value === MenuTypeEnum.TOP)
   const isTopLeftMenu = computed(() => menuType.value === MenuTypeEnum.TOP_LEFT)
   const isDark = computed(() => settingStore.isDark)
+  import { useCommon } from '@/composables/useCommon'
+  import { WEB_LINKS } from '@/utils/links'
+  import { themeAnimation } from '@/utils/theme/animation'
+
   const { t } = useI18n()
 
   const { width } = useWindowSize()
@@ -271,11 +276,11 @@
   }
 
   const toDocs = () => {
-    window.open('https://www.lingchen.kim/art-design-pro/docs')
+    window.open(WEB_LINKS.DOCS)
   }
 
   const toGithub = () => {
-    window.open('https://github.com/Daymychen/art-design-pro')
+    window.open(WEB_LINKS.GITHUB)
   }
 
   const toHome = () => {
@@ -297,7 +302,7 @@
 
   const reload = (time: number = 0) => {
     setTimeout(() => {
-      settingStore.reload()
+      useCommon().refresh()
     }, time)
   }
 
@@ -358,24 +363,6 @@
       userMenuPopover.value.hide()
     }, 100)
   }
-
-  // 切换主题
-  import { useTheme } from '@/composables/useTheme'
-
-  const toggleTheme = () => {
-    let { LIGHT, DARK } = SystemThemeEnum
-    useTheme().switchTheme(useSettingStore().systemThemeType === LIGHT ? DARK : LIGHT)
-  }
-
-  interface LanguageOption {
-    label: string
-    value: LanguageEnum
-  }
-
-  const languageOptions: LanguageOption[] = [
-    { label: '简体中文', value: LanguageEnum.ZH },
-    { label: 'English', value: LanguageEnum.EN }
-  ]
 </script>
 
 <style lang="scss" scoped>
