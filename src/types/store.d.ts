@@ -32,6 +32,7 @@ export interface MenuThemeType {
   systemBackground: string // 系统背景色
   leftLineColor: string // 左侧线条颜色
   rightLineColor: string // 右侧线条颜色
+  img?: string // 图片
 }
 
 // 设置中心

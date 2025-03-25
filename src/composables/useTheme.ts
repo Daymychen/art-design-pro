@@ -72,7 +72,7 @@ export function useTheme() {
   }
 
   // 切换主题
-  const switchTheme = (theme: SystemThemeEnum) => {
+  const switchThemeStyles = (theme: SystemThemeEnum) => {
     if (theme === SystemThemeEnum.AUTO) {
       setSystemAutoTheme()
     } else {
@@ -83,6 +83,6 @@ export function useTheme() {
   return {
     setSystemTheme,
     setSystemAutoTheme,
-    switchTheme
+    switchThemeStyles
   }
 }

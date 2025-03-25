@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.51',
+    title: '设置中心主题盒子改成图片模式',
+    date: '2025-03-25',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v2.2.5',
     title: '主题切换增加动画效果（只支持部分浏览器）',
     date: '2025-03-22',

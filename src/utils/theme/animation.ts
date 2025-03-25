@@ -30,6 +30,6 @@ export const themeAnimation = (e: any) => {
  * 切换主题
  */
 const toggleTheme = () => {
-  useTheme().switchTheme(useSettingStore().systemThemeType === LIGHT ? DARK : LIGHT)
+  useTheme().switchThemeStyles(useSettingStore().systemThemeType === LIGHT ? DARK : LIGHT)
   useCommon().refresh()
 }
