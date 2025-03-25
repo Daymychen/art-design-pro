@@ -146,7 +146,7 @@ export function saveUserData() {
   const eventType = isiOS ? 'pagehide' : 'beforeunload'
 
   window.addEventListener(eventType, () => {
-    if (getSysVersion() && getSysStorage()) {
+    if (getSysVersion()) {
       useUserStore().saveUserData()
     }
   })

@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.52',
+    title: '修复系统升级后刷新页面退出登录bug',
+    date: '2025-03-25',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v2.2.51',
     title: '设置中心主题盒子改成图片模式',
     date: '2025-03-25',
