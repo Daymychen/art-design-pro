@@ -264,6 +264,9 @@
       color: var(--main-color) !important;
       background-color: var(--el-color-primary-light-9);
       background-image: var(--el-color-primary-custom-14);
+      .menu-icon {
+        color: var(--main-color) !important;
+      }
     }
 
     // 鼠标移入背景色
@@ -273,6 +276,14 @@
     }
   }
 }
+
+//父级菜单字体颜色
+.el-sub-menu.is-active > .el-sub-menu__title {
+  .menu-name, .menu-icon {
+    color: var(--main-color) !important;
+  }
+}
+
 
 .dark {
   .menu-left {
