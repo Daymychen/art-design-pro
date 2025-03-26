@@ -26,6 +26,7 @@ export interface SettingState {
   showNprogress: boolean // 是否显示顶部进度条
   colorWeak: boolean // 是否显示顶部进度条
   showSettingGuide: boolean // 是否显示设置引导
+  tabMode: string // 页签样式
   pageTransition: string // 页面切换动画
   menuOpen: boolean // 菜单是否展开
   refresh: boolean
@@ -58,6 +59,7 @@ export const useSettingStore = defineStore({
     showNprogress: true,
     colorWeak: false,
     showSettingGuide: true,
+    tabMode: 'chromeTab',
     pageTransition: 'slide-right',
     menuOpen: true,
     refresh: false,
@@ -121,6 +123,7 @@ export const useSettingStore = defineStore({
         this.showNprogress = setting.showNprogress
         this.colorWeak = setting.colorWeak
         this.showSettingGuide = setting.showSettingGuide
+        this.tabMode = setting.tabMode
         this.pageTransition = setting.pageTransition
         this.menuOpen = setting.menuOpen
         this.watermarkVisible = setting.watermarkVisible
@@ -204,6 +207,10 @@ export const useSettingStore = defineStore({
     // 显示设置引导
     openSettingGuide() {
       this.showSettingGuide = true
+    },
+    // 设置页签样式
+    setTabMode(tabMode: string) {
+      this.tabMode = tabMode
     },
     // 设置页面切换动画
     setPageTransition(transition: string) {

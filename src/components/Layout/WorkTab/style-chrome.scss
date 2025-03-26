@@ -1,0 +1,190 @@
+@use '@styles/variables.scss' as *;
+
+.right {
+  .art-custom-card {
+    border: 0 !important;
+    box-shadow: 0 0 0 0 !important;
+  }
+}
+
+.worktab {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 7px 5px 0 10px;
+  user-select: none;
+  background: var(--art-main-bg-color);
+
+  --un-shadow: var(--art-card-box-shadow);
+
+  box-shadow:
+    0 0 rgb(0 0 0 / 0%),
+    0 0 rgb(0 0 0 / 0%),
+    var(--un-shadow);
+
+  .scroll-view {
+    width: 100%;
+    overflow: hidden;
+
+    .tabs {
+      float: left;
+      white-space: nowrap;
+      background: transparent !important;
+
+      li:not(:first-child) {
+        margin-left: -18px;
+      }
+
+      li {
+        display: inline-block;
+        height: 32px;
+        font-size: 13px;
+        line-height: 32px;
+        text-align: center;
+        cursor: pointer;
+        transition: color 0.1s;
+
+        i {
+          position: absolute;
+          top: 9.5px;
+          right: 20px;
+          border-radius: 50%;
+          transition: all 0.2s;
+
+          &:hover {
+            background: var(--el-color-primary-light-4);
+          }
+        }
+      }
+
+      .activ-tab {
+        color: var(--main-color) !important;
+        background-color: var(--el-color-primary-light-9);
+      }
+    }
+  }
+
+  .right {
+    display: flex;
+
+    .btn {
+      position: relative;
+      top: 0;
+      box-sizing: border-box;
+      width: 32px;
+      height: 32px;
+      font-size: 16px;
+      line-height: 32px;
+      text-align: center;
+      cursor: pointer;
+      background: var(--art-main-bg-color);
+      border-radius: 3px;
+
+      &:hover ul {
+        display: inline;
+      }
+
+      &.history {
+        color: #666;
+      }
+    }
+  }
+}
+
+.dark {
+  .tabs {
+    li {
+      i {
+        &:hover {
+          background: rgb(238 238 238 / 10%) !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: $device-ipad) {
+  .worktab {
+    padding: 6px 10px;
+  }
+}
+
+@media only screen and (max-width: $device-phone) {
+  .worktab {
+    padding: 0 15px;
+  }
+}
+
+.tabs-chrome {
+  .art-custom-card-chrome {
+    position: relative;
+    z-index: 1 !important;
+    min-width: 140px !important;
+    height: 25px;
+    background-color: transparent !important;
+
+    &::after {
+      position: absolute;
+      top: 7px; /* 确保它位于顶部 */
+      left: 16px; /* 确保它位于左侧 */
+      z-index: -2;
+      width: calc(100% - 22px) !important;
+      height: 18px;
+      content: '';
+    }
+
+    &:not(:last-child)::after {
+      border-right: 1px solid var(--art-gray-400);
+    }
+
+    /* border-right: 1px solid var(--art-gray-800); */
+    &:hover {
+      &::after {
+        position: absolute;
+        top: 1px; /* 确保它位于顶部 */
+        left: 0; /* 确保它位于左侧 */
+        z-index: -2;
+        width: calc(100% - 22px) !important;
+        height: 30px;
+        margin-left: 11px;
+        content: ''; /* 添加 content 属性，确保伪元素显示 */
+        background-color: var(--art-root-card-border-color) !important;
+        border-right: 0;
+        border-radius: 8px;
+      }
+
+      .tab-title-text {
+        color: var(--main-color) !important;
+        transition: color 0.2s;
+      }
+    }
+  }
+
+  .tab-chrome-bg {
+    position: absolute !important;
+    left: 0;
+    z-index: -1 !important;
+    min-width: 140px !important;
+    color: rgb(0 0 0 / 0%);
+  }
+
+  .tab-title-text {
+    z-index: 10 !important;
+    font-size: 14px;
+  }
+
+  .activ-tab {
+    &::after {
+      border-right: 0 !important;
+    }
+
+    .tab-chrome-bg {
+      color: var(--el-color-primary-light-9) !important;
+    }
+
+    .tab-title-text {
+      color: var(--main-color) !important;
+    }
+  }
+}

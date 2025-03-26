@@ -220,8 +220,12 @@
     height: 60px;
     line-height: 60px;
     user-select: none;
-    background: var(--art-bg-color);
-
+    background: var(--art-main-bg-color);
+    --un-shadow: var(--art-card-box-shadow);
+    box-shadow:
+            0 0 rgb(0 0 0 / 0%),
+            0 0 rgb(0 0 0 / 0%),
+            var(--un-shadow);
     > .left {
       line-height: 60px;
 

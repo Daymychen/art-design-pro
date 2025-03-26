@@ -166,6 +166,7 @@ html.dark {
   --console-margin: 20px; // 工作台盒子间距
   --art-card-border: rgba(var(--art-gray-300-rgb), 0.6); // 卡片边框颜色
   --art-card-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.04); // 卡片阴影
+  --art-card-box-shadow: 0 1px 2px rgb(0, 21, 41, 0.08); // 卡片阴影（深色）
 }
 
 // 媒体查询-设备尺寸

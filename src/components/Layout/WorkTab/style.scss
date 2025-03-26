@@ -5,9 +5,16 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 0 20px 10px;
+  padding: 7px 10px 5px;
   user-select: none;
-  background: var(--art-bg-color);
+  background: var(--art-main-bg-color);
+
+  --un-shadow: var(--art-card-box-shadow);
+
+  box-shadow:
+    0 0 rgb(0 0 0 / 0%),
+    0 0 rgb(0 0 0 / 0%),
+    var(--un-shadow);
 
   .scroll-view {
     width: 100%;
@@ -29,7 +36,7 @@
         text-align: center;
         cursor: pointer;
         background: var(--art-main-bg-color);
-        border: 1px solid transparent;
+        //border: 1px solid transparent;
         border-radius: calc(var(--custom-radius) / 2.5 + 2px) !important;
         transition: color 0.1s;
 
@@ -47,13 +54,14 @@
           transition: all 0.2s;
 
           &:hover {
-            background: rgb(238 238 238 / 100%);
+            background: var(--el-color-primary-light-4);
           }
         }
       }
 
       .activ-tab {
         color: var(--main-color) !important;
+        background-color: var(--el-color-primary-light-9);
       }
     }
   }

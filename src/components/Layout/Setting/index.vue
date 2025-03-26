@@ -189,6 +189,23 @@
           <div class="item" style="display: flex">
             <span>{{ $t('setting.basics.list[11]') }}</span>
             <el-select
+              v-model="tabMode"
+              placeholder="Select"
+              size="default"
+              style="width: 120px"
+              @change="setTabMode"
+            >
+              <el-option
+                v-for="item in tabModeOps"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </div>
+          <div class="item" style="display: flex">
+            <span>{{ $t('setting.basics.list[12]') }}</span>
+            <el-select
               v-model="pageTransition"
               placeholder="Select"
               size="default"
@@ -204,7 +221,7 @@
             </el-select>
           </div>
           <div class="item" style="display: flex">
-            <span>{{ $t('setting.basics.list[12]') }}</span>
+            <span>{{ $t('setting.basics.list[13]') }}</span>
             <el-select
               v-model="customRadius"
               placeholder="Select"
@@ -280,6 +297,7 @@
   const currentMenuTheme = computed(() => store.menuThemeType)
   const systemThemeColor = computed(() => store.systemThemeColor)
   const boxBorderMode = computed(() => store.boxBorderMode)
+  const tabMode = computed(() => store.tabMode)
   const pageTransition = computed(() => store.pageTransition)
   const customRadius = computed(() => store.customRadius)
   const menuType = computed(() => store.menuType)
@@ -297,6 +315,16 @@
   const showNprogress = ref(true)
   const colorWeak = ref(false)
   const containerWidth = computed(() => store.containerWidth)
+  const tabModeOps = [
+    {
+      value: 'chrome',
+      label: '谷歌风格'
+    },
+    {
+      value: 'button',
+      label: '按钮风格'
+    }
+  ]
   const pageTransitionOps = [
     {
       value: '',
@@ -492,6 +520,10 @@
   }
 
   const showWorkTabFunc = () => autoCloseHandler(store.setWorkTab, false, !store.showWorkTab)
+
+  const setTabMode = (tabMode: string) => {
+    autoCloseHandler(store.setTabMode, false, tabMode)
+  }
 
   const setPageTransition = (transition: string) =>
     autoCloseHandler(store.setPageTransition, false, transition)
