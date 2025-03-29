@@ -1,5 +1,5 @@
 <template>
-  <div class="chat" :style="{ height: minHeight }">
+  <div class="chat" :style="{ height: containerMinHeight }">
     <el-row>
       <el-col :span="12">
         <div class="grid-content ep-bg-purple" />
@@ -147,7 +147,9 @@
   import avatar8 from '@/assets/img/avatar/avatar8.jpg'
   import avatar9 from '@/assets/img/avatar/avatar9.jpg'
   import avatar10 from '@/assets/img/avatar/avatar10.jpg'
-  import { useSettingStore } from '@/store/modules/setting'
+  import { useCommon } from '@/composables/useCommon'
+
+  const { containerMinHeight } = useCommon()
 
   const searchQuery = ref('')
 
@@ -167,9 +169,6 @@
   }
 
   const selectedPerson = ref<Person | null>(null)
-  const settingStore = useSettingStore()
-  const showWorkTab = computed(() => settingStore.showWorkTab)
-  const minHeight = computed(() => `calc(100vh - ${showWorkTab.value ? 120 : 75}px)`)
 
   const personList = ref<Person[]>([
     {

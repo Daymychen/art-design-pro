@@ -61,8 +61,14 @@
         "Global watermark",
         "Menu width",
         "Page animation",
-        "Custom radius"
+        "Custom radius",
+        "Tab style"
       ]
+    },
+    "tabStyle": {
+      "default": "Default",
+      "card": "Card",
+      "google": "Chrome"
     }
   },
   "notice": {

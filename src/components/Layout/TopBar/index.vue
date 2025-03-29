@@ -1,5 +1,5 @@
 <template>
-  <div class="top-bar" :style="{ width: topBarWidth() }">
+  <div class="top-bar" :class="[tabStyle]" :style="{ width: topBarWidth() }">
     <div class="menu">
       <div class="left" style="display: flex">
         <!-- 系统信息  -->
@@ -224,6 +224,7 @@
   const isTopMenu = computed(() => menuType.value === MenuTypeEnum.TOP)
   const isTopLeftMenu = computed(() => menuType.value === MenuTypeEnum.TOP_LEFT)
   const isDark = computed(() => settingStore.isDark)
+  const tabStyle = computed(() => settingStore.tabStyle)
   import { useCommon } from '@/composables/useCommon'
   import { WEB_LINKS } from '@/utils/links'
   import { themeAnimation } from '@/utils/theme/animation'

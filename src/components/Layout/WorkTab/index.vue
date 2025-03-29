@@ -1,5 +1,5 @@
 <template>
-  <div class="worktab">
+  <div class="worktab" :class="[tabStyle]">
     <div class="scroll-view" ref="scrollRef">
       <ul
         class="tabs"
@@ -20,6 +20,7 @@
           <el-icon v-if="index !== 0" @click.stop="closeWorktab('current', item.path)">
             <Close />
           </el-icon>
+          <div class="line"></div>
         </li>
       </ul>
     </div>
@@ -76,13 +77,16 @@
 
   import type { MenuItemType } from '@/components/Widgets/MenuRight.vue'
   import { WorkTabType } from '@/types/store'
-
+  import { useSettingStore } from '@/store/modules/setting'
   const { t } = useI18n()
   const store = useWorktabStore()
   const userStore = useUserStore()
   const route = useRoute()
   const router = useRouter()
   const { currentRoute } = router
+  const settingStore = useSettingStore()
+
+  const tabStyle = computed(() => settingStore.tabStyle)
 
   // 初始化状态和引用
   const scrollRef = ref<HTMLElement | null>(null) // 滚动容器引用

@@ -7,7 +7,6 @@
   width: 100%;
   padding: 0 20px 10px;
   user-select: none;
-  background: var(--art-bg-color);
 
   .scroll-view {
     width: 100%;
@@ -54,6 +53,113 @@
 
       .activ-tab {
         color: var(--main-color) !important;
+      }
+    }
+  }
+
+  &.tab-card {
+    padding: 4px 20px;
+    border-bottom: 1px solid var(--art-border-color);
+  }
+
+  &.tab-google {
+    padding: 5px 20px 0;
+    border-bottom: 1px solid var(--art-border-color);
+
+    .tabs {
+      padding-left: 5px;
+
+      li {
+        position: relative;
+        height: 37px !important;
+        line-height: 37px !important;
+        border: none !important;
+        border-radius: calc(var(--custom-radius) / 2.5 + 4px) !important;
+
+        .line {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          width: 1px;
+          height: 16px;
+          margin: auto;
+          background: var(--art-border-dashed-color);
+          transition: opacity 0.15s;
+        }
+
+        &:first-child {
+          .line {
+            opacity: 0;
+          }
+        }
+
+        $tab-radius-size: 20px;
+
+        &::before,
+        &::after {
+          position: absolute;
+          bottom: 0;
+          width: $tab-radius-size;
+          height: $tab-radius-size;
+          content: '';
+          border-radius: 50%;
+          box-shadow: 0 0 0 30px transparent;
+        }
+
+        &::before {
+          left: -$tab-radius-size;
+          clip-path: inset(50% -10px 0 50%);
+        }
+
+        &::after {
+          right: -$tab-radius-size;
+          clip-path: inset(50% 50% 0 -10px);
+        }
+
+        &:hover {
+          box-sizing: border-box;
+          color: var(--art-text-gray-600) !important;
+          background-color: var(--art-gray-200) !important;
+          border-bottom: 1px solid #fff !important;
+          border-radius: calc(var(--custom-radius) / 2.5 + 4px) !important;
+
+          .line {
+            opacity: 0;
+          }
+        }
+
+        &:hover + li .line {
+          opacity: 0;
+        }
+
+        &.activ-tab {
+          color: var(--main-color) !important;
+          background-color: var(--el-color-primary-light-9) !important;
+          border-bottom: 0 !important;
+          border-bottom-right-radius: 0 !important;
+          border-bottom-left-radius: 0 !important;
+
+          &::before,
+          &::after {
+            box-shadow: 0 0 0 30px var(--el-color-primary-light-9);
+          }
+
+          .line {
+            opacity: 0;
+          }
+        }
+
+        &.activ-tab + li .line {
+          opacity: 0;
+        }
+
+        i {
+          &:hover {
+            color: var(--art-text-gray-700);
+            background: var(--art-gray-300);
+          }
+        }
       }
     }
   }

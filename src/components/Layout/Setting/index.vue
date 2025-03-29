@@ -187,6 +187,23 @@
             />
           </div>
           <div class="item" style="display: flex">
+            <span>{{ $t('setting.basics.list[13]') }}</span>
+            <el-select
+              v-model="tabStyle"
+              placeholder="Select"
+              size="default"
+              style="width: 120px"
+              @change="setTabStyle"
+            >
+              <el-option
+                v-for="item in tabStyleOps"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </div>
+          <div class="item" style="display: flex">
             <span>{{ $t('setting.basics.list[11]') }}</span>
             <el-select
               v-model="pageTransition"
@@ -281,6 +298,7 @@
   const systemThemeColor = computed(() => store.systemThemeColor)
   const boxBorderMode = computed(() => store.boxBorderMode)
   const pageTransition = computed(() => store.pageTransition)
+  const tabStyle = computed(() => store.tabStyle)
   const customRadius = computed(() => store.customRadius)
   const menuType = computed(() => store.menuType)
   const isTopMenu = computed(() => store.menuType === MenuTypeEnum.TOP)
@@ -297,6 +315,24 @@
   const showNprogress = ref(true)
   const colorWeak = ref(false)
   const containerWidth = computed(() => store.containerWidth)
+  import { useI18n } from 'vue-i18n'
+  const { t } = useI18n()
+
+  const tabStyleOps = computed(() => [
+    {
+      value: 'tab-default',
+      label: t('setting.tabStyle.default')
+    },
+    {
+      value: 'tab-card',
+      label: t('setting.tabStyle.card')
+    },
+    {
+      value: 'tab-google',
+      label: t('setting.tabStyle.google')
+    }
+  ])
+
   const pageTransitionOps = [
     {
       value: '',
@@ -495,6 +531,8 @@
 
   const setPageTransition = (transition: string) =>
     autoCloseHandler(store.setPageTransition, false, transition)
+
+  const setTabStyle = (style: string) => autoCloseHandler(store.setTabStyle, false, style)
 
   const setContainerWidth = (type: ContainerWidthEnum) =>
     autoCloseHandler(store.setContainerWidth, true, type)

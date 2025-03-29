@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.53',
+    title: '标签页样式支持多种模式',
+    date: '2025-03-29',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v2.2.52',
     title: '修复系统升级后刷新页面退出登录bug',
     date: '2025-03-25',

@@ -6,7 +6,7 @@ import { colourBlend, handleElementThemeColor } from '@/utils/colors'
 import { getSysStorage } from '@/utils/storage'
 import { useCeremony } from '@/composables/useCeremony'
 
-const { defaultMenuWidth, defaultCustomRadius } = SystemSetting
+const { defaultMenuWidth, defaultCustomRadius, defaultTabStyle } = SystemSetting
 
 export interface SettingState {
   menuType: MenuTypeEnum // 菜单类型
@@ -27,6 +27,7 @@ export interface SettingState {
   colorWeak: boolean // 是否显示顶部进度条
   showSettingGuide: boolean // 是否显示设置引导
   pageTransition: string // 页面切换动画
+  tabStyle: string // 标签页风格
   menuOpen: boolean // 菜单是否展开
   refresh: boolean
   watermarkVisible: boolean // 水印是否显示
@@ -59,6 +60,7 @@ export const useSettingStore = defineStore({
     colorWeak: false,
     showSettingGuide: true,
     pageTransition: 'slide-right',
+    tabStyle: defaultTabStyle,
     menuOpen: true,
     refresh: false,
     watermarkVisible: false,
@@ -122,6 +124,7 @@ export const useSettingStore = defineStore({
         this.colorWeak = setting.colorWeak
         this.showSettingGuide = setting.showSettingGuide
         this.pageTransition = setting.pageTransition
+        this.tabStyle = setting.tabStyle || defaultTabStyle
         this.menuOpen = setting.menuOpen
         this.watermarkVisible = setting.watermarkVisible
         this.customRadius = setting.customRadius || defaultCustomRadius
@@ -208,6 +211,10 @@ export const useSettingStore = defineStore({
     // 设置页面切换动画
     setPageTransition(transition: string) {
       this.pageTransition = transition
+    },
+    // 设置标签页风格
+    setTabStyle(style: string) {
+      this.tabStyle = style
     },
     // 设置菜单是否展开
     setMenuOpen(open: boolean) {

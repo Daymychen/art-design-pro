@@ -22,7 +22,7 @@
       <router-view
         v-if="isRefresh && isOnline"
         v-slot="{ Component, route }"
-        :style="{ minHeight }"
+        :style="{ minHeight: containerMinHeight }"
       >
         <!-- 路由信息，方便开发者调试 -->
         <div v-if="isOpenRouteInfo === 'true'">
@@ -67,6 +67,10 @@
   import { useMenuStore } from '@/store/modules/menu'
   import { useSettingStore } from '@/store/modules/setting'
   import { useWorktabStore } from '@/store/modules/worktab'
+  import { useCommon } from '@/composables/useCommon'
+  import { getTabConfig } from '@/utils/tabs'
+
+  const { containerMinHeight } = useCommon()
 
   // 网络状态
   const { isOnline } = useNetwork()
@@ -96,6 +100,8 @@
   const containerWidth = computed(() => settingStore.containerWidth)
   // keepAlive 排除的组件
   const keepAliveExclude = computed(() => worktabStore.keepAliveExclude)
+  // 标签页风格
+  const tabStyle = computed(() => settingStore.tabStyle)
 
   // 根据菜单是否打开来设置左侧填充宽度
   const paddingLeft = computed(() => {
@@ -108,10 +114,11 @@
     }
     return menuType.value !== MenuTypeEnum.TOP ? width : 0
   })
-  // 根据是否显示工作标签来设置最小高度
-  const minHeight = computed(() => `calc(100vh - ${showWorkTab.value ? 120 : 75}px)`)
+
+  // 计算顶部填充高度
   const paddingTop = computed(() => {
-    return showWorkTab.value ? '106px' : '60px'
+    const { openTop, closeTop } = getTabConfig(tabStyle.value)
+    return `${showWorkTab.value ? openTop : closeTop}px`
   })
 
   // 是否刷新页面的状态
