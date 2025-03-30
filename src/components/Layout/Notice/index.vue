@@ -95,7 +95,7 @@
   import avatar4 from '@/assets/img/avatar/avatar4.jpg'
   import avatar5 from '@/assets/img/avatar/avatar5.jpg'
   import avatar6 from '@/assets/img/avatar/avatar6.jpg'
-  import { SystemMainColor } from '@/config/setting'
+  import AppConfig from '@/config'
   import { useI18n } from 'vue-i18n'
 
   const { t } = useI18n()
@@ -204,8 +204,8 @@
   }
 
   const getRandomColor = () => {
-    const index = Math.floor(Math.random() * SystemMainColor.length)
-    return SystemMainColor[index]
+    const index = Math.floor(Math.random() * AppConfig.systemMainColor.length)
+    return AppConfig.systemMainColor[index]
   }
 
   const noticeStyleMap = {

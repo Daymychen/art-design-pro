@@ -119,7 +119,7 @@
 
 <script setup lang="ts">
   import LeftView from '@/components/Pages/Login/LeftView.vue'
-  import { SystemInfo } from '@/config/setting'
+  import AppConfig from '@/config'
   import { ElMessage, ElNotification } from 'element-plus'
   import { useUserStore } from '@/store/modules/user'
   import { HOME_PAGE } from '@/router'
@@ -138,11 +138,11 @@
   const isPassing = ref(false)
   const isClickPass = ref(false)
 
-  const systemName = SystemInfo.name
+  const systemName = AppConfig.systemInfo.name
   const formRef = ref<FormInstance>()
   const formData = reactive({
-    username: SystemInfo.login.username,
-    password: SystemInfo.login.password,
+    username: AppConfig.systemInfo.login.username,
+    password: AppConfig.systemInfo.login.password,
     rememberPassword: true
   })
 

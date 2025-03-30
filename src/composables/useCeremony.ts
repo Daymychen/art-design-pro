@@ -1,7 +1,7 @@
 import { useTimeoutFn, useIntervalFn } from '@vueuse/core'
 import { useDateFormat } from '@vueuse/core'
 import { useSettingStore } from '@/store/modules/setting'
-import { festivalList } from '@/config/ceremony'
+import { festivalList } from '@/config/core/ceremony'
 import mittBus from '@/utils/mittBus'
 import { computed } from 'vue'
 

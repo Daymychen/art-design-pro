@@ -48,12 +48,12 @@
 </template>
 
 <script setup lang="ts">
-  import { SystemInfo } from '@/config/setting'
+  import AppConfig from '@/config'
   import LeftView from '@/components/Pages/Login/LeftView.vue'
   const router = useRouter()
   const showInputLabel = ref(false)
 
-  const systemName = SystemInfo.name
+  const systemName = AppConfig.systemInfo.name
   const username = ref('')
   const loading = ref(false)
 

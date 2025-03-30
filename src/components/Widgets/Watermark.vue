@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-  import { SystemInfo } from '@/config/setting'
+  import AppConfig from '@/config'
 
   interface WatermarkProps {
     content?: string
@@ -31,7 +31,7 @@
 
   // 定义组件属性，设置默认值
   withDefaults(defineProps<WatermarkProps>(), {
-    content: SystemInfo.name,
+    content: AppConfig.systemInfo.name,
     visible: false,
     fontSize: 16,
     fontColor: 'rgba(128, 128, 128, 0.2)',

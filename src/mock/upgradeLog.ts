@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.54',
+    title: '配置文件重构',
+    date: '2025-03-30',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v2.2.53',
     title: '标签页样式支持多种模式',
     date: '2025-03-29',

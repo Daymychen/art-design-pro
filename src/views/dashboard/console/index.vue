@@ -49,7 +49,7 @@
   import SalesOverview from './widget/SalesOverview.vue'
   import NewUser from './widget/NewUser.vue'
   import Dynamic from './widget/Dynamic.vue'
-  import { SystemInfo } from '@/config/setting'
+  import AppConfig from '@/config'
   import TodoList from './widget/TodoList.vue'
   import { useSettingStore } from '@/store/modules/setting'
   import { WEB_LINKS } from '@/utils/links'
@@ -62,7 +62,7 @@
     settingStore.reload()
   })
 
-  const systemName = SystemInfo.name
+  const systemName = AppConfig.systemInfo.name
   useCommon().scrollToTop()
 
   const goPage = (url: string) => {

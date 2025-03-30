@@ -35,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-  import { SystemMainColor } from '@/config/setting'
+  import AppConfig from '@/config'
   import { ref } from 'vue'
 
   interface Comment {
@@ -83,8 +83,8 @@
     let newColor: string
 
     do {
-      const index = Math.floor(Math.random() * SystemMainColor.length)
-      newColor = SystemMainColor[index]
+      const index = Math.floor(Math.random() * AppConfig.systemMainColor.length)
+      newColor = AppConfig.systemMainColor[index]
     } while (newColor === lastColor)
 
     lastColor = newColor

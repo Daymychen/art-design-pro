@@ -50,11 +50,11 @@
 </template>
 
 <script setup lang="ts">
-  import { SystemInfo } from '@/config/setting'
+  import AppConfig from '@/config'
   import { WEB_LINKS } from '@/utils/links'
 
   const sys = reactive({
-    name: SystemInfo.name,
+    name: AppConfig.systemInfo.name,
     website: WEB_LINKS.BLOG,
     keepAliveTime: '10',
     pictureSize: '10'

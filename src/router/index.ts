@@ -7,7 +7,7 @@ import {
 } from 'vue-router'
 import { ref } from 'vue'
 import Home from '@views/index/index.vue'
-import { SystemInfo } from '@/config/setting'
+import AppConfig from '@/config'
 import { useUserStore } from '@/store/modules/user'
 import { menuService } from '@/api/menuApi'
 import { useMenuStore } from '@/store/modules/menu'
@@ -239,7 +239,7 @@ export const setPageTitle = (to: RouteLocationNormalized): void => {
   const { title } = to.meta
   if (title) {
     setTimeout(() => {
-      document.title = `${formatMenuTitle(String(title))} - ${SystemInfo.name}`
+      document.title = `${formatMenuTitle(String(title))} - ${AppConfig.systemInfo.name}`
     }, 150)
   }
 }

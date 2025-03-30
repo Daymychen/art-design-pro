@@ -32,7 +32,7 @@
         默认显示几何图形，可以配置图片，图片需要提前在 components/Ceremony/Fireworks 文件预先定义
       </el-descriptions-item>
       <el-descriptions-item label="节日配置">
-        在 src/config/ceremony.ts 文件中，可以配置节日和对应的礼花样式
+        在 src/config/core/ceremony.ts 文件中，可以配置节日和对应的礼花样式
       </el-descriptions-item>
       <el-descriptions-item label="快捷键">
         command + shift + p 或者 ctrl + shift + p

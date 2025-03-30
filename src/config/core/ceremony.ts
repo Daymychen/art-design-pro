@@ -1,6 +1,6 @@
 // 节日礼花、文字滚动配置
-import { SystemInfo } from '@/config/setting'
-const { name } = SystemInfo
+import AppConfig from '@/config'
+const { name } = AppConfig.systemInfo
 
 // 图片需要在 components/Ceremony/Fireworks 文件预先定义
 import sd from '@imgs/ceremony/sd.png'

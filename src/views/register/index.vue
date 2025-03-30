@@ -83,7 +83,7 @@
 
 <script setup lang="ts">
   import LeftView from '@/components/Pages/Login/LeftView.vue'
-  import { SystemInfo } from '@/config/setting'
+  import AppConfig from '@/config'
   import { ElMessage } from 'element-plus'
   import type { FormInstance, FormRules } from 'element-plus'
   import { useI18n } from 'vue-i18n'
@@ -93,7 +93,7 @@
   const router = useRouter()
   const formRef = ref<FormInstance>()
 
-  const systemName = SystemInfo.name
+  const systemName = AppConfig.systemInfo.name
   const loading = ref(false)
 
   const formData = reactive({

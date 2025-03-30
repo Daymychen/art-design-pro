@@ -1,6 +1,6 @@
 // import request from '@/utils/http'
 // import { BaseResult } from '@/types/axios'
-import { SystemInfo } from '@/config/setting'
+import AppConfig from '@/config'
 import { BaseResult } from '@/types/axios'
 import { UserInfo } from '@/types/store'
 import avatar from '@imgs/user/avatar.png'
@@ -11,7 +11,10 @@ export class UserService {
     return new Promise((resolve) => {
       const { username, password } = JSON.parse(options.body)
 
-      if (username === SystemInfo.login.username && password === SystemInfo.login.password) {
+      if (
+        username === AppConfig.systemInfo.login.username &&
+        password === AppConfig.systemInfo.login.password
+      ) {
         resolve({
           code: 200,
           message: '登录成功',

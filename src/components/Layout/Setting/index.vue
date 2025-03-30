@@ -39,7 +39,7 @@
             <div class="menu-layouts-wrap">
               <div
                 class="style-item"
-                v-for="(item, index) in menuLayoutList"
+                v-for="(item, index) in AppConfig.menuLayoutList"
                 :key="item.value"
                 @click="switchMenuLayouts(item.value)"
               >
@@ -245,7 +245,7 @@
 
 <script setup lang="ts">
   import { useSettingStore } from '@/store/modules/setting'
-  import { SettingThemeList, ThemeList, SystemMainColor, menuLayoutList } from '@/config/setting'
+  import AppConfig from '@/config'
   import { SystemThemeEnum, MenuThemeEnum, MenuTypeEnum } from '@/enums/appEnum'
   import mittBus from '@/utils/mittBus'
   import { useTheme } from '@/composables/useTheme'
@@ -288,14 +288,14 @@
     (val: boolean) => (showDrawer.value = val)
   )
 
-  const settingThemeList = SettingThemeList
-  const menuThemeList = ThemeList
-  const mainColor = SystemMainColor
+  const settingThemeList = AppConfig.settingThemeList
+  const menuThemeList = AppConfig.themeList
+  const mainColor = AppConfig.systemMainColor
   const isDark = computed(() => store.isDark)
   const currentGlopTheme = computed(() => store.systemThemeType)
   const systemThemeMode = computed(() => store.systemThemeMode)
   const currentMenuTheme = computed(() => store.menuThemeType)
-  const systemThemeColor = computed(() => store.systemThemeColor)
+  const systemThemeColor = computed(() => store.systemThemeColor as (typeof mainColor)[number])
   const boxBorderMode = computed(() => store.boxBorderMode)
   const pageTransition = computed(() => store.pageTransition)
   const tabStyle = computed(() => store.tabStyle)
@@ -417,8 +417,8 @@
 
   //  如果主题色不在列表中，则设置为列表中的第一个元素
   const initSystemColor = () => {
-    if (!SystemMainColor.includes(systemThemeColor.value)) {
-      setElementTheme(SystemMainColor[0])
+    if (!AppConfig.systemMainColor.includes(systemThemeColor.value)) {
+      setElementTheme(AppConfig.systemMainColor[0])
     }
   }
 
