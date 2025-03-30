@@ -30,7 +30,7 @@
 
   // 编辑器实例
   const editorRef = shallowRef()
-  let mode = ref('defualt')
+  let mode = ref('default')
   const userStore = useUserStore()
   // token
   let { accessToken } = userStore

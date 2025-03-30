@@ -645,7 +645,7 @@ export const asyncRoutes: MenuListType[] = [
         name: '403',
         component: RoutesAlias.Exception403,
         meta: {
-          title: 'menus.exception.notFound',
+          title: 'menus.exception.forbidden',
           keepAlive: true
         }
       },
@@ -655,7 +655,7 @@ export const asyncRoutes: MenuListType[] = [
         name: '404',
         component: RoutesAlias.Exception404,
         meta: {
-          title: 'menus.exception.notFoundEn',
+          title: 'menus.exception.notFound',
           keepAlive: true
         }
       },

@@ -1,5 +1,12 @@
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.55',
+    title: '全局搜索支持多层嵌套搜索',
+    date: '2025-03-31',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v2.2.54',
     title: '配置文件重构',
     date: '2025-03-30',

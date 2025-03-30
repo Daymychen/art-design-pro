@@ -25,57 +25,50 @@
           </div>
         </template>
       </el-input>
-
-      <div class="result" v-show="searchResult.length">
-        <div class="box" v-for="(item, pIndex) in searchResult" :key="pIndex">
-          <div
-            v-for="(cItem, cIndex) in item.children"
-            :key="cIndex"
-            @click="searchGoPage(cItem)"
-            @mouseenter="highlightOnHover(pIndex, cIndex)"
-            :class="{
-              highlighted: isHighlighted(pIndex, cIndex)
-            }"
-          >
-            {{ formatMenuTitle(cItem.meta.title) }}
-            <i class="selected-icon iconfont-sys" v-show="isHighlighted(pIndex, cIndex)"
-              >&#xe6e6;</i
+      <el-scrollbar class="search-scrollbar" max-height="370px" ref="searchResultScrollbar" always>
+        <div class="result" v-show="searchResult.length">
+          <div class="box" v-for="(item, index) in searchResult" :key="index">
+            <div
+              :class="{ highlighted: isHighlighted(index) }"
+              @click="searchGoPage(item)"
+              @mouseenter="highlightOnHover(index)"
             >
+              {{ formatMenuTitle(item.meta.title) }}
+              <i class="selected-icon iconfont-sys" v-show="isHighlighted(index)"></i>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div
-        class="history-box"
-        v-show="!searchVal && searchResult.length === 0 && historyResult.length > 0"
-      >
-        <p class="title">{{ $t('search.historyTitle') }}</p>
-        <div class="history-result">
-          <div
-            class="box"
-            v-for="(item, index) in historyResult"
-            :key="index"
-            :class="{
-              highlighted: historyHIndex === index
-            }"
-            @click="searchGoPage(item)"
-            @mouseenter="historyHIndex = index"
-          >
-            {{ formatMenuTitle(item.meta.title) }}
-            <i class="selected-icon iconfont-sys" @click.stop="deleteHistory(index)">&#xe83a;</i>
+        <div
+          class="history-box"
+          v-show="!searchVal && searchResult.length === 0 && historyResult.length > 0"
+        >
+          <p class="title">{{ $t('search.historyTitle') }}</p>
+          <div class="history-result">
+            <div
+              class="box"
+              v-for="(item, index) in historyResult"
+              :key="index"
+              :class="{ highlighted: historyHIndex === index }"
+              @click="searchGoPage(item)"
+              @mouseenter="highlightOnHoverHistory(index)"
+            >
+              {{ formatMenuTitle(item.meta.title) }}
+              <i class="selected-icon iconfont-sys" @click.stop="deleteHistory(index)"></i>
+            </div>
           </div>
         </div>
-      </div>
+      </el-scrollbar>
 
       <template #footer>
         <div class="dialog-footer">
           <div>
-            <i class="iconfont-sys">&#xe864;</i>
-            <i class="iconfont-sys">&#xe867;</i>
+            <i class="iconfont-sys"></i>
+            <i class="iconfont-sys"></i>
             <span>{{ $t('search.switchKeydown') }}</span>
           </div>
           <div>
-            <i class="iconfont-sys">&#xe6e6;</i>
+            <i class="iconfont-sys"></i>
             <span>{{ $t('search.selectKeydown') }}</span>
           </div>
         </div>
@@ -85,26 +78,32 @@
 </template>
 
 <script lang="ts" setup>
+  import { nextTick } from 'vue'
   import { useUserStore } from '@/store/modules/user'
   import { MenuListType } from '@/types/menu'
   import { Search } from '@element-plus/icons-vue'
   import mittBus from '@/utils/mittBus'
   import { useMenuStore } from '@/store/modules/menu'
   import { formatMenuTitle } from '@/utils/menu'
+  import type { ScrollbarInstance } from 'element-plus'
 
   const router = useRouter()
   const userStore = useUserStore()
   const menuList = computed(() => useMenuStore().getMenuList)
 
   const showSearchDialog = ref(false)
-  const searchVal = ref()
-  const searchResult: any = ref([])
-  const historyMaxLength = 5 // 历史记录最大长度
+  const searchVal = ref('')
+  const searchResult = ref<MenuListType[]>([])
+  const historyMaxLength = 10
 
   const historyResult = computed(() => userStore.searchHistory)
-
   const searchInput = ref<HTMLInputElement | null>(null)
+  const highlightedIndex = ref(0)
+  const historyHIndex = ref(0)
+  const searchResultScrollbar = ref<ScrollbarInstance>()
+  const isKeyboardNavigating = ref(false) // 新增状态：是否正在使用键盘导航
 
+  // 生命周期钩子
   onMounted(() => {
     mittBus.on('openSearchDialog', openSearchDialog)
     document.addEventListener('keydown', handleKeydown)
@@ -114,6 +113,7 @@
     document.removeEventListener('keydown', handleKeydown)
   })
 
+  // 键盘快捷键处理
   const handleKeydown = (event: KeyboardEvent) => {
     const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0
     const isCommandKey = isMac ? event.metaKey : event.ctrlKey
@@ -131,134 +131,144 @@
     }, 100)
   }
 
+  // 搜索逻辑
   const search = (val: string) => {
     if (val) {
-      let list = fuzzyQueryList(menuList.value, val)
-      searchResult.value = list.filter((item) => {
-        return item.children!.length
-      })
+      searchResult.value = flattenAndFilterMenuItems(menuList.value, val)
+      console.log(searchResult.value)
     } else {
       searchResult.value = []
     }
   }
 
-  // 模糊查询
-  const fuzzyQueryList = (arr: MenuListType[], val: string): MenuListType[] => {
-    const lowerVal = val.toLowerCase() // 将查询值转换为小写
-    const searchItem = (item: MenuListType): MenuListType | null => {
-      // 如果当前项有 isHide: true，直接过滤掉
-      if (item.meta.isHide) return null
+  const flattenAndFilterMenuItems = (items: MenuListType[], val: string): MenuListType[] => {
+    const lowerVal = val.toLowerCase()
+    const result: MenuListType[] = []
 
-      // 将 item.meta.title 转换为小写进行比较
+    const flattenAndMatch = (item: MenuListType) => {
+      if (item.meta?.isHide) return
+
       const lowerItemTitle = formatMenuTitle(item.meta.title).toLowerCase()
-      // 查找子项并过滤符合条件的子项
-      const children = item.children ? fuzzyQueryList(item.children, val) : []
 
-      // 如果子项符合条件或当前项标题包含查询值，返回该项
-      if (children.length || lowerItemTitle.includes(lowerVal)) {
-        return { ...item, children }
+      if (item.children && item.children.length > 0) {
+        item.children.forEach(flattenAndMatch)
+        return
       }
 
-      // 否则过滤掉
-      return null
+      if (lowerItemTitle.includes(lowerVal) && item.path) {
+        result.push({ ...item, children: undefined })
+      }
     }
 
-    // 使用 map 和 filter 来优化处理逻辑，排除 null 结果
-    return arr.map(searchItem).filter((item): item is MenuListType => item !== null)
+    items.forEach(flattenAndMatch)
+    return result
   }
 
-  // 搜索逻辑
-  const highlightedIndex = ref([0, 0]) // [parentIndex, childIndex]
-  const historyHIndex = ref(0)
-
-  // 搜索框键盘向上切换
+  // 高亮控制并实现滚动条跟随
   const highlightPrevious = () => {
+    isKeyboardNavigating.value = true
     if (searchVal.value) {
-      const [parentIndex, childIndex] = highlightedIndex.value
-
-      if (childIndex > 0) {
-        highlightedIndex.value = [parentIndex, childIndex - 1]
-      } else if (parentIndex > 0) {
-        const previousParent = searchResult.value[parentIndex - 1]
-        const newChildIndex =
-          previousParent.children.length > 0 ? previousParent.children.length - 1 : -1
-        highlightedIndex.value = [parentIndex - 1, newChildIndex]
-      } else {
-        const lastParentIndex = searchResult.value.length - 1
-        const lastParent = searchResult.value[lastParentIndex]
-        const newChildIndex = lastParent.children.length > 0 ? lastParent.children.length - 1 : -1
-        highlightedIndex.value = [lastParentIndex, newChildIndex]
-      }
+      highlightedIndex.value =
+        (highlightedIndex.value - 1 + searchResult.value.length) % searchResult.value.length
+      scrollToHighlightedItem()
     } else {
       historyHIndex.value =
         (historyHIndex.value - 1 + historyResult.value.length) % historyResult.value.length
+      scrollToHighlightedHistoryItem()
     }
+    // 延迟重置键盘导航状态，防止立即被 hover 覆盖
+    setTimeout(() => {
+      isKeyboardNavigating.value = false
+    }, 100)
   }
 
-  // 搜索框键盘向下切换
   const highlightNext = () => {
+    isKeyboardNavigating.value = true
     if (searchVal.value) {
-      const [parentIndex, childIndex] = highlightedIndex.value
-      const currentParent = searchResult.value[parentIndex]
-
-      const hasMoreChildren = childIndex < currentParent.children.length - 1
-
-      if (hasMoreChildren) {
-        highlightedIndex.value = [parentIndex, childIndex + 1]
-      } else if (parentIndex < searchResult.value.length - 1) {
-        highlightedIndex.value = [parentIndex + 1, 0]
-      } else {
-        highlightedIndex.value = [0, 0]
-      }
+      highlightedIndex.value = (highlightedIndex.value + 1) % searchResult.value.length
+      scrollToHighlightedItem()
     } else {
       historyHIndex.value = (historyHIndex.value + 1) % historyResult.value.length
+      scrollToHighlightedHistoryItem()
     }
+    setTimeout(() => {
+      isKeyboardNavigating.value = false
+    }, 100)
   }
 
-  // 搜索框键盘回车跳转页面
+  const scrollToHighlightedItem = () => {
+    nextTick(() => {
+      if (!searchResultScrollbar.value || !searchResult.value.length) return
+
+      const scrollWrapper = searchResultScrollbar.value.wrapRef
+      if (!scrollWrapper) return
+
+      const highlightedElement = scrollWrapper.querySelector('.highlighted')
+      if (!highlightedElement) return
+
+      const itemHeight = (highlightedElement as HTMLElement).offsetHeight
+      const scrollTop = scrollWrapper.scrollTop
+      const containerHeight = scrollWrapper.clientHeight
+      const itemTop = (highlightedElement as HTMLElement).offsetTop
+      const itemBottom = itemTop + itemHeight
+
+      if (itemTop < scrollTop) {
+        searchResultScrollbar.value.setScrollTop(itemTop)
+      } else if (itemBottom > scrollTop + containerHeight) {
+        searchResultScrollbar.value.setScrollTop(itemBottom - containerHeight)
+      }
+    })
+  }
+
+  const scrollToHighlightedHistoryItem = () => {
+    nextTick(() => {
+      if (!searchResultScrollbar.value || !historyResult.value.length) return
+
+      const scrollWrapper = searchResultScrollbar.value.wrapRef
+      if (!scrollWrapper) return
+
+      const historyItems = scrollWrapper.querySelectorAll('.history-result .box')
+      if (!historyItems[historyHIndex.value]) return
+      const highlightedElement = historyItems[historyHIndex.value] as HTMLElement
+      const itemHeight = highlightedElement.offsetHeight
+      const scrollTop = scrollWrapper.scrollTop
+      const containerHeight = scrollWrapper.clientHeight
+      const itemTop = highlightedElement.offsetTop
+      const itemBottom = itemTop + itemHeight
+
+      if (itemTop < scrollTop) {
+        searchResultScrollbar.value.setScrollTop(itemTop)
+      } else if (itemBottom > scrollTop + containerHeight) {
+        searchResultScrollbar.value.setScrollTop(itemBottom - containerHeight)
+      }
+    })
+  }
+
   const selectHighlighted = () => {
-    if (searchVal.value) {
-      const [parentIndex, childIndex] = highlightedIndex.value
-      if (parentIndex !== -1) {
-        const selectedItem =
-          childIndex === -1
-            ? searchResult.value[parentIndex]
-            : searchResult.value[parentIndex].children[childIndex]
-        if (selectedItem) {
-          searchInput.value?.blur()
-          searchGoPage(selectedItem)
-        }
-      }
-    } else {
-      if (!searchVal.value && historyResult.value.length === 0) {
-        return
-      }
+    if (searchVal.value && searchResult.value.length) {
+      searchGoPage(searchResult.value[highlightedIndex.value])
+    } else if (!searchVal.value && historyResult.value.length) {
       searchGoPage(historyResult.value[historyHIndex.value])
     }
   }
 
-  const isHighlighted = (parentIndex: number, childIndex?: number) => {
-    const [highlightedParentIndex, highlightedChildIndex] = highlightedIndex.value
-    return childIndex === undefined
-      ? highlightedParentIndex === parentIndex && highlightedChildIndex === -1
-      : highlightedParentIndex === parentIndex && highlightedChildIndex === childIndex
+  const isHighlighted = (index: number) => {
+    return highlightedIndex.value === index
   }
 
   const searchBlur = () => {
-    highlightedIndex.value = [0, 0]
+    highlightedIndex.value = 0
   }
 
   const searchGoPage = (item: MenuListType) => {
     showSearchDialog.value = false
-
     addHistory(item)
-
     router.push(item.path)
     searchVal.value = ''
     searchResult.value = []
   }
 
-  // 添加历史记录
+  // 历史记录管理
   const updateHistory = () => {
     if (Array.isArray(historyResult.value)) {
       userStore.setSearchHistory(historyResult.value)
@@ -271,19 +281,16 @@
     )
 
     if (hasItemIndex !== -1) {
-      historyResult.value.splice(hasItemIndex, 1) // 如果存在则删除
+      historyResult.value.splice(hasItemIndex, 1)
     } else if (historyResult.value.length >= historyMaxLength) {
-      historyResult.value.pop() // 超过最大记录数则删除最后一个
+      historyResult.value.pop()
     }
 
-    cleanItem(item)
-    historyResult.value.unshift(item) // 添加新的 item 到头部
+    const cleanedItem = { ...item }
+    delete cleanedItem.children
+    delete cleanedItem.meta.authList
+    historyResult.value.unshift(cleanedItem)
     updateHistory()
-  }
-
-  const cleanItem = (item: MenuListType) => {
-    delete item.children
-    delete item.meta.authList
   }
 
   const deleteHistory = (index: number) => {
@@ -291,6 +298,7 @@
     updateHistory()
   }
 
+  // 对话框控制
   const openSearchDialog = () => {
     showSearchDialog.value = true
     focusInput()
@@ -299,13 +307,21 @@
   const closeSearchDialog = () => {
     searchVal.value = ''
     searchResult.value = []
-    highlightedIndex.value = [0, 0]
+    highlightedIndex.value = 0
     historyHIndex.value = 0
   }
 
-  // 鼠标 hover 高亮
-  const highlightOnHover = (pIndex: number, cIndex: number) => {
-    highlightedIndex.value = [pIndex, cIndex]
+  // 修改 hover 高亮逻辑，只有在非键盘导航时才生效
+  const highlightOnHover = (index: number) => {
+    if (!isKeyboardNavigating.value && searchVal.value) {
+      highlightedIndex.value = index
+    }
+  }
+
+  const highlightOnHoverHistory = (index: number) => {
+    if (!isKeyboardNavigating.value && !searchVal.value) {
+      historyHIndex.value = index
+    }
   }
 </script>
 

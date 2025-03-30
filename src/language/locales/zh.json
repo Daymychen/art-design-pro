@@ -343,8 +343,8 @@
     },
     "exception": {
       "title": "异常页面",
+      "forbidden": "403",
       "notFound": "404",
-      "notFoundEn": "404",
       "serverError": "500"
     },
     "system": {
