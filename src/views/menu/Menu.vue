@@ -175,7 +175,7 @@
   import { IconTypeEnum } from '@/enums/appEnum'
   import { formatMenuTitle } from '@/utils/menu'
 
-  const menuList = computed(() => useMenuStore().getMenuList)
+  const { menuList } = storeToRefs(useMenuStore())
 
   const dialogVisible = ref(false)
   const form = reactive({
@@ -263,8 +263,6 @@
 
           ElMessage.success(`${isEdit.value ? '编辑' : '新增'}成功`)
           dialogVisible.value = false
-          // 刷新列表
-          // await menuStore.getMenuList()
         } catch {
           ElMessage.error(`${isEdit.value ? '编辑' : '新增'}失败`)
         }

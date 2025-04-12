@@ -78,30 +78,26 @@
   const settingStore = useSettingStore()
   const menuStore = useMenuStore()
   const worktabStore = useWorktabStore()
+
+  const {
+    menuType,
+    menuOpen,
+    showWorkTab,
+    refresh,
+    pageTransition,
+    watermarkVisible,
+    containerWidth,
+    tabStyle
+  } = storeToRefs(settingStore)
+
+  const { keepAliveExclude } = storeToRefs(worktabStore)
+
   // 是否显示左侧菜单
   const showLeftMenu = computed(
     () => menuType.value === MenuTypeEnum.LEFT || menuType.value === MenuTypeEnum.TOP_LEFT
   )
-  // 菜单是否打开
-  const menuOpen = computed(() => settingStore.menuOpen)
-  // 是否显示工作标签
-  const showWorkTab = computed(() => settingStore.showWorkTab)
-  // 是否需要刷新
-  const refresh = computed(() => settingStore.refresh)
-  // 页面动画
-  const pageTransition = computed(() => settingStore.pageTransition)
-  // 菜单类型
-  const menuType = computed(() => settingStore.menuType)
-  // 水印是否显示
-  const watermarkVisible = computed(() => settingStore.watermarkVisible)
   // 是否是双列菜单
   const isDualMenu = computed(() => settingStore.menuType === MenuTypeEnum.DUAL_MENU)
-  // 容器宽度
-  const containerWidth = computed(() => settingStore.containerWidth)
-  // keepAlive 排除的组件
-  const keepAliveExclude = computed(() => worktabStore.keepAliveExclude)
-  // 标签页风格
-  const tabStyle = computed(() => settingStore.tabStyle)
 
   // 根据菜单是否打开来设置左侧填充宽度
   const paddingLeft = computed(() => {

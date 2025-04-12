@@ -1,4 +1,14 @@
+// requireReLogin: true // 需要重新登录
+
 export const upgradeLogList = ref([
+  {
+    version: 'v2.2.56',
+    title: 'pinia 升级到 3.0.2，并采用 setup 语法',
+    date: '2025-04-12',
+    status: 'complete',
+    statusText: '完成',
+    requireReLogin: true
+  },
   {
     version: 'v2.2.55',
     title: '全局搜索支持多层嵌套搜索',
@@ -140,7 +150,7 @@ export const upgradeLogList = ref([
     date: '2025-02-26',
     status: 'complete',
     statusText: '完成',
-    requireReLogin: true // 需要重新登录
+    requireReLogin: true
   },
   {
     version: 'v2.2.4',
@@ -168,7 +178,7 @@ export const upgradeLogList = ref([
     date: '2025-02-17',
     status: 'complete',
     statusText: '完成',
-    requireReLogin: true // 需要重新登录
+    requireReLogin: true
   },
   {
     version: 'v2.2.0',

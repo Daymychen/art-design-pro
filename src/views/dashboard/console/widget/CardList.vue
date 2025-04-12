@@ -21,8 +21,7 @@
   import { useSettingStore } from '@/store/modules/setting'
   import { CountTo } from 'vue3-count-to'
 
-  const settingStore = useSettingStore()
-  const showWorkTab = computed(() => settingStore.showWorkTab)
+  const { showWorkTab } = storeToRefs(useSettingStore())
 
   const dataList = reactive([
     {

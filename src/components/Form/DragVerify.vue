@@ -35,9 +35,6 @@
   </div>
 </template>
 <script setup lang="ts">
-  //
-
-  import { ref, reactive, toRefs, onMounted, computed } from 'vue'
   const emit = defineEmits(['handlerMove', 'update:value', 'passCallback'])
   interface PropsType {
     value: boolean

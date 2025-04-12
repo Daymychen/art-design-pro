@@ -92,7 +92,7 @@
 
   const dialogVisible = ref(false)
   const permissionDialog = ref(false)
-  const menuList = computed(() => useMenuStore().getMenuList)
+  const { menuList } = storeToRefs(useMenuStore())
 
   const formRef = ref<FormInstance>()
 

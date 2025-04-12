@@ -223,7 +223,14 @@ export default ({ mode }) => {
         'element-plus/es/components/progress/style/css',
         'element-plus/es/components/image-viewer/style/css',
         'element-plus/es/components/empty/style/css',
-        'element-plus/es/components/segmented/style/css'
+        'element-plus/es/components/segmented/style/css',
+        'element-plus/es/components/calendar/style/css',
+        'element-plus/es/components/message/style/css',
+        'xlsx',
+        'file-saver',
+        'element-plus/es/components/timeline/style/css',
+        'element-plus/es/components/timeline-item/style/css',
+        'vue-img-cutter'
       ]
     },
     css: {

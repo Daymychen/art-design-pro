@@ -16,16 +16,16 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, computed, onMounted, onUnmounted } from 'vue'
+  import { ref, onMounted, onUnmounted } from 'vue'
   import * as echarts from 'echarts'
   import { useECharts } from '@/utils/echarts/useECharts'
   import { useSettingStore } from '@/store/modules/setting'
+  import { getCssVariable } from '@/utils/colors'
 
   const chartRef = ref<HTMLDivElement | null>(null)
   const { setOptions, removeResize, resize } = useECharts(chartRef as Ref<HTMLDivElement>)
   const settingStore = useSettingStore()
-  const menuOpen = computed(() => settingStore.menuOpen)
-  import { getCssVariable } from '@/utils/colors'
+  const { menuOpen, isDark } = storeToRefs(settingStore)
 
   // 收缩菜单时，重新计算图表大小
   watch(menuOpen, () => {
@@ -34,9 +34,6 @@
       setTimeout(resize, delay)
     })
   })
-
-  const store = useSettingStore()
-  const isDark = computed(() => store.isDark)
 
   const list = [
     { name: '总用户量', num: '32k' },

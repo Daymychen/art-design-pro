@@ -17,13 +17,10 @@
 
   const { t } = useI18n()
 
-  const store = useSettingStore()
-  const isDark = computed(() => store.isDark)
-
   const chartRef = ref<HTMLDivElement | null>(null)
   const { setOptions, removeResize, resize } = useECharts(chartRef as Ref<HTMLDivElement>)
   const settingStore = useSettingStore()
-  const menuOpen = computed(() => settingStore.menuOpen)
+  const { menuOpen, isDark } = storeToRefs(settingStore)
   const { width } = useWindowSize()
 
   // 收缩菜单时，重新计算图表大小

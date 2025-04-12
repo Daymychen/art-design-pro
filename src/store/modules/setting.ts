@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { ref, computed } from 'vue'
 import { MenuThemeType } from '@/types/store'
 import AppConfig from '@/config'
 import { SystemThemeEnum, MenuThemeEnum, MenuTypeEnum, ContainerWidthEnum } from '@/enums/appEnum'
@@ -8,250 +9,285 @@ import { useCeremony } from '@/composables/useCeremony'
 
 const { defaultMenuWidth, defaultCustomRadius, defaultTabStyle } = AppConfig.systemSetting
 
-export interface SettingState {
-  menuType: MenuTypeEnum // 菜单类型
-  menuOpenWidth: number // 菜单展开宽度
-  systemThemeType: SystemThemeEnum // 全局主题类型 light dark
-  systemThemeMode: SystemThemeEnum // 全局主题模式 light dark auto
-  menuThemeType: MenuThemeEnum // 菜单主题类型
-  systemThemeColor: string // 系统主题颜色
-  boxBorderMode: boolean // 盒子模式 border | shadow
-  uniqueOpened: boolean // 是否开启手风琴模式
-  showMenuButton: boolean // 是否显示菜单展开按钮
-  showRefreshButton: boolean // 是否显示页面刷新按钮
-  showCrumbs: boolean // 是否显示全局面包屑
-  autoClose: boolean // 设置后是否自动关闭窗口
-  showWorkTab: boolean // 是否显示多标签
-  showLanguage: boolean // 是否显示多语言选择
-  showNprogress: boolean // 是否显示顶部进度条
-  colorWeak: boolean // 是否显示顶部进度条
-  showSettingGuide: boolean // 是否显示设置引导
-  pageTransition: string // 页面切换动画
-  tabStyle: string // 标签页风格
-  menuOpen: boolean // 菜单是否展开
-  refresh: boolean
-  watermarkVisible: boolean // 水印是否显示
-  customRadius: string // 自定义圆角
-  holidayFireworksLoaded: boolean // 是否加载完礼花
-  showFestivalText: boolean // 是否显示节日文本
-  festivalDate: string // 节日日期
-  dualMenuShowText: boolean // 双列菜单是否显示文本
-  containerWidth: ContainerWidthEnum // 容器宽度
-}
+// 系统设置
+export const useSettingStore = defineStore('settingStore', () => {
+  const menuType = ref(MenuTypeEnum.LEFT)
+  const menuOpenWidth = ref(defaultMenuWidth)
+  const systemThemeType = ref(SystemThemeEnum.LIGHT)
+  const systemThemeMode = ref(SystemThemeEnum.LIGHT)
+  const menuThemeType = ref(MenuThemeEnum.DESIGN)
+  const systemThemeColor = ref(AppConfig.elementPlusTheme.primary)
+  const boxBorderMode = ref(true)
+  const uniqueOpened = ref(true)
+  const showMenuButton = ref(true)
+  const showRefreshButton = ref(true)
+  const showCrumbs = ref(true)
+  const autoClose = ref(false)
+  const showWorkTab = ref(true)
+  const showLanguage = ref(true)
+  const showNprogress = ref(true)
+  const colorWeak = ref(false)
+  const showSettingGuide = ref(true)
+  const pageTransition = ref('slide-right')
+  const tabStyle = ref(defaultTabStyle)
+  const menuOpen = ref(true)
+  const refresh = ref(false)
+  const watermarkVisible = ref(false)
+  const customRadius = ref(defaultCustomRadius)
+  const holidayFireworksLoaded = ref(false)
+  const showFestivalText = ref(false)
+  const festivalDate = ref('')
+  const dualMenuShowText = ref(false)
+  const containerWidth = ref(ContainerWidthEnum.FULL)
 
-export const useSettingStore = defineStore({
-  id: 'settingStore',
-  state: (): SettingState => ({
-    menuType: MenuTypeEnum.LEFT,
-    menuOpenWidth: defaultMenuWidth,
-    systemThemeType: SystemThemeEnum.LIGHT,
-    systemThemeMode: SystemThemeEnum.LIGHT,
-    menuThemeType: MenuThemeEnum.DESIGN,
-    boxBorderMode: true,
-    uniqueOpened: true,
-    systemThemeColor: AppConfig.elementPlusTheme.primary,
-    showMenuButton: true,
-    showRefreshButton: true,
-    showCrumbs: true,
-    autoClose: false,
-    showWorkTab: true,
-    showLanguage: true,
-    showNprogress: true,
-    colorWeak: false,
-    showSettingGuide: true,
-    pageTransition: 'slide-right',
-    tabStyle: defaultTabStyle,
-    menuOpen: true,
-    refresh: false,
-    watermarkVisible: false,
-    customRadius: defaultCustomRadius,
-    holidayFireworksLoaded: false,
-    showFestivalText: false,
-    festivalDate: '',
-    dualMenuShowText: false,
-    containerWidth: ContainerWidthEnum.FULL
-  }),
-  getters: {
-    getMenuTheme(): MenuThemeType {
-      const list = AppConfig.themeList.filter((item) => item.theme === this.menuThemeType)
-      if (this.isDark) {
-        return AppConfig.darkMenuStyles[0]
-      } else {
-        return list[0]
-      }
-    },
-    // 是否为暗黑模式
-    isDark(): boolean {
-      return this.systemThemeType === SystemThemeEnum.DARK
-    },
-    // 获取菜单展开宽度
-    getMenuOpenWidth(): string {
-      return this.menuOpenWidth + 'px' || defaultMenuWidth + 'px'
-    },
-    // 获取自定义圆角
-    getCustomRadius(): string {
-      return this.customRadius + 'rem' || defaultCustomRadius + 'rem'
-    },
-    // 节日礼花否显示
-    isShowFireworks(): boolean {
-      return this.festivalDate === useCeremony().currentFestivalData.value?.date ? false : true
+  const getMenuTheme = computed((): MenuThemeType => {
+    const list = AppConfig.themeList.filter((item) => item.theme === menuThemeType.value)
+    if (isDark.value) {
+      return AppConfig.darkMenuStyles[0]
+    } else {
+      return list[0]
     }
-  },
-  actions: {
-    // 初始化state
-    initState() {
-      let sys = getSysStorage()
+  })
 
-      if (sys) {
-        sys = JSON.parse(sys)
-        const { setting } = sys.user
-        this.menuType = setting.menuType || MenuTypeEnum.LEFT
-        this.menuOpenWidth = Number(setting.menuOpenWidth) || defaultMenuWidth
-        this.systemThemeType = setting.systemThemeType || SystemThemeEnum.LIGHT
-        this.systemThemeMode = setting.systemThemeMode || SystemThemeEnum.LIGHT
-        this.menuThemeType = setting.menuThemeType || MenuThemeEnum.DESIGN
-        this.containerWidth = setting.containerWidth || ContainerWidthEnum.FULL
-        this.systemThemeColor = setting.systemThemeColor || AppConfig.elementPlusTheme.primary
-        this.boxBorderMode = setting.boxBorderMode
-        this.uniqueOpened = setting.uniqueOpened
-        this.showMenuButton = setting.showMenuButton
-        this.showRefreshButton = setting.showRefreshButton
-        this.showCrumbs = setting.showCrumbs
-        this.autoClose = setting.autoClose
-        this.showWorkTab = setting.showWorkTab
-        this.showLanguage = setting.showLanguage
-        this.showNprogress = setting.showNprogress
-        this.colorWeak = setting.colorWeak
-        this.showSettingGuide = setting.showSettingGuide
-        this.pageTransition = setting.pageTransition
-        this.tabStyle = setting.tabStyle || defaultTabStyle
-        this.menuOpen = setting.menuOpen
-        this.watermarkVisible = setting.watermarkVisible
-        this.customRadius = setting.customRadius || defaultCustomRadius
-        this.holidayFireworksLoaded = setting.holidayFireworksLoaded
-        this.showFestivalText = setting.showFestivalText
-        this.festivalDate = setting.festivalDate
-        this.dualMenuShowText = setting.dualMenuShowText
-        this.setCustomRadius(this.customRadius)
-        setElementThemeColor(setting.systemThemeColor)
-      } else {
-        this.setCustomRadius(this.customRadius)
-        setElementThemeColor(AppConfig.elementPlusTheme.primary)
-      }
-    },
-    switchMenuLayouts(type: MenuTypeEnum) {
-      this.menuType = type
-    },
-    setMenuOpenWidth(width: number) {
-      this.menuOpenWidth = width
-    },
-    setGlopTheme(theme: SystemThemeEnum, themeMode: SystemThemeEnum) {
-      this.systemThemeType = theme
-      this.systemThemeMode = themeMode
-    },
-    switchMenuStyles(theme: MenuThemeEnum) {
-      this.menuThemeType = theme
-    },
-    setElementTheme(theme: string) {
-      this.systemThemeColor = theme
-      setElementThemeColor(theme)
-    },
-    // 设置盒子模式
-    setBorderMode() {
-      this.boxBorderMode = !this.boxBorderMode
-    },
-    // 设置容器宽度
-    setContainerWidth(width: ContainerWidthEnum) {
-      this.containerWidth = width
-    },
-    // 设置菜单是否为手风琴模式
-    setUniqueOpened() {
-      this.uniqueOpened = !this.uniqueOpened
-    },
-    // 显示侧边栏折叠按钮
-    setButton() {
-      this.showMenuButton = !this.showMenuButton
-    },
-    // 是否自动关闭个性化设置
-    setAutoClose() {
-      this.autoClose = !this.autoClose
-    },
-    // 是否显示页面刷新按钮
-    setShowRefreshButton() {
-      this.showRefreshButton = !this.showRefreshButton
-    },
-    // 是否显示面包屑导航
-    setCrumbs() {
-      this.showCrumbs = !this.showCrumbs
-    },
-    // 是否显示多标签
-    setWorkTab(show: boolean) {
-      this.showWorkTab = show
-    },
-    // 是否显示多语言选择
-    setLanguage() {
-      this.showLanguage = !this.showLanguage
-    },
-    // 是否显示顶部进度条
-    setNprogress() {
-      this.showNprogress = !this.showNprogress
-    },
-    //  色弱模式
-    setColorWeak() {
-      this.colorWeak = !this.colorWeak
-    },
-    // 隐藏设置引导
-    hideSettingGuide() {
-      this.showSettingGuide = false
-    },
-    // 显示设置引导
-    openSettingGuide() {
-      this.showSettingGuide = true
-    },
-    // 设置页面切换动画
-    setPageTransition(transition: string) {
-      this.pageTransition = transition
-    },
-    // 设置标签页风格
-    setTabStyle(style: string) {
-      this.tabStyle = style
-    },
-    // 设置菜单是否展开
-    setMenuOpen(open: boolean) {
-      this.menuOpen = open
-    },
-    // 刷新当前页
-    reload() {
-      this.refresh = !this.refresh
-    },
-    // 设置水印是否显示
-    setWatermarkVisible(visible: boolean) {
-      this.watermarkVisible = visible
-    },
-    // 设置自定义圆角
-    setCustomRadius(radius: string) {
-      this.customRadius = radius
-      document.documentElement.style.setProperty('--custom-radius', `${radius}rem`)
-    },
-    // 设置是否加载完礼花
-    setholidayFireworksLoaded(isLoad: boolean) {
-      this.holidayFireworksLoaded = isLoad
-    },
-    // 设置是否显示节日文本
-    setShowFestivalText(show: boolean) {
-      this.showFestivalText = show
-    },
-    // 设置节日日期
-    setFestivalDate(date: string) {
-      this.festivalDate = date
-    },
-    // 设置双列菜单是否显示文本
-    setDualMenuShowText(show: boolean) {
-      this.dualMenuShowText = show
+  const isDark = computed((): boolean => {
+    return systemThemeType.value === SystemThemeEnum.DARK
+  })
+
+  const getMenuOpenWidth = computed((): string => {
+    return menuOpenWidth.value + 'px' || defaultMenuWidth + 'px'
+  })
+
+  const getCustomRadius = computed((): string => {
+    return customRadius.value + 'rem' || defaultCustomRadius + 'rem'
+  })
+
+  const isShowFireworks = computed((): boolean => {
+    return festivalDate.value === useCeremony().currentFestivalData.value?.date ? false : true
+  })
+
+  const initState = () => {
+    let sys = getSysStorage()
+
+    if (sys) {
+      sys = JSON.parse(sys)
+      const { setting } = sys.user
+      menuType.value = setting.menuType || MenuTypeEnum.LEFT
+      menuOpenWidth.value = Number(setting.menuOpenWidth) || defaultMenuWidth
+      systemThemeType.value = setting.systemThemeType || SystemThemeEnum.LIGHT
+      systemThemeMode.value = setting.systemThemeMode || SystemThemeEnum.LIGHT
+      menuThemeType.value = setting.menuThemeType || MenuThemeEnum.DESIGN
+      containerWidth.value = setting.containerWidth || ContainerWidthEnum.FULL
+      systemThemeColor.value = setting.systemThemeColor || AppConfig.elementPlusTheme.primary
+      boxBorderMode.value = setting.boxBorderMode
+      uniqueOpened.value = setting.uniqueOpened
+      showMenuButton.value = setting.showMenuButton
+      showRefreshButton.value = setting.showRefreshButton
+      showCrumbs.value = setting.showCrumbs
+      autoClose.value = setting.autoClose
+      showWorkTab.value = setting.showWorkTab
+      showLanguage.value = setting.showLanguage
+      showNprogress.value = setting.showNprogress
+      colorWeak.value = setting.colorWeak
+      showSettingGuide.value = setting.showSettingGuide
+      pageTransition.value = setting.pageTransition
+      tabStyle.value = setting.tabStyle || defaultTabStyle
+      menuOpen.value = setting.menuOpen
+      watermarkVisible.value = setting.watermarkVisible
+      customRadius.value = setting.customRadius || defaultCustomRadius
+      holidayFireworksLoaded.value = setting.holidayFireworksLoaded
+      showFestivalText.value = setting.showFestivalText
+      festivalDate.value = setting.festivalDate
+      dualMenuShowText.value = setting.dualMenuShowText
+      setCustomRadius(customRadius.value)
+      setElementThemeColor(setting.systemThemeColor)
+    } else {
+      setCustomRadius(customRadius.value)
+      setElementThemeColor(AppConfig.elementPlusTheme.primary)
     }
+  }
+
+  const switchMenuLayouts = (type: MenuTypeEnum) => {
+    menuType.value = type
+  }
+
+  const setMenuOpenWidth = (width: number) => {
+    menuOpenWidth.value = width
+  }
+
+  const setGlopTheme = (theme: SystemThemeEnum, themeMode: SystemThemeEnum) => {
+    systemThemeType.value = theme
+    systemThemeMode.value = themeMode
+  }
+
+  const switchMenuStyles = (theme: MenuThemeEnum) => {
+    menuThemeType.value = theme
+  }
+
+  const setElementTheme = (theme: string) => {
+    systemThemeColor.value = theme
+    setElementThemeColor(theme)
+  }
+
+  const setBorderMode = () => {
+    boxBorderMode.value = !boxBorderMode.value
+  }
+
+  const setContainerWidth = (width: ContainerWidthEnum) => {
+    containerWidth.value = width
+  }
+
+  const setUniqueOpened = () => {
+    uniqueOpened.value = !uniqueOpened.value
+  }
+
+  const setButton = () => {
+    showMenuButton.value = !showMenuButton.value
+  }
+
+  const setAutoClose = () => {
+    autoClose.value = !autoClose.value
+  }
+
+  const setShowRefreshButton = () => {
+    showRefreshButton.value = !showRefreshButton.value
+  }
+
+  const setCrumbs = () => {
+    showCrumbs.value = !showCrumbs.value
+  }
+
+  const setWorkTab = (show: boolean) => {
+    showWorkTab.value = show
+  }
+
+  const setLanguage = () => {
+    showLanguage.value = !showLanguage.value
+  }
+
+  const setNprogress = () => {
+    showNprogress.value = !showNprogress.value
+  }
+
+  const setColorWeak = () => {
+    colorWeak.value = !colorWeak.value
+  }
+
+  const hideSettingGuide = () => {
+    showSettingGuide.value = false
+  }
+
+  const openSettingGuide = () => {
+    showSettingGuide.value = true
+  }
+
+  const setPageTransition = (transition: string) => {
+    pageTransition.value = transition
+  }
+
+  const setTabStyle = (style: string) => {
+    tabStyle.value = style
+  }
+
+  const setMenuOpen = (open: boolean) => {
+    menuOpen.value = open
+  }
+
+  const reload = () => {
+    refresh.value = !refresh.value
+  }
+
+  const setWatermarkVisible = (visible: boolean) => {
+    watermarkVisible.value = visible
+  }
+
+  const setCustomRadius = (radius: string) => {
+    customRadius.value = radius
+    document.documentElement.style.setProperty('--custom-radius', `${radius}rem`)
+  }
+
+  const setholidayFireworksLoaded = (isLoad: boolean) => {
+    holidayFireworksLoaded.value = isLoad
+  }
+
+  const setShowFestivalText = (show: boolean) => {
+    showFestivalText.value = show
+  }
+
+  const setFestivalDate = (date: string) => {
+    festivalDate.value = date
+  }
+
+  const setDualMenuShowText = (show: boolean) => {
+    dualMenuShowText.value = show
+  }
+
+  return {
+    menuType,
+    menuOpenWidth,
+    systemThemeType,
+    systemThemeMode,
+    menuThemeType,
+    systemThemeColor,
+    boxBorderMode,
+    uniqueOpened,
+    showMenuButton,
+    showRefreshButton,
+    showCrumbs,
+    autoClose,
+    showWorkTab,
+    showLanguage,
+    showNprogress,
+    colorWeak,
+    showSettingGuide,
+    pageTransition,
+    tabStyle,
+    menuOpen,
+    refresh,
+    watermarkVisible,
+    customRadius,
+    holidayFireworksLoaded,
+    showFestivalText,
+    festivalDate,
+    dualMenuShowText,
+    containerWidth,
+    getMenuTheme,
+    isDark,
+    getMenuOpenWidth,
+    getCustomRadius,
+    isShowFireworks,
+    initState,
+    switchMenuLayouts,
+    setMenuOpenWidth,
+    setGlopTheme,
+    switchMenuStyles,
+    setElementTheme,
+    setBorderMode,
+    setContainerWidth,
+    setUniqueOpened,
+    setButton,
+    setAutoClose,
+    setShowRefreshButton,
+    setCrumbs,
+    setWorkTab,
+    setLanguage,
+    setNprogress,
+    setColorWeak,
+    hideSettingGuide,
+    openSettingGuide,
+    setPageTransition,
+    setTabStyle,
+    setMenuOpen,
+    reload,
+    setWatermarkVisible,
+    setCustomRadius,
+    setholidayFireworksLoaded,
+    setShowFestivalText,
+    setFestivalDate,
+    setDualMenuShowText
   }
 })
 
+// 设置主题颜色
 function setElementThemeColor(color: string) {
   const mixColor = '#ffffff'
   const elStyle = document.documentElement.style

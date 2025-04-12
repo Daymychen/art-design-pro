@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, onMounted, onUnmounted, computed, watch } from 'vue'
+  import { ref, onMounted, onUnmounted, watch } from 'vue'
   import type { Ref } from 'vue'
   import { useECharts } from '@/utils/echarts/useECharts'
   import { useSettingStore } from '@/store/modules/setting'
@@ -18,13 +18,10 @@
 
   const { t } = useI18n()
 
-  const store = useSettingStore()
-  const isDark = computed(() => store.isDark)
-
   const chartRef = ref<HTMLDivElement | null>(null)
   const { setOptions, removeResize, resize } = useECharts(chartRef as Ref<HTMLDivElement>)
   const settingStore = useSettingStore()
-  const menuOpen = computed(() => settingStore.menuOpen)
+  const { menuOpen, isDark } = storeToRefs(settingStore)
 
   // 监听菜单状态变化
   watch(menuOpen, () => {

@@ -80,9 +80,8 @@
 
   const ENCRYPT_KEY = import.meta.env.VITE_LOCK_ENCRYPT_KEY
   const userStore = useUserStore()
-  const userInfo = computed(() => userStore.info)
-  const lockPassword = computed(() => userStore.lockPassword)
-  const isLock = computed(() => userStore.isLock)
+  const { info: userInfo, lockPassword, isLock } = storeToRefs(userStore)
+
   const visible = ref(false)
   const formRef = ref<FormInstance>()
   const formData = reactive({

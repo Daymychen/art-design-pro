@@ -5,17 +5,16 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, onMounted, onUnmounted, computed, watch, nextTick } from 'vue'
+  import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
   import * as echarts from 'echarts'
   import { useSettingStore } from '@/store/modules/setting'
-  import { SystemThemeEnum } from '@/enums/appEnum'
   import chinaMapJson from '@/mock/json/chinaMap.json'
 
   // 响应式引用与主题
   const chinaMapRef = ref<HTMLElement | null>(null)
   const chartInstance = ref<echarts.ECharts | null>(null)
   const settingStore = useSettingStore()
-  const isDark = computed(() => settingStore.systemThemeType === SystemThemeEnum.DARK)
+  const { isDark } = storeToRefs(settingStore)
 
   // 定义 emit
   const emit = defineEmits<{

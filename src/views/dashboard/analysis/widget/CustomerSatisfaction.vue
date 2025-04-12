@@ -10,21 +10,18 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, onMounted, onUnmounted, watch, computed } from 'vue'
+  import { ref, onMounted, onUnmounted, watch } from 'vue'
   import { useECharts } from '@/utils/echarts/useECharts'
   import * as echarts from 'echarts'
   import { useSettingStore } from '@/store/modules/setting'
   import { useI18n } from 'vue-i18n'
   const { t } = useI18n()
 
-  const store = useSettingStore()
-  const isDark = computed(() => store.isDark)
+  const settingStore = useSettingStore()
+  const { menuOpen, isDark } = storeToRefs(settingStore)
 
   const chartRef = ref<HTMLDivElement | null>(null)
   const { setOptions, removeResize, resize } = useECharts(chartRef as Ref<HTMLDivElement>)
-
-  const settingStore = useSettingStore()
-  const menuOpen = computed(() => settingStore.menuOpen)
 
   // 监听 isDark 的变化
   watch(

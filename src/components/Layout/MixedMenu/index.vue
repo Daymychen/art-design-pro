@@ -41,7 +41,7 @@
   import { handleMenuJump } from '@/utils/jump'
 
   const settingStore = useSettingStore()
-  const menuopenwidth = computed(() => settingStore.getMenuOpenWidth)
+  const { getMenuOpenWidth: menuopenwidth } = storeToRefs(settingStore)
 
   defineProps({
     list: {

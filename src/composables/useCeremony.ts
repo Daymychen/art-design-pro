@@ -8,11 +8,7 @@ import { computed } from 'vue'
 // 节日庆祝相关配置
 export function useCeremony() {
   const settingStore = useSettingStore()
-
-  // 节日礼花效果是否已加载
-  const holidayFireworksLoaded = computed(() => settingStore.holidayFireworksLoaded)
-  // 节日礼花是否显示
-  const isShowFireworks = computed(() => settingStore.isShowFireworks)
+  const { holidayFireworksLoaded, isShowFireworks } = storeToRefs(settingStore)
 
   // 烟花间隔引用，用于清理
   let fireworksInterval: { pause: () => void } | null = null

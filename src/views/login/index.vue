@@ -65,7 +65,6 @@
             </el-form-item>
             <div class="drag-verify">
               <div class="drag-verify-content" :class="{ error: !isPassing && isClickPass }">
-                <!-- :background="isDark ? '#181818' : '#eee'" -->
                 <DragVerify
                   ref="dragVerify"
                   v-model:value="isPassing"
@@ -133,6 +132,9 @@
   import { useSettingStore } from '@/store/modules/setting'
   import type { FormInstance, FormRules } from 'element-plus'
 
+  const settingStore = useSettingStore()
+  const { isDark, systemThemeType } = storeToRefs(settingStore)
+
   const userStore = useUserStore()
   const router = useRouter()
   const isPassing = ref(false)
@@ -153,9 +155,6 @@
 
   const loading = ref(false)
   const { width } = useWindowSize()
-
-  const store = useSettingStore()
-  const isDark = computed(() => store.isDark)
 
   const onPass = () => {}
 
@@ -240,7 +239,7 @@
 
   const toggleTheme = () => {
     let { LIGHT, DARK } = SystemThemeEnum
-    useTheme().switchThemeStyles(useSettingStore().systemThemeType === LIGHT ? DARK : LIGHT)
+    useTheme().switchThemeStyles(systemThemeType.value === LIGHT ? DARK : LIGHT)
   }
 </script>
 

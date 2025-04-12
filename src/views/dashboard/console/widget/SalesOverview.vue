@@ -22,11 +22,10 @@
   const chartRef = ref<HTMLDivElement>()
   const { setOptions, removeResize, resize } = useECharts(chartRef as Ref<HTMLDivElement>)
 
-  const store = useSettingStore()
-  const theme = computed(() => store.systemThemeType)
-  const isLight = computed(() => theme.value === SystemThemeEnum.LIGHT)
   const settingStore = useSettingStore()
-  const menuOpen = computed(() => settingStore.menuOpen)
+  const { menuOpen, systemThemeType } = storeToRefs(settingStore)
+
+  const isLight = computed(() => systemThemeType.value === SystemThemeEnum.LIGHT)
 
   // 收缩菜单时，重新计算图表大小
   watch(menuOpen, () => {

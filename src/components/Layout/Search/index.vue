@@ -89,14 +89,15 @@
 
   const router = useRouter()
   const userStore = useUserStore()
-  const menuList = computed(() => useMenuStore().getMenuList)
+  const { menuList } = storeToRefs(useMenuStore())
 
   const showSearchDialog = ref(false)
   const searchVal = ref('')
   const searchResult = ref<MenuListType[]>([])
   const historyMaxLength = 10
 
-  const historyResult = computed(() => userStore.searchHistory)
+  const { searchHistory: historyResult } = storeToRefs(userStore)
+
   const searchInput = ref<HTMLInputElement | null>(null)
   const highlightedIndex = ref(0)
   const historyHIndex = ref(0)
@@ -135,7 +136,6 @@
   const search = (val: string) => {
     if (val) {
       searchResult.value = flattenAndFilterMenuItems(menuList.value, val)
-      console.log(searchResult.value)
     } else {
       searchResult.value = []
     }

@@ -24,8 +24,7 @@
   import { useCeremony } from '@/composables/useCeremony'
 
   const settingStore = useSettingStore()
-  // 是否显示节日文本
-  const showFestivalText = computed(() => settingStore.showFestivalText)
+  const { showFestivalText } = storeToRefs(settingStore)
 
   const { currentFestivalData } = useCeremony()
 

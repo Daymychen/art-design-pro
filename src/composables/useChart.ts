@@ -1,8 +1,6 @@
-import { onMounted, onUnmounted, ref, computed } from 'vue'
 import * as echarts from 'echarts'
 import type { EChartsOption } from 'echarts'
 import { useSettingStore } from '@/store/modules/setting'
-import { SystemThemeEnum } from '@/enums/appEnum'
 import { getCssVariable } from '@/utils/colors'
 
 interface ChartThemeConfig {
@@ -21,11 +19,8 @@ export const useChartOps = (): ChartThemeConfig => ({
 })
 
 export function useChart(initOptions?: EChartsOption) {
-  const theme = computed(() => useSettingStore().systemThemeType)
-  const isDark = computed(() => theme.value === SystemThemeEnum.DARK)
-
   const settingStore = useSettingStore()
-  const menuOpen = computed(() => settingStore.menuOpen)
+  const { isDark, menuOpen } = storeToRefs(settingStore)
 
   // 收缩菜单时，重新计算图表大小
   watch(menuOpen, () => {

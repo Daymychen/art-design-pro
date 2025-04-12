@@ -4,6 +4,7 @@ import { useSettingStore } from '@/store/modules/setting'
 // 通用函数
 export function useCommon() {
   const settingStore = useSettingStore()
+  const { showWorkTab, tabStyle } = storeToRefs(settingStore)
 
   // 刷新页面
   const refresh = () => {
@@ -14,11 +15,6 @@ export function useCommon() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0 })
   }
-
-  // 是否显示工作标签
-  const showWorkTab = computed(() => settingStore.showWorkTab)
-  // 当前 tab 样式
-  const tabStyle = computed(() => settingStore.tabStyle)
 
   // 页面最小高度
   const containerMinHeight = computed(() => {

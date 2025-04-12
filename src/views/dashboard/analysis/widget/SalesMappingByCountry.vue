@@ -22,7 +22,7 @@
   const { setOptions, removeResize, resize } = useECharts(chartRef as Ref<HTMLDivElement>)
 
   const settingStore = useSettingStore()
-  const menuOpen = computed(() => settingStore.menuOpen)
+  const { menuOpen } = storeToRefs(settingStore)
 
   // 收缩菜单时，重新计算图表大小
   watch(menuOpen, () => {

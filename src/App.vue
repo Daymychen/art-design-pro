@@ -14,7 +14,7 @@
   import { ApiStatus } from './utils/http/status'
 
   const userStore = useUserStore()
-  const language = computed(() => userStore.language)
+  const { language } = storeToRefs(userStore)
   const elSize = computed(() => (document.body.clientWidth >= 500 ? 'large' : 'default'))
 
   const locales = {
