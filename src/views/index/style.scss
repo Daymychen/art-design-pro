@@ -1,0 +1,47 @@
+@use '@/assets/styles/variables' as *;
+
+.layouts {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background: var(--art-bg-color);
+  transition: padding 0.3s ease-in-out;
+
+  .layout-content {
+    box-sizing: border-box;
+    width: calc(100% - 40px);
+    margin: auto;
+
+    // 子页面默认style
+    :deep(.page-content) {
+      position: relative;
+      box-sizing: border-box;
+      padding: 20px;
+      overflow: hidden;
+      background: var(--art-main-bg-color);
+      border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
+    }
+  }
+}
+
+@media only screen and (max-width: $device-ipad) {
+  .layouts {
+    width: 100%;
+    min-height: 100vh;
+    padding-left: 0 !important;
+    overflow-y: scroll;
+
+    .layout-content {
+      width: calc(100% - 20px);
+    }
+  }
+}
+
+@media only screen and (max-width: $device-phone) {
+  .layouts {
+    .layout-content {
+      width: calc(100% - 32px);
+    }
+  }
+}

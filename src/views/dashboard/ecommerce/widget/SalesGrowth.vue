@@ -7,7 +7,7 @@
       <p class="subtitle">增长</p>
     </div>
 
-    <LineChart
+    <ArtLineChart
       :showAreaColor="true"
       :showAxisLabel="false"
       :showAxisLine="false"

@@ -1,7 +1,7 @@
 <template>
   <div class="page-content">
     <div class="video-container">
-      <VideoPlayer
+      <ArtVideoPlayer
         playerId="my-video-1"
         :videoUrl="videoUrl"
         :posterUrl="posterUrl"

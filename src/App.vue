@@ -1,7 +1,7 @@
 <template>
-  <el-config-provider :size="elSize" :locale="locales[language]" :z-index="3000">
-    <router-view></router-view>
-  </el-config-provider>
+  <ElConfigProvider :size="elSize" :locale="locales[language]" :z-index="3000">
+    <RouterView></RouterView>
+  </ElConfigProvider>
 </template>
 
 <script setup lang="ts">
@@ -12,6 +12,7 @@
   import { initState, saveUserData } from './utils/storage'
   import { UserService } from './api/usersApi'
   import { ApiStatus } from './utils/http/status'
+  import { setThemeTransitionClass } from './utils/theme/animation'
 
   const userStore = useUserStore()
   const { language } = storeToRefs(userStore)
@@ -23,13 +24,13 @@
   }
 
   onBeforeMount(() => {
-    setBodyClass(true)
+    setThemeTransitionClass(true)
   })
 
   onMounted(() => {
     initState()
     saveUserData()
-    setBodyClass(false)
+    setThemeTransitionClass(false)
     systemUpgrade()
     getUserInfo()
   })
@@ -41,19 +42,6 @@
       if (userRes.code === ApiStatus.success) {
         userStore.setUserInfo(userRes.data)
       }
-    }
-  }
-
-  // 提升暗黑主题下页面刷新视觉体验
-  const setBodyClass = (addClass: boolean) => {
-    let el = document.getElementsByTagName('body')[0]
-
-    if (addClass) {
-      el.setAttribute('class', 'theme-change')
-    } else {
-      setTimeout(() => {
-        el.removeAttribute('class')
-      }, 300)
     }
   }
 </script>

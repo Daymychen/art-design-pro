@@ -1,0 +1,59 @@
+@use '@styles/variables.scss' as *;
+
+@media screen and (max-width: $device-ipad-pro) {
+  .layout-top-bar {
+    .menu {
+      .right {
+        .search-wrap {
+          display: none;
+        }
+
+        .screen {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $device-ipad) {
+  .layout-top-bar {
+    left: 0;
+    z-index: 100;
+    width: 100% !important;
+
+    .refresh-btn,
+    .screen-box {
+      display: none !important;
+    }
+
+    .svg-icon {
+      display: block !important;
+    }
+  }
+}
+
+@media screen and (max-width: $device-phone) {
+  .layout-top-bar {
+    .btn-box {
+      width: 40px;
+    }
+
+    .menu {
+      .left {
+        .svg-icon {
+          padding: 0 10px 0 18px;
+        }
+      }
+
+      .right {
+        .user {
+          .cover {
+            width: 26px;
+            height: 26px;
+          }
+        }
+      }
+    }
+  }
+}

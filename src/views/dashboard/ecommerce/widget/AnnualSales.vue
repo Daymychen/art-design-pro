@@ -5,7 +5,7 @@
       <p class="subtitle">按季度统计</p>
     </div>
 
-    <BarChart
+    <ArtBarChart
       :showAxisLabel="false"
       :showAxisLine="false"
       :showSplitLine="false"

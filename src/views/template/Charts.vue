@@ -8,7 +8,7 @@
           <div class="card-header">
             <span>柱状图</span>
           </div>
-          <BarChart
+          <ArtBarChart
             :data="[50, 80, 120, 90, 60, 70, 100]"
             :xAxisData="['一月', '二月', '三月', '四月', '五月', '六月', '七月']"
           />
@@ -19,7 +19,7 @@
           <div class="card-header">
             <span>折线图</span>
           </div>
-          <LineChart
+          <ArtLineChart
             :data="[58, 15, 82, 35, 90, 82, 85]"
             :xAxisData="['一月', '二月', '三月', '四月', '五月', '六月', '七月']"
           />
@@ -30,7 +30,7 @@
           <div class="card-header">
             <span>折线图（渐变背景）</span>
           </div>
-          <LineChart
+          <ArtLineChart
             :data="[58, 15, 82, 35, 90, 82, 85]"
             :xAxisData="['一月', '二月', '三月', '四月', '五月', '六月', '七月']"
             :showAreaColor="true"
@@ -43,7 +43,7 @@
           <div class="card-header">
             <span>散点图</span>
           </div>
-          <ScatterChart
+          <ArtScatterChart
             :data="[
               { value: [1, 3] },
               { value: [2, 4] },
@@ -67,14 +67,14 @@
           <div class="card-header">
             <span>环形图</span>
           </div>
-          <RingChart
+          <ArtRingChart
             :data="[
               { value: 30, name: '分类A' },
               { value: 25, name: '分类B' },
               { value: 45, name: '分类C' }
             ]"
             :color="['#4C87F3', '#93F1B4', '#8BD8FC']"
-          ></RingChart>
+          />
         </div>
       </el-col>
       <el-col :xs="24" :md="12" :lg="8">
@@ -82,7 +82,7 @@
           <div class="card-header">
             <span>饼图</span>
           </div>
-          <RingChart
+          <ArtRingChart
             :data="[
               { value: 30, name: '分类A' },
               { value: 25, name: '分类B' },
@@ -90,7 +90,7 @@
             ]"
             :color="['#4C87F3', '#93F1B4', '#8BD8FC']"
             :radius="['0%', '80%']"
-          ></RingChart>
+          />
         </div>
       </el-col>
       <el-col :xs="24" :md="12" :lg="8">
@@ -98,7 +98,7 @@
           <div class="card-header">
             <span>k线图</span>
           </div>
-          <KLineChart
+          <ArtKLineChart
             :data="[
               { time: '2024-01-01', open: 20, close: 23, high: 25, low: 18 },
               { time: '2024-01-02', open: 23, close: 21, high: 24, low: 20 },
@@ -112,7 +112,7 @@
           <div class="card-header">
             <span>雷达图</span>
           </div>
-          <RadarChart
+          <ArtRadarChart
             :indicator="[
               { name: '销售', max: 100 },
               { name: '管理', max: 100 },
@@ -139,7 +139,7 @@
           <div class="card-header">
             <span>柱状图（水平）</span>
           </div>
-          <HBarChart
+          <ArtHBarChart
             :data="[50, 80, 120, 90, 60]"
             :xAxisData="['产品A', '产品B', '产品C', '产品D', '产品E']"
           />

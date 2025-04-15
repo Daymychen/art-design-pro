@@ -24,7 +24,7 @@
         </el-row>
 
         <!-- 富文本编辑器 -->
-        <editor class="el-top" v-model="editorHtml"></editor>
+        <ArtWangEditor class="el-top" v-model="editorHtml" />
 
         <div class="form-wrap">
           <h2>发布设置</h2>

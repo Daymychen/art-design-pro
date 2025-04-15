@@ -1,5 +1,5 @@
 <template>
-  <BasicBanner
+  <ArtBasicBanner
     class="banner"
     :title="`欢迎回来 ${userInfo.username}`"
     :showButton="false"
@@ -23,7 +23,7 @@
         <p class="subtitle">较昨日</p>
       </div>
     </div>
-  </BasicBanner>
+  </ArtBasicBanner>
 </template>
 
 <script setup lang="ts">

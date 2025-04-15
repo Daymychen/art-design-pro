@@ -3,7 +3,7 @@
     <h1 class="page-title">统计卡片（文字）</h1>
     <el-row :gutter="20">
       <el-col :xs="24" :sm="12" :md="6" v-for="card in statsCards" :key="card.id">
-        <StatsCard
+        <ArtStatsCard
           :icon="card.icon"
           :title="card.title"
           :description="card.description"
@@ -18,7 +18,7 @@
     <h1 class="page-title">统计卡片（数字滚动）</h1>
     <el-row :gutter="20">
       <el-col :xs="24" :sm="12" :md="6" v-for="card in statsCards" :key="card.id">
-        <StatsCard
+        <ArtStatsCard
           :icon="card.icon"
           :count="card.count"
           :description="card.description"
@@ -33,7 +33,7 @@
     <h1 class="page-title">统计卡片（自定义样式）</h1>
     <el-row :gutter="20">
       <el-col :xs="24" :sm="12" :md="6" v-for="card in statsCards" :key="card.id">
-        <StatsCard
+        <ArtStatsCard
           :icon="card.icon"
           :title="card.title"
           :description="card.description"
@@ -48,14 +48,14 @@
     <h1 class="page-title">进度卡片</h1>
     <el-row :gutter="20">
       <el-col :xs="24" :sm="12" :md="6" v-for="card in progressCards" :key="card.id">
-        <ProgressCard :percentage="card.percentage" :title="card.title" :color="card.color" />
+        <ArtProgressCard :percentage="card.percentage" :title="card.title" :color="card.color" />
       </el-col>
     </el-row>
 
     <h1 class="page-title">进度卡片（icon）</h1>
     <el-row :gutter="20">
       <el-col :xs="24" :sm="12" :md="6" v-for="card in progressCards" :key="card.id">
-        <ProgressCard
+        <ArtProgressCard
           :percentage="card.percentage"
           :title="card.title"
           :color="card.color"
@@ -70,7 +70,7 @@
     <h1 class="page-title">图表卡片（小图表）</h1>
     <el-row :gutter="20">
       <el-col :xs="24" :sm="12" :md="6">
-        <LineChartCard
+        <ArtLineChartCard
           :isMiniChart="true"
           :value="2545"
           label="新用户"
@@ -81,7 +81,7 @@
         />
       </el-col>
       <el-col :xs="24" :sm="12" :md="6">
-        <BarChartCard
+        <ArtBarChartCard
           :isMiniChart="true"
           :value="15480"
           label="浏览量"
@@ -92,7 +92,7 @@
         />
       </el-col>
       <el-col :xs="24" :sm="12" :md="6">
-        <LineChartCard
+        <ArtLineChartCard
           :isMiniChart="true"
           :value="2545"
           label="粉丝数"
@@ -104,7 +104,7 @@
         />
       </el-col>
       <el-col :xs="24" :sm="12" :md="6">
-        <DonutChartCard
+        <ArtDonutChartCard
           :value="36358"
           title="粉丝量"
           :percentage="18"
@@ -120,7 +120,7 @@
     <h1 class="page-title">图表卡片（大图表）</h1>
     <el-row :gutter="20">
       <el-col :xs="24" :sm="12" :md="6">
-        <LineChartCard
+        <ArtLineChartCard
           :value="2545"
           label="新用户"
           :percentage="1.2"
@@ -129,7 +129,7 @@
         />
       </el-col>
       <el-col :xs="24" :sm="12" :md="6">
-        <BarChartCard
+        <ArtBarChartCard
           :value="15480"
           label="浏览量"
           :percentage="-4.15"
@@ -138,7 +138,7 @@
         />
       </el-col>
       <el-col :xs="24" :sm="12" :md="6">
-        <LineChartCard
+        <ArtLineChartCard
           :value="2545"
           label="粉丝数"
           :percentage="1.2"
@@ -148,7 +148,7 @@
         />
       </el-col>
       <el-col :xs="24" :sm="12" :md="6">
-        <DonutChartCard
+        <ArtDonutChartCard
           :value="36358"
           title="粉丝量"
           :percentage="18"
@@ -163,10 +163,10 @@
     <h1 class="page-title">数据列表卡片</h1>
     <el-row :gutter="20">
       <el-col :xs="24" :sm="12" :lg="8">
-        <DataListCard :list="dataList" title="待办事项" subtitle="今日待处理任务" />
+        <ArtDataListCard :list="dataList" title="待办事项" subtitle="今日待处理任务" />
       </el-col>
       <el-col :xs="24" :sm="12" :lg="8">
-        <DataListCard
+        <ArtDataListCard
           :maxCount="4"
           :list="dataList"
           title="最近活动"
@@ -176,14 +176,14 @@
         />
       </el-col>
       <el-col :xs="24" :sm="12" :lg="8">
-        <TimelineListCard :list="timelineData" title="最近交易" subtitle="2024年12月20日" />
+        <ArtTimelineListCard :list="timelineData" title="最近交易" subtitle="2024年12月20日" />
       </el-col>
     </el-row>
 
     <h1 class="page-title">图片卡片</h1>
     <el-row :gutter="20">
       <el-col :xs="24" :sm="12" :md="6" v-for="card in imageCards" :key="card.id">
-        <ImageCard
+        <ArtImageCard
           :imageUrl="card.imageUrl"
           :title="card.title"
           :category="card.category"

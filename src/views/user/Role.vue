@@ -30,7 +30,7 @@
         <el-table-column fixed="right" label="操作" width="100px">
           <template #default="scope">
             <el-row>
-              <button-more
+              <ArtButtonMore
                 :list="[
                   { key: 'permission', label: '菜单权限' },
                   { key: 'edit', label: '编辑角色' },
@@ -84,11 +84,11 @@
 </template>
 
 <script setup lang="ts">
-  import { ButtonMoreItem } from '@/components/Form/ButtonMore.vue'
   import { useMenuStore } from '@/store/modules/menu'
   import { ElMessage, ElMessageBox } from 'element-plus'
   import type { FormInstance, FormRules } from 'element-plus'
   import { formatMenuTitle } from '@/utils/menu'
+  import { ButtonMoreItem } from '@/components/core/forms/ArtButtonMore.vue'
 
   const dialogVisible = ref(false)
   const permissionDialog = ref(false)

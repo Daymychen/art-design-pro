@@ -3,11 +3,15 @@
     <div class="select">
       <div class="item">
         <h3>Unicode</h3>
-        <icon-selector :iconType="IconTypeEnum.UNICODE" @getIcon="getIcon" defaultIcon="&#xe6b5;" />
+        <ArtIconSelector
+          :iconType="IconTypeEnum.UNICODE"
+          @getIcon="getIcon"
+          defaultIcon="&#xe6b5;"
+        />
       </div>
       <div class="item">
         <h3>ClassName</h3>
-        <icon-selector
+        <ArtIconSelector
           :iconType="IconTypeEnum.CLASS_NAME"
           @getIcon="getIcon"
           width="260px"
@@ -16,7 +20,7 @@
       </div>
       <div class="item">
         <h3>禁用</h3>
-        <icon-selector
+        <ArtIconSelector
           :iconType="IconTypeEnum.CLASS_NAME"
           @getIcon="getIcon"
           width="260px"
@@ -29,7 +33,6 @@
 </template>
 
 <script setup lang="ts">
-  import IconSelector from '@comps/Icons/IconSelector.vue'
   import { IconTypeEnum } from '@/enums/appEnum'
 
   // 获取选择的图标

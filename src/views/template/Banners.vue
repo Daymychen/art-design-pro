@@ -3,7 +3,7 @@
     <h1 class="page-title">基础横幅</h1>
     <el-row :gutter="20">
       <el-col :xs="24" :sm="12" :md="12">
-        <BasicBanner
+        <ArtBasicBanner
           title="欢迎回来，管理员！"
           subtitle="今日系统访问量增长了23%，运行状态良好。"
           buttonText="查看详情"
@@ -13,7 +13,7 @@
         />
       </el-col>
       <el-col :xs="24" :sm="12" :md="12">
-        <BasicBanner
+        <ArtBasicBanner
           title="欢迎使用本系统!"
           subtitle="这是一个基于Vue3和Element Plus的后台管理系统模板。"
           buttonText="开始使用"
@@ -30,7 +30,7 @@
     <h1 class="page-title">基础横幅（图片）</h1>
     <el-row :gutter="20">
       <el-col :xs="24" :sm="12" :md="12">
-        <BasicBanner
+        <ArtBasicBanner
           title="欢迎回来，管理员！"
           subtitle="今日系统访问量增长了23%，运行状态良好。"
           buttonText="查看详情"
@@ -42,7 +42,7 @@
         />
       </el-col>
       <el-col :xs="24" :sm="12" :md="12">
-        <BasicBanner
+        <ArtBasicBanner
           title="欢迎使用本系统!"
           subtitle="这是一个基于Vue3和Element Plus的后台管理系统模板。"
           buttonText="开始使用"
@@ -58,14 +58,14 @@
     <h1 class="page-title">卡片横幅</h1>
     <el-row :gutter="20">
       <el-col :xs="24" :sm="12" :md="12" :lg="6">
-        <CardBanner
+        <ArtCardBanner
           title="系统状态良好"
           description="所有服务运行正常，无异常情况。"
           buttonText="查看详情"
         />
       </el-col>
       <el-col :xs="24" :sm="12" :md="12" :lg="6">
-        <CardBanner
+        <ArtCardBanner
           :icon="icon2"
           title="新消息提醒"
           description="您有3条未读消息需要处理。"
@@ -74,7 +74,7 @@
         />
       </el-col>
       <el-col :xs="24" :sm="12" :md="12" :lg="6">
-        <CardBanner
+        <ArtCardBanner
           :icon="icon3"
           title="数据分析报告"
           description="本周数据分析报告已生成完毕。"
@@ -83,7 +83,7 @@
         />
       </el-col>
       <el-col :xs="24" :sm="12" :md="12" :lg="6">
-        <CardBanner
+        <ArtCardBanner
           :icon="icon4"
           title="系统更新提示"
           description="新版本V2.1.0已发布，建议及时更新。"

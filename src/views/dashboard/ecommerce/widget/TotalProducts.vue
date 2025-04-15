@@ -4,7 +4,7 @@
       <p class="title" style="font-size: 24px">55,231</p>
       <p class="subtitle">商品总数</p>
     </div>
-    <BarChart
+    <ArtBarChart
       :showAxisLabel="false"
       :showAxisLine="false"
       :showSplitLine="false"

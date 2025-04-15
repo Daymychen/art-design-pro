@@ -1,6 +1,6 @@
 <template>
   <div class="page-content">
-    <CutterImg
+    <ArtCutterImg
       style="margin-top: 20px"
       v-model:imgUrl="imageUrl"
       :boxWidth="540"

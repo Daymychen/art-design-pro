@@ -7,7 +7,7 @@
       <p class="subtitle">销售量</p>
     </div>
 
-    <BarChart
+    <ArtBarChart
       :showAxisLabel="false"
       :showAxisLine="false"
       :showSplitLine="false"

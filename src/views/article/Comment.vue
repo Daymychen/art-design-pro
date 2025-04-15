@@ -48,7 +48,7 @@
           </div>
 
           <!-- 评论组件 -->
-          <CommentWidget></CommentWidget>
+          <CommentWidget />
         </div>
       </template>
       <template #footer>

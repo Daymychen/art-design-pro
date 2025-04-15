@@ -1,6 +1,6 @@
 <template>
   <div class="page-content">
-    <table-bar
+    <art-table-bar
       :showTop="false"
       @search="search"
       @reset="resetForm(searchFormRef)"
@@ -10,15 +10,15 @@
       <template #top>
         <el-form :model="searchForm" ref="searchFormRef" label-width="82px">
           <el-row :gutter="20">
-            <form-input label="用户名" prop="name" v-model="searchForm.name" />
-            <form-input label="手机号" prop="phone" v-model="searchForm.phone" />
-            <form-input label="邮箱" prop="email" v-model="searchForm.email" />
-            <form-input label="账号" prop="account" v-model="searchForm.account" />
+            <ArtFormInput label="用户名" prop="name" v-model="searchForm.name" />
+            <ArtFormInput label="手机号" prop="phone" v-model="searchForm.phone" />
+            <ArtFormInput label="邮箱" prop="email" v-model="searchForm.email" />
+            <ArtFormInput label="账号" prop="account" v-model="searchForm.account" />
           </el-row>
           <el-row :gutter="20">
-            <form-input label="用户ID" prop="id" v-model="searchForm.id" />
-            <form-select label="性别" prop="sex" v-model="searchForm.sex" :options="sexOptions" />
-            <form-select
+            <ArtFormInput label="用户ID" prop="id" v-model="searchForm.id" />
+            <ArtFormSelect label="性别" prop="sex" v-model="searchForm.sex" :options="sexOptions" />
+            <ArtFormSelect
               label="会员等级"
               prop="level"
               v-model="searchForm.level"
@@ -30,7 +30,7 @@
       <template #bottom>
         <el-button @click="showDialog('add')" v-ripple>添加用户</el-button>
       </template>
-    </table-bar>
+    </art-table-bar>
 
     <art-table :data="tableData" selection :currentPage="1" :pageSize="10" :total="50">
       <template #default>
@@ -76,8 +76,8 @@
         <el-table-column label="创建日期" prop="create_time" sortable v-if="columns[5].show" />
         <el-table-column fixed="right" label="操作" width="150px">
           <template #default="scope">
-            <button-table type="edit" @click="showDialog('edit', scope.row)" />
-            <button-table type="delete" @click="deleteUser" />
+            <ArtButtonTable type="edit" @click="showDialog('edit', scope.row)" />
+            <ArtButtonTable type="delete" @click="deleteUser" />
           </template>
         </el-table-column>
       </template>

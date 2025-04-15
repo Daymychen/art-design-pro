@@ -4,7 +4,7 @@
       <h1>{{ articleTitle }}</h1>
       <div class="markdown-body" v-highlight v-html="articleHtml"></div>
     </div>
-    <BackToTop />
+    <ArtBackToTop />
   </div>
 </template>
 
@@ -13,7 +13,6 @@
   import '@/assets/styles/one-dark-pro.scss'
   import { useCommon } from '@/composables/useCommon'
   import { ApiStatus } from '@/utils/http/status'
-  import BackToTop from '@comps/Widgets/BackToTop.vue'
   import axios from 'axios'
 
   // import 'highlight.js/styles/atom-one-dark.css';

@@ -1,5 +1,5 @@
 <template>
-  <LineChartCard
+  <ArtLineChartCard
     class="margin-bottom-0"
     :value="2545"
     label="购物车转化率"

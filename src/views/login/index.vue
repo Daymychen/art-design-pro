@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <div class="left-wrap">
-      <left-view></left-view>
+      <LoginLeftView></LoginLeftView>
     </div>
     <div class="right-wrap">
       <div class="top-right-wrap">
@@ -65,7 +65,7 @@
             </el-form-item>
             <div class="drag-verify">
               <div class="drag-verify-content" :class="{ error: !isPassing && isClickPass }">
-                <DragVerify
+                <ArtDragVerify
                   ref="dragVerify"
                   v-model:value="isPassing"
                   :width="width < 500 ? 328 : 438"
@@ -117,7 +117,6 @@
 </template>
 
 <script setup lang="ts">
-  import LeftView from '@/components/Pages/Login/LeftView.vue'
   import AppConfig from '@/config'
   import { ElMessage, ElNotification } from 'element-plus'
   import { useUserStore } from '@/store/modules/user'

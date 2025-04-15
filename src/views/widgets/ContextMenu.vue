@@ -1,12 +1,12 @@
 <template>
   <div class="page-content">
     <el-button @contextmenu.prevent="(e: MouseEvent) => showMenu(e)">右键触发菜单</el-button>
-    <MenuRight ref="menuRef" :menu-items="menuItems" @select="handleSelect" />
+    <ArtMenuRight ref="menuRef" :menu-items="menuItems" @select="handleSelect" />
   </div>
 </template>
 
 <script setup lang="ts">
-  import MenuRight, { MenuItemType } from '@/components/Widgets/MenuRight.vue'
+  import { MenuItemType } from '@/components/core/others/ArtMenuRight.vue'
   import { ref } from 'vue'
 
   const menuRef = ref()

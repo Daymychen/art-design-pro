@@ -48,7 +48,7 @@ html.dark {
     h5,
     h6,
     .lang .btn,
-    .top-bar .user .name,
+    .layout-top-bar .user .name,
     .dark-text {
       color: $font-color !important;
     }
@@ -72,7 +72,7 @@ html.dark {
   }
 
   // ✅ 左侧菜单样式
-  .menu-left,
+  .layout-sidebar,
   .dual-menu {
     .el-menu-dark {
       // 选中颜色
@@ -184,7 +184,7 @@ html.dark {
   }
 
   // 顶部按钮文字颜色
-  .top-bar .btn-box .btn i,
+  .layout-top-bar .btn-box .btn i,
   .fast-enter-trigger .btn i {
     color: var(--art-text-gray-700) !important;
   }
@@ -207,7 +207,7 @@ html.dark {
       h5,
       h6,
       .lang .btn,
-      .top-bar .user .name {
+      .layout-top-bar .user .name {
         color: $font-color !important;
       }
     }

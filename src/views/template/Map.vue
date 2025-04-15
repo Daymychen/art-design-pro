@@ -1,6 +1,6 @@
 <template>
   <div class="page-content" v-loading="loading" element-loading-text="加载中...">
-    <MapChart @onRenderComplete="onLoaded" />
+    <ArtMapChart @onRenderComplete="onLoaded" />
   </div>
 </template>
 
@@ -12,7 +12,7 @@
     loading.value = false
   }
 
-  const MapChart = defineAsyncComponent(() => import('@/components/Widgets/Charts/MapChart.vue'))
+  const ArtMapChart = defineAsyncComponent(() => import('@/components/core/charts/ArtMapChart.vue'))
 </script>
 
 <style lang="scss" scoped>

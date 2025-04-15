@@ -40,9 +40,9 @@
 
         <el-table-column fixed="right" label="操作" width="180">
           <template #default="scope">
-            <button-table type="add" v-auth="'add'" @click="showModel('menu')" />
-            <button-table type="edit" v-auth="'edit'" @click="showDialog('edit', scope.row)" />
-            <button-table type="delete" v-auth="'delete'" @click="deleteMenu" />
+            <ArtButtonTable type="add" v-auth="'add'" @click="showModel('menu')" />
+            <ArtButtonTable type="edit" v-auth="'edit'" @click="showDialog('edit', scope.row)" />
+            <ArtButtonTable type="delete" v-auth="'delete'" @click="deleteMenu" />
           </template>
         </el-table-column>
       </template>
@@ -78,7 +78,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="图标" prop="icon">
-                <icon-selector :iconType="iconType" :defaultIcon="form.icon" width="229px" />
+                <ArtIconSelector :iconType="iconType" :defaultIcon="form.icon" width="229px" />
               </el-form-item>
             </el-col>
           </el-row>

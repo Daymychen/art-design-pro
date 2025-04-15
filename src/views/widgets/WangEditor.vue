@@ -1,6 +1,6 @@
 <template>
   <div class="page-content">
-    <Editor v-model="editorHtml" />
+    <ArtWangEditor v-model="editorHtml" />
   </div>
 </template>
 

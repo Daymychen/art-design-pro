@@ -4,7 +4,7 @@
       <p class="title">热销商品</p>
       <p class="subtitle">本周销售排行</p>
     </div>
-    <LineChart
+    <ArtLineChart
       :showAxisLabel="false"
       :showAxisLine="false"
       :showSplitLine="false"
