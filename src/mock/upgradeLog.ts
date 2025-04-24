@@ -2,6 +2,13 @@
 
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.59',
+    title: '修复富文本编辑器样式问题、修复顶部菜单 isHide 未生效 bug',
+    date: '2025-04-24',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v2.2.58',
     title: '系统组件库文件分类优化和文件名称优化',
     date: '2025-04-15',

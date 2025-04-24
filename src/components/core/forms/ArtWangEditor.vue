@@ -197,17 +197,22 @@
 </script>
 
 <style lang="scss">
+  $box-radius: calc(var(--custom-radius) / 2 + 2px);
+
   /* 编辑器容器 */
   .editor-wrapper {
     z-index: 5000;
     width: 100%;
     height: 100%;
-    overflow: hidden;
     border: 1px solid rgba(var(--art-gray-300-rgb), 0.8);
-    border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
+    border-radius: $box-radius !important;
 
     .iconfont-sys {
       font-size: 20px !important;
+    }
+
+    .w-e-bar {
+      border-radius: $box-radius $box-radius 0 0 !important;
     }
 
     .menu-item {
