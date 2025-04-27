@@ -2,6 +2,13 @@
 
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.63',
+    title: 'el-tree-select 样式优化',
+    date: '2025-04-27',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v2.2.62',
     title: '优化聊天窗口滚动体验',
     date: '2025-04-27',
