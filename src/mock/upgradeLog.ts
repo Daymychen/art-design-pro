@@ -2,6 +2,13 @@
 
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.60',
+    title: '修复移动端图标选择器显示问题',
+    date: '2025-04-27',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v2.2.59',
     title: '修复富文本编辑器样式问题、修复顶部菜单 isHide 未生效 bug',
     date: '2025-04-24',

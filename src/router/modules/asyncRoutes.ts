@@ -52,8 +52,7 @@ export const asyncRoutes: MenuListType[] = [
         component: RoutesAlias.Ecommerce,
         meta: {
           title: 'menus.dashboard.ecommerce',
-          keepAlive: true,
-          showTextBadge: 'new'
+          keepAlive: true
         }
       }
     ]
