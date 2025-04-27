@@ -134,6 +134,8 @@
   const settingStore = useSettingStore()
   const { isDark, systemThemeType } = storeToRefs(settingStore)
 
+  const dragVerify = ref()
+
   const userStore = useUserStore()
   const router = useRouter()
   const isPassing = ref(false)
@@ -200,6 +202,7 @@
             router.push(HOME_PAGE)
           } else {
             ElMessage.error(res.message)
+            resetDragVerify()
           }
         } finally {
           await delay(1000)
@@ -207,6 +210,11 @@
         }
       }
     })
+  }
+
+  // 重置拖拽验证
+  const resetDragVerify = () => {
+    dragVerify.value.reset()
   }
 
   // 登录成功提示

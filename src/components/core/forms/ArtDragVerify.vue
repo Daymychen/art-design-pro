@@ -199,11 +199,15 @@
   }
   const reset = () => {
     handler.value.style.left = '0'
-    progressBar.value.valueFormat.style.width = '0'
-    handler.value.children[0].type = props.handlerIcon
+    progressBar.value.style.width = '0'
+    handler.value.children[0].innerHTML = props.handlerIcon
     messageRef.value.style['-webkit-text-fill-color'] = 'transparent'
     messageRef.value.style.animation = 'slidetounlock 3s infinite'
     messageRef.value.style.color = props.background
+    emit('update:value', false)
+    state.isOk = false
+    state.isMoving = false
+    state.x = 0
   }
   defineExpose({
     reset
