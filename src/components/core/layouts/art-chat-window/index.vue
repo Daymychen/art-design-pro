@@ -259,7 +259,7 @@
   .chat-container {
     display: flex;
     flex-direction: column;
-    height: calc(100% - 40px);
+    height: calc(100% - 70px);
 
     .chat-messages {
       flex: 1;
@@ -350,7 +350,7 @@
     }
 
     .chat-input {
-      padding: 16px; // 增加填充以提升输入区域的布局
+      padding: 16px 16px 0;
 
       .input-actions {
         display: flex;
