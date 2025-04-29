@@ -1,40 +1,42 @@
 <!-- 表格组件，带分页（默认分页大于一页时显示） -->
 <template>
-  <div class="art-table" :class="{ 'header-background': showHeaderBackground }">
-    <el-table
-      v-loading="loading"
-      :data="tableData"
-      :row-key="rowKey"
-      :border="border"
-      :stripe="stripe"
-      :height="height"
-      :max-height="maxHeight"
-      :show-header="showHeader"
-      :highlight-current-row="highlightCurrentRow"
-      @selection-change="handleSelectionChange"
-      @row-click="handleRowClick"
-    >
-      <!-- 选择列 -->
-      <el-table-column v-if="selection" type="selection" width="55" align="center" fixed="left" />
+  <div
+    class="art-table"
+    :class="{ 'header-background': showHeaderBackground }"
+    :style="{ marginTop: marginTop + 'px' }"
+  >
+    <div class="table-container">
+      <el-table
+        v-loading="loading"
+        :data="tableData"
+        :row-key="rowKey"
+        :border="border"
+        :stripe="stripe"
+        :height="height"
+        :max-height="maxHeight"
+        :show-header="showHeader"
+        :highlight-current-row="highlightCurrentRow"
+        @row-click="handleRowClick"
+      >
+        <!-- 序号列 -->
+        <el-table-column
+          v-if="index"
+          type="index"
+          width="60"
+          label="序号"
+          align="center"
+          fixed="left"
+        />
 
-      <!-- 序号列 -->
-      <el-table-column
-        v-if="index"
-        type="index"
-        width="60"
-        label="序号"
-        align="center"
-        fixed="left"
-      />
+        <!-- 动态列 -->
+        <slot></slot>
 
-      <!-- 动态列 -->
-      <slot></slot>
-
-      <!-- 空数据 -->
-      <template #empty>
-        <el-empty :description="emptyText" />
-      </template>
-    </el-table>
+        <!-- 空数据 -->
+        <template #empty>
+          <el-empty :description="emptyText" v-show="!loading" />
+        </template>
+      </el-table>
+    </div>
 
     <!-- 分页 -->
     <div v-if="pagination" class="table-pagination" :class="paginationAlign">
@@ -66,8 +68,6 @@
     border?: boolean
     /** 是否使用斑马纹样式 */
     stripe?: boolean
-    /** 是否显示多选列 */
-    selection?: boolean
     /** 是否显示序号列 */
     index?: boolean
     /** 表格高度，可以是数字或 CSS 值 */
@@ -100,6 +100,8 @@
     paginationLayout?: string
     /** 是否显示表头背景色 */
     showHeaderBackground?: boolean
+    /** 表格距离顶部距离 */
+    marginTop?: number
   }
 
   const props = withDefaults(defineProps<TableProps>(), {
@@ -108,8 +110,8 @@
     rowKey: 'id',
     border: false,
     stripe: false,
-    selection: false,
     index: false,
+    height: '100%',
     showHeader: true,
     highlightCurrentRow: false,
     emptyText: '暂无数据',
@@ -122,20 +124,25 @@
     paginationAlign: 'center',
     paginationSize: 'default',
     paginationLayout: 'total, sizes, prev, pager, next, jumper',
-    showHeaderBackground: false
+    showHeaderBackground: false,
+    marginTop: 20
   })
 
   const emit = defineEmits([
     'update:currentPage',
     'update:pageSize',
-    'selection-change',
     'row-click',
     'size-change',
     'current-change'
   ])
 
   // 表格数据
-  const tableData = computed(() => props.data)
+  const tableData = computed(() => {
+    if (!props.pagination) return props.data
+    const start = (props.currentPage - 1) * props.pageSize
+    const end = start + props.pageSize
+    return props.data.slice(start, end)
+  })
 
   // 当前页
   const currentPage = computed({
@@ -148,11 +155,6 @@
     get: () => props.pageSize,
     set: (val) => emit('update:pageSize', val)
   })
-
-  // 选择项改变
-  const handleSelectionChange = (selection: any[]) => {
-    emit('selection-change', selection)
-  }
 
   // 行点击事件
   const handleRowClick = (row: any, column: any, event: any) => {
@@ -172,7 +174,11 @@
 
 <style lang="scss" scoped>
   .art-table {
-    margin-top: 20px;
+    height: calc(100% - 90px);
+
+    .table-container {
+      height: 100%;
+    }
 
     .table-pagination {
       display: flex;

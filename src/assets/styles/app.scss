@@ -134,3 +134,36 @@ body {
   touch-action: none; /* 禁用触摸事件 */
   overflow-x: hidden; /* 禁用横向滚动 */
 }
+
+// 元素全屏
+.el-full-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 500;
+  margin-top: 0;
+  padding: 15px;
+  box-sizing: border-box;
+  background-color: var(--art-main-bg-color);
+
+  .art-table-full-screen {
+    height: 100% !important;
+  }
+}
+
+// 表格卡片
+.art-table-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+  border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
+
+  .el-card__body {
+    height: 100%;
+    overflow: hidden;
+  }
+}
