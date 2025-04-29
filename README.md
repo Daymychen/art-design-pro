@@ -86,3 +86,53 @@ QQ群：<a href="https://qm.qq.com/cgi-bin/qm/qr?k=Gg6yzZLFaNgmRhK0T5Qcjf7-XcAFW
 如果我的项目对你有所帮助，欢迎捐赠支持！你的支持将用于购买 ChatGPT、Cursor 等工具，以提升开发效率，让项目变得更好。感谢你的鼓励与支持！
 
 ![捐赠二维码](https://www.qiniu.lingchen.kim/%E7%BB%84%202%402x%202.png)
+
+## 后端API集成
+
+本项目已集成Easy Cloud后端API，主要集成了以下功能：
+
+- 用户登录/注销
+- 获取用户信息
+- 用户名/手机号检查
+
+### 后端API配置
+
+项目使用统一的API配置管理方式，支持微服务架构，配置文件位于：
+
+- `/src/config/env/api-config.ts`: API网关和服务配置
+- `/src/api/config/apiConfig.ts`: API接口路径配置
+
+可以通过修改这些配置文件，轻松适配不同的微服务架构和API路径。
+
+#### 配置API网关
+
+在 `api-config.ts` 文件中配置API网关地址：
+
+```typescript
+// 开发环境API配置
+const developmentApiConfig: ApiConfig = {
+  gateway: 'http://localhost:8000', // 修改为你的API网关地址
+  enableGateway: true,
+  services: {
+    enableServicePrefix: true
+  }
+}
+```
+
+#### 使用API接口
+
+所有API路径都在 `apiConfig.ts` 中统一定义，使用时直接引用：
+
+```typescript
+import { AuthApi } from '@/api/config/apiConfig'
+
+// 调用登录接口
+const response = await api.post({
+  url: AuthApi.LOGIN,
+  data: { username, password }
+})
+```
+
+### 开发环境模拟数据
+
+开发环境下默认使用模拟数据，可通过设置 `VITE_USE_MOCK=false` 关闭模拟数据，直接连接后端API。

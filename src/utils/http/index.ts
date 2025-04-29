@@ -2,11 +2,13 @@ import axios, { InternalAxiosRequestConfig, AxiosRequestConfig, AxiosResponse } 
 import { ElMessage } from 'element-plus'
 import { useUserStore } from '@/store/modules/user'
 import EmojiText from '../emojo'
+import AppConfig from '@/config'
+import { getBaseApiUrl } from '@/config/env/api-config'
 
 const axiosInstance = axios.create({
   timeout: 15000, // 请求超时时间(毫秒)
-  baseURL: import.meta.env.VITE_API_URL, // API地址
-  withCredentials: true, // 异步请求携带cookie
+  baseURL: getBaseApiUrl() || AppConfig.apiBaseUrl || import.meta.env.VITE_API_URL, // API地址
+  withCredentials: true, // 异步是否请求携带cookie
   transformRequest: [(data) => JSON.stringify(data)], // 请求数据转换为 JSON 字符串
   validateStatus: (status) => status >= 200 && status < 300, // 只接受 2xx 的状态码
   headers: {
@@ -32,7 +34,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (request: InternalAxiosRequestConfig) => {
     const { accessToken } = useUserStore()
-
+    console.log('accessToken', accessToken)
     // 如果 token 存在，则设置请求头
     if (accessToken) {
       request.headers.set({

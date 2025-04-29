@@ -25,6 +25,8 @@ export interface SystemConfig {
     name: string
     login: { username: string; password: string }
   }
+  useMock?: boolean // 是否使用模拟数据
+  apiBaseUrl?: string // API基础URL
   systemThemeStyles: SystemThemeTypes
   settingThemeList: ThemeSetting[]
   menuLayoutList: MenuLayout[]

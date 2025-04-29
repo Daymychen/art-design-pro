@@ -12,6 +12,8 @@ export const createBaseConfig = (): SystemConfig => ({
       password: '123456'
     }
   },
+  // 是否使用模拟数据
+  useMock: process.env.NODE_ENV === 'development',
   // Element Plus 主题
   elementPlusTheme: {
     primary: '#5D87FF'
