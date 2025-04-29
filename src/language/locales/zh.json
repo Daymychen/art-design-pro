@@ -15,7 +15,9 @@
     "tips": "提示",
     "cancel": "取消",
     "confirm": "确定",
-    "logOutTips": "您是否要退出登录?"
+    "logOutTips": "您是否要退出登录?",
+    "loggingOut": "正在退出登录...",
+    "logOutFailed": "退出登录失败，请重试"
   },
   "search": {
     "placeholder": "搜索页面",

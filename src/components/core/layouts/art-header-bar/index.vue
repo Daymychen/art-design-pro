@@ -190,7 +190,7 @@
   import { useSettingStore } from '@/store/modules/setting'
   import { useUserStore } from '@/store/modules/user'
   import { useFullscreen } from '@vueuse/core'
-  import { ElMessageBox } from 'element-plus'
+  import { ElMessageBox, ElMessage } from 'element-plus'
   import { HOME_PAGE } from '@/router'
   import { useI18n } from 'vue-i18n'
   import mittBus from '@/utils/mittBus'
@@ -300,9 +300,25 @@
         confirmButtonText: t('common.confirm'),
         cancelButtonText: t('common.cancel'),
         customClass: 'login-out-dialog'
-      }).then(() => {
-        userStore.logOut()
       })
+        .then(async () => {
+          try {
+            ElMessage.info({
+              message: t('common.loggingOut'),
+              duration: 1000
+            })
+            await userStore.logOut()
+          } catch (error) {
+            console.error('退出登录失败', error)
+            ElMessage.error({
+              message: t('common.logOutFailed'),
+              duration: 2000
+            })
+          }
+        })
+        .catch(() => {
+          // 取消登出操作，不做任何处理
+        })
     }, 200)
   }
 

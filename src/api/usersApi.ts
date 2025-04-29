@@ -8,13 +8,6 @@ import api from '@/utils/http'
 import { adaptLoginResponse, adaptUserInfoResponse } from './adapter/authAdapter'
 import { AuthApi } from './config/apiConfig'
 
-// 定义API响应类型
-interface ApiResponse {
-  code?: number
-  message?: string
-  data?: any
-}
-
 export class UserService {
   // 用户登录接口
   static async login(options: { body: string }): Promise<BaseResult> {
@@ -49,7 +42,7 @@ export class UserService {
 
     // 生产环境调用真实接口
     try {
-      const response = await api.post<ApiResponse>({
+      const response = await api.post<BaseResult>({
         url: AuthApi.LOGIN,
         data: {
           username: bodyData.username,
@@ -90,7 +83,7 @@ export class UserService {
 
     // 生产环境调用真实接口
     try {
-      const response = await api.get<ApiResponse>({
+      const response = await api.get<BaseResult>({
         url: AuthApi.USER_INFO
       })
 
@@ -121,7 +114,7 @@ export class UserService {
 
     // 生产环境调用真实接口
     try {
-      const response = await api.post<ApiResponse>({
+      const response = await api.post<BaseResult>({
         url: AuthApi.LOGOUT
       })
 
@@ -155,7 +148,7 @@ export class UserService {
 
     // 生产环境调用真实接口
     try {
-      const response = await api.get<ApiResponse>({
+      const response = await api.get<BaseResult>({
         url: AuthApi.CHECK_USERNAME,
         params: { username }
       })
@@ -190,7 +183,7 @@ export class UserService {
 
     // 生产环境调用真实接口
     try {
-      const response = await api.get<ApiResponse>({
+      const response = await api.get<BaseResult>({
         url: AuthApi.CHECK_MOBILE,
         params: { mobile }
       })

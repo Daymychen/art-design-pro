@@ -7,6 +7,7 @@ import { useSettingStore } from './setting'
 import { useWorktabStore } from './worktab'
 import { getSysStorage } from '@/utils/storage'
 import { MenuListType } from '@/types/menu'
+import { UserService } from '@/api/usersApi'
 
 // 用户
 export const useUserStore = defineStore('userStore', () => {
@@ -99,20 +100,44 @@ export const useUserStore = defineStore('userStore', () => {
     saveUserData()
   }
 
-  const logOut = () => {
-    setTimeout(() => {
-      info.value = {}
-      isLogin.value = false
-      isLock.value = false
-      lockPassword.value = ''
-      accessToken.value = ''
-      refreshToken.value = ''
-      sessionStorage.removeItem('accessToken')
-      useWorktabStore().opened = []
-      saveUserData()
-      sessionStorage.removeItem('iframeRoutes')
-      router.push('/login')
-    }, 300)
+  const logOut = async () => {
+    try {
+      // 调用登出接口
+      const { code } = await UserService.logout()
+
+      // 只有在登出接口调用成功后，才清除前端状态
+      if (code === 200) {
+        setTimeout(() => {
+          info.value = {}
+          isLogin.value = false
+          isLock.value = false
+          lockPassword.value = ''
+          accessToken.value = ''
+          refreshToken.value = ''
+          sessionStorage.removeItem('accessToken')
+          useWorktabStore().opened = []
+          saveUserData()
+          sessionStorage.removeItem('iframeRoutes')
+          router.push('/login')
+        }, 300)
+      }
+    } catch (error) {
+      console.error('登出请求失败', error)
+      // 即使请求失败，也要尝试清除本地状态
+      setTimeout(() => {
+        info.value = {}
+        isLogin.value = false
+        isLock.value = false
+        lockPassword.value = ''
+        accessToken.value = ''
+        refreshToken.value = ''
+        sessionStorage.removeItem('accessToken')
+        useWorktabStore().opened = []
+        saveUserData()
+        sessionStorage.removeItem('iframeRoutes')
+        router.push('/login')
+      }, 300)
+    }
   }
 
   return {

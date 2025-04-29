@@ -15,7 +15,9 @@
     "tips": "Prompt",
     "cancel": "Cancel",
     "confirm": "Confirm",
-    "logOutTips": "Do you want to log out?"
+    "logOutTips": "Are you sure to log out?",
+    "loggingOut": "Logging out...",
+    "logOutFailed": "Logout failed, please try again"
   },
   "search": {
     "placeholder": "Search page",
