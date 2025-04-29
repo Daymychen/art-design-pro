@@ -75,7 +75,12 @@ export class UserService {
             name: '张三',
             username: 'John Snow',
             avatar: avatar,
-            email: 'art.design@gmail.com'
+            email: 'art.design@gmail.com',
+            mobile: '13800138000',
+            gender: 1,
+            status: 1,
+            roles: ['admin', 'user'],
+            permissions: ['system:view', 'user:add', 'user:edit', 'user:delete']
           }
         })
       })
@@ -198,6 +203,79 @@ export class UserService {
       return {
         code: 500,
         message: '检查手机号失败，请检查网络连接',
+        data: false
+      }
+    }
+  }
+
+  // 更新用户信息
+  static async updateUserInfo(userInfo: Partial<UserInfo>): Promise<BaseResult<UserInfo>> {
+    // 开发环境使用模拟数据
+    if (import.meta.env.MODE === 'development' && AppConfig.useMock) {
+      return new Promise((resolve) => {
+        resolve({
+          code: 200,
+          message: '更新用户信息成功',
+          data: {
+            ...userInfo,
+            id: userInfo.id || 1
+          } as UserInfo
+        })
+      })
+    }
+
+    // 生产环境调用真实接口
+    try {
+      const response = await api.post<BaseResult>({
+        url: AuthApi.UPDATE_USER_INFO,
+        data: userInfo
+      })
+
+      // 使用适配器处理响应
+      return adaptUserInfoResponse(response)
+    } catch (error) {
+      console.error('更新用户信息失败', error)
+      return {
+        code: 500,
+        message: '更新用户信息失败，请检查网络连接',
+        data: null as any
+      }
+    }
+  }
+
+  // 修改密码
+  static async updatePassword(params: {
+    oldPassword: string
+    newPassword: string
+  }): Promise<BaseResult<boolean>> {
+    // 开发环境使用模拟数据
+    if (import.meta.env.MODE === 'development' && AppConfig.useMock) {
+      return new Promise((resolve) => {
+        resolve({
+          code: 200,
+          message: '修改密码成功',
+          data: true
+        })
+      })
+    }
+
+    // 生产环境调用真实接口
+    try {
+      const response = await api.post<BaseResult>({
+        url: AuthApi.UPDATE_PASSWORD,
+        data: params
+      })
+
+      return {
+        code: response.code || 200,
+        message: response.message || '修改密码成功',
+        data: response.code === 200
+      }
+    } catch (error) {
+      console.error('修改密码失败', error)
+      return {
+        code: 500,
+        message: '修改密码失败，请检查网络连接',
         data: false
       }
     }

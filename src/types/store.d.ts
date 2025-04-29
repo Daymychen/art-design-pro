@@ -7,6 +7,11 @@ export interface UserInfo {
   username: string
   avatar: string
   email: string
+  mobile?: string // 手机号
+  gender?: number // 性别：0-未知，1-男，2-女
+  status?: number // 状态：0-禁用，1-正常
+  roles?: string[] // 角色列表
+  permissions?: string[] // 权限列表
 }
 
 // 系统主题样式（light | dark）

@@ -11,7 +11,7 @@
           <div class="outer-info">
             <div>
               <i class="iconfont-sys">&#xe72e;</i>
-              <span>jdkjjfnndf@mall.com</span>
+              <span>{{ userInfo.email || '-' }}</span>
             </div>
             <div>
               <i class="iconfont-sys">&#xe608;</i>
@@ -107,7 +107,14 @@
         <div class="info box-style" style="margin-top: 20px">
           <h1 class="title">更改密码</h1>
 
-          <el-form :model="pwdForm" class="form" label-width="86px" label-position="top">
+          <el-form
+            :model="pwdForm"
+            class="form"
+            label-width="86px"
+            label-position="top"
+            ref="pwdFormRef"
+            :rules="pwdRules"
+          >
             <el-form-item label="当前密码" prop="password">
               <el-input v-model="pwdForm.password" type="password" :disabled="!isEditPwd" />
             </el-form-item>
@@ -135,6 +142,9 @@
 <script setup lang="ts">
   import { useUserStore } from '@/store/modules/user'
   import { FormInstance, FormRules } from 'element-plus'
+  import { ElMessage } from 'element-plus'
+  import { UserService } from '@/api/usersApi'
+  import { ApiStatus } from '@/utils/http/status'
 
   const userStore = useUserStore()
   const userInfo = computed(() => userStore.getUserInfo)
@@ -143,22 +153,23 @@
   const isEditPwd = ref(false)
   const date = ref('')
   const form = reactive({
-    realName: 'John Snow',
-    nikeName: '皮卡丘',
-    email: '59301283@mall.com',
-    mobile: '18888888888',
-    address: '广东省深圳市宝安区西乡街道101栋201',
+    realName: '',
+    nikeName: '',
+    email: '',
+    mobile: '',
+    address: '',
     sex: '2',
-    des: 'Art Design Pro 是一款漂亮的后台管理系统模版.'
+    des: ''
   })
 
   const pwdForm = reactive({
-    password: '123456',
-    newPassword: '123456',
-    confirmPassword: '123456'
+    password: '',
+    newPassword: '',
+    confirmPassword: ''
   })
 
   const ruleFormRef = ref<FormInstance>()
+  const pwdFormRef = ref<FormInstance>()
 
   const rules = reactive<FormRules>({
     realName: [
@@ -175,7 +186,36 @@
     sex: [{ type: 'array', required: true, message: '请选择性别', trigger: 'blur' }]
   })
 
+  const pwdRules = reactive<FormRules>({
+    password: [
+      { required: true, message: '请输入当前密码', trigger: 'blur' },
+      { min: 6, max: 20, message: '密码长度应在6-20之间', trigger: 'blur' }
+    ],
+    newPassword: [
+      { required: true, message: '请输入新密码', trigger: 'blur' },
+      { min: 6, max: 20, message: '密码长度应在6-20之间', trigger: 'blur' }
+    ],
+    confirmPassword: [
+      { required: true, message: '请确认新密码', trigger: 'blur' },
+      { min: 6, max: 20, message: '密码长度应在6-20之间', trigger: 'blur' },
+      {
+        validator: (rule, value, callback) => {
+          if (value !== pwdForm.newPassword) {
+            callback(new Error('两次输入的密码不一致'))
+          } else {
+            callback()
+          }
+        },
+        trigger: 'blur'
+      }
+    ]
+  })
+
   const options = [
+    {
+      value: '0',
+      label: '未知'
+    },
     {
       value: '1',
       label: '男'
@@ -190,6 +230,7 @@
 
   onMounted(() => {
     getDate()
+    initFormData()
   })
 
   const getDate = () => {
@@ -214,12 +255,89 @@
     date.value = text
   }
 
+  // 初始化表单数据
+  const initFormData = () => {
+    if (userInfo.value) {
+      form.realName = userInfo.value.name || '-'
+      form.nikeName = userInfo.value.username || '-'
+      form.email = userInfo.value.email || '-'
+      form.mobile = userInfo.value.mobile || '-'
+      form.address = form.address || '-'
+      form.sex = userInfo.value.gender !== undefined ? String(userInfo.value.gender) : '0'
+      form.des = '奕尘 Easy Cloud 是一款漂亮的后台管理系统.'
+    }
+  }
+
   const edit = () => {
-    isEdit.value = !isEdit.value
+    if (isEdit.value) {
+      // 保存数据前验证表单
+      ruleFormRef.value?.validate(async (valid) => {
+        if (valid) {
+          // 保存成功后，更新用户信息
+          if (userInfo.value && userInfo.value.id) {
+            const updatedUserInfo = {
+              id: userInfo.value.id,
+              name: form.realName,
+              username: form.nikeName,
+              email: form.email,
+              mobile: form.mobile,
+              avatar: userInfo.value.avatar || '',
+              gender: Number(form.sex),
+              // 保留其他字段
+              status: userInfo.value.status,
+              roles: userInfo.value.roles,
+              permissions: userInfo.value.permissions
+            }
+
+            // 调用API更新用户信息
+            const res = await UserService.updateUserInfo(updatedUserInfo)
+
+            if (res.code === ApiStatus.success) {
+              // 更新本地用户信息
+              userStore.setUserInfo(res.data)
+              ElMessage.success('用户信息更新成功')
+              // 切换为非编辑状态
+              isEdit.value = false
+            } else {
+              ElMessage.error(res.message || '用户信息更新失败')
+            }
+          }
+        }
+      })
+    } else {
+      // 进入编辑状态
+      isEdit.value = true
+    }
   }
 
   const editPwd = () => {
-    isEditPwd.value = !isEditPwd.value
+    if (isEditPwd.value) {
+      // 保存密码前验证表单
+      pwdFormRef.value?.validate(async (valid) => {
+        if (valid) {
+          // 调用修改密码API
+          const res = await UserService.updatePassword({
+            oldPassword: pwdForm.password,
+            newPassword: pwdForm.newPassword
+          })
+
+          if (res.code === ApiStatus.success) {
+            ElMessage.success('密码修改成功')
+            // 重置表单
+            pwdForm.password = ''
+            pwdForm.newPassword = ''
+            pwdForm.confirmPassword = ''
+            // 切换为非编辑状态
+            isEditPwd.value = false
+          } else {
+            ElMessage.error(res.message || '密码修改失败')
+          }
+        }
+      })
+    } else {
+      // 进入编辑状态
+      isEditPwd.value = true
+    }
   }
 </script>
 

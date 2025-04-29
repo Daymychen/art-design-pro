@@ -46,6 +46,8 @@ export const AuthApi = {
   LOGOUT: getApiPath(ServiceNames.AUTH, '/auth/logout'),
   // 用户信息
   USER_INFO: getApiPath(ServiceNames.AUTH, '/auth/user/info'),
+  UPDATE_USER_INFO: getApiPath(ServiceNames.AUTH, '/auth/user/update'),
+  UPDATE_PASSWORD: getApiPath(ServiceNames.AUTH, '/auth/user/password'),
   // 检查用户名和手机号
   CHECK_USERNAME: getApiPath(ServiceNames.AUTH, '/auth/check/username'),
   CHECK_MOBILE: getApiPath(ServiceNames.AUTH, '/auth/check/mobile'),

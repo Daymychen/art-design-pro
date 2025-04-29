@@ -50,7 +50,12 @@ export function adaptUserInfoResponse(response: any): BaseResult<UserInfo> {
         name: userData.name || userData.nickname || '未命名用户',
         username: userData.username || '',
         avatar: userData.avatar || defaultAvatar,
-        email: userData.email || ''
+        email: userData.email || '',
+        mobile: userData.mobile || '',
+        gender: userData.gender !== undefined ? userData.gender : undefined,
+        status: userData.status !== undefined ? userData.status : undefined,
+        roles: Array.isArray(userData.roles) ? userData.roles : [],
+        permissions: Array.isArray(userData.permissions) ? userData.permissions : []
       }
     }
   }
