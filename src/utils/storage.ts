@@ -3,6 +3,7 @@ import { router } from '@/router'
 import { useUserStore } from '@/store/modules/user'
 import { useSettingStore } from '@/store/modules/setting'
 import { useWorktabStore } from '@/store/modules/worktab'
+import { useTableStore } from '@/store/modules/table'
 
 // 初始化本地数据
 export function initState() {
@@ -10,10 +11,12 @@ export function initState() {
     const userStore = useUserStore()
     const worktabStore = useWorktabStore()
     const settingStore = useSettingStore()
+    const tableStore = useTableStore()
 
     userStore.initState()
     worktabStore.initState()
     settingStore.initState()
+    tableStore.initState()
   }
 }
 

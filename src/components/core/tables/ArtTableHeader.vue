@@ -7,9 +7,26 @@
       <div class="btn" @click="refresh">
         <i class="iconfont-sys">&#xe614;</i>
       </div>
-      <!-- <div class="btn" @click="download">
-        <i class="iconfont-sys">&#xe89f;</i>
-      </div> -->
+
+      <el-dropdown @command="handleTableSizeChange">
+        <div class="btn">
+          <i class="iconfont-sys">&#xe63d;</i>
+        </div>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <div v-for="item in tableSizeOptions" :key="item.value" class="table-size-btn-item">
+              <el-dropdown-item
+                :key="item.value"
+                :command="item.value"
+                :class="{ 'is-selected': tableSize === item.value }"
+              >
+                {{ item.label }}
+              </el-dropdown-item>
+            </div>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+
       <div class="btn" @click="toggleFullScreen">
         <i class="iconfont-sys">{{ isFullScreen ? '&#xe62d;' : '&#xe8ce;' }}</i>
       </div>
@@ -18,7 +35,7 @@
       <ElPopover placement="bottom" trigger="click">
         <template #reference>
           <div class="btn">
-            <i class="iconfont-sys">&#xe6dc;</i>
+            <i class="iconfont-sys" style="font-size: 18px">&#xe72b;</i>
           </div>
         </template>
         <div>
@@ -40,6 +57,8 @@
 </template>
 
 <script lang="ts" setup>
+  import { TableSizeEnum } from '@/enums/formEnum'
+  import { useTableStore } from '@/store/modules/table'
   import { ElPopover, ElCheckbox } from 'element-plus'
   import { VueDraggable } from 'vue-draggable-plus'
 
@@ -62,11 +81,23 @@
     checked?: boolean
   }
 
+  const tableSizeOptions = [
+    { value: TableSizeEnum.SMALL, label: '紧凑' },
+    { value: TableSizeEnum.DEFAULT, label: '默认' },
+    { value: TableSizeEnum.LARGE, label: '宽松' }
+  ]
+
+  const tableStore = useTableStore()
+  const { tableSize } = storeToRefs(tableStore)
+
   const refresh = () => {
     emit('refresh')
   }
 
-  // const download = () => {}
+  // 表格大小
+  const handleTableSizeChange = (command: TableSizeEnum) => {
+    useTableStore().setTableSize(command)
+  }
 
   const isFullScreen = ref(false)
 
@@ -80,6 +111,22 @@
 </script>
 
 <style lang="scss" scoped>
+  :deep(.table-size-btn-item) {
+    .el-dropdown-menu__item {
+      margin-bottom: 3px !important;
+    }
+
+    &:last-child {
+      .el-dropdown-menu__item {
+        margin-bottom: 0 !important;
+      }
+    }
+  }
+
+  :deep(.is-selected) {
+    background-color: rgba(var(--art-gray-200-rgb), 0.8) !important;
+  }
+
   .table-header {
     display: flex;
     justify-content: space-between;

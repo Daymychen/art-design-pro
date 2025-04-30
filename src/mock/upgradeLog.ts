@@ -2,6 +2,14 @@
 
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.66',
+    title: '表格增加大小控制',
+    date: '2025-04-30',
+    status: 'complete',
+    statusText: '完成',
+    requireReLogin: true
+  },
+  {
     version: 'v2.2.65',
     title: '优化 Element UI 组件高度',
     date: '2025-04-30',

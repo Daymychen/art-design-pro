@@ -6,7 +6,12 @@
     </div>
     <div class="table">
       <el-scrollbar style="height: 21.55rem">
-        <art-table :data="tableData" :pagination="false" style="margin-top: 0 !important">
+        <art-table
+          :data="tableData"
+          :pagination="false"
+          style="margin-top: 0 !important"
+          size="large"
+        >
           <template #default>
             <el-table-column label="产品" prop="product" width="220px">
               <template #default="scope">

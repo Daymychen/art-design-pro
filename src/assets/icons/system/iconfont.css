@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'iconfont-sys'; /* Project id 3682552 */
   src:
-    url('iconfont.woff2?t=1741326977550') format('woff2'),
-    url('iconfont.woff?t=1741326977550') format('woff'),
-    url('iconfont.ttf?t=1741326977550') format('truetype');
+    url('iconfont.woff2?t=1745999856143') format('woff2'),
+    url('iconfont.woff?t=1745999856143') format('woff'),
+    url('iconfont.ttf?t=1745999856143') format('truetype');
 }
 
 .iconfont-sys {
@@ -12,6 +12,10 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.iconsys-gaodu1:before {
+  content: '\e63d';
 }
 
 .iconsys-jiantouyoushang:before {

@@ -1,7 +1,7 @@
 <template>
   <div class="page-content">
     <el-row :gutter="12">
-      <el-col :xs="24" :sm="12" :lg="8">
+      <el-col :xs="24" :sm="12" :lg="6">
         <el-input placeholder="部门名称"></el-input>
       </el-col>
       <el-col :xs="24" :sm="12" :lg="8" class="el-col2">

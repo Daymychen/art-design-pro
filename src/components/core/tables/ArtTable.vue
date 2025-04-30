@@ -16,6 +16,7 @@
         :max-height="maxHeight"
         :show-header="showHeader"
         :highlight-current-row="highlightCurrentRow"
+        :size="tableSizeComputed"
         @row-click="handleRowClick"
       >
         <!-- 序号列 -->
@@ -57,6 +58,8 @@
 </template>
 
 <script setup lang="ts">
+  import { useTableStore } from '@/store/modules/table'
+
   interface TableProps {
     /** 表格数据源 */
     data?: any[]
@@ -102,6 +105,8 @@
     showHeaderBackground?: boolean
     /** 表格距离顶部距离 */
     marginTop?: number
+    /** 表格大小 */
+    size?: 'small' | 'default' | 'large'
   }
 
   const props = withDefaults(defineProps<TableProps>(), {
@@ -135,6 +140,14 @@
     'size-change',
     'current-change'
   ])
+
+  const tableStore = useTableStore()
+  const { tableSize } = storeToRefs(tableStore)
+
+  // 表格大小 - props优先级高于store
+  const tableSizeComputed = computed(() => {
+    return props.size || tableSize.value
+  })
 
   // 表格数据
   const tableData = computed(() => {
@@ -201,11 +214,6 @@
     :deep(.el-table) {
       th.el-table__cell {
         font-weight: 600;
-      }
-
-      td.el-table__cell,
-      th.el-table__cell {
-        // padding: 16px 0; // 设置表格单元格高度
       }
     }
 

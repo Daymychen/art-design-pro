@@ -86,14 +86,13 @@
 
 // 修改 el-dropdown 样式
 .el-dropdown-menu {
-  min-width: 116px !important;
   padding: 6px !important;
   border-radius: 10px !important;
   border: none !important;
 
   .el-dropdown-menu__item {
-    padding: 8px 16px !important;
-    border-radius: 8px !important;
+    padding: 6px 16px !important;
+    border-radius: 6px !important;
 
     &:hover:not(.is-disabled) {
       color: var(--art-gray-900) !important;

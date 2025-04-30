@@ -7,6 +7,7 @@ import { useSettingStore } from './setting'
 import { useWorktabStore } from './worktab'
 import { getSysStorage } from '@/utils/storage'
 import { MenuListType } from '@/types/menu'
+import { useTableStore } from './table'
 
 // 用户
 export const useUserStore = defineStore('userStore', () => {
@@ -22,6 +23,7 @@ export const useUserStore = defineStore('userStore', () => {
   const getUserInfo = computed(() => info.value)
   const getSettingState = computed(() => useSettingStore().$state)
   const getWorktabState = computed(() => useWorktabStore().$state)
+  const getTableState = computed(() => useTableStore().$state)
 
   const initState = () => {
     let sys = getSysStorage()
@@ -60,7 +62,8 @@ export const useUserStore = defineStore('userStore', () => {
         searchHistory: searchHistory.value,
         refreshToken: refreshToken.value,
         worktab: getWorktabState.value,
-        setting: getSettingState.value
+        setting: getSettingState.value,
+        table: getTableState.value
       }
     })
   }
