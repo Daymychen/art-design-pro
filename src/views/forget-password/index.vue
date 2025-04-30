@@ -16,17 +16,12 @@
           <p class="sub-title">{{ $t('forgetPassword.subTitle') }}</p>
           <div class="input-wrap">
             <span class="input-label" v-if="showInputLabel">账号</span>
-            <el-input
-              :placeholder="$t('forgetPassword.placeholder')"
-              size="large"
-              v-model.trim="username"
-            />
+            <el-input :placeholder="$t('forgetPassword.placeholder')" v-model.trim="username" />
           </div>
 
           <div style="margin-top: 15px">
             <el-button
               class="login-btn"
-              size="large"
               type="primary"
               @click="register"
               :loading="loading"
@@ -37,7 +32,7 @@
           </div>
 
           <div style="margin-top: 15px">
-            <el-button style="width: 100%; height: 46px" size="large" plain @click="toLogin">
+            <el-button class="back-btn" plain @click="toLogin">
               {{ $t('forgetPassword.backBtnText') }}
             </el-button>
           </div>

@@ -2,6 +2,13 @@
 
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.65',
+    title: '优化 Element UI 组件高度',
+    date: '2025-04-30',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v2.2.64',
     title: '表格搜索模块重构、表格增加列设置、拖拽、刷新、全屏功能',
     date: '2025-04-29',

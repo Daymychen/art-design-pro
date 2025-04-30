@@ -1,5 +1,5 @@
 <template>
-  <ElConfigProvider :size="elSize" :locale="locales[language]" :z-index="3000">
+  <ElConfigProvider size="default" :locale="locales[language]" :z-index="3000">
     <RouterView></RouterView>
   </ElConfigProvider>
 </template>
@@ -16,7 +16,6 @@
 
   const userStore = useUserStore()
   const { language } = storeToRefs(userStore)
-  const elSize = computed(() => (document.body.clientWidth >= 500 ? 'large' : 'default'))
 
   const locales = {
     zh: zh,

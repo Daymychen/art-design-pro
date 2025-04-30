@@ -49,14 +49,12 @@
             <el-form-item prop="username">
               <el-input
                 :placeholder="$t('login.placeholder[0]')"
-                size="large"
                 v-model.trim="formData.username"
               />
             </el-form-item>
             <el-form-item prop="password">
               <el-input
                 :placeholder="$t('login.placeholder[1]')"
-                size="large"
                 v-model.trim="formData.password"
                 type="password"
                 radius="8px"
@@ -93,7 +91,6 @@
             <div style="margin-top: 30px">
               <el-button
                 class="login-btn"
-                size="large"
                 type="primary"
                 @click="handleSubmit"
                 :loading="loading"

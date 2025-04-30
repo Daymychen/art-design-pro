@@ -1,7 +1,7 @@
 <template>
   <div class="page-content">
     <div class="form">
-      <el-select v-model="iconType" placeholder="Select" size="large" style="width: 240px">
+      <el-select v-model="iconType" placeholder="Select" style="width: 240px">
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -10,7 +10,7 @@
         />
       </el-select>
       <div class="colors-icon">
-        <el-checkbox v-model="isColorsIcon" label="彩色图标" size="large" />
+        <el-checkbox v-model="isColorsIcon" label="彩色图标" />
       </div>
     </div>
     <div class="list">
@@ -92,11 +92,11 @@
 
       .colors-icon {
         box-sizing: border-box;
-        height: 40px;
+        height: var(--el-component-custom-height);
         padding: 0 30px;
         margin-left: 10px;
         border: 1px solid var(--art-border-dashed-color);
-        border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
+        border-radius: calc(var(--custom-radius) / 3 + 2px) !important;
       }
     }
 

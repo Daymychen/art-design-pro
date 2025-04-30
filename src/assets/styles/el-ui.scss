@@ -10,8 +10,12 @@
   // 按钮粗度
   --el-font-weight-primary: 400 !important;
 
+  --el-component-custom-height: 36px !important;
+
+  --el-component-size: var(--el-component-custom-height) !important;
+
   // 边框、按钮圆角...
-  --el-border-radius-base: calc(var(--custom-radius) / 2 + 2px) !important;
+  --el-border-radius-base: calc(var(--custom-radius) / 3 + 2px) !important;
 
   --el-border-radius-small: 10px !important;
   --el-messagebox-border-radius: 10px !important;
@@ -20,6 +24,27 @@
     color: var(--main-color);
   }
 }
+
+// -------------------------------- 修改 el-size=default 组件默认高度 start --------------------------------
+// 修改 el-button 高度
+.el-button--default {
+  height: var(--el-component-custom-height) !important;
+}
+
+// 修改 el-select 高度
+.el-select--default {
+  .el-select__wrapper {
+    height: var(--el-component-custom-height) !important;
+  }
+}
+
+// 修改 el-checkbox-button 高度
+.el-checkbox-button--default .el-checkbox-button__inner,
+// 修改 el-radio-button 高度
+.el-radio-button--default .el-radio-button__inner {
+  padding: 10px 15px !important;
+}
+// -------------------------------- 修改 el-size=default 组件默认高度 end --------------------------------
 
 .el-pagination.is-background .btn-next,
 .el-pagination.is-background .btn-prev,
@@ -304,8 +329,6 @@
 .el-tree-select__popper {
   .el-select-dropdown__list {
     padding: 5px !important;
-    background-color: red !important;
-    border: 1px solid blue !important;
 
     .el-tree-node {
       .el-tree-node__content {

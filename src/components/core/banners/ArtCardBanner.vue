@@ -119,11 +119,13 @@
 
     .banner-button {
       display: inline-block;
-      padding: 0.62rem 1.6rem;
+      height: var(--el-component-custom-height);
+      padding: 0 12px;
       font-size: 14px;
+      line-height: var(--el-component-custom-height);
       cursor: pointer;
       user-select: none;
-      border-radius: 8px;
+      border-radius: 6px;
       transition: opacity 0.3s;
 
       &:hover {

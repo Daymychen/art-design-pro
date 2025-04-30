@@ -205,7 +205,7 @@
 
       td.el-table__cell,
       th.el-table__cell {
-        padding: 16px 0; // 设置表格单元格高度
+        // padding: 16px 0; // 设置表格单元格高度
       }
     }
 

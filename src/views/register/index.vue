@@ -19,7 +19,6 @@
               <el-input
                 v-model.trim="formData.username"
                 :placeholder="$t('register.placeholder[0]')"
-                size="large"
               />
             </el-form-item>
 
@@ -27,7 +26,6 @@
               <el-input
                 v-model.trim="formData.password"
                 :placeholder="$t('register.placeholder[1]')"
-                size="large"
                 type="password"
                 autocomplete="off"
               />
@@ -37,7 +35,6 @@
               <el-input
                 v-model.trim="formData.confirmPassword"
                 :placeholder="$t('register.placeholder[2]')"
-                size="large"
                 type="password"
                 autocomplete="off"
                 @keyup.enter="register"
@@ -58,7 +55,6 @@
             <div style="margin-top: 15px">
               <el-button
                 class="register-btn"
-                size="large"
                 type="primary"
                 @click="register"
                 :loading="loading"
