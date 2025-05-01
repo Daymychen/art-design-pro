@@ -116,7 +116,8 @@
     "placeholder": [
       "Please enter your account",
       "Please enter your password",
-      "Please slide to verify"
+      "Please slide to verify",
+      "Please enter your code"
     ],
     "sliderText": "Please slide to verify",
     "sliderSuccessText": "Verification successful",
@@ -125,6 +126,9 @@
     "btnText": "Login",
     "noAccount": "No account yet?",
     "register": "Register",
+    "twoSteps": "Two Step Verification",
+    "twoStepsTips": "We sent a verification code to your mobile. Enter the code from the mobile in the field below.(666666)",
+    "backLogin": "Back login",
     "success": {
       "title": "Login successful",
       "message": "Welcome back"
