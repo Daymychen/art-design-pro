@@ -28,7 +28,7 @@ export const useSettingStore = defineStore('settingStore', () => {
   const showNprogress = ref(true)
   const colorWeak = ref(false)
   const showSettingGuide = ref(true)
-  const pageTransition = ref('slide-right')
+  const pageTransition = ref('slide-left')
   const tabStyle = ref(defaultTabStyle)
   const menuOpen = ref(true)
   const refresh = ref(false)

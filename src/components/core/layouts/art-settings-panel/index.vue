@@ -207,7 +207,6 @@
             <span>{{ $t('setting.basics.list[11]') }}</span>
             <el-select
               v-model="pageTransition"
-              placeholder="Select"
               size="default"
               style="width: 120px"
               @change="setPageTransition"
@@ -341,28 +340,28 @@
     }
   ])
 
-  const pageTransitionOps = [
+  const pageTransitionOps = computed(() => [
     {
       value: '',
-      label: '无动画'
+      label: t('setting.transition.list[0]')
     },
     {
       value: 'fade',
-      label: 'fade'
+      label: t('setting.transition.list[1]')
     },
     {
-      value: 'slide-right',
-      label: 'slide-right'
-    },
-    {
-      value: 'slide-top',
-      label: 'slide-top'
+      value: 'slide-left',
+      label: t('setting.transition.list[2]')
     },
     {
       value: 'slide-bottom',
-      label: 'slide-bottom'
+      label: t('setting.transition.list[3]')
+    },
+    {
+      value: 'slide-top',
+      label: t('setting.transition.list[4]')
     }
-  ]
+  ])
 
   const customRadiusOps = [
     {
