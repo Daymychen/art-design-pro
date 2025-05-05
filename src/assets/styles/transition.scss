@@ -1,92 +1,97 @@
-// 页面过渡动画效果
+@use 'sass:map';
 
-// fade 动画
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-  will-change: opacity;
+// === 变量区域 ===
+$transition: (
+  duration: 0.3s,
+  // 动画持续时间
+  distance: 20px,
+  // 滑动动画的移动距离
+  easing: cubic-bezier(0.4, 0, 0.2, 1),
+  // 默认缓动函数
+  fade-easing: ease // 淡入淡出专用的缓动函数
+);
+
+// 抽取配置值函数，提高可复用性
+@function transition-config($key) {
+  @return map.get($transition, $key);
 }
 
-.fade-enter-from {
-  opacity: 0;
+// 变量简写
+$duration: transition-config('duration');
+$distance: transition-config('distance');
+$easing: transition-config('easing');
+$fade-easing: transition-config('fade-easing');
+
+// === 动画类 ===
+
+// 淡入淡出动画
+.fade {
+  &-enter-active,
+  &-leave-active {
+    transition: opacity $duration $fade-easing;
+    will-change: opacity;
+  }
+
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+  }
+
+  &-enter-to,
+  &-leave-from {
+    opacity: 1;
+  }
 }
 
-.fade-enter-to {
-  opacity: 1;
+// 滑动动画通用样式
+@mixin slide-transition($direction) {
+  $distance-x: 0;
+  $distance-y: 0;
+
+  @if $direction == 'left' {
+    $distance-x: -$distance;
+  } @else if $direction == 'right' {
+    $distance-x: $distance;
+  } @else if $direction == 'top' {
+    $distance-y: -$distance;
+  } @else if $direction == 'bottom' {
+    $distance-y: $distance;
+  }
+
+  &-enter-active,
+  &-leave-active {
+    transition:
+      opacity $duration $easing,
+      transform $duration $easing;
+    will-change: opacity, transform;
+  }
+
+  &-enter-from {
+    opacity: 0;
+    transform: translate3d($distance-x, $distance-y, 0);
+  }
+
+  &-enter-to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  &-leave-to {
+    opacity: 0;
+    transform: translate3d(-$distance-x, -$distance-y, 0);
+  }
 }
 
-.fade-leave-to {
-  opacity: 0;
+// 滑动动画方向类
+.slide-left {
+  @include slide-transition('left');
 }
-
-// slide-right 动画
-.slide-right-enter-active,
-.slide-right-leave-active {
-  transition:
-    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: opacity, transform;
+.slide-right {
+  @include slide-transition('right');
 }
-
-.slide-right-enter-from {
-  opacity: 0;
-  transform: translate3d(-30px, 0, 0);
+.slide-top {
+  @include slide-transition('top');
 }
-
-.slide-right-enter-to {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-}
-
-.slide-right-leave-to {
-  opacity: 0;
-  transform: translate3d(30px, 0, 0);
-}
-
-// slide-top 动画
-.slide-top-enter-active,
-.slide-top-leave-active {
-  transition:
-    transform 0.3s ease,
-    opacity 0.3s ease;
-  will-change: transform, opacity;
-}
-
-.slide-top-enter-from {
-  transform: translateY(20px);
-  opacity: 0;
-}
-
-.slide-top-enter-to {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.slide-top-leave-to {
-  transform: translateY(-20px);
-  opacity: 0;
-}
-
-// slide-bottom 动画
-.slide-bottom-enter-active,
-.slide-bottom-leave-active {
-  transition:
-    transform 0.3s ease,
-    opacity 0.3s ease;
-  will-change: transform, opacity;
-}
-
-.slide-bottom-enter-from {
-  transform: translateY(-20px);
-  opacity: 0;
-}
-
-.slide-bottom-enter-to {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.slide-bottom-leave-to {
-  transform: translateY(20px);
-  opacity: 0;
+.slide-bottom {
+  @include slide-transition('bottom');
 }

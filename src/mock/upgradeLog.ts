@@ -2,6 +2,13 @@
 
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.67',
+    title: '页面切换动画样式重构、多语言支持',
+    date: '2025-05-05',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v2.2.66',
     title: '表格增加大小控制',
     date: '2025-04-30',
