@@ -11,6 +11,9 @@
           :pagination="false"
           style="margin-top: 0 !important"
           size="large"
+          :border="false"
+          :stripe="false"
+          :show-header-background="false"
         >
           <template #default>
             <el-table-column label="产品" prop="product" width="220px">

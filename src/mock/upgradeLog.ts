@@ -2,6 +2,13 @@
 
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.69',
+    title: '优化表格参数默认值',
+    date: '2025-05-06',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v2.2.68',
     title: '表格增加斑马纹、边框、表头背景、多语言支持',
     date: '2025-05-06',

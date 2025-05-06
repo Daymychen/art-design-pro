@@ -72,9 +72,9 @@
     /** 行数据的 Key，用于标识每一行数据 */
     rowKey?: string
     /** 是否显示边框 */
-    border?: boolean
+    border?: boolean | null
     /** 是否使用斑马纹样式 */
-    stripe?: boolean
+    stripe?: boolean | null
     /** 是否显示序号列 */
     index?: boolean
     /** 表格高度，可以是数字或 CSS 值 */
@@ -106,7 +106,7 @@
     /** 分页器的布局 */
     paginationLayout?: string
     /** 是否显示表头背景色 */
-    showHeaderBackground?: boolean
+    showHeaderBackground?: boolean | null
     /** 表格距离顶部距离 */
     marginTop?: number
     /** 表格大小 */
@@ -117,8 +117,8 @@
     data: () => [],
     loading: false,
     rowKey: 'id',
-    border: false,
-    stripe: false,
+    border: null,
+    stripe: null,
     index: false,
     height: '100%',
     showHeader: true,
@@ -133,7 +133,7 @@
     paginationAlign: 'center',
     paginationSize: 'default',
     paginationLayout: 'total, sizes, prev, pager, next, jumper',
-    showHeaderBackground: false,
+    showHeaderBackground: null,
     marginTop: 20
   })
 
@@ -155,17 +155,19 @@
 
   // 斑马纹
   const stripeComputed = computed(() => {
-    return props.stripe || tableStore.isZebra
+    return props.stripe === null ? tableStore.isZebra : props.stripe
   })
 
   // 边框
   const borderComputed = computed(() => {
-    return props.border || tableStore.isBorder
+    return props.border === null ? tableStore.isBorder : props.border
   })
 
   // 表头背景
   const showHeaderBackground = computed(() => {
-    return props.showHeaderBackground || tableStore.isHeaderBackground
+    return props.showHeaderBackground === null
+      ? tableStore.isHeaderBackground
+      : props.showHeaderBackground
   })
 
   // 表格数据
