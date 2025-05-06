@@ -29,13 +29,17 @@
         >
           <div class="action-buttons-wrapper">
             <div class="form-buttons">
-              <el-button class="reset-button" @click="$emit('reset')" v-ripple>重置</el-button>
-              <el-button type="primary" class="search-button" @click="$emit('search')" v-ripple
-                >查询</el-button
-              >
+              <el-button class="reset-button" @click="$emit('reset')" v-ripple>{{
+                $t('table.searchBar.reset')
+              }}</el-button>
+              <el-button type="primary" class="search-button" @click="$emit('search')" v-ripple>{{
+                $t('table.searchBar.search')
+              }}</el-button>
             </div>
             <div v-if="!isExpand" class="filter-toggle" @click="isShow = !isShow">
-              <span>{{ isShow ? '收起' : '展开' }}</span>
+              <span>{{
+                isShow ? $t('table.searchBar.collapse') : $t('table.searchBar.expand')
+              }}</span>
               <div class="icon-wrapper">
                 <el-icon>
                   <ArrowUpBold v-if="isShow" />

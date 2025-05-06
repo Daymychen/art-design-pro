@@ -2,6 +2,13 @@
 
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.68',
+    title: '表格增加斑马纹、边框、表头背景、多语言支持',
+    date: '2025-05-06',
+    status: 'complete',
+    statusText: '完成'
+  },
+  {
     version: 'v2.2.67',
     title: '页面切换动画样式重构、多语言支持',
     date: '2025-05-05',

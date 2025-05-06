@@ -4,6 +4,9 @@
 
 <script setup lang="ts">
   import { SearchFormItem } from '@/types/search-form'
+  import { useI18n } from 'vue-i18n'
+
+  const { t } = useI18n()
 
   export type ValueVO = unknown
 
@@ -24,7 +27,7 @@
 
   // 合并默认配置和自定义配置
   const config = reactive({
-    placeholder: `请输入${prop.item.label}`, // 修改默认placeholder文案
+    placeholder: `${t('table.searchBar.searchInputPlaceholder')}${prop.item.label}`,
     ...(prop.item.config || {}) // 合并自定义配置
   })
 

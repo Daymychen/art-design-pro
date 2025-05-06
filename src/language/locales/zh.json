@@ -368,5 +368,24 @@
       "title": "帮助中心",
       "document": "官方文档"
     }
+  },
+  "table": {
+    "searchBar": {
+      "reset": "重置",
+      "search": "查询",
+      "expand": "展开",
+      "collapse": "收起",
+      "searchInputPlaceholder": "请输入",
+      "searchSelectPlaceholder": "请选择"
+    },
+    "selection": "选择",
+    "sizeOptions": {
+      "small": "紧凑",
+      "default": "默认",
+      "large": "宽松"
+    },
+    "zebra": "斑马纹",
+    "border": "边框",
+    "headerBackground": "表头背景"
   }
 }

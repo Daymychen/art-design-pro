@@ -136,7 +136,6 @@
       prop: 'phone',
       type: 'input',
       config: {
-        placeholder: '请输入电话号码',
         clearable: true
       },
       onChange: handleFormChange
@@ -161,7 +160,6 @@
       prop: 'address',
       type: 'input',
       config: {
-        placeholder: '请输入地址',
         clearable: true
       },
       onChange: handleFormChange
@@ -171,7 +169,6 @@
       prop: 'email',
       type: 'input',
       config: {
-        placeholder: '请输入邮箱',
         clearable: true
       },
       onChange: handleFormChange

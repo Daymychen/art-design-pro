@@ -34,9 +34,7 @@
       <!-- 列设置 -->
       <ElPopover placement="bottom" trigger="click">
         <template #reference>
-          <div class="btn">
-            <i class="iconfont-sys" style="font-size: 18px">&#xe72b;</i>
-          </div>
+          <div class="btn"><i class="iconfont-sys" style="font-size: 17px">&#xe620;</i> </div>
         </template>
         <div>
           <VueDraggable v-model="columns">
@@ -45,10 +43,23 @@
                 <i class="iconfont-sys">&#xe648;</i>
               </div>
               <ElCheckbox v-model="item.checked" :disabled="item.disabled">{{
-                item.label || (item.type === 'selection' ? '选择' : '')
+                item.label || (item.type === 'selection' ? t('table.selection') : '')
               }}</ElCheckbox>
             </div>
           </VueDraggable>
+        </div>
+      </ElPopover>
+      <!-- 其他设置 -->
+      <ElPopover placement="bottom" trigger="click">
+        <template #reference>
+          <div class="btn">
+            <i class="iconfont-sys" style="font-size: 17px">&#xe72b;</i>
+          </div>
+        </template>
+        <div>
+          <ElCheckbox v-model="isZebra">{{ t('table.zebra') }}</ElCheckbox>
+          <ElCheckbox v-model="isBorder">{{ t('table.border') }}</ElCheckbox>
+          <ElCheckbox v-model="isHeaderBackground">{{ t('table.headerBackground') }}</ElCheckbox>
         </div>
       </ElPopover>
       <slot name="right"></slot>
@@ -61,8 +72,12 @@
   import { useTableStore } from '@/store/modules/table'
   import { ElPopover, ElCheckbox } from 'element-plus'
   import { VueDraggable } from 'vue-draggable-plus'
+  import { useI18n } from 'vue-i18n'
+
+  const { t } = useI18n()
 
   const columns = defineModel<ColumnOption[]>('columns', { required: true })
+
   const emit = defineEmits<{
     (e: 'refresh'): void
   }>()
@@ -82,13 +97,13 @@
   }
 
   const tableSizeOptions = [
-    { value: TableSizeEnum.SMALL, label: '紧凑' },
-    { value: TableSizeEnum.DEFAULT, label: '默认' },
-    { value: TableSizeEnum.LARGE, label: '宽松' }
+    { value: TableSizeEnum.SMALL, label: t('table.sizeOptions.small') },
+    { value: TableSizeEnum.DEFAULT, label: t('table.sizeOptions.default') },
+    { value: TableSizeEnum.LARGE, label: t('table.sizeOptions.large') }
   ]
 
   const tableStore = useTableStore()
-  const { tableSize } = storeToRefs(tableStore)
+  const { tableSize, isZebra, isBorder, isHeaderBackground } = storeToRefs(tableStore)
 
   const refresh = () => {
     emit('refresh')
@@ -105,6 +120,7 @@
   const toggleFullScreen = () => {
     const el = document.querySelector('#table-full-screen')
     if (!el) return
+    isFullScreen.value = !isFullScreen.value
 
     el.classList.toggle('el-full-screen')
   }
