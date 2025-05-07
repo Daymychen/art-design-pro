@@ -22,7 +22,7 @@
             name: 'Menu',
             component: RoutesAlias.Home,
             meta: {
-              title: 'menus.menu.title',
+              title: 'menus.system.title',
               icon: '&#xe8a4;',
               keepAlive: false
             },
@@ -33,7 +33,7 @@
                 name: 'Menus',
                 component: RoutesAlias.Menu,
                 meta: {
-                  title: 'menus.menu.menu',
+                  title: 'menus.system.menu',
                   icon: '&#xe8a4;',
                   keepAlive: true,
                   authList: [

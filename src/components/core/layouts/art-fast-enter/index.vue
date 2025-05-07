@@ -137,7 +137,7 @@
     { name: '注册', path: '/register' },
     { name: '忘记密码', path: '/forget-password' },
     { name: '定价', path: '/template/pricing' },
-    { name: '个人中心', path: '/user/user' },
+    { name: '个人中心', path: '/system/user-center' },
     { name: '留言管理', path: '/article/comment' }
   ]
 

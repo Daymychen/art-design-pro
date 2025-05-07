@@ -319,26 +319,6 @@
       "comment": "留言管理",
       "articlePublish": "文章发布"
     },
-    "user": {
-      "title": "用户管理",
-      "account": "账号管理",
-      "department": "部门管理",
-      "role": "角色权限",
-      "userCenter": "个人中心"
-    },
-    "menu": {
-      "title": "菜单管理",
-      "menu": "菜单权限",
-      "permission": "权限控制",
-      "nested": "嵌套菜单",
-      "menu1": "菜单1",
-      "menu2": "菜单2",
-      "menu21": "菜单2-1",
-      "menu3": "菜单3",
-      "menu31": "菜单3-1",
-      "menu32": "菜单3-2",
-      "menu321": "菜单3-2-1"
-    },
     "result": {
       "title": "结果页面",
       "success": "成功页",
@@ -352,9 +332,19 @@
     },
     "system": {
       "title": "系统管理",
-      "setting": "系统设置",
-      "api": "API管理",
-      "log": "系统日志"
+      "user": "用户管理",
+      "role": "角色管理",
+      "userCenter": "个人中心",
+      "menu": "菜单管理",
+      "permission": "权限控制",
+      "nested": "嵌套菜单",
+      "menu1": "菜单1",
+      "menu2": "菜单2",
+      "menu21": "菜单2-1",
+      "menu3": "菜单3",
+      "menu31": "菜单3-1",
+      "menu32": "菜单3-2",
+      "menu321": "菜单3-2-1"
     },
     "safeguard": {
       "title": "运维管理",

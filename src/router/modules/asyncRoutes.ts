@@ -26,7 +26,7 @@ export const asyncRoutes: MenuListType[] = [
     },
     children: [
       {
-        id: 101,
+        id: 11,
         path: 'console',
         name: 'Console',
         component: RoutesAlias.Dashboard,
@@ -36,7 +36,7 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
-        id: 102,
+        id: 12,
         path: 'analysis',
         name: 'Analysis',
         component: RoutesAlias.Analysis,
@@ -46,7 +46,7 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
-        id: 103,
+        id: 13,
         path: 'ecommerce',
         name: 'Ecommerce',
         component: RoutesAlias.Ecommerce,
@@ -58,7 +58,7 @@ export const asyncRoutes: MenuListType[] = [
     ]
   },
   {
-    id: 5,
+    id: 2,
     path: '/widgets',
     name: 'Widgets',
     component: RoutesAlias.Home,
@@ -69,7 +69,7 @@ export const asyncRoutes: MenuListType[] = [
     },
     children: [
       {
-        id: 503,
+        id: 21,
         path: 'icon-list',
         name: 'IconList',
         component: RoutesAlias.IconList,
@@ -79,7 +79,7 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
-        id: 504,
+        id: 22,
         path: 'icon-selector',
         name: 'IconSelector',
         component: RoutesAlias.IconSelector,
@@ -89,7 +89,7 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
-        id: 505,
+        id: 23,
         path: 'image-crop',
         name: 'ImageCrop',
         component: RoutesAlias.ImageCrop,
@@ -99,7 +99,7 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
-        id: 506,
+        id: 24,
         path: 'excel',
         name: 'Excel',
         component: RoutesAlias.Excel,
@@ -109,7 +109,7 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
-        id: 507,
+        id: 25,
         path: 'video',
         name: 'Video',
         component: RoutesAlias.Video,
@@ -119,7 +119,7 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
-        id: 508,
+        id: 26,
         path: 'count-to',
         name: 'CountTo',
         component: RoutesAlias.CountTo,
@@ -129,7 +129,7 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
-        id: 509,
+        id: 27,
         path: 'wang-editor',
         name: 'WangEditor',
         component: RoutesAlias.WangEditor,
@@ -139,7 +139,7 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
-        id: 510,
+        id: 28,
         path: 'watermark',
         name: 'Watermark',
         component: RoutesAlias.Watermark,
@@ -149,7 +149,7 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
-        id: 511,
+        id: 29,
         path: 'context-menu',
         name: 'ContextMenu',
         component: RoutesAlias.ContextMenu,
@@ -159,7 +159,7 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
-        id: 512,
+        id: 30,
         path: 'qrcode',
         name: 'Qrcode',
         component: RoutesAlias.Qrcode,
@@ -169,7 +169,7 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
-        id: 513,
+        id: 31,
         path: 'drag',
         name: 'Drag',
         component: RoutesAlias.Drag,
@@ -179,7 +179,7 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
-        id: 514,
+        id: 32,
         path: 'text-scroll',
         name: 'TextScroll',
         component: RoutesAlias.TextScroll,
@@ -189,7 +189,7 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
-        id: 515,
+        id: 33,
         path: 'fireworks',
         name: 'Fireworks',
         component: RoutesAlias.Fireworks,
@@ -200,7 +200,7 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
-        id: 516,
+        id: 34,
         path: '/outside/iframe/elementui',
         name: 'ElementUI',
         component: '',
@@ -215,7 +215,7 @@ export const asyncRoutes: MenuListType[] = [
     ]
   },
   {
-    id: 126,
+    id: 3,
     path: '/template',
     name: 'Template',
     component: RoutesAlias.Home,
@@ -226,7 +226,7 @@ export const asyncRoutes: MenuListType[] = [
     },
     children: [
       {
-        id: 12602,
+        id: 31,
         path: 'cards',
         name: 'Cards',
         component: RoutesAlias.Cards,
@@ -236,7 +236,7 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
-        id: 12603,
+        id: 32,
         path: 'banners',
         name: 'Banners',
         component: RoutesAlias.Banners,
@@ -246,7 +246,7 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
-        id: 12604,
+        id: 33,
         path: 'charts',
         name: 'Charts',
         component: RoutesAlias.Charts,
@@ -256,7 +256,7 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
-        id: 12609,
+        id: 34,
         path: 'map',
         name: 'Map',
         component: RoutesAlias.Map,
@@ -267,7 +267,7 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
-        id: 12601,
+        id: 35,
         path: 'chat',
         name: 'Chat',
         component: RoutesAlias.Chat,
@@ -277,7 +277,7 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
-        id: 12605,
+        id: 36,
         path: 'calendar',
         name: 'Calendar',
         component: RoutesAlias.Calendar,
@@ -287,7 +287,7 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
-        id: 12622,
+        id: 37,
         path: 'pricing',
         name: 'Pricing',
         component: RoutesAlias.Pricing,
@@ -301,166 +301,68 @@ export const asyncRoutes: MenuListType[] = [
   },
   {
     id: 4,
-    path: '/article',
-    name: 'Article',
+    path: '/system',
+    name: 'System',
     component: RoutesAlias.Home,
     meta: {
-      title: 'menus.article.title',
-      icon: '&#xe7ae;',
-      keepAlive: true
-    },
-    children: [
-      {
-        id: 202,
-        path: 'article-list',
-        name: 'ArticleList',
-        component: RoutesAlias.ArticleList,
-        meta: {
-          title: 'menus.article.articleList',
-          keepAlive: true,
-          authList: [
-            {
-              id: 2021,
-              title: '新增',
-              auth_mark: 'add'
-            },
-            {
-              id: 2022,
-              title: '编辑',
-              auth_mark: 'edit'
-            }
-          ]
-        }
-      },
-
-      {
-        id: 204,
-        path: 'detail',
-        name: 'ArticleDetail',
-        component: RoutesAlias.ArticleDetail,
-        meta: {
-          title: 'menus.article.articleDetail',
-          isHide: true,
-          keepAlive: true
-        }
-      },
-      {
-        id: 205,
-        path: 'comment',
-        name: 'Comment',
-        component: RoutesAlias.Comment,
-        meta: {
-          title: 'menus.article.comment',
-          keepAlive: true
-        }
-      },
-      {
-        id: 201,
-        path: 'article-publish',
-        name: 'ArticlePublish',
-        component: RoutesAlias.ArticlePublish,
-        meta: {
-          title: 'menus.article.articlePublish',
-          keepAlive: true,
-          authList: [
-            {
-              id: 2010,
-              title: '发布',
-              auth_mark: 'article/article-publish/add'
-            }
-          ]
-        }
-      }
-    ]
-  },
-  {
-    id: 2,
-    name: 'User',
-    path: '/user',
-    component: RoutesAlias.Home,
-    meta: {
-      title: 'menus.user.title',
-      icon: '&#xe86e;',
+      title: 'menus.system.title',
+      icon: '&#xe7b9;',
       keepAlive: false
     },
     children: [
       {
-        id: 301,
-        path: 'account',
-        name: 'Account',
-        component: RoutesAlias.Account,
+        id: 41,
+        path: 'user',
+        name: 'User',
+        component: RoutesAlias.User,
         meta: {
-          title: 'menus.user.account',
+          title: 'menus.system.user',
           keepAlive: true
         }
       },
       {
-        id: 302,
-        path: 'department',
-        name: 'Department',
-        component: RoutesAlias.Department,
-        meta: {
-          title: 'menus.user.department',
-          keepAlive: false
-        }
-      },
-      {
-        id: 303,
+        id: 42,
         path: 'role',
         name: 'Role',
         component: RoutesAlias.Role,
         meta: {
-          title: 'menus.user.role',
+          title: 'menus.system.role',
           keepAlive: true
         }
       },
       {
-        id: 304,
-        path: 'user',
+        id: 43,
+        path: 'user-center',
         name: 'UserCenter',
         component: RoutesAlias.UserCenter,
         meta: {
-          title: 'menus.user.userCenter',
+          title: 'menus.system.userCenter',
           isHide: true,
           keepAlive: true,
           isHideTab: true
         }
-      }
-    ]
-  },
-  {
-    id: 3,
-    path: '/menu',
-    name: 'Menu',
-    component: RoutesAlias.Home,
-    meta: {
-      title: 'menus.menu.title',
-      icon: '&#xe8a4;',
-      keepAlive: false
-    },
-    children: [
+      },
       {
-        id: 401,
+        id: 44,
         path: 'menu',
         name: 'Menus',
         component: RoutesAlias.Menu,
         meta: {
-          title: 'menus.menu.menu',
-          icon: '&#xe8a4;',
+          title: 'menus.system.menu',
           keepAlive: true,
           authList: [
             {
-              id: 4011,
+              id: 441,
               title: '新增',
               auth_mark: 'add'
             },
             {
-              id: 4012,
+              id: 442,
               title: '编辑',
               auth_mark: 'edit'
             },
             {
-              id: 4013,
+              id: 443,
               title: '删除',
               auth_mark: 'delete'
             }
@@ -468,28 +370,26 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
-        id: 411,
+        id: 45,
         path: 'permission',
         name: 'Permission',
         component: RoutesAlias.Permission,
         meta: {
-          title: 'menus.menu.permission',
-          icon: '&#xe831;',
-          showTextBadge: 'new',
+          title: 'menus.system.permission',
           keepAlive: true,
           authList: [
             {
-              id: 4111,
+              id: 451,
               title: '新增',
               auth_mark: 'add'
             },
             {
-              id: 4112,
+              id: 452,
               title: '编辑',
               auth_mark: 'edit'
             },
             {
-              id: 4113,
+              id: 453,
               title: '删除',
               auth_mark: 'delete'
             }
@@ -497,45 +397,44 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
-        id: 402,
+        id: 46,
         path: 'nested',
         name: 'Nested',
         component: '',
         meta: {
-          title: 'menus.menu.nested',
-          icon: '&#xe676;',
+          title: 'menus.system.nested',
           keepAlive: true
         },
         children: [
           {
-            id: 40201,
+            id: 461,
             path: 'menu1',
             name: 'NestedMenu1',
             component: RoutesAlias.NestedMenu1,
             meta: {
-              title: 'menus.menu.menu1',
+              title: 'menus.system.menu1',
               icon: '&#xe676;',
               keepAlive: true
             }
           },
           {
-            id: 40202,
+            id: 462,
             path: 'menu2',
             name: 'NestedMenu2',
             component: '',
             meta: {
-              title: 'menus.menu.menu2',
+              title: 'menus.system.menu2',
               icon: '&#xe676;',
               keepAlive: true
             },
             children: [
               {
-                id: 4020201,
+                id: 4621,
                 path: 'menu2-1',
                 name: 'NestedMenu2-1',
                 component: RoutesAlias.NestedMenu21,
                 meta: {
-                  title: 'menus.menu.menu21',
+                  title: 'menus.system.menu21',
                   icon: '&#xe676;',
                   keepAlive: true
                 }
@@ -543,45 +442,45 @@ export const asyncRoutes: MenuListType[] = [
             ]
           },
           {
-            id: 40203,
+            id: 463,
             path: 'menu3',
             name: 'NestedMenu3',
             component: '',
             meta: {
-              title: 'menus.menu.menu3',
+              title: 'menus.system.menu3',
               icon: '&#xe676;',
               keepAlive: true
             },
             children: [
               {
-                id: 4020301,
+                id: 4631,
                 path: 'menu3-1',
                 name: 'NestedMenu3-1',
                 component: RoutesAlias.NestedMenu31,
                 meta: {
-                  title: 'menus.menu.menu31',
+                  title: 'menus.system.menu31',
                   icon: '&#xe676;',
                   keepAlive: true
                 }
               },
               {
-                id: 4020302,
+                id: 4632,
                 path: 'menu3-2',
                 name: 'NestedMenu3-2',
                 component: '',
                 meta: {
-                  title: 'menus.menu.menu32',
+                  title: 'menus.system.menu32',
                   icon: '&#xe676;',
                   keepAlive: true
                 },
                 children: [
                   {
-                    id: 402030201,
+                    id: 46321,
                     path: 'menu3-2-1',
                     name: 'NestedMenu3-2-1',
                     component: RoutesAlias.NestedMenu321,
                     meta: {
-                      title: 'menus.menu.menu321',
+                      title: 'menus.system.menu321',
                       icon: '&#xe676;',
                       keepAlive: true
                     }
@@ -595,7 +494,81 @@ export const asyncRoutes: MenuListType[] = [
     ]
   },
   {
-    id: 18,
+    id: 5,
+    path: '/article',
+    name: 'Article',
+    component: RoutesAlias.Home,
+    meta: {
+      title: 'menus.article.title',
+      icon: '&#xe7ae;',
+      keepAlive: true
+    },
+    children: [
+      {
+        id: 51,
+        path: 'article-list',
+        name: 'ArticleList',
+        component: RoutesAlias.ArticleList,
+        meta: {
+          title: 'menus.article.articleList',
+          keepAlive: true,
+          authList: [
+            {
+              id: 511,
+              title: '新增',
+              auth_mark: 'add'
+            },
+            {
+              id: 512,
+              title: '编辑',
+              auth_mark: 'edit'
+            }
+          ]
+        }
+      },
+
+      {
+        id: 52,
+        path: 'detail',
+        name: 'ArticleDetail',
+        component: RoutesAlias.ArticleDetail,
+        meta: {
+          title: 'menus.article.articleDetail',
+          isHide: true,
+          keepAlive: true
+        }
+      },
+      {
+        id: 53,
+        path: 'comment',
+        name: 'Comment',
+        component: RoutesAlias.Comment,
+        meta: {
+          title: 'menus.article.comment',
+          keepAlive: true
+        }
+      },
+      {
+        id: 54,
+        path: 'article-publish',
+        name: 'ArticlePublish',
+        component: RoutesAlias.ArticlePublish,
+        meta: {
+          title: 'menus.article.articlePublish',
+          keepAlive: true,
+          authList: [
+            {
+              id: 541,
+              title: '发布',
+              auth_mark: 'article/article-publish/add'
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    id: 6,
     path: '/result',
     name: 'Result',
     component: RoutesAlias.Home,
@@ -606,7 +579,7 @@ export const asyncRoutes: MenuListType[] = [
     },
     children: [
       {
-        id: 401,
+        id: 61,
         path: 'success',
         name: 'Success',
         component: RoutesAlias.Success,
@@ -616,7 +589,7 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
-        id: 402,
+        id: 62,
         path: 'fail',
         name: 'Fail',
         component: RoutesAlias.Fail,
@@ -628,7 +601,7 @@ export const asyncRoutes: MenuListType[] = [
     ]
   },
   {
-    id: 8,
+    id: 7,
     path: '/exception',
     name: 'Exception',
     component: RoutesAlias.Home,
@@ -639,7 +612,7 @@ export const asyncRoutes: MenuListType[] = [
     },
     children: [
       {
-        id: 801,
+        id: 71,
         path: '403',
         name: '403',
         component: RoutesAlias.Exception403,
@@ -649,7 +622,7 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
-        id: 802,
+        id: 72,
         path: '404',
         name: '404',
         component: RoutesAlias.Exception404,
@@ -659,7 +632,7 @@ export const asyncRoutes: MenuListType[] = [
         }
       },
       {
-        id: 803,
+        id: 73,
         path: '500',
         name: '500',
         component: RoutesAlias.Exception500,
@@ -670,51 +643,9 @@ export const asyncRoutes: MenuListType[] = [
       }
     ]
   },
+
   {
-    id: 9,
-    path: '/system',
-    name: 'System',
-    component: RoutesAlias.Home,
-    meta: {
-      title: 'menus.system.title',
-      icon: '&#xe7b9;',
-      keepAlive: false
-    },
-    children: [
-      {
-        id: 901,
-        path: 'setting',
-        name: 'Setting',
-        component: RoutesAlias.Setting,
-        meta: {
-          title: 'menus.system.setting',
-          keepAlive: true
-        }
-      },
-      {
-        id: 902,
-        path: 'api',
-        name: 'Api',
-        component: RoutesAlias.Api,
-        meta: {
-          title: 'menus.system.api',
-          keepAlive: true
-        }
-      },
-      {
-        id: 903,
-        path: 'log',
-        name: 'Log',
-        component: RoutesAlias.Log,
-        meta: {
-          title: 'menus.system.log',
-          keepAlive: true
-        }
-      }
-    ]
-  },
-  {
-    id: 10,
+    id: 8,
     path: '/safeguard',
     name: 'Safeguard',
     component: RoutesAlias.Home,
@@ -725,7 +656,7 @@ export const asyncRoutes: MenuListType[] = [
     },
     children: [
       {
-        id: 1010,
+        id: 81,
         path: 'server',
         name: 'Server',
         component: RoutesAlias.Server,
@@ -737,7 +668,7 @@ export const asyncRoutes: MenuListType[] = [
     ]
   },
   {
-    id: 12,
+    id: 9,
     name: '',
     path: '',
     component: RoutesAlias.Home,
@@ -748,7 +679,7 @@ export const asyncRoutes: MenuListType[] = [
     },
     children: [
       {
-        id: 1101,
+        id: 91,
         path: '',
         name: 'Document',
         meta: {
@@ -762,7 +693,7 @@ export const asyncRoutes: MenuListType[] = [
   },
   // 一级菜单
   {
-    id: 11912,
+    id: 10,
     name: 'ChangeLog',
     path: '/log/changeLog',
     component: '/log/ChangeLog',

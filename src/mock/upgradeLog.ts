@@ -2,6 +2,14 @@
 
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.70',
+    title: '菜单结构调整、删除部分页面',
+    date: '2025-05-07',
+    status: 'complete',
+    statusText: '完成',
+    requireReLogin: true
+  },
+  {
     version: 'v2.2.69',
     title: '优化表格参数默认值',
     date: '2025-05-06',
