@@ -268,6 +268,7 @@
     {
       prop: 'meta.title',
       label: '菜单名称',
+      minWidth: 120,
       formatter: (row: MenuListType) => {
         return formatMenuTitle(row.meta?.title)
       }
@@ -293,7 +294,7 @@
         return h(
           'div',
           {},
-          row.meta.authList?.map((item: any, index: number) => {
+          row.meta.authList?.map((item: MenuListType['meta'], index: number) => {
             return h(
               ElPopover,
               {
@@ -466,7 +467,7 @@
     return isEdit.value ? `编辑${type}` : `新建${type}`
   })
 
-  const showDialog = (type: string, row: any) => {
+  const showDialog = (type: string, row: MenuListType) => {
     showModel('menu', row, true)
   }
 

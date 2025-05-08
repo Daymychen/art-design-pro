@@ -48,15 +48,20 @@
     </div>
 
     <!-- 分页 -->
-    <div v-if="pagination" class="table-pagination" :class="paginationAlign">
+    <div
+      v-if="pagination && tableData.length > 0"
+      class="table-pagination"
+      :class="paginationAlign"
+    >
       <el-pagination
         v-model:current-page="currentPage"
         v-model:page-size="pageSize"
         :page-sizes="pageSizes"
+        :pager-count="isMobile ? 5 : 7"
         :total="total"
         :background="true"
         :size="paginationSize"
-        :layout="paginationLayout"
+        :layout="paginationLayoutComputed"
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :hide-on-single-page="hideOnSinglePage"
@@ -67,6 +72,8 @@
 
 <script setup lang="ts">
   import { useTableStore } from '@/store/modules/table'
+  const { width } = useWindowSize()
+  const isMobile = computed(() => width.value < 500)
 
   interface TableProps {
     /** 表格数据源 */
@@ -136,9 +143,22 @@
     pageSizes: () => [10, 20, 30, 50],
     paginationAlign: 'center',
     paginationSize: 'default',
-    paginationLayout: 'total, sizes, prev, pager, next, jumper',
+    paginationLayout: '',
     showHeaderBackground: null,
     marginTop: 20
+  })
+
+  /*
+   * 计算分页布局
+   * 移动端跟pc端使用两种不同的布局
+   */
+  const paginationLayoutComputed = computed(() => {
+    if (props.paginationLayout) {
+      return props.paginationLayout
+    }
+    return isMobile.value
+      ? 'prev, pager, next, jumper, sizes, total'
+      : 'total, sizes, prev, pager, next, jumper'
   })
 
   const emit = defineEmits([
@@ -256,8 +276,6 @@
 
 <style lang="scss" scoped>
   .art-table {
-    height: calc(100% - 90px);
-
     .table-container {
       height: 100%;
     }
@@ -297,6 +315,41 @@
     // 解决el-image 和 el-table冲突层级冲突问题
     ::v-deep(.el-table__cell) {
       position: static !important;
+    }
+  }
+
+  // 移动端分页
+  @media (max-width: $device-phone) {
+    :deep(.el-pagination) {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px 0;
+      align-items: center;
+      justify-content: center;
+
+      .el-pagination__sizes {
+        .el-select {
+          width: 100px !important;
+
+          .el-select__wrapper {
+            height: 30px !important;
+          }
+        }
+      }
+
+      .el-pager {
+        li {
+          margin-right: 2px;
+        }
+      }
+
+      .el-pagination__jump {
+        margin-left: 5px;
+
+        .el-input {
+          height: 32px !important;
+        }
+      }
     }
   }
 </style>

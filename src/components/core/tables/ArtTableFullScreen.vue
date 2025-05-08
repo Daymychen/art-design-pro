@@ -15,6 +15,10 @@
       display: flex;
       flex-direction: column;
       height: 100%;
+
+      @media (max-width: $device-phone) {
+        height: auto;
+      }
     }
   }
 </style>

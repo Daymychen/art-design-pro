@@ -25,10 +25,9 @@
         <ArtTable
           :loading="loading"
           :data="tableData"
-          selection
           :currentPage="1"
           :pageSize="20"
-          :total="50"
+          :total="500"
           :marginTop="10"
         >
           <template #default>
@@ -275,6 +274,7 @@
     {
       prop: 'avatar',
       label: '用户名',
+      minWidth: 220,
       formatter: (row: any) => {
         return h('div', { class: 'user', style: 'display: flex; align-items: center' }, [
           h('img', { class: 'avatar', src: row.avatar }),
@@ -385,13 +385,6 @@
 
 <style lang="scss" scoped>
   .account-page {
-    // 添加表格容器样式
-    .table-container {
-      flex: 1;
-      min-height: 0; // 重要：允许容器收缩
-      padding: 16px; // 根据需求调整内边距
-    }
-
     :deep(.user) {
       .avatar {
         width: 40px;
