@@ -12,6 +12,7 @@
       </el-radio-group>
     </div>
     <art-table
+      class="table"
       :data="tableData"
       :pagination="false"
       size="large"
@@ -145,33 +146,20 @@
       color: var(--el-color-primary) !important;
       background: transparent !important;
     }
-
-    .any-table {
-      .el-table {
-        thead {
-          tr {
-            height: 55px !important;
-          }
-        }
-
-        tr {
-          height: 55px !important;
-        }
-      }
-    }
   }
 </style>
 
 <style lang="scss" scoped>
   .region {
     width: 50%;
-
-    .any-table {
-      box-shadow: none;
-    }
+    overflow: hidden;
 
     .card-header {
       padding-left: 25px !important;
+    }
+
+    :deep(.el-table__body tr:last-child td) {
+      border-bottom: none !important;
     }
 
     .avatar {
