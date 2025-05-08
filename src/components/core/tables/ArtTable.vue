@@ -3,10 +3,14 @@
   <div
     class="art-table"
     :class="{ 'header-background': showHeaderBackground }"
-    :style="{ marginTop: marginTop + 'px' }"
+    :style="{
+      marginTop: marginTop + 'px',
+      height: total ? 'calc(100% - 90px)' : 'calc(100% - 25px)'
+    }"
   >
     <div class="table-container">
       <el-table
+        ref="tableRef"
         v-loading="loading"
         :data="tableData"
         :row-key="rowKey"
@@ -147,6 +151,50 @@
 
   const tableStore = useTableStore()
   const { tableSize } = storeToRefs(tableStore)
+
+  // 表格实例
+  const tableRef = ref()
+
+  // 提供给父组件的方法
+  defineExpose({
+    // 展开所有行
+    expandAll: () => {
+      const elTable = tableRef.value
+      if (!elTable) return
+
+      // 递归处理树形数据
+      const processRows = (rows: any[]) => {
+        rows.forEach((row) => {
+          const hasChildren = row.children?.length > 0
+          if (hasChildren) {
+            elTable.toggleRowExpansion(row, true)
+            processRows(row.children)
+          }
+        })
+      }
+
+      processRows(props.data)
+    },
+
+    // 收起所有行
+    collapseAll: () => {
+      const elTable = tableRef.value
+      if (!elTable) return
+
+      // 递归处理树形数据
+      const processRows = (rows: any[]) => {
+        rows.forEach((row) => {
+          const hasChildren = row.children?.length > 0
+          if (hasChildren) {
+            elTable.toggleRowExpansion(row, false)
+            processRows(row.children)
+          }
+        })
+      }
+
+      processRows(props.data)
+    }
+  })
 
   // 表格大小 - props优先级高于store
   const tableSizeComputed = computed(() => {

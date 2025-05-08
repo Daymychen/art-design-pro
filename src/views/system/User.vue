@@ -30,7 +30,6 @@
           :pageSize="20"
           :total="50"
           :marginTop="10"
-          height="100%"
         >
           <template #default>
             <ElTableColumn v-for="col in columns" :key="col.prop || col.type" v-bind="col" />
@@ -354,7 +353,6 @@
   }
 
   const handleRefresh = () => {
-    tableData.value = []
     getTableData()
   }
 

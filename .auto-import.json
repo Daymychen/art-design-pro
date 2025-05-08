@@ -313,6 +313,8 @@
     "useTemplateRef": true,
     "ElTableColumn": true,
     "ElButton": true,
-    "ElPopconfirm": true
+    "ElPopconfirm": true,
+    "ElTag": true,
+    "ElPopover": true
   }
 }

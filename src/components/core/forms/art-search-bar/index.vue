@@ -27,7 +27,12 @@
           :xl="props.elColSpan"
           class="action-column"
         >
-          <div class="action-buttons-wrapper">
+          <div
+            class="action-buttons-wrapper"
+            :style="{
+              'justify-content': items.length <= buttonLeftLimit ? 'flex-start' : 'flex-end'
+            }"
+          >
             <div class="form-buttons">
               <el-button class="reset-button" @click="$emit('reset')" v-ripple>{{
                 $t('table.searchBar.reset')
@@ -36,7 +41,7 @@
                 $t('table.searchBar.search')
               }}</el-button>
             </div>
-            <div v-if="!isExpand" class="filter-toggle" @click="isShow = !isShow">
+            <div v-if="!isExpand && showExpand" class="filter-toggle" @click="isShow = !isShow">
               <span>{{
                 isShow ? $t('table.searchBar.collapse') : $t('table.searchBar.expand')
               }}</span>
@@ -68,9 +73,11 @@
     items: SearchFormItem[] // 表单数据
     elColSpan?: number // 每列的宽度（基于 24 格布局）
     gutter?: number // 表单控件间隙
-    isExpand?: boolean // 是否需要展示，收起
+    isExpand?: boolean // 展开/收起
     labelPosition?: 'left' | 'right' // 表单域标签的位置
     labelWidth?: string // 文字宽度
+    showExpand?: boolean // 是否需要展示，收起
+    buttonLeftLimit?: number // 按钮靠左对齐限制（表单项小于等于该值时）
   }
 
   const props = withDefaults(defineProps<PropsVO>(), {
@@ -78,7 +85,9 @@
     gutter: 12,
     isExpand: false,
     labelPosition: 'right',
-    labelWidth: '70px'
+    labelWidth: '70px',
+    showExpand: true,
+    buttonLeftLimit: 2
   })
 
   const emit = defineEmits<{
@@ -154,6 +163,7 @@
 
         span {
           font-size: 14px;
+          user-select: none;
         }
 
         .icon-wrapper {
@@ -161,15 +171,6 @@
           align-items: center;
           margin-left: 4px;
           font-size: 14px;
-        }
-      }
-
-      .form-buttons {
-        display: flex;
-        align-items: center;
-
-        .reset-button {
-          margin-right: 8px;
         }
       }
     }

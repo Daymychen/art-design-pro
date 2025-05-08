@@ -2,6 +2,20 @@
 
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.71',
+    title: '菜单管理页面优化',
+    date: '2025-05-08',
+    status: 'complete',
+    statusText: '完成',
+    detail: [
+      '表格全屏支持ESC退出',
+      '搜索栏按钮靠左对齐限制',
+      'ArtTableHeader 按钮移动端样式优化',
+      'ArtTableHeader 表格设置可配置'
+    ],
+    requireReLogin: true
+  },
+  {
     version: 'v2.2.70',
     title: '菜单结构调整、删除部分页面',
     date: '2025-05-07',
