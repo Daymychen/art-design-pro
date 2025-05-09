@@ -2,6 +2,7 @@
 export enum RoutesAlias {
   Home = '/index/index', // 首页
   Login = '/login', // 登录
+  twoSteps = '/two-steps', // 登录
   Register = '/register', // 注册
   ForgetPassword = '/forget-password', // 忘记密码
   Exception403 = '/exception/403', // 403

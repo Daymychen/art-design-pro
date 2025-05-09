@@ -235,6 +235,22 @@
             text-decoration: none;
           }
         }
+
+        .towSetps {
+          display: flex;
+          flex: 1;
+          column-gap: 10px;
+          justify-content: space-between;
+
+          .el-input {
+            height: 50px;
+            font-size: 1.5rem;
+
+            :deep(.el-input__inner) {
+              text-align: center;
+            }
+          }
+        }
       }
     }
   }

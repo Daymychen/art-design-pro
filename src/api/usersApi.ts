@@ -19,6 +19,7 @@ export class UserService {
           code: 200,
           message: '登录成功',
           data: {
+            mfa: true,
             accessToken:
               'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvaG4gU25vdyIsImlhdCI6MTcwNjg2NTYwMCwiZXhwIjoxNzA2OTUyMDAwfQ.8f9D4kJ2m3XlH5Q0y6Z1r2Y3n4X5pL6q8K9v2W3n4X5'
           }
@@ -27,6 +28,30 @@ export class UserService {
         resolve({
           code: 401,
           message: '用户名或密码错误',
+          data: null
+        })
+      }
+    })
+  }
+
+  // 模拟登录接口
+  static twoStep(options: { body: string }): Promise<BaseResult> {
+    return new Promise((resolve) => {
+      const { twoStep } = JSON.parse(options.body)
+
+      if (twoStep === '666666') {
+        resolve({
+          code: 200,
+          message: '登录成功',
+          data: {
+            accessToken:
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvaG4gU25vdyIsImlhdCI6MTcwNjg2NTYwMCwiZXhwIjoxNzA2OTUyMDAwfQ.8f9D4kJ2m3XlH5Q0y6Z1r2Y3n4X5pL6q8K9v2W3n4X5'
+          }
+        })
+      } else {
+        resolve({
+          code: 401,
+          message: '动态密码错误',
           data: null
         })
       }

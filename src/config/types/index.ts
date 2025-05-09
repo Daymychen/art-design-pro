@@ -23,7 +23,7 @@ export interface SystemConfig {
   elementPlusTheme: { primary: string }
   systemInfo: {
     name: string
-    login: { username: string; password: string }
+    login: { username: string; password: string; twoStep: string[] }
   }
   systemThemeStyles: SystemThemeTypes
   settingThemeList: ThemeSetting[]

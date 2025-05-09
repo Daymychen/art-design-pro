@@ -36,6 +36,7 @@ export type AppRouteRecordRaw = RouteRecordRaw & {
 
 /** 首页路径常量 */
 export const HOME_PAGE = '/dashboard/console'
+export const TWO_STEPS = '/two-steps'
 
 /** 静态路由配置 */
 const staticRoutes: AppRouteRecordRaw[] = [
@@ -71,6 +72,12 @@ const staticRoutes: AppRouteRecordRaw[] = [
     name: 'Login',
     component: () => import('@views/login/index.vue'),
     meta: { title: 'menus.login.title', isHideTab: true, setTheme: true }
+  },
+  {
+    path: RoutesAlias.twoSteps,
+    name: 'twoSteps',
+    component: () => import('@views/login/twoSteps.vue'),
+    meta: { title: 'menus.login.title', isHideTab: true, noLogin: true, setTheme: true }
   },
   {
     path: RoutesAlias.Register,
