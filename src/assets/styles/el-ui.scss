@@ -34,7 +34,7 @@
 // 修改 el-select 高度
 .el-select--default {
   .el-select__wrapper {
-    height: var(--el-component-custom-height) !important;
+    min-height: var(--el-component-custom-height) !important;
   }
 }
 
@@ -250,6 +250,11 @@
 .dialog-fade-enter-active {
   .el-dialog {
     animation: dialog-open 0.3s cubic-bezier(0.32, 0.14, 0.15, 0.86);
+
+    // 修复 el-dialog 动画后宽度不自适应问题
+    .el-select__selected-item {
+      display: inline-block;
+    }
   }
 }
 

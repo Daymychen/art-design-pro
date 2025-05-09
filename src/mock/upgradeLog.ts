@@ -2,6 +2,15 @@
 
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.74',
+    title: '修复 el-select 组件 bug',
+    date: '2025-05-09',
+    detail: [
+      '修复 el-dialog 动画后 el-select tag 宽度不自适应 bug',
+      '修复 el-select 高度不自适应 bug'
+    ]
+  },
+  {
     version: 'v2.2.73',
     title: '修复首页表格溢出bug',
     date: '2025-05-08'
