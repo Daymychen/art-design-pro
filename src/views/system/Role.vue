@@ -87,7 +87,7 @@
   import { useMenuStore } from '@/store/modules/menu'
   import { ElMessage, ElMessageBox } from 'element-plus'
   import type { FormInstance, FormRules } from 'element-plus'
-  import { formatMenuTitle } from '@/utils/menu'
+  import { formatMenuTitle } from '@/router/utils/utils'
   import { ButtonMoreItem } from '@/components/core/forms/ArtButtonMore.vue'
 
   const dialogVisible = ref(false)

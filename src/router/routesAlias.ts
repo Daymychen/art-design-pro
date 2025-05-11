@@ -1,6 +1,6 @@
 // 路由别名
 export enum RoutesAlias {
-  Home = '/index/index', // 首页
+  Home = '/index/index', // 布局容器
   Login = '/login', // 登录
   Register = '/register', // 注册
   ForgetPassword = '/forget-password', // 忘记密码
@@ -48,3 +48,6 @@ export enum RoutesAlias {
   Server = '/safeguard/Server', // 服务器
   ChangeLog = '/log/ChangeLog' // 更新日志
 }
+
+// 主页路由
+export const HOME_PAGE = RoutesAlias.Dashboard

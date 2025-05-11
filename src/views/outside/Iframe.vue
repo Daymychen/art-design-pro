@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-  import { getIframeRoutes } from '@/utils/menu'
+  import { getIframeRoutes } from '@/router/utils/menuToRouter'
   import { ref, onMounted } from 'vue'
 
   const route = useRoute()
@@ -24,7 +24,7 @@
     const iframeRoute = getIframeRoutes().find((item: any) => item.path === route.path)
 
     if (iframeRoute?.meta) {
-      iframeUrl.value = iframeRoute.meta.link
+      iframeUrl.value = iframeRoute.meta.link || ''
     }
   })
 

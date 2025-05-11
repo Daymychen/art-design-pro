@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-  import { HOME_PAGE } from '@/router'
+  import { HOME_PAGE } from '@/router/routesAlias'
   const router = useRouter()
 
   defineProps({

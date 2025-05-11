@@ -1,5 +1,5 @@
 import { upgradeLogList } from '@/mock/upgradeLog'
-import { RoutesAlias } from './routesAlias'
+import { RoutesAlias } from '../routesAlias'
 import { MenuListType } from '@/types/menu'
 import { WEB_LINKS } from '@/utils/links'
 
@@ -293,8 +293,7 @@ export const asyncRoutes: MenuListType[] = [
         component: RoutesAlias.Pricing,
         meta: {
           title: 'menus.template.pricing',
-          keepAlive: true,
-          isHideTab: true
+          keepAlive: true
         }
       }
     ]

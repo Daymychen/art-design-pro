@@ -168,7 +168,7 @@
   import type { FormInstance, FormRules } from 'element-plus'
   import { ElMessage, ElMessageBox } from 'element-plus'
   import { IconTypeEnum } from '@/enums/appEnum'
-  import { formatMenuTitle } from '@/utils/menu'
+  import { formatMenuTitle } from '@/router/utils/utils'
   import ArtButtonTable from '@/components/core/forms/ArtButtonTable.vue'
   import { useCheckedColumns } from '@/composables/useCheckedColumns'
   import { ElPopover, ElButton } from 'element-plus'

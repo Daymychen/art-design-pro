@@ -191,7 +191,7 @@
   import { useUserStore } from '@/store/modules/user'
   import { useFullscreen } from '@vueuse/core'
   import { ElMessageBox } from 'element-plus'
-  import { HOME_PAGE } from '@/router'
+  import { HOME_PAGE } from '@/router/routesAlias'
   import { useI18n } from 'vue-i18n'
   import mittBus from '@/utils/mittBus'
   import { useMenuStore } from '@/store/modules/menu'

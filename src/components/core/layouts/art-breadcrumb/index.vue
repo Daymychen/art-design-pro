@@ -20,7 +20,7 @@
   import { ref, watch } from 'vue'
   import { useRouter, useRoute } from 'vue-router'
   import type { RouteLocationMatched, RouteRecordRaw } from 'vue-router'
-  import { formatMenuTitle } from '@/utils/menu'
+  import { formatMenuTitle } from '@/router/utils/utils'
 
   export interface BreadcrumbItem {
     path: string

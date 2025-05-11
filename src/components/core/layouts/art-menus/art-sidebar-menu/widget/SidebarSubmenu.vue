@@ -38,7 +38,7 @@
 <script setup lang="ts">
   import { computed } from 'vue'
   import type { MenuListType } from '@/types/menu'
-  import { formatMenuTitle } from '@/utils/menu'
+  import { formatMenuTitle } from '@/router/utils/utils'
   import { handleMenuJump } from '@/utils/jump'
 
   // 类型定义

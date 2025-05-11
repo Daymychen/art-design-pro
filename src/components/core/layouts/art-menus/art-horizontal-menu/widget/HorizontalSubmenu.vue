@@ -40,7 +40,7 @@
 <script lang="ts" setup>
   import { MenuListType } from '@/types/menu'
   import { handleMenuJump } from '@/utils/jump'
-  import { formatMenuTitle } from '@/utils/menu'
+  import { formatMenuTitle } from '@/router/utils/utils'
 
   defineProps({
     item: {

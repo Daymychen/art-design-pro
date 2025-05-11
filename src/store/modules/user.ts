@@ -1,13 +1,14 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { LanguageEnum } from '@/enums/appEnum'
-import { router, setPageTitle } from '@/router'
+import { router } from '@/router'
 import { UserInfo } from '@/types/store'
 import { useSettingStore } from './setting'
 import { useWorktabStore } from './worktab'
 import { getSysStorage } from '@/utils/storage'
 import { MenuListType } from '@/types/menu'
 import { useTableStore } from './table'
+import { setPageTitle } from '@/router/utils/utils'
 
 // 用户
 export const useUserStore = defineStore('userStore', () => {

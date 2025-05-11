@@ -73,7 +73,7 @@
 
   import { useWorktabStore } from '@/store/modules/worktab'
   import { useUserStore } from '@/store/modules/user'
-  import { formatMenuTitle } from '@/utils/menu'
+  import { formatMenuTitle } from '@/router/utils/utils'
 
   import { WorkTabType } from '@/types/store'
   import { useSettingStore } from '@/store/modules/setting'

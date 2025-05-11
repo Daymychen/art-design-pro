@@ -102,7 +102,7 @@
 
 <script setup lang="ts">
   import AppConfig from '@/config'
-  import { HOME_PAGE } from '@/router/index'
+  import { HOME_PAGE } from '@/router/routesAlias'
   import { useSettingStore } from '@/store/modules/setting'
   import { MenuTypeEnum, MenuWidth } from '@/enums/appEnum'
   import { useMenuStore } from '@/store/modules/menu'

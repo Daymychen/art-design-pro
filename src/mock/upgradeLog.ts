@@ -2,6 +2,12 @@
 
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.75',
+    title: '优化路由配置逻辑，提升开发体验',
+    date: '2025-05-11',
+    detail: ['路由文件结构、流程、代码优化', '增加路由名称以及路径重复检测', '静态路由配置优化']
+  },
+  {
     version: 'v2.2.74',
     title: '修复 el-select 组件 bug',
     date: '2025-05-09',

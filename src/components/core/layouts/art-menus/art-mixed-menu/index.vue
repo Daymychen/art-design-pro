@@ -38,7 +38,7 @@
   const route = useRoute()
   import { ref, onMounted } from 'vue'
   import { ArrowLeft, ArrowRight } from '@element-plus/icons-vue'
-  import { formatMenuTitle } from '@/utils/menu'
+  import { formatMenuTitle } from '@/router/utils/utils'
   import { handleMenuJump } from '@/utils/jump'
 
   const settingStore = useSettingStore()

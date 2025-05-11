@@ -84,7 +84,7 @@
   import { Search } from '@element-plus/icons-vue'
   import mittBus from '@/utils/mittBus'
   import { useMenuStore } from '@/store/modules/menu'
-  import { formatMenuTitle } from '@/utils/menu'
+  import { formatMenuTitle } from '@/router/utils/utils'
   import type { ScrollbarInstance } from 'element-plus'
 
   const router = useRouter()

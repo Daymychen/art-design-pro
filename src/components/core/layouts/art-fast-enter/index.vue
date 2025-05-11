@@ -54,7 +54,7 @@
 <script setup lang="ts">
   import { useRouter } from 'vue-router'
   import { ref } from 'vue'
-  import { RoutesAlias } from '@/router/modules/routesAlias'
+  import { RoutesAlias } from '@/router/routesAlias'
   import { WEB_LINKS } from '@/utils/links'
 
   const router = useRouter()
