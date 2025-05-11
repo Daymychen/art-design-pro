@@ -174,6 +174,9 @@
   import { ElPopover, ElButton } from 'element-plus'
   import { SearchFormItem } from '@/types/search-form'
   import { MenuListType } from '@/types/menu'
+  import { useAuth } from '@/composables/useAuth'
+
+  const { hasAuth } = useAuth()
 
   const { menuList } = storeToRefs(useMenuStore())
 
@@ -353,21 +356,21 @@
       width: 180,
       formatter: (row: MenuListType) => {
         return h('div', [
-          h(ArtButtonTable, {
-            type: 'add',
-            'v-auth': "'add'",
-            onClick: () => showModel('menu')
-          }),
-          h(ArtButtonTable, {
-            type: 'edit',
-            'v-auth': "'edit'",
-            onClick: () => showDialog('edit', row)
-          }),
-          h(ArtButtonTable, {
-            type: 'delete',
-            'v-auth': "'delete'",
-            onClick: () => deleteMenu()
-          })
+          hasAuth('add') &&
+            h(ArtButtonTable, {
+              type: 'add',
+              onClick: () => showModel('menu')
+            }),
+          hasAuth('edit') &&
+            h(ArtButtonTable, {
+              type: 'edit',
+              onClick: () => showDialog('edit', row)
+            }),
+          hasAuth('delete') &&
+            h(ArtButtonTable, {
+              type: 'delete',
+              onClick: () => deleteMenu()
+            })
         ])
       }
     }
