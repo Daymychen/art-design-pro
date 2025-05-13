@@ -102,6 +102,9 @@ const api = {
   },
   del<T>(config: AxiosRequestConfig): Promise<T> {
     return request({ ...config, method: 'DELETE' }) // DELETE 请求
+  },
+  request<T>(config: AxiosRequestConfig): Promise<T> {
+    return request({ ...config }) // 通用请求
   }
 }
 
