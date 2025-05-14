@@ -2,6 +2,11 @@
 
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.78',
+    title: '优化左侧菜单样式',
+    date: '2025-05-14'
+  },
+  {
     version: 'v2.2.77',
     title: '修复菜单布局变化时图表组件不自适应问题',
     date: '2025-05-14'
