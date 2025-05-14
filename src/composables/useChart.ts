@@ -20,7 +20,7 @@ export const useChartOps = (): ChartThemeConfig => ({
 
 export function useChart(initOptions?: EChartsOption) {
   const settingStore = useSettingStore()
-  const { isDark, menuOpen } = storeToRefs(settingStore)
+  const { isDark, menuOpen, menuType } = storeToRefs(settingStore)
 
   // 收缩菜单时，重新计算图表大小
   watch(menuOpen, () => {
@@ -32,11 +32,18 @@ export function useChart(initOptions?: EChartsOption) {
     })
   })
 
+  // 菜单宽度变化触发
+  watch(menuType, () => {
+    nextTick(() => {
+      handleResize()
+    })
+  })
+
   // 坐标轴线样式
   const getAxisLineStyle = (show: boolean = true) => ({
     show,
     lineStyle: {
-      color: isDark.value ? '#444' : '#e8e8e8',
+      color: isDark.value ? '#444' : '#EDEDED',
       width: 1
     }
   })
@@ -45,7 +52,7 @@ export function useChart(initOptions?: EChartsOption) {
   const getSplitLineStyle = (show: boolean = true) => ({
     show,
     lineStyle: {
-      color: isDark.value ? '#444' : '#e8e8e8',
+      color: isDark.value ? '#444' : '#EDEDED',
       width: 1,
       type: 'dashed' as const
     }

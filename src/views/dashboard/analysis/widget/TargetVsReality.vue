@@ -32,96 +32,82 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, onMounted, onUnmounted } from 'vue'
-  import { useECharts } from '@/utils/echarts/useECharts'
-  import { useSettingStore } from '@/store/modules/setting'
+  import { useChart } from '@/composables/useChart'
+  import { EChartsOption } from 'echarts'
   import { useI18n } from 'vue-i18n'
   const { t } = useI18n()
 
-  const chartRef = ref<HTMLDivElement>()
+  const { chartRef, isDark, initChart } = useChart()
 
-  const { setOptions, removeResize, resize } = useECharts(chartRef as Ref<HTMLDivElement>)
+  const options: () => EChartsOption = () => ({
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'shadow'
+      }
+    },
+    grid: {
+      top: 10,
+      right: 0,
+      bottom: 0,
+      left: 0,
+      containLabel: true
+    },
+    xAxis: {
+      type: 'category',
+      data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July'],
+      axisLabel: {
+        color: '#7B91B0'
+      },
+      axisLine: {
+        show: false // 隐藏 x 轴线
+      },
+      axisTick: {
+        show: false // 隐藏刻度线
+      }
+    },
+    yAxis: {
+      type: 'value',
+      axisLabel: {
+        show: false // 隐藏 y 轴文字
+      },
+      splitLine: {
+        show: false // 隐藏 y 轴分割线
+      },
+      axisLine: {
+        show: false // 隐藏 y 轴线
+      }
+    },
+    series: [
+      {
+        name: 'Reality Sales',
+        type: 'bar',
+        data: [8000, 7000, 6000, 8500, 9000, 10000, 9500],
+        barWidth: '15',
+        itemStyle: {
+          borderRadius: [4, 4, 0, 0],
+          color: '#2B8DFA'
+        }
+      },
+      {
+        name: 'Target Sales',
+        type: 'bar',
+        data: [10000, 9000, 11000, 10000, 12000, 12500, 11500],
+        barWidth: '15',
+        itemStyle: {
+          borderRadius: [4, 4, 4, 4],
+          color: '#95E0FB'
+        }
+      }
+    ]
+  })
 
-  const settingStore = useSettingStore()
-  const { menuOpen } = storeToRefs(settingStore)
-
-  // 收缩菜单时，重新计算图表大小
-  watch(menuOpen, () => {
-    const delays = [100, 200, 300]
-    delays.forEach((delay) => {
-      setTimeout(resize, delay)
-    })
+  watch(isDark, () => {
+    initChart(options())
   })
 
   onMounted(() => {
-    const option = {
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'shadow'
-        }
-      },
-      grid: {
-        top: 10,
-        right: 0,
-        bottom: 0,
-        left: 0,
-        containLabel: true
-      },
-      xAxis: {
-        type: 'category',
-        data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July'],
-        axisLabel: {
-          color: '#7B91B0'
-        },
-        axisLine: {
-          show: false // 隐藏 x 轴线
-        },
-        axisTick: {
-          show: false // 隐藏刻度线
-        }
-      },
-      yAxis: {
-        type: 'value',
-        axisLabel: {
-          show: false // 隐藏 y 轴文字
-        },
-        splitLine: {
-          show: false // 隐藏 y 轴分割线
-        },
-        axisLine: {
-          show: false // 隐藏 y 轴线
-        }
-      },
-      series: [
-        {
-          name: 'Reality Sales',
-          type: 'bar',
-          data: [8000, 7000, 6000, 8500, 9000, 10000, 9500],
-          barWidth: '15',
-          itemStyle: {
-            borderRadius: [4, 4, 0, 0],
-            color: '#2B8DFA'
-          }
-        },
-        {
-          name: 'Target Sales',
-          type: 'bar',
-          data: [10000, 9000, 11000, 10000, 12000, 12500, 11500],
-          barWidth: '15',
-          itemStyle: {
-            borderRadius: [4, 4, 4, 4],
-            color: '#95E0FB'
-          }
-        }
-      ]
-    }
-
-    setOptions(option)
-  })
-
-  onUnmounted(() => {
-    removeResize()
+    initChart(options())
   })
 </script>
 

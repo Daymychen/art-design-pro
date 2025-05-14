@@ -32,7 +32,7 @@ export const asyncRoutes: MenuListType[] = [
         component: RoutesAlias.Dashboard,
         meta: {
           title: 'menus.dashboard.console',
-          keepAlive: true
+          keepAlive: false
         }
       },
       {
@@ -42,7 +42,7 @@ export const asyncRoutes: MenuListType[] = [
         component: RoutesAlias.Analysis,
         meta: {
           title: 'menus.dashboard.analysis',
-          keepAlive: true
+          keepAlive: false
         }
       },
       {
@@ -52,7 +52,7 @@ export const asyncRoutes: MenuListType[] = [
         component: RoutesAlias.Ecommerce,
         meta: {
           title: 'menus.dashboard.ecommerce',
-          keepAlive: true
+          keepAlive: false
         }
       }
     ]

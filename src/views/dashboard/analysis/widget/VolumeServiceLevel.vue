@@ -10,25 +10,12 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, onMounted, computed, watch } from 'vue'
-  import { useSettingStore } from '@/store/modules/setting'
-  import { useECharts } from '@/utils/echarts/useECharts'
   import { useI18n } from 'vue-i18n'
+  import { useChart } from '@/composables/useChart'
+  import { EChartsOption } from 'echarts'
   const { t } = useI18n()
 
-  const chartRef = ref<HTMLDivElement | null>(null)
-  const { setOptions, resize } = useECharts(chartRef as Ref<HTMLDivElement>)
-
-  const settingStore = useSettingStore()
-  const { menuOpen, isDark } = storeToRefs(settingStore)
-
-  // 收缩菜单时，重新计算图表大小
-  watch(menuOpen, () => {
-    const delays = [100, 200, 300]
-    delays.forEach((delay) => {
-      setTimeout(resize, delay)
-    })
-  })
+  const { chartRef, isDark, initChart } = useChart()
 
   // 模拟数据
   const chartData = [
@@ -40,8 +27,7 @@
     { volume: 500, services: 300 }
   ]
 
-  // 将图表选项提取为一个计算属性
-  const chartOption = computed(() => ({
+  const options: () => EChartsOption = () => ({
     tooltip: {
       trigger: 'axis',
       axisPointer: {
@@ -113,15 +99,14 @@
         barWidth: '50%'
       }
     ]
-  }))
+  })
 
-  // 监听 isDark 的变化
   watch(isDark, () => {
-    setOptions(chartOption.value)
+    initChart(options())
   })
 
   onMounted(() => {
-    setOptions(chartOption.value)
+    initChart(options())
   })
 </script>
 

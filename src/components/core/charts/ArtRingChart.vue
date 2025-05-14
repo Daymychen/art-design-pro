@@ -85,10 +85,10 @@
   }
 
   watch(isDark, () => {
-    return initChart(options())
+    initChart(options())
   })
 
   onMounted(() => {
-    return initChart(options())
+    initChart(options())
   })
 </script>

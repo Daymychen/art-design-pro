@@ -16,24 +16,20 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, onMounted, onUnmounted } from 'vue'
   import * as echarts from 'echarts'
-  import { useECharts } from '@/utils/echarts/useECharts'
-  import { useSettingStore } from '@/store/modules/setting'
   import { getCssVariable } from '@/utils/colors'
+  import { useChart } from '@/composables/useChart'
+  import { EChartsOption } from 'echarts'
 
-  const chartRef = ref<HTMLDivElement | null>(null)
-  const { setOptions, removeResize, resize } = useECharts(chartRef as Ref<HTMLDivElement>)
-  const settingStore = useSettingStore()
-  const { menuOpen, isDark } = storeToRefs(settingStore)
-
-  // 收缩菜单时，重新计算图表大小
-  watch(menuOpen, () => {
-    const delays = [100, 200, 300]
-    delays.forEach((delay) => {
-      setTimeout(resize, delay)
-    })
-  })
+  const {
+    chartRef,
+    isDark,
+    initChart,
+    getAxisLineStyle,
+    getAxisLabelStyle,
+    getAxisTickStyle,
+    getSplitLineStyle
+  } = useChart()
 
   const list = [
     { name: '总用户量', num: '32k' },
@@ -42,65 +38,36 @@
     { name: '周同比', num: '+5%' }
   ]
 
-  const createChart = () => {
-    setOptions({
+  const options: () => EChartsOption = () => {
+    return {
       grid: {
-        left: '0',
-        right: '4%',
-        bottom: '0%',
-        top: '5px',
+        top: 15,
+        right: 0,
+        bottom: 0,
+        left: 0,
         containLabel: true
       },
-      yAxis: {
-        type: 'value',
-        axisLabel: {
-          show: true,
-          color: '#999',
-          fontSize: 13
-        },
-        splitLine: {
-          show: true,
-          lineStyle: {
-            color: isDark.value ? 'rgba(255, 255, 255, 0.1)' : '#EFF1F3',
-            width: 1,
-            type: 'dashed'
-          }
-        },
-        axisLine: {
-          show: true,
-          lineStyle: {
-            color: isDark.value ? 'rgba(255, 255, 255, 0.1)' : '#EFF1F3',
-            width: 1
-          }
-        }
+      tooltip: {
+        trigger: 'item'
       },
       xAxis: {
         type: 'category',
         data: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-        boundaryGap: [0, 0.01],
-        splitLine: {
-          show: false
-        },
-        axisLine: {
-          show: true,
-          lineStyle: {
-            color: isDark.value ? 'rgba(255, 255, 255, 0.1)' : '#EFF1F3',
-            width: 1
-          }
-        },
-        axisLabel: {
-          show: true,
-          color: '#999',
-          fontSize: 13
-        }
+        axisTick: getAxisTickStyle(),
+        axisLine: getAxisLineStyle(true),
+        axisLabel: getAxisLabelStyle(true)
+      },
+      yAxis: {
+        axisLabel: getAxisLabelStyle(true),
+        axisLine: getAxisLineStyle(!isDark.value),
+        splitLine: getSplitLineStyle(true)
       },
       series: [
         {
           data: [160, 100, 150, 80, 190, 100, 175, 120, 160],
           type: 'bar',
-          barMaxWidth: 36,
           itemStyle: {
-            borderRadius: [6, 6, 6, 6],
+            borderRadius: 4,
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
               {
                 offset: 0,
@@ -111,18 +78,19 @@
                 color: getCssVariable('--el-color-primary')
               }
             ])
-          }
+          },
+          barWidth: '50%'
         }
       ]
-    })
+    }
   }
 
-  onMounted(() => {
-    createChart()
+  watch(isDark, () => {
+    initChart(options())
   })
 
-  onUnmounted(() => {
-    removeResize()
+  onMounted(() => {
+    initChart(options())
   })
 </script>
 
@@ -146,13 +114,6 @@
       width: 100%;
       height: 220px;
       padding: 20px 0 20px 20px;
-      // 跟随系统主色
-      // background-image: linear-gradient(
-      //   90deg,
-      //   var(--el-color-primary-light-1),
-      //   var(--el-color-primary-light-3),
-      //   var(--el-color-primary-light-1)
-      // );
       border-radius: calc(var(--custom-radius) / 2 + 4px) !important;
     }
 

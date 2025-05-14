@@ -10,27 +10,13 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, onMounted, onUnmounted } from 'vue'
-  import { useECharts } from '@/utils/echarts/useECharts'
   import type { EChartsOption } from 'echarts'
-  import { useSettingStore } from '@/store/modules/setting'
+  import { useChart } from '@/composables/useChart'
   import { useI18n } from 'vue-i18n'
 
   const { t } = useI18n()
 
-  const chartRef = ref<HTMLDivElement>()
-  const { setOptions, removeResize, resize } = useECharts(chartRef as Ref<HTMLDivElement>)
-
-  const settingStore = useSettingStore()
-  const { menuOpen } = storeToRefs(settingStore)
-
-  // 收缩菜单时，重新计算图表大小
-  watch(menuOpen, () => {
-    const delays = [100, 200, 300]
-    delays.forEach((delay) => {
-      setTimeout(resize, delay)
-    })
-  })
+  const { chartRef, initChart, isDark } = useChart()
 
   const chartData = [
     { value: 1048, name: 'Beijing', itemStyle: { color: 'rgba(99, 102, 241, 0.9)' } },
@@ -40,48 +26,45 @@
     { value: 300, name: 'Chengdu', itemStyle: { color: 'rgba(125, 211, 252, 0.9)' } }
   ]
 
-  const initChart = () => {
-    const option: EChartsOption = {
-      tooltip: {
-        trigger: 'item'
-      },
-      series: [
-        {
-          name: 'Sales Mapping',
-          type: 'pie',
-          radius: ['40%', '60%'],
-          avoidLabelOverlap: false,
-          padAngle: 5,
-          itemStyle: {
-            borderRadius: 10
-          },
+  const options: () => EChartsOption = () => ({
+    tooltip: {
+      trigger: 'item'
+    },
+    series: [
+      {
+        name: 'Sales Mapping',
+        type: 'pie',
+        radius: ['40%', '60%'],
+        avoidLabelOverlap: false,
+        padAngle: 5,
+        itemStyle: {
+          borderRadius: 10
+        },
+        label: {
+          show: false,
+          position: 'center'
+        },
+        emphasis: {
           label: {
-            show: false,
-            position: 'center'
-          },
-          emphasis: {
-            label: {
-              show: true,
-              fontSize: 40,
-              fontWeight: 'bold'
-            }
-          },
-          labelLine: {
-            show: false
-          },
-          data: chartData
-        }
-      ]
-    }
-    setOptions(option)
-  }
-
-  onMounted(() => {
-    initChart()
+            show: true,
+            fontSize: 40,
+            fontWeight: 'bold'
+          }
+        },
+        labelLine: {
+          show: false
+        },
+        data: chartData
+      }
+    ]
   })
 
-  onUnmounted(() => {
-    removeResize()
+  watch(isDark, () => {
+    initChart(options())
+  })
+
+  onMounted(() => {
+    initChart(options())
   })
 </script>
 
