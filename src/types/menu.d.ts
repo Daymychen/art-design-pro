@@ -15,6 +15,7 @@ export type MenuListType = {
     keepAlive: boolean // 是否缓存
     authList?: Array // 可操作权限
     isInMainContainer?: boolean // 是否在主容器中
+    roles?: string[] // 角色
   }
   children?: MenuListType[] // 子菜单
 }

@@ -2,11 +2,10 @@ import { MenuThemeEnum, SystemThemeEnum } from '@/enums/appEnum'
 
 // 用户信息
 export interface UserInfo {
-  id: number
-  name: string
-  username: string
-  avatar: string
-  email: string
+  userId: number // 用户ID
+  userName: string // 用户名
+  roles: string[] // 角色
+  buttons: string[] // 按钮
 }
 
 // 系统主题样式（light | dark）

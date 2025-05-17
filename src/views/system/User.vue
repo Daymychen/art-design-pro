@@ -47,17 +47,20 @@
             <ElFormItem label="手机号" prop="phone">
               <ElInput v-model="formData.phone" />
             </ElFormItem>
-            <ElFormItem label="性别" prop="sex">
-              <ElSelect v-model="formData.sex">
+            <ElFormItem label="性别" prop="gender">
+              <ElSelect v-model="formData.gender">
                 <ElOption label="男" value="男" />
                 <ElOption label="女" value="女" />
               </ElSelect>
             </ElFormItem>
-            <ElFormItem label="部门" prop="dep">
-              <ElSelect v-model="formData.dep">
-                <ElOption label="董事会部" :value="1" />
-                <ElOption label="市场部" :value="2" />
-                <ElOption label="技术部" :value="3" />
+            <ElFormItem label="角色" prop="role">
+              <ElSelect v-model="formData.role" multiple>
+                <ElOption
+                  v-for="role in roleList"
+                  :key="role.roleCode"
+                  :value="role.roleCode"
+                  :label="role.roleName"
+                />
               </ElSelect>
             </ElFormItem>
           </ElForm>
@@ -75,7 +78,7 @@
 
 <script setup lang="ts">
   import { h } from 'vue'
-  import { ACCOUNT_TABLE_DATA } from '@/mock/temp/formData'
+  import { ACCOUNT_TABLE_DATA, ROLE_LIST_DATA } from '@/mock/temp/formData'
   import { SearchChangeParams, SearchFormItem } from '@/types/search-form'
   import { ElDialog, FormInstance, ElTag } from 'element-plus'
   import { ElMessageBox, ElMessage } from 'element-plus'
@@ -98,6 +101,8 @@
     company: ''
   }
 
+  const roleList = ref<any[]>([])
+
   // 响应式表单数据
   const formFilters = reactive({ ...initialSearchState })
 
@@ -109,7 +114,7 @@
   // 搜索处理
   const handleSearch = () => {
     console.log('搜索参数:', formFilters)
-    getTableData()
+    getUserList()
   }
 
   // 表单项变更处理
@@ -198,8 +203,8 @@
     { label: '勾选', type: 'selection' },
     { label: '用户名', prop: 'avatar' },
     { label: '手机号', prop: 'mobile' },
-    { label: '性别', prop: 'sex' },
-    { label: '部门', prop: 'dep' },
+    { label: '性别', prop: 'gender' },
+    { label: '角色', prop: 'role' },
     { label: '状态', prop: 'status' },
     { label: '创建日期', prop: 'create_time' },
     { label: '操作', prop: 'operation' }
@@ -242,16 +247,23 @@
     dialogVisible.value = true
     dialogType.value = type
 
+    // 重置表单验证状态
+    if (formRef.value) {
+      formRef.value.resetFields()
+    }
+
     if (type === 'edit' && row) {
       formData.username = row.username
       formData.phone = row.mobile
-      formData.sex = row.sex === 1 ? '男' : '女'
-      formData.dep = row.dep
+      formData.gender = row.gender === 1 ? '男' : '女'
+
+      // 将用户角色代码数组直接赋值给formData.role
+      formData.role = Array.isArray(row.userRoles) ? row.userRoles : []
     } else {
       formData.username = ''
       formData.phone = ''
-      formData.sex = '男'
-      formData.dep = ''
+      formData.gender = '男'
+      formData.role = []
     }
   }
 
@@ -285,14 +297,13 @@
         ])
       }
     },
-    { prop: 'mobile', label: '手机号' },
     {
-      prop: 'sex',
+      prop: 'gender',
       label: '性别',
       sortable: true,
-      formatter: (row) => (row.sex === 1 ? '男' : '女')
+      formatter: (row) => (row.gender === 1 ? '男' : '女')
     },
-    { prop: 'dep', label: '部门' },
+    { prop: 'mobile', label: '手机号' },
     {
       prop: 'status',
       label: '状态',
@@ -333,18 +344,19 @@
   const formData = reactive({
     username: '',
     phone: '',
-    sex: '',
-    dep: ''
+    gender: '',
+    role: [] as string[]
   })
 
   // 表格数据
   const tableData = ref<any[]>([])
 
   onMounted(() => {
-    getTableData()
+    getUserList()
+    getRoleList()
   })
 
-  const getTableData = () => {
+  const getUserList = () => {
     loading.value = true
     setTimeout(() => {
       tableData.value = ACCOUNT_TABLE_DATA
@@ -352,8 +364,12 @@
     }, 500)
   }
 
+  const getRoleList = () => {
+    roleList.value = ROLE_LIST_DATA
+  }
+
   const handleRefresh = () => {
-    getTableData()
+    getUserList()
   }
 
   // 表单验证规则
@@ -366,8 +382,8 @@
       { required: true, message: '请输入手机号', trigger: 'blur' },
       { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号格式', trigger: 'blur' }
     ],
-    sex: [{ required: true, message: '请选择性别', trigger: 'change' }],
-    dep: [{ required: true, message: '请选择部门', trigger: 'change' }]
+    gender: [{ required: true, message: '请选择性别', trigger: 'change' }],
+    role: [{ required: true, message: '请选择角色', trigger: 'change' }]
   })
 
   // 提交表单

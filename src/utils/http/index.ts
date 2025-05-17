@@ -56,7 +56,7 @@ axiosInstance.interceptors.response.use(
     if (axios.isCancel(error)) {
       console.log('repeated request: ' + error.message)
     } else {
-      const errorMessage = error.response?.data.message
+      const errorMessage = error.response?.data.msg
       ElMessage.error(
         errorMessage
           ? `${errorMessage} ${EmojiText[500]}`

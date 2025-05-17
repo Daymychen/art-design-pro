@@ -21,10 +21,7 @@ export interface MenuLayout {
 // 系统配置
 export interface SystemConfig {
   elementPlusTheme: { primary: string }
-  systemInfo: {
-    name: string
-    login: { username: string; password: string }
-  }
+  systemInfo: { name: string }
   systemThemeStyles: SystemThemeTypes
   settingThemeList: ThemeSetting[]
   menuLayoutList: MenuLayout[]

@@ -46,6 +46,18 @@
             @keyup.enter="handleSubmit"
             style="margin-top: 25px"
           >
+            <el-form-item prop="account">
+              <el-select v-model="formData.account" @change="setupAccount">
+                <el-option
+                  v-for="account in accounts"
+                  :key="account.key"
+                  :label="account.label"
+                  :value="account.key"
+                >
+                  <span>{{ account.label }}</span>
+                </el-option>
+              </el-select>
+            </el-form-item>
             <el-form-item prop="username">
               <el-input
                 :placeholder="$t('login.placeholder[0]')"
@@ -128,6 +140,40 @@
   import { useSettingStore } from '@/store/modules/setting'
   import type { FormInstance, FormRules } from 'element-plus'
 
+  type AccountKey = 'super' | 'admin' | 'user'
+
+  export interface Account {
+    key: AccountKey
+    label: string
+    userName: string
+    password: string
+    roles: string[]
+  }
+
+  const accounts = computed<Account[]>(() => [
+    {
+      key: 'super',
+      label: t('login.roles.super'),
+      userName: 'Super',
+      password: '123456',
+      roles: ['R_SUPER']
+    },
+    {
+      key: 'admin',
+      label: t('login.roles.admin'),
+      userName: 'Admin',
+      password: '123456',
+      roles: ['R_ADMIN']
+    },
+    {
+      key: 'user',
+      label: t('login.roles.user'),
+      userName: 'User',
+      password: '123456',
+      roles: ['R_USER']
+    }
+  ])
+
   const settingStore = useSettingStore()
   const { isDark, systemThemeType } = storeToRefs(settingStore)
 
@@ -140,9 +186,11 @@
 
   const systemName = AppConfig.systemInfo.name
   const formRef = ref<FormInstance>()
+
   const formData = reactive({
-    username: AppConfig.systemInfo.login.username,
-    password: AppConfig.systemInfo.login.password,
+    account: '',
+    username: '',
+    password: '',
     rememberPassword: true
   })
 
@@ -153,6 +201,18 @@
 
   const loading = ref(false)
   const { width } = useWindowSize()
+
+  onMounted(() => {
+    setupAccount('super')
+  })
+
+  // 设置账号
+  const setupAccount = (key: AccountKey) => {
+    const selectedAccount = accounts.value.find((account: Account) => account.key === key)
+    formData.account = key
+    formData.username = selectedAccount?.userName ?? ''
+    formData.password = selectedAccount?.password ?? ''
+  }
 
   const onPass = () => {}
 
@@ -168,42 +228,41 @@
 
         loading.value = true
 
-        // 延时辅助函数
-        const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+        const params = {
+          userName: formData.username,
+          password: formData.password
+        }
 
         try {
-          const res = await UserService.login({
-            body: JSON.stringify({
-              username: formData.username,
-              password: formData.password
-            })
-          })
+          const res = await UserService.login(params)
 
-          if (res.code === ApiStatus.success && res.data) {
-            // 设置 token
-            userStore.setToken(res.data.accessToken)
+          if (res.code === ApiStatus.success) {
+            const { token, refreshToken } = res.data
 
-            // 获取用户信息
-            const userRes = await UserService.getUserInfo()
-            if (userRes.code === ApiStatus.success) {
-              userStore.setUserInfo(userRes.data)
+            if (token) {
+              userStore.setToken(token, refreshToken)
+              const res = await UserService.getUserInfo()
+
+              // 设置登录状态
+              userStore.setLoginStatus(true)
+              // 登录成功提示
+              showLoginSuccessNotice()
+
+              if (res.code === ApiStatus.success) {
+                userStore.setUserInfo(res.data)
+                userStore.setLoginStatus(true)
+                router.push(HOME_PAGE)
+              } else {
+                ElMessage.error(res.msg)
+              }
             }
-
-            // 设置登录状态
-            userStore.setLoginStatus(true)
-            // 延时辅助函数
-            await delay(1000)
-            // 登录成功提示
-            showLoginSuccessNotice()
-            // 跳转首页
-            router.push(HOME_PAGE)
           } else {
-            ElMessage.error(res.message)
+            loading.value = false
             resetDragVerify()
           }
         } finally {
-          await delay(1000)
           loading.value = false
+          resetDragVerify()
         }
       }
     })
@@ -220,12 +279,11 @@
       ElNotification({
         title: t('login.success.title'),
         type: 'success',
-        showClose: false,
         duration: 2500,
         zIndex: 10000,
         message: `${t('login.success.message')}, ${systemName}!`
       })
-    }, 300)
+    }, 150)
   }
 
   // 切换语言

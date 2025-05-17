@@ -138,7 +138,7 @@
     pagination: true,
     total: 0,
     currentPage: 1,
-    pageSize: 10,
+    pageSize: 20,
     hideOnSinglePage: true,
     pageSizes: () => [10, 20, 30, 50],
     paginationAlign: 'center',

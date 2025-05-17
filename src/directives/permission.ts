@@ -2,7 +2,7 @@ import { router } from '@/router'
 import { App, Directive } from 'vue'
 
 /**
- * 权限指令
+ * 权限指令（后端控制模式可用）
  * 用法：
  * <el-button v-auth="'add'">按钮</el-button>
  */

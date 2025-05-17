@@ -306,7 +306,8 @@ export const asyncRoutes: MenuListType[] = [
     meta: {
       title: 'menus.system.title',
       icon: '&#xe7b9;',
-      keepAlive: false
+      keepAlive: false,
+      roles: ['R_SUPER', 'R_ADMIN']
     },
     children: [
       {
@@ -316,7 +317,8 @@ export const asyncRoutes: MenuListType[] = [
         component: RoutesAlias.User,
         meta: {
           title: 'menus.system.user',
-          keepAlive: true
+          keepAlive: true,
+          roles: ['R_SUPER', 'R_ADMIN']
         }
       },
       {
@@ -326,7 +328,8 @@ export const asyncRoutes: MenuListType[] = [
         component: RoutesAlias.Role,
         meta: {
           title: 'menus.system.role',
-          keepAlive: true
+          keepAlive: true,
+          roles: ['R_SUPER']
         }
       },
       {
@@ -349,6 +352,7 @@ export const asyncRoutes: MenuListType[] = [
         meta: {
           title: 'menus.system.menu',
           keepAlive: true,
+          roles: ['R_SUPER'],
           authList: [
             {
               id: 441,
@@ -368,33 +372,33 @@ export const asyncRoutes: MenuListType[] = [
           ]
         }
       },
-      {
-        id: 45,
-        path: 'permission',
-        name: 'Permission',
-        component: RoutesAlias.Permission,
-        meta: {
-          title: 'menus.system.permission',
-          keepAlive: true,
-          authList: [
-            {
-              id: 451,
-              title: '新增',
-              auth_mark: 'add'
-            },
-            {
-              id: 452,
-              title: '编辑',
-              auth_mark: 'edit'
-            },
-            {
-              id: 453,
-              title: '删除',
-              auth_mark: 'delete'
-            }
-          ]
-        }
-      },
+      // {
+      //   id: 45,
+      //   path: 'permission',
+      //   name: 'Permission',
+      //   component: RoutesAlias.Permission,
+      //   meta: {
+      //     title: 'menus.system.permission',
+      //     keepAlive: true,
+      //     authList: [
+      //       {
+      //         id: 451,
+      //         title: '新增',
+      //         auth_mark: 'add'
+      //       },
+      //       {
+      //         id: 452,
+      //         title: '编辑',
+      //         auth_mark: 'edit'
+      //       },
+      //       {
+      //         id: 453,
+      //         title: '删除',
+      //         auth_mark: 'delete'
+      //       }
+      //     ]
+      //   }
+      // },
       {
         id: 46,
         path: 'nested',
@@ -500,7 +504,8 @@ export const asyncRoutes: MenuListType[] = [
     meta: {
       title: 'menus.article.title',
       icon: '&#xe7ae;',
-      keepAlive: true
+      keepAlive: true,
+      roles: ['R_SUPER', 'R_ADMIN']
     },
     children: [
       {
@@ -674,7 +679,8 @@ export const asyncRoutes: MenuListType[] = [
     meta: {
       title: 'menus.help.title',
       icon: '&#xe719;',
-      keepAlive: false
+      keepAlive: false,
+      roles: ['R_SUPER', 'R_ADMIN']
     },
     children: [
       {

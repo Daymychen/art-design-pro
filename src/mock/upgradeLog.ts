@@ -2,6 +2,13 @@
 
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.80',
+    title: '权限新增前端控制模式',
+    date: '2025-05-17',
+    requireReLogin: true,
+    detail: ['权限新增前端角色控制模式', '网络请求部分接口使用 apifox 代理', '系统管理列表优化']
+  },
+  {
     version: 'v2.2.78',
     title: '优化左侧菜单样式',
     date: '2025-05-14'

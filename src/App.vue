@@ -37,9 +37,9 @@
   // 获取用户信息
   const getUserInfo = async () => {
     if (userStore.isLogin) {
-      const userRes = await UserService.getUserInfo()
-      if (userRes.code === ApiStatus.success) {
-        userStore.setUserInfo(userRes.data)
+      const res = await UserService.getUserInfo()
+      if (res.code === ApiStatus.success) {
+        userStore.setUserInfo(res.data)
       }
     }
   }

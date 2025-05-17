@@ -1,3 +1,3 @@
 export enum ApiStatus {
-  success = 200
+  success = '200'
 }

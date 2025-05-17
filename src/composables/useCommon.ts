@@ -6,6 +6,11 @@ export function useCommon() {
   const settingStore = useSettingStore()
   const { showWorkTab, tabStyle } = storeToRefs(settingStore)
 
+  // 是否是前端控制模式
+  const isFrontendMode = computed(() => {
+    return import.meta.env.VITE_ACCESS_MODE === 'frontend'
+  })
+
   // 刷新页面
   const refresh = () => {
     settingStore.reload()
@@ -23,6 +28,7 @@ export function useCommon() {
   })
 
   return {
+    isFrontendMode,
     refresh,
     scrollToTop,
     containerMinHeight

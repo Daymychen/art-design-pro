@@ -11,14 +11,15 @@
       </el-col>
     </el-row>
 
-    <art-table :data="tableData">
+    <art-table :data="roleList" index>
       <template #default>
-        <el-table-column label="角色名称" prop="name" />
+        <el-table-column label="角色名称" prop="roleName" />
+        <el-table-column label="角色编码" prop="roleCode" />
         <el-table-column label="描述" prop="des" />
-        <el-table-column label="状态" prop="status">
+        <el-table-column label="启用" prop="enable">
           <template #default="scope">
-            <el-tag :type="scope.row.status === 1 ? 'primary' : 'info'">
-              {{ scope.row.status === 1 ? '启用' : '禁用' }}
+            <el-tag :type="scope.row.enable ? 'primary' : 'info'">
+              {{ scope.row.enable ? '启用' : '禁用' }}
             </el-tag>
           </template>
         </el-table-column>
@@ -50,14 +51,17 @@
       width="30%"
     >
       <el-form ref="formRef" :model="form" :rules="rules" label-width="120px">
-        <el-form-item label="角色名称" prop="name">
-          <el-input v-model="form.name" />
+        <el-form-item label="角色名称" prop="roleName">
+          <el-input v-model="form.roleName" />
         </el-form-item>
-        <el-form-item label="描述" prop="des">
+        <el-form-item label="角色编码" prop="roleCode">
+          <el-input v-model="form.roleCode" />
+        </el-form-item>
+        <el-form-item label="描述" prop="roleStatus">
           <el-input v-model="form.des" type="textarea" :rows="3" />
         </el-form-item>
-        <el-form-item label="状态">
-          <el-switch v-model="form.status" />
+        <el-form-item label="启用">
+          <el-switch v-model="form.enable" />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -89,6 +93,7 @@
   import type { FormInstance, FormRules } from 'element-plus'
   import { formatMenuTitle } from '@/router/utils/utils'
   import { ButtonMoreItem } from '@/components/core/forms/ArtButtonMore.vue'
+  import { Role, ROLE_LIST_DATA } from '@/mock/temp/formData'
 
   const dialogVisible = ref(false)
   const permissionDialog = ref(false)
@@ -104,106 +109,23 @@
     des: [{ required: true, message: '请输入角色描述', trigger: 'blur' }]
   })
 
-  const form = reactive({
-    id: '',
-    name: '',
+  const form = reactive<Role>({
+    roleName: '',
+    roleCode: '',
     des: '',
-    status: true
+    date: '',
+    enable: true
   })
 
-  const tableData = reactive([
-    {
-      name: '超级管理员',
-      allow: '全部权限',
-      des: '拥有系统全部权限',
-      date: '2021-01-08 12:30:45',
-      status: 1
-    },
-    {
-      name: '董事会部',
-      allow: '自定义',
-      des: '负责董事会部相关工作的管理者',
-      date: '2021-01-08 12:30:45',
-      status: 1
-    },
-    {
-      name: '监事会部',
-      allow: '自定义',
-      des: '负责监事会部相关工作的管理者',
-      date: '2021-01-08 12:30:45',
-      status: 0
-    },
-    {
-      name: '市场部',
-      allow: '自定义',
-      des: '负责市场部相关工作的管理者',
-      date: '2021-01-08 12:30:45',
-      status: 1
-    },
-    {
-      name: '人力资源部',
-      allow: '自定义',
-      des: '负责人力资源部相关工作的管理者',
-      date: '2021-01-08 12:30:45',
-      status: 1
-    },
-    {
-      name: '财务部',
-      allow: '自定义',
-      des: '负责财务部相关工作的管理者',
-      date: '2021-01-08 12:30:45',
-      status: 1
-    },
-    {
-      name: '公关部',
-      allow: '自定义',
-      des: '负责公关部相关工作的管理者',
-      date: '2021-01-08 12:30:45',
-      status: 0
-    },
-    {
-      name: '广告部',
-      allow: '自定义',
-      des: '负责广告部相关工作的管理者',
-      date: '2021-01-08 12:30:45',
-      status: 1
-    },
-    {
-      name: '营销',
-      allow: '自定义',
-      des: '负责营销相关工作的管理者',
-      date: '2021-01-08 12:30:45',
-      status: 1
-    },
-    {
-      name: '设计部',
-      allow: '自定义',
-      des: '负责设计部相关工作的管理者',
-      date: '2021-01-08 12:30:45',
-      status: 1
-    },
-    {
-      name: '开发部',
-      allow: '自定义',
-      des: '负责开发部相关工作的管理者',
-      date: '2021-01-08 12:30:45',
-      status: 1
-    },
-    {
-      name: '测试部',
-      allow: '自定义',
-      des: '负责测试部相关工作的管理者',
-      date: '2021-01-08 12:30:45',
-      status: 1
-    },
-    {
-      name: '安保部',
-      allow: '自定义',
-      des: '负责安保部相关工作的管理者',
-      date: '2021-01-08 12:30:45',
-      status: 1
-    }
-  ])
+  const roleList = ref<Role[]>([])
+
+  onMounted(() => {
+    getTableData()
+  })
+
+  const getTableData = () => {
+    roleList.value = ROLE_LIST_DATA
+  }
 
   const dialogType = ref('add')
 
@@ -212,15 +134,17 @@
     dialogType.value = type
 
     if (type === 'edit' && row) {
-      form.id = row.id
-      form.name = row.name
+      form.roleName = row.roleName
+      form.roleCode = row.roleCode
       form.des = row.des
-      form.status = row.status === 1
+      form.date = row.date
+      form.enable = row.enable
     } else {
-      form.id = ''
-      form.name = ''
+      form.roleName = ''
+      form.roleCode = ''
       form.des = ''
-      form.status = true
+      form.date = ''
+      form.enable = true
     }
   }
 

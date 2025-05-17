@@ -9,6 +9,7 @@ import { getSysStorage } from '@/utils/storage'
 import { MenuListType } from '@/types/menu'
 import { useTableStore } from './table'
 import { setPageTitle } from '@/router/utils/utils'
+import { resetRouterState } from '@/router/guards/beforeEach'
 
 // 用户
 export const useUserStore = defineStore('userStore', () => {
@@ -38,6 +39,7 @@ export const useUserStore = defineStore('userStore', () => {
         searchHistory: storedSearchHistory,
         isLock: storedIsLock,
         lockPassword: storedLockPassword,
+        token: storedToken,
         refreshToken: storedRefreshToken
       } = sys.user
 
@@ -48,7 +50,7 @@ export const useUserStore = defineStore('userStore', () => {
       searchHistory.value = storedSearchHistory || []
       lockPassword.value = storedLockPassword || ''
       refreshToken.value = storedRefreshToken || ''
-      accessToken.value = sessionStorage.getItem('accessToken') || ''
+      accessToken.value = storedToken || ''
     }
   }
 
@@ -61,6 +63,7 @@ export const useUserStore = defineStore('userStore', () => {
         isLock: isLock.value,
         lockPassword: lockPassword.value,
         searchHistory: searchHistory.value,
+        token: accessToken.value,
         refreshToken: refreshToken.value,
         worktab: getWorktabState.value,
         setting: getSettingState.value,
@@ -99,22 +102,22 @@ export const useUserStore = defineStore('userStore', () => {
     if (newRefreshToken) {
       refreshToken.value = newRefreshToken
     }
-    sessionStorage.setItem('accessToken', newAccessToken)
     saveUserData()
   }
 
   const logOut = () => {
+    info.value = {}
+    isLogin.value = false
+    isLock.value = false
+    lockPassword.value = ''
+    accessToken.value = ''
+    refreshToken.value = ''
+    useWorktabStore().opened = []
+    saveUserData()
+    sessionStorage.removeItem('iframeRoutes')
+    resetRouterState(router)
+
     setTimeout(() => {
-      info.value = {}
-      isLogin.value = false
-      isLock.value = false
-      lockPassword.value = ''
-      accessToken.value = ''
-      refreshToken.value = ''
-      sessionStorage.removeItem('accessToken')
-      useWorktabStore().opened = []
-      saveUserData()
-      sessionStorage.removeItem('iframeRoutes')
       router.push('/login')
     }, 300)
   }

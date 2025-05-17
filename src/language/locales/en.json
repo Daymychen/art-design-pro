@@ -116,6 +116,11 @@
     },
     "title": "Welcome back",
     "subTitle": "Please enter your account and password to login",
+    "roles": {
+      "super": "Super Admin",
+      "admin": "Admin",
+      "user": "User"
+    },
     "placeholder": [
       "Please enter your account",
       "Please enter your password",
@@ -351,7 +356,6 @@
       "role": "Role Manage",
       "userCenter": "User Center",
       "menu": "Menu Manage",
-      "permission": "Permission",
       "nested": "Nested Menu",
       "menu1": "Menu 1",
       "menu2": "Menu 2",

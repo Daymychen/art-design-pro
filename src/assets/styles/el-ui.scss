@@ -307,14 +307,15 @@
     padding: 5px !important;
 
     .el-select-dropdown__item {
-      height: 36px !important;
-      line-height: 36px !important;
+      height: 34px !important;
+      line-height: 34px !important;
       border-radius: 6px !important;
 
       &.is-selected {
         color: var(--art-gray-900) !important;
         font-weight: 400 !important;
         background-color: var(--art-gray-200) !important;
+        margin-bottom: 4px !important;
       }
 
       &:hover {

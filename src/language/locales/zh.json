@@ -109,6 +109,11 @@
     },
     "title": "欢迎回来",
     "subTitle": "输入您的账号和密码登录",
+    "roles": {
+      "super": "超级管理员",
+      "admin": "管理员",
+      "user": "普通用户"
+    },
     "placeholder": ["请输入账号", "请输入密码", "请拖动滑块完成验证"],
     "sliderText": "按住滑块拖动",
     "sliderSuccessText": "验证成功",
@@ -336,7 +341,6 @@
       "role": "角色管理",
       "userCenter": "个人中心",
       "menu": "菜单管理",
-      "permission": "权限控制",
       "nested": "嵌套菜单",
       "menu1": "菜单1",
       "menu2": "菜单2",

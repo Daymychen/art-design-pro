@@ -19,12 +19,17 @@
           @refresh="handleRefresh"
         >
           <template #left>
+            <!-- 按钮权限：后端控制模式，使用自定义指令 -->
             <ElButton v-auth="'add'" @click="showModel('menu', null, true)" v-ripple>
               添加菜单
             </ElButton>
             <ElButton @click="toggleExpand" v-ripple>
               {{ isExpanded ? '收起' : '展开' }}
             </ElButton>
+            <!-- 按钮权限：前端控制模式，使用 hasAuth 方法 -->
+            <!-- <ElButton v-if="hasAuth('B_CODE1')" @click="showModel('menu', null, true)" v-ripple>
+              添加菜单
+            </ElButton> -->
           </template>
         </ArtTableHeader>
 
@@ -356,17 +361,17 @@
       width: 180,
       formatter: (row: MenuListType) => {
         return h('div', [
-          hasAuth('add') &&
+          hasAuth('B_CODE1') &&
             h(ArtButtonTable, {
               type: 'add',
               onClick: () => showModel('menu')
             }),
-          hasAuth('edit') &&
+          hasAuth('B_CODE2') &&
             h(ArtButtonTable, {
               type: 'edit',
               onClick: () => showDialog('edit', row)
             }),
-          hasAuth('delete') &&
+          hasAuth('B_CODE3') &&
             h(ArtButtonTable, {
               type: 'delete',
               onClick: () => deleteMenu()

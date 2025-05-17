@@ -9,6 +9,10 @@ import { menuService } from '@/api/menuApi'
 import { registerDynamicRoutes } from '../utils/registerRoutes'
 import { MenuListType } from '@/types/menu'
 import { RoutesAlias } from '../routesAlias'
+import { menuDataToRouter } from '../utils/menuToRouter'
+import { asyncRoutes } from '../routes/asyncRoutes'
+import { loadingService } from '@/utils/loading'
+import { useCommon } from '@/composables/useCommon'
 
 // 是否已注册动态路由
 const isRouteRegistered = ref(false)
@@ -120,28 +124,116 @@ async function handleDynamicRoutes(
 }
 
 /**
- * 获取菜单数据并注册动态路由
+ * 获取菜单数据
+ * @param router 路由实例
  */
 async function getMenuData(router: Router): Promise<void> {
-  const { menuList, closeLoading } = await menuService.getMenuList()
+  try {
+    if (useCommon().isFrontendMode.value) {
+      await processFrontendMenu(router) // 前端控制模式
+    } else {
+      await processBackendMenu(router) // 后端控制模式
+    }
+  } catch (error) {
+    handleMenuError(error)
+  }
+}
 
+/**
+ * 处理前端控制模式的菜单逻辑
+ */
+async function processFrontendMenu(router: Router): Promise<void> {
+  const closeLoading = loadingService.showLoading()
+  const menuList = asyncRoutes.map((route) => menuDataToRouter(route))
+  const userStore = useUserStore()
+  const roles = userStore.info.roles
+
+  if (!roles) {
+    closeLoading()
+    throw new Error('获取用户角色失败')
+  }
+
+  const filteredMenuList = filterMenuByRoles(menuList, roles)
+  await registerAndStoreMenu(router, filteredMenuList, closeLoading)
+}
+
+/**
+ * 处理后端控制模式的菜单逻辑
+ */
+async function processBackendMenu(router: Router): Promise<void> {
+  const closeLoading = loadingService.showLoading()
+  const { menuList } = await menuService.getMenuList()
+  await registerAndStoreMenu(router, menuList, closeLoading)
+}
+
+/**
+ * 注册路由并存储菜单数据
+ */
+async function registerAndStoreMenu(
+  router: Router,
+  menuList: MenuListType[],
+  closeLoading: () => void
+): Promise<void> {
   if (!isValidMenuList(menuList)) {
     closeLoading()
-    useUserStore().logOut()
-    throw new Error('获取菜单列表失败，请重新登录！')
+    throw new Error('获取菜单列表失败，请重新登录')
   }
 
   const menuStore = useMenuStore()
   menuStore.setMenuList(menuList)
-
   registerDynamicRoutes(router, menuList)
   isRouteRegistered.value = true
   closeLoading()
 }
 
 /**
+ * 处理菜单相关错误
+ */
+function handleMenuError(error: unknown): void {
+  console.error('菜单处理失败:', error)
+  useUserStore().logOut()
+  throw error instanceof Error ? error : new Error('获取菜单列表失败，请重新登录')
+}
+
+/**
+ * 根据角色过滤菜单
+ */
+const filterMenuByRoles = (menu: MenuListType[], roles: string[]): MenuListType[] => {
+  return menu.reduce((acc: MenuListType[], item) => {
+    const itemRoles = item.meta?.roles
+    const hasPermission = !itemRoles || itemRoles.some((role) => roles?.includes(role))
+
+    if (hasPermission) {
+      const filteredItem = { ...item }
+      if (filteredItem.children?.length) {
+        filteredItem.children = filterMenuByRoles(filteredItem.children, roles)
+      }
+      acc.push(filteredItem)
+    }
+
+    return acc
+  }, [])
+}
+
+/**
  * 验证菜单列表是否有效
  */
-function isValidMenuList(menuList: MenuListType[]) {
+function isValidMenuList(menuList: MenuListType[]): boolean {
   return Array.isArray(menuList) && menuList.length > 0
+}
+
+/**
+ * 重置路由相关状态
+ */
+export function resetRouterState(router: Router): void {
+  isRouteRegistered.value = false
+  // 清理动态注册的路由
+  router.getRoutes().forEach((route) => {
+    if (route.meta?.dynamic) {
+      router.removeRoute(route.name as string)
+    }
+  })
+  // 清空菜单数据
+  const menuStore = useMenuStore()
+  menuStore.setMenuList([])
 }
