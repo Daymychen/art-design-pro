@@ -44,7 +44,7 @@
     }
 
     // 如果是主容器内的一级菜单，只显示当前路由的面包屑
-    if (matched[0].meta.isInMainContainer) {
+    if (matched[0].meta.isRootMenu) {
       const currentRoute = matched[matched.length - 1]
       breadList.value = [
         {

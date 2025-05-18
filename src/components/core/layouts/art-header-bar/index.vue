@@ -258,19 +258,23 @@
   }
 
   const topBarWidth = (): string => {
-    const { TOP, DUAL_MENU } = MenuTypeEnum
+    const { TOP, DUAL_MENU, TOP_LEFT } = MenuTypeEnum
     const { getMenuOpenWidth } = settingStore
+    const { isRootMenu } = router.currentRoute.value.meta
+    const type = menuType.value
+    const isMenuOpen = menuOpen.value
 
-    switch (menuType.value) {
-      case TOP:
-        return '100%'
-      case DUAL_MENU:
-        return `calc(100% - 80px - ${getMenuOpenWidth})`
-      default:
-        return menuOpen.value
-          ? `calc(100% - ${getMenuOpenWidth})`
-          : `calc(100% - ${MenuWidth.CLOSE})`
+    const isTopLayout = type === TOP || (type === TOP_LEFT && isRootMenu)
+
+    if (isTopLayout) {
+      return '100%'
     }
+
+    if (type === DUAL_MENU) {
+      return isRootMenu ? 'calc(100% - 80px)' : `calc(100% - 80px - ${getMenuOpenWidth})`
+    }
+
+    return isMenuOpen ? `calc(100% - ${getMenuOpenWidth})` : `calc(100% - ${MenuWidth.CLOSE})`
   }
 
   const visibleMenu = () => {

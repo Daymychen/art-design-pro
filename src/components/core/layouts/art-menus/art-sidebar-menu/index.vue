@@ -1,6 +1,10 @@
 <!-- 左侧菜单 或 双列菜单 -->
 <template>
-  <div class="layout-sidebar" v-if="showLeftMenu || isDualMenu">
+  <div
+    class="layout-sidebar"
+    v-if="showLeftMenu || isDualMenu"
+    :class="{ 'no-border': menuList.length === 0 }"
+  >
     <!-- 双列菜单（左侧） -->
     <div class="dual-menu-left" :style="{ background: getMenuTheme.background }" v-if="isDualMenu">
       <svg class="svg-icon" aria-hidden="true" @click="toHome">
@@ -20,7 +24,7 @@
             >
               <div
                 :class="{
-                  'is-active': menu.meta.isInMainContainer
+                  'is-active': menu.meta.isRootMenu
                     ? menu.path === route.path
                     : menu.path === firstLevelMenuPath
                 }"
@@ -52,6 +56,7 @@
 
     <!-- 左侧菜单 || 双列菜单（右侧） -->
     <div
+      v-show="menuList.length > 0"
       class="menu-left"
       id="menu-left"
       :class="`menu-left-${getMenuTheme.theme} menu-left-${!menuOpen ? 'close' : 'open'}`"
@@ -150,9 +155,9 @@
 
     const currentTopPath = `/${route.path.split('/')[1]}`
 
-    // 处理主容器内的一级菜单
-    if (route.meta.isInMainContainer) {
-      return list.filter((menu) => menu.meta.isInMainContainer)
+    // 处理一级菜单
+    if (route.meta.isRootMenu) {
+      return []
     }
 
     // 返回当前顶级路径对应的子菜单

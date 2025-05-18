@@ -176,7 +176,7 @@ function convertRouteComponent(route: MenuListType, iframeRoutes: MenuListType[]
     // 根据路由类型进行处理
     if (route.meta.isIframe) {
       handleIframeRoute(converted, route, iframeRoutes)
-    } else if (route.meta.isInMainContainer) {
+    } else if (route.meta.isRootMenu) {
       handleLayoutRoute(converted, route, component)
     } else {
       handleNormalRoute(converted, component, route.name)

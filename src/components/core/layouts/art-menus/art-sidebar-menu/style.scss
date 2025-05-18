@@ -10,6 +10,10 @@
   user-select: none;
   scrollbar-width: none;
 
+  &.no-border {
+    border-right: none !important;
+  }
+
   .dual-menu-left {
     position: relative;
     width: 80px;

@@ -2,6 +2,11 @@
 
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.81',
+    title: '修复一级菜单布局bug',
+    date: '2025-05-18'
+  },
+  {
     version: 'v2.2.80',
     title: '权限新增前端控制模式',
     date: '2025-05-17',
