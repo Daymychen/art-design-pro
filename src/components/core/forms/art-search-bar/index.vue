@@ -1,5 +1,5 @@
 <template>
-  <section class="search-bar">
+  <section class="search-bar art-custom-card">
     <el-form :model="filter" :label-position="props.labelPosition">
       <el-row class="search-form-row" :gutter="props.gutter">
         <el-col
@@ -135,7 +135,6 @@
   .search-bar {
     padding: 20px 20px 0;
     background-color: var(--art-main-bg-color);
-    border: 1px solid var(--art-border-color);
     border-radius: calc(var(--custom-radius) / 2 + 2px);
 
     :deep(.el-form-item__label) {

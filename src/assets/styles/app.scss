@@ -104,10 +104,17 @@
   }
 }
 
+// 盒子默认边框
+.page-content,
+.art-custom-card {
+  border: 1px solid var(--art-card-border) !important;
+}
+
 // 盒子边框
 [data-box-mode='border-mode'] {
   .page-content,
-  .art-custom-card {
+  .art-custom-card,
+  .art-table-card {
     border: 1px solid var(--art-card-border) !important;
   }
 
@@ -119,7 +126,8 @@
 // 盒子阴影
 [data-box-mode='shadow-mode'] {
   .page-content,
-  .art-custom-card {
+  .art-custom-card,
+  .art-table-card {
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.04) !important;
     border: 1px solid rgba(var(--art-gray-300-rgb), 0.3) !important;
   }

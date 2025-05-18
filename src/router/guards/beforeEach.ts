@@ -154,6 +154,7 @@ async function processFrontendMenu(router: Router): Promise<void> {
   }
 
   const filteredMenuList = filterMenuByRoles(menuList, roles)
+  await new Promise((resolve) => setTimeout(resolve, 300))
   await registerAndStoreMenu(router, filteredMenuList, closeLoading)
 }
 

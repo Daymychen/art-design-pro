@@ -116,10 +116,7 @@ export const useUserStore = defineStore('userStore', () => {
     saveUserData()
     sessionStorage.removeItem('iframeRoutes')
     resetRouterState(router)
-
-    setTimeout(() => {
-      router.push('/login')
-    }, 300)
+    router.push('/login')
   }
 
   return {

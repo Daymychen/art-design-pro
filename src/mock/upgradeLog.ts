@@ -2,6 +2,11 @@
 
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.82',
+    title: '优化视觉体验',
+    date: '2025-05-18'
+  },
+  {
     version: 'v2.2.81',
     title: '修复一级菜单布局bug',
     date: '2025-05-18'
