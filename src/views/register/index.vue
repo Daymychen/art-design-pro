@@ -5,9 +5,7 @@
     </div>
     <div class="right-wrap">
       <div class="header">
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#iconsys-zhaopian-copy"></use>
-        </svg>
+        <ArtLogo class="icon" />
         <h1>{{ systemName }}</h1>
       </div>
       <div class="login-wrap">

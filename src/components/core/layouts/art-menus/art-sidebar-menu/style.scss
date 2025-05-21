@@ -25,11 +25,9 @@
       display: none;
     }
 
-    .svg-icon {
-      display: block;
-      width: 34px;
-      height: 34px;
-      margin: 15px auto;
+    .logo {
+      margin: auto;
+      margin-top: 15px;
       cursor: pointer;
     }
 
@@ -137,8 +135,7 @@
     line-height: 60px;
     cursor: pointer;
 
-    .svg-icon {
-      width: 32px;
+    .logo {
       margin-left: 28px;
     }
 

@@ -247,9 +247,7 @@
         align-items: center;
         cursor: pointer;
 
-        .svg-icon2 {
-          width: 32px;
-          height: 32px;
+        .logo {
           padding-left: 18px;
         }
 
@@ -259,9 +257,8 @@
         }
       }
 
-      .svg-icon {
+      .logo2 {
         display: none;
-        width: 30px;
         padding-left: 15px;
         overflow: hidden;
         vertical-align: -0.15em;
