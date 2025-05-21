@@ -12,7 +12,6 @@
     height?: string
     color?: string[]
     radius?: string[]
-    showLabel?: boolean
     borderRadius?: number
     centerText?: string
   }
@@ -27,13 +26,16 @@
     height: useChartOps().chartHeight,
     color: () => [],
     radius: () => ['50%', '80%'],
-    showLabel: true,
     borderRadius: 10,
     centerText: ''
   })
 
   const options: () => EChartsOption = () => {
     const opt: EChartsOption = {
+      tooltip: {
+        trigger: 'item',
+        formatter: '{b}: {d}%'
+      },
       series: [
         {
           name: '数据占比',
@@ -44,14 +46,14 @@
             borderRadius: props.borderRadius
           },
           label: {
-            show: props.showLabel,
+            show: false,
             formatter: '{b}\n{d}%',
             position: 'outside',
             color: '#999'
           },
           emphasis: {
             label: {
-              show: true,
+              show: false,
               fontSize: 14,
               fontWeight: 'bold'
             }
