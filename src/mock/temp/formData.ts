@@ -10,6 +10,7 @@ import avatar9 from '@/assets/img/avatar/avatar9.jpg'
 import avatar10 from '@/assets/img/avatar/avatar10.jpg'
 
 export interface User {
+  id: number
   username: string
   gender: 1 | 0
   mobile: string
@@ -24,6 +25,7 @@ export interface User {
 // 用户列表
 export const ACCOUNT_TABLE_DATA: User[] = [
   {
+    id: 1,
     username: 'alexmorgan',
     gender: 1,
     mobile: '18670001591',
@@ -35,6 +37,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     userRoles: ['R_SUPER', 'R_ADMIN', 'R_USER']
   },
   {
+    id: 2,
     username: 'sophiabaker',
     gender: 1,
     mobile: '17766664444',
@@ -46,6 +49,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     userRoles: ['R_ADMIN']
   },
   {
+    id: 3,
     username: 'liampark',
     gender: 1,
     mobile: '18670001597',
@@ -57,6 +61,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     userRoles: ['R_USER']
   },
   {
+    id: 4,
     username: 'oliviagrant',
     gender: 0,
     mobile: '18670001596',
@@ -68,6 +73,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     userRoles: ['R_USER']
   },
   {
+    id: 5,
     username: 'emmawilson',
     gender: 0,
     mobile: '18670001595',
@@ -79,6 +85,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     userRoles: ['R_USER']
   },
   {
+    id: 6,
     username: 'noahevan',
     gender: 1,
     mobile: '18670001594',
@@ -90,6 +97,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     userRoles: ['R_USER']
   },
   {
+    id: 7,
     username: 'avamartin',
     gender: 1,
     mobile: '18123820191',
@@ -101,6 +109,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     userRoles: ['R_USER']
   },
   {
+    id: 8,
     username: 'jacoblee',
     gender: 1,
     mobile: '18670001592',
@@ -112,6 +121,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     userRoles: ['R_USER']
   },
   {
+    id: 9,
     username: 'miaclark',
     gender: 0,
     mobile: '18670001581',
@@ -123,6 +133,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     userRoles: ['R_USER']
   },
   {
+    id: 10,
     username: 'ethanharris',
     gender: 1,
     mobile: '13755554444',
@@ -134,6 +145,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     userRoles: ['R_USER']
   },
   {
+    id: 11,
     username: 'isabellamoore',
     gender: 1,
     mobile: '13766660000',
@@ -145,6 +157,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     userRoles: ['R_USER']
   },
   {
+    id: 12,
     username: 'masonwhite',
     gender: 1,
     mobile: '18670001502',
@@ -156,6 +169,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     userRoles: ['R_USER']
   },
   {
+    id: 13,
     username: 'charlottehall',
     gender: 1,
     mobile: '13006644977',
@@ -167,6 +181,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     userRoles: ['R_USER']
   },
   {
+    id: 14,
     username: 'benjaminscott',
     gender: 0,
     mobile: '13599998888',
@@ -178,6 +193,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     userRoles: ['R_USER']
   },
   {
+    id: 15,
     username: 'ameliaking',
     gender: 1,
     mobile: '13799998888',

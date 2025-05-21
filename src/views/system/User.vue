@@ -23,6 +23,7 @@
 
         <!-- 表格 -->
         <ArtTable
+          row-key="id"
           :loading="loading"
           :data="tableData"
           :currentPage="1"
@@ -39,6 +40,7 @@
           v-model="dialogVisible"
           :title="dialogType === 'add' ? '添加用户' : '编辑用户'"
           width="30%"
+          align-center
         >
           <ElForm ref="formRef" :model="formData" :rules="rules" label-width="80px">
             <ElFormItem label="用户名" prop="username">

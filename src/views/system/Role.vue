@@ -49,6 +49,7 @@
       v-model="dialogVisible"
       :title="dialogType === 'add' ? '新增角色' : '编辑角色'"
       width="30%"
+      align-center
     >
       <el-form ref="formRef" :model="form" :rules="rules" label-width="120px">
         <el-form-item label="角色名称" prop="roleName">

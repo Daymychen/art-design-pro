@@ -175,7 +175,15 @@
   .el-checkbox__inner {
     width: 18px !important;
     height: 18px !important;
-    border-radius: 5px !important;
+    border-radius: 4px !important;
+
+    &::before {
+      content: '';
+      height: 3px !important;
+      top: 6px !important;
+      background-color: #fff !important;
+      transform: scale(0.6) !important;
+    }
 
     &::after {
       width: 4px;

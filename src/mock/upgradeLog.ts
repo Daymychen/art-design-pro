@@ -2,6 +2,11 @@
 
 export const upgradeLogList = ref([
   {
+    version: 'v2.2.83',
+    title: '优化 Checkbox 组件样式',
+    date: '2025-05-21'
+  },
+  {
     version: 'v2.2.82',
     title: '优化视觉体验',
     date: '2025-05-18'
