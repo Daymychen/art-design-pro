@@ -1,6 +1,26 @@
 // requireReLogin: true // 需要重新登录
 
-export const upgradeLogList = ref([
+interface UpgradeLog {
+  version: string // 版本号
+  title: string // 更新标题
+  date: string // 更新日期
+  detail?: string[] // 更新内容
+  requireReLogin?: boolean // 是否需要重新登录
+}
+
+export const upgradeLogList = ref<UpgradeLog[]>([
+  {
+    version: 'v2.2.86',
+    title: '优化用户体验',
+    date: '2025-05-22',
+    detail: [
+      '修复全局搜索失去焦点后快捷键失效问题',
+      '去除网络检测组件',
+      '表格设置本地存储增加默认值',
+      '优化版本升级退出登录逻辑'
+    ],
+    requireReLogin: true
+  },
   {
     version: 'v2.2.85',
     title: '新增系统Logo组件',

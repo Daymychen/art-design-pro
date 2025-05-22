@@ -5,7 +5,7 @@
     <ArtFestivalTextScroll />
 
     <RouterView
-      v-if="isRefresh && isOnline"
+      v-if="isRefresh"
       v-slot="{ Component, route }"
       :style="{ minHeight: containerMinHeight }"
     >
@@ -24,14 +24,10 @@
         <component :is="Component" :key="route.path" v-if="!route.meta.keepAlive" />
       </Transition>
     </RouterView>
-
-    <!-- 网络状态 -->
-    <ArtNetwork v-else />
   </div>
 </template>
 
 <script setup lang="ts">
-  import { useNetwork } from '@vueuse/core'
   import { useCommon } from '@/composables/useCommon'
   import { useWorktabStore } from '@/store/modules/worktab'
   import { useSettingStore } from '@/store/modules/setting'
@@ -41,7 +37,6 @@
   const { keepAliveExclude } = storeToRefs(useWorktabStore())
 
   const { containerMinHeight } = useCommon()
-  const { isOnline } = useNetwork()
 
   const containerStyle = computed(() => {
     return {

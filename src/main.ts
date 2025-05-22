@@ -5,7 +5,6 @@ import { initStore } from './store'                 // Store
 import { initRouter } from './router'               // Router
 import '@styles/reset.scss'                         // 重置HTML样式
 import '@styles/app.scss'                           // 全局样式
-import '@styles/pages.scss'                         // 公共页面样式
 import '@styles/el-ui.scss'                         // 优化element样式
 import '@styles/mobile.scss'                        // 移动端样式优化
 import '@styles/change.scss'                        // 主题切换过渡优化

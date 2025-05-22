@@ -23,7 +23,14 @@ export const useTableStore = defineStore('tableStore', () => {
     const sysStorage = getSysStorage()
     if (sysStorage) {
       const sys = JSON.parse(sysStorage)
-      const { table } = sys.user
+      const { table } = sys.user || {
+        table: {
+          tableSize: TableSizeEnum.DEFAULT,
+          isZebra: false,
+          isBorder: false,
+          isHeaderBackground: false
+        }
+      }
       tableSize.value = table.tableSize || TableSizeEnum.DEFAULT
       isZebra.value = table.isZebra || false
       isBorder.value = table.isBorder || false
