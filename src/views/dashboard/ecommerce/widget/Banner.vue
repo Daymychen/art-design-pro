@@ -11,6 +11,7 @@
     :showDecoration="false"
     imgWidth="18rem"
     imgBottom="-7.5rem"
+    :showMeteors="true"
     @click="handleBannerClick"
   >
     <div class="banner-slot">

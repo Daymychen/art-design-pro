@@ -10,6 +10,11 @@ interface UpgradeLog {
 
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
+    version: 'v2.2.87',
+    title: '横幅组件增加流星动画',
+    date: '2025-05-26'
+  },
+  {
     version: 'v2.2.86',
     title: '优化用户体验',
     date: '2025-05-22',
