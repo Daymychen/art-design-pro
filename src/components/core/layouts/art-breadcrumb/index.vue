@@ -38,24 +38,20 @@
   // 获取面包屑数据
   const getBreadcrumb = () => {
     const { matched } = route
-    if (isHome(matched[0])) {
+
+    // 处理首页情况
+    if (!matched.length || isHome(matched[0])) {
       breadList.value = []
       return
     }
 
-    // 如果是主容器内的一级菜单，只显示当前路由的面包屑
-    if (matched[0].meta.isRootMenu) {
-      const currentRoute = matched[matched.length - 1]
-      breadList.value = [
-        {
-          path: currentRoute.path,
-          meta: currentRoute.meta
-        }
-      ]
-      return
-    }
+    // 处理一级菜单和普通路由
+    const isFirstLevel = matched[0].meta?.isFirstLevel
+    const currentRoute = matched[matched.length - 1]
 
-    breadList.value = matched.map(({ path, meta }) => ({ path, meta }))
+    breadList.value = isFirstLevel
+      ? [{ path: currentRoute.path, meta: currentRoute.meta }]
+      : matched.map(({ path, meta }) => ({ path, meta }))
   }
 
   // 处理面包屑点击

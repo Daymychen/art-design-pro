@@ -45,7 +45,7 @@
             style="margin-top: 25px"
           >
             <el-form-item prop="account">
-              <el-select v-model="formData.account" @change="setupAccount">
+              <el-select v-model="formData.account" @change="setupAccount" class="account-select">
                 <el-option
                   v-for="account in accounts"
                   :key="account.key"

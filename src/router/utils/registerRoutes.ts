@@ -163,7 +163,11 @@ interface ConvertedRoute extends Omit<RouteRecordRaw, 'children'> {
 /**
  * 转换路由组件配置
  */
-function convertRouteComponent(route: MenuListType, iframeRoutes: MenuListType[]): ConvertedRoute {
+function convertRouteComponent(
+  route: MenuListType,
+  iframeRoutes: MenuListType[],
+  depth = 0
+): ConvertedRoute {
   const { component, children, ...routeConfig } = route
 
   // 基础路由配置
@@ -172,26 +176,25 @@ function convertRouteComponent(route: MenuListType, iframeRoutes: MenuListType[]
     component: undefined
   }
 
-  try {
-    // 根据路由类型进行处理
-    if (route.meta.isIframe) {
-      handleIframeRoute(converted, route, iframeRoutes)
-    } else if (route.meta.isRootMenu) {
-      handleLayoutRoute(converted, route, component)
-    } else {
-      handleNormalRoute(converted, component, route.name)
-    }
+  // 是否为一级菜单
+  const isFirstLevel = depth === 0 && route.children?.length === 0
 
-    // 递归处理子路由
-    if (children?.length) {
-      converted.children = children.map((child) => convertRouteComponent(child, iframeRoutes))
-    }
-
-    return converted
-  } catch (error) {
-    console.error(`[路由错误] 转换失败: ${route.name}`, error)
-    throw error
+  if (route.meta.isIframe) {
+    handleIframeRoute(converted, route, iframeRoutes)
+  } else if (isFirstLevel) {
+    handleLayoutRoute(converted, route, component)
+  } else {
+    handleNormalRoute(converted, component, route.name)
   }
+
+  // 递归时增加深度
+  if (children?.length) {
+    converted.children = children.map((child) =>
+      convertRouteComponent(child, iframeRoutes, depth + 1)
+    )
+  }
+
+  return converted
 }
 
 /**
@@ -218,6 +221,7 @@ function handleLayoutRoute(
   converted.component = () => import('@/views/index/index.vue')
   converted.path = `/${(route.path?.split('/')[1] || '').trim()}`
   converted.name = ''
+  route.meta.isFirstLevel = true
 
   converted.children = [
     {

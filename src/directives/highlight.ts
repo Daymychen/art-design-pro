@@ -5,6 +5,7 @@ import { ElMessage } from 'element-plus'
 /**
  * 高亮代码
  * 插入行号、添加复制按钮、分片处理代码块，解决大数据量一次写入卡顿问题
+ * 支持动态内容监听，确保所有代码块都能被正确处理
  */
 
 // 高亮代码
@@ -22,6 +23,7 @@ function insertLineNumbers(block: HTMLElement) {
     .join('\n')
   block.innerHTML = numberedLines
 }
+
 // 添加复制按钮：调整 DOM 结构，将代码部分包裹在 .code-wrapper 内
 function addCopyButton(block: HTMLElement) {
   const copyButton = document.createElement('i')
@@ -52,46 +54,155 @@ function addCopyButton(block: HTMLElement) {
   }
 }
 
+// 检查代码块是否已经被处理过
+function isBlockProcessed(block: HTMLElement): boolean {
+  return (
+    block.hasAttribute('data-highlighted') ||
+    !!block.querySelector('.line-number') ||
+    !!block.parentElement?.querySelector('.copy-button')
+  )
+}
+
+// 标记代码块为已处理
+function markBlockAsProcessed(block: HTMLElement) {
+  block.setAttribute('data-highlighted', 'true')
+}
+
 // 处理单个代码块
 function processBlock(block: HTMLElement) {
-  highlightCode(block)
-  insertLineNumbers(block)
-  addCopyButton(block)
+  if (isBlockProcessed(block)) {
+    return
+  }
+
+  try {
+    highlightCode(block)
+    insertLineNumbers(block)
+    addCopyButton(block)
+    markBlockAsProcessed(block)
+  } catch (error) {
+    console.warn('处理代码块时出错:', error)
+  }
+}
+
+// 查找并处理所有代码块
+function processAllCodeBlocks(el: HTMLElement) {
+  const blocks = Array.from(el.querySelectorAll<HTMLElement>('pre code'))
+  const unprocessedBlocks = blocks.filter((block) => !isBlockProcessed(block))
+
+  if (unprocessedBlocks.length === 0) {
+    return
+  }
+
+  if (unprocessedBlocks.length <= 10) {
+    // 如果代码块数量少于等于10，直接处理所有代码块
+    unprocessedBlocks.forEach((block) => processBlock(block))
+  } else {
+    // 定义每次处理的代码块数
+    const batchSize = 10
+    let currentIndex = 0
+
+    const processBatch = () => {
+      const batch = unprocessedBlocks.slice(currentIndex, currentIndex + batchSize)
+
+      batch.forEach((block) => {
+        processBlock(block)
+      })
+
+      // 更新索引并继续处理下一批
+      currentIndex += batchSize
+      if (currentIndex < unprocessedBlocks.length) {
+        // 使用 requestAnimationFrame 确保下一帧再处理
+        requestAnimationFrame(processBatch)
+      }
+    }
+
+    // 开始处理第一批代码块
+    processBatch()
+  }
+}
+
+// 重试处理函数
+function retryProcessing(el: HTMLElement, maxRetries: number = 3, delay: number = 200) {
+  let retryCount = 0
+
+  const tryProcess = () => {
+    processAllCodeBlocks(el)
+
+    // 检查是否还有未处理的代码块
+    const remainingBlocks = Array.from(el.querySelectorAll<HTMLElement>('pre code')).filter(
+      (block) => !isBlockProcessed(block)
+    )
+
+    if (remainingBlocks.length > 0 && retryCount < maxRetries) {
+      retryCount++
+      setTimeout(tryProcess, delay * retryCount) // 递增延迟
+    }
+  }
+
+  tryProcess()
 }
 
 // 代码高亮、插入行号、复制按钮
 const highlightDirective: Directive<HTMLElement> = {
   mounted(el: HTMLElement) {
+    // 立即尝试处理一次
+    processAllCodeBlocks(el)
+
+    // 延迟处理，确保 v-html 内容已经渲染
     setTimeout(() => {
-      const blocks = Array.from(el.querySelectorAll<HTMLElement>('pre code'))
+      retryProcessing(el)
+    }, 100)
 
-      if (blocks.length <= 10) {
-        // 如果代码块数量少于等于10，直接处理所有代码块
-        blocks.forEach((block) => processBlock(block))
-      } else {
-        // 定义每次处理的代码块数
-        const batchSize = 10
-        let currentIndex = 0
+    // 使用 MutationObserver 监听 DOM 变化
+    const observer = new MutationObserver((mutations) => {
+      let hasNewCodeBlocks = false
 
-        const processBatch = () => {
-          const batch = blocks.slice(currentIndex, currentIndex + batchSize)
-
-          batch.forEach((block) => {
-            processBlock(block)
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'childList') {
+          mutation.addedNodes.forEach((node) => {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              const element = node as HTMLElement
+              // 检查新添加的节点是否包含代码块
+              if (element.tagName === 'PRE' || element.querySelector('pre code')) {
+                hasNewCodeBlocks = true
+              }
+            }
           })
-
-          // 更新索引并继续处理下一批
-          currentIndex += batchSize
-          if (currentIndex < blocks.length) {
-            // 使用 requestAnimationFrame 确保下一帧再处理
-            requestAnimationFrame(processBatch)
-          }
         }
+      })
 
-        // 开始处理第一批代码块
-        processBatch()
+      if (hasNewCodeBlocks) {
+        // 延迟处理新添加的代码块
+        setTimeout(() => {
+          processAllCodeBlocks(el)
+        }, 50)
       }
-    }, 200)
+    })
+
+    // 开始观察
+    observer.observe(el, {
+      childList: true,
+      subtree: true
+    })
+
+    // 将 observer 存储到元素上，以便在 unmounted 时清理
+    ;(el as any)._highlightObserver = observer
+  },
+
+  updated(el: HTMLElement) {
+    // 当组件更新时，重新处理代码块
+    setTimeout(() => {
+      processAllCodeBlocks(el)
+    }, 50)
+  },
+
+  unmounted(el: HTMLElement) {
+    // 清理 MutationObserver
+    const observer = (el as any)._highlightObserver
+    if (observer) {
+      observer.disconnect()
+      delete (el as any)._highlightObserver
+    }
   }
 }
 

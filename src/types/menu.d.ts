@@ -2,7 +2,7 @@ export type MenuListType = {
   id: number
   path: string // 路由
   name: string // 组件名
-  component?: string // 改为字符串类型，表示组件路径
+  component?: string // 组件路径
   meta: {
     title: string // 菜单名称
     icon?: string // 菜单图标
@@ -14,7 +14,7 @@ export type MenuListType = {
     isIframe?: boolean // 是否是 iframe
     keepAlive: boolean // 是否缓存
     authList?: Array // 可操作权限
-    isRootMenu?: boolean // 是否为一级菜单
+    isFirstLevel?: boolean // 是否为一级菜单（系统自动处理，不需要手动添加）
     roles?: string[] // 角色
   }
   children?: MenuListType[] // 子菜单

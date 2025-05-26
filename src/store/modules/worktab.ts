@@ -4,6 +4,7 @@ import { WorkTabType } from '@/types/store'
 import { HOME_PAGE } from '@/router/routesAlias'
 import { router } from '@/router'
 import { getSysStorage } from '@/utils/storage'
+import { LocationQueryRaw } from 'vue-router'
 
 // 选项卡
 export const useWorktabStore = defineStore('worktabStore', () => {
@@ -77,7 +78,13 @@ export const useWorktabStore = defineStore('worktabStore', () => {
       }
       const newIndex = index >= opened.value.length ? opened.value.length - 1 : index
       current.value = opened.value[newIndex]
-      router.push(current.value.path as string)
+
+      // 修复：使用完整的路由信息，包括path和query
+      const { path: targetPath, query } = current.value
+      router.push({
+        path: targetPath as string,
+        query: query as LocationQueryRaw
+      })
     } else {
       if (noCurrentTab?.name) {
         addKeepAliveExclude(noCurrentTab)
@@ -137,6 +144,13 @@ export const useWorktabStore = defineStore('worktabStore', () => {
       markTabsToRemove(tabsToRemove)
       opened.value = opened.value.filter((tab) => tab.path === HOME_PAGE)
       if (opened.value.length === 0) router.push(HOME_PAGE)
+      else if (opened.value.length > 0) {
+        const homeTab = opened.value[0]
+        router.push({
+          path: homeTab.path,
+          query: homeTab.query as LocationQueryRaw
+        })
+      }
     }
   }
 

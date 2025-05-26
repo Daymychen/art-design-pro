@@ -115,8 +115,12 @@ async function handleDynamicRoutes(
 ): Promise<void> {
   try {
     await getMenuData(router)
-    // 重新导航到目标路由，以便重新匹配
-    next({ path: to.fullPath, replace: true })
+    next({
+      path: to.path,
+      query: to.query,
+      hash: to.hash,
+      replace: true
+    })
   } catch (error) {
     console.error('动态路由注册失败:', error)
     next('/exception/500')

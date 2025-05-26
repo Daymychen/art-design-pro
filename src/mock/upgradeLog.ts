@@ -10,6 +10,18 @@ interface UpgradeLog {
 
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
+    version: 'v2.2.88',
+    title: 'bug修复、优化用户体验',
+    date: '2025-05-26',
+    detail: [
+      '优化一级菜单配置，去除 isRootMenu 属性',
+      '优化登录页面角色选择器高度问题',
+      '修复刷新页面参数丢失问题',
+      '修复关闭标签页导致浏览器参数丢失问题',
+      '修复高亮代码块自定义指令问题'
+    ]
+  },
+  {
     version: 'v2.2.87',
     title: '横幅组件增加流星动画',
     date: '2025-05-26'

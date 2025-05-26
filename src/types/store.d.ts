@@ -1,4 +1,5 @@
 import { MenuThemeEnum, SystemThemeEnum } from '@/enums/appEnum'
+import { LocationQueryRaw } from 'vue-router'
 
 // 用户信息
 export interface UserInfo {
@@ -55,5 +56,5 @@ export interface WorkTabType {
   name: string
   keepAlive: boolean
   params?: object
-  query?: object
+  query?: LocationQueryRaw
 }

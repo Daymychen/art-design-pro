@@ -256,18 +256,18 @@
   const topBarWidth = (): string => {
     const { TOP, DUAL_MENU, TOP_LEFT } = MenuTypeEnum
     const { getMenuOpenWidth } = settingStore
-    const { isRootMenu } = router.currentRoute.value.meta
+    const { isFirstLevel } = router.currentRoute.value.meta
     const type = menuType.value
     const isMenuOpen = menuOpen.value
 
-    const isTopLayout = type === TOP || (type === TOP_LEFT && isRootMenu)
+    const isTopLayout = type === TOP || (type === TOP_LEFT && isFirstLevel)
 
     if (isTopLayout) {
       return '100%'
     }
 
     if (type === DUAL_MENU) {
-      return isRootMenu ? 'calc(100% - 80px)' : `calc(100% - 80px - ${getMenuOpenWidth})`
+      return isFirstLevel ? 'calc(100% - 80px)' : `calc(100% - 80px - ${getMenuOpenWidth})`
     }
 
     return isMenuOpen ? `calc(100% - ${getMenuOpenWidth})` : `calc(100% - ${MenuWidth.CLOSE})`

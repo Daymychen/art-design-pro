@@ -8,7 +8,7 @@ export function hexToRgba(
   opacity: number
 ): { red: number; green: number; blue: number; rgba: string } {
   // 移除可能存在的 # 前缀并转换为大写
-  hex = hex.replace(/^#/, '').toUpperCase()
+  hex = hex.trim().replace(/^#/, '').toUpperCase()
 
   // 如果是缩写形式（如 FFF），转换为完整形式
   if (hex.length === 3) {

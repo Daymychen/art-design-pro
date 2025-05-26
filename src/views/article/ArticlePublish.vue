@@ -136,7 +136,7 @@
   const getArticleTypes = async () => {
     try {
       const response = await axios.get('https://www.qiniu.lingchen.kim/classify.json')
-      if (response.data.code === ApiStatus.success) {
+      if (response.data.code === 200) {
         articleTypes.value = response.data.data
       }
     } catch (error) {

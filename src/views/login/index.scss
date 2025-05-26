@@ -157,9 +157,10 @@
           }
         }
 
+        .account-select :deep(.el-select__wrapper),
         .el-input,
         .login-btn {
-          height: 40px;
+          height: 40px !important;
         }
 
         .drag-verify {
