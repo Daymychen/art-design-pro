@@ -27,16 +27,35 @@
     getSplitLineStyle
   } = useChart()
 
+  // 定义真实数据
+  const realData = [50, 25, 40, 20, 70, 35, 65, 30, 35, 20, 40, 44]
+
+  // 初始化动画函数
+  const initChartWithAnimation = () => {
+    // 首先初始化图表，数据为0
+    initChart(options(true))
+
+    // 延迟更新到真实数据，触发从下向上的动画
+    setTimeout(() => {
+      initChart(options(false))
+    }, 100)
+  }
+
   watch(isDark, () => {
-    initChart(options())
+    initChartWithAnimation()
   })
 
   onMounted(() => {
-    initChart(options())
+    initChartWithAnimation()
   })
 
-  const options: () => EChartsOption = () => {
+  const options: (isInitial?: boolean) => EChartsOption = (isInitial) => {
+    const isInit = isInitial || false
     return {
+      // 添加动画配置
+      animation: true,
+      animationDuration: 0,
+      animationDurationUpdate: 0,
       grid: {
         left: '2.2%',
         right: '3%',
@@ -79,24 +98,26 @@
           color: getCssVariable('--main-color'),
           type: 'line',
           stack: '总量',
-          data: [50, 25, 40, 20, 70, 35, 65, 30, 35, 20, 40, 44],
+          data: isInit ? new Array(12).fill(0) : realData,
           smooth: true,
           symbol: 'none',
           lineStyle: {
-            width: 2.6
+            width: 2.2
           },
           areaStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
               {
                 offset: 0,
-                color: hexToRgba(getCssVariable('--el-color-primary'), 0.2).rgba
+                color: hexToRgba(getCssVariable('--el-color-primary'), 0.15).rgba
               },
               {
                 offset: 1,
                 color: hexToRgba(getCssVariable('--el-color-primary'), 0.01).rgba
               }
             ])
-          }
+          },
+          animationDuration: 0,
+          animationDurationUpdate: 1500
         }
       ]
     }

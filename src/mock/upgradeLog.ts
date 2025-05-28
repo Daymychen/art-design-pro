@@ -10,6 +10,11 @@ interface UpgradeLog {
 
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
+    version: 'v2.2.91',
+    title: '首页图表设计高级动画效果、分析页样式优化',
+    date: '2025-05-28'
+  },
+  {
     version: 'v2.2.90',
     title: '表格搜索新增日期选择器',
     date: '2025-05-28'

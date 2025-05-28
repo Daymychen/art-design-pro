@@ -90,7 +90,7 @@
         data: [10, 11, 20, 5, 11, 13, 10],
         barWidth: '15',
         itemStyle: {
-          color: '#00E096',
+          color: '#95E0FB',
           borderRadius: [4, 4, 4, 4]
         }
       }

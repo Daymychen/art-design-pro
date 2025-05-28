@@ -62,7 +62,7 @@
         name: t('analysis.customerSatisfaction.legend.lastMonth'),
         type: 'line',
         smooth: true,
-        data: [1800, 2800, 1800, 2300, 2600, 2500, 3500],
+        data: [1800, 2800, 1800, 2300, 2600, 2500, 3000],
         areaStyle: {
           opacity: 0.8,
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
@@ -83,21 +83,21 @@
         name: t('analysis.customerSatisfaction.legend.thisMonth'),
         type: 'line',
         smooth: true,
-        data: [4800, 3500, 4300, 3700, 4500, 3500, 5500],
+        data: [4000, 3500, 4300, 3700, 4500, 3500, 4000],
         areaStyle: {
           opacity: 0.8,
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            { offset: 0, color: 'rgba(7,224,152,0.33)' },
+            { offset: 0, color: 'rgba(147,241,180,0.33)' },
             { offset: 1, color: 'rgba(255,255,255,0)' }
           ])
         },
         lineStyle: {
           width: 2,
-          color: '#04C283'
+          color: '#14DEB9'
         },
         symbol: 'none',
         itemStyle: {
-          color: '#07E098'
+          color: '#14DEB9'
         }
       }
     ]

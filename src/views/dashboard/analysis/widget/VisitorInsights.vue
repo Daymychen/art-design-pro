@@ -92,11 +92,11 @@
           symbol: 'none',
           data: [280, 350, 300, 250, 230, 210, 240, 280, 320, 350, 300, 200],
           lineStyle: {
-            color: '#18C653',
+            color: '#49BEFF',
             width: 3
           },
           itemStyle: {
-            color: '#18C653'
+            color: '#49BEFF'
           }
         }
       ]

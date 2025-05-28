@@ -93,7 +93,7 @@
         stack: 'total',
         data: chartData.map((item) => item.services),
         itemStyle: {
-          color: '#00E096',
+          color: '#95E0FB',
           borderRadius: [4, 4, 0, 0]
         },
         barWidth: '50%'

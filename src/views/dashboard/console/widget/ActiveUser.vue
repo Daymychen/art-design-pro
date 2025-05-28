@@ -79,7 +79,10 @@
               }
             ])
           },
-          barWidth: '50%'
+          barWidth: '50%',
+          animationDelay: (idx) => idx * 50 + 300,
+          animationDuration: (idx) => 1500 - idx * 50,
+          animationEasing: 'quarticOut' // 推荐动画： quarticOut exponentialOut quinticOut backOut
         }
       ]
     }
