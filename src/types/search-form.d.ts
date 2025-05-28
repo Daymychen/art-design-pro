@@ -1,5 +1,18 @@
 // 搜索组件类型
-export type SearchComponentType = 'input' | 'select' | 'radio'
+export type SearchComponentType =
+  | 'input'
+  | 'select'
+  | 'radio'
+  | 'date'
+  | 'datetime'
+  | 'date'
+  | 'daterange'
+  | 'datetimerange'
+  | 'month'
+  | 'monthrange'
+  | 'year'
+  | 'yearrange'
+  | 'week'
 
 // select选项接口定义
 export interface SearchSelectOption {

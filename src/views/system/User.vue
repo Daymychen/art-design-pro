@@ -17,12 +17,13 @@
           @refresh="handleRefresh"
         >
           <template #left>
-            <ElButton @click="showDialog('add')" v-ripple>新增用户</ElButton>
+            <ElButton @click="showDialog('add')">新增用户</ElButton>
           </template>
         </ArtTableHeader>
 
         <!-- 表格 -->
         <ArtTable
+          ref="tableRef"
           row-key="id"
           :loading="loading"
           :data="tableData"
@@ -30,6 +31,7 @@
           :pageSize="20"
           :total="500"
           :marginTop="10"
+          @selection-change="handleSelectionChange"
         >
           <template #default>
             <ElTableColumn v-for="col in columns" :key="col.prop || col.type" v-bind="col" />
@@ -95,18 +97,28 @@
   // 定义表单搜索初始值
   const initialSearchState = {
     name: '',
-    gender: 'male',
     phone: '',
     address: '',
     level: '',
     email: '',
-    company: ''
+    date: '',
+    daterange: '',
+    status: '1'
   }
 
   const roleList = ref<any[]>([])
 
   // 响应式表单数据
   const formFilters = reactive({ ...initialSearchState })
+
+  // 表格数据
+  const tableData = ref<any[]>([])
+
+  // 表格实例引用
+  const tableRef = ref()
+
+  // 选中的行数据
+  const selectedRows = ref<any[]>([])
 
   // 重置表单
   const handleReset = () => {
@@ -178,23 +190,34 @@
       },
       onChange: handleFormChange
     },
+    // 支持 9 种日期类型定义
+    // 具体可参考 src/components/core/forms/art-search-bar/widget/art-search-date/README.md
     {
-      label: '公司',
-      prop: 'company',
-      type: 'input',
+      prop: 'date',
+      label: '日期',
+      type: 'date',
       config: {
-        placeholder: '请输入公司名称',
-        clearable: true
-      },
-      onChange: handleFormChange
+        type: 'date',
+        placeholder: '请选择日期'
+      }
     },
     {
-      label: '性别',
-      prop: 'gender',
+      prop: 'daterange',
+      label: '日期范围',
+      type: 'daterange',
+      config: {
+        type: 'daterange',
+        startPlaceholder: '开始时间',
+        endPlaceholder: '结束时间'
+      }
+    },
+    {
+      label: '状态',
+      prop: 'status',
       type: 'radio',
       options: [
-        { label: '男', value: 'male' },
-        { label: '女', value: 'female' }
+        { label: '在线', value: '1' },
+        { label: '离线', value: '2' }
       ],
       onChange: handleFormChange
     }
@@ -350,9 +373,6 @@
     role: [] as string[]
   })
 
-  // 表格数据
-  const tableData = ref<any[]>([])
-
   onMounted(() => {
     getUserList()
     getRoleList()
@@ -372,6 +392,11 @@
 
   const handleRefresh = () => {
     getUserList()
+  }
+
+  // 处理表格行选择变化
+  const handleSelectionChange = (selection: any[]) => {
+    selectedRows.value = selection
   }
 
   // 表单验证规则

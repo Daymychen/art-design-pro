@@ -11,7 +11,7 @@
           :lg="item.elColSpan || props.elColSpan"
           :xl="item.elColSpan || props.elColSpan"
         >
-          <el-form-item :label="`${item.label}`" :prop="item.prop" :label-width="labelWidth">
+          <el-form-item :label="`${item.label}`" :prop="item.prop" :label-width="props.labelWidth">
             <component
               :is="getComponent(item.type)"
               v-model:value="filter[item.prop]"
@@ -32,7 +32,7 @@
             :style="{
               'justify-content': isMobile
                 ? 'flex-end'
-                : items.length <= buttonLeftLimit
+                : props.items.length <= props.buttonLeftLimit
                   ? 'flex-start'
                   : 'flex-end'
             }"
@@ -45,7 +45,11 @@
                 $t('table.searchBar.search')
               }}</el-button>
             </div>
-            <div v-if="!isExpand && showExpand" class="filter-toggle" @click="isShow = !isShow">
+            <div
+              v-if="!props.isExpand && props.showExpand"
+              class="filter-toggle"
+              @click="isShow = !isShow"
+            >
               <span>{{
                 isShow ? $t('table.searchBar.collapse') : $t('table.searchBar.expand')
               }}</span>
@@ -64,10 +68,13 @@
 </template>
 
 <script setup lang="ts">
-  import { DefineComponent, computed, ref } from 'vue'
-  import ArtSearchInput from './widget/ArtSearchInput.vue'
-  import ArtSearchSelect from './widget/ArtSearchSelect.vue'
-  import ArtSearchRadio from './widget/ArtSearchRadio.vue'
+  import { computed, ref } from 'vue'
+  import { ArrowUpBold, ArrowDownBold } from '@element-plus/icons-vue'
+  import { useWindowSize } from '@vueuse/core'
+  import ArtSearchInput from './widget/art-search-input/index.vue'
+  import ArtSearchSelect from './widget/art-search-select/index.vue'
+  import ArtSearchRadio from './widget/art-search-radio/index.vue'
+  import ArtSearchDate from './widget/art-search-date/index.vue'
   import { SearchComponentType, SearchFormItem } from '@/types/search-form'
 
   const { width } = useWindowSize()
@@ -120,20 +127,29 @@
     set: (val) => emit('update:filter', val)
   })
 
-  const componentsMap = new Map([
-    ['input', ArtSearchInput],
-    ['select', ArtSearchSelect],
-    ['radio', ArtSearchRadio]
-  ])
-
-  const getComponent = (type: SearchComponentType): DefineComponent => {
-    return componentsMap.get(type) as unknown as DefineComponent
+  const getComponent = (type: SearchComponentType): any => {
+    const componentsMap: Record<string, any> = {
+      input: ArtSearchInput,
+      select: ArtSearchSelect,
+      radio: ArtSearchRadio,
+      datetime: ArtSearchDate,
+      date: ArtSearchDate,
+      daterange: ArtSearchDate,
+      datetimerange: ArtSearchDate,
+      month: ArtSearchDate,
+      monthrange: ArtSearchDate,
+      year: ArtSearchDate,
+      yearrange: ArtSearchDate,
+      week: ArtSearchDate
+    }
+    return componentsMap[type]
   }
 </script>
 
 <style lang="scss" scoped>
   .search-bar {
     padding: 20px 20px 0;
+    touch-action: none !important;
     background-color: var(--art-main-bg-color);
     border-radius: calc(var(--custom-radius) / 2 + 2px);
 
