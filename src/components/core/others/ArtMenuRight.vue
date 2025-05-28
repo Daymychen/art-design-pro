@@ -3,35 +3,37 @@
   <div class="menu-right">
     <Transition name="context-menu" @before-enter="onBeforeEnter" @after-leave="onAfterLeave">
       <div v-show="visible" :style="menuStyle" class="context-menu">
-        <ul class="menu-list">
+        <ul class="menu-list" :style="menuListStyle">
           <template v-for="item in menuItems" :key="item.key">
             <!-- 普通菜单项 -->
             <li
               v-if="!item.children"
               class="menu-item"
-              :class="{ 'is-disabled': item.disabled }"
+              :class="{ 'is-disabled': item.disabled, 'has-line': item.showLine }"
+              :style="menuItemStyle"
               @click="handleMenuClick(item)"
             >
-              <el-icon v-if="item.icon"><component :is="item.icon" /></el-icon>
+              <i v-if="item.icon" class="iconfont-sys" v-html="item.icon"></i>
               <span class="menu-label">{{ item.label }}</span>
             </li>
 
             <!-- 子菜单 -->
-            <li v-else class="menu-item submenu">
+            <li v-else class="menu-item submenu" :style="menuItemStyle">
               <div class="submenu-title">
-                <el-icon v-if="item.icon"><component :is="item.icon" /></el-icon>
+                <i v-if="item.icon" class="iconfont-sys" v-html="item.icon"></i>
                 <span class="menu-label">{{ item.label }}</span>
-                <el-icon><ArrowRight /></el-icon>
+                <i class="iconfont-sys submenu-arrow">&#xe865;</i>
               </div>
-              <ul class="submenu-list">
+              <ul class="submenu-list" :style="submenuListStyle">
                 <li
                   v-for="child in item.children"
                   :key="child.key"
                   class="menu-item"
-                  :class="{ 'is-disabled': child.disabled }"
+                  :class="{ 'is-disabled': child.disabled, 'has-line': child.showLine }"
+                  :style="menuItemStyle"
                   @click="handleMenuClick(child)"
                 >
-                  <el-icon v-if="child.icon"><component :is="child.icon" /></el-icon>
+                  <i v-if="child.icon" class="iconfont-sys" v-html="child.icon"></i>
                   <span class="menu-label">{{ child.label }}</span>
                 </li>
               </ul>
@@ -52,42 +54,149 @@
     label: string
     icon?: string
     disabled?: boolean
+    showLine?: boolean
     children?: MenuItemType[]
     [key: string]: any
   }
 
   interface Props {
     menuItems: MenuItemType[]
+    /** 菜单宽度 */
+    menuWidth?: number
+    /** 子菜单宽度 */
+    submenuWidth?: number
+    /** 菜单项高度 */
+    itemHeight?: number
+    /** 边界距离 */
+    boundaryDistance?: number
+    /** 菜单内边距 */
+    menuPadding?: number
+    /** 菜单项水平内边距 */
+    itemPaddingX?: number
+    /** 菜单圆角 */
+    borderRadius?: number
+    /** 动画持续时间 */
+    animationDuration?: number
   }
 
-  defineProps<Props>()
+  const props = withDefaults(defineProps<Props>(), {
+    menuWidth: 120,
+    submenuWidth: 150,
+    itemHeight: 32,
+    boundaryDistance: 10,
+    menuPadding: 5,
+    itemPaddingX: 6,
+    borderRadius: 6,
+    animationDuration: 100
+  })
+
   const emit = defineEmits<{
     (e: 'select', item: MenuItemType): void
+    (e: 'show'): void
+    (e: 'hide'): void
   }>()
 
   const visible = ref(false)
   const position = ref({ x: 0, y: 0 })
 
+  // 计算菜单样式
   const menuStyle = computed(
     (): CSSProperties => ({
       position: 'fixed' as const,
       left: `${position.value.x}px`,
       top: `${position.value.y}px`,
-      zIndex: 2000
+      zIndex: 2000,
+      width: `${props.menuWidth}px`
     })
   )
 
+  // 计算菜单列表样式
+  const menuListStyle = computed(
+    (): CSSProperties => ({
+      padding: `${props.menuPadding}px`
+    })
+  )
+
+  // 计算菜单项样式
+  const menuItemStyle = computed(
+    (): CSSProperties => ({
+      height: `${props.itemHeight}px`,
+      padding: `0 ${props.itemPaddingX}px`,
+      borderRadius: '4px'
+    })
+  )
+
+  // 计算子菜单列表样式
+  const submenuListStyle = computed(
+    (): CSSProperties => ({
+      minWidth: 'max-content',
+      padding: `${props.menuPadding}px 0`,
+      borderRadius: `${props.borderRadius}px`
+    })
+  )
+
+  // 计算菜单高度（用于边界检测）
+  const calculateMenuHeight = (): number => {
+    let totalHeight = props.menuPadding * 2 // 上下内边距
+
+    props.menuItems.forEach((item) => {
+      totalHeight += props.itemHeight
+      if (item.showLine) {
+        totalHeight += 10 // 分割线额外高度
+      }
+    })
+
+    return totalHeight
+  }
+
   const show = (e: MouseEvent) => {
     e.preventDefault()
-    position.value = { x: e.clientX, y: e.clientY }
+    e.stopPropagation()
+
+    const screenWidth = window.innerWidth
+    const screenHeight = window.innerHeight
+    const menuHeight = calculateMenuHeight()
+
+    // 计算最佳位置
+    let x = e.clientX
+    let y = e.clientY
+
+    // 检查右边界
+    if (x + props.menuWidth > screenWidth - props.boundaryDistance) {
+      x = screenWidth - props.menuWidth - props.boundaryDistance
+    }
+
+    // 检查下边界
+    if (y + menuHeight > screenHeight - props.boundaryDistance) {
+      y = screenHeight - menuHeight - props.boundaryDistance
+    }
+
+    // 确保不会超出左边界和上边界
+    x = Math.max(props.boundaryDistance, x)
+    y = Math.max(props.boundaryDistance, y)
+
+    position.value = { x, y }
     visible.value = true
 
-    // 添加一次性点击事件监听器来关闭菜单
-    document.addEventListener('click', hide, { once: true })
+    emit('show')
+
+    // 延迟添加事件监听器，避免立即触发关闭
+    setTimeout(() => {
+      if (visible.value) {
+        document.addEventListener('click', hide, { once: true })
+        document.addEventListener('contextmenu', hide, { once: true })
+      }
+    }, 100)
   }
 
   const hide = () => {
-    visible.value = false
+    if (visible.value) {
+      visible.value = false
+      emit('hide')
+      // 清理事件监听器
+      document.removeEventListener('click', hide)
+      document.removeEventListener('contextmenu', hide)
+    }
   }
 
   const handleMenuClick = (item: MenuItemType) => {
@@ -96,34 +205,37 @@
     hide()
   }
 
-  // 添加动画钩子函数
+  // 动画钩子函数
   const onBeforeEnter = (el: Element) => {
-    ;(el as HTMLElement).style.transformOrigin = 'top left'
+    const element = el as HTMLElement
+    element.style.transformOrigin = 'top left'
   }
 
   const onAfterLeave = () => {
-    // 可以在这里添加退场后的清理逻辑
+    // 清理逻辑
+    document.removeEventListener('click', hide)
+    document.removeEventListener('contextmenu', hide)
   }
 
   // 导出方法供父组件调用
   defineExpose({
     show,
-    hide
+    hide,
+    visible: computed(() => visible.value)
   })
 </script>
 
 <style lang="scss" scoped>
   .menu-right {
     .context-menu {
-      min-width: 120px;
-      padding: 4px 0;
+      width: v-bind('props.menuWidth + "px"');
+      min-width: v-bind('props.menuWidth + "px"');
       background: var(--el-bg-color);
-      border-radius: var(--el-border-radius-base);
+      border: 1px solid var(--el-border-color-light);
+      border-radius: v-bind('props.borderRadius + "px"');
       box-shadow: var(--el-box-shadow-light);
 
       .menu-list {
-        padding: 0;
-        padding: 5px;
         margin: 0;
         list-style: none;
 
@@ -131,33 +243,54 @@
           position: relative;
           display: flex;
           align-items: center;
-          height: 32px;
-          padding: 0 16px;
           font-size: 13px;
           color: var(--el-text-color-primary);
           cursor: pointer;
-          border-radius: 4px;
+          user-select: none;
+          transition: background-color 0.15s ease;
 
-          &:hover {
+          &:hover:not(.is-disabled) {
             background-color: rgba(var(--art-gray-200-rgb), 0.7);
           }
 
-          .el-icon {
+          &.has-line {
+            margin-bottom: 10px;
+
+            &::after {
+              position: absolute;
+              right: 0;
+              bottom: -5px;
+              left: 0;
+              height: 1px;
+              content: '';
+              background-color: rgba(var(--art-gray-300-rgb), 0.5);
+            }
+          }
+
+          i:not(.submenu-arrow) {
+            flex-shrink: 0;
             margin-right: 8px;
             font-size: 16px;
             color: var(--art-gray-800);
           }
 
           .menu-label {
+            flex: 1;
+            overflow: hidden;
             color: var(--art-gray-800);
+            text-overflow: ellipsis;
+            white-space: nowrap;
           }
 
           &.is-disabled {
             color: var(--el-text-color-disabled);
             cursor: not-allowed;
-            background-color: transparent !important;
 
-            .el-icon {
+            &:hover {
+              background-color: transparent !important;
+            }
+
+            i:not(.submenu-arrow) {
               color: var(--el-text-color-disabled) !important;
             }
 
@@ -167,8 +300,6 @@
           }
 
           &.submenu {
-            position: relative;
-
             &:hover {
               .submenu-list {
                 display: block;
@@ -180,27 +311,91 @@
               align-items: center;
               width: 100%;
 
-              .el-icon:last-child {
+              .submenu-arrow {
+                margin-right: 0;
                 margin-left: auto;
                 font-size: 12px;
+                color: var(--art-gray-600);
+                transition: transform 0.15s ease;
               }
+            }
+
+            &:hover .submenu-title .submenu-arrow {
+              transform: rotate(90deg);
             }
 
             .submenu-list {
               position: absolute;
               top: 0;
               left: 100%;
+              z-index: 2001;
               display: none;
-              min-width: 150px;
-              padding: 4px 0;
+              width: max-content;
+              min-width: max-content;
               list-style: none;
               background: var(--el-bg-color);
-              border-radius: var(--el-border-radius-base);
+              border: 1px solid var(--el-border-color-light);
               box-shadow: var(--el-box-shadow-light);
 
               .menu-item {
-                &:hover {
-                  background-color: var(--el-menu-hover-bg-color);
+                position: relative;
+                display: flex;
+                align-items: center;
+                margin: 0 6px;
+                font-size: 13px;
+                color: var(--el-text-color-primary);
+                cursor: pointer;
+                user-select: none;
+                transition: background-color 0.15s ease;
+
+                &:hover:not(.is-disabled) {
+                  background-color: rgba(var(--art-gray-200-rgb), 0.7);
+                }
+
+                &.has-line {
+                  margin-bottom: 10px;
+
+                  &::after {
+                    position: absolute;
+                    right: 0;
+                    bottom: -5px;
+                    left: 0;
+                    height: 1px;
+                    content: '';
+                    background-color: rgba(var(--art-gray-300-rgb), 0.5);
+                  }
+                }
+
+                i:not(.submenu-arrow) {
+                  flex-shrink: 0;
+                  margin-right: 8px;
+                  font-size: 16px;
+                  color: var(--art-gray-800);
+                }
+
+                .menu-label {
+                  flex: 1;
+                  overflow: hidden;
+                  color: var(--art-gray-800);
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                }
+
+                &.is-disabled {
+                  color: var(--el-text-color-disabled);
+                  cursor: not-allowed;
+
+                  &:hover {
+                    background-color: transparent !important;
+                  }
+
+                  i:not(.submenu-arrow) {
+                    color: var(--el-text-color-disabled) !important;
+                  }
+
+                  .menu-label {
+                    color: var(--el-text-color-disabled) !important;
+                  }
                 }
               }
             }
@@ -209,10 +404,10 @@
       }
     }
 
-    // 添加动画相关样式
+    // 动画样式
     .context-menu-enter-active,
     .context-menu-leave-active {
-      transition: all 0.1s ease-out;
+      transition: all v-bind('props.animationDuration + "ms"') ease-out;
     }
 
     .context-menu-enter-from,

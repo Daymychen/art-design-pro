@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "34292270",
+      "name": "arrow-sfixed",
+      "font_class": "arrow-sfixed",
+      "unicode": "e644",
+      "unicode_decimal": 58948
+    },
+    {
       "icon_id": "33747206",
       "name": "高度",
       "font_class": "gaodu1",

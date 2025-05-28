@@ -82,31 +82,14 @@
     "viewAll": "View all"
   },
   "worktab": {
-    "btn": ["Close left", "Close right", "Close outher", "Close All"]
-  },
-  "console": {
-    "card": [
-      "Total visits",
-      "Number of online visitors",
-      "Visits",
-      "Number of articles",
-      "Number of messages",
-      "To do task"
-    ],
-    "histogram": {
-      "title": "Visits"
-    },
-    "plan": {
-      "title": "Plan"
-    },
-    "lingChart": {
-      "title": "Traffic trend"
-    },
-    "todo": {
-      "title": "To do task"
-    },
-    "pieChart": {
-      "title": "Classified statistics"
+    "btn": {
+      "refresh": "Refresh",
+      "fixed": "Fixed",
+      "unfixed": "Unfixed",
+      "closeLeft": "Close left",
+      "closeRight": "Close right",
+      "closeOther": "Close other",
+      "closeAll": "Close all"
     }
   },
   "login": {

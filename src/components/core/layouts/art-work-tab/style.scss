@@ -20,7 +20,6 @@
       li {
         display: inline-block;
         height: 32px;
-        padding: 0 8px 0 12px;
         margin-right: 6px;
         font-size: 13px;
         line-height: 32px;
@@ -121,7 +120,7 @@
           box-sizing: border-box;
           color: var(--art-text-gray-600) !important;
           background-color: var(--art-gray-200) !important;
-          border-bottom: 1px solid #fff !important;
+          border-bottom: 1px solid var(--art-main-bg-color) !important;
           border-radius: calc(var(--custom-radius) / 2.5 + 4px) !important;
 
           .line {

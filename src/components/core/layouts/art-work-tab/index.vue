@@ -13,11 +13,15 @@
           :ref="item.path"
           :class="{ 'activ-tab': item.path === activeTab }"
           :id="`scroll-li-${index}`"
+          :style="{ padding: item.fixedTab ? '0 10px' : '0 8px 0 12px' }"
           @click="clickTab(item)"
           @contextmenu.prevent="(e: MouseEvent) => showMenu(e, item.path)"
         >
           {{ formatMenuTitle(item.title) }}
-          <el-icon v-if="index !== 0" @click.stop="closeWorktab('current', item.path)">
+          <el-icon
+            v-if="list.length > 1 && !item.fixedTab"
+            @click.stop="closeWorktab('current', item.path)"
+          >
             <Close />
           </el-icon>
           <div class="line"></div>
@@ -26,50 +30,30 @@
     </div>
 
     <div class="right">
-      <el-dropdown @command="closeWorktab">
-        <el-icon class="btn console-box art-custom-card">
-          <ArrowDown />
-        </el-icon>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item
-              :icon="ArrowLeft"
-              command="left"
-              :disabled="activeTabIndex === 0 || activeTabIndex === 1"
-            >
-              <span>{{ $t('worktab.btn[0]') }}</span>
-            </el-dropdown-item>
-            <el-dropdown-item
-              :icon="ArrowRight"
-              command="right"
-              :disabled="activeTabIndex === list.length - 1"
-            >
-              <span>{{ $t('worktab.btn[1]') }}</span>
-            </el-dropdown-item>
-            <el-dropdown-item
-              :icon="Close"
-              command="other"
-              :disabled="list.length === 1 || (list.length === 2 && activeTabIndex === 1)"
-            >
-              <span>{{ $t('worktab.btn[2]') }}</span>
-            </el-dropdown-item>
-            <el-dropdown-item :icon="CircleClose" command="all" :disabled="list.length === 1">
-              <span>{{ $t('worktab.btn[3]') }}</span>
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
+      <el-icon
+        class="btn console-box art-custom-card"
+        @click="(e: MouseEvent) => showMenu(e, activeTab)"
+      >
+        <ArrowDown />
+      </el-icon>
     </div>
-    <ArtMenuRight ref="menuRef" :menu-items="menuItems" @select="handleSelect" />
+    <ArtMenuRight
+      ref="menuRef"
+      :menu-items="menuItems"
+      :menu-width="140"
+      :border-radius="10"
+      @select="handleSelect"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
   // 导入必要的组件和工具
-  import { computed, onMounted, ref, watch } from 'vue'
+  import { computed, onMounted, ref, watch, nextTick } from 'vue'
   import { LocationQueryRaw, useRoute, useRouter } from 'vue-router'
   import { useI18n } from 'vue-i18n'
-  import { ArrowDown, ArrowLeft, ArrowRight, Close, CircleClose } from '@element-plus/icons-vue'
+  import { ArrowDown, Close } from '@element-plus/icons-vue'
+  import { storeToRefs } from 'pinia'
 
   import { useWorktabStore } from '@/store/modules/worktab'
   import { useUserStore } from '@/store/modules/user'
@@ -78,6 +62,7 @@
   import { WorkTabType } from '@/types/store'
   import { useSettingStore } from '@/store/modules/setting'
   import { MenuItemType } from '../../others/ArtMenuRight.vue'
+  import { useCommon } from '@/composables/useCommon'
   const { t } = useI18n()
   const store = useWorktabStore()
   const userStore = useUserStore()
@@ -111,34 +96,62 @@
   const menuItems = computed(() => {
     const clickedIndex = list.value.findIndex((tab) => tab.path === clickedPath.value)
     const isLastTab = clickedIndex === list.value.length - 1
-    const isFirstOrSecondTab = clickedIndex === 0 || clickedIndex === 1
     const isOneTab = list.value.length === 1
-    const disableOther = list.value.length === 2 && clickedIndex === 1
+    const isCurrentTab = clickedPath.value === activeTab.value
+    const currentTab = list.value[clickedIndex]
+
+    // 检查左侧标签页是否全部为固定标签页
+    const leftTabs = list.value.slice(0, clickedIndex)
+    const areAllLeftTabsFixed = leftTabs.length > 0 && leftTabs.every((tab) => tab.fixedTab)
+
+    // 检查右侧标签页是否全部为固定标签页
+    const rightTabs = list.value.slice(clickedIndex + 1)
+    const areAllRightTabsFixed = rightTabs.length > 0 && rightTabs.every((tab) => tab.fixedTab)
+
+    // 检查其他标签页是否全部为固定标签页
+    const otherTabs = list.value.filter((_, index) => index !== clickedIndex)
+    const areAllOtherTabsFixed = otherTabs.length > 0 && otherTabs.every((tab) => tab.fixedTab)
+
+    // 检查所有标签页是否全部为固定标签页
+    const areAllTabsFixed = list.value.every((tab) => tab.fixedTab)
 
     return [
       {
+        key: 'refresh',
+        label: t('worktab.btn.refresh'),
+        icon: '&#xe6b3;',
+        disabled: !isCurrentTab
+      },
+      {
+        key: 'fixed',
+        label: currentTab?.fixedTab ? t('worktab.btn.unfixed') : t('worktab.btn.fixed'),
+        icon: '&#xe644;',
+        disabled: false,
+        showLine: true
+      },
+      {
         key: 'left',
-        label: t('worktab.btn[0]'),
-        icon: 'ArrowLeft',
-        disabled: isFirstOrSecondTab
+        label: t('worktab.btn.closeLeft'),
+        icon: '&#xe866;',
+        disabled: clickedIndex === 0 || areAllLeftTabsFixed
       },
       {
         key: 'right',
-        label: t('worktab.btn[1]'),
-        icon: 'ArrowRight',
-        disabled: isLastTab
+        label: t('worktab.btn.closeRight'),
+        icon: '&#xe865;',
+        disabled: isLastTab || areAllRightTabsFixed
       },
       {
         key: 'other',
-        label: t('worktab.btn[2]'),
-        icon: 'Close',
-        disabled: isOneTab || disableOther
+        label: t('worktab.btn.closeOther'),
+        icon: '&#xe83a;',
+        disabled: isOneTab || areAllOtherTabsFixed
       },
       {
         key: 'all',
-        label: t('worktab.btn[3]'),
-        icon: 'CircleClose',
-        disabled: isOneTab
+        label: t('worktab.btn.closeAll'),
+        icon: '&#xe71a;',
+        disabled: isOneTab || areAllTabsFixed
       }
     ]
   })
@@ -237,7 +250,7 @@
         store.removeOthers(path)
         break
       case 'all':
-        store.removeAll(path)
+        store.removeAll()
         break
     }
 
@@ -273,14 +286,31 @@
 
   const handleSelect = (item: MenuItemType) => {
     const { key } = item
+
+    // 刷新页面操作
+    if (key === 'refresh') {
+      useCommon().refresh()
+      return
+    }
+
+    // 固定
+    if (key === 'fixed') {
+      useWorktabStore().toggleFixedTab(clickedPath.value)
+      return
+    }
+
     const activeIndex = list.value.findIndex((tab) => tab.path === activeTab.value)
     const clickedIndex = list.value.findIndex((tab) => tab.path === clickedPath.value)
 
+    // 定义需要导航的操作类型
+    const navigationRules = {
+      left: activeIndex < clickedIndex,
+      right: activeIndex > clickedIndex,
+      other: true
+    } as const
+
     // 处理标签跳转逻辑
-    const shouldNavigate =
-      (key === 'left' && activeIndex < clickedIndex) ||
-      (key === 'right' && activeIndex > clickedIndex) ||
-      key === 'other'
+    const shouldNavigate = navigationRules[key as keyof typeof navigationRules]
 
     if (shouldNavigate) {
       router.push(clickedPath.value)

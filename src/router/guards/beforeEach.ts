@@ -13,6 +13,7 @@ import { menuDataToRouter } from '../utils/menuToRouter'
 import { asyncRoutes } from '../routes/asyncRoutes'
 import { loadingService } from '@/utils/loading'
 import { useCommon } from '@/composables/useCommon'
+import { useWorktabStore } from '@/store/modules/worktab'
 
 // 是否已注册动态路由
 const isRouteRegistered = ref(false)
@@ -71,7 +72,6 @@ async function handleRouteGuard(
 
   // 处理已知的匹配路由
   if (to.matched.length > 0) {
-    // 设置页面信息
     setWorktab(to)
     setPageTitle(to)
     next()
@@ -188,6 +188,7 @@ async function registerAndStoreMenu(
   menuStore.setMenuList(menuList)
   registerDynamicRoutes(router, menuList)
   isRouteRegistered.value = true
+  useWorktabStore().validateWorktabs(router)
   closeLoading()
 }
 

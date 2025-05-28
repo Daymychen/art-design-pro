@@ -34,7 +34,8 @@ export const setWorktab = (to: RouteLocationNormalized): void => {
         name: name as string,
         keepAlive: meta.keepAlive as boolean,
         params,
-        query
+        query,
+        fixedTab: meta.fixedTab as boolean
       })
     }
   }

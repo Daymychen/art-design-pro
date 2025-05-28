@@ -82,24 +82,14 @@
     "viewAll": "查看全部"
   },
   "worktab": {
-    "btn": ["关闭左侧", "关闭右侧", "关闭其它", "关闭全部"]
-  },
-  "console": {
-    "card": ["总访问次数", "在线访客数", "点击量", "文章数", "留言数", "待办任务"],
-    "histogram": {
-      "title": "访问量"
-    },
-    "plan": {
-      "title": "计划"
-    },
-    "lingChart": {
-      "title": "流量趋势"
-    },
-    "todo": {
-      "title": "代办事项"
-    },
-    "pieChart": {
-      "title": "分类统计"
+    "btn": {
+      "refresh": "刷新",
+      "fixed": "固定",
+      "unfixed": "取消固定",
+      "closeLeft": "关闭左侧",
+      "closeRight": "关闭右侧",
+      "closeOther": "关闭其他",
+      "closeAll": "关闭全部"
     }
   },
   "login": {

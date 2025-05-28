@@ -32,7 +32,8 @@ export const asyncRoutes: MenuListType[] = [
         component: RoutesAlias.Dashboard,
         meta: {
           title: 'menus.dashboard.console',
-          keepAlive: true
+          keepAlive: true,
+          fixedTab: true
         }
       },
       {

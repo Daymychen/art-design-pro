@@ -55,6 +55,7 @@ export interface WorkTabType {
   path: string
   name: string
   keepAlive: boolean
+  fixedTab?: boolean // 是否固定标签页
   params?: object
   query?: LocationQueryRaw
 }
