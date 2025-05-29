@@ -1,3 +1,5 @@
+import { useSettingStore } from '@/store/modules/setting'
+
 export function getCssVariable(str: string) {
   return getComputedStyle(document.documentElement).getPropertyValue(str)
 }
@@ -106,4 +108,19 @@ export function getDarkColor(color: string, level: number): string {
   const rgb = hexToRgb(color)
   const newRgb = rgb.map((value) => Math.floor(value * (1 - level)))
   return rgbToHex(newRgb[0], newRgb[1], newRgb[2])
+}
+
+// 设置主题颜色
+export function setElementThemeColor(color: string) {
+  const mixColor = '#ffffff'
+  const elStyle = document.documentElement.style
+
+  elStyle.setProperty('--el-color-primary', color)
+  handleElementThemeColor(color, useSettingStore().isDark)
+
+  // 生成更淡一点的颜色
+  for (let i = 1; i < 16; i++) {
+    const itemColor = colourBlend(color, mixColor, i / 16)
+    elStyle.setProperty(`--el-color-primary-custom-${i}`, itemColor)
+  }
 }

@@ -5,161 +5,98 @@ import { router } from '@/router'
 import { UserInfo } from '@/types/store'
 import { useSettingStore } from './setting'
 import { useWorktabStore } from './worktab'
-import { getSysStorage } from '@/utils/storage'
 import { MenuListType } from '@/types/menu'
-import { useTableStore } from './table'
 import { setPageTitle } from '@/router/utils/utils'
 import { resetRouterState } from '@/router/guards/beforeEach'
 
 // 用户
-export const useUserStore = defineStore('userStore', () => {
-  const language = ref(LanguageEnum.ZH)
-  const isLogin = ref(false)
-  const isLock = ref(false)
-  const lockPassword = ref('')
-  const info = ref<Partial<UserInfo>>({})
-  const searchHistory = ref<MenuListType[]>([])
-  const accessToken = ref('')
-  const refreshToken = ref('')
+export const useUserStore = defineStore(
+  'userStore',
+  () => {
+    const language = ref(LanguageEnum.ZH)
+    const isLogin = ref(false)
+    const isLock = ref(false)
+    const lockPassword = ref('')
+    const info = ref<Partial<UserInfo>>({})
+    const searchHistory = ref<MenuListType[]>([])
+    const accessToken = ref('')
+    const refreshToken = ref('')
 
-  const getUserInfo = computed(() => info.value)
-  const getSettingState = computed(() => useSettingStore().$state)
-  const getWorktabState = computed(() => useWorktabStore().$state)
-  const getTableState = computed(() => useTableStore().$state)
+    const getUserInfo = computed(() => info.value)
+    const getSettingState = computed(() => useSettingStore().$state)
+    const getWorktabState = computed(() => useWorktabStore().$state)
 
-  const initState = () => {
-    let sys = getSysStorage()
-
-    if (sys) {
-      sys = JSON.parse(sys)
-      const {
-        info: storedInfo,
-        isLogin: storedIsLogin,
-        language: storedLanguage,
-        searchHistory: storedSearchHistory,
-        isLock: storedIsLock,
-        lockPassword: storedLockPassword,
-        token: storedToken,
-        refreshToken: storedRefreshToken
-      } = sys.user
-
-      info.value = storedInfo || {}
-      isLogin.value = storedIsLogin || false
-      isLock.value = storedIsLock || false
-      language.value = storedLanguage || LanguageEnum.ZH
-      searchHistory.value = storedSearchHistory || []
-      lockPassword.value = storedLockPassword || ''
-      refreshToken.value = storedRefreshToken || ''
-      accessToken.value = storedToken || ''
+    const setUserInfo = (newInfo: UserInfo) => {
+      info.value = newInfo
     }
-  }
 
-  const saveUserData = () => {
-    saveStoreStorage({
-      user: {
-        info: info.value,
-        isLogin: isLogin.value,
-        language: language.value,
-        isLock: isLock.value,
-        lockPassword: lockPassword.value,
-        searchHistory: searchHistory.value,
-        token: accessToken.value,
-        refreshToken: refreshToken.value,
-        worktab: getWorktabState.value,
-        setting: getSettingState.value,
-        table: getTableState.value
+    const setLoginStatus = (status: boolean) => {
+      isLogin.value = status
+    }
+
+    const setLanguage = (lang: LanguageEnum) => {
+      setPageTitle(router.currentRoute.value)
+      language.value = lang
+    }
+
+    const setSearchHistory = (list: MenuListType[]) => {
+      searchHistory.value = list
+    }
+
+    const setLockStatus = (status: boolean) => {
+      isLock.value = status
+    }
+
+    const setLockPassword = (password: string) => {
+      lockPassword.value = password
+    }
+
+    const setToken = (newAccessToken: string, newRefreshToken?: string) => {
+      accessToken.value = newAccessToken
+      if (newRefreshToken) {
+        refreshToken.value = newRefreshToken
       }
-    })
-  }
-
-  const setUserInfo = (newInfo: UserInfo) => {
-    info.value = newInfo
-  }
-
-  const setLoginStatus = (status: boolean) => {
-    isLogin.value = status
-  }
-
-  const setLanguage = (lang: LanguageEnum) => {
-    setPageTitle(router.currentRoute.value)
-    language.value = lang
-  }
-
-  const setSearchHistory = (list: MenuListType[]) => {
-    searchHistory.value = list
-  }
-
-  const setLockStatus = (status: boolean) => {
-    isLock.value = status
-  }
-
-  const setLockPassword = (password: string) => {
-    lockPassword.value = password
-  }
-
-  const setToken = (newAccessToken: string, newRefreshToken?: string) => {
-    accessToken.value = newAccessToken
-    if (newRefreshToken) {
-      refreshToken.value = newRefreshToken
     }
-    saveUserData()
+
+    const logOut = () => {
+      info.value = {}
+      isLogin.value = false
+      isLock.value = false
+      lockPassword.value = ''
+      accessToken.value = ''
+      refreshToken.value = ''
+      useWorktabStore().opened = []
+      sessionStorage.removeItem('iframeRoutes')
+      resetRouterState(router)
+      router.push('/login')
+    }
+
+    return {
+      language,
+      isLogin,
+      isLock,
+      lockPassword,
+      info,
+      searchHistory,
+      accessToken,
+      refreshToken,
+      getUserInfo,
+      getSettingState,
+      getWorktabState,
+      setUserInfo,
+      setLoginStatus,
+      setLanguage,
+      setSearchHistory,
+      setLockStatus,
+      setLockPassword,
+      setToken,
+      logOut
+    }
+  },
+  {
+    persist: {
+      key: 'user',
+      storage: localStorage
+    }
   }
-
-  const logOut = () => {
-    info.value = {}
-    isLogin.value = false
-    isLock.value = false
-    lockPassword.value = ''
-    accessToken.value = ''
-    refreshToken.value = ''
-    useWorktabStore().opened = []
-    saveUserData()
-    sessionStorage.removeItem('iframeRoutes')
-    resetRouterState(router)
-    router.push('/login')
-  }
-
-  return {
-    language,
-    isLogin,
-    isLock,
-    lockPassword,
-    info,
-    searchHistory,
-    accessToken,
-    refreshToken,
-    getUserInfo,
-    getSettingState,
-    getWorktabState,
-    initState,
-    saveUserData,
-    setUserInfo,
-    setLoginStatus,
-    setLanguage,
-    setSearchHistory,
-    setLockStatus,
-    setLockPassword,
-    setToken,
-    logOut
-  }
-})
-
-// 数据持久化存储
-function saveStoreStorage<T>(newData: T) {
-  const version = import.meta.env.VITE_VERSION
-  initVersion(version)
-  const vs = localStorage.getItem('version') || version
-  const storedData = JSON.parse(localStorage.getItem(`sys-v${vs}`) || '{}')
-
-  // 合并新数据与现有数据
-  const mergedData = { ...storedData, ...newData }
-  localStorage.setItem(`sys-v${vs}`, JSON.stringify(mergedData))
-}
-
-// 初始化版本
-function initVersion(version: string) {
-  const vs = localStorage.getItem('version')
-  if (!vs) {
-    localStorage.setItem('version', version)
-  }
-}
+)

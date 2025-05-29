@@ -1,4 +1,3 @@
-import { upgradeLogList } from '@/mock/upgradeLog'
 import { RoutesAlias } from '../routesAlias'
 import { MenuListType } from '@/types/menu'
 import { WEB_LINKS } from '@/utils/links'
@@ -705,7 +704,7 @@ export const asyncRoutes: MenuListType[] = [
     component: '/log/ChangeLog',
     meta: {
       title: 'menus.plan.log',
-      showTextBadge: `${upgradeLogList.value[0].version}`,
+      showTextBadge: `v${__APP_VERSION__}`,
       icon: '&#xe712;',
       keepAlive: false
     }

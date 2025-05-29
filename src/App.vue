@@ -9,9 +9,9 @@
   import zh from 'element-plus/es/locale/lang/zh-cn'
   import en from 'element-plus/es/locale/lang/en'
   import { systemUpgrade } from './utils/upgrade'
-  import { initState, saveUserData } from './utils/storage'
   import { UserService } from './api/usersApi'
   import { ApiStatus } from './utils/http/status'
+  import { checkStorageCompatibility } from './utils/storage/storage'
   import { setThemeTransitionClass } from './utils/theme/animation'
 
   const userStore = useUserStore()
@@ -27,10 +27,13 @@
   })
 
   onMounted(() => {
-    initState()
-    saveUserData()
+    // 检查存储兼容性
+    checkStorageCompatibility()
+    // 提升暗黑主题下页面刷新视觉体验
     setThemeTransitionClass(false)
+    // 系统升级
     systemUpgrade()
+    // 获取用户信息
     getUserInfo()
   })
 

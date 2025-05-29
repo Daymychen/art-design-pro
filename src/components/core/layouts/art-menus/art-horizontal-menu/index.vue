@@ -48,15 +48,24 @@
 </script>
 
 <style lang="scss" scoped>
-  :deep(.el-menu--horizontal > .el-sub-menu.is-active .el-sub-menu__title) {
+  // 去除 el-sub-menu 的底部横线
+  :deep(.el-menu--horizontal .el-sub-menu__title) {
     border: 0 !important;
   }
 
+  // 去除 el-menu 的底部横线
   .top-menu {
     .el-menu {
       border: none;
     }
   }
+
+  // 可自定义选中样式
+  // :deep(.el-menu--horizontal .el-sub-menu.is-active) {
+  //   background-color: var(--art-gray-200);
+  //   margin: 10px 0;
+  //   border-radius: 6px;
+  // }
 
   @media only screen and (max-width: $device-notebook) {
     .top-menu {

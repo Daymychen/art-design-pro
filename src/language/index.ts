@@ -1,7 +1,7 @@
 import { createI18n } from 'vue-i18n'
 import type { I18n, I18nOptions } from 'vue-i18n'
 import { LanguageEnum } from '@/enums/appEnum'
-import { getSysStorage } from '@/utils/storage'
+import { getSysStorage } from '@/utils/storage/storage'
 
 // 动态导入语言文件
 const messages = {
