@@ -187,7 +187,9 @@ export const useSettingStore = defineStore(
       document.documentElement.style.setProperty('--custom-radius', `${customRadius.value}rem`)
     }
 
-    initThemeStyles()
+    nextTick(() => {
+      initThemeStyles()
+    })
 
     return {
       menuType,

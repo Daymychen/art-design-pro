@@ -10,6 +10,11 @@ interface UpgradeLog {
 
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
+    version: 'v2.3.1',
+    title: '修复 2.3.0 版本主题样式初始化bug',
+    date: '2025-05-30'
+  },
+  {
     version: 'v2.3.0',
     title: '本地数据存储重构',
     date: '2025-05-29',
