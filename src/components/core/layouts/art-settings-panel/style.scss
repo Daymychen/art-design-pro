@@ -1,289 +1,78 @@
 @use '@styles/variables.scss' as *;
+@use '@styles/mixin.scss' as *;
 
-// 去除火狐浏览器滚动条
-:deep(.el-drawer__body) {
-  scrollbar-width: none;
-}
+// 设置抽屉模态框样式
+.setting-modal {
+  background: transparent !important;
 
-.drawer-con {
-  $box-shadow: 0 2px 8px 0 rgb(0 0 0 / 20%);
-  $box-radius: 8px;
+  .el-drawer {
+    // 背景滤镜效果
+    background: rgba($color: #fff, $alpha: 50%) !important;
+    box-shadow: 0 0 30px rgb(0 0 0 / 10%) !important;
 
-  padding: 0 5px 30px;
+    @include backdropBlur();
 
-  .close-wrap {
-    display: flex;
-    justify-content: flex-end;
-
-    i {
-      display: block;
-      padding: 8px;
-      font-size: 15px;
-      font-weight: bold;
-      color: var(--art-gray-600);
-      cursor: pointer;
-      border-radius: 5px;
-
-      &:hover {
-        color: var(--art-gray-700);
-        background-color: rgb(var(--art-gray-300-rgb), 0.5);
-      }
-    }
-  }
-
-  .title {
-    position: relative;
-    font-size: 14px;
-    color: var(--art-text-gray-800);
-    text-align: center;
-
-    &:first-of-type {
-      margin-top: 20px;
-    }
-
-    &::before,
-    &::after {
-      position: absolute;
-      top: 10px;
-      width: 50px;
-      margin: auto;
-      content: '';
-      border-bottom: 1px solid rgba(var(--art-gray-300-rgb), 0.8);
-    }
-
-    &::before {
-      left: 0;
-    }
-
-    &::after {
-      right: 0;
-    }
-  }
-
-  .style-item {
-    box-sizing: border-box;
-    width: calc(33.333% - 15px);
-    margin-right: 15px;
-    text-align: center;
-
-    .box {
-      position: relative;
-      box-sizing: border-box;
-      display: flex;
-      height: 52px;
-      overflow: hidden;
-      cursor: pointer;
-      border: 2px solid var(--art-gray-100);
-      border-radius: $box-radius;
-      box-shadow: $box-shadow;
-      transition: box-shadow 0.1s;
-
-      &.mt-16 {
-        margin-top: 20px;
-      }
-
-      &.is-active {
-        border: 2px solid var(--main-color);
-      }
-
-      img {
-        width: 100%;
-        height: 100%;
-      }
-    }
-
-    .name {
-      margin-top: 6px;
-      font-size: 14px;
-      text-align: center;
-    }
-
-    .active {
-      position: relative;
-      right: 0;
-      bottom: -5px;
-      left: 0;
-      width: 6px;
-      height: 6px;
-      margin: auto;
-      background: var(--el-color-success) !important;
-      border-radius: 50%;
-    }
-  }
-
-  // 主题风格
-  .theme-styles {
-    display: flex;
-    flex-wrap: wrap;
-    width: calc(100% + 15px);
-    margin-top: 25px;
-  }
-
-  // 菜单布局
-  .menu-layouts {
-    padding-bottom: 20px;
-    margin-top: 20px;
-
-    // 隐藏滚动条
-    :deep(.el-scrollbar__bar.is-vertical) {
-      display: none;
-    }
-
-    :deep(.el-scrollbar__bar.is-horizontal) {
-      height: 3px;
-    }
-
-    .menu-layouts-wrap {
+    .setting-box-wrap {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       width: calc(100% + 15px);
-      padding-bottom: 10px;
-    }
-  }
+      margin-bottom: 10px;
 
-  // 菜单风格
-  .menu-styles {
-    margin-top: 20px;
+      .setting-item {
+        box-sizing: border-box;
+        width: calc(33.333% - 15px);
+        margin-right: 15px;
+        text-align: center;
 
-    .menu-styles-wrap {
-      display: flex;
-      flex-wrap: wrap;
-      width: calc(100% + 15px);
-    }
-  }
+        .box {
+          position: relative;
+          box-sizing: border-box;
+          display: flex;
+          height: 52px;
+          overflow: hidden;
+          cursor: pointer;
+          border: 2px solid var(--art-gray-100);
+          border-radius: 8px;
+          box-shadow: 0 2px 8px 0 rgb(0 0 0 / 20%);
+          transition: box-shadow 0.1s;
 
-  .main-color-wrap {
-    padding-top: 20px;
+          &.mt-16 {
+            margin-top: 16px;
+          }
 
-    .offset {
-      display: flex;
-      flex-wrap: wrap;
-      width: calc(100% + 12.5px);
+          &.is-active {
+            border: 2px solid var(--main-color);
+          }
 
-      $size: 23px;
-
-      > div {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: $size;
-        height: $size;
-        margin: 0 13px 10px 0;
-        cursor: pointer;
-        border-radius: $size;
-
-        &:last-of-type {
-          margin-right: 0;
+          img {
+            width: 100%;
+            height: 100%;
+          }
         }
 
-        i {
+        .name {
+          margin-top: 6px;
           font-size: 14px;
-          color: #fff !important;
+          text-align: center;
         }
       }
     }
   }
 
-  .box-style {
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 4px;
-    margin-top: 20px;
-    background-color: var(--art-gray-200);
-    border-radius: 7px;
-
-    .button {
-      width: calc(50% - 3px);
-      height: 34px;
-      font-size: 14px;
-      line-height: 34px;
-      text-align: center;
-      cursor: pointer;
-      user-select: none;
-      border-radius: 6px;
-      transition: all 0.2s !important;
-
-      &.is-active {
-        color: var(--art-gray-800);
-        background-color: var(--art-main-bg-color);
-      }
-
-      &:hover:not(.is-active) {
-        color: var(--art-gray-800);
-        background-color: rgba($color: #000, $alpha: 4%);
-      }
-    }
-  }
-
-  .container-width {
-    display: flex;
-
-    .item {
-      display: flex;
-      flex: 1;
-      align-items: center;
-      justify-content: center;
-      height: 60px;
-      margin-top: 20px;
-      margin-right: 15px;
-      margin-bottom: 15px;
-      cursor: pointer;
-      border: 2px solid var(--art-border-color);
-      border-radius: 10px;
-
-      &:last-of-type {
-        margin-right: 0;
-      }
-
-      &.is-active {
-        border-color: var(--main-color);
-
-        i {
-          color: var(--main-color) !important;
-        }
-      }
-
-      i {
-        margin-right: 10px;
-        font-size: 22px;
-      }
-
-      span {
-        font-size: 14px;
-        background: transparent !important;
-      }
-    }
-  }
-
-  .basic-box {
-    position: relative;
-    z-index: 10;
-    background: transparent !important;
-
-    .item {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 35px;
-      background: transparent !important;
-
-      span {
-        font-size: 14px;
-        background: transparent !important;
-      }
-    }
-  }
-
-  &::-webkit-scrollbar {
+  // 去除滚动条
+  .el-drawer__body::-webkit-scrollbar {
     width: 0 !important;
   }
 }
 
 .dark {
+  .setting-modal {
+    .el-drawer {
+      background: rgba($color: #000, $alpha: 50%) !important;
+    }
+  }
+
   .drawer-con {
     .box-style {
       .button {
@@ -300,8 +89,62 @@
   }
 }
 
+// 去除火狐浏览器滚动条
+:deep(.el-drawer__body) {
+  scrollbar-width: none;
+}
+
+// 移动端隐藏
 @media screen and (max-width: $device-ipad) {
   .mobile-hide {
     display: none !important;
+  }
+
+  .drawer-con {
+    .style-item {
+      width: calc(50% - 10px);
+      margin-right: 10px;
+
+      &:nth-child(2n) {
+        margin-right: 0;
+      }
+    }
+
+    .container-width {
+      flex-direction: column;
+      gap: 10px;
+
+      .item {
+        height: 50px;
+      }
+    }
+
+    .basic-box {
+      .item {
+        padding: 6px 0;
+        margin-top: 15px;
+
+        span {
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}
+
+// 小屏幕适配
+@media screen and (width <= 480px) {
+  .drawer-con {
+    padding: 0 8px 20px;
+
+    .main-color-wrap {
+      .offset {
+        justify-content: center;
+
+        > div {
+          margin: 0 8px 8px 0;
+        }
+      }
+    }
   }
 }

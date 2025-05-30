@@ -21,6 +21,7 @@
     chartRef,
     isDark,
     initChart,
+    updateChart,
     getAxisLabelStyle,
     getAxisLineStyle,
     getAxisTickStyle,
@@ -34,16 +35,8 @@
   const initChartWithAnimation = () => {
     // 首先初始化图表，数据为0
     initChart(options(true))
-
-    // 延迟更新到真实数据，触发从下向上的动画
-    setTimeout(() => {
-      initChart(options(false))
-    }, 100)
+    updateChart(options(false))
   }
-
-  watch(isDark, () => {
-    initChartWithAnimation()
-  })
 
   onMounted(() => {
     initChartWithAnimation()
@@ -88,6 +81,9 @@
         axisLine: getAxisLineStyle(true)
       },
       yAxis: {
+        type: 'value',
+        min: 0,
+        max: realData.reduce((prev, curr) => Math.max(prev, curr), 0),
         axisLabel: getAxisLabelStyle(true),
         axisLine: getAxisLineStyle(!isDark.value),
         splitLine: getSplitLineStyle(true)

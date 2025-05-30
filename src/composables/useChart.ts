@@ -76,12 +76,21 @@ export function useChart(initOptions?: EChartsOption) {
   const initChart = (options: EChartsOption = {}) => {
     if (!chartRef.value) return
 
-    chart = echarts.init(chartRef.value)
+    // 只有在图表不存在时才创建新的图表实例
+    if (!chart) {
+      chart = echarts.init(chartRef.value)
+    }
+
     chart.setOption({ ...initOptions, ...options })
   }
 
   const updateChart = (options: EChartsOption) => {
-    chart?.setOption(options)
+    if (!chart) {
+      // 如果图表不存在，先初始化
+      initChart(options)
+      return
+    }
+    chart.setOption(options)
   }
 
   const handleResize = () => {
