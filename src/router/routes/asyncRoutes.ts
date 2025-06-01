@@ -211,6 +211,17 @@ export const asyncRoutes: MenuListType[] = [
           isIframe: true,
           showBadge: true
         }
+      },
+      {
+        id: 35,
+        path: 'icon-park-list',
+        name: 'IconParkList',
+        component: RoutesAlias.IconParkList,
+        meta: {
+          title: 'IconPark图标库',
+          keepAlive: true,
+          showTextBadge: 'New'
+        }
       }
     ]
   },

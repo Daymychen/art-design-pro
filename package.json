@@ -42,6 +42,7 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
+    "@icon-park/vue-next": "^1.4.2",
     "@vue/reactivity": "^3.4.35",
     "@vueuse/core": "^11.0.0",
     "@wangeditor/editor": "^5.1.23",

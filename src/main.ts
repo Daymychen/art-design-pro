@@ -17,6 +17,7 @@ import '@utils/console.ts'                          // 控制台输出内容
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import { setupGlobDirectives } from './directives'
 import language from './language'
+import { setupIconPark } from './utils/iconpark'    // IconPark 图标库
 
 
 document.addEventListener(
@@ -30,6 +31,7 @@ const app = createApp(App)
 initStore(app)
 initRouter(app)
 setupGlobDirectives(app)
+setupIconPark(app)
 
 app.use(language)
 
