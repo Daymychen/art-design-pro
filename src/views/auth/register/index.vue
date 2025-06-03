@@ -65,7 +65,7 @@
             <div class="footer">
               <p>
                 {{ $t('register.hasAccount') }}
-                <router-link to="/login">{{ $t('register.toLogin') }}</router-link>
+                <router-link :to="RoutesAlias.Login">{{ $t('register.toLogin') }}</router-link>
               </p>
             </div>
           </el-form>
@@ -77,6 +77,7 @@
 
 <script setup lang="ts">
   import AppConfig from '@/config'
+  import { RoutesAlias } from '@/router/routesAlias'
   import { ElMessage } from 'element-plus'
   import type { FormInstance, FormRules } from 'element-plus'
   import { useI18n } from 'vue-i18n'
@@ -161,7 +162,7 @@
 
   const toLogin = () => {
     setTimeout(() => {
-      router.push('/login')
+      router.push(RoutesAlias.Login)
     }, 1000)
   }
 </script>

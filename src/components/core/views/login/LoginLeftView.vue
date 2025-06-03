@@ -19,5 +19,5 @@
 </script>
 
 <style lang="scss" scoped>
-  @use '@/views/login/index' as login;
+  @use '@/views/auth/login/index' as login;
 </style>

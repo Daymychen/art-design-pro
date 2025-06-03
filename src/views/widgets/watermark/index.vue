@@ -54,7 +54,6 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
   import { useSettingStore } from '@/store/modules/setting'
 
   const settingStore = useSettingStore()

@@ -102,6 +102,7 @@
   import EmojiText from '@/utils/emojo'
   import { ArticleList } from '@/mock/temp/articleList'
   import { useCommon } from '@/composables/useCommon'
+  import { RoutesAlias } from '@/router/routesAlias'
 
   const yearVal = ref('All')
 
@@ -184,7 +185,7 @@
 
   const toDetail = (item: ArticleType) => {
     router.push({
-      path: `/article/detail`,
+      path: RoutesAlias.ArticleDetail,
       query: {
         id: item.id
       }
@@ -193,7 +194,7 @@
 
   const toEdit = (item: ArticleType) => {
     router.push({
-      path: `/article/article-publish`,
+      path: RoutesAlias.ArticlePublish,
       query: {
         id: item.id
       }
@@ -202,7 +203,7 @@
 
   const toAddArticle = () => {
     router.push({
-      path: `/article/article-publish`
+      path: RoutesAlias.ArticlePublish
     })
   }
 </script>

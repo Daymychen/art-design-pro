@@ -133,12 +133,12 @@
   ]
 
   const quickLinks: QuickLink[] = [
-    { name: '登录', path: '/login' },
-    { name: '注册', path: '/register' },
-    { name: '忘记密码', path: '/forget-password' },
-    { name: '定价', path: '/template/pricing' },
-    { name: '个人中心', path: '/system/user-center' },
-    { name: '留言管理', path: '/article/comment' }
+    { name: '登录', path: RoutesAlias.Login },
+    { name: '注册', path: RoutesAlias.Register },
+    { name: '忘记密码', path: RoutesAlias.ForgetPassword },
+    { name: '定价', path: RoutesAlias.Pricing },
+    { name: '个人中心', path: RoutesAlias.UserCenter },
+    { name: '留言管理', path: RoutesAlias.Comment }
   ]
 
   const handleAppClick = (path: string) => {

@@ -42,6 +42,7 @@
 
 <script setup lang="ts">
   import AppConfig from '@/config'
+  import { RoutesAlias } from '@/router/routesAlias'
   const router = useRouter()
   const showInputLabel = ref(false)
 
@@ -52,7 +53,7 @@
   const register = async () => {}
 
   const toLogin = () => {
-    router.push('/login')
+    router.push(RoutesAlias.Login)
   }
 </script>
 
