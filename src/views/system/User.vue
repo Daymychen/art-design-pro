@@ -27,11 +27,13 @@
           row-key="id"
           :loading="loading"
           :data="tableData"
-          :currentPage="1"
-          :pageSize="20"
-          :total="500"
+          :currentPage="pagination.currentPage"
+          :pageSize="pagination.pageSize"
+          :total="pagination.total"
           :marginTop="10"
           @selection-change="handleSelectionChange"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
         >
           <template #default>
             <ElTableColumn v-for="col in columns" :key="col.prop || col.type" v-bind="col" />
@@ -82,13 +84,15 @@
 
 <script setup lang="ts">
   import { h } from 'vue'
-  import { ACCOUNT_TABLE_DATA, ROLE_LIST_DATA } from '@/mock/temp/formData'
+  import { ROLE_LIST_DATA, ACCOUNT_TABLE_DATA } from '@/mock/temp/formData'
   import { SearchChangeParams, SearchFormItem } from '@/types/search-form'
   import { ElDialog, FormInstance, ElTag } from 'element-plus'
   import { ElMessageBox, ElMessage } from 'element-plus'
   import type { FormRules } from 'element-plus'
   import { useCheckedColumns } from '@/composables/useCheckedColumns'
   import ArtButtonTable from '@/components/core/forms/ArtButtonTable.vue'
+  import { UserService } from '@/api/usersApi'
+  import { ApiStatus } from '@/utils/http/status'
 
   const dialogType = ref('add')
   const dialogVisible = ref(false)
@@ -111,6 +115,12 @@
   // 响应式表单数据
   const formFilters = reactive({ ...initialSearchState })
 
+  const pagination = reactive({
+    currentPage: 1,
+    pageSize: 20,
+    total: 0
+  })
+
   // 表格数据
   const tableData = ref<any[]>([])
 
@@ -123,11 +133,14 @@
   // 重置表单
   const handleReset = () => {
     Object.assign(formFilters, { ...initialSearchState })
+    pagination.currentPage = 1 // 重置到第一页
+    getUserList()
   }
 
   // 搜索处理
   const handleSearch = () => {
     console.log('搜索参数:', formFilters)
+    pagination.currentPage = 1 // 搜索时重置到第一页
     getUserList()
   }
 
@@ -227,11 +240,11 @@
   const columnOptions = [
     { label: '勾选', type: 'selection' },
     { label: '用户名', prop: 'avatar' },
-    { label: '手机号', prop: 'mobile' },
+    { label: '手机号', prop: 'userPhone' },
     { label: '性别', prop: 'gender' },
     { label: '角色', prop: 'role' },
     { label: '状态', prop: 'status' },
-    { label: '创建日期', prop: 'create_time' },
+    { label: '创建日期', prop: 'createTime' },
     { label: '操作', prop: 'operation' }
   ]
 
@@ -279,7 +292,7 @@
 
     if (type === 'edit' && row) {
       formData.username = row.username
-      formData.phone = row.mobile
+      formData.phone = row.userPhone
       formData.gender = row.gender === 1 ? '男' : '女'
 
       // 将用户角色代码数组直接赋值给formData.role
@@ -316,19 +329,19 @@
         return h('div', { class: 'user', style: 'display: flex; align-items: center' }, [
           h('img', { class: 'avatar', src: row.avatar }),
           h('div', {}, [
-            h('p', { class: 'user-name' }, row.username),
-            h('p', { class: 'email' }, row.email)
+            h('p', { class: 'user-name' }, row.userName),
+            h('p', { class: 'email' }, row.userEmail)
           ])
         ])
       }
     },
     {
-      prop: 'gender',
+      prop: 'userGender',
       label: '性别',
       sortable: true,
-      formatter: (row) => (row.gender === 1 ? '男' : '女')
+      formatter: (row) => (row.userGender === 1 ? '男' : '女')
     },
-    { prop: 'mobile', label: '手机号' },
+    { prop: 'userPhone', label: '手机号' },
     {
       prop: 'status',
       label: '状态',
@@ -337,7 +350,7 @@
       }
     },
     {
-      prop: 'create_time',
+      prop: 'createTime',
       label: '创建日期',
       sortable: true
     },
@@ -378,12 +391,37 @@
     getRoleList()
   })
 
-  const getUserList = () => {
+  // 获取用户信息
+
+  const getUserList = async () => {
     loading.value = true
-    setTimeout(() => {
-      tableData.value = ACCOUNT_TABLE_DATA
+    try {
+      const params = {
+        current: pagination.currentPage,
+        size: pagination.pageSize
+      }
+      const res = await UserService.getUserList(params)
+      if (res.code === ApiStatus.success) {
+        // 使用本地头像替换接口返回的头像
+        const records = res.data.records.map((item: any, index: number) => {
+          const avatarIndex = index % ACCOUNT_TABLE_DATA.length
+          return {
+            ...item,
+            avatar: ACCOUNT_TABLE_DATA[avatarIndex].avatar
+          }
+        })
+
+        tableData.value = records
+        loading.value = false
+
+        pagination.currentPage = res.data.current
+        pagination.pageSize = res.data.size
+        pagination.total = res.data.total
+      }
+    } catch (error) {
+      console.error('获取用户列表失败:', error)
       loading.value = false
-    }, 500)
+    }
   }
 
   const getRoleList = () => {
@@ -423,6 +461,17 @@
         dialogVisible.value = false
       }
     })
+  }
+
+  // 处理表格分页变化
+  const handleSizeChange = (newPageSize: number) => {
+    pagination.pageSize = newPageSize
+    getUserList()
+  }
+
+  const handleCurrentChange = (newCurrentPage: number) => {
+    pagination.currentPage = newCurrentPage
+    getUserList()
   }
 </script>
 

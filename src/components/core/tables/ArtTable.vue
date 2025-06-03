@@ -242,7 +242,8 @@
 
   // 表格数据
   const tableData = computed(() => {
-    if (!props.pagination) return props.data
+    // 如果不显示分页或使用后端分页，直接返回原始数据
+    if (!props.pagination || props.total > props.data.length) return props.data
     const start = (props.currentPage - 1) * props.pageSize
     const end = start + props.pageSize
     return props.data.slice(start, end)
@@ -278,6 +279,17 @@
   // 当前页改变
   const handleCurrentChange = (val: number) => {
     emit('current-change', val)
+
+    scrollToTop()
+  }
+
+  // 表格滚动到顶部
+  const scrollToTop = () => {
+    nextTick(() => {
+      if (tableRef.value) {
+        tableRef.value.setScrollTop(0)
+      }
+    })
   }
 </script>
 

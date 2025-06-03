@@ -10,6 +10,11 @@ interface UpgradeLog {
 
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
+    version: 'v2.3.3',
+    title: '用户列表使用 Apifox Mock 数据',
+    date: '2025-06-03'
+  },
+  {
     version: 'v2.3.2',
     title: '设置中心代码重构',
     date: '2025-05-30'

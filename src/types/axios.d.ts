@@ -15,7 +15,7 @@ export interface RequestOptions {
 
 // 基础接口返回的数据结构
 export interface BaseResult<T = any> {
-  code: string // 状态码
+  code: number // 状态码
   msg: string // 消息
   data: T // 数据
   token?: string // 可选字段，用于返回 token

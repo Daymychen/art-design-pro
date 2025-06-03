@@ -6,11 +6,16 @@ interface LoginParams {
   password: string
 }
 
+interface UserListParams {
+  current?: number
+  size?: number
+}
+
 export class UserService {
   // 登录
   static login(params: LoginParams) {
     return request.post<BaseResult>({
-      url: '/auth/login',
+      url: '/api/auth/login',
       params
     })
   }
@@ -18,7 +23,15 @@ export class UserService {
   // 获取用户信息
   static getUserInfo() {
     return request.get<BaseResult>({
-      url: '/auth/getUserInfo'
+      url: '/api/user/info'
+    })
+  }
+
+  // 获取用户列表
+  static getUserList(params?: UserListParams) {
+    return request.get<BaseResult>({
+      url: '/api/user/list',
+      params
     })
   }
 }
