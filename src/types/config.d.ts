@@ -18,6 +18,14 @@ export interface MenuLayout {
   img: string
 }
 
+// 节日配置
+export interface FestivalConfig {
+  date: string
+  name: string
+  image: string
+  scrollText: string
+}
+
 // 系统配置
 export interface SystemConfig {
   elementPlusTheme: { primary: string }
