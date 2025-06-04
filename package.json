@@ -20,23 +20,29 @@
     }
   },
   "lint-staged": {
-    "*.{js,ts}": [
+    "*.{js,ts,mjs,mts,tsx}": [
       "eslint --fix",
       "prettier --write"
     ],
-    "*.{cjs,json}": [
+    "*.{cjs,json,jsonc}": [
       "prettier --write"
     ],
-    "*.{vue,html}": [
+    "*.vue": [
       "eslint --fix",
-      "prettier --write",
-      "stylelint --fix --allow-empty-input"
-    ],
-    "*.{scss,css}": [
       "stylelint --fix --allow-empty-input",
       "prettier --write"
     ],
-    "*.md": [
+    "*.{html,htm}": [
+      "prettier --write"
+    ],
+    "*.{scss,css,less}": [
+      "stylelint --fix --allow-empty-input",
+      "prettier --write"
+    ],
+    "*.{md,mdx}": [
+      "prettier --write"
+    ],
+    "*.{yaml,yml}": [
       "prettier --write"
     ]
   },
@@ -77,18 +83,18 @@
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/compiler-sfc": "^3.0.5",
     "commitizen": "^4.3.0",
-    "cz-git": "^1.9.4",
+    "cz-git": "^1.11.1",
     "eslint": "^9.9.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-vue": "^9.27.0",
     "globals": "^15.9.0",
     "husky": "^9.1.5",
-    "lint-staged": "^15.2.10",
-    "prettier": "^3.3.3",
+    "lint-staged": "^15.5.2",
+    "prettier": "^3.5.3",
     "rollup-plugin-visualizer": "^5.12.0",
     "sass": "^1.81.0",
-    "stylelint": "^16.8.2",
+    "stylelint": "^16.20.0",
     "stylelint-config-html": "^1.1.0",
     "stylelint-config-recess-order": "^4.6.0",
     "stylelint-config-recommended-scss": "^14.1.0",

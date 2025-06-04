@@ -97,9 +97,9 @@ async function handleLoginStatus(
   userStore: ReturnType<typeof useUserStore>,
   next: NavigationGuardNext
 ): Promise<boolean> {
-  if (!userStore.isLogin && to.path !== '/login' && !to.meta.noLogin) {
+  if (!userStore.isLogin && to.path !== RoutesAlias.Login && !to.meta.noLogin) {
     userStore.logOut()
-    next('/login')
+    next(RoutesAlias.Login)
     return false
   }
   return true

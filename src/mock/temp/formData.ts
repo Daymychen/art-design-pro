@@ -19,7 +19,6 @@ export interface User {
   status: string
   create_time: string
   avatar: string
-  userRoles: string[]
 }
 
 // 用户列表
@@ -33,8 +32,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     dep: '研发部',
     status: '1',
     create_time: '2020-09-09 10:01:10',
-    avatar: avatar1,
-    userRoles: ['R_SUPER', 'R_ADMIN', 'R_USER']
+    avatar: avatar1
   },
   {
     id: 2,
@@ -45,8 +43,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     dep: '电商部',
     status: '1',
     create_time: '2020-10-10 13:01:12',
-    avatar: avatar2,
-    userRoles: ['R_ADMIN']
+    avatar: avatar2
   },
   {
     id: 3,
@@ -57,8 +54,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     dep: '人事部',
     status: '1',
     create_time: '2020-11-14 12:01:45',
-    avatar: avatar3,
-    userRoles: ['R_USER']
+    avatar: avatar3
   },
   {
     id: 4,
@@ -69,8 +65,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     dep: '产品部',
     status: '1',
     create_time: '2020-11-14 09:01:20',
-    avatar: avatar4,
-    userRoles: ['R_USER']
+    avatar: avatar4
   },
   {
     id: 5,
@@ -81,8 +76,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     dep: '财务部',
     status: '1',
     create_time: '2020-11-13 11:01:05',
-    avatar: avatar5,
-    userRoles: ['R_USER']
+    avatar: avatar5
   },
   {
     id: 6,
@@ -93,8 +87,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     dep: '运营部',
     status: '1',
     create_time: '2020-10-11 13:10:26',
-    avatar: avatar6,
-    userRoles: ['R_USER']
+    avatar: avatar6
   },
   {
     id: 7,
@@ -105,8 +98,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     dep: '客服部',
     status: '2',
     create_time: '2020-05-14 12:05:10',
-    avatar: avatar7,
-    userRoles: ['R_USER']
+    avatar: avatar7
   },
   {
     id: 8,
@@ -117,8 +109,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     dep: '总经办',
     status: '3',
     create_time: '2020-11-12 07:22:25',
-    avatar: avatar8,
-    userRoles: ['R_USER']
+    avatar: avatar8
   },
   {
     id: 9,
@@ -129,8 +120,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     dep: '研发部',
     status: '4',
     create_time: '2020-06-12 05:04:20',
-    avatar: avatar9,
-    userRoles: ['R_USER']
+    avatar: avatar9
   },
   {
     id: 10,
@@ -141,8 +131,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     dep: '研发部',
     status: '1',
     create_time: '2020-11-12 16:01:10',
-    avatar: avatar10,
-    userRoles: ['R_USER']
+    avatar: avatar10
   },
   {
     id: 11,
@@ -153,8 +142,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     dep: '研发部',
     status: '1',
     create_time: '2020-11-14 12:01:20',
-    avatar: avatar6,
-    userRoles: ['R_USER']
+    avatar: avatar6
   },
   {
     id: 12,
@@ -165,8 +153,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     dep: '研发部',
     status: '1',
     create_time: '2020-11-14 12:01:20',
-    avatar: avatar7,
-    userRoles: ['R_USER']
+    avatar: avatar7
   },
   {
     id: 13,
@@ -177,8 +164,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     dep: '研发部',
     status: '1',
     create_time: '2020-11-14 12:01:20',
-    avatar: avatar8,
-    userRoles: ['R_USER']
+    avatar: avatar8
   },
   {
     id: 14,
@@ -189,8 +175,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     dep: '研发部',
     status: '1',
     create_time: '2020-11-14 12:01:20',
-    avatar: avatar9,
-    userRoles: ['R_USER']
+    avatar: avatar9
   },
   {
     id: 15,
@@ -201,8 +186,7 @@ export const ACCOUNT_TABLE_DATA: User[] = [
     dep: '研发部',
     status: '1',
     create_time: '2020-11-14 12:01:20',
-    avatar: avatar10,
-    userRoles: ['R_USER']
+    avatar: avatar10
   }
 ]
 

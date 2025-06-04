@@ -1,9 +1,10 @@
 import { useTimeoutFn, useIntervalFn } from '@vueuse/core'
 import { useDateFormat } from '@vueuse/core'
 import { useSettingStore } from '@/store/modules/setting'
-import { festivalList } from '@/config/core/ceremony'
-import mittBus from '@/utils/mittBus'
+import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
+import mittBus from '@/utils/mittBus'
+import { festivalConfigList } from '@/config/festival'
 
 // 节日庆祝相关配置
 export function useCeremony() {
@@ -16,7 +17,7 @@ export function useCeremony() {
   // 判断当前日期是否是节日
   const currentFestivalData = computed(() => {
     const currentDate = useDateFormat(new Date(), 'YYYY-MM-DD').value
-    return festivalList.find((item) => item.date === currentDate)
+    return festivalConfigList.find((item) => item.date === currentDate)
   })
 
   // 节日庆祝相关配置

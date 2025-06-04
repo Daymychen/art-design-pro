@@ -273,8 +273,7 @@ export const asyncRoutes: MenuListType[] = [
         component: RoutesAlias.Map,
         meta: {
           title: 'menus.template.map',
-          keepAlive: true,
-          showTextBadge: 'new'
+          keepAlive: true
         }
       },
       {
@@ -565,7 +564,7 @@ export const asyncRoutes: MenuListType[] = [
       },
       {
         id: 54,
-        path: 'article-publish',
+        path: 'publish',
         name: 'ArticlePublish',
         component: RoutesAlias.ArticlePublish,
         meta: {
@@ -711,8 +710,8 @@ export const asyncRoutes: MenuListType[] = [
   {
     id: 10,
     name: 'ChangeLog',
-    path: '/log/changeLog',
-    component: '/log/ChangeLog',
+    path: '/change/log',
+    component: RoutesAlias.ChangeLog,
     meta: {
       title: 'menus.plan.log',
       showTextBadge: `v${__APP_VERSION__}`,

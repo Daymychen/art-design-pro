@@ -10,6 +10,27 @@ interface UpgradeLog {
 
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
+    version: 'v2.3.6',
+    title: 'config 文件夹结构简化',
+    date: '2025-06-03'
+  },
+  {
+    version: 'v2.3.5',
+    title: 'prettier、stylelint、lint-staged、cz-git 版本升级',
+    date: '2025-06-03'
+  },
+  {
+    version: 'v2.3.4',
+    title: 'views 目录结构调整',
+    date: '2025-06-03',
+    requireReLogin: true
+  },
+  {
+    version: 'v2.3.3',
+    title: '用户列表使用 Apifox Mock 数据',
+    date: '2025-06-03'
+  },
+  {
     version: 'v2.3.2',
     title: '设置中心代码重构',
     date: '2025-05-30'

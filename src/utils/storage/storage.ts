@@ -2,6 +2,7 @@ import { ElMessage } from 'element-plus'
 import { router } from '@/router'
 import { useUserStore } from '@/store/modules/user'
 import { StorageConfig } from '@/utils/storage/storage-config'
+import { RoutesAlias } from '@/router/routesAlias'
 
 /**
  * 存储兼容性管理器
@@ -80,7 +81,7 @@ class StorageCompatibilityManager {
       try {
         localStorage.clear()
         useUserStore().logOut()
-        router.push('/login')
+        router.push(RoutesAlias.Login)
         console.info('[Storage] 已执行系统登出')
       } catch (error) {
         console.error('[Storage] 系统登出失败:', error)
@@ -100,7 +101,7 @@ class StorageCompatibilityManager {
    * 检查是否在登录页面
    */
   private isOnLoginPage(): boolean {
-    return location.href.includes('/login')
+    return location.href.includes(RoutesAlias.Login)
   }
 
   /**
