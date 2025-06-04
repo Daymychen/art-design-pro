@@ -13,9 +13,10 @@
   import '@/assets/styles/one-dark-pro.scss'
   import { useCommon } from '@/composables/useCommon'
   import axios from 'axios'
-
   // import 'highlight.js/styles/atom-one-dark.css';
   // import 'highlight.js/styles/vs2015.css';
+
+  defineOptions({ name: 'ArticleDetail' })
 
   const articleId = ref(0)
   const router = useRoute()

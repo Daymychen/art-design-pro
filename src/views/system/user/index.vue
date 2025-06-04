@@ -94,6 +94,8 @@
   import { UserService } from '@/api/usersApi'
   import { ApiStatus } from '@/utils/http/status'
 
+  defineOptions({ name: 'User' }) // 定义组件名称，用于 KeepAlive 缓存控制
+
   const dialogType = ref('add')
   const dialogVisible = ref(false)
   const loading = ref(false)

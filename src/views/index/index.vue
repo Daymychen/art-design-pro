@@ -30,6 +30,9 @@
   import { useSettingStore } from '@/store/modules/setting'
   import { getTabConfig } from '@/utils/tabs'
   import { useRouter } from 'vue-router'
+
+  defineOptions({ name: 'Home' })
+
   // Store instances
   const settingStore = useSettingStore()
   const menuStore = useMenuStore()

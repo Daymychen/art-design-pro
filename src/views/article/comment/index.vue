@@ -65,6 +65,8 @@
   import { commentList } from '@/mock/temp/commentList'
   const showDrawer = ref(false)
 
+  defineOptions({ name: 'ArticleComment' })
+
   // const colorList = reactive([
   //   'rgba(216, 248, 255, 0.8)',
   //   'rgba(253, 223, 217, 0.8)',

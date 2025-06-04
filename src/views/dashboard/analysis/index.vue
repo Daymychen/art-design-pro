@@ -44,6 +44,8 @@
   import TopProducts from './widget/TopProducts.vue'
   import SalesMappingByCountry from './widget/SalesMappingByCountry.vue'
   import VolumeServiceLevel from './widget/VolumeServiceLevel.vue'
+
+  defineOptions({ name: 'Analysis' })
 </script>
 
 <style lang="scss" scoped>

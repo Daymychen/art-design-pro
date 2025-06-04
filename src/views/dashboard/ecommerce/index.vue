@@ -71,6 +71,8 @@
   import SalesGrowth from './widget/SalesGrowth.vue'
   import CartConversionRate from './widget/CartConversionRate.vue'
   import HotProductsList from './widget/HotProductsList.vue'
+
+  defineOptions({ name: 'Ecommerce' })
 </script>
 
 <style lang="scss" scoped>

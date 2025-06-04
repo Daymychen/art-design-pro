@@ -21,6 +21,8 @@
 
 <script setup lang="ts">
   import { upgradeLogList } from '@/mock/upgradeLog'
+
+  defineOptions({ name: 'ChangeLog' })
 </script>
 
 <style lang="scss" scoped>

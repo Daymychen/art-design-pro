@@ -181,6 +181,8 @@
   import { MenuListType } from '@/types/menu'
   import { useAuth } from '@/composables/useAuth'
 
+  defineOptions({ name: 'Menus' })
+
   const { hasAuth } = useAuth()
 
   const { menuList } = storeToRefs(useMenuStore())

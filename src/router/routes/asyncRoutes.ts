@@ -544,7 +544,7 @@ export const asyncRoutes: MenuListType[] = [
       {
         id: 53,
         path: 'comment',
-        name: 'Comment',
+        name: 'ArticleComment',
         component: RoutesAlias.Comment,
         meta: {
           title: 'menus.article.comment',
@@ -584,7 +584,7 @@ export const asyncRoutes: MenuListType[] = [
       {
         id: 61,
         path: 'success',
-        name: 'Success',
+        name: 'ResultSuccess',
         component: RoutesAlias.Success,
         meta: {
           title: 'menus.result.success',
@@ -594,7 +594,7 @@ export const asyncRoutes: MenuListType[] = [
       {
         id: 62,
         path: 'fail',
-        name: 'Fail',
+        name: 'ResultFail',
         component: RoutesAlias.Fail,
         meta: {
           title: 'menus.result.fail',
@@ -661,7 +661,7 @@ export const asyncRoutes: MenuListType[] = [
       {
         id: 81,
         path: 'server',
-        name: 'Server',
+        name: 'SafeguardServer',
         component: RoutesAlias.Server,
         meta: {
           title: 'menus.safeguard.server',

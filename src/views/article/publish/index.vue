@@ -83,6 +83,8 @@
   import axios from 'axios'
   import { useCommon } from '@/composables/useCommon'
 
+  defineOptions({ name: 'ArticlePublish' })
+
   const route = useRoute()
   const router = useRouter()
 

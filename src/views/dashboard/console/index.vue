@@ -57,6 +57,8 @@
   const settingStore = useSettingStore()
   const currentGlopTheme = computed(() => settingStore.systemThemeType)
 
+  defineOptions({ name: 'Console' })
+
   // 系统主题风格变化时，刷新页面重写渲染 Echarts
   watch(currentGlopTheme, () => {
     settingStore.reload()

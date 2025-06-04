@@ -136,6 +136,8 @@
   import { useUserStore } from '@/store/modules/user'
   import { FormInstance, FormRules } from 'element-plus'
 
+  defineOptions({ name: 'UserCenter' })
+
   const userStore = useUserStore()
   const userInfo = computed(() => userStore.getUserInfo)
 

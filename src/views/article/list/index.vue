@@ -104,6 +104,8 @@
   import { useCommon } from '@/composables/useCommon'
   import { RoutesAlias } from '@/router/routesAlias'
 
+  defineOptions({ name: 'ArticleList' })
+
   const yearVal = ref('All')
 
   const options = ['All', '2024', '2023', '2022', '2021', '2020', '2019']

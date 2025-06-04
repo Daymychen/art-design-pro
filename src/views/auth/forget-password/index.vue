@@ -43,6 +43,9 @@
 <script setup lang="ts">
   import AppConfig from '@/config'
   import { RoutesAlias } from '@/router/routesAlias'
+
+  defineOptions({ name: 'ForgetPassword' })
+
   const router = useRouter()
   const showInputLabel = ref(false)
 

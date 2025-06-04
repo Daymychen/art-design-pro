@@ -59,6 +59,8 @@
 <script setup lang="ts">
   import { reactive, onMounted, onUnmounted } from 'vue'
 
+  defineOptions({ name: 'SafeguardServer' })
+
   interface ServerInfo {
     name: string
     ip: string

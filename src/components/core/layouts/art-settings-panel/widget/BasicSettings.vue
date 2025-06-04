@@ -78,6 +78,8 @@
 
 <style lang="scss" scoped>
   .basic-settings {
+    padding-bottom: 30px;
+
     .basic-box {
       position: relative;
       z-index: 10;

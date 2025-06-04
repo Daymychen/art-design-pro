@@ -96,6 +96,8 @@
   import { ButtonMoreItem } from '@/components/core/forms/ArtButtonMore.vue'
   import { Role, ROLE_LIST_DATA } from '@/mock/temp/formData'
 
+  defineOptions({ name: 'Role' })
+
   const dialogVisible = ref(false)
   const permissionDialog = ref(false)
   const { menuList } = storeToRefs(useMenuStore())

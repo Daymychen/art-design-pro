@@ -10,6 +10,11 @@ interface UpgradeLog {
 
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
+    version: 'v2.3.7',
+    title: '页面增加 defineOptions 定义组件名称',
+    date: '2025-06-03'
+  },
+  {
     version: 'v2.3.6',
     title: 'config 文件夹结构简化',
     date: '2025-06-03'
