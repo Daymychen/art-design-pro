@@ -85,7 +85,7 @@
 <script setup lang="ts">
   import { h } from 'vue'
   import { ROLE_LIST_DATA, ACCOUNT_TABLE_DATA } from '@/mock/temp/formData'
-  import { SearchChangeParams, SearchFormItem } from '@/types/search-form'
+
   import { ElDialog, FormInstance, ElTag } from 'element-plus'
   import { ElMessageBox, ElMessage } from 'element-plus'
   import type { FormRules } from 'element-plus'
@@ -93,6 +93,7 @@
   import ArtButtonTable from '@/components/core/forms/ArtButtonTable.vue'
   import { UserService } from '@/api/usersApi'
   import { ApiStatus } from '@/utils/http/status'
+  import { SearchChangeParams, SearchFormItem } from '@/types'
 
   defineOptions({ name: 'User' }) // 定义组件名称，用于 KeepAlive 缓存控制
 

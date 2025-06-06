@@ -53,7 +53,7 @@
 
 <script setup lang="ts">
   import { IconTypeEnum } from '@/enums/appEnum'
-  import { extractIconClasses } from '@/utils/iconfont'
+  import { extractIconClasses } from '@/utils/constants'
 
   const emits = defineEmits(['getIcon'])
 

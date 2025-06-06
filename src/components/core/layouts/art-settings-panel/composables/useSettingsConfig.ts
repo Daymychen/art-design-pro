@@ -29,23 +29,23 @@ export function useSettingsConfig() {
   const pageTransitionOptions = computed(() => [
     {
       value: '',
-      label: t('setting.transition.list[0]')
+      label: t('setting.transition.list.none')
     },
     {
       value: 'fade',
-      label: t('setting.transition.list[1]')
+      label: t('setting.transition.list.fade')
     },
     {
       value: 'slide-left',
-      label: t('setting.transition.list[2]')
+      label: t('setting.transition.list.slideLeft')
     },
     {
       value: 'slide-bottom',
-      label: t('setting.transition.list[3]')
+      label: t('setting.transition.list.slideBottom')
     },
     {
       value: 'slide-top',
-      label: t('setting.transition.list[4]')
+      label: t('setting.transition.list.slideTop')
     }
   ])
 
@@ -102,62 +102,62 @@ export function useSettingsConfig() {
   const basicSettingsConfig = computed(() => [
     {
       key: 'showWorkTab',
-      label: t('setting.basics.list[4]'),
+      label: t('setting.basics.list.multiTab'),
       type: 'switch' as const,
       handler: 'workTab'
     },
     {
       key: 'uniqueOpened',
-      label: t('setting.basics.list[0]'),
+      label: t('setting.basics.list.accordion'),
       type: 'switch' as const,
       handler: 'uniqueOpened'
     },
     {
       key: 'showMenuButton',
-      label: t('setting.basics.list[1]'),
+      label: t('setting.basics.list.collapseSidebar'),
       type: 'switch' as const,
       handler: 'menuButton'
     },
     {
       key: 'showRefreshButton',
-      label: t('setting.basics.list[2]'),
+      label: t('setting.basics.list.reloadPage'),
       type: 'switch' as const,
       handler: 'refreshButton'
     },
     {
       key: 'showCrumbs',
-      label: t('setting.basics.list[3]'),
+      label: t('setting.basics.list.breadcrumb'),
       type: 'switch' as const,
       handler: 'crumbs',
       mobileHide: true
     },
     {
       key: 'showLanguage',
-      label: t('setting.basics.list[5]'),
+      label: t('setting.basics.list.language'),
       type: 'switch' as const,
       handler: 'language'
     },
     {
       key: 'showNprogress',
-      label: t('setting.basics.list[6]'),
+      label: t('setting.basics.list.progressBar'),
       type: 'switch' as const,
       handler: 'nprogress'
     },
     {
       key: 'colorWeak',
-      label: t('setting.basics.list[7]'),
+      label: t('setting.basics.list.weakMode'),
       type: 'switch' as const,
       handler: 'colorWeak'
     },
     {
       key: 'watermarkVisible',
-      label: t('setting.basics.list[9]'),
+      label: t('setting.basics.list.watermark'),
       type: 'switch' as const,
       handler: 'watermark'
     },
     {
       key: 'menuOpenWidth',
-      label: t('setting.basics.list[10]'),
+      label: t('setting.basics.list.menuWidth'),
       type: 'input-number' as const,
       handler: 'menuOpenWidth',
       min: 180,
@@ -168,7 +168,7 @@ export function useSettingsConfig() {
     },
     {
       key: 'tabStyle',
-      label: t('setting.basics.list[13]'),
+      label: t('setting.basics.list.tabStyle'),
       type: 'select' as const,
       handler: 'tabStyle',
       options: tabStyleOptions.value,
@@ -176,7 +176,7 @@ export function useSettingsConfig() {
     },
     {
       key: 'pageTransition',
-      label: t('setting.basics.list[11]'),
+      label: t('setting.basics.list.pageTransition'),
       type: 'select' as const,
       handler: 'pageTransition',
       options: pageTransitionOptions.value,
@@ -184,7 +184,7 @@ export function useSettingsConfig() {
     },
     {
       key: 'customRadius',
-      label: t('setting.basics.list[12]'),
+      label: t('setting.basics.list.borderRadius'),
       type: 'select' as const,
       handler: 'customRadius',
       options: customRadiusOptions,

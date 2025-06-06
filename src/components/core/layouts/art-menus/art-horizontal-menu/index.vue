@@ -13,7 +13,7 @@
     >
       <HorizontalSubmenu
         v-for="item in filteredMenuItems"
-        :key="item.id"
+        :key="item.path"
         :item="item"
         :isMobile="false"
         :level="0"
@@ -23,13 +23,13 @@
 </template>
 
 <script setup lang="ts">
-  import { MenuListType } from '@/types/menu'
+  import { AppRouteRecord } from '@/types/router'
 
   const route = useRoute()
 
   const props = defineProps({
     list: {
-      type: [Array] as PropType<MenuListType[]>,
+      type: [Array] as PropType<AppRouteRecord[]>,
       default: () => []
     },
     width: {

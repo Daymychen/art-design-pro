@@ -75,7 +75,7 @@
   import ArtSearchSelect from './widget/art-search-select/index.vue'
   import ArtSearchRadio from './widget/art-search-radio/index.vue'
   import ArtSearchDate from './widget/art-search-date/index.vue'
-  import { SearchComponentType, SearchFormItem } from '@/types/search-form'
+  import { SearchComponentType, SearchFormItem } from '@/types'
 
   const { width } = useWindowSize()
   const isMobile = computed(() => width.value < 500)

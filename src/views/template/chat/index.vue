@@ -1,42 +1,42 @@
 <template>
   <div class="chat" :style="{ height: containerMinHeight }">
-    <el-row>
-      <el-col :span="12">
+    <ElRow>
+      <ElCol :span="12">
         <div class="grid-content ep-bg-purple" />
-      </el-col>
-      <el-col :span="12">
+      </ElCol>
+      <ElCol :span="12">
         <div class="grid-content ep-bg-purple-light" />
-      </el-col>
-    </el-row>
+      </ElCol>
+    </ElRow>
     <div class="person-list">
       <div class="person-item-header">
         <div class="user-info">
-          <el-avatar :size="50" :src="selectedPerson?.avatar" />
+          <ElAvatar :size="50" :src="selectedPerson?.avatar" />
           <div class="user-details">
             <div class="name">{{ selectedPerson?.name }}</div>
             <div class="email">{{ selectedPerson?.email }}</div>
           </div>
         </div>
         <div class="search-box">
-          <el-input v-model="searchQuery" placeholder="搜索联系人" prefix-icon="Search" clearable />
+          <ElInput v-model="searchQuery" placeholder="搜索联系人" prefix-icon="Search" clearable />
         </div>
-        <el-dropdown trigger="click" placement="bottom-start">
+        <ElDropdown trigger="click" placement="bottom-start">
           <span class="sort-btn">
             排序方式
-            <el-icon class="el-icon--right">
+            <ElIcon class="el-icon--right">
               <arrow-down />
-            </el-icon>
+            </ElIcon>
           </span>
           <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item>按时间排序</el-dropdown-item>
-              <el-dropdown-item>按名称排序</el-dropdown-item>
-              <el-dropdown-item>全部标为已读</el-dropdown-item>
-            </el-dropdown-menu>
+            <ElDropdownMenu>
+              <ElDropdownItem>按时间排序</ElDropdownItem>
+              <ElDropdownItem>按名称排序</ElDropdownItem>
+              <ElDropdownItem>全部标为已读</ElDropdownItem>
+            </ElDropdownMenu>
           </template>
-        </el-dropdown>
+        </ElDropdown>
       </div>
-      <el-scrollbar>
+      <ElScrollbar>
         <div
           v-for="item in personList"
           :key="item.id"
@@ -45,9 +45,9 @@
           @click="selectPerson(item)"
         >
           <div class="avatar-wrapper">
-            <el-avatar :size="40" :src="item.avatar">
+            <ElAvatar :size="40" :src="item.avatar">
               {{ item.name.charAt(0) }}
-            </el-avatar>
+            </ElAvatar>
             <div class="status-dot" :class="{ online: item.online }"></div>
           </div>
           <div class="person-info">
@@ -57,11 +57,10 @@
             </div>
             <div class="info-bottom">
               <span class="email">{{ item.email }}</span>
-              <!-- <el-badge v-if="item.unread" :value="item.unread" class="unread-badge" /> -->
             </div>
           </div>
         </div>
-      </el-scrollbar>
+      </ElScrollbar>
     </div>
     <div class="chat-modal">
       <div class="header">
@@ -89,7 +88,7 @@
         <div class="chat-messages" ref="messageContainer">
           <template v-for="(message, index) in messages" :key="index">
             <div :class="['message-item', message.isMe ? 'message-right' : 'message-left']">
-              <el-avatar :size="32" :src="message.avatar" class="message-avatar" />
+              <ElAvatar :size="32" :src="message.avatar" class="message-avatar" />
               <div class="message-content">
                 <div class="message-info">
                   <span class="sender-name">{{ message.sender }}</span>
@@ -103,7 +102,7 @@
 
         <!-- 聊天输入区域 -->
         <div class="chat-input">
-          <el-input
+          <ElInput
             v-model="messageText"
             type="textarea"
             :rows="3"
@@ -113,18 +112,18 @@
           >
             <template #append>
               <div class="input-actions">
-                <el-button :icon="Paperclip" circle plain />
-                <el-button :icon="Picture" circle plain />
-                <el-button type="primary" @click="sendMessage" v-ripple>发送</el-button>
+                <ElButton :icon="Paperclip" circle plain />
+                <ElButton :icon="Picture" circle plain />
+                <ElButton type="primary" @click="sendMessage" v-ripple>发送</ElButton>
               </div>
             </template>
-          </el-input>
+          </ElInput>
           <div class="chat-input-actions">
             <div class="left">
               <i class="iconfont-sys">&#xe634;</i>
               <i class="iconfont-sys">&#xe809;</i>
             </div>
-            <el-button type="primary" @click="sendMessage" v-ripple>发送</el-button>
+            <ElButton type="primary" @click="sendMessage" v-ripple>发送</ElButton>
           </div>
         </div>
       </div>
@@ -135,18 +134,18 @@
 <script setup lang="ts">
   import { ref, onMounted } from 'vue'
   import { Picture, Paperclip } from '@element-plus/icons-vue'
-  import mittBus from '@/utils/mittBus'
-  import meAvatar from '@/assets/img/avatar/avatar5.jpg'
-  import aiAvatar from '@/assets/img/avatar/avatar10.jpg'
-  import avatar2 from '@/assets/img/avatar/avatar2.jpg'
-  import avatar3 from '@/assets/img/avatar/avatar3.jpg'
-  import avatar4 from '@/assets/img/avatar/avatar4.jpg'
-  import avatar5 from '@/assets/img/avatar/avatar5.jpg'
-  import avatar6 from '@/assets/img/avatar/avatar6.jpg'
-  import avatar7 from '@/assets/img/avatar/avatar7.jpg'
-  import avatar8 from '@/assets/img/avatar/avatar8.jpg'
-  import avatar9 from '@/assets/img/avatar/avatar9.jpg'
-  import avatar10 from '@/assets/img/avatar/avatar10.jpg'
+  import { mittBus } from '@/utils/sys'
+  import meAvatar from '@/assets/img/avatar/avatar5.webp'
+  import aiAvatar from '@/assets/img/avatar/avatar10.webp'
+  import avatar2 from '@/assets/img/avatar/avatar2.webp'
+  import avatar3 from '@/assets/img/avatar/avatar3.webp'
+  import avatar4 from '@/assets/img/avatar/avatar4.webp'
+  import avatar5 from '@/assets/img/avatar/avatar5.webp'
+  import avatar6 from '@/assets/img/avatar/avatar6.webp'
+  import avatar7 from '@/assets/img/avatar/avatar7.webp'
+  import avatar8 from '@/assets/img/avatar/avatar8.webp'
+  import avatar9 from '@/assets/img/avatar/avatar9.webp'
+  import avatar10 from '@/assets/img/avatar/avatar10.webp'
   import { useCommon } from '@/composables/useCommon'
 
   const { containerMinHeight } = useCommon()

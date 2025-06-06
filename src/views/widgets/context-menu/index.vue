@@ -1,6 +1,6 @@
 <template>
   <div class="page-content">
-    <el-button @contextmenu.prevent="showMenu"> 右键触发菜单 </el-button>
+    <ElButton @contextmenu.prevent="showMenu"> 右键触发菜单 </ElButton>
 
     <!-- 右键菜单组件 -->
     <ArtMenuRight

@@ -17,16 +17,16 @@
       导出 Excel
     </ArtExcelExport>
 
-    <el-button type="danger" @click="handleClear" v-ripple>清除数据</el-button>
+    <ElButton type="danger" @click="handleClear" v-ripple>清除数据</ElButton>
 
-    <art-table :data="tableData" style="margin-top: 10px">
-      <el-table-column
+    <ArtTable :data="tableData" style="margin-top: 10px">
+      <ElTableColumn
         v-for="key in Object.keys(headers)"
         :key="key"
         :prop="key"
         :label="headers[key as keyof typeof headers]"
       />
-    </art-table>
+    </ArtTable>
   </div>
 </template>
 

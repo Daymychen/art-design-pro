@@ -1,20 +1,20 @@
 import request from '@/utils/http'
-import { PaginationResult, BaseResult } from '@/types/axios'
-import { ArticleType, ArticleCategoryType } from './model/articleModel'
+import { PaginationResponse, BaseResponse } from '@/types/api'
+import { ArticleType, ArticleCategoryType, ArticleQueryParams } from './modules/article'
 
 // 文章
 export class ArticleService {
   // 获取文章列表
-  static getArticleList(params: any) {
+  static getArticleList(params: ArticleQueryParams) {
     const { page, size, searchVal, year } = params
-    return request.get<PaginationResult<ArticleType[]>>({
+    return request.get<PaginationResponse<ArticleType>>({
       url: `/api/articles/${page}/${size}?title=${searchVal}&year=${year}`
     })
   }
 
   // 获取文章类型
   static getArticleTypes(params: object) {
-    return request.get<BaseResult<ArticleCategoryType[]>>({
+    return request.get<BaseResponse<ArticleCategoryType[]>>({
       url: '/api/articles/types',
       params
     })
@@ -22,14 +22,14 @@ export class ArticleService {
 
   // 获取文章详情
   static getArticleDetail(id: number) {
-    return request.get<BaseResult<ArticleType>>({
+    return request.get<BaseResponse<ArticleType>>({
       url: `/api/articles/${id}`
     })
   }
 
   // 新增文章
   static addArticle(params: any) {
-    return request.post<BaseResult>({
+    return request.post<BaseResponse>({
       url: '/api/articles/',
       data: params
     })
@@ -37,7 +37,7 @@ export class ArticleService {
 
   // 编辑文章
   static editArticle(id: number, params: any) {
-    return request.put<BaseResult>({
+    return request.put<BaseResponse>({
       url: `/api/articles/${id}`,
       data: params
     })

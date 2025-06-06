@@ -4,7 +4,7 @@ import { RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
 import AppConfig from '@/config'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-import { $t } from '@/language'
+import { $t } from '@/locales'
 
 /** 扩展的路由配置类型 */
 export type AppRouteRecordRaw = RouteRecordRaw & {
@@ -51,5 +51,8 @@ export const setSystemTheme = (to: RouteLocationNormalized): void => {
  * @returns 格式化后的菜单标题
  */
 export const formatMenuTitle = (title: string): string => {
-  return title.startsWith('menus.') ? $t(title) : title
+  if (title) {
+    return title.startsWith('menus.') ? $t(title) : title
+  }
+  return ''
 }

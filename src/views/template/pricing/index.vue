@@ -6,9 +6,9 @@
     </div>
 
     <div class="pricing-cards">
-      <el-row :gutter="20" justify="center">
-        <el-col v-for="plan in pricingPlans" :key="plan.type" :xs="24" :sm="12" :md="6">
-          <el-card class="pricing-card" :class="{ popular: plan.isPopular }" shadow="never">
+      <ElRow :gutter="20" justify="center">
+        <ElCol v-for="plan in pricingPlans" :key="plan.type" :xs="24" :sm="12" :md="6">
+          <ElCard class="pricing-card" :class="{ popular: plan.isPopular }" shadow="never">
             <div class="card-header">
               <h3>{{ plan.title }}</h3>
               <p class="description">{{ plan.description }}</p>
@@ -20,20 +20,20 @@
 
             <div class="features">
               <div v-for="(feature, index) in plan.features" :key="index" class="feature-item">
-                <el-icon :class="feature.available ? 'available' : 'unavailable'">
+                <ElIcon :class="feature.available ? 'available' : 'unavailable'">
                   <Check v-if="feature.available" />
                   <Close v-else />
-                </el-icon>
+                </ElIcon>
                 <span>{{ feature.text }}</span>
               </div>
             </div>
 
             <div class="card-footer">
-              <el-button type="primary" class="purchase-btn" v-ripple>立即购买</el-button>
+              <ElButton type="primary" class="purchase-btn" v-ripple>立即购买</ElButton>
             </div>
-          </el-card>
-        </el-col>
-      </el-row>
+          </ElCard>
+        </ElCol>
+      </ElRow>
     </div>
   </div>
 </template>

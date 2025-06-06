@@ -1,5 +1,5 @@
 <template>
-  <div class="region active-user art-custom-card">
+  <div class="card art-custom-card">
     <div class="chart" ref="chartRef"></div>
     <div class="text">
       <h3 class="box-title">用户概述</h3>
@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
   import * as echarts from 'echarts'
-  import { getCssVariable } from '@/utils/colors'
+  import { getCssVar } from '@/utils/ui'
   import { useChart } from '@/composables/useChart'
   import { EChartsOption } from 'echarts'
 
@@ -71,11 +71,11 @@
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
               {
                 offset: 0,
-                color: getCssVariable('--el-color-primary-light-4')
+                color: getCssVar('--el-color-primary-light-4')
               },
               {
                 offset: 1,
-                color: getCssVariable('--el-color-primary')
+                color: getCssVar('--el-color-primary')
               }
             ])
           },
@@ -98,17 +98,9 @@
 </script>
 
 <style lang="scss" scoped>
-  .dark {
-    .region {
-      .chart {
-        background: none;
-      }
-    }
-  }
-
-  .region {
+  .card {
     box-sizing: border-box;
-    width: 42%;
+    width: 100%;
     height: 420px;
     padding: 16px;
 
@@ -164,9 +156,17 @@
     }
   }
 
+  .dark {
+    .card {
+      .chart {
+        background: none;
+      }
+    }
+  }
+
   @media screen and (max-width: $device-phone) {
     .dark {
-      .active-user {
+      .card {
         .chart {
           padding: 15px 0 0 !important;
         }

@@ -1,36 +1,36 @@
 <template>
   <div class="page-content">
-    <el-row>
-      <el-col :xs="24" :sm="12" :lg="6">
-        <el-input placeholder="部门名称"></el-input>
-      </el-col>
+    <ElRow>
+      <ElCol :xs="24" :sm="12" :lg="6">
+        <ElInput placeholder="部门名称"></ElInput>
+      </ElCol>
       <div style="width: 12px"></div>
-      <el-col :xs="24" :sm="12" :lg="6" class="el-col2">
-        <el-button v-ripple>搜索</el-button>
-        <el-button @click="showDialog('add')" v-ripple>新增角色</el-button>
-      </el-col>
-    </el-row>
+      <ElCol :xs="24" :sm="12" :lg="6" class="el-col2">
+        <ElButton v-ripple>搜索</ElButton>
+        <ElButton @click="showDialog('add')" v-ripple>新增角色</ElButton>
+      </ElCol>
+    </ElRow>
 
     <art-table :data="roleList" index>
       <template #default>
-        <el-table-column label="角色名称" prop="roleName" />
-        <el-table-column label="角色编码" prop="roleCode" />
-        <el-table-column label="描述" prop="des" />
-        <el-table-column label="启用" prop="enable">
+        <ElTableColumn label="角色名称" prop="roleName" />
+        <ElTableColumn label="角色编码" prop="roleCode" />
+        <ElTableColumn label="描述" prop="des" />
+        <ElTableColumn label="启用" prop="enable">
           <template #default="scope">
-            <el-tag :type="scope.row.enable ? 'primary' : 'info'">
+            <ElTag :type="scope.row.enable ? 'primary' : 'info'">
               {{ scope.row.enable ? '启用' : '禁用' }}
-            </el-tag>
+            </ElTag>
           </template>
-        </el-table-column>
-        <el-table-column label="创建时间" prop="date">
+        </ElTableColumn>
+        <ElTableColumn label="创建时间" prop="date">
           <template #default="scope">
             {{ formatDate(scope.row.date) }}
           </template>
-        </el-table-column>
-        <el-table-column fixed="right" label="操作" width="100px">
+        </ElTableColumn>
+        <ElTableColumn fixed="right" label="操作" width="100px">
           <template #default="scope">
-            <el-row>
+            <ElRow>
               <ArtButtonMore
                 :list="[
                   { key: 'permission', label: '菜单权限' },
@@ -39,43 +39,43 @@
                 ]"
                 @click="buttonMoreClick($event, scope.row)"
               />
-            </el-row>
+            </ElRow>
           </template>
-        </el-table-column>
+        </ElTableColumn>
       </template>
     </art-table>
 
-    <el-dialog
+    <ElDialog
       v-model="dialogVisible"
       :title="dialogType === 'add' ? '新增角色' : '编辑角色'"
       width="30%"
       align-center
     >
-      <el-form ref="formRef" :model="form" :rules="rules" label-width="120px">
-        <el-form-item label="角色名称" prop="roleName">
-          <el-input v-model="form.roleName" />
-        </el-form-item>
-        <el-form-item label="角色编码" prop="roleCode">
-          <el-input v-model="form.roleCode" />
-        </el-form-item>
-        <el-form-item label="描述" prop="roleStatus">
-          <el-input v-model="form.des" type="textarea" :rows="3" />
-        </el-form-item>
-        <el-form-item label="启用">
-          <el-switch v-model="form.enable" />
-        </el-form-item>
-      </el-form>
+      <ElForm ref="formRef" :model="form" :rules="rules" label-width="120px">
+        <ElFormItem label="角色名称" prop="roleName">
+          <ElInput v-model="form.roleName" />
+        </ElFormItem>
+        <ElFormItem label="角色编码" prop="roleCode">
+          <ElInput v-model="form.roleCode" />
+        </ElFormItem>
+        <ElFormItem label="描述" prop="roleStatus">
+          <ElInput v-model="form.des" type="textarea" :rows="3" />
+        </ElFormItem>
+        <ElFormItem label="启用">
+          <ElSwitch v-model="form.enable" />
+        </ElFormItem>
+      </ElForm>
       <template #footer>
         <div class="dialog-footer">
-          <el-button @click="dialogVisible = false">取消</el-button>
-          <el-button type="primary" @click="handleSubmit(formRef)">提交</el-button>
+          <ElButton @click="dialogVisible = false">取消</ElButton>
+          <ElButton type="primary" @click="handleSubmit(formRef)">提交</ElButton>
         </div>
       </template>
-    </el-dialog>
+    </ElDialog>
 
-    <el-dialog v-model="permissionDialog" title="菜单权限" width="30%">
+    <ElDialog v-model="permissionDialog" title="菜单权限" width="30%">
       <div :style="{ maxHeight: '500px', overflowY: 'scroll' }">
-        <el-tree
+        <ElTree
           :data="menuList"
           show-checkbox
           node-key="id"
@@ -84,7 +84,7 @@
           :props="defaultProps"
         />
       </div>
-    </el-dialog>
+    </ElDialog>
   </div>
 </template>
 

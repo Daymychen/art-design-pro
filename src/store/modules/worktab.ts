@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import { WorkTabType } from '@/types/store'
 import { HOME_PAGE } from '@/router/routesAlias'
 import { router } from '@/router'
 import { LocationQueryRaw, Router } from 'vue-router'
+import { WorkTab } from '@/types'
 
 interface WorktabState {
-  current: Partial<WorkTabType>
-  opened: WorkTabType[]
+  current: Partial<WorkTab>
+  opened: WorkTab[]
   keepAliveExclude: string[]
 }
 
@@ -18,8 +18,8 @@ export const useWorktabStore = defineStore(
   'worktabStore',
   () => {
     // 状态定义
-    const current = ref<Partial<WorkTabType>>({})
-    const opened = ref<WorkTabType[]>([])
+    const current = ref<Partial<WorkTab>>({})
+    const opened = ref<WorkTab[]>([])
     const keepAliveExclude = ref<string[]>([])
 
     // 计算属性
@@ -51,21 +51,21 @@ export const useWorktabStore = defineStore(
     /**
      * 获取标签页
      */
-    const getTab = (path: string): WorkTabType | undefined => {
+    const getTab = (path: string): WorkTab | undefined => {
       return opened.value.find((tab) => tab.path === path)
     }
 
     /**
      * 检查标签页是否可关闭
      */
-    const isTabClosable = (tab: WorkTabType): boolean => {
+    const isTabClosable = (tab: WorkTab): boolean => {
       return !tab.fixedTab
     }
 
     /**
      * 安全的路由跳转
      */
-    const safeRouterPush = (tab: Partial<WorkTabType>): void => {
+    const safeRouterPush = (tab: Partial<WorkTab>): void => {
       if (!tab.path) {
         console.warn('尝试跳转到无效路径的标签页')
         return
@@ -84,7 +84,7 @@ export const useWorktabStore = defineStore(
     /**
      * 打开或激活一个选项卡
      */
-    const openTab = (tab: WorkTabType): void => {
+    const openTab = (tab: WorkTab): void => {
       if (!tab.path) {
         console.warn('尝试打开无效的标签页')
         return
@@ -326,7 +326,7 @@ export const useWorktabStore = defineStore(
     /**
      * 将指定选项卡添加到 keepAlive 排除列表中
      */
-    const addKeepAliveExclude = (tab: WorkTabType): void => {
+    const addKeepAliveExclude = (tab: WorkTab): void => {
       if (!tab.keepAlive || !tab.name) return
 
       if (!keepAliveExclude.value.includes(tab.name)) {
@@ -346,7 +346,7 @@ export const useWorktabStore = defineStore(
     /**
      * 将传入的一组选项卡的组件名称标记为排除缓存
      */
-    const markTabsToRemove = (tabs: WorkTabType[]): void => {
+    const markTabsToRemove = (tabs: WorkTab[]): void => {
       tabs.forEach((tab) => {
         if (tab.name) {
           addKeepAliveExclude(tab)

@@ -24,7 +24,6 @@
 <script setup lang="ts">
   import { useSettingsPanel } from './composables/useSettingsPanel'
 
-  // 组件导入
   import SettingDrawer from './widget/SettingDrawer.vue'
   import SettingHeader from './widget/SettingHeader.vue'
   import ThemeSettings from './widget/ThemeSettings.vue'
@@ -35,7 +34,6 @@
   import ContainerSettings from './widget/ContainerSettings.vue'
   import BasicSettings from './widget/BasicSettings.vue'
 
-  // Props 定义
   interface Props {
     open?: boolean
   }
@@ -54,7 +52,6 @@
   // 监听 props 变化
   settingsPanel.usePropsWatcher(props)
 
-  // 生命周期
   onMounted(() => {
     initializeSettings()
     handleWindowResize()

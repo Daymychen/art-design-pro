@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
   import { ref } from 'vue'
-  import lockImg from '@imgs/lock/lock_screen_1.png'
+  import lockImg from '@imgs/lock/lock_screen_1.webp'
 
   // 视频源和封面图片URL
   const videoUrl = ref(

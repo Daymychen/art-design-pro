@@ -3,25 +3,25 @@
     <div>
       <div class="editor-wrap">
         <!-- 文章标题、类型 -->
-        <el-row :gutter="10">
-          <el-col :span="18">
-            <el-input
+        <ElRow :gutter="10">
+          <ElCol :span="18">
+            <ElInput
               v-model.trim="articleName"
               placeholder="请输入文章标题（最多100个字符）"
               maxlength="100"
             />
-          </el-col>
-          <el-col :span="6">
-            <el-select v-model="articleType" placeholder="请选择文章类型" filterable>
-              <el-option
+          </ElCol>
+          <ElCol :span="6">
+            <ElSelect v-model="articleType" placeholder="请选择文章类型" filterable>
+              <ElOption
                 v-for="item in articleTypes"
                 :key="item.id"
                 :label="item.name"
                 :value="item.id"
               />
-            </el-select>
-          </el-col>
-        </el-row>
+            </ElSelect>
+          </ElCol>
+        </ElRow>
 
         <!-- 富文本编辑器 -->
         <ArtWangEditor class="el-top" v-model="editorHtml" />
@@ -29,10 +29,10 @@
         <div class="form-wrap">
           <h2>发布设置</h2>
           <!-- 图片上传 -->
-          <el-form>
-            <el-form-item label="封面">
+          <ElForm>
+            <ElFormItem label="封面">
               <div class="el-top upload-container">
-                <el-upload
+                <ElUpload
                   class="cover-uploader"
                   :action="uploadImageUrl"
                   :headers="uploadHeaders"
@@ -42,23 +42,23 @@
                   :before-upload="beforeUpload"
                 >
                   <div v-if="!cover" class="upload-placeholder">
-                    <el-icon class="upload-icon"><Plus /></el-icon>
+                    <ElIcon class="upload-icon"><Plus /></ElIcon>
                     <div class="upload-text">点击上传封面</div>
                   </div>
                   <img v-else :src="cover" class="cover-image" />
-                </el-upload>
+                </ElUpload>
                 <div class="el-upload__tip">建议尺寸 16:9，jpg/png 格式</div>
               </div>
-            </el-form-item>
-            <el-form-item label="可见">
-              <el-switch v-model="visible" />
-            </el-form-item>
-          </el-form>
+            </ElFormItem>
+            <ElFormItem label="可见">
+              <ElSwitch v-model="visible" />
+            </ElFormItem>
+          </ElForm>
 
           <div style="display: flex; justify-content: flex-end">
-            <el-button type="primary" @click="submit" style="width: 100px">
+            <ElButton type="primary" @click="submit" style="width: 100px">
               {{ pageMode === PageModeEnum.Edit ? '保存' : '发布' }}
-            </el-button>
+            </ElButton>
           </div>
         </div>
       </div>
@@ -78,7 +78,7 @@
   import { ApiStatus } from '@/utils/http/status'
   import { ElMessage } from 'element-plus'
   import { useUserStore } from '@/store/modules/user'
-  import EmojiText from '@/utils/emojo'
+  import EmojiText from '@/utils/ui/emojo'
   import { PageModeEnum } from '@/enums/formEnum'
   import axios from 'axios'
   import { useCommon } from '@/composables/useCommon'

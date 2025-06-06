@@ -1,0 +1,394 @@
+{
+  "topBar": {
+    "search": {
+      "title": "Search"
+    },
+    "user": {
+      "userCenter": "User center",
+      "docs": "Document",
+      "github": "Github",
+      "lockScreen": "Lock screen",
+      "logout": "Log out"
+    }
+  },
+  "common": {
+    "tips": "Prompt",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "logOutTips": "Do you want to log out?"
+  },
+  "search": {
+    "placeholder": "Search page",
+    "historyTitle": "Search history",
+    "switchKeydown": "Navigate",
+    "selectKeydown": "Select"
+  },
+  "setting": {
+    "menuType": {
+      "title": "Menu Layout",
+      "list": ["Vertical", "Horizontal", "Mixed", "Dual"]
+    },
+    "theme": {
+      "title": "Theme Style",
+      "list": ["Light", "Dark", "System"]
+    },
+    "menu": {
+      "title": "Menu Style"
+    },
+    "color": {
+      "title": "Theme Color"
+    },
+    "box": {
+      "title": "Box Style",
+      "list": ["Border", "Shadow"]
+    },
+    "container": {
+      "title": "Container Width",
+      "list": ["Full", "Boxed"]
+    },
+    "basics": {
+      "title": "Basic Config",
+      "list": {
+        "multiTab": "Show work tab",
+        "accordion": "Sidebar opens accordion",
+        "collapseSidebar": "Show sidebar button",
+        "reloadPage": "Show reload page button",
+        "breadcrumb": "Show crumb navigation",
+        "language": "Show multilingual selection",
+        "progressBar": "Show top progress bar",
+        "weakMode": "Color Weakness Mode",
+        "watermark": "Global watermark",
+        "menuWidth": "Menu width",
+        "tabStyle": "Tab style",
+        "pageTransition": "Page animation",
+        "borderRadius": "Custom radius"
+      }
+    },
+    "tabStyle": {
+      "default": "Default",
+      "card": "Card",
+      "google": "Chrome"
+    },
+    "transition": {
+      "list": {
+        "none": "None",
+        "fade": "Fade",
+        "slideLeft": "Slide Left",
+        "slideBottom": "Slide Bottom",
+        "slideTop": "Slide Top"
+      }
+    }
+  },
+  "notice": {
+    "title": "Notice",
+    "btnRead": "Mark as read",
+    "bar": ["Notice", "Message", "Todo"],
+    "text": ["No"],
+    "viewAll": "View all"
+  },
+  "worktab": {
+    "btn": {
+      "refresh": "Refresh",
+      "fixed": "Fixed",
+      "unfixed": "Unfixed",
+      "closeLeft": "Close left",
+      "closeRight": "Close right",
+      "closeOther": "Close other",
+      "closeAll": "Close all"
+    }
+  },
+  "login": {
+    "leftView": {
+      "title": "An Admin template focused on user experience",
+      "subTitle": "A sleek and practical interface for a great user experience"
+    },
+    "title": "Welcome back",
+    "subTitle": "Please enter your account and password to login",
+    "roles": {
+      "super": "Super Admin",
+      "admin": "Admin",
+      "user": "User"
+    },
+    "placeholder": [
+      "Please enter your account",
+      "Please enter your password",
+      "Please slide to verify"
+    ],
+    "sliderText": "Please slide to verify",
+    "sliderSuccessText": "Verification successful",
+    "rememberPwd": "Remember password",
+    "forgetPwd": "Forgot password",
+    "btnText": "Login",
+    "noAccount": "No account yet?",
+    "register": "Register",
+    "success": {
+      "title": "Login successful",
+      "message": "Welcome back"
+    }
+  },
+  "forgetPassword": {
+    "title": "Forgot password?",
+    "subTitle": "Enter your email to reset your password",
+    "placeholder": "Please enter your email",
+    "submitBtnText": "Submit",
+    "backBtnText": "Back"
+  },
+  "register": {
+    "title": "Create account",
+    "subTitle": "Welcome to join us, please fill in the following information to complete the registration",
+    "placeholder": [
+      "Please enter your account",
+      "Please enter your password",
+      "Please enter your password again"
+    ],
+    "rule": [
+      "Please enter your password again",
+      "The two passwords are inconsistent!",
+      "The length is 3 to 20 characters",
+      "The password length cannot be less than 6 digits",
+      "Please agree to the privacy policy"
+    ],
+    "agreeText": "I agree",
+    "privacyPolicy": "Privacy policy",
+    "submitBtnText": "Register",
+    "hasAccount": "Already have an account?",
+    "toLogin": "To login"
+  },
+  "lockScreen": {
+    "pwdError": "Password error",
+    "lock": {
+      "inputPlaceholder": "Please input lock screen password",
+      "btnText": "Lock"
+    },
+    "unlock": {
+      "inputPlaceholder": "Please input unlock password",
+      "btnText": "Unlock",
+      "backBtnText": "Back to login"
+    }
+  },
+  "analysis": {
+    "todaySales": {
+      "title": "Today's Sales",
+      "subtitle": "Sales Summary",
+      "export": "Export",
+      "cards": {
+        "totalSales": {
+          "label": "Total Sales",
+          "change": "+15%"
+        },
+        "totalOrder": {
+          "label": "Total Order",
+          "change": "+5%"
+        },
+        "productSold": {
+          "label": "Product Sold",
+          "change": "+2%"
+        },
+        "newCustomers": {
+          "label": "New Customers",
+          "change": "+8%"
+        }
+      },
+      "fromYesterday": "from yesterday"
+    },
+    "visitorInsights": {
+      "title": "Visitor Insights",
+      "legend": {
+        "loyalCustomers": "Loyal Customers",
+        "newCustomers": "New Customers"
+      }
+    },
+    "totalRevenue": {
+      "title": "Total Revenue",
+      "legend": {
+        "onlineSales": "Online Sales",
+        "offlineSales": "Offline Sales"
+      }
+    },
+    "customerSatisfaction": {
+      "title": "Customer Satisfaction",
+      "legend": {
+        "lastMonth": "Last Month",
+        "thisMonth": "This Month"
+      }
+    },
+    "targetVsReality": {
+      "title": "Target vs Reality",
+      "realitySales": {
+        "label": "Reality Sales",
+        "sublabel": "Global"
+      },
+      "targetSales": {
+        "label": "Target Sales",
+        "sublabel": "Commercial"
+      }
+    },
+    "topProducts": {
+      "title": "Top Products",
+      "columns": {
+        "name": "Name",
+        "popularity": "Popularity",
+        "sales": "Sales"
+      },
+      "products": {
+        "homeDecor": {
+          "name": "Home Decor Range",
+          "sales": "10%"
+        },
+        "disneyBag": {
+          "name": "Disney Princess Pink Bag 18\"",
+          "sales": "29%"
+        },
+        "bathroom": {
+          "name": "Bathroom Essentials",
+          "sales": "65%"
+        },
+        "smartwatch": {
+          "name": "Apple Smartwatches",
+          "sales": "32%"
+        },
+        "fitness": {
+          "name": "Fitness Tracker",
+          "sales": "78%"
+        },
+        "earbuds": {
+          "name": "Wireless Earbuds",
+          "sales": "41%"
+        }
+      }
+    },
+    "salesMappingCountry": {
+      "title": "Sales Mapping by Country"
+    },
+    "volumeServiceLevel": {
+      "title": "Volume vs Service Level",
+      "legend": {
+        "volume": "Volume",
+        "services": "Services"
+      }
+    }
+  },
+  "greeting": {
+    "dawn": "Good morning!",
+    "morning": "Good morning!",
+    "afternoon": "Good afternoon!",
+    "evening": "Good evening!"
+  },
+  "exceptionPage": {
+    "gohome": "Go Home",
+    "403": "Sorry, you do not have permission to access this page",
+    "404": "Sorry, the page you are trying to access does not exist",
+    "500": "Sorry, there was an error on the server"
+  },
+  "menus": {
+    "login": {
+      "title": "Login"
+    },
+    "register": {
+      "title": "Register"
+    },
+    "forgetPassword": {
+      "title": "Forget Password"
+    },
+    "outside": {
+      "title": "Outside"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "console": "Console",
+      "analysis": "Analysis",
+      "ecommerce": "Ecommerce"
+    },
+    "widgets": {
+      "title": "Components",
+      "iconList": "Icon List",
+      "iconSelector": "Icon Selector",
+      "imageCrop": "Image Crop",
+      "excel": "Excel Import Export",
+      "video": "Video Player",
+      "countTo": "Count To",
+      "wangEditor": "Wang Editor",
+      "watermark": "Watermark",
+      "contextMenu": "Context Menu",
+      "qrcode": "QR Code",
+      "drag": "Drag",
+      "textScroll": "Text Scroll",
+      "fireworks": "Fireworks",
+      "elementUI": "Component Overview"
+    },
+    "template": {
+      "title": "Template Center",
+      "chat": "Chat",
+      "cards": "Cards",
+      "banners": "Banners",
+      "charts": "Charts",
+      "map": "Map",
+      "calendar": "Calendar",
+      "pricing": "Pricing"
+    },
+    "article": {
+      "title": "Article Management",
+      "articleList": "Article List",
+      "articleDetail": "Article Detail",
+      "comment": "Comment",
+      "articlePublish": "Article Publish"
+    },
+    "result": {
+      "title": "Result Page",
+      "success": "Success",
+      "fail": "Fail"
+    },
+    "exception": {
+      "title": "Exception",
+      "forbidden": "403",
+      "notFound": "404",
+      "serverError": "500"
+    },
+    "system": {
+      "title": "System Settings",
+      "user": "User Manage",
+      "role": "Role Manage",
+      "userCenter": "User Center",
+      "menu": "Menu Manage",
+      "nested": "Nested Menu",
+      "menu1": "Menu 1",
+      "menu2": "Menu 2",
+      "menu21": "Menu 2-1",
+      "menu3": "Menu 3",
+      "menu31": "Menu 3-1",
+      "menu32": "Menu 3-2",
+      "menu321": "Menu 3-2-1"
+    },
+    "safeguard": {
+      "title": "Safeguard",
+      "server": "Server"
+    },
+    "plan": {
+      "title": "Version Plan",
+      "log": "Change Log"
+    },
+    "help": {
+      "title": "Help Center",
+      "document": "Document"
+    }
+  },
+  "table": {
+    "searchBar": {
+      "reset": "Reset",
+      "search": "Search",
+      "expand": "Expand",
+      "collapse": "Collapse",
+      "searchInputPlaceholder": "Please enter",
+      "searchSelectPlaceholder": "Please select"
+    },
+    "selection": "Select",
+    "sizeOptions": {
+      "small": "Compact",
+      "default": "Default",
+      "large": "Loose"
+    },
+    "zebra": "Zebra",
+    "border": "Border",
+    "headerBackground": "Header BG"
+  }
+}

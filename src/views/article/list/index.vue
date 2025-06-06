@@ -1,52 +1,52 @@
 <template>
   <div class="page-content article-list">
-    <el-row justify="space-between" :gutter="10">
-      <el-col :lg="6" :md="6" :sm="14" :xs="16">
-        <el-input
+    <ElRow justify="space-between" :gutter="10">
+      <ElCol :lg="6" :md="6" :sm="14" :xs="16">
+        <ElInput
           v-model="searchVal"
           :prefix-icon="Search"
           clearable
           placeholder="输入文章标题查询"
           @keyup.enter="searchArticle"
         />
-      </el-col>
-      <el-col :lg="12" :md="12" :sm="0" :xs="0">
+      </ElCol>
+      <ElCol :lg="12" :md="12" :sm="0" :xs="0">
         <div class="custom-segmented">
-          <el-segmented v-model="yearVal" :options="options" @change="searchArticleByYear" />
+          <ElSegmented v-model="yearVal" :options="options" @change="searchArticleByYear" />
         </div>
-      </el-col>
-      <el-col :lg="6" :md="6" :sm="10" :xs="6" style="display: flex; justify-content: end">
-        <el-button @click="toAddArticle" v-auth="'add'">新增文章</el-button>
-      </el-col>
-    </el-row>
+      </ElCol>
+      <ElCol :lg="6" :md="6" :sm="10" :xs="6" style="display: flex; justify-content: end">
+        <ElButton @click="toAddArticle" v-auth="'add'">新增文章</ElButton>
+      </ElCol>
+    </ElRow>
 
     <div class="list">
       <div class="offset">
         <div class="item" v-for="item in articleList" :key="item.id" @click="toDetail(item)">
           <!-- 骨架屏 -->
-          <el-skeleton animated :loading="isLoading" style="width: 100%; height: 100%">
+          <ElSkeleton animated :loading="isLoading" style="width: 100%; height: 100%">
             <template #template>
               <div class="top">
-                <el-skeleton-item
+                <ElSkeletonItem
                   variant="image"
                   style="width: 100%; height: 100%; border-radius: 10px"
                 />
                 <div style="padding: 16px 0">
-                  <el-skeleton-item variant="p" style="width: 80%" />
-                  <el-skeleton-item variant="p" style="width: 40%; margin-top: 10px" />
+                  <ElSkeletonItem variant="p" style="width: 80%" />
+                  <ElSkeletonItem variant="p" style="width: 40%; margin-top: 10px" />
                 </div>
               </div>
             </template>
 
             <template #default>
               <div class="top">
-                <el-image class="cover" :src="item.home_img" lazy fit="cover">
+                <ElImage class="cover" :src="item.home_img" lazy fit="cover">
                   <template #error>
                     <div class="image-slot">
-                      <el-icon><icon-picture /></el-icon>
+                      <ElIcon><icon-picture /></ElIcon>
                     </div>
                   </template>
-                </el-image>
+                </ElImage>
 
                 <span class="type">{{ item.type_name }}</span>
               </div>
@@ -60,23 +60,21 @@
                     <i class="iconfont-sys">&#xe689;</i>
                     <span>{{ item.count }}</span>
                   </div>
-                  <el-button v-auth="'edit'" size="small" @click.stop="toEdit(item)"
-                    >编辑</el-button
-                  >
+                  <ElButton v-auth="'edit'" size="small" @click.stop="toEdit(item)">编辑</ElButton>
                 </div>
               </div>
             </template>
-          </el-skeleton>
+          </ElSkeleton>
         </div>
       </div>
     </div>
 
     <div style="margin-top: 16vh" v-if="showEmpty">
-      <el-empty :description="`未找到相关数据 ${EmojiText[0]}`" />
+      <ElEmpty :description="`未找到相关数据 ${EmojiText[0]}`" />
     </div>
 
     <div style="display: flex; justify-content: center; margin-top: 20px">
-      <el-pagination
+      <ElPagination
         size="default"
         background
         v-model:current-page="currentPage"
@@ -95,14 +93,14 @@
   import { Picture as IconPicture } from '@element-plus/icons-vue'
 
   import { ref, onMounted, computed } from 'vue'
-  import { ArticleType } from '@/api/model/articleModel'
   import { router } from '@/router'
   import { useDateFormat } from '@vueuse/core'
   import { Search } from '@element-plus/icons-vue'
-  import EmojiText from '@/utils/emojo'
+  import EmojiText from '@/utils/ui/emojo'
   import { ArticleList } from '@/mock/temp/articleList'
   import { useCommon } from '@/composables/useCommon'
   import { RoutesAlias } from '@/router/routesAlias'
+  import { ArticleType } from '@/api/modules'
 
   defineOptions({ name: 'ArticleList' })
 

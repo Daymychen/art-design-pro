@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-  import { SearchFormItem } from '@/types/search-form'
+  import { SearchFormItem } from '@/types'
   import { useI18n } from 'vue-i18n'
 
   const { t } = useI18n()

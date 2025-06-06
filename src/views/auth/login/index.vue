@@ -1,8 +1,7 @@
 <template>
   <div class="login">
-    <div class="left-wrap">
-      <LoginLeftView></LoginLeftView>
-    </div>
+    <LoginLeftView></LoginLeftView>
+
     <div class="right-wrap">
       <div class="top-right-wrap">
         <div class="btn theme-btn" @click="toggleTheme">
@@ -10,24 +9,24 @@
             {{ isDark ? '&#xe6b5;' : '&#xe725;' }}
           </i>
         </div>
-        <el-dropdown @command="changeLanguage" popper-class="langDropDownStyle">
+        <ElDropdown @command="changeLanguage" popper-class="langDropDownStyle">
           <div class="btn language-btn">
             <i class="iconfont-sys icon-language">&#xe611;</i>
           </div>
           <template #dropdown>
-            <el-dropdown-menu>
+            <ElDropdownMenu>
               <div v-for="lang in languageOptions" :key="lang.value" class="lang-btn-item">
-                <el-dropdown-item
+                <ElDropdownItem
                   :command="lang.value"
                   :class="{ 'is-selected': locale === lang.value }"
                 >
                   <span class="menu-txt">{{ lang.label }}</span>
                   <i v-if="locale === lang.value" class="iconfont-sys icon-check">&#xe621;</i>
-                </el-dropdown-item>
+                </ElDropdownItem>
               </div>
-            </el-dropdown-menu>
+            </ElDropdownMenu>
           </template>
-        </el-dropdown>
+        </ElDropdown>
       </div>
       <div class="header">
         <ArtLogo class="icon" />
@@ -37,40 +36,37 @@
         <div class="form">
           <h3 class="title">{{ $t('login.title') }}</h3>
           <p class="sub-title">{{ $t('login.subTitle') }}</p>
-          <el-form
+          <ElForm
             ref="formRef"
             :model="formData"
             :rules="rules"
             @keyup.enter="handleSubmit"
             style="margin-top: 25px"
           >
-            <el-form-item prop="account">
-              <el-select v-model="formData.account" @change="setupAccount" class="account-select">
-                <el-option
+            <ElFormItem prop="account">
+              <ElSelect v-model="formData.account" @change="setupAccount" class="account-select">
+                <ElOption
                   v-for="account in accounts"
                   :key="account.key"
                   :label="account.label"
                   :value="account.key"
                 >
                   <span>{{ account.label }}</span>
-                </el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item prop="username">
-              <el-input
-                :placeholder="$t('login.placeholder[0]')"
-                v-model.trim="formData.username"
-              />
-            </el-form-item>
-            <el-form-item prop="password">
-              <el-input
+                </ElOption>
+              </ElSelect>
+            </ElFormItem>
+            <ElFormItem prop="username">
+              <ElInput :placeholder="$t('login.placeholder[0]')" v-model.trim="formData.username" />
+            </ElFormItem>
+            <ElFormItem prop="password">
+              <ElInput
                 :placeholder="$t('login.placeholder[1]')"
                 v-model.trim="formData.password"
                 type="password"
                 radius="8px"
                 autocomplete="off"
               />
-            </el-form-item>
+            </ElFormItem>
             <div class="drag-verify">
               <div class="drag-verify-content" :class="{ error: !isPassing && isClickPass }">
                 <ArtDragVerify
@@ -80,10 +76,9 @@
                   :text="$t('login.sliderText')"
                   textColor="var(--art-gray-800)"
                   :successText="$t('login.sliderSuccessText')"
-                  :progressBarBg="getCssVariable('--el-color-primary')"
+                  :progressBarBg="getCssVar('--el-color-primary')"
                   background="var(--art-gray-200)"
                   handlerBg="var(--art-main-bg-color)"
-                  @pass="onPass"
                 />
               </div>
               <p class="error-text" :class="{ 'show-error-text': !isPassing && isClickPass }">{{
@@ -92,16 +87,14 @@
             </div>
 
             <div class="forget-password">
-              <el-checkbox v-model="formData.rememberPassword">{{
+              <ElCheckbox v-model="formData.rememberPassword">{{
                 $t('login.rememberPwd')
-              }}</el-checkbox>
-              <router-link :to="RoutesAlias.ForgetPassword">{{
-                $t('login.forgetPwd')
-              }}</router-link>
+              }}</ElCheckbox>
+              <RouterLink :to="RoutesAlias.ForgetPassword">{{ $t('login.forgetPwd') }}</RouterLink>
             </div>
 
             <div style="margin-top: 30px">
-              <el-button
+              <ElButton
                 class="login-btn"
                 type="primary"
                 @click="handleSubmit"
@@ -109,16 +102,16 @@
                 v-ripple
               >
                 {{ $t('login.btnText') }}
-              </el-button>
+              </ElButton>
             </div>
 
             <div class="footer">
               <p>
                 {{ $t('login.noAccount') }}
-                <router-link :to="RoutesAlias.Register">{{ $t('login.register') }}</router-link>
+                <RouterLink :to="RoutesAlias.Register">{{ $t('login.register') }}</RouterLink>
               </p>
             </div>
-          </el-form>
+          </ElForm>
         </div>
       </div>
     </div>
@@ -132,8 +125,8 @@
   import { useUserStore } from '@/store/modules/user'
   import { HOME_PAGE } from '@/router/routesAlias'
   import { ApiStatus } from '@/utils/http/status'
-  import { getCssVariable } from '@/utils/colors'
-  import { languageOptions } from '@/language'
+  import { getCssVar } from '@/utils/ui'
+  import { languageOptions } from '@/locales'
   import { LanguageEnum, SystemThemeEnum } from '@/enums/appEnum'
   import { useI18n } from 'vue-i18n'
 
@@ -216,8 +209,6 @@
     formData.username = selectedAccount?.userName ?? ''
     formData.password = selectedAccount?.password ?? ''
   }
-
-  const onPass = () => {}
 
   const handleSubmit = async () => {
     if (!formRef.value) return

@@ -77,9 +77,9 @@
 <script lang="ts" setup>
   import { nextTick } from 'vue'
   import { useUserStore } from '@/store/modules/user'
-  import { MenuListType } from '@/types/menu'
+  import { AppRouteRecord } from '@/types/router'
   import { Search } from '@element-plus/icons-vue'
-  import mittBus from '@/utils/mittBus'
+  import { mittBus } from '@/utils/sys'
   import { useMenuStore } from '@/store/modules/menu'
   import { formatMenuTitle } from '@/router/utils/utils'
   import type { ScrollbarInstance } from 'element-plus'
@@ -90,7 +90,7 @@
 
   const showSearchDialog = ref(false)
   const searchVal = ref('')
-  const searchResult = ref<MenuListType[]>([])
+  const searchResult = ref<AppRouteRecord[]>([])
   const historyMaxLength = 10
 
   const { searchHistory: historyResult } = storeToRefs(userStore)
@@ -155,11 +155,11 @@
     }
   }
 
-  const flattenAndFilterMenuItems = (items: MenuListType[], val: string): MenuListType[] => {
+  const flattenAndFilterMenuItems = (items: AppRouteRecord[], val: string): AppRouteRecord[] => {
     const lowerVal = val.toLowerCase()
-    const result: MenuListType[] = []
+    const result: AppRouteRecord[] = []
 
-    const flattenAndMatch = (item: MenuListType) => {
+    const flattenAndMatch = (item: AppRouteRecord) => {
       if (item.meta?.isHide) return
 
       const lowerItemTitle = formatMenuTitle(item.meta.title).toLowerCase()
@@ -276,7 +276,7 @@
     highlightedIndex.value = 0
   }
 
-  const searchGoPage = (item: MenuListType) => {
+  const searchGoPage = (item: AppRouteRecord) => {
     showSearchDialog.value = false
     addHistory(item)
     router.push(item.path)
@@ -291,9 +291,9 @@
     }
   }
 
-  const addHistory = (item: MenuListType) => {
+  const addHistory = (item: AppRouteRecord) => {
     const hasItemIndex = historyResult.value.findIndex(
-      (historyItem: MenuListType) => historyItem.path === item.path
+      (historyItem: AppRouteRecord) => historyItem.path === item.path
     )
 
     if (hasItemIndex !== -1) {

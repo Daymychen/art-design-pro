@@ -5,7 +5,7 @@
 <script setup lang="ts">
   import * as echarts from 'echarts'
   import type { EChartsOption } from 'echarts'
-  import { getCssVariable, hexToRgba } from '@/utils/colors'
+  import { getCssVar, hexToRgba } from '@/utils/ui'
   import { useChart, useChartOps } from '@/composables/useChart'
   const {
     chartRef,
@@ -85,13 +85,13 @@
                     offset: 0,
                     color: props.color
                       ? hexToRgba(props.color, 0.2).rgba
-                      : hexToRgba(getCssVariable('--el-color-primary'), 0.2).rgba
+                      : hexToRgba(getCssVar('--el-color-primary'), 0.2).rgba
                   },
                   {
                     offset: 1,
                     color: props.color
                       ? hexToRgba(props.color, 0.01).rgba
-                      : hexToRgba(getCssVariable('--el-color-primary'), 0.01).rgba
+                      : hexToRgba(getCssVar('--el-color-primary'), 0.01).rgba
                   }
                 ])
               }

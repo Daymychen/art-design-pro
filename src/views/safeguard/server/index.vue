@@ -10,20 +10,20 @@
           <div class="box">
             <div class="left">
               <img src="@imgs/safeguard/server.png" alt="服务器" />
-              <el-button-group class="ml-4">
-                <el-button type="primary" size="default">开机</el-button>
-                <el-button type="danger" size="default">关机</el-button>
-                <el-button type="warning" size="default">重启</el-button>
-              </el-button-group>
+              <ElButtonGroup class="ml-4">
+                <ElButton type="primary" size="default">开机</ElButton>
+                <ElButton type="danger" size="default">关机</ElButton>
+                <ElButton type="warning" size="default">重启</ElButton>
+              </ElButtonGroup>
             </div>
             <div class="right">
               <div>
                 <p>CPU</p>
-                <el-progress :percentage="item.cup" :text-inside="true" :stroke-width="17" />
+                <ElProgress :percentage="item.cup" :text-inside="true" :stroke-width="17" />
               </div>
               <div>
                 <p>RAM</p>
-                <el-progress
+                <ElProgress
                   :percentage="item.memory"
                   status="success"
                   :text-inside="true"
@@ -32,7 +32,7 @@
               </div>
               <div>
                 <p>SWAP</p>
-                <el-progress
+                <ElProgress
                   :percentage="item.swap"
                   status="warning"
                   :text-inside="true"
@@ -41,7 +41,7 @@
               </div>
               <div>
                 <p>DISK</p>
-                <el-progress
+                <ElProgress
                   :percentage="item.disk"
                   status="success"
                   :text-inside="true"

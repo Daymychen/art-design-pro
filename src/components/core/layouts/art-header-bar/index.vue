@@ -136,12 +136,12 @@
             popper-style="border: 1px solid var(--art-border-dashed-color); border-radius: calc(var(--custom-radius) / 2 + 4px); padding: 5px 16px; 5px 16px;"
           >
             <template #reference>
-              <img class="cover" src="@imgs/user/avatar.png" />
+              <img class="cover" src="@imgs/user/avatar.webp" />
             </template>
             <template #default>
               <div class="user-menu-box">
                 <div class="user-head">
-                  <img class="cover" src="@imgs/user/avatar.png" style="float: left" />
+                  <img class="cover" src="@imgs/user/avatar.webp" style="float: left" />
                   <div class="user-wrap">
                     <span class="name">{{ userInfo.userName }}</span>
                     <span class="email">art.design@gmail.com</span>
@@ -189,10 +189,10 @@
   import { ElMessageBox } from 'element-plus'
   import { HOME_PAGE } from '@/router/routesAlias'
   import { useI18n } from 'vue-i18n'
-  import mittBus from '@/utils/mittBus'
+  import { mittBus } from '@/utils/sys'
   import { useMenuStore } from '@/store/modules/menu'
   import AppConfig from '@/config'
-  import { languageOptions } from '@/language'
+  import { languageOptions } from '@/locales'
   const isWindows = navigator.userAgent.includes('Windows')
   const { locale } = useI18n()
 
@@ -227,7 +227,7 @@
   const isTopLeftMenu = computed(() => menuType.value === MenuTypeEnum.TOP_LEFT)
 
   import { useCommon } from '@/composables/useCommon'
-  import { WEB_LINKS } from '@/utils/links'
+  import { WEB_LINKS } from '@/utils/constants'
   import { themeAnimation } from '@/utils/theme/animation'
 
   const { t } = useI18n()

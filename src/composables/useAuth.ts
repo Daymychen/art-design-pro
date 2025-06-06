@@ -2,9 +2,9 @@ import { useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useUserStore } from '@/store/modules/user'
 import { useCommon } from '@/composables/useCommon'
-import type { MenuListType } from '@/types/menu'
+import type { AppRouteRecord } from '@/types/router'
 
-type AuthItem = MenuListType['meta']['authList'][number]
+type AuthItem = NonNullable<AppRouteRecord['meta']['authList']>[number]
 
 const userStore = useUserStore()
 

@@ -1,49 +1,48 @@
 <template>
   <div class="page-content">
     <div class="action-buttons">
-      <el-button :disabled="isLaunching" v-ripple @click="handleSingleLaunch"
-        >✨ 放个小烟花</el-button
+      <ElButton :disabled="isLaunching" v-ripple @click="handleSingleLaunch"
+        >✨ 放个小烟花</ElButton
       >
-      <el-button :disabled="isLaunching" v-ripple @click="handleImageLaunch(bp)"
-        >🎉 打开幸运红包</el-button
+      <ElButton :disabled="isLaunching" v-ripple @click="handleImageLaunch(bp)"
+        >🎉 打开幸运红包</ElButton
       >
-      <el-button :disabled="isLaunching" v-ripple @click="handleMultipleLaunch('')"
-        >🎆 璀璨烟火秀</el-button
+      <ElButton :disabled="isLaunching" v-ripple @click="handleMultipleLaunch('')"
+        >🎆 璀璨烟火秀</ElButton
       >
-      <el-button :disabled="isLaunching" v-ripple @click="handleImageLaunch(sd)"
-        >❄️ 飘点小雪花</el-button
+      <ElButton :disabled="isLaunching" v-ripple @click="handleImageLaunch(sd)"
+        >❄️ 飘点小雪花</ElButton
       >
-      <el-button :disabled="isLaunching" v-ripple @click="handleMultipleLaunch(sd)"
-        >❄️ 浪漫暴风雪</el-button
+      <ElButton :disabled="isLaunching" v-ripple @click="handleMultipleLaunch(sd)"
+        >❄️ 浪漫暴风雪</ElButton
       >
     </div>
 
-    <el-descriptions
+    <ElDescriptions
       title="礼花组件说明"
       direction="vertical"
       :column="1"
       border
       style="margin-top: 50px"
     >
-      <el-descriptions-item label="显示时机">
+      <ElDescriptionsItem label="显示时机">
         礼花效果组件全局注册了，在节假日的时候，会自动显示，你可以通过配置文件来控制显示时机
-      </el-descriptions-item>
-      <el-descriptions-item label="礼花样式">
+      </ElDescriptionsItem>
+      <ElDescriptionsItem label="礼花样式">
         默认显示几何图形，可以配置图片，图片需要提前在 components/Ceremony/Fireworks 文件预先定义
-      </el-descriptions-item>
-      <el-descriptions-item label="节日配置">
+      </ElDescriptionsItem>
+      <ElDescriptionsItem label="节日配置">
         在 src/config/festival.ts 文件中，可以配置节日和对应的礼花样式
-      </el-descriptions-item>
-      <el-descriptions-item label="快捷键">
+      </ElDescriptionsItem>
+      <ElDescriptionsItem label="快捷键">
         command + shift + p 或者 ctrl + shift + p
-      </el-descriptions-item>
-    </el-descriptions>
+      </ElDescriptionsItem>
+    </ElDescriptions>
   </div>
 </template>
 
 <script setup lang="ts">
-  import mittBus from '@/utils/mittBus'
-  import { ref } from 'vue'
+  import { mittBus } from '@/utils/sys'
 
   import bp from '@imgs/ceremony/hb.png'
   import sd from '@imgs/ceremony/sd.png'

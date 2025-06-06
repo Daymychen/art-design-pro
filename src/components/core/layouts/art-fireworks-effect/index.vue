@@ -5,7 +5,7 @@
 <script setup lang="ts">
   import { ref, onMounted, onUnmounted } from 'vue'
   import { useEventListener } from '@vueuse/core'
-  import mittBus from '@/utils/mittBus'
+  import { mittBus } from '@/utils/sys'
   import type { Handler } from 'mitt'
 
   // 对象池大小

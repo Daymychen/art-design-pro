@@ -1,8 +1,8 @@
 <!-- https://vue-draggable-plus.pages.dev/ -->
 <template>
   <div class="page-content">
-    <el-row>
-      <el-card shadow="never" style="width: 300px; margin-right: 20px">
+    <ElRow>
+      <ElCard shadow="never" style="width: 300px; margin-right: 20px">
         <template #header>
           <span class="card-header">基础示例</span>
         </template>
@@ -13,9 +13,9 @@
             </div>
           </VueDraggable>
         </template>
-      </el-card>
+      </ElCard>
 
-      <el-card shadow="never" style="width: 300px">
+      <ElCard shadow="never" style="width: 300px">
         <template #header>
           <span class="card-header">过渡动画</span>
         </template>
@@ -28,44 +28,43 @@
             </TransitionGroup>
           </VueDraggable>
         </template>
-      </el-card>
-    </el-row>
+      </ElCard>
+    </ElRow>
 
-    <el-card shadow="never">
+    <ElCard shadow="never">
       <template #header>
         <span class="card-header">表格拖拽排序</span>
       </template>
       <template #default>
         <VueDraggable target="tbody" v-model="userList" :animation="150">
-          <art-table :data="userList" :pagination="false">
-            <el-table-column label="姓名" prop="name" />
-            <el-table-column label="角色" prop="role" />
-          </art-table>
+          <ArtTable :data="userList" :pagination="false">
+            <ElTableColumn label="姓名" prop="name" />
+            <ElTableColumn label="角色" prop="role" />
+          </ArtTable>
         </VueDraggable>
       </template>
-    </el-card>
+    </ElCard>
 
-    <el-card shadow="never">
+    <ElCard shadow="never">
       <template #header>
         <span class="card-header">指定元素拖拽排序</span>
       </template>
       <template #default>
         <VueDraggable target="tbody" handle=".handle" v-model="userList" :animation="150">
-          <art-table :data="userList" :pagination="false">
-            <el-table-column label="姓名" prop="name" />
-            <el-table-column label="角色" prop="role" />
-            <el-table-column label="操作" width="100">
-              <el-button size="default" class="handle"> 移动 </el-button>
-            </el-table-column>
-          </art-table>
+          <ArtTable :data="userList" :pagination="false">
+            <ElTableColumn label="姓名" prop="name" />
+            <ElTableColumn label="角色" prop="role" />
+            <ElTableColumn label="操作" width="100">
+              <ElButton size="default" class="handle"> 移动 </ElButton>
+            </ElTableColumn>
+          </ArtTable>
         </VueDraggable>
       </template>
-    </el-card>
+    </ElCard>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
   import { VueDraggable } from 'vue-draggable-plus'
 
   const userList = ref([

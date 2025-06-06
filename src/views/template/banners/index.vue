@@ -1,8 +1,8 @@
 <template>
   <div class="banners">
     <h1 class="page-title">基础横幅</h1>
-    <el-row :gutter="20">
-      <el-col :xs="24" :sm="12" :md="12">
+    <ElRow :gutter="20">
+      <ElCol :xs="24" :sm="12" :md="12">
         <ArtBasicBanner
           title="欢迎回来，管理员！"
           subtitle="今日系统访问量增长了23%，运行状态良好。"
@@ -11,8 +11,8 @@
           buttonTextColor="#fff"
           @click="handleBannerClick"
         />
-      </el-col>
-      <el-col :xs="24" :sm="12" :md="12">
+      </ElCol>
+      <ElCol :xs="24" :sm="12" :md="12">
         <ArtBasicBanner
           title="欢迎使用本系统!"
           subtitle="这是一个基于Vue3和Element Plus的后台管理系统模板。"
@@ -24,12 +24,12 @@
           subtitleColor="#666"
           @click="handleBannerClick"
         />
-      </el-col>
-    </el-row>
+      </ElCol>
+    </ElRow>
 
     <h1 class="page-title">基础横幅（图片）</h1>
-    <el-row :gutter="20">
-      <el-col :xs="24" :sm="12" :md="12">
+    <ElRow :gutter="20">
+      <ElCol :xs="24" :sm="12" :md="12">
         <ArtBasicBanner
           title="欢迎回来，管理员！"
           subtitle="今日系统访问量增长了23%，运行状态良好。"
@@ -40,8 +40,8 @@
           :backgroundImage="icon3"
           @click="handleBannerClick"
         />
-      </el-col>
-      <el-col :xs="24" :sm="12" :md="12">
+      </ElCol>
+      <ElCol :xs="24" :sm="12" :md="12">
         <ArtBasicBanner
           title="欢迎使用本系统!"
           subtitle="这是一个基于Vue3和Element Plus的后台管理系统模板。"
@@ -52,19 +52,19 @@
           :backgroundImage="icon5"
           @click="handleBannerClick"
         />
-      </el-col>
-    </el-row>
+      </ElCol>
+    </ElRow>
 
     <h1 class="page-title">卡片横幅</h1>
-    <el-row :gutter="20">
-      <el-col :xs="24" :sm="12" :md="12" :lg="6">
+    <ElRow :gutter="20">
+      <ElCol :xs="24" :sm="12" :md="12" :lg="6">
         <ArtCardBanner
           title="系统状态良好"
           description="所有服务运行正常，无异常情况。"
           buttonText="查看详情"
         />
-      </el-col>
-      <el-col :xs="24" :sm="12" :md="12" :lg="6">
+      </ElCol>
+      <ElCol :xs="24" :sm="12" :md="12" :lg="6">
         <ArtCardBanner
           :icon="icon2"
           title="新消息提醒"
@@ -72,8 +72,8 @@
           buttonText="立即查看"
           buttonColor="rgb(var(--art-warning))"
         />
-      </el-col>
-      <el-col :xs="24" :sm="12" :md="12" :lg="6">
+      </ElCol>
+      <ElCol :xs="24" :sm="12" :md="12" :lg="6">
         <ArtCardBanner
           :icon="icon3"
           title="数据分析报告"
@@ -81,8 +81,8 @@
           buttonText="下载报告"
           buttonColor="rgb(var(--art-error))"
         />
-      </el-col>
-      <el-col :xs="24" :sm="12" :md="12" :lg="6">
+      </ElCol>
+      <ElCol :xs="24" :sm="12" :md="12" :lg="6">
         <ArtCardBanner
           :icon="icon4"
           title="系统更新提示"
@@ -96,16 +96,17 @@
           @click="handleConfirm"
           @cancel="handleCancel"
         />
-      </el-col>
-    </el-row>
+      </ElCol>
+    </ElRow>
   </div>
 </template>
 
 <script setup lang="ts">
-  import icon2 from '@imgs/3d/icon2.png'
-  import icon3 from '@imgs/3d/icon3.png'
-  import icon4 from '@imgs/3d/icon4.png'
-  import icon5 from '@imgs/3d/icon7.png'
+  import icon2 from '@imgs/3d/icon2.webp'
+  import icon3 from '@imgs/3d/icon3.webp'
+  import icon4 from '@imgs/3d/icon4.webp'
+  import icon5 from '@imgs/3d/icon7.webp'
+  import { ElRow } from 'element-plus'
 
   const handleBannerClick = () => {
     console.log('banner clicked')

@@ -3,7 +3,7 @@
     <div v-if="!isLock">
       <el-dialog v-model="visible" :width="370" :show-close="false" @open="handleDialogOpen">
         <div class="lock-content">
-          <img class="cover" src="@imgs/user/avatar.png" />
+          <img class="cover" src="@imgs/user/avatar.webp" />
           <div class="username">{{ userInfo.userName }}</div>
           <el-form ref="formRef" :model="formData" :rules="rules" @submit.prevent="handleLock">
             <el-form-item prop="password">
@@ -32,7 +32,7 @@
 
     <div class="unlock-content" v-else>
       <div class="box">
-        <img class="cover" src="@imgs/user/avatar.png" />
+        <img class="cover" src="@imgs/user/avatar.webp" />
         <div class="username">{{ userInfo.userName }}</div>
         <el-form
           ref="unlockFormRef"
@@ -74,7 +74,7 @@
   import { useUserStore } from '@/store/modules/user'
   import CryptoJS from 'crypto-js'
   import { ElMessage } from 'element-plus'
-  import mittBus from '@/utils/mittBus'
+  import { mittBus } from '@/utils/sys'
   import { useI18n } from 'vue-i18n'
   const { t } = useI18n()
 
@@ -295,7 +295,7 @@
       justify-content: center;
       overflow: hidden;
       background-color: #fff;
-      background-image: url('@imgs/lock/lock_screen_1.png');
+      background-image: url('@imgs/lock/lock_screen_1.webp');
       background-size: cover;
       transition: transform 0.3s ease-in-out;
 

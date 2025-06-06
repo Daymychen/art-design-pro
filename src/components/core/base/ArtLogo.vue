@@ -1,7 +1,7 @@
 <!-- System logo component -->
 <template>
   <div class="art-logo">
-    <img :style="logoStyle" src="@imgs/common/logo.png" alt="logo" />
+    <img :style="logoStyle" src="@imgs/common/logo.webp" alt="logo" />
   </div>
 </template>
 

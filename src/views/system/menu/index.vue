@@ -177,9 +177,9 @@
   import ArtButtonTable from '@/components/core/forms/ArtButtonTable.vue'
   import { useCheckedColumns } from '@/composables/useCheckedColumns'
   import { ElPopover, ElButton } from 'element-plus'
-  import { SearchFormItem } from '@/types/search-form'
-  import { MenuListType } from '@/types/menu'
+  import { AppRouteRecord } from '@/types/router'
   import { useAuth } from '@/composables/useAuth'
+  import { SearchFormItem } from '@/types'
 
   defineOptions({ name: 'Menus' })
 
@@ -248,7 +248,7 @@
   ]
 
   // 构建菜单类型标签
-  const buildMenuTypeTag = (row: MenuListType) => {
+  const buildMenuTypeTag = (row: AppRouteRecord) => {
     if (row.children && row.children.length > 0) {
       return 'info'
     } else if (row.meta?.link && row.meta?.isIframe) {
@@ -261,7 +261,7 @@
   }
 
   // 构建菜单类型文本
-  const buildMenuTypeText = (row: MenuListType) => {
+  const buildMenuTypeText = (row: AppRouteRecord) => {
     if (row.children && row.children.length > 0) {
       return '目录'
     } else if (row.meta?.link && row.meta?.isIframe) {
@@ -279,32 +279,32 @@
       prop: 'meta.title',
       label: '菜单名称',
       minWidth: 120,
-      formatter: (row: MenuListType) => {
+      formatter: (row: AppRouteRecord) => {
         return formatMenuTitle(row.meta?.title)
       }
     },
     {
       prop: 'type',
       label: '菜单类型',
-      formatter: (row: MenuListType) => {
+      formatter: (row: AppRouteRecord) => {
         return h(ElTag, { type: buildMenuTypeTag(row) }, () => buildMenuTypeText(row))
       }
     },
     {
       prop: 'path',
       label: '路由',
-      formatter: (row: MenuListType) => {
+      formatter: (row: AppRouteRecord) => {
         return row.meta?.link || row.path || ''
       }
     },
     {
       prop: 'meta.authList',
       label: '可操作权限',
-      formatter: (row: MenuListType) => {
+      formatter: (row: AppRouteRecord) => {
         return h(
           'div',
           {},
-          row.meta.authList?.map((item: MenuListType['meta'], index: number) => {
+          row.meta.authList?.map((item: { title: string; auth_mark: string }, index: number) => {
             return h(
               ElPopover,
               {
@@ -361,7 +361,7 @@
       prop: 'operation',
       label: '操作',
       width: 180,
-      formatter: (row: MenuListType) => {
+      formatter: (row: AppRouteRecord) => {
         return h('div', [
           hasAuth('B_CODE1') &&
             h(ArtButtonTable, {
@@ -422,7 +422,7 @@
     authLabel: [{ required: true, message: '请输入权限权限标识', trigger: 'blur' }]
   })
 
-  const tableData = ref<MenuListType[]>([])
+  const tableData = ref<AppRouteRecord[]>([])
 
   onMounted(() => {
     getTableData()
@@ -439,7 +439,7 @@
   // 过滤后的表格数据
   const filteredTableData = computed(() => {
     // 递归搜索函数
-    const searchMenu = (items: MenuListType[]): MenuListType[] => {
+    const searchMenu = (items: AppRouteRecord[]): AppRouteRecord[] => {
       return items.filter((item) => {
         // 获取搜索关键词，转换为小写并去除首尾空格
         const searchName = appliedFilters.name?.toLowerCase().trim() || ''
@@ -477,7 +477,7 @@
     return isEdit.value ? `编辑${type}` : `新建${type}`
   })
 
-  const showDialog = (type: string, row: MenuListType) => {
+  const showDialog = (type: string, row: AppRouteRecord) => {
     showModel('menu', row, true)
   }
 

@@ -23,7 +23,7 @@
   import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
   import { useUserStore } from '@/store/modules/user'
   import { ElMessage } from 'element-plus'
-  import EmojiText from '@/utils/emojo'
+  import EmojiText from '@/utils/ui/emojo'
   import { IDomEditor } from '@wangeditor/editor'
 
   const modelValue = defineModel<string>({ required: true })

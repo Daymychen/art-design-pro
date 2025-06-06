@@ -107,8 +107,8 @@
   import { useSettingStore } from '@/store/modules/setting'
   import { MenuTypeEnum, MenuWidth } from '@/enums/appEnum'
   import { useMenuStore } from '@/store/modules/menu'
-  import { isIframe } from '@/utils/utils'
-  import { handleMenuJump } from '@/utils/jump'
+  import { isIframe } from '@/utils/navigation'
+  import { handleMenuJump } from '@/utils/navigation'
   import SidebarSubmenu from './widget/SidebarSubmenu.vue'
 
   const route = useRoute()

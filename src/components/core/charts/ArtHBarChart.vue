@@ -5,7 +5,7 @@
 <script setup lang="ts">
   import type { EChartsOption } from 'echarts'
   import { useChart, useChartOps } from '@/composables/useChart'
-  import { getCssVariable } from '@/utils/colors'
+  import { getCssVar } from '@/utils/ui'
   import * as echarts from 'echarts'
 
   const {
@@ -40,11 +40,11 @@
       new echarts.graphic.LinearGradient(0, 0, 1, 0, [
         {
           offset: 0,
-          color: getCssVariable('--el-color-primary')
+          color: getCssVar('--el-color-primary')
         },
         {
           offset: 1,
-          color: getCssVariable('--el-color-primary-light-3')
+          color: getCssVar('--el-color-primary-light-3')
         }
       ])
 

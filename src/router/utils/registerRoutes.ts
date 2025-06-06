@@ -3,7 +3,7 @@
  * 根据接口返回的菜单列表注册动态路由
  */
 import type { Router, RouteRecordRaw } from 'vue-router'
-import type { MenuListType } from '@/types/menu'
+import type { AppRouteRecord } from '@/types/router'
 import { saveIframeRoutes } from './menuToRouter'
 import { RoutesAlias } from '../routesAlias'
 import { h } from 'vue'
@@ -19,9 +19,9 @@ const modules: Record<string, () => Promise<any>> = import.meta.glob('../../view
  * @param router Vue Router 实例
  * @param menuList 接口返回的菜单列表
  */
-export function registerDynamicRoutes(router: Router, menuList: MenuListType[]): void {
+export function registerDynamicRoutes(router: Router, menuList: AppRouteRecord[]): void {
   // 用于局部收集 iframe 类型路由
-  const iframeRoutes: MenuListType[] = []
+  const iframeRoutes: AppRouteRecord[] = []
 
   // 检测菜单列表中是否有重复路由
   checkDuplicateRoutes(menuList)
@@ -49,12 +49,12 @@ function resolvePath(parent: string, child: string): string {
 /**
  * 检测菜单中的重复路由（包括子路由）
  */
-function checkDuplicateRoutes(routes: MenuListType[], parentPath = ''): void {
+function checkDuplicateRoutes(routes: AppRouteRecord[], parentPath = ''): void {
   // 用于检测动态路由中的重复项
   const routeNameMap = new Map<string, string>() // 路由名称 -> 路径
   const componentPathMap = new Map<string, string>() // 组件路径 -> 路由信息
 
-  const checkRoutes = (routes: MenuListType[], parentPath = '') => {
+  const checkRoutes = (routes: AppRouteRecord[], parentPath = '') => {
     routes.forEach((route) => {
       // 处理路径拼接
       const currentPath = route.path || ''
@@ -62,10 +62,10 @@ function checkDuplicateRoutes(routes: MenuListType[], parentPath = ''): void {
 
       // 名称重复检测
       if (route.name) {
-        if (routeNameMap.has(route.name)) {
-          console.warn(`[路由警告] 名称重复: "${route.name}"`)
+        if (routeNameMap.has(String(route.name))) {
+          console.warn(`[路由警告] 名称重复: "${String(route.name)}"`)
         } else {
-          routeNameMap.set(route.name, fullPath)
+          routeNameMap.set(String(route.name), fullPath)
         }
       }
 
@@ -164,8 +164,8 @@ interface ConvertedRoute extends Omit<RouteRecordRaw, 'children'> {
  * 转换路由组件配置
  */
 function convertRouteComponent(
-  route: MenuListType,
-  iframeRoutes: MenuListType[],
+  route: AppRouteRecord,
+  iframeRoutes: AppRouteRecord[],
   depth = 0
 ): ConvertedRoute {
   const { component, children, ...routeConfig } = route
@@ -182,9 +182,9 @@ function convertRouteComponent(
   if (route.meta.isIframe) {
     handleIframeRoute(converted, route, iframeRoutes)
   } else if (isFirstLevel) {
-    handleLayoutRoute(converted, route, component)
+    handleLayoutRoute(converted, route, component as string)
   } else {
-    handleNormalRoute(converted, component, route.name)
+    handleNormalRoute(converted, component as string, String(route.name))
   }
 
   // 递归时增加深度
@@ -202,10 +202,10 @@ function convertRouteComponent(
  */
 function handleIframeRoute(
   converted: ConvertedRoute,
-  route: MenuListType,
-  iframeRoutes: MenuListType[]
+  route: AppRouteRecord,
+  iframeRoutes: AppRouteRecord[]
 ): void {
-  converted.path = `/outside/iframe/${route.name}`
+  converted.path = `/outside/iframe/${String(route.name)}`
   converted.component = () => import('@/views/outside/Iframe.vue')
   iframeRoutes.push(route)
 }
@@ -215,7 +215,7 @@ function handleIframeRoute(
  */
 function handleLayoutRoute(
   converted: ConvertedRoute,
-  route: MenuListType,
+  route: AppRouteRecord,
   component: string | undefined
 ): void {
   converted.component = () => import('@/views/index/index.vue')
@@ -228,7 +228,7 @@ function handleLayoutRoute(
       id: route.id,
       path: route.path,
       name: route.name,
-      component: loadComponent(component as string, route.name),
+      component: loadComponent(component as string, String(route.name)),
       meta: route.meta
     }
   ]

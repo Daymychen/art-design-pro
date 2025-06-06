@@ -1,7 +1,7 @@
 <template>
   <div class="page-content">
     <!-- 日历主体 -->
-    <el-calendar v-model="currentDate">
+    <ElCalendar v-model="currentDate">
       <template #date-cell="{ data }">
         <div
           class="calendar-cell"
@@ -26,23 +26,23 @@
           </div>
         </div>
       </template>
-    </el-calendar>
+    </ElCalendar>
 
     <!-- 事件编辑弹窗 -->
-    <el-dialog v-model="dialogVisible" :title="dialogTitle" width="600px" @closed="resetForm">
-      <el-form :model="eventForm" label-width="80px">
-        <el-form-item label="活动标题" required>
-          <el-input v-model="eventForm.content" placeholder="请输入活动标题" />
-        </el-form-item>
-        <el-form-item label="事件颜色">
-          <el-radio-group v-model="eventForm.type">
-            <el-radio v-for="type in eventTypes" :key="type.value" :value="type.value">
+    <ElDialog v-model="dialogVisible" :title="dialogTitle" width="600px" @closed="resetForm">
+      <ElForm :model="eventForm" label-width="80px">
+        <ElFormItem label="活动标题" required>
+          <ElInput v-model="eventForm.content" placeholder="请输入活动标题" />
+        </ElFormItem>
+        <ElFormItem label="事件颜色">
+          <ElRadioGroup v-model="eventForm.type">
+            <ElRadio v-for="type in eventTypes" :key="type.value" :value="type.value">
               {{ type.label }}
-            </el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="开始日期" required>
-          <el-date-picker
+            </ElRadio>
+          </ElRadioGroup>
+        </ElFormItem>
+        <ElFormItem label="开始日期" required>
+          <ElDatePicker
             style="width: 100%"
             v-model="eventForm.date"
             type="date"
@@ -50,9 +50,9 @@
             format="YYYY-MM-DD"
             value-format="YYYY-MM-DD"
           />
-        </el-form-item>
-        <el-form-item label="结束日期">
-          <el-date-picker
+        </ElFormItem>
+        <ElFormItem label="结束日期">
+          <ElDatePicker
             style="width: 100%"
             v-model="eventForm.endDate"
             type="date"
@@ -61,23 +61,21 @@
             value-format="YYYY-MM-DD"
             :min-date="eventForm.date"
           />
-        </el-form-item>
-      </el-form>
+        </ElFormItem>
+      </ElForm>
       <template #footer>
         <span class="dialog-footer">
-          <el-button v-if="isEditing" type="danger" @click="handleDeleteEvent"> 删除 </el-button>
-          <el-button type="primary" @click="handleSaveEvent">
+          <ElButton v-if="isEditing" type="danger" @click="handleDeleteEvent"> 删除 </ElButton>
+          <ElButton type="primary" @click="handleSaveEvent">
             {{ isEditing ? '更新' : '添加' }}
-          </el-button>
+          </ElButton>
         </span>
       </template>
-    </el-dialog>
+    </ElDialog>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { ref, computed } from 'vue'
-
   // 类型定义
   interface CalendarEvent {
     date: string

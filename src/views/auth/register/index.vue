@@ -1,8 +1,6 @@
 <template>
   <div class="login register">
-    <div class="left-wrap">
-      <LoginLeftView></LoginLeftView>
-    </div>
+    <LoginLeftView></LoginLeftView>
     <div class="right-wrap">
       <div class="header">
         <ArtLogo class="icon" />
@@ -12,46 +10,46 @@
         <div class="form">
           <h3 class="title">{{ $t('register.title') }}</h3>
           <p class="sub-title">{{ $t('register.subTitle') }}</p>
-          <el-form ref="formRef" :model="formData" :rules="rules" label-position="top">
-            <el-form-item prop="username">
-              <el-input
+          <ElForm ref="formRef" :model="formData" :rules="rules" label-position="top">
+            <ElFormItem prop="username">
+              <ElInput
                 v-model.trim="formData.username"
                 :placeholder="$t('register.placeholder[0]')"
               />
-            </el-form-item>
+            </ElFormItem>
 
-            <el-form-item prop="password">
-              <el-input
+            <ElFormItem prop="password">
+              <ElInput
                 v-model.trim="formData.password"
                 :placeholder="$t('register.placeholder[1]')"
                 type="password"
                 autocomplete="off"
               />
-            </el-form-item>
+            </ElFormItem>
 
-            <el-form-item prop="confirmPassword">
-              <el-input
+            <ElFormItem prop="confirmPassword">
+              <ElInput
                 v-model.trim="formData.confirmPassword"
                 :placeholder="$t('register.placeholder[2]')"
                 type="password"
                 autocomplete="off"
                 @keyup.enter="register"
               />
-            </el-form-item>
+            </ElFormItem>
 
-            <el-form-item prop="agreement">
-              <el-checkbox v-model="formData.agreement">
+            <ElFormItem prop="agreement">
+              <ElCheckbox v-model="formData.agreement">
                 {{ $t('register.agreeText') }}
                 <router-link
                   style="color: var(--main-color); text-decoration: none"
                   to="/privacy-policy"
                   >{{ $t('register.privacyPolicy') }}</router-link
                 >
-              </el-checkbox>
-            </el-form-item>
+              </ElCheckbox>
+            </ElFormItem>
 
             <div style="margin-top: 15px">
-              <el-button
+              <ElButton
                 class="register-btn"
                 type="primary"
                 @click="register"
@@ -59,7 +57,7 @@
                 v-ripple
               >
                 {{ $t('register.submitBtnText') }}
-              </el-button>
+              </ElButton>
             </div>
 
             <div class="footer">
@@ -68,7 +66,7 @@
                 <router-link :to="RoutesAlias.Login">{{ $t('register.toLogin') }}</router-link>
               </p>
             </div>
-          </el-form>
+          </ElForm>
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@ import { useDateFormat } from '@vueuse/core'
 import { useSettingStore } from '@/store/modules/setting'
 import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
-import mittBus from '@/utils/mittBus'
+import { mittBus } from '@/utils/sys'
 import { festivalConfigList } from '@/config/festival'
 
 // 节日庆祝相关配置

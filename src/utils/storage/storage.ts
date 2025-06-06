@@ -188,10 +188,9 @@ class StorageCompatibilityManager {
 const storageManager = new StorageCompatibilityManager()
 
 /**
- * 获取系统存储数据（保留用于兼容性）
- * @deprecated 建议使用 storageManager.getSystemStorage()
+ * 获取系统存储数据
  */
-export function getSysStorage(): any {
+export function getSystemStorage(): any {
   return storageManager.getSystemStorage()
 }
 

@@ -55,7 +55,7 @@
   import { useRouter } from 'vue-router'
   import { ref } from 'vue'
   import { RoutesAlias } from '@/router/routesAlias'
-  import { WEB_LINKS } from '@/utils/links'
+  import { WEB_LINKS } from '@/utils/constants'
 
   const router = useRouter()
   const popoverRef = ref()

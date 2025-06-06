@@ -5,7 +5,7 @@ import { router } from '@/router'
 import { UserInfo } from '@/types/store'
 import { useSettingStore } from './setting'
 import { useWorktabStore } from './worktab'
-import { MenuListType } from '@/types/menu'
+import { AppRouteRecord } from '@/types/router'
 import { setPageTitle } from '@/router/utils/utils'
 import { resetRouterState } from '@/router/guards/beforeEach'
 import { RoutesAlias } from '@/router/routesAlias'
@@ -19,7 +19,7 @@ export const useUserStore = defineStore(
     const isLock = ref(false)
     const lockPassword = ref('')
     const info = ref<Partial<UserInfo>>({})
-    const searchHistory = ref<MenuListType[]>([])
+    const searchHistory = ref<AppRouteRecord[]>([])
     const accessToken = ref('')
     const refreshToken = ref('')
 
@@ -40,7 +40,7 @@ export const useUserStore = defineStore(
       language.value = lang
     }
 
-    const setSearchHistory = (list: MenuListType[]) => {
+    const setSearchHistory = (list: AppRouteRecord[]) => {
       searchHistory.value = list
     }
 

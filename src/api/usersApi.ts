@@ -1,5 +1,5 @@
 import request from '@/utils/http'
-import { BaseResult } from '@/types/axios'
+import { BaseResponse } from '@/types/api'
 
 interface LoginParams {
   userName: string
@@ -14,7 +14,7 @@ interface UserListParams {
 export class UserService {
   // 登录
   static login(params: LoginParams) {
-    return request.post<BaseResult>({
+    return request.post<BaseResponse>({
       url: '/api/auth/login',
       params
     })
@@ -22,14 +22,14 @@ export class UserService {
 
   // 获取用户信息
   static getUserInfo() {
-    return request.get<BaseResult>({
+    return request.get<BaseResponse>({
       url: '/api/user/info'
     })
   }
 
   // 获取用户列表
   static getUserList(params?: UserListParams) {
-    return request.get<BaseResult>({
+    return request.get<BaseResponse>({
       url: '/api/user/list',
       params
     })

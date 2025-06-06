@@ -5,7 +5,7 @@
 
 <script setup lang="ts">
   import type { EChartsOption } from 'echarts'
-  import { getCssVariable } from '@/utils/colors'
+  import { getCssVar } from '@/utils/ui'
   import { useChart, useChartOps } from '@/composables/useChart'
   const {
     chartRef,
@@ -32,7 +32,7 @@
   })
 
   const options: () => EChartsOption = () => {
-    const computedColor = props.color || getCssVariable('--main-color')
+    const computedColor = props.color || getCssVar('--main-color')
 
     return {
       grid: {

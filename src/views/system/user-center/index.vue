@@ -3,8 +3,8 @@
     <div class="content">
       <div class="left-wrap">
         <div class="user-wrap box-style">
-          <img class="bg" src="@imgs/user/bg.png" />
-          <img class="avatar" src="@imgs/user/avatar.png" />
+          <img class="bg" src="@imgs/user/bg.webp" />
+          <img class="avatar" src="@imgs/user/avatar.webp" />
           <h2 class="name">{{ userInfo.userName }}</h2>
           <p class="des">Art Design Pro 是一款漂亮的后台管理系统模版.</p>
 
@@ -50,7 +50,7 @@
         <div class="info box-style">
           <h1 class="title">基本设置</h1>
 
-          <el-form
+          <ElForm
             :model="form"
             class="form"
             ref="ruleFormRef"
@@ -58,74 +58,74 @@
             label-width="86px"
             label-position="top"
           >
-            <el-row>
-              <el-form-item label="姓名" prop="realName">
+            <ElRow>
+              <ElFormItem label="姓名" prop="realName">
                 <el-input v-model="form.realName" :disabled="!isEdit" />
-              </el-form-item>
-              <el-form-item label="性别" prop="sex" class="right-input">
-                <el-select v-model="form.sex" placeholder="Select" :disabled="!isEdit">
-                  <el-option
+              </ElFormItem>
+              <ElFormItem label="性别" prop="sex" class="right-input">
+                <ElSelect v-model="form.sex" placeholder="Select" :disabled="!isEdit">
+                  <ElOption
                     v-for="item in options"
                     :key="item.value"
                     :label="item.label"
                     :value="item.value"
                   />
-                </el-select>
-              </el-form-item>
-            </el-row>
+                </ElSelect>
+              </ElFormItem>
+            </ElRow>
 
-            <el-row>
-              <el-form-item label="昵称" prop="nikeName">
-                <el-input v-model="form.nikeName" :disabled="!isEdit" />
-              </el-form-item>
-              <el-form-item label="邮箱" prop="email" class="right-input">
-                <el-input v-model="form.email" :disabled="!isEdit" />
-              </el-form-item>
-            </el-row>
+            <ElRow>
+              <ElFormItem label="昵称" prop="nikeName">
+                <ElInput v-model="form.nikeName" :disabled="!isEdit" />
+              </ElFormItem>
+              <ElFormItem label="邮箱" prop="email" class="right-input">
+                <ElInput v-model="form.email" :disabled="!isEdit" />
+              </ElFormItem>
+            </ElRow>
 
-            <el-row>
-              <el-form-item label="手机" prop="mobile">
-                <el-input v-model="form.mobile" :disabled="!isEdit" />
-              </el-form-item>
-              <el-form-item label="地址" prop="address" class="right-input">
-                <el-input v-model="form.address" :disabled="!isEdit" />
-              </el-form-item>
-            </el-row>
+            <ElRow>
+              <ElFormItem label="手机" prop="mobile">
+                <ElInput v-model="form.mobile" :disabled="!isEdit" />
+              </ElFormItem>
+              <ElFormItem label="地址" prop="address" class="right-input">
+                <ElInput v-model="form.address" :disabled="!isEdit" />
+              </ElFormItem>
+            </ElRow>
 
-            <el-form-item label="个人介绍" prop="des" :style="{ height: '130px' }">
-              <el-input type="textarea" :rows="4" v-model="form.des" :disabled="!isEdit" />
-            </el-form-item>
+            <ElFormItem label="个人介绍" prop="des" :style="{ height: '130px' }">
+              <ElInput type="textarea" :rows="4" v-model="form.des" :disabled="!isEdit" />
+            </ElFormItem>
 
             <div class="el-form-item-right">
-              <el-button type="primary" style="width: 90px" v-ripple @click="edit">
+              <ElButton type="primary" style="width: 90px" v-ripple @click="edit">
                 {{ isEdit ? '保存' : '编辑' }}
-              </el-button>
+              </ElButton>
             </div>
-          </el-form>
+          </ElForm>
         </div>
 
         <div class="info box-style" style="margin-top: 20px">
           <h1 class="title">更改密码</h1>
 
-          <el-form :model="pwdForm" class="form" label-width="86px" label-position="top">
-            <el-form-item label="当前密码" prop="password">
-              <el-input v-model="pwdForm.password" type="password" :disabled="!isEditPwd" />
-            </el-form-item>
+          <ElForm :model="pwdForm" class="form" label-width="86px" label-position="top">
+            <ElFormItem label="当前密码" prop="password">
+              <ElInput v-model="pwdForm.password" type="password" :disabled="!isEditPwd" />
+            </ElFormItem>
 
-            <el-form-item label="新密码" prop="newPassword">
-              <el-input v-model="pwdForm.newPassword" type="password" :disabled="!isEditPwd" />
-            </el-form-item>
+            <ElFormItem label="新密码" prop="newPassword">
+              <ElInput v-model="pwdForm.newPassword" type="password" :disabled="!isEditPwd" />
+            </ElFormItem>
 
-            <el-form-item label="确认新密码" prop="confirmPassword">
-              <el-input v-model="pwdForm.confirmPassword" type="password" :disabled="!isEditPwd" />
-            </el-form-item>
+            <ElFormItem label="确认新密码" prop="confirmPassword">
+              <ElInput v-model="pwdForm.confirmPassword" type="password" :disabled="!isEditPwd" />
+            </ElFormItem>
 
             <div class="el-form-item-right">
-              <el-button type="primary" style="width: 90px" v-ripple @click="editPwd">
+              <ElButton type="primary" style="width: 90px" v-ripple @click="editPwd">
                 {{ isEditPwd ? '保存' : '编辑' }}
-              </el-button>
+              </ElButton>
             </div>
-          </el-form>
+          </ElForm>
         </div>
       </div>
     </div>
@@ -134,7 +134,7 @@
 
 <script setup lang="ts">
   import { useUserStore } from '@/store/modules/user'
-  import { FormInstance, FormRules } from 'element-plus'
+  import { ElForm, FormInstance, FormRules } from 'element-plus'
 
   defineOptions({ name: 'UserCenter' })
 

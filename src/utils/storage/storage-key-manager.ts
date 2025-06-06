@@ -1,4 +1,4 @@
-import { StorageConfig } from '@/utils/storage/storage-config'
+import { StorageConfig } from '@/utils/storage'
 
 /**
  * 存储键名管理器

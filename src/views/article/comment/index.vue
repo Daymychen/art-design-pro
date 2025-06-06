@@ -27,7 +27,13 @@
       </ul>
     </div>
 
-    <el-drawer v-model="showDrawer" :lock-scroll="false" :size="360" modal-class="comment-modal">
+    <ElDrawer
+      lDrawer
+      v-model="showDrawer"
+      :lock-scroll="false"
+      :size="360"
+      modal-class="comment-modal"
+    >
       <template #header>
         <h4>详情</h4>
       </template>
@@ -53,11 +59,11 @@
       </template>
       <template #footer>
         <div>
-          <!-- <el-button @click="cancelClick">cancel</el-button> -->
-          <!-- <el-button type="primary" @click="confirmClick">confirm</el-button> -->
+          <!-- <ElButton @click="cancelClick">cancel</ElButton> -->
+          <!-- <ElButton type="primary" @click="confirmClick">confirm</ElButton> -->
         </div>
       </template>
-    </el-drawer>
+    </ElDrawer>
   </div>
 </template>
 

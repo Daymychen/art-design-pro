@@ -1,23 +1,32 @@
 <template>
-  <ul class="card-list" :style="{ marginTop: showWorkTab ? '0' : '10px' }">
-    <li class="art-custom-card" v-for="(item, index) in dataList" :key="index">
-      <span class="des subtitle">{{ item.des }}</span>
-      <CountTo class="number box-title" :endVal="item.num" :duration="1000" separator=""></CountTo>
-      <div class="change-box">
-        <span class="change-text">较上周</span>
-        <span
-          class="change"
-          :class="[item.change.indexOf('+') === -1 ? 'text-danger' : 'text-success']"
-        >
-          {{ item.change }}
-        </span>
+  <el-row :gutter="20" :style="{ marginTop: showWorkTab ? '0' : '10px' }" class="card-list">
+    <el-col v-for="(item, index) in dataList" :key="index" :sm="12" :md="6" :lg="6">
+      <div class="card art-custom-card">
+        <span class="des subtitle">{{ item.des }}</span>
+        <CountTo
+          class="number box-title"
+          :endVal="item.num"
+          :duration="1000"
+          separator=""
+        ></CountTo>
+        <div class="change-box">
+          <span class="change-text">较上周</span>
+          <span
+            class="change"
+            :class="[item.change.indexOf('+') === -1 ? 'text-danger' : 'text-success']"
+          >
+            {{ item.change }}
+          </span>
+        </div>
+        <i class="iconfont-sys" v-html="item.icon"></i>
       </div>
-      <i class="iconfont-sys" v-html="item.icon"></i>
-    </li>
-  </ul>
+    </el-col>
+  </el-row>
 </template>
 
 <script setup lang="ts">
+  import { reactive } from 'vue'
+  import { storeToRefs } from 'pinia'
   import { useSettingStore } from '@/store/modules/setting'
   import { CountTo } from 'vue3-count-to'
 
@@ -64,22 +73,19 @@
     box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
-    width: calc(100% + var(--console-margin));
-    margin-top: 0 !important;
-    margin-left: calc(0px - var(--console-margin));
     background-color: transparent !important;
 
-    li {
+    .art-custom-card {
       position: relative;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      width: calc(25% - var(--console-margin));
+      width: 100%;
       height: 140px;
       padding: 0 18px;
-      margin: 0 0 0 var(--console-margin);
-      background: var(--art-main-bg-color);
+      list-style: none;
+      transition: all 0.3s ease;
 
       $icon-size: 52px;
 
@@ -130,6 +136,14 @@
           margin-left: 5px;
           font-size: 13px;
           font-weight: bold;
+
+          &.text-success {
+            color: var(--el-color-success);
+          }
+
+          &.text-danger {
+            color: var(--el-color-danger);
+          }
         }
       }
     }
@@ -137,7 +151,7 @@
 
   .dark {
     .card-list {
-      li {
+      .art-custom-card {
         .iconfont-sys {
           background-color: #232323 !important;
         }

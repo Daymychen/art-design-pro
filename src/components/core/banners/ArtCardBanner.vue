@@ -30,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-  import defaultIcon from '@imgs/3d/icon1.png'
+  import defaultIcon from '@imgs/3d/icon1.webp'
 
   interface CardBannerProps {
     icon?: string

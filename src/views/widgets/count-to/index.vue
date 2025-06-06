@@ -31,11 +31,11 @@
     ></CountTo>
 
     <div class="mt-4">
-      <el-button-group>
-        <el-button @click="start" v-ripple>开始</el-button>
-        <el-button @click="pause" v-ripple>暂停</el-button>
-        <el-button @click="reset" v-ripple>重置</el-button>
-      </el-button-group>
+      <ElButtonGroup>
+        <ElButton @click="start" v-ripple>开始</ElButton>
+        <ElButton @click="pause" v-ripple>暂停</ElButton>
+        <ElButton @click="reset" v-ripple>重置</ElButton>
+      </ElButtonGroup>
     </div>
   </div>
 </template>

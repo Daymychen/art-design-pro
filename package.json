@@ -1,6 +1,6 @@
 {
-  "name": "vue-ts-vite-demo",
-  "version": "0.0.0",
+  "name": "art-design-pro",
+  "version": "2.3.7",
   "type": "module",
   "scripts": {
     "dev": "vite --open",

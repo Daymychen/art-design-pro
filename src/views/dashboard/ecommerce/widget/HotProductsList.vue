@@ -60,12 +60,12 @@
   import { reactive, onMounted } from 'vue'
 
   // 导入产品图片
-  import product1 from '@/assets/img/3d/icon1.png'
-  import product2 from '@/assets/img/3d/icon2.png'
-  import product3 from '@/assets/img/3d/icon3.png'
-  import product4 from '@/assets/img/3d/icon4.png'
-  import product5 from '@/assets/img/3d/icon5.png'
-  import product6 from '@/assets/img/3d/icon6.png'
+  import product1 from '@/assets/img/3d/icon1.webp'
+  import product2 from '@/assets/img/3d/icon2.webp'
+  import product3 from '@/assets/img/3d/icon3.webp'
+  import product4 from '@/assets/img/3d/icon4.webp'
+  import product5 from '@/assets/img/3d/icon5.webp'
+  import product6 from '@/assets/img/3d/icon6.webp'
 
   const tableData = reactive([
     {

@@ -1,5 +1,5 @@
 <template>
-  <div class="region sales-overview art-custom-card">
+  <div class="card art-custom-card">
     <div class="card-header">
       <div class="title">
         <h4 class="box-title">访问量</h4>
@@ -11,9 +11,8 @@
 </template>
 
 <script setup lang="ts">
-  import echarts from '@/plugins/echarts'
-  import { hexToRgba } from '@/utils/colors'
-  import { getCssVariable } from '@/utils/colors'
+  import * as echarts from 'echarts'
+  import { hexToRgba, getCssVar } from '@/utils/ui'
   import { EChartsOption } from 'echarts'
   import { useChart } from '@/composables/useChart'
 
@@ -37,6 +36,10 @@
     initChart(options(true))
     updateChart(options(false))
   }
+
+  watch(isDark, () => {
+    initChart(options())
+  })
 
   onMounted(() => {
     initChartWithAnimation()
@@ -91,7 +94,7 @@
       series: [
         {
           name: '访客',
-          color: getCssVariable('--main-color'),
+          color: getCssVar('--main-color'),
           type: 'line',
           stack: '总量',
           data: isInit ? new Array(12).fill(0) : realData,
@@ -104,11 +107,11 @@
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
               {
                 offset: 0,
-                color: hexToRgba(getCssVariable('--el-color-primary'), 0.15).rgba
+                color: hexToRgba(getCssVar('--el-color-primary'), 0.15).rgba
               },
               {
                 offset: 1,
-                color: hexToRgba(getCssVariable('--el-color-primary'), 0.01).rgba
+                color: hexToRgba(getCssVar('--el-color-primary'), 0.01).rgba
               }
             ])
           },
@@ -121,9 +124,9 @@
 </script>
 
 <style lang="scss" scoped>
-  .region {
+  .card {
     box-sizing: border-box;
-    width: calc(58% - var(--console-margin));
+    width: 100%;
     height: 420px;
     padding: 20px 0 30px;
 

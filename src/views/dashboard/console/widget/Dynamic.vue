@@ -1,5 +1,5 @@
 <template>
-  <div class="region dynamic art-custom-card">
+  <div class="card art-custom-card">
     <div class="card-header">
       <div class="title">
         <h4 class="box-title">动态</h4>
@@ -55,11 +55,11 @@
 </script>
 
 <style lang="scss" scoped>
-  .dynamic {
+  .card {
     box-sizing: border-box;
-    flex: 1;
+    width: 100%;
+    height: 510px;
     padding: 0 25px;
-    margin-left: var(--console-margin);
 
     .header {
       display: flex;

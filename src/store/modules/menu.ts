@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { MenuListType } from '@/types/menu'
+import { AppRouteRecord } from '@/types/router'
 
 // 菜单
 export const useMenuStore = defineStore('menuStore', () => {
-  const menuList = ref<MenuListType[]>([])
+  const menuList = ref<AppRouteRecord[]>([])
   const menuWidth = ref('')
 
-  const setMenuList = (list: MenuListType[]) => (menuList.value = list)
+  const setMenuList = (list: AppRouteRecord[]) => (menuList.value = list)
 
   const setMenuWidth = (width: string) => (menuWidth.value = width)
 

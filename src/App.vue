@@ -8,11 +8,11 @@
   import { useUserStore } from './store/modules/user'
   import zh from 'element-plus/es/locale/lang/zh-cn'
   import en from 'element-plus/es/locale/lang/en'
-  import { systemUpgrade } from './utils/upgrade'
+  import { systemUpgrade } from './utils/sys'
   import { UserService } from './api/usersApi'
   import { ApiStatus } from './utils/http/status'
-  import { checkStorageCompatibility } from './utils/storage/storage'
   import { setThemeTransitionClass } from './utils/theme/animation'
+  import { checkStorageCompatibility } from './utils/storage'
 
   const userStore = useUserStore()
   const { language } = storeToRefs(userStore)

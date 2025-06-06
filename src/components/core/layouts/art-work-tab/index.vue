@@ -59,10 +59,10 @@
   import { useUserStore } from '@/store/modules/user'
   import { formatMenuTitle } from '@/router/utils/utils'
 
-  import { WorkTabType } from '@/types/store'
   import { useSettingStore } from '@/store/modules/setting'
   import { MenuItemType } from '../../others/ArtMenuRight.vue'
   import { useCommon } from '@/composables/useCommon'
+  import { WorkTab } from '@/types'
   const { t } = useI18n()
   const store = useWorktabStore()
   const userStore = useUserStore()
@@ -225,7 +225,7 @@
   )
 
   // 标签页操作方法
-  const clickTab = (item: WorkTabType) => {
+  const clickTab = (item: WorkTab) => {
     router.push({
       path: item.path,
       query: item.query as LocationQueryRaw

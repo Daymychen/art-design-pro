@@ -1,8 +1,8 @@
 <template>
   <div class="page-content">
-    <el-row :gutter="20">
-      <el-col :span="6" v-for="preset in qrcodePresets" :key="preset.title">
-        <el-card class="qrcode-card" shadow="never">
+    <ElRow :gutter="20">
+      <ElCol :span="6" v-for="preset in qrcodePresets" :key="preset.title">
+        <ElCard class="qrcode-card" shadow="never">
           <template #header>
             <div class="card-header">
               <span>{{ preset.title }}</span>
@@ -10,11 +10,11 @@
           </template>
 
           <div class="qrcode-preview">
-            <qrcode-vue :value="qrValue" v-bind="preset.config" />
+            <QrcodeVue :value="qrValue" v-bind="preset.config" />
           </div>
-        </el-card>
-      </el-col>
-    </el-row>
+        </ElCard>
+      </ElCol>
+    </ElRow>
   </div>
 </template>
 

@@ -89,12 +89,12 @@
 </template>
 
 <script setup lang="ts">
-  import avatar1 from '@/assets/img/avatar/avatar1.jpg'
-  import avatar2 from '@/assets/img/avatar/avatar2.jpg'
-  import avatar3 from '@/assets/img/avatar/avatar3.jpg'
-  import avatar4 from '@/assets/img/avatar/avatar4.jpg'
-  import avatar5 from '@/assets/img/avatar/avatar5.jpg'
-  import avatar6 from '@/assets/img/avatar/avatar6.jpg'
+  import avatar1 from '@/assets/img/avatar/avatar1.webp'
+  import avatar2 from '@/assets/img/avatar/avatar2.webp'
+  import avatar3 from '@/assets/img/avatar/avatar3.webp'
+  import avatar4 from '@/assets/img/avatar/avatar4.webp'
+  import avatar5 from '@/assets/img/avatar/avatar5.webp'
+  import avatar6 from '@/assets/img/avatar/avatar6.webp'
   import AppConfig from '@/config'
   import { useI18n } from 'vue-i18n'
 

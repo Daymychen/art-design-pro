@@ -1,16 +1,16 @@
 <template>
   <div class="page-content">
     <div class="form">
-      <el-select v-model="iconType" placeholder="Select" style="width: 240px">
-        <el-option
+      <ElSelect v-model="iconType" placeholder="Select" style="width: 240px">
+        <ElOption
           v-for="item in options"
           :key="item.value"
           :label="item.label"
           :value="item.value"
         />
-      </el-select>
+      </ElSelect>
       <div class="colors-icon">
-        <el-checkbox v-model="isColorsIcon" label="彩色图标" />
+        <ElCheckbox v-model="isColorsIcon" label="彩色图标" />
       </div>
     </div>
     <div class="list">
@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { extractIconClasses, IconfontType } from '@/utils/iconfont'
+  import { extractIconClasses, IconfontType } from '@/utils/constants'
   import { ElMessage } from 'element-plus'
 
   const iconType = ref('unicode')

@@ -1,4 +1,4 @@
-import { getTabConfig } from '@/utils/tabs'
+import { getTabConfig } from '@/utils/ui'
 import { useSettingStore } from '@/store/modules/setting'
 
 // 通用函数

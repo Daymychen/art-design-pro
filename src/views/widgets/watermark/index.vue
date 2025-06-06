@@ -1,36 +1,36 @@
 <template>
   <div class="page-content">
     <!-- 基础文字水印 -->
-    <el-card class="card" shadow="never">
+    <ElCard class="card" shadow="never">
       <template #header>基础文字水印</template>
-      <el-watermark content="Art Design Pro" :font="{ color: 'rgba(128, 128, 128, 0.2)' }">
+      <ElWatermark content="Art Design Pro" :font="{ color: 'rgba(128, 128, 128, 0.2)' }">
         <div style="height: 200px"></div>
-      </el-watermark>
-    </el-card>
+      </ElWatermark>
+    </ElCard>
 
     <!-- 多行文字水印 -->
-    <el-card class="card" shadow="never">
+    <ElCard class="card" shadow="never">
       <template #header>多行文字水印</template>
-      <el-watermark
+      <ElWatermark
         :content="['Art Design Pro', '专注用户体验，视觉设计']"
         :font="{ fontSize: 16, color: 'rgba(128, 128, 128, 0.2)' }"
       >
         <div style="height: 200px"></div>
-      </el-watermark>
-    </el-card>
+      </ElWatermark>
+    </ElCard>
 
     <!-- 图片水印 -->
-    <el-card class="card" shadow="never">
+    <ElCard class="card" shadow="never">
       <template #header>图片水印</template>
-      <el-watermark :image="watermarkImage" :opacity="0.2" :width="80" :height="20">
+      <ElWatermark :image="watermarkImage" :opacity="0.2" :width="80" :height="20">
         <div style="height: 200px"></div>
-      </el-watermark>
-    </el-card>
+      </ElWatermark>
+    </ElCard>
 
     <!-- 自定义样式水印 -->
-    <el-card class="card" shadow="never">
+    <ElCard class="card" shadow="never">
       <template #header>自定义样式水印</template>
-      <el-watermark
+      <ElWatermark
         content="Art Design Pro"
         :font="{
           fontSize: 20,
@@ -41,15 +41,15 @@
         :gap="[100, 100]"
       >
         <div style="height: 200px"></div>
-      </el-watermark>
-    </el-card>
+      </ElWatermark>
+    </ElCard>
 
-    <el-button
+    <ElButton
       :type="settingStore.watermarkVisible ? 'danger' : 'primary'"
       @click="handleWatermarkVisible"
     >
       {{ settingStore.watermarkVisible ? '隐藏全局水印' : '显示全局水印' }}
-    </el-button>
+    </ElButton>
   </div>
 </template>
 

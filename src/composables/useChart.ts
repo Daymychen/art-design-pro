@@ -1,7 +1,7 @@
 import * as echarts from 'echarts'
 import type { EChartsOption } from 'echarts'
 import { useSettingStore } from '@/store/modules/setting'
-import { getCssVariable } from '@/utils/colors'
+import { getCssVar } from '@/utils/ui'
 
 interface ChartThemeConfig {
   chartHeight: string
@@ -15,7 +15,7 @@ export const useChartOps = (): ChartThemeConfig => ({
   chartHeight: '16rem',
   fontSize: 13,
   fontColor: '#999',
-  themeColor: getCssVariable('--el-color-primary-light-1')
+  themeColor: getCssVar('--el-color-primary-light-1')
 })
 
 export function useChart(initOptions?: EChartsOption) {

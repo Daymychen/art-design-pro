@@ -1,9 +1,9 @@
 import { asyncRoutes } from '@/router/routes/asyncRoutes'
 import { menuDataToRouter } from '@/router/utils/menuToRouter'
-import { MenuListType } from '@/types/menu'
+import { AppRouteRecord } from '@/types/router'
 
 interface MenuResponse {
-  menuList: MenuListType[]
+  menuList: AppRouteRecord[]
 }
 
 // 菜单接口

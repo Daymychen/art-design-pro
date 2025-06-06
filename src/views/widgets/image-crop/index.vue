@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-  import lockImg from '@imgs/lock/lock_screen_1.png'
+  import lockImg from '@imgs/lock/lock_screen_1.webp'
   const imageUrl = ref(lockImg)
 
   const handleError = (error: any) => {

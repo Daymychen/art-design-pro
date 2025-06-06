@@ -1,6 +1,6 @@
 <!-- 全局水印组件 -->
 <template>
-  <div v-if="visible" class="layout-watermark" :style="{ zIndex: zIndex }">
+  <div v-if="watermarkVisible" class="layout-watermark" :style="{ zIndex: zIndex }">
     <el-watermark
       :content="content"
       :font="{ fontSize: fontSize, color: fontColor }"
@@ -15,6 +15,9 @@
 
 <script setup lang="ts">
   import AppConfig from '@/config'
+  import { useSettingStore } from '@/store/modules/setting'
+  const settingStore = useSettingStore()
+  const { watermarkVisible } = storeToRefs(settingStore)
 
   interface WatermarkProps {
     content?: string

@@ -2,8 +2,8 @@
   <div class="charts">
     <h1 class="page-title">图表</h1>
 
-    <el-row :gutter="20">
-      <el-col :xs="24" :md="12" :lg="8">
+    <ElRow :gutter="20">
+      <ElCol :xs="24" :md="12" :lg="8">
         <div class="card art-custom-card">
           <div class="card-header">
             <span>柱状图</span>
@@ -13,8 +13,8 @@
             :xAxisData="['一月', '二月', '三月', '四月', '五月', '六月', '七月']"
           />
         </div>
-      </el-col>
-      <el-col :xs="24" :md="12" :lg="8">
+      </ElCol>
+      <ElCol :xs="24" :md="12" :lg="8">
         <div class="card art-custom-card">
           <div class="card-header">
             <span>折线图</span>
@@ -24,8 +24,8 @@
             :xAxisData="['一月', '二月', '三月', '四月', '五月', '六月', '七月']"
           />
         </div>
-      </el-col>
-      <el-col :xs="24" :md="12" :lg="8">
+      </ElCol>
+      <ElCol :xs="24" :md="12" :lg="8">
         <div class="card art-custom-card">
           <div class="card-header">
             <span>折线图（渐变背景）</span>
@@ -36,9 +36,9 @@
             :showAreaColor="true"
           />
         </div>
-      </el-col>
+      </ElCol>
 
-      <el-col :xs="24" :md="12" :lg="8">
+      <ElCol :xs="24" :md="12" :lg="8">
         <div class="card art-custom-card">
           <div class="card-header">
             <span>散点图</span>
@@ -61,8 +61,8 @@
             width="100%"
           />
         </div>
-      </el-col>
-      <el-col :xs="24" :md="12" :lg="8">
+      </ElCol>
+      <ElCol :xs="24" :md="12" :lg="8">
         <div class="card art-custom-card">
           <div class="card-header">
             <span>环形图</span>
@@ -76,8 +76,8 @@
             :color="['#4C87F3', '#93F1B4', '#8BD8FC']"
           />
         </div>
-      </el-col>
-      <el-col :xs="24" :md="12" :lg="8">
+      </ElCol>
+      <ElCol :xs="24" :md="12" :lg="8">
         <div class="card art-custom-card">
           <div class="card-header">
             <span>饼图</span>
@@ -92,8 +92,8 @@
             :radius="['0%', '80%']"
           />
         </div>
-      </el-col>
-      <el-col :xs="24" :md="12" :lg="8">
+      </ElCol>
+      <ElCol :xs="24" :md="12" :lg="8">
         <div class="card art-custom-card">
           <div class="card-header">
             <span>k线图</span>
@@ -106,8 +106,8 @@
             ]"
           />
         </div>
-      </el-col>
-      <el-col :xs="24" :md="12" :lg="8">
+      </ElCol>
+      <ElCol :xs="24" :md="12" :lg="8">
         <div class="card art-custom-card">
           <div class="card-header">
             <span>雷达图</span>
@@ -133,8 +133,8 @@
             :colors="['#8BD8FC', '#409EFF']"
           />
         </div>
-      </el-col>
-      <el-col :xs="24" :md="12" :lg="8">
+      </ElCol>
+      <ElCol :xs="24" :md="12" :lg="8">
         <div class="card art-custom-card">
           <div class="card-header">
             <span>柱状图（水平）</span>
@@ -144,12 +144,10 @@
             :xAxisData="['产品A', '产品B', '产品C', '产品D', '产品E']"
           />
         </div>
-      </el-col>
-    </el-row>
+      </ElCol>
+    </ElRow>
   </div>
 </template>
-
-<script setup lang="ts"></script>
 
 <style lang="scss" scoped>
   .charts {

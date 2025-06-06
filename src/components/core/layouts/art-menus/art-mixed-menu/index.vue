@@ -34,24 +34,24 @@
 
 <script setup lang="ts">
   import { useSettingStore } from '@/store/modules/setting'
-  import { MenuListType } from '@/types/menu'
+  import { AppRouteRecord } from '@/types/router'
   const route = useRoute()
   import { ref, onMounted } from 'vue'
   import { ArrowLeft, ArrowRight } from '@element-plus/icons-vue'
   import { formatMenuTitle } from '@/router/utils/utils'
-  import { handleMenuJump } from '@/utils/jump'
+  import { handleMenuJump } from '@/utils/navigation'
 
   const settingStore = useSettingStore()
   const { getMenuOpenWidth: menuopenwidth } = storeToRefs(settingStore)
 
   defineProps({
     list: {
-      type: [Array] as PropType<MenuListType[]>,
+      type: [Array] as PropType<AppRouteRecord[]>,
       default: () => []
     }
   })
 
-  const isActive = (item: MenuListType): boolean => {
+  const isActive = (item: AppRouteRecord): boolean => {
     const currentPath = route.path
 
     if (item.children?.length) {

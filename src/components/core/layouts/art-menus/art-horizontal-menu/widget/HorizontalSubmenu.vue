@@ -12,7 +12,7 @@
     <!-- 递归调用自身处理子菜单 -->
     <HorizontalSubmenu
       v-for="child in filteredChildren"
-      :key="child.id"
+      :key="child.path"
       :item="child"
       :theme="theme"
       :is-mobile="isMobile"
@@ -38,13 +38,13 @@
 
 <script lang="ts" setup>
   import { computed } from 'vue'
-  import { MenuListType } from '@/types/menu'
-  import { handleMenuJump } from '@/utils/jump'
+  import { AppRouteRecord } from '@/types/router'
+  import { handleMenuJump } from '@/utils/navigation'
   import { formatMenuTitle } from '@/router/utils/utils'
 
   const props = defineProps({
     item: {
-      type: Object as PropType<MenuListType>,
+      type: Object as PropType<AppRouteRecord>,
       required: true
     },
     theme: {
@@ -70,7 +70,7 @@
     return props.item.children?.filter((child) => !child.meta.isHide) || []
   })
 
-  const goPage = (item: MenuListType) => {
+  const goPage = (item: AppRouteRecord) => {
     closeMenu()
     handleMenuJump(item)
   }

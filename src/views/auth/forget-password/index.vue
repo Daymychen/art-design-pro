@@ -1,8 +1,6 @@
 <template>
   <div class="login register">
-    <div class="left-wrap">
-      <LoginLeftView></LoginLeftView>
-    </div>
+    <LoginLeftView></LoginLeftView>
     <div class="right-wrap">
       <div class="header">
         <ArtLogo class="icon" />
@@ -14,11 +12,11 @@
           <p class="sub-title">{{ $t('forgetPassword.subTitle') }}</p>
           <div class="input-wrap">
             <span class="input-label" v-if="showInputLabel">账号</span>
-            <el-input :placeholder="$t('forgetPassword.placeholder')" v-model.trim="username" />
+            <ElInput :placeholder="$t('forgetPassword.placeholder')" v-model.trim="username" />
           </div>
 
           <div style="margin-top: 15px">
-            <el-button
+            <ElButton
               class="login-btn"
               type="primary"
               @click="register"
@@ -26,13 +24,13 @@
               v-ripple
             >
               {{ $t('forgetPassword.submitBtnText') }}
-            </el-button>
+            </ElButton>
           </div>
 
           <div style="margin-top: 15px">
-            <el-button class="back-btn" plain @click="toLogin">
+            <ElButton class="back-btn" plain @click="toLogin">
               {{ $t('forgetPassword.backBtnText') }}
-            </el-button>
+            </ElButton>
           </div>
         </div>
       </div>
