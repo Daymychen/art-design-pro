@@ -30,7 +30,7 @@
       >
         <!-- 序号列 -->
         <el-table-column
-          v-if="index"
+          v-if="index && tableData.length > 0"
           type="index"
           width="60"
           label="序号"
@@ -39,7 +39,7 @@
         />
 
         <!-- 动态列 -->
-        <slot></slot>
+        <slot v-if="tableData.length"></slot>
 
         <!-- 空数据 -->
         <template #empty>

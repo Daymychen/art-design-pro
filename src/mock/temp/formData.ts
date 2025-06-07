@@ -269,40 +269,5 @@ export const ROLE_LIST_DATA: Role[] = [
     des: '管理项目相关权限',
     date: '2025-05-19 13:40:35',
     enable: true
-  },
-  {
-    roleName: '人力资源',
-    roleCode: 'R_HR',
-    des: '管理员工信息和招聘',
-    date: '2025-05-19 16:20:18',
-    enable: true
-  },
-  {
-    roleName: '测试用户',
-    roleCode: 'R_TESTER',
-    des: '用于系统测试的权限',
-    date: '2025-05-20 10:15:55',
-    enable: false
-  },
-  {
-    roleName: '安全管理员',
-    roleCode: 'R_SECURITY',
-    des: '负责系统安全和权限审核',
-    date: '2025-05-20 11:30:20',
-    enable: true
-  },
-  {
-    roleName: '技术支持',
-    roleCode: 'R_TECHSUPPORT',
-    des: '提供技术支持和问题排查',
-    date: '2025-05-21 09:20:30',
-    enable: true
-  },
-  {
-    roleName: '审核员',
-    roleCode: 'R_AUDITOR',
-    des: '负责内容和操作审核',
-    date: '2025-05-21 10:50:45',
-    enable: false
   }
 ]

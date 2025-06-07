@@ -32,9 +32,9 @@
             </ElButton> -->
           </template>
         </ArtTableHeader>
-
         <!-- 表格 -->
         <ArtTable
+          rowKey="path"
           ref="tableRef"
           :loading="loading"
           :data="filteredTableData"

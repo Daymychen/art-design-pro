@@ -11,7 +11,7 @@
       </ElCol>
     </ElRow>
 
-    <art-table :data="roleList" index>
+    <ArtTable :data="roleList" index>
       <template #default>
         <ElTableColumn label="角色名称" prop="roleName" />
         <ElTableColumn label="角色编码" prop="roleCode" />
@@ -28,22 +28,25 @@
             {{ formatDate(scope.row.date) }}
           </template>
         </ElTableColumn>
-        <ElTableColumn fixed="right" label="操作" width="100px">
+        <ElTableColumn fixed="right" label="操作" width="200px">
           <template #default="scope">
             <ElRow>
-              <ArtButtonMore
+              <el-button link @click="showPermissionDialog()"> 菜单权限 </el-button>
+              <el-button link @click="showDialog('edit', scope.row)"> 编辑 </el-button>
+              <el-button link @click="deleteRole()"> 删除 </el-button>
+              <!-- <ArtButtonMore
                 :list="[
                   { key: 'permission', label: '菜单权限' },
                   { key: 'edit', label: '编辑角色' },
                   { key: 'delete', label: '删除角色' }
                 ]"
                 @click="buttonMoreClick($event, scope.row)"
-              />
+              /> -->
             </ElRow>
           </template>
         </ElTableColumn>
       </template>
-    </art-table>
+    </ArtTable>
 
     <ElDialog
       v-model="dialogVisible"
@@ -73,17 +76,43 @@
       </template>
     </ElDialog>
 
-    <ElDialog v-model="permissionDialog" title="菜单权限" width="30%">
-      <div :style="{ maxHeight: '500px', overflowY: 'scroll' }">
+    <ElDialog
+      v-model="permissionDialog"
+      title="菜单权限"
+      width="520px"
+      align-center
+      class="el-dialog-border"
+    >
+      <ElScrollbar height="70vh">
         <ElTree
-          :data="menuList"
+          ref="treeRef"
+          :data="processedMenuList"
           show-checkbox
-          node-key="id"
-          :default-expanded-keys="[1, 2, 3, 4, 5, 6, 7, 8]"
+          node-key="name"
+          :default-expand-all="isExpandAll"
           :default-checked-keys="[1, 2, 3]"
           :props="defaultProps"
-        />
-      </div>
+          @check="handleTreeCheck"
+        >
+          <template #default="{ data }">
+            <div style="display: flex; align-items: center">
+              <span v-if="data.isAuth">
+                {{ data.label }}
+              </span>
+              <span v-else>{{ defaultProps.label(data) }}</span>
+            </div>
+          </template>
+        </ElTree>
+      </ElScrollbar>
+      <template #footer>
+        <div class="dialog-footer">
+          <ElButton @click="toggleExpandAll">{{ isExpandAll ? '全部收起' : '全部展开' }}</ElButton>
+          <ElButton @click="toggleSelectAll" style="margin-left: 8px">{{
+            isSelectAll ? '取消全选' : '全部选择'
+          }}</ElButton>
+          <ElButton type="primary" @click="savePermission">保存</ElButton>
+        </div>
+      </template>
     </ElDialog>
   </div>
 </template>
@@ -93,7 +122,7 @@
   import { ElMessage, ElMessageBox } from 'element-plus'
   import type { FormInstance, FormRules } from 'element-plus'
   import { formatMenuTitle } from '@/router/utils/utils'
-  import { ButtonMoreItem } from '@/components/core/forms/ArtButtonMore.vue'
+  // import { ButtonMoreItem } from '@/components/core/forms/ArtButtonMore.vue'
   import { Role, ROLE_LIST_DATA } from '@/mock/temp/formData'
 
   defineOptions({ name: 'Role' })
@@ -101,6 +130,39 @@
   const dialogVisible = ref(false)
   const permissionDialog = ref(false)
   const { menuList } = storeToRefs(useMenuStore())
+  const treeRef = ref()
+  const isExpandAll = ref(true)
+  const isSelectAll = ref(false)
+
+  // 处理菜单数据，将 authList 转换为子节点
+  const processedMenuList = computed(() => {
+    const processNode = (node: any) => {
+      const processed = { ...node }
+
+      // 如果有 authList，将其转换为子节点
+      if (node.meta && node.meta.authList && node.meta.authList.length) {
+        const authNodes = node.meta.authList.map((auth: any) => ({
+          id: `${node.id}_${auth.auth_mark}`,
+          name: `${node.name}_${auth.auth_mark}`,
+          label: auth.title,
+          auth_mark: auth.auth_mark,
+          isAuth: true,
+          checked: auth.checked || false
+        }))
+
+        processed.children = processed.children ? [...processed.children, ...authNodes] : authNodes
+      }
+
+      // 递归处理子节点
+      if (processed.children) {
+        processed.children = processed.children.map(processNode)
+      }
+
+      return processed
+    }
+
+    return menuList.value.map(processNode)
+  })
 
   const formRef = ref<FormInstance>()
 
@@ -151,15 +213,15 @@
     }
   }
 
-  const buttonMoreClick = (item: ButtonMoreItem, row: any) => {
-    if (item.key === 'permission') {
-      showPermissionDialog()
-    } else if (item.key === 'edit') {
-      showDialog('edit', row)
-    } else if (item.key === 'delete') {
-      deleteRole()
-    }
-  }
+  // const buttonMoreClick = (item: ButtonMoreItem, row: any) => {
+  //   if (item.key === 'permission') {
+  //     showPermissionDialog()
+  //   } else if (item.key === 'edit') {
+  //     showDialog('edit', row)
+  //   } else if (item.key === 'delete') {
+  //     deleteRole()
+  //   }
+  // }
 
   const showPermissionDialog = () => {
     permissionDialog.value = true
@@ -191,6 +253,68 @@
         formEl.resetFields()
       }
     })
+  }
+
+  const savePermission = () => {
+    ElMessage.success('权限保存成功')
+    permissionDialog.value = false
+  }
+
+  const toggleExpandAll = () => {
+    const tree = treeRef.value
+    if (!tree) return
+
+    // 使用store.nodesMap直接控制所有节点的展开状态
+    const nodes = tree.store.nodesMap
+    for (const node in nodes) {
+      nodes[node].expanded = !isExpandAll.value
+    }
+
+    isExpandAll.value = !isExpandAll.value
+  }
+
+  const toggleSelectAll = () => {
+    const tree = treeRef.value
+    if (!tree) return
+
+    if (!isSelectAll.value) {
+      // 全选：获取所有节点的key并设置为选中
+      const allKeys = getAllNodeKeys(processedMenuList.value)
+      tree.setCheckedKeys(allKeys)
+    } else {
+      // 取消全选：清空所有选中
+      tree.setCheckedKeys([])
+    }
+
+    isSelectAll.value = !isSelectAll.value
+  }
+
+  const getAllNodeKeys = (nodes: any[]): string[] => {
+    const keys: string[] = []
+    const traverse = (nodeList: any[]) => {
+      nodeList.forEach((node) => {
+        if (node.name) {
+          keys.push(node.name)
+        }
+        if (node.children && node.children.length > 0) {
+          traverse(node.children)
+        }
+      })
+    }
+    traverse(nodes)
+    return keys
+  }
+
+  const handleTreeCheck = () => {
+    const tree = treeRef.value
+    if (!tree) return
+
+    // 使用树组件的getCheckedKeys方法获取选中的节点
+    const checkedKeys = tree.getCheckedKeys()
+    const allKeys = getAllNodeKeys(processedMenuList.value)
+
+    // 判断是否全选：选中的节点数量等于总节点数量
+    isSelectAll.value = checkedKeys.length === allKeys.length && allKeys.length > 0
   }
 
   const formatDate = (date: string) => {

@@ -67,17 +67,45 @@
   min-width: 80px;
 }
 
+.el-dialog {
+  border-radius: 100px !important;
+  border-radius: calc(var(--custom-radius) / 1.2 + 2px) !important;
+  overflow: hidden;
+}
+
 .el-dialog__header {
-  padding: 10px 10px;
+  .el-dialog__title {
+    font-size: 16px;
+  }
 }
 
 .el-dialog__body {
-  padding: 25px 10px !important;
+  padding: 25px 0 !important;
+  position: relative; // 为了兼容 el-pagination 样式，需要设置 relative，不然会影响 el-pagination 的样式，比如 el-pagination__jump--small 会被影响，导致 el-pagination__jump--small 按钮无法点击，详见 URL_ADDRESS.com/element-plus/element-plus/issues/5684#issuecomment-1176299275;
 }
 
-.el-dialog__footer {
-  padding: 10px 10px !important;
-  // border-top: 1px solid #F0F0F0;
+.el-dialog.el-dialog-border {
+  .el-dialog__body {
+    // 上边框
+    &::before,
+    // 下边框
+    &::after {
+      content: '';
+      position: absolute;
+      left: -16px;
+      width: calc(100% + 32px);
+      height: 1px;
+      background-color: rgba(var(--art-gray-300-rgb), 0.56);
+    }
+
+    &::before {
+      top: 0;
+    }
+
+    &::after {
+      bottom: 0;
+    }
+  }
 }
 
 // ✅ el-message 样式优化

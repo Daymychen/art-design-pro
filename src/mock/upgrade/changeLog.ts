@@ -10,6 +10,18 @@ interface UpgradeLog {
 
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
+    version: 'v2.4.1.1',
+    title: '修复bug，用户体验优化',
+    date: '2025-06-07',
+    detail: [
+      '修复菜单管理折叠 bug',
+      '优化角色管理页面代码',
+      '修复表格数据为空高度无限变大bug',
+      'el-dialog视觉效果优化，支持配置线条',
+      '系统主题模式从Light改成跟随系统模式'
+    ]
+  },
+  {
     version: 'v2.4.1',
     title: '优化菜单交互体验、Echarts 图表性能优化',
     date: '2025-06-07',
