@@ -29,9 +29,8 @@ $hover-bg-color: rgba(var(--art-gray-200-rgb), 0.8); // 鼠标移入背景色
   .el-sub-menu__title,
   .el-menu-item {
     height: $menu-height !important;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
     line-height: $menu-height !important;
-    transition: background-color 0s !important;
 
     span {
       font-size: $menu-font-size !important;

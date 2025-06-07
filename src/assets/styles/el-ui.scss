@@ -25,6 +25,17 @@
   }
 }
 
+// 优化菜单折叠展开动画（提升动画流畅度）
+.el-menu.el-menu--inline {
+  transition: max-height 0.26s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+// 优化菜单 item hover 动画（提升鼠标跟手感）
+.el-sub-menu__title,
+.el-menu-item {
+  transition: background-color 0s !important;
+}
+
 // -------------------------------- 修改 el-size=default 组件默认高度 start --------------------------------
 // 修改 el-button 高度
 .el-button--default {

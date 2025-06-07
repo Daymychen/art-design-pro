@@ -79,6 +79,8 @@
         :active-text-color="getMenuTheme.textActiveColor"
         :default-openeds="defaultOpenedsArray"
         :popper-class="`menu-left-${getMenuTheme.theme}-popper`"
+        :show-timeout="50"
+        :hide-timeout="50"
       >
         <SidebarSubmenu
           :list="menuList"

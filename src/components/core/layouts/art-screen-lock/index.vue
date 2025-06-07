@@ -106,33 +106,160 @@
   // 添加禁用控制台的函数
   const disableDevTools = () => {
     // 禁用右键菜单
-    document.addEventListener('contextmenu', (e) => {
-      if (isLock.value) e.preventDefault()
-    })
-
-    // 禁用 F12 键
-    document.addEventListener('keydown', (e) => {
-      if (isLock.value && e.key === 'F12') {
+    const handleContextMenu = (e: Event) => {
+      if (isLock.value) {
         e.preventDefault()
+        e.stopPropagation()
+        return false
       }
-    })
+    }
+    document.addEventListener('contextmenu', handleContextMenu, true)
 
-    // 禁用 Ctrl+Shift+I/J/C
-    document.addEventListener('keydown', (e) => {
+    // 禁用开发者工具相关快捷键
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!isLock.value) return
+
+      // 禁用 F12
+      if (e.key === 'F12') {
+        e.preventDefault()
+        e.stopPropagation()
+        return false
+      }
+
+      // 禁用 Ctrl+Shift+I/J/C/K (开发者工具)
+      if (e.ctrlKey && e.shiftKey) {
+        const key = e.key.toLowerCase()
+        if (['i', 'j', 'c', 'k'].includes(key)) {
+          e.preventDefault()
+          e.stopPropagation()
+          return false
+        }
+      }
+
+      // 禁用 Ctrl+U (查看源代码)
+      if (e.ctrlKey && e.key.toLowerCase() === 'u') {
+        e.preventDefault()
+        e.stopPropagation()
+        return false
+      }
+
+      // 禁用 Ctrl+S (保存页面)
+      if (e.ctrlKey && e.key.toLowerCase() === 's') {
+        e.preventDefault()
+        e.stopPropagation()
+        return false
+      }
+
+      // 禁用 Ctrl+A (全选)
+      if (e.ctrlKey && e.key.toLowerCase() === 'a') {
+        e.preventDefault()
+        e.stopPropagation()
+        return false
+      }
+
+      // 禁用 Ctrl+P (打印)
+      if (e.ctrlKey && e.key.toLowerCase() === 'p') {
+        e.preventDefault()
+        e.stopPropagation()
+        return false
+      }
+
+      // 禁用 Ctrl+F (查找)
+      if (e.ctrlKey && e.key.toLowerCase() === 'f') {
+        e.preventDefault()
+        e.stopPropagation()
+        return false
+      }
+
+      // 禁用 Alt+Tab (切换窗口)
+      if (e.altKey && e.key === 'Tab') {
+        e.preventDefault()
+        e.stopPropagation()
+        return false
+      }
+
+      // 禁用 Ctrl+Tab (切换标签页)
+      if (e.ctrlKey && e.key === 'Tab') {
+        e.preventDefault()
+        e.stopPropagation()
+        return false
+      }
+
+      // 禁用 Ctrl+W (关闭标签页)
+      if (e.ctrlKey && e.key.toLowerCase() === 'w') {
+        e.preventDefault()
+        e.stopPropagation()
+        return false
+      }
+
+      // 禁用 Ctrl+R 和 F5 (刷新页面)
+      if ((e.ctrlKey && e.key.toLowerCase() === 'r') || e.key === 'F5') {
+        e.preventDefault()
+        e.stopPropagation()
+        return false
+      }
+
+      // 禁用 Ctrl+Shift+R (强制刷新)
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'r') {
+        e.preventDefault()
+        e.stopPropagation()
+        return false
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown, true)
+
+    // 禁用选择文本
+    const handleSelectStart = (e: Event) => {
+      if (isLock.value) {
+        e.preventDefault()
+        return false
+      }
+    }
+    document.addEventListener('selectstart', handleSelectStart, true)
+
+    // 禁用拖拽
+    const handleDragStart = (e: Event) => {
+      if (isLock.value) {
+        e.preventDefault()
+        return false
+      }
+    }
+    document.addEventListener('dragstart', handleDragStart, true)
+
+    // 监听开发者工具打开状态
+    let devtools = { open: false, orientation: null }
+    const threshold = 160
+
+    const checkDevTools = () => {
+      if (!isLock.value) return
+
       if (
-        isLock.value &&
-        e.ctrlKey &&
-        e.shiftKey &&
-        (e.key === 'I' ||
-          e.key === 'i' ||
-          e.key === 'J' ||
-          e.key === 'j' ||
-          e.key === 'C' ||
-          e.key === 'c')
+        window.outerHeight - window.innerHeight > threshold ||
+        window.outerWidth - window.innerWidth > threshold
       ) {
-        e.preventDefault()
+        if (!devtools.open) {
+          devtools.open = true
+          // 检测到开发者工具打开，可以在这里添加额外的处理逻辑
+          console.clear()
+          document.body.innerHTML =
+            '<div style="position:fixed;top:0;left:0;width:100%;height:100%;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;z-index:99999;">系统已锁定，请勿尝试打开开发者工具</div>'
+        }
+      } else {
+        devtools.open = false
       }
-    })
+    }
+
+    // 定期检查开发者工具状态
+    const devToolsInterval = setInterval(checkDevTools, 500)
+
+    // 返回清理函数
+    return () => {
+      document.removeEventListener('contextmenu', handleContextMenu, true)
+      document.removeEventListener('keydown', handleKeyDown, true)
+      document.removeEventListener('selectstart', handleSelectStart, true)
+      document.removeEventListener('dragstart', handleDragStart, true)
+      clearInterval(devToolsInterval)
+    }
   }
 
   watch(isLock, (newValue) => {
@@ -146,6 +273,9 @@
     }
   })
 
+  // 存储清理函数
+  let cleanupDevTools: (() => void) | null = null
+
   onMounted(() => {
     mittBus.on('openLockScreen', openLockScreen)
     document.addEventListener('keydown', handleKeydown)
@@ -156,11 +286,19 @@
         unlockInputRef.value?.input?.focus()
       }, 100)
     }
-    disableDevTools()
+
+    // 初始化禁用开发者工具功能
+    cleanupDevTools = disableDevTools()
   })
 
   onUnmounted(() => {
     document.removeEventListener('keydown', handleKeydown)
+    document.body.style.overflow = 'auto'
+    // 清理禁用开发者工具的事件监听器
+    if (cleanupDevTools) {
+      cleanupDevTools()
+      cleanupDevTools = null
+    }
   })
 
   const verifyPassword = (inputPassword: string, storedPassword: string): boolean => {
@@ -230,11 +368,6 @@
   const openLockScreen = () => {
     visible.value = true
   }
-
-  onUnmounted(() => {
-    document.removeEventListener('keydown', handleKeydown)
-    document.body.style.overflow = 'auto'
-  })
 
   // 添加输入框的 ref
   const lockInputRef = ref<any>(null)

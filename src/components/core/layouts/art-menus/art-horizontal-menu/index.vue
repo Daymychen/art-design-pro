@@ -7,9 +7,11 @@
       mode="horizontal"
       :default-active="routerPath"
       text-color="var(--art-text-gray-700)"
-      :popper-offset="16"
+      :popper-offset="-6"
       :style="{ width: width + 'px' }"
       background-color="transparent"
+      :show-timeout="50"
+      :hide-timeout="50"
     >
       <HorizontalSubmenu
         v-for="item in filteredMenuItems"

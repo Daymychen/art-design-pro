@@ -162,10 +162,10 @@
 
   // 设置过渡动画
   const setTransition = () => {
-    transition.value = 'transform 0.5s ease-in-out'
+    transition.value = 'transform 0.5s cubic-bezier(0.15, 0, 0.15, 1)'
     setTimeout(() => {
       transition.value = ''
-    }, 300)
+    }, 250)
   }
 
   // 自动定位当前标签页到可视区域
