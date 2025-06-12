@@ -9,6 +9,9 @@ import { fileURLToPath } from 'url'
 // import viteImagemin from 'vite-plugin-imagemin'
 // import { visualizer } from 'rollup-plugin-visualizer'
 
+// https://devtools.vuejs.org/getting-started/introduction
+import vueDevTools from 'vite-plugin-vue-devtools'
+
 export default ({ mode }) => {
   const root = process.cwd()
   const env = loadEnv(mode, root)
@@ -106,7 +109,7 @@ export default ({ mode }) => {
         ext: '.gz', // 压缩后的文件名后缀
         threshold: 10240, // 只有大小大于该值的资源会被处理 10240B = 10KB
         deleteOriginFile: false // 压缩后是否删除原文件
-      })
+      }),
       // 图片压缩
       // viteImagemin({
       //   verbose: true, // 是否在控制台输出压缩结果
@@ -142,6 +145,7 @@ export default ({ mode }) => {
       //     ]
       //   }
       // })
+      vueDevTools()
     ],
     // 预加载项目必需的组件
     optimizeDeps: {

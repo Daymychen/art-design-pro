@@ -65,6 +65,7 @@
                 type="password"
                 radius="8px"
                 autocomplete="off"
+                show-password
               />
             </ElFormItem>
             <div class="drag-verify">
