@@ -5,14 +5,15 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
+  import { ref, onMounted, onUnmounted, watch, nextTick, shallowRef } from 'vue'
   import * as echarts from 'echarts'
   import { useSettingStore } from '@/store/modules/setting'
   import chinaMapJson from '@/mock/json/chinaMap.json'
 
   // 响应式引用与主题
   const chinaMapRef = ref<HTMLElement | null>(null)
-  const chartInstance = ref<echarts.ECharts | null>(null)
+  // 使用shallowRef来存储echarts实例，减少不必要的响应式更新，提升地图加载速度
+  const chartInstance = shallowRef<echarts.ECharts | null>(null)
   const settingStore = useSettingStore()
   const { isDark } = storeToRefs(settingStore)
 
@@ -34,6 +35,8 @@
 
   // 构造 ECharts 配置项
   const createChartOption = (mapData: any[]) => ({
+    // 关闭动画效果，减少鼠标移动高亮时的掉帧感
+    animation: false,
     tooltip: {
       show: true,
       formatter: ({ data }: any) => {
