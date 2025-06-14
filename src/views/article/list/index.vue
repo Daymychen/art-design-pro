@@ -100,7 +100,6 @@
   import { ArticleList } from '@/mock/temp/articleList'
   import { useCommon } from '@/composables/useCommon'
   import { RoutesAlias } from '@/router/routesAlias'
-  import { ArticleType } from '@/api/modules'
 
   defineOptions({ name: 'ArticleList' })
 
@@ -109,7 +108,7 @@
   const options = ['All', '2024', '2023', '2022', '2021', '2020', '2019']
 
   const searchVal = ref('')
-  const articleList = ref<ArticleType[]>([])
+  const articleList = ref<any[]>([])
   const currentPage = ref(1)
   const pageSize = ref(40)
   // const lastPage = ref(0)
@@ -183,7 +182,7 @@
     getArticleList({ backTop: true })
   }
 
-  const toDetail = (item: ArticleType) => {
+  const toDetail = (item: any) => {
     router.push({
       path: RoutesAlias.ArticleDetail,
       query: {
@@ -192,7 +191,7 @@
     })
   }
 
-  const toEdit = (item: ArticleType) => {
+  const toEdit = (item: any) => {
     router.push({
       path: RoutesAlias.ArticlePublish,
       query: {

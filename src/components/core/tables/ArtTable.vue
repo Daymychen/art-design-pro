@@ -330,11 +330,6 @@
         }
       }
     }
-
-    // 解决el-image 和 el-table冲突层级冲突问题
-    ::v-deep(.el-table__cell) {
-      position: static !important;
-    }
   }
 
   // 移动端分页

@@ -36,12 +36,6 @@
         articleTitle.value = res.data.data.title
         articleHtml.value = res.data.data.html_content
       }
-
-      // const res = await ArticleService.getArticleDetail(articleId.value)
-      // if (res.code === ApiStatus.success) {
-      //   articleTitle.value = res.data.title;;
-      //   articleHtml.value = res.data.html_content;
-      // }
     }
   }
 </script>

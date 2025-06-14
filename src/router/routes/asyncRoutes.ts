@@ -458,7 +458,8 @@ export const asyncRoutes: AppRouteRecord[] = [
         meta: {
           title: 'menus.article.articleDetail',
           isHide: true,
-          keepAlive: true
+          keepAlive: true,
+          activePath: '/article/article-list' // 激活菜单路径
         }
       },
       {

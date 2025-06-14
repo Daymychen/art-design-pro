@@ -109,15 +109,30 @@
 
           <ElForm :model="pwdForm" class="form" label-width="86px" label-position="top">
             <ElFormItem label="当前密码" prop="password">
-              <ElInput v-model="pwdForm.password" type="password" :disabled="!isEditPwd" />
+              <ElInput
+                v-model="pwdForm.password"
+                type="password"
+                :disabled="!isEditPwd"
+                show-password
+              />
             </ElFormItem>
 
             <ElFormItem label="新密码" prop="newPassword">
-              <ElInput v-model="pwdForm.newPassword" type="password" :disabled="!isEditPwd" />
+              <ElInput
+                v-model="pwdForm.newPassword"
+                type="password"
+                :disabled="!isEditPwd"
+                show-password
+              />
             </ElFormItem>
 
             <ElFormItem label="确认新密码" prop="confirmPassword">
-              <ElInput v-model="pwdForm.confirmPassword" type="password" :disabled="!isEditPwd" />
+              <ElInput
+                v-model="pwdForm.confirmPassword"
+                type="password"
+                :disabled="!isEditPwd"
+                show-password
+              />
             </ElFormItem>
 
             <div class="el-form-item-right">

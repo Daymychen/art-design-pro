@@ -191,9 +191,7 @@
     return route.matched[0].path
   })
 
-  const routerPath = computed(() => {
-    return route.path
-  })
+  const routerPath = computed(() => String(route.meta.activePath || route.path))
 
   onMounted(() => {
     listenerWindowResize()

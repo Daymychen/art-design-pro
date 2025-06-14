@@ -52,7 +52,7 @@
   })
 
   const isActive = (item: AppRouteRecord): boolean => {
-    const currentPath = route.path
+    const currentPath = String(route.meta.activePath || route.path)
 
     if (item.children?.length) {
       return item.children.some((child) => {

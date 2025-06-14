@@ -35,6 +35,8 @@ export interface RouteMeta extends Record<string | number | symbol, unknown> {
   roles?: string[]
   /** 是否固定标签页 */
   fixedTab?: boolean
+  /** 激活菜单路径 */
+  activePath?: string
 }
 
 // 扩展路由记录

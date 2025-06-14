@@ -24,6 +24,7 @@
                 :placeholder="$t('register.placeholder[1]')"
                 type="password"
                 autocomplete="off"
+                show-password
               />
             </ElFormItem>
 
@@ -34,6 +35,7 @@
                 type="password"
                 autocomplete="off"
                 @keyup.enter="register"
+                show-password
               />
             </ElFormItem>
 

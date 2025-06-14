@@ -10,8 +10,25 @@ interface UpgradeLog {
 
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
+    version: 'v2.4.2',
+    title: 'Bug修复与体验优化',
+    date: '2025-06-14',
+    detail: [
+      '重构网络请求模块，增强错误处理、类型安全与多语言支持',
+      '修复移动端搜索栏无法滚动、iPad端页面滚动异常问题',
+      '修复 el-dialog 启用 draggable 属性后，自定义动画失效的问题',
+      '修复 2.3.0 版本本地存储重构后，导致登录、注册等页面多语言设置无法持久化的问题',
+      '引导、列设置多语言完善',
+      '修复表格固定列不起作用bug',
+      '路由配置新增 activePath 激活菜单路径属性',
+      '去除用户列表、菜单管理页面无效代码',
+      '更新技术支持链接'
+    ],
+    requireReLogin: true
+  },
+  {
     version: 'v2.4.1.1',
-    title: '修复bug，用户体验优化',
+    title: 'Bug修复与体验优化',
     date: '2025-06-07',
     detail: [
       '修复菜单管理折叠 bug',
