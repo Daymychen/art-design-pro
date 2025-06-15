@@ -74,7 +74,6 @@
 
 <script setup lang="ts">
   import { Plus } from '@element-plus/icons-vue'
-  import { ArticleService } from '@/api/articleApi'
   import { ApiStatus } from '@/utils/http/status'
   import { ElMessage } from 'element-plus'
   import { useUserStore } from '@/store/modules/user'
@@ -86,7 +85,6 @@
   defineOptions({ name: 'ArticlePublish' })
 
   const route = useRoute()
-  const router = useRouter()
 
   const userStore = useUserStore()
   let { accessToken } = userStore
@@ -117,15 +115,14 @@
     const { id } = route.query
     pageMode = id ? PageModeEnum.Edit : PageModeEnum.Add
     if (pageMode === PageModeEnum.Edit && id) {
-      initEditArticle(Number(id))
+      initEditArticle()
     } else {
       initAddArticle()
     }
   }
 
   // 初始化编辑文章的逻辑
-  const initEditArticle = (id: number) => {
-    articleId = id
+  const initEditArticle = () => {
     getArticleDetail()
   }
 
@@ -152,8 +149,6 @@
     // } catch (err) { }
   }
 
-  // 获取文章详情内容
-  let articleId: number = 0
   const getArticleDetail = async () => {
     const res = await axios.get('https://www.qiniu.lingchen.kim/blog_list.json')
 
@@ -163,19 +158,6 @@
       articleType.value = Number(blog_class)
       editorHtml.value = html_content
     }
-
-    // const res = await ArticleService.getArticleDetail(articleId)
-    // if (res.code === ApiStatus.success) {
-    //   let { title, blog_class, create_time, home_img, html_content } = res.data
-
-    //   articleName.value = title
-    //   articleType.value = Number(blog_class)
-    //   editorHtml.value = html_content
-    //   cover.value = home_img
-    //   createDate.value = formDate(create_time)
-
-    //   // getOutline(html_content)
-    // }
   }
 
   // const getOutline = (content: string) => {
@@ -228,31 +210,11 @@
     return true
   }
 
-  // 构建参数
-  const buildParams = () => {
-    return {
-      title: articleName.value,
-      html_content: editorHtml.value,
-      home_img: cover.value,
-      blog_class: articleType.value,
-      create_time: createDate.value
-    }
-  }
-
   // 添加文章
   const addArticle = async () => {
     try {
       if (!validateArticle()) return
-
       editorHtml.value = delCodeTrim(editorHtml.value)
-
-      const params = buildParams()
-      const res = await ArticleService.addArticle(params)
-
-      if (res.code === ApiStatus.success) {
-        ElMessage.success(`发布成功 ${EmojiText[200]}`)
-        goBack()
-      }
     } catch (err) {
       console.error(err)
     }
@@ -264,14 +226,6 @@
       if (!validateArticle()) return
 
       editorHtml.value = delCodeTrim(editorHtml.value)
-
-      const params = buildParams()
-      const res = await ArticleService.editArticle(articleId, params)
-
-      if (res.code === ApiStatus.success) {
-        ElMessage.success(`修改成功 ${EmojiText[200]}`)
-        goBack()
-      }
     } catch (err) {
       console.error(err)
     }
@@ -288,13 +242,6 @@
 
   const onError = () => {
     ElMessage.error(`图片上传失败 ${EmojiText[500]}`)
-  }
-
-  // 返回上一页
-  const goBack = () => {
-    setTimeout(() => {
-      router.go(-1)
-    }, 800)
   }
 
   // 添加上传前的校验

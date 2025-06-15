@@ -137,12 +137,6 @@
   }
 }
 
-html,
-body {
-  touch-action: none; /* 禁用触摸事件 */
-  overflow-x: hidden; /* 禁用横向滚动 */
-}
-
 // 元素全屏
 .el-full-screen {
   position: fixed;

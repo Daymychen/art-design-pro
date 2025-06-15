@@ -149,7 +149,6 @@
 <style lang="scss" scoped>
   .search-bar {
     padding: 20px 20px 0;
-    touch-action: none !important;
     background-color: var(--art-main-bg-color);
     border-radius: calc(var(--custom-radius) / 2 + 2px);
 

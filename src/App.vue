@@ -10,7 +10,6 @@
   import en from 'element-plus/es/locale/lang/en'
   import { systemUpgrade } from './utils/sys'
   import { UserService } from './api/usersApi'
-  import { ApiStatus } from './utils/http/status'
   import { setThemeTransitionClass } from './utils/theme/animation'
   import { checkStorageCompatibility } from './utils/storage'
 
@@ -40,9 +39,11 @@
   // 获取用户信息
   const getUserInfo = async () => {
     if (userStore.isLogin) {
-      const res = await UserService.getUserInfo()
-      if (res.code === ApiStatus.success) {
-        userStore.setUserInfo(res.data)
+      try {
+        const data = await UserService.getUserInfo()
+        userStore.setUserInfo(data)
+      } catch (error) {
+        console.error('获取用户信息失败', error)
       }
     }
   }

@@ -295,7 +295,7 @@
 
 // 修改 dialog 动画
 .dialog-fade-enter-active {
-  .el-dialog {
+  .el-dialog:not(.is-draggable) {
     animation: dialog-open 0.3s cubic-bezier(0.32, 0.14, 0.15, 0.86);
 
     // 修复 el-dialog 动画后宽度不自适应问题
@@ -308,8 +308,8 @@
 .dialog-fade-leave-active {
   animation: fade-out 0.2s linear;
 
-  .el-dialog {
-    animation: dialog-close 0.2s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  .el-dialog:not(.is-draggable) {
+    animation: dialog-close 0.5s;
   }
 }
 

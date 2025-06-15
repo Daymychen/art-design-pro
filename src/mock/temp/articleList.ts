@@ -8,9 +8,8 @@ import cover7 from '@imgs/cover/img7.webp'
 import cover8 from '@imgs/cover/img8.webp'
 import cover9 from '@imgs/cover/img9.webp'
 import cover10 from '@imgs/cover/img10.webp'
-import { ArticleType } from '@/api/modules'
 
-export const ArticleList: ArticleType[] = [
+export const ArticleList = [
   {
     id: 452,
     blog_class: '42',

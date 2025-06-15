@@ -1,6 +1,7 @@
 // 动态列配置
 
 import { ref, computed } from 'vue'
+import { $t } from '@/locales'
 
 // 定义列配置接口
 export interface ColumnOption {
@@ -36,19 +37,19 @@ const getColumnChecks = (columns: ColumnOption[]): ColumnCheck[] => {
     if (column.type === 'selection') {
       checks.push({
         prop: SELECTION_KEY,
-        label: '勾选',
+        label: $t('table.column.selection'),
         checked: true
       })
     } else if (column.type === 'expand') {
       checks.push({
         prop: EXPAND_KEY,
-        label: '展开',
+        label: $t('table.column.expand'),
         checked: true
       })
     } else if (column.type === 'index') {
       checks.push({
         prop: INDEX_KEY,
-        label: '序号',
+        label: $t('table.column.index'),
         checked: true
       })
     } else {

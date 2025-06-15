@@ -44,9 +44,7 @@
     return props.list.filter((item) => !item.meta.isHide)
   })
 
-  const routerPath = computed(() => {
-    return route.path
-  })
+  const routerPath = computed(() => String(route.meta.activePath || route.path))
 </script>
 
 <style lang="scss" scoped>

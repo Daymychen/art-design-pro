@@ -12,7 +12,7 @@ export const WEB_LINKS = {
   DOCS: 'https://www.lingchen.kim/art-design-pro/docs',
 
   // 项目社区
-  COMMUNITY: 'https://www.lingchen.kim/art-design-pro/docs/guide/community/communicate.html',
+  COMMUNITY: 'https://www.lingchen.kim/art-design-pro/docs/zh/community/communicate.html',
 
   // 个人 Bilibili 主页
   BILIBILI: 'https://space.bilibili.com/425500936?spm_id_from=333.1007.0.0',

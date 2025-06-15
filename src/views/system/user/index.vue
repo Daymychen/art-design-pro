@@ -11,11 +11,7 @@
 
       <ElCard shadow="never" class="art-table-card">
         <!-- 表格头部 -->
-        <ArtTableHeader
-          :columnList="columnOptions"
-          v-model:columns="columnChecks"
-          @refresh="handleRefresh"
-        >
+        <ArtTableHeader v-model:columns="columnChecks" @refresh="handleRefresh">
           <template #left>
             <ElButton @click="showDialog('add')">新增用户</ElButton>
           </template>
@@ -92,8 +88,8 @@
   import { useCheckedColumns } from '@/composables/useCheckedColumns'
   import ArtButtonTable from '@/components/core/forms/ArtButtonTable.vue'
   import { UserService } from '@/api/usersApi'
-  import { ApiStatus } from '@/utils/http/status'
   import { SearchChangeParams, SearchFormItem } from '@/types'
+  const { width } = useWindowSize()
 
   defineOptions({ name: 'User' }) // 定义组件名称，用于 KeepAlive 缓存控制
 
@@ -239,18 +235,6 @@
     }
   ]
 
-  // 列配置
-  const columnOptions = [
-    { label: '勾选', type: 'selection' },
-    { label: '用户名', prop: 'avatar' },
-    { label: '手机号', prop: 'userPhone' },
-    { label: '性别', prop: 'gender' },
-    { label: '角色', prop: 'role' },
-    { label: '状态', prop: 'status' },
-    { label: '创建日期', prop: 'createTime' },
-    { label: '操作', prop: 'operation' }
-  ]
-
   // 获取标签类型
   // 1: 在线 2: 离线 3: 异常 4: 注销
   const getTagType = (status: string) => {
@@ -327,7 +311,7 @@
     {
       prop: 'avatar',
       label: '用户名',
-      minWidth: 220,
+      minWidth: width.value < 500 ? 220 : '',
       formatter: (row: any) => {
         return h('div', { class: 'user', style: 'display: flex; align-items: center' }, [
           h('img', { class: 'avatar', src: row.avatar }),
@@ -394,35 +378,28 @@
     getRoleList()
   })
 
-  // 获取用户信息
-
+  // 获取用户列表数据
   const getUserList = async () => {
     loading.value = true
     try {
-      const params = {
-        current: pagination.currentPage,
-        size: pagination.pageSize
-      }
-      const res = await UserService.getUserList(params)
-      if (res.code === ApiStatus.success) {
-        // 使用本地头像替换接口返回的头像
-        const records = res.data.records.map((item: any, index: number) => {
-          const avatarIndex = index % ACCOUNT_TABLE_DATA.length
-          return {
-            ...item,
-            avatar: ACCOUNT_TABLE_DATA[avatarIndex].avatar
-          }
-        })
+      const { currentPage, pageSize } = pagination
 
-        tableData.value = records
-        loading.value = false
+      const { records, current, size, total } = await UserService.getUserList({
+        current: currentPage,
+        size: pageSize
+      })
 
-        pagination.currentPage = res.data.current
-        pagination.pageSize = res.data.size
-        pagination.total = res.data.total
-      }
+      // 使用本地头像替换接口返回的头像
+      tableData.value = records.map((item: any, index: number) => ({
+        ...item,
+        avatar: ACCOUNT_TABLE_DATA[index % ACCOUNT_TABLE_DATA.length].avatar
+      }))
+
+      // 更新分页信息
+      Object.assign(pagination, { currentPage: current, pageSize: size, total })
     } catch (error) {
       console.error('获取用户列表失败:', error)
+    } finally {
       loading.value = false
     }
   }

@@ -109,8 +109,10 @@
             </template>
             <template #default>
               <p
-                >点击这里查看<span :style="{ color: systemThemeColor }"> 主题风格 </span>、
-                <span :style="{ color: systemThemeColor }"> 开启顶栏菜单 </span>等更多配置
+                >{{ $t('topBar.guide.title')
+                }}<span :style="{ color: systemThemeColor }"> {{ $t('topBar.guide.theme') }} </span
+                >、 <span :style="{ color: systemThemeColor }"> {{ $t('topBar.guide.menu') }} </span
+                >{{ $t('topBar.guide.description') }}
               </p>
             </template>
           </el-popover>

@@ -12,12 +12,7 @@
 
       <ElCard shadow="never" class="art-table-card">
         <!-- 表格头部 -->
-        <ArtTableHeader
-          :columnList="columnOptions"
-          :showZebra="false"
-          v-model:columns="columnChecks"
-          @refresh="handleRefresh"
-        >
+        <ArtTableHeader :showZebra="false" v-model:columns="columnChecks" @refresh="handleRefresh">
           <template #left>
             <!-- 按钮权限：后端控制模式，使用自定义指令 -->
             <ElButton v-auth="'add'" @click="showModel('menu', null, true)" v-ripple>
@@ -235,18 +230,6 @@
     }
   ]
 
-  // 列配置
-  const columnOptions = [
-    { label: '勾选', type: 'selection' },
-    { label: '用户名', prop: 'avatar' },
-    { label: '手机号', prop: 'mobile' },
-    { label: '性别', prop: 'sex' },
-    { label: '部门', prop: 'dep' },
-    { label: '状态', prop: 'status' },
-    { label: '创建日期', prop: 'create_time' },
-    { label: '操作', prop: 'operation' }
-  ]
-
   // 构建菜单类型标签
   const buildMenuTypeTag = (row: AppRouteRecord) => {
     if (row.children && row.children.length > 0) {
@@ -363,6 +346,8 @@
       width: 180,
       formatter: (row: AppRouteRecord) => {
         return h('div', [
+          // 这里写两组权限标识判断是为了方便演示，在实际开发中可以删除其中一组
+          // 前端模式权限标识
           hasAuth('B_CODE1') &&
             h(ArtButtonTable, {
               type: 'add',
@@ -374,6 +359,22 @@
               onClick: () => showDialog('edit', row)
             }),
           hasAuth('B_CODE3') &&
+            h(ArtButtonTable, {
+              type: 'delete',
+              onClick: () => deleteMenu()
+            }),
+          // 后端模式权限标识
+          hasAuth('add') &&
+            h(ArtButtonTable, {
+              type: 'add',
+              onClick: () => showModel('menu')
+            }),
+          hasAuth('edit') &&
+            h(ArtButtonTable, {
+              type: 'edit',
+              onClick: () => showDialog('edit', row)
+            }),
+          hasAuth('delete') &&
             h(ArtButtonTable, {
               type: 'delete',
               onClick: () => deleteMenu()
