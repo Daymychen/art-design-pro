@@ -1,13 +1,22 @@
-import { asyncRoutes } from '@/router/routes/asyncRoutes'
 import { menuDataToRouter } from '@/router/utils/menuToRouter'
 import { AppRouteRecord } from '@/types/router'
+
+// 后端控制模式（模拟接口返回的菜单数据）
+import { asyncRoutes } from '@/router/routes/asyncRoutes'
+
+// 后端控制模式（获取真实接口返回的菜单数据）
+// import request from '@/utils/http'
+// import { BaseResponse } from '@/types/api'
+// import { ApiStatus } from '@/utils/http/status'
 
 interface MenuResponse {
   menuList: AppRouteRecord[]
 }
 
 // 菜单接口
+// 下方代码仅在权限控制模式为“后端控制模式”时生效
 export const menuService = {
+  // 后端控制模式（模拟接口返回的菜单数据）
   async getMenuList(delay = 300): Promise<MenuResponse> {
     try {
       // 模拟接口返回的菜单数据
@@ -22,4 +31,26 @@ export const menuService = {
       throw error instanceof Error ? error : new Error('获取菜单失败')
     }
   }
+
+  // 后端控制模式（获取真实接口返回的菜单数据）
+  // async getMenuList(): Promise<MenuResponse> {
+  //   try {
+  //     // 获取菜单列表
+  //     const res = await request.get<BaseResponse>({
+  //       url: '/api/user/menu'
+  //     })
+  //     if (res.code === ApiStatus.success) {
+  //       // console.log(res.data.menuList)
+  //       const menuData: AppRouteRecord[] = res.data.menuList
+  //       // 处理菜单数据
+  //       const menuList = menuData.map((route) => menuDataToRouter(route))
+  //       return { menuList }
+  //     } else {
+  //       ElMessage.error(res.msg)
+  //       return { menuList: [] }
+  //     }
+  //   } catch (error) {
+  //     throw error instanceof Error ? error : new Error('获取菜单失败')
+  //   }
+  // }
 }
