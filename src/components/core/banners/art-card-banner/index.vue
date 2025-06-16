@@ -1,8 +1,9 @@
+<!-- 卡片横幅组件 -->
 <template>
-  <div class="card-banner art-custom-card">
+  <div class="card-banner art-custom-card" :style="{ height: props.height }">
     <div class="banner-content">
       <div class="banner-icon">
-        <img :src="props.icon" :alt="props.title" />
+        <img :src="props.image" :alt="props.title" />
       </div>
       <div class="banner-text">
         <p class="banner-title">{{ props.title }}</p>
@@ -10,19 +11,23 @@
       </div>
       <div class="banner-buttons">
         <div
-          v-if="showCancel"
+          v-if="props.cancelButton?.show"
           class="banner-button cancel-button"
-          :style="{ backgroundColor: cancelButtonColor, color: cancelButtonTextColor }"
+          :style="{
+            backgroundColor: props.cancelButton?.color,
+            color: props.cancelButton?.textColor
+          }"
           @click="handleCancel"
         >
-          {{ cancelButtonText }}
+          {{ props.cancelButton?.text }}
         </div>
         <div
+          v-if="props.button?.show"
           class="banner-button"
-          :style="{ backgroundColor: buttonColor, color: buttonTextColor }"
+          :style="{ backgroundColor: props.button?.color, color: props.button?.textColor }"
           @click="handleClick"
         >
-          {{ buttonText }}
+          {{ props.button?.text }}
         </div>
       </div>
     </div>
@@ -30,43 +35,69 @@
 </template>
 
 <script setup lang="ts">
+  // 导入默认图标
   import defaultIcon from '@imgs/3d/icon1.webp'
 
+  // 定义卡片横幅组件的属性接口
   interface CardBannerProps {
-    icon?: string
+    // 高度
+    height?: string
+    // 图片路径
+    image?: string
+    // 标题文本
     title: string
+    // 描述文本
     description: string
-    buttonText?: string
-    buttonColor?: string
-    buttonTextColor?: string
-    showCancel?: boolean
-    cancelButtonText?: string
-    cancelButtonColor?: string
-    cancelButtonTextColor?: string
+    // 主按钮配置
+    button?: {
+      show?: boolean // 是否显示
+      text?: string // 按钮文本
+      color?: string // 背景颜色
+      textColor?: string // 文字颜色
+    }
+    // 取消按钮配置
+    cancelButton?: {
+      show?: boolean // 是否显示
+      text?: string // 按钮文本
+      color?: string // 背景颜色
+      textColor?: string // 文字颜色
+    }
   }
 
+  // 定义组件属性默认值
   const props = withDefaults(defineProps<CardBannerProps>(), {
-    icon: defaultIcon,
+    height: '24rem',
+    image: defaultIcon,
     title: '',
     description: '',
-    buttonText: '重试',
-    buttonColor: 'var(--main-color)',
-    buttonTextColor: '#fff',
-    showCancel: false,
-    cancelButtonText: '取消',
-    cancelButtonColor: '#f5f5f5',
-    cancelButtonTextColor: '#666'
+    // 主按钮默认配置
+    button: () => ({
+      show: true,
+      text: '查看详情',
+      color: 'var(--main-color)',
+      textColor: '#fff'
+    }),
+    // 取消按钮默认配置
+    cancelButton: () => ({
+      show: false,
+      text: '取消',
+      color: '#f5f5f5',
+      textColor: '#666'
+    })
   })
 
+  // 定义组件事件
   const emit = defineEmits<{
-    (e: 'click'): void
-    (e: 'cancel'): void
+    (e: 'click'): void // 主按钮点击事件
+    (e: 'cancel'): void // 取消按钮点击事件
   }>()
 
+  // 主按钮点击处理函数
   const handleClick = () => {
     emit('click')
   }
 
+  // 取消按钮点击处理函数
   const handleCancel = () => {
     emit('cancel')
   }
@@ -74,7 +105,10 @@
 
 <style lang="scss" scoped>
   .card-banner {
-    padding: 3rem 0 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 1.5rem;
     background-color: var(--art-main-bg-color);
     border-radius: calc(var(--custom-radius) + 2px) !important;
 
@@ -97,6 +131,9 @@
     }
 
     .banner-text {
+      box-sizing: border-box;
+      padding: 0 16px;
+
       .banner-title {
         margin-bottom: 8px;
         font-size: 18px;

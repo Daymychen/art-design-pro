@@ -24,8 +24,17 @@ export const handleMenuJump = (item: AppRouteRecord, jumpToFirst: boolean = fals
     return router.push(item.path)
   }
 
-  // 获取第一个可见的子菜单，如果没有则取第一个子菜单
-  const firstChild = item.children.find((child) => !child.meta.isHide) || item.children[0]
+  // 递归查找第一个可见的叶子节点菜单
+  const findFirstLeafMenu = (items: AppRouteRecord[]): AppRouteRecord => {
+    for (const child of items) {
+      if (!child.meta.isHide) {
+        return child.children?.length ? findFirstLeafMenu(child.children) : child
+      }
+    }
+    return items[0]
+  }
+
+  const firstChild = findFirstLeafMenu(item.children)
 
   // 如果第一个子菜单是外部链接则打开新窗口
   if (firstChild.meta?.link) {

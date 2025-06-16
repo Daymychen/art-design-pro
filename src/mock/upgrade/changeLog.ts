@@ -10,6 +10,12 @@ interface UpgradeLog {
 
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
+    version: 'v2.4.2.1',
+    title: '横幅组件重构、Bug修复',
+    date: '2025-06-16',
+    detail: ['横幅组件重构以及优化', '修复混合菜单下第一个菜单是嵌套菜单跳转bug']
+  },
+  {
     version: 'v2.4.2',
     title: 'Bug修复与体验优化',
     date: '2025-06-14',
