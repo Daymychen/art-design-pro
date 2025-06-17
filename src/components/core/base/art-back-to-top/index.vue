@@ -1,23 +1,17 @@
+<!-- 返回顶部 -->
 <template>
   <div>
-    <el-tooltip
-      effect="dark"
-      :content="`按下 ^ 键也能回到顶部哦 ${EmojiText[200]}`"
-      placement="left-start"
-    >
-      <div class="back-to-top" v-show="showButton" @click="scrollToTop">
-        <div class="back-to-top-btn">
-          <i class="iconfont-sys">&#xe864;</i>
-          <p>顶部</p>
-        </div>
+    <div class="back-to-top" v-show="showButton" @click="scrollToTop">
+      <div class="back-to-top-btn">
+        <i class="iconfont-sys">&#xe864;</i>
+        <p>顶部</p>
       </div>
-    </el-tooltip>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
   import { useCommon } from '@/composables/useCommon'
-  import EmojiText from '@/utils/ui/emojo'
   import { ref, watch } from 'vue'
   const { scrollToTop } = useCommon()
 
@@ -29,15 +23,6 @@
   watch(y, (newY: number) => {
     showButton.value = newY > scrollThreshold
   })
-
-  // 监听键盘 ^ 键，回到顶部
-  const handleKeyDown = (event: KeyboardEvent) => {
-    if (event.key === 'ArrowUp') {
-      scrollToTop()
-    }
-  }
-
-  useEventListener('keydown', handleKeyDown)
 </script>
 
 <style lang="scss" scoped>
@@ -55,6 +40,7 @@
     cursor: pointer;
     border: 1px solid var(--art-border-color);
     border-radius: 6px;
+    transition: all 0.3s;
 
     i {
       display: block;
@@ -65,6 +51,11 @@
       margin-top: 2px;
       font-size: 10px;
       line-height: 1;
+    }
+
+    &:hover {
+      background-color: var(--art-text-gray-200);
+      border-color: var(--art-border-dashed-color);
     }
   }
 </style>

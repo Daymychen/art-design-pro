@@ -1,4 +1,4 @@
-<!-- System logo component -->
+<!-- 系统logo -->
 <template>
   <div class="art-logo">
     <img :style="logoStyle" src="@imgs/common/logo.webp" alt="logo" />
@@ -6,14 +6,16 @@
 </template>
 
 <script setup lang="ts">
-  const props = defineProps({
-    width: {
-      type: Number,
-      default: 36
-    }
+  interface Props {
+    /** logo 大小 */
+    size?: number | string
+  }
+
+  const props = withDefaults(defineProps<Props>(), {
+    size: 36
   })
 
-  const logoStyle = computed(() => ({ width: `${props.width}px` }))
+  const logoStyle = computed(() => ({ width: `${props.size}px` }))
 </script>
 
 <style lang="scss" scoped>

@@ -76,46 +76,70 @@
 
   // 流星对象接口定义
   interface Meteor {
-    x: number // 流星的水平位置(百分比)
-    speed: number // 流星划过的速度
-    delay: number // 流星出现的延迟时间
+    /** 流星的水平位置(百分比) */
+    x: number
+    /** 流星划过的速度 */
+    speed: number
+    /** 流星出现的延迟时间 */
+    delay: number
   }
 
   // 按钮配置接口定义
   interface ButtonConfig {
-    show: boolean // 是否启用按钮
-    text: string // 按钮文本
-    color?: string // 按钮背景色
-    textColor?: string // 按钮文字颜色
-    radius?: string // 按钮圆角大小
+    /** 是否启用按钮 */
+    show: boolean
+    /** 按钮文本 */
+    text: string
+    /** 按钮背景色 */
+    color?: string
+    /** 按钮文字颜色 */
+    textColor?: string
+    /** 按钮圆角大小 */
+    radius?: string
   }
 
   // 流星效果配置接口定义
   interface MeteorConfig {
-    enabled: boolean // 是否启用流星效果
-    count?: number // 流星数量
+    /** 是否启用流星效果 */
+    enabled: boolean
+    /** 流星数量 */
+    count?: number
   }
 
   // 背景图片配置接口定义
   interface ImageConfig {
-    src: string // 图片源地址
-    width?: string // 图片宽度
-    bottom?: string // 距底部距离
+    /** 图片源地址 */
+    src: string
+    /** 图片宽度 */
+    width?: string
+    /** 距底部距离 */
+    bottom?: string
+    /** 距右侧距离 */
     right?: string // 距右侧距离
   }
 
   // 组件属性接口定义
   interface Props {
-    height?: string // 横幅高度
-    title?: string // 标题文本
-    subtitle?: string // 副标题文本
-    backgroundColor?: string // 背景颜色
-    decoration?: boolean // 是否显示装饰效果
-    buttonConfig?: ButtonConfig // 按钮配置
-    meteorConfig?: MeteorConfig // 流星配置
-    imageConfig?: ImageConfig // 图片配置
-    titleColor?: string // 标题颜色
-    subtitleColor?: string // 副标题颜色
+    /** 横幅高度 */
+    height?: string
+    /** 标题文本 */
+    title?: string
+    /** 副标题文本 */
+    subtitle?: string
+    /** 背景颜色 */
+    backgroundColor?: string
+    /** 是否显示装饰效果 */
+    decoration?: boolean
+    /** 按钮配置 */
+    buttonConfig?: ButtonConfig
+    /** 流星配置 */
+    meteorConfig?: MeteorConfig
+    /** 图片配置 */
+    imageConfig?: ImageConfig
+    /** 标题颜色 */
+    titleColor?: string
+    /** 副标题颜色 */
+    subtitleColor?: string
   }
 
   // 组件属性默认值设置

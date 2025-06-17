@@ -7,7 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    ArtBackToTop: typeof import('./../components/core/base/ArtBackToTop.vue')['default']
+    ArtBackToTop: typeof import('./../components/core/base/art-back-to-top/index.vue')['default']
     ArtBarChart: typeof import('./../components/core/charts/ArtBarChart.vue')['default']
     ArtBarChartCard: typeof import('./../components/core/cards/ArtBarChartCard.vue')['default']
     ArtBasicBanner: typeof import('./../components/core/banners/art-basic-banner/index.vue')['default']
@@ -31,13 +31,13 @@ declare module 'vue' {
     ArtHBarChart: typeof import('./../components/core/charts/ArtHBarChart.vue')['default']
     ArtHeaderBar: typeof import('./../components/core/layouts/art-header-bar/index.vue')['default']
     ArtHorizontalMenu: typeof import('./../components/core/layouts/art-menus/art-horizontal-menu/index.vue')['default']
-    ArtIconSelector: typeof import('./../components/core/base/ArtIconSelector.vue')['default']
+    ArtIconSelector: typeof import('./../components/core/base/art-icon-selector/index.vue')['default']
     ArtImageCard: typeof import('./../components/core/cards/ArtImageCard.vue')['default']
     ArtKLineChart: typeof import('./../components/core/charts/ArtKLineChart.vue')['default']
     ArtLayouts: typeof import('./../components/core/layouts/art-layouts/index.vue')['default']
     ArtLineChart: typeof import('./../components/core/charts/ArtLineChart.vue')['default']
     ArtLineChartCard: typeof import('./../components/core/cards/ArtLineChartCard.vue')['default']
-    ArtLogo: typeof import('./../components/core/base/ArtLogo.vue')['default']
+    ArtLogo: typeof import('./../components/core/base/art-logo/index.vue')['default']
     ArtMapChart: typeof import('./../components/core/charts/ArtMapChart.vue')['default']
     ArtMenuRight: typeof import('./../components/core/others/ArtMenuRight.vue')['default']
     ArtMixedMenu: typeof import('./../components/core/layouts/art-menus/art-mixed-menu/index.vue')['default']
