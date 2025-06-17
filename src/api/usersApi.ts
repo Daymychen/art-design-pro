@@ -1,3 +1,4 @@
+import { Api } from '@/typings/api'
 import request from '@/utils/http'
 
 export class UserService {

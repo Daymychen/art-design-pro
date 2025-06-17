@@ -3,6 +3,9 @@
  *
  * 所有接口相关类型定义
  */
+
+import { AppRouteRecord } from '@/types/router'
+
 declare namespace Api {
   /** 基础类型 */
   namespace Http {
@@ -57,6 +60,11 @@ declare namespace Api {
       avatar?: string
       email?: string
       phone?: string
+    }
+
+    /** 用户菜单列表 */
+    interface MenuList {
+      menuList: AppRouteRecord[]
     }
 
     /** 用户列表数据 */
