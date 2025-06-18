@@ -1,64 +1,76 @@
 <!-- 图片卡片 -->
 <template>
-  <div class="image-card">
-    <el-card :body-style="{ padding: '0px' }" shadow="hover" class="art-custom-card">
-      <!-- 图片区域 -->
+  <div class="image-card" @click="handleClick">
+    <ElCard :body-style="{ padding: '0px' }" shadow="hover" class="art-custom-card">
       <div class="image-wrapper">
-        <el-image :src="props.imageUrl" fit="cover" loading="lazy">
+        <ElImage :src="props.imageUrl" fit="cover" loading="lazy">
           <template #placeholder>
             <div class="image-placeholder">
-              <el-icon><Picture /></el-icon>
+              <ElIcon><Picture /></ElIcon>
             </div>
           </template>
-        </el-image>
-        <!-- 阅读时间标签 -->
+        </ElImage>
         <div class="read-time" v-if="props.readTime"> {{ props.readTime }} 阅读 </div>
       </div>
 
-      <!-- 内容区域 -->
       <div class="content">
-        <!-- 分类标签 -->
         <div class="category" v-if="props.category">
           {{ props.category }}
         </div>
-        <!-- 标题 -->
         <p class="title">{{ props.title }}</p>
-        <!-- 统计信息 -->
         <div class="stats">
-          <span class="views">
-            <el-icon><View /></el-icon>
+          <span class="views" v-if="props.views">
+            <ElIcon><View /></ElIcon>
             {{ props.views }}
           </span>
-          <span class="comments" v-if="props.comments !== undefined">
-            <el-icon><ChatLineRound /></el-icon>
+          <span class="comments" v-if="props.comments">
+            <ElIcon><ChatLineRound /></ElIcon>
             {{ props.comments }}
           </span>
           <span class="date">{{ props.date }}</span>
         </div>
       </div>
-    </el-card>
+    </ElCard>
   </div>
 </template>
 
 <script setup lang="ts">
   import { Picture, View, ChatLineRound } from '@element-plus/icons-vue'
 
+  defineOptions({ name: 'ArtImageCard' })
+
   interface Props {
+    /** 图片地址 */
     imageUrl: string
+    /** 标题 */
     title: string
+    /** 分类 */
     category?: string
+    /** 阅读时间 */
     readTime?: string
-    views: number
+    /** 浏览量 */
+    views?: number
+    /** 评论数 */
     comments?: number
-    date: string
+    /** 日期 */
+    date?: string
   }
 
   const props = defineProps<Props>()
+
+  const emit = defineEmits<{
+    (e: 'click', card: Props): void
+  }>()
+
+  const handleClick = () => {
+    emit('click', props)
+  }
 </script>
 
 <style lang="scss" scoped>
   .image-card {
     width: 100%;
+    cursor: pointer;
 
     .art-custom-card {
       border-radius: calc(var(--custom-radius) + 2px) !important;

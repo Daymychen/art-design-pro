@@ -1,3 +1,4 @@
+<!-- 环型图卡片 -->
 <template>
   <div class="donut-chart-card art-custom-card" :style="{ height: `${height}rem` }">
     <div class="card-body">
@@ -7,12 +8,13 @@
           <div>
             <p class="value">{{ formatNumber(value) }}</p>
             <div class="percentage" :class="{ 'is-increase': percentage > 0 }">
-              {{ percentage > 0 ? '+' : '' }}{{ percentage }}% 较去年
+              {{ percentage > 0 ? '+' : '' }}{{ percentage }}%
+              <span v-if="percentageLabel">{{ percentageLabel }}</span>
             </div>
           </div>
           <div class="chart-legend">
-            <span class="legend-item current">{{ currentYear }}</span>
-            <span class="legend-item previous">{{ previousYear }}</span>
+            <span class="legend-item current" v-if="currentValue">{{ currentValue }}</span>
+            <span class="legend-item previous" v-if="previousValue">{{ previousValue }}</span>
           </div>
         </div>
         <div class="chart-section">
@@ -24,30 +26,37 @@
 </template>
 
 <script setup lang="ts">
-  import { useChart, useChartOps } from '@/composables/useChart'
   import { EChartsOption } from 'echarts'
+  import { useChart, useChartOps } from '@/composables/useChart'
   const { chartRef, isDark, initChart } = useChart()
 
+  defineOptions({ name: 'ArtDonutChartCard' })
+
   interface Props {
+    /** 数值 */
     value: number
+    /** 标题 */
     title: string
+    /** 百分比 */
     percentage: number
-    currentYear?: string
-    previousYear?: string
+    /** 百分比标签 */
+    percentageLabel?: string
+    /** 当前年份 */
+    currentValue?: string
+    /** 去年年份 */
+    previousValue?: string
+    /** 高度 */
     height?: number
+    /** 颜色 */
     color?: string
+    /** 半径 */
     radius?: [string, string]
+    /** 数据 */
     data: [number, number]
   }
 
   const props = withDefaults(defineProps<Props>(), {
-    value: 0,
-    title: '',
-    percentage: 0,
-    currentYear: '2022',
-    previousYear: '2021',
     height: 9,
-    color: '',
     radius: () => ['70%', '90%'],
     data: () => [0, 0]
   })
@@ -71,12 +80,12 @@
           data: [
             {
               value: props.data[0],
-              name: props.currentYear,
+              name: props.currentValue,
               itemStyle: { color: computedColor }
             },
             {
               value: props.data[1],
-              name: props.previousYear,
+              name: props.previousValue,
               itemStyle: { color: '#e6e8f7' }
             }
           ]

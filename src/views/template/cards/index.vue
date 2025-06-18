@@ -8,6 +8,7 @@
           :title="card.title"
           :description="card.description"
           :iconSize="card.iconSize"
+          :iconBgRadius="8"
           iconColor="#fff"
           :iconBgColor="card.iconBgColor"
           :showArrow="card.showArrow"
@@ -63,6 +64,7 @@
           :iconColor="card.iconColor"
           :iconBgColor="card.iconBgColor"
           :iconSize="card.iconSize"
+          :iconBgRadius="8"
         />
       </ElCol>
     </ElRow>
@@ -88,6 +90,7 @@
           date="过去 14 天"
           :percentage="-4.15"
           :height="9.5"
+          :barWidth="'45%'"
           :chartData="[120, 100, 150, 140, 90, 120, 130]"
         />
       </ElCol>
@@ -108,10 +111,11 @@
           :value="36358"
           title="粉丝量"
           :percentage="18"
+          percentageLabel="较去年"
           :data="[50, 40]"
           :height="9.5"
-          currentYear="2022"
-          previousYear="2021"
+          currentValue="2022"
+          previousValue="2021"
           :radius="['50%', '70%']"
         />
       </ElCol>
@@ -151,11 +155,12 @@
         <ArtDonutChartCard
           :value="36358"
           title="粉丝量"
-          :percentage="18"
+          :percentage="-18"
+          percentageLabel="较2021年"
           :data="[70, 30]"
           :height="11"
-          currentYear="2022"
-          previousYear="2021"
+          currentValue="12月"
+          previousValue="11月"
         />
       </ElCol>
     </ElRow>
@@ -191,6 +196,7 @@
           :views="card.views"
           :comments="card.comments"
           :date="card.date"
+          @click="handleImageCardClick(card)"
         />
       </ElCol>
     </ElRow>
@@ -419,6 +425,10 @@
   ]
 
   const handleMore = () => {}
+
+  const handleImageCardClick = (card: any) => {
+    console.log(card)
+  }
 </script>
 
 <style lang="scss" scoped>

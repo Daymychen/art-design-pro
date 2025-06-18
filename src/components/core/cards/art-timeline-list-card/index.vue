@@ -1,3 +1,4 @@
+<!-- 时间轴列表卡片 -->
 <template>
   <div class="timeline-list-card">
     <div class="art-card art-custom-card">
@@ -5,9 +6,9 @@
         <p class="card-title">{{ title }}</p>
         <p class="card-subtitle">{{ subtitle }}</p>
       </div>
-      <el-scrollbar :style="{ height: maxHeight }">
-        <el-timeline>
-          <el-timeline-item
+      <ElScrollbar :style="{ height: maxHeight }">
+        <ElTimeline>
+          <ElTimelineItem
             v-for="item in list"
             :key="item.time"
             :timestamp="item.time"
@@ -21,15 +22,14 @@
                 <span v-if="item.code" class="timeline-code"> #{{ item.code }} </span>
               </div>
             </div>
-          </el-timeline-item>
-        </el-timeline>
-      </el-scrollbar>
+          </ElTimelineItem>
+        </ElTimeline>
+      </ElScrollbar>
     </div>
   </div>
 </template>
-
 <script setup lang="ts">
-  import { computed } from 'vue'
+  defineOptions({ name: 'ArtTimelineListCard' })
 
   // 常量配置
   const ITEM_HEIGHT = 65
@@ -37,26 +37,33 @@
   const DEFAULT_MAX_COUNT = 5
 
   interface TimelineItem {
+    /** 时间 */
     time: string
+    /** 状态颜色 */
     status: string
+    /** 内容 */
     content: string
+    /** 代码标识 */
     code?: string
   }
 
+  interface Props {
+    /** 时间轴列表数据 */
+    list: TimelineItem[]
+    /** 标题 */
+    title: string
+    /** 副标题 */
+    subtitle?: string
+    /** 最大显示数量 */
+    maxCount?: number
+  }
+
   // Props 定义和验证
-  const props = withDefaults(
-    defineProps<{
-      list: TimelineItem[]
-      title: string
-      subtitle?: string
-      maxCount?: number
-    }>(),
-    {
-      title: '',
-      subtitle: '',
-      maxCount: DEFAULT_MAX_COUNT
-    }
-  )
+  const props = withDefaults(defineProps<Props>(), {
+    title: '',
+    subtitle: '',
+    maxCount: DEFAULT_MAX_COUNT
+  })
 
   // 计算最大高度
   const maxHeight = computed(() => `${ITEM_HEIGHT * props.maxCount}px`)

@@ -6,8 +6,8 @@
     <ArtMenuRight
       ref="menuRef"
       :menu-items="menuItems"
-      :menu-width="160"
-      :submenu-width="200"
+      :menu-width="180"
+      :submenu-width="140"
       :border-radius="10"
       @select="handleSelect"
       @show="onMenuShow"
@@ -18,8 +18,8 @@
 
 <script setup lang="ts">
   import { ref, computed, nextTick } from 'vue'
-  import ArtMenuRight from '@/components/core/others/ArtMenuRight.vue'
-  import type { MenuItemType } from '@/components/core/others/ArtMenuRight.vue'
+  import ArtMenuRight from '@/components/core/others/art-menu-right/index.vue'
+  import type { MenuItemType } from '@/components/core/others/art-menu-right/index.vue'
   import { ElMessage } from 'element-plus'
 
   const menuRef = ref<InstanceType<typeof ArtMenuRight>>()

@@ -60,7 +60,7 @@
   import { formatMenuTitle } from '@/router/utils/utils'
 
   import { useSettingStore } from '@/store/modules/setting'
-  import { MenuItemType } from '../../others/ArtMenuRight.vue'
+  import { MenuItemType } from '../../others/art-menu-right/index.vue'
   import { useCommon } from '@/composables/useCommon'
   import { WorkTab } from '@/types'
   const { t } = useI18n()

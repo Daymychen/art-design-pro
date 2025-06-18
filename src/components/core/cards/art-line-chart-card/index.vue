@@ -1,3 +1,4 @@
+<!-- 折线图卡片 -->
 <template>
   <div class="line-chart-card art-custom-card" :style="{ height: `${height}rem` }">
     <div class="card-body">
@@ -33,28 +34,31 @@
   import { EChartsOption } from 'echarts'
   const { chartRef, isDark, initChart } = useChart()
 
+  defineOptions({ name: 'ArtLineChartCard' })
+
   interface Props {
+    /** 数值 */
     value: number
+    /** 标签 */
     label: string
+    /** 百分比 */
     percentage: number
+    /** 日期 */
     date?: string
+    /** 高度 */
     height?: number
+    /** 颜色 */
     color?: string
+    /** 是否显示区域颜色 */
     showAreaColor?: boolean
+    /** 图表数据 */
     chartData: number[]
+    /** 是否为迷你图表 */
     isMiniChart?: boolean
   }
 
   const props = withDefaults(defineProps<Props>(), {
-    value: 0,
-    label: '',
-    percentage: 0,
-    date: '',
-    height: 11,
-    color: '',
-    showAreaColor: false,
-    chartData: () => [],
-    isMiniChart: false
+    height: 11
   })
 
   const options: () => EChartsOption = () => {

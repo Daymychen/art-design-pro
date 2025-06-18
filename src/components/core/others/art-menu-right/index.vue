@@ -46,15 +46,22 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, computed } from 'vue'
   import type { CSSProperties } from 'vue'
 
+  defineOptions({ name: 'ArtMenuRight' })
+
   export interface MenuItemType {
+    /** 菜单项唯一标识 */
     key: string
+    /** 菜单项标签 */
     label: string
+    /** 菜单项图标 */
     icon?: string
+    /** 菜单项是否禁用 */
     disabled?: boolean
+    /** 菜单项是否显示分割线 */
     showLine?: boolean
+    /** 子菜单 */
     children?: MenuItemType[]
     [key: string]: any
   }
@@ -99,6 +106,10 @@
   const visible = ref(false)
   const position = ref({ x: 0, y: 0 })
 
+  // 用于清理定时器和事件监听器
+  let showTimer: number | null = null
+  let eventListenersAdded = false
+
   // 计算菜单样式
   const menuStyle = computed(
     (): CSSProperties => ({
@@ -129,7 +140,7 @@
   // 计算子菜单列表样式
   const submenuListStyle = computed(
     (): CSSProperties => ({
-      minWidth: 'max-content',
+      minWidth: `${props.submenuWidth}px`,
       padding: `${props.menuPadding}px 0`,
       borderRadius: `${props.borderRadius}px`
     })
@@ -149,54 +160,120 @@
     return totalHeight
   }
 
-  const show = (e: MouseEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
-
+  // 优化的位置计算函数
+  const calculatePosition = (e: MouseEvent) => {
     const screenWidth = window.innerWidth
     const screenHeight = window.innerHeight
     const menuHeight = calculateMenuHeight()
 
-    // 计算最佳位置
     let x = e.clientX
     let y = e.clientY
 
-    // 检查右边界
+    // 检查右边界 - 优先显示在鼠标右侧，如果空间不足则显示在左侧
     if (x + props.menuWidth > screenWidth - props.boundaryDistance) {
-      x = screenWidth - props.menuWidth - props.boundaryDistance
+      x = Math.max(props.boundaryDistance, x - props.menuWidth)
     }
 
-    // 检查下边界
+    // 检查下边界 - 优先显示在鼠标下方，如果空间不足则向上调整
     if (y + menuHeight > screenHeight - props.boundaryDistance) {
-      y = screenHeight - menuHeight - props.boundaryDistance
+      y = Math.max(props.boundaryDistance, screenHeight - menuHeight - props.boundaryDistance)
     }
 
-    // 确保不会超出左边界和上边界
-    x = Math.max(props.boundaryDistance, x)
-    y = Math.max(props.boundaryDistance, y)
+    // 确保不会超出边界
+    x = Math.max(
+      props.boundaryDistance,
+      Math.min(x, screenWidth - props.menuWidth - props.boundaryDistance)
+    )
+    y = Math.max(
+      props.boundaryDistance,
+      Math.min(y, screenHeight - menuHeight - props.boundaryDistance)
+    )
 
-    position.value = { x, y }
+    return { x, y }
+  }
+
+  // 添加事件监听器
+  const addEventListeners = () => {
+    if (eventListenersAdded) return
+
+    document.addEventListener('click', handleDocumentClick)
+    document.addEventListener('contextmenu', handleDocumentContextmenu)
+    document.addEventListener('keydown', handleKeydown)
+    eventListenersAdded = true
+  }
+
+  // 移除事件监听器
+  const removeEventListeners = () => {
+    if (!eventListenersAdded) return
+
+    document.removeEventListener('click', handleDocumentClick)
+    document.removeEventListener('contextmenu', handleDocumentContextmenu)
+    document.removeEventListener('keydown', handleKeydown)
+    eventListenersAdded = false
+  }
+
+  // 处理文档点击事件
+  const handleDocumentClick = (e: Event) => {
+    // 检查点击是否在菜单内部
+    const target = e.target as Element
+    const menuElement = document.querySelector('.context-menu')
+    if (menuElement && menuElement.contains(target)) {
+      return
+    }
+    hide()
+  }
+
+  // 处理文档右键事件
+  const handleDocumentContextmenu = () => {
+    hide()
+  }
+
+  // 处理键盘事件
+  const handleKeydown = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      hide()
+    }
+  }
+
+  const show = (e: MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    // 清理之前的定时器
+    if (showTimer) {
+      window.clearTimeout(showTimer)
+      showTimer = null
+    }
+
+    // 计算位置
+    position.value = calculatePosition(e)
     visible.value = true
 
     emit('show')
 
     // 延迟添加事件监听器，避免立即触发关闭
-    setTimeout(() => {
+    showTimer = window.setTimeout(() => {
       if (visible.value) {
-        document.addEventListener('click', hide, { once: true })
-        document.addEventListener('contextmenu', hide, { once: true })
+        addEventListeners()
       }
-    }, 100)
+      showTimer = null
+    }, 50) // 减少延迟时间，提升响应性
   }
 
   const hide = () => {
-    if (visible.value) {
-      visible.value = false
-      emit('hide')
-      // 清理事件监听器
-      document.removeEventListener('click', hide)
-      document.removeEventListener('contextmenu', hide)
+    if (!visible.value) return
+
+    visible.value = false
+    emit('hide')
+
+    // 清理定时器
+    if (showTimer) {
+      window.clearTimeout(showTimer)
+      showTimer = null
     }
+
+    // 移除事件监听器
+    removeEventListeners()
   }
 
   const handleMenuClick = (item: MenuItemType) => {
@@ -212,10 +289,22 @@
   }
 
   const onAfterLeave = () => {
-    // 清理逻辑
-    document.removeEventListener('click', hide)
-    document.removeEventListener('contextmenu', hide)
+    // 确保清理所有资源
+    removeEventListeners()
+    if (showTimer) {
+      window.clearTimeout(showTimer)
+      showTimer = null
+    }
   }
+
+  // 组件卸载时清理资源
+  onUnmounted(() => {
+    removeEventListeners()
+    if (showTimer) {
+      window.clearTimeout(showTimer)
+      showTimer = null
+    }
+  })
 
   // 导出方法供父组件调用
   defineExpose({
@@ -233,7 +322,7 @@
       background: var(--el-bg-color);
       border: 1px solid var(--el-border-color-light);
       border-radius: v-bind('props.borderRadius + "px"');
-      box-shadow: var(--el-box-shadow-light);
+      box-shadow: var(--art-box-shadow-xs);
 
       .menu-list {
         margin: 0;

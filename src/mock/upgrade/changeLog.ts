@@ -8,6 +8,16 @@ interface UpgradeLog {
 
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
+    version: 'v2.4.2.4',
+    title: '组件重构、代码优化',
+    date: '2025-06-18',
+    detail: [
+      'ArtMenuRight 组件重构',
+      'ArtWatermark 增加类型注释',
+      'components/core/cards 下面的组件重构，代码优化'
+    ]
+  },
+  {
     version: 'v2.4.2.3',
     title: '组件重构、代码优化',
     date: '2025-06-18',

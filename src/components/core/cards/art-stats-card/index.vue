@@ -1,11 +1,18 @@
 <!-- 统计卡片 -->
 <template>
   <div class="stats-card art-custom-card" :style="{ backgroundColor: backgroundColor }">
-    <div class="stats-card__icon" :style="{ backgroundColor: iconBgColor }">
+    <div
+      v-if="icon"
+      class="stats-card__icon"
+      :style="{ backgroundColor: iconBgColor, borderRadius: iconBgRadius + 'px' }"
+    >
       <i
         class="iconfont-sys"
         v-html="icon"
-        :style="{ color: iconColor, fontSize: iconSize + 'px' }"
+        :style="{
+          color: iconColor,
+          fontSize: iconSize + 'px'
+        }"
       ></i>
     </div>
     <div class="stats-card__content">
@@ -26,20 +33,37 @@
 <script setup lang="ts">
   import { CountTo } from 'vue3-count-to'
 
+  defineOptions({ name: 'ArtStatsCard' })
+
   interface StatsCardProps {
-    icon: string
+    /** 图标 */
+    icon?: string
+    /** 标题 */
     title?: string
+    /** 数值 */
     count?: number
+    /** 描述 */
     description: string
+    /** 图标颜色 */
     iconColor?: string
+    /** 图标背景颜色 */
     iconBgColor?: string
+    /** 图标圆角大小 */
+    iconBgRadius?: number
+    /** 图标大小 */
     iconSize?: number
+    /** 文本颜色 */
     textColor?: string
+    /** 背景颜色 */
     backgroundColor?: string
+    /** 是否显示箭头 */
     showArrow?: boolean
   }
 
-  defineProps<StatsCardProps>()
+  withDefaults(defineProps<StatsCardProps>(), {
+    iconSize: 30,
+    iconBgRadius: 50
+  })
 </script>
 
 <style lang="scss" scoped>

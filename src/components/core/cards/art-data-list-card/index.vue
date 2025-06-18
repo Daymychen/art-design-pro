@@ -1,3 +1,4 @@
+<!-- 数据列表卡片 -->
 <template>
   <div class="basic-list-card">
     <div class="art-card art-custom-card">
@@ -5,7 +6,7 @@
         <p class="card-title">{{ title }}</p>
         <p class="card-subtitle">{{ subtitle }}</p>
       </div>
-      <el-scrollbar :style="{ height: maxHeight }">
+      <ElScrollbar :style="{ height: maxHeight }">
         <div v-for="(item, index) in list" :key="index" class="list-item">
           <div class="item-icon" :class="item.class" v-if="item.icon">
             <i class="iconfont-sys" v-html="item.icon"></i>
@@ -16,54 +17,58 @@
           </div>
           <div class="item-time">{{ item.time }}</div>
         </div>
-      </el-scrollbar>
-      <el-button class="more-btn" v-if="showMoreButton" v-ripple @click="handleMore"
-        >查看更多</el-button
+      </ElScrollbar>
+      <ElButton class="more-btn" v-if="showMoreButton" v-ripple @click="handleMore"
+        >查看更多</ElButton
       >
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { computed } from 'vue'
+  defineOptions({ name: 'ArtDataListCard' })
 
-  const itemHeight = 66
-  const props = withDefaults(
-    defineProps<{
-      list: Activity[]
-      title: string
-      subtitle?: string
-      maxCount?: number
-      showMoreButton?: boolean
-    }>(),
-    {
-      title: '',
-      subtitle: '',
-      maxCount: 5,
-      showMoreButton: false
-    }
-  )
-
-  const maxHeight = computed(() => {
-    return `${itemHeight * (props.maxCount || 5)}px`
-  })
-
-  interface Activity {
+  interface Props {
+    /** 数据列表 */
+    list: Activity[]
+    /** 标题 */
     title: string
-    status: string
-    time: string
-    class: string
-    icon: string
+    /** 副标题 */
+    subtitle?: string
+    /** 最大显示数量 */
     maxCount?: number
+    /** 是否显示更多按钮 */
+    showMoreButton?: boolean
   }
 
+  interface Activity {
+    /** 标题 */
+    title: string
+    /** 状态 */
+    status: string
+    /** 时间 */
+    time: string
+    /** 样式类名 */
+    class: string
+    /** 图标 */
+    icon: string
+  }
+
+  const ITEM_HEIGHT = 66
+  const DEFAULT_MAX_COUNT = 5
+
+  const props = withDefaults(defineProps<Props>(), {
+    maxCount: DEFAULT_MAX_COUNT
+  })
+
+  const maxHeight = computed(() => `${ITEM_HEIGHT * props.maxCount}px`)
+
   const emit = defineEmits<{
+    /** 点击更多按钮事件 */
     (e: 'more'): void
   }>()
 
-  const handleMore = () => {
-    emit('more')
-  }
+  const handleMore = () => emit('more')
 </script>
 
 <style lang="scss" scoped>

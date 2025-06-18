@@ -1,3 +1,4 @@
+<!-- 进度条卡片 -->
 <template>
   <div class="progress-card art-custom-card">
     <div class="progress-info" :style="{ justifyContent: icon ? 'space-between' : 'flex-start' }">
@@ -9,7 +10,8 @@
           :style="{
             color: iconColor,
             backgroundColor: iconBgColor,
-            fontSize: iconSize + 'px'
+            fontSize: iconSize + 'px',
+            borderRadius: iconBgRadius + 'px'
           }"
         ></i>
       </div>
@@ -25,7 +27,7 @@
         <p class="title">{{ title }}</p>
       </div>
     </div>
-    <el-progress
+    <ElProgress
       :percentage="currentPercentage"
       :stroke-width="strokeWidth"
       :show-text="false"
@@ -35,22 +37,34 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, onMounted, watch } from 'vue'
   import { CountTo } from 'vue3-count-to'
 
+  defineOptions({ name: 'ArtProgressCard' })
+
   interface Props {
+    /** 进度百分比 */
     percentage: number
+    /** 标题 */
     title: string
+    /** 颜色 */
     color?: string
+    /** 图标 */
     icon?: string
+    /** 图标颜色 */
     iconColor?: string
+    /** 图标背景颜色 */
     iconBgColor?: string
+    /** icon 背景圆角大小 */
+    iconBgRadius?: number
+    /** 图标大小 */
     iconSize?: number
+    /** 进度条宽度 */
     strokeWidth?: number
   }
 
   const props = withDefaults(defineProps<Props>(), {
     strokeWidth: 5,
+    iconBgRadius: 8,
     color: '#67C23A'
   })
 
@@ -113,7 +127,6 @@
           width: 46px;
           height: 46px;
           background-color: var(--art-gray-300);
-          border-radius: 8px;
         }
       }
 
