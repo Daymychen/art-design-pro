@@ -6,6 +6,8 @@
 </template>
 
 <script setup lang="ts">
+  defineOptions({ name: 'ArtLogo' })
+
   interface Props {
     /** logo 大小 */
     size?: number | string

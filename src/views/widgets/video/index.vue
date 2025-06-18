@@ -6,7 +6,7 @@
         :videoUrl="videoUrl"
         :posterUrl="posterUrl"
         :autoplay="false"
-        :volume="0.5"
+        :volume="1"
         :playbackRates="[0.5, 1, 1.5, 2]"
       />
     </div>

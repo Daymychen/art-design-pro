@@ -44,7 +44,18 @@ module.exports = {
     'at-rule-no-unknown': [
       true,
       {
-        ignoreAtRules: ['apply', 'use', 'mixin', 'include', 'extend']
+        ignoreAtRules: [
+          'apply',
+          'use',
+          'mixin',
+          'include',
+          'extend',
+          'each',
+          'if',
+          'else',
+          'for',
+          'while'
+        ]
       }
     ]
   }

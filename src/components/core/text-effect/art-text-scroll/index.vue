@@ -25,15 +25,24 @@
   import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
   import { useElementHover } from '@vueuse/core'
 
+  defineOptions({ name: 'ArtTextScroll' })
+
   const emit = defineEmits(['close'])
 
   interface Props {
+    /** 文本 */
     text: string
+    /** 滚动速度 */
     speed?: number
+    /** 滚动方向 左/右 */
     direction?: 'left' | 'right'
+    /** 类型 默认/成功/警告/危险/信息 */
     type?: 'default' | 'success' | 'warning' | 'danger' | 'info'
+    /** 是否显示关闭按钮 */
     showClose?: boolean
+    /** 是否启用打字机效果 */
     typewriter?: boolean
+    /** 打字机速度 */
     typewriterSpeed?: number
   }
 
@@ -141,6 +150,18 @@
 </script>
 
 <style scoped lang="scss">
+  $text-scroll-height: 34px;
+  $icon-width: 40px;
+  $border-radius: calc(var(--custom-radius) / 2 + 2px);
+  $types: (
+    default: primary,
+    success: success,
+    warning: warning,
+    danger: danger,
+    info: info
+  );
+
+  // 基础容器样式
   .text-scroll-container {
     position: relative;
     box-sizing: border-box;
@@ -149,21 +170,22 @@
     width: 100%;
     padding-right: 16px;
     overflow: hidden;
-    background-color: var(--el-color-primary-light-9) !important;
+    background-color: var(--el-color-primary-light-9);
     border: 1px solid var(--main-color);
-    border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
+    border-radius: $border-radius;
 
+    // 左右图标公共样式
     .left-icon,
     .right-icon {
       position: absolute;
       top: 0;
       bottom: 0;
       z-index: 2;
-      width: 40px;
-      height: 34px;
-      line-height: 34px;
+      width: $icon-width;
+      height: $text-scroll-height;
+      line-height: $text-scroll-height;
       text-align: center;
-      background-color: var(--el-color-primary-light-9) !important;
+      background-color: var(--el-color-primary-light-9);
 
       i {
         color: var(--main-color);
@@ -177,19 +199,21 @@
     .right-icon {
       right: 0;
       cursor: pointer;
-      background-color: transparent !important;
+      background-color: transparent;
     }
 
+    // 滚动内容包装器
     .scroll-wrapper {
       flex: 1;
-      margin-left: 34px;
+      margin-left: $text-scroll-height;
       overflow: hidden;
     }
 
+    // 滚动内容
     .text-scroll-content {
       display: flex;
-      height: 34px;
-      line-height: 34px;
+      height: $text-scroll-height;
+      line-height: $text-scroll-height;
       white-space: nowrap;
       animation: scroll linear infinite;
       animation-duration: var(--animation-duration);
@@ -201,123 +225,61 @@
         min-width: 100%;
         padding: 0 10px;
         font-size: 14px;
-        color: var(--el-color-primary-light-2) !important;
-        text-align: left;
+        color: var(--el-color-primary-light-2);
         text-align: center;
 
         :deep(a) {
-          color: #fd4e4e !important;
+          color: #fd4e4e;
           text-decoration: none;
 
           &:hover {
             text-decoration: underline;
           }
         }
-      }
-    }
 
-    @keyframes scroll {
-      0% {
-        transform: translateX(0);
-      }
-
-      100% {
-        transform: translateX(-100%);
-      }
-    }
-
-    // 添加类型样式
-    &.text-scroll--default {
-      background-color: var(--el-color-primary-light-9) !important;
-      border-color: var(--el-color-primary);
-
-      .left-icon i {
-        color: var(--el-color-primary) !important;
-      }
-
-      .scroll-item {
-        color: var(--el-color-primary) !important;
-      }
-    }
-
-    &.text-scroll--success {
-      background-color: var(--el-color-success-light-9) !important;
-      border-color: var(--el-color-success);
-
-      .left-icon {
-        background-color: var(--el-color-success-light-9) !important;
-
-        i {
-          color: var(--el-color-success);
+        // 打字机光标效果
+        &::after {
+          content: '|';
+          opacity: 0;
+          animation: cursor 1s infinite;
         }
       }
-
-      .scroll-item {
-        color: var(--el-color-success) !important;
-      }
     }
 
-    &.text-scroll--warning {
-      background-color: var(--el-color-warning-light-9) !important;
-      border-color: var(--el-color-warning);
+    // 动态生成类型样式
+    @each $type, $color in $types {
+      &.text-scroll--#{$type} {
+        background-color: var(--el-color-#{$color}-light-9);
+        border-color: var(--el-color-#{$color});
 
-      .left-icon {
-        background-color: var(--el-color-warning-light-9) !important;
+        .left-icon,
+        .right-icon {
+          background-color: var(--el-color-#{$color}-light-9);
 
-        i {
-          color: var(--el-color-warning);
+          i {
+            color: var(--el-color-#{$color});
+          }
         }
-      }
 
-      .scroll-item {
-        color: var(--el-color-warning) !important;
-      }
-    }
-
-    &.text-scroll--danger {
-      background-color: var(--el-color-danger-light-9) !important;
-      border-color: var(--el-color-danger);
-
-      .left-icon {
-        background-color: var(--el-color-danger-light-9) !important;
-
-        i {
-          color: var(--el-color-danger);
+        .scroll-item {
+          color: var(--el-color-#{$color});
         }
-      }
-
-      .scroll-item {
-        color: var(--el-color-danger) !important;
-      }
-    }
-
-    &.text-scroll--info {
-      background-color: var(--el-color-info-light-9) !important;
-      border-color: var(--el-color-info);
-
-      .left-icon {
-        background-color: var(--el-color-info-light-9) !important;
-
-        i {
-          color: var(--el-color-info);
-        }
-      }
-
-      .scroll-item {
-        color: var(--el-color-info) !important;
       }
     }
   }
 
-  // 添加打字机效果的光标样式
-  .text-scroll-content .scroll-item {
-    &::after {
-      content: '|';
-      opacity: 0;
-      animation: cursor 1s infinite;
+  // 滚动动画
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-100%);
     }
   }
 
+  // 光标动画
   @keyframes cursor {
     0%,
     100% {

@@ -1,5 +1,3 @@
-// requireReLogin: true // 需要重新登录
-
 interface UpgradeLog {
   version: string // 版本号
   title: string // 更新标题
@@ -9,6 +7,18 @@ interface UpgradeLog {
 }
 
 export const upgradeLogList = ref<UpgradeLog[]>([
+  {
+    version: 'v2.4.2.3',
+    title: '组件重构、代码优化',
+    date: '2025-06-18',
+    detail: [
+      'ArtResultPage 组件重构',
+      'ArtTextScroll 组件代码优化',
+      'ArtException 组件增加类型提示',
+      'ArtCutterImg 组件样式优化、增加类型定义',
+      'ArtVideoPlayer 组件增加类型定义'
+    ]
+  },
   {
     version: 'v2.4.2.2',
     title: '组件重构',

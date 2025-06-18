@@ -258,6 +258,7 @@
         var(--textColor) 100%
       );
       background-clip: text;
+      background-clip: text;
       animation: slidetounlock 3s infinite;
       -webkit-text-fill-color: transparent;
       text-size-adjust: none;

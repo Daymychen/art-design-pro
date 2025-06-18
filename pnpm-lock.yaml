@@ -190,7 +190,7 @@ importers:
         version: 0.14.10(vue@3.5.15(typescript@5.6.3))
       vue-img-cutter:
         specifier: ^3.0.5
-        version: 3.0.5(typescript@5.6.3)
+        version: 3.0.7(typescript@5.6.3)
       vue-tsc:
         specifier: ~2.1.6
         version: 2.1.10(typescript@5.6.3)
@@ -8289,10 +8289,10 @@ packages:
     peerDependencies:
       vue: ^3.0.0
 
-  vue-img-cutter@3.0.5:
+  vue-img-cutter@3.0.7:
     resolution:
       {
-        integrity: sha512-/rqSCvqpSzlsKCgK1alZApdttVZ/zfEtqKTMY6ualCysr1WDm3yBEpyqxEIfY/znO9mnoUc1UnKkdTsyEgyd9A==
+        integrity: sha512-fNw3kimawg9XVXDZCw2bI74NI+Jq+H42wjymatZVVSY46wuBty6LbQsu4GeVfo/yzpS9AHY0tzckpYzX3D2fmA==
       }
 
   vue-router@4.5.0:
@@ -13653,7 +13653,7 @@ snapshots:
       '@vue/devtools-api': 6.6.4
       vue: 3.5.15(typescript@5.6.3)
 
-  vue-img-cutter@3.0.5(typescript@5.6.3):
+  vue-img-cutter@3.0.7(typescript@5.6.3):
     dependencies:
       core-js: 3.39.0
       vue: 3.5.15(typescript@5.6.3)

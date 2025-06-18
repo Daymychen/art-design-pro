@@ -1,4 +1,4 @@
-<!-- github: https://github.com/acccccccb/vue-img-cutter/tree/master -->
+<!-- 图片裁剪组件 github: https://github.com/acccccccb/vue-img-cutter/tree/master -->
 <template>
   <div class="cutter-container">
     <div class="cutter-component">
@@ -46,42 +46,66 @@
 
 <script setup lang="ts">
   import ImgCutter from 'vue-img-cutter'
-  import { ref, watch, onMounted, computed } from 'vue'
+
+  defineOptions({ name: 'ArtCutterImg' })
 
   interface CutterProps {
     // 基础配置
+    /** 是否模态框 */
     isModal?: boolean
+    /** 是否显示工具栏 */
     tool?: boolean
+    /** 工具栏背景色 */
     toolBgc?: string
+    /** 标题 */
     title?: string
+    /** 预览标题 */
     previewTitle?: string
+    /** 是否显示预览 */
     showPreview?: boolean
 
     // 尺寸相关
+    /** 容器宽度 */
     boxWidth?: number
+    /** 容器高度 */
     boxHeight?: number
+    /** 裁剪宽度 */
     cutWidth?: number
+    /** 裁剪高度 */
     cutHeight?: number
+    /** 是否允许大小调整 */
     sizeChange?: boolean
 
     // 移动和缩放
+    /** 是否允许移动 */
     moveAble?: boolean
+    /** 是否允许图片移动 */
     imgMove?: boolean
+    /** 是否允许缩放 */
     scaleAble?: boolean
 
     // 图片相关
+    /** 是否显示原始图片 */
     originalGraph?: boolean
+    /** 是否允许跨域 */
     crossOrigin?: boolean
+    /** 文件类型 */
     fileType?: 'png' | 'jpeg' | 'webp'
+    /** 质量 */
     quality?: number
 
     // 水印
+    /** 水印文本 */
     watermarkText?: string
+    /** 水印字体大小 */
     watermarkFontSize?: number
+    /** 水印颜色 */
     watermarkColor?: string
 
     // 其他功能
+    /** 是否保存裁剪位置 */
     saveCutPosition?: boolean
+    /** 是否预览模式 */
     previewMode?: boolean
 
     // 输入图片
@@ -100,8 +124,8 @@
     isModal: false,
     tool: true,
     toolBgc: '#fff',
-    title: '图像裁剪',
-    previewTitle: '图像预览',
+    title: '',
+    previewTitle: '',
     showPreview: true,
 
     // 尺寸相关默认值
@@ -265,10 +289,11 @@
 
     :deep(.dockMain) {
       right: 0;
-      bottom: -50px;
+      bottom: -40px;
       left: 0;
       z-index: 10;
-      background-color: var(--art-gray-200) !important;
+      padding: 0;
+      background-color: transparent !important;
       opacity: 1;
     }
 
@@ -279,14 +304,33 @@
     :deep(.i-dialog-footer) {
       margin-top: 60px !important;
     }
+
+    :deep(.dockBtn) {
+      height: 26px;
+      padding: 0 10px;
+      font-size: 12px;
+      line-height: 26px;
+      color: var(--el-color-primary) !important;
+      background-color: var(--el-color-primary-light-9) !important;
+      border: 1px solid var(--el-color-primary-light-4) !important;
+    }
+
+    :deep(.dockBtnScrollBar) {
+      margin: 0 10px 0 6px;
+      background-color: var(--el-color-primary-light-1);
+    }
+
+    :deep(.scrollBarControl) {
+      border-color: var(--el-color-primary);
+    }
+
+    :deep(.closeIcon) {
+      line-height: 15px !important;
+    }
   }
 
   .dark {
     .cutter-container {
-      :deep(.dockBtn) {
-        background-color: var(--el-color-primary) !important;
-      }
-
       :deep(.toolBox) {
         border: transparent;
       }

@@ -56,6 +56,8 @@
   import { IconTypeEnum } from '@/enums/appEnum'
   import { extractIconClasses, type IconfontType } from '@/utils/constants'
 
+  defineOptions({ name: 'ArtIconSelector' })
+
   // 组件大小类型
   type ComponentSize = 'large' | 'default' | 'small'
 

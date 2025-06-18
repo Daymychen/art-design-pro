@@ -14,17 +14,23 @@
   import { HOME_PAGE } from '@/router/routesAlias'
   const router = useRouter()
 
-  defineProps({
-    data: {
-      type: Object as PropType<{
-        title: string
-        desc: string
-        btnText: string
-        imgUrl: string
-      }>,
-      required: true
-    }
-  })
+  interface ExceptionData {
+    /** 标题 */
+    title: string
+    /** 描述 */
+    desc: string
+    /** 按钮文本 */
+    btnText: string
+    /** 图片地址 */
+    imgUrl: string
+  }
+
+  withDefaults(
+    defineProps<{
+      data: ExceptionData
+    }>(),
+    {}
+  )
 
   const backHome = () => {
     router.push(HOME_PAGE)

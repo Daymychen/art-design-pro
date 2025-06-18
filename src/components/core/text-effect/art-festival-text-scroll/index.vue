@@ -23,12 +23,12 @@
   import { useSettingStore } from '@/store/modules/setting'
   import { useCeremony } from '@/composables/useCeremony'
 
+  defineOptions({ name: 'ArtFestivalTextScroll' })
+
   const settingStore = useSettingStore()
   const { showFestivalText } = storeToRefs(settingStore)
-
   const { currentFestivalData } = useCeremony()
 
-  // 处理关闭节日文本
   const handleClose = () => {
     settingStore.setShowFestivalText(false)
   }

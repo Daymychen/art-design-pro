@@ -12,7 +12,9 @@
 
 <script setup lang="ts">
   import { useCommon } from '@/composables/useCommon'
-  import { ref, watch } from 'vue'
+
+  defineOptions({ name: 'ArtBackToTop' })
+
   const { scrollToTop } = useCommon()
 
   const { y } = useWindowScroll()

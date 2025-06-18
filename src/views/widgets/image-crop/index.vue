@@ -1,7 +1,6 @@
 <template>
   <div class="page-content">
     <ArtCutterImg
-      style="margin-top: 20px"
       v-model:imgUrl="imageUrl"
       :boxWidth="540"
       :boxHeight="300"
@@ -13,6 +12,7 @@
       watermarkColor="#ff0000"
       :showPreview="true"
       :originalGraph="false"
+      :title="'图片裁剪'"
       :previewTitle="'预览效果'"
       @error="handleError"
       @imageLoadComplete="handleLoadComplete"

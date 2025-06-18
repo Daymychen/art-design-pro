@@ -67,12 +67,12 @@
 </template>
 
 <script setup lang="ts">
-  // 导入所需的 Vue 组合式 API
   import { onMounted, ref, computed } from 'vue'
-  // 导入设置状态管理
   import { useSettingStore } from '@/store/modules/setting'
   const settingStore = useSettingStore()
   const { isDark } = storeToRefs(settingStore)
+
+  defineOptions({ name: 'ArtBasicBanner' })
 
   // 流星对象接口定义
   interface Meteor {

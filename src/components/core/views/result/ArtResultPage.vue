@@ -4,13 +4,10 @@
     <h1 class="title">{{ title }}</h1>
     <p class="msg">{{ message }}</p>
     <div class="res">
-      <slot name="result-content"></slot>
+      <slot name="content"></slot>
     </div>
     <div class="btn-group">
-      <slot name="buttons">
-        <el-button type="primary" v-ripple>返回修改</el-button>
-        <el-button v-ripple>查看</el-button>
-      </slot>
+      <slot name="buttons"></slot>
     </div>
   </div>
 </template>
@@ -19,9 +16,13 @@
   defineOptions({ name: 'ArtResultPage' })
 
   interface ResultPageProps {
+    /** 成功/失败 */
     type: 'success' | 'fail'
+    /** 标题 */
     title: string
+    /** 消息 */
     message: string
+    /** 图标 */
     iconCode: string
   }
 
