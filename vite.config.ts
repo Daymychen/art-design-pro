@@ -85,7 +85,33 @@ export default ({ mode }) => {
         dts: 'src/types/components.d.ts' // 指定类型声明文件的路径
       }),
       AutoImport({
-        imports: ['vue', 'vue-router', '@vueuse/core', 'pinia'],
+        imports: [
+          'vue',
+          'vue-router',
+          '@vueuse/core',
+          'pinia',
+          {
+            'alova/client': [
+              /** 监听请求 */
+              'useWatcher',
+              /**数据拉取 */
+              'useRequest',
+              /** 分页请求策略 */
+              'usePagination',
+              /** 表单提交策略 */
+              'useForm',
+              /** 发送验证码 */
+              'useCaptcha',
+              /** 串行请求的useRequest */
+              'useSerialRequest',
+              /** 串行请求的useWatcher */
+              'useSerialWatcher',
+              /** 请求重试策略 */
+              'useRetriableRequest'
+              // ...
+            ]
+          }
+        ],
         resolvers: [ElementPlusResolver()],
         dts: 'src/types/auto-imports.d.ts',
         eslintrc: {
