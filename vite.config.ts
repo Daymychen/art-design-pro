@@ -5,6 +5,7 @@ import viteCompression from 'vite-plugin-compression'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import UnoCSS from 'unocss/vite'
 import { fileURLToPath } from 'url'
 // import viteImagemin from 'vite-plugin-imagemin'
 // import { visualizer } from 'rollup-plugin-visualizer'
@@ -94,6 +95,7 @@ export default ({ mode }) => {
           globalsPropValue: true
         }
       }),
+      UnoCSS(),
       // 打包分析
       // visualizer({
       //   open: true,

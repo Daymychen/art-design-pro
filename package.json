@@ -102,6 +102,7 @@
     "terser": "^5.36.0",
     "typescript": "~5.6.3",
     "typescript-eslint": "^8.9.0",
+    "unocss": "^66.2.3",
     "unplugin-auto-import": "^0.18.3",
     "unplugin-vue-components": "^0.27.4",
     "vite": "^6.1.0",

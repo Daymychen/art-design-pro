@@ -1,5 +1,6 @@
 import App from './App.vue'
 import { createApp } from 'vue'
+import 'virtual:uno.css'
 import { initStore } from './store'                 // Store
 import { initRouter } from './router'               // Router
 import '@styles/reset.scss'                         // 重置HTML样式
