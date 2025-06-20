@@ -1,16 +1,21 @@
 <template>
   <div class="page-content">
-    <ElRow>
-      <ElCol :xs="24" :sm="12" :lg="6">
-        <ElInput placeholder="部门名称"></ElInput>
-      </ElCol>
-      <div style="width: 12px"></div>
-      <ElCol :xs="24" :sm="12" :lg="6" class="el-col2">
-        <ElButton v-ripple>搜索</ElButton>
-        <ElButton @click="showDialog('add')" v-ripple>新增角色</ElButton>
-      </ElCol>
-    </ElRow>
-
+    <ElForm>
+      <ElRow>
+        <ElCol :xs="24" :sm="12" :lg="6">
+          <ElFormItem>
+            <ElInput placeholder="部门名称"></ElInput>
+          </ElFormItem>
+        </ElCol>
+        <div style="width: 12px"></div>
+        <ElCol :xs="24" :sm="12" :lg="6" class="el-col2">
+          <ElFormItem>
+            <ElButton v-ripple>搜索</ElButton>
+            <ElButton @click="showDialog('add')" v-ripple>新增角色</ElButton>
+          </ElFormItem>
+        </ElCol>
+      </ElRow>
+    </ElForm>
     <ArtTable :data="roleList" index>
       <template #default>
         <ElTableColumn label="角色名称" prop="roleName" />
