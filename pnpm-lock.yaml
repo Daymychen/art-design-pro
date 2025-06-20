@@ -7,6 +7,9 @@ settings:
 importers:
   .:
     dependencies:
+      '@alova/adapter-axios':
+        specifier: ^2.0.16
+        version: 2.0.16(alova@3.3.3)(axios@1.7.8)
       '@element-plus/icons-vue':
         specifier: ^2.3.1
         version: 2.3.1(vue@3.5.15(typescript@5.6.3))
@@ -22,6 +25,9 @@ importers:
       '@wangeditor/editor-for-vue':
         specifier: next
         version: 5.1.12(@wangeditor/editor@5.1.23)(vue@3.5.15(typescript@5.6.3))
+      alova:
+        specifier: ^3.3.3
+        version: 3.3.3
       axios:
         specifier: ^1.7.5
         version: 1.7.8
@@ -199,6 +205,21 @@ importers:
         version: 2.1.10(typescript@5.6.3)
 
 packages:
+  '@alova/adapter-axios@2.0.16':
+    resolution:
+      {
+        integrity: sha512-O9iskfllA8Yd5QV7w/c2aBduf1ocpD5goXp3aJbBXovZanKbsgMyvuFycXmTeqPyLdjURo5fYicEmWHwURpkbQ==
+      }
+    peerDependencies:
+      alova: ^3.0.20
+      axios: '>=0.4.0'
+
+  '@alova/shared@1.3.1':
+    resolution:
+      {
+        integrity: sha512-ijSOaFLUFcVzMKSY3avoEE5C03/p9atjMDPBwvNkwnzaCrhv6/m4A121NdadF8YlHCRuifyYfz90IyEdMXTsJg==
+      }
+
   '@ampproject/remapping@2.3.0':
     resolution:
       {
@@ -2619,6 +2640,13 @@ packages:
       {
         integrity: sha512-cZIRkbERILsBOXTQmMrxc9hgpxglstn69zm+F1ARf4aPAzdAFYd6sBq87ErO0Fj3DV94tglcyHG5kQz9nDC/8A==
       }
+
+  alova@3.3.3:
+    resolution:
+      {
+        integrity: sha512-DB1t2qpQUERVaymz+u9bS71kcN5PzZ+G5LawHm9grabv++tfHOeYsKaW+LCpgMIJ/V7lQqFyqwOvTHGDph43Jw==
+      }
+    engines: { node: '>= 18.0.0' }
 
   ansi-escapes@4.3.2:
     resolution:
@@ -7160,6 +7188,12 @@ packages:
         integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
       }
 
+  rate-limiter-flexible@5.0.5:
+    resolution:
+      {
+        integrity: sha512-+/dSQfo+3FYwYygUs/V2BBdwGa9nFtakDwKt4l0bnvNB53TNT++QSFewwHX9qXrZJuMe9j+TUaU21lm5ARgqdQ==
+      }
+
   rc9@2.1.2:
     resolution:
       {
@@ -8805,6 +8839,14 @@ packages:
       }
 
 snapshots:
+  '@alova/adapter-axios@2.0.16(alova@3.3.3)(axios@1.7.8)':
+    dependencies:
+      '@alova/shared': 1.3.1
+      alova: 3.3.3
+      axios: 1.7.8
+
+  '@alova/shared@1.3.1': {}
+
   '@ampproject/remapping@2.3.0':
     dependencies:
       '@jridgewell/gen-mapping': 0.3.5
@@ -10620,6 +10662,11 @@ snapshots:
       require-from-string: 2.0.2
 
   alien-signals@0.2.2: {}
+
+  alova@3.3.3:
+    dependencies:
+      '@alova/shared': 1.3.1
+      rate-limiter-flexible: 5.0.5
 
   ansi-escapes@4.3.2:
     dependencies:
@@ -13224,6 +13271,8 @@ snapshots:
       strict-uri-encode: 1.1.0
 
   queue-microtask@1.2.3: {}
+
+  rate-limiter-flexible@5.0.5: {}
 
   rc9@2.1.2:
     dependencies:

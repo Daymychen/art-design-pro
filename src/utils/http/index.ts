@@ -15,7 +15,7 @@ interface ExtendedAxiosRequestConfig extends AxiosRequestConfig {
   showErrorMessage?: boolean
 }
 
-const axiosInstance = axios.create({
+export const axiosInstance = axios.create({
   timeout: REQUEST_TIMEOUT, // 请求超时时间(毫秒)
   baseURL: import.meta.env.VITE_API_URL, // API地址
   withCredentials: true, // 异步请求携带cookie
