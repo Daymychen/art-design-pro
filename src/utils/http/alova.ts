@@ -31,12 +31,12 @@ import { axiosInstance } from './index'
  * 更多示例和用法查阅 https://alova.js.org/
  */
 const alovaRequest = createAlova({
-  // ...
   requestAdapter: axiosRequestAdapter({
     axios: axiosInstance
   }),
-  statesHook: VueHook
-  // ...
+  statesHook: VueHook,
+  // 设置为null即可全局关闭全部请求缓存
+  cacheFor: null
 })
 
 export default alovaRequest
