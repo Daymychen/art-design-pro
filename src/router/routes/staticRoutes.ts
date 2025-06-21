@@ -1,6 +1,5 @@
 import { AppRouteRecordRaw } from '../utils/utils'
 import { RoutesAlias, HOME_PAGE } from '../routesAlias'
-import Home from '@views/index/index.vue'
 
 /**
  * 静态路由配置
@@ -31,7 +30,7 @@ export const staticRoutes: AppRouteRecordRaw[] = [
   },
   {
     path: '/exception',
-    component: Home,
+    component: () => import('@views/index/index.vue'),
     name: 'Exception',
     meta: { title: 'menus.exception.title' },
     children: [
@@ -57,7 +56,7 @@ export const staticRoutes: AppRouteRecordRaw[] = [
   },
   {
     path: '/outside',
-    component: Home,
+    component: () => import('@views/index/index.vue'),
     name: 'Outside',
     meta: { title: 'menus.outside.title' },
     children: [

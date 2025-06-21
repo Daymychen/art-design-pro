@@ -8,6 +8,15 @@ interface UpgradeLog {
 
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
+    version: 'v2.4.2.5',
+    title: '图表组件重构',
+    date: '2025-06-22',
+    detail: [
+      '重构图表组件，优化代码结构与可维护性',
+      '精细调整图表动画与主题配色方案，提升视觉一致性'
+    ]
+  },
+  {
     version: 'v2.4.2.4',
     title: '组件重构、代码优化',
     date: '2025-06-18',

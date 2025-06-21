@@ -1,18 +1,24 @@
 <template>
   <div class="custom-card art-custom-card target-vs-reality">
     <div class="custom-card-header">
-      <span class="title">{{ t('analysis.targetVsReality.title') }}</span>
+      <span class="title">目标与实际</span>
     </div>
     <div class="custom-card-body">
-      <div ref="chartRef" style="height: 160px"></div>
+      <ArtBarChart
+        height="10rem"
+        :data="revenueData"
+        :xAxisData="weekDays"
+        :showAxisLine="false"
+        barWidth="28%"
+      />
     </div>
     <div class="custom-card-footer">
       <div class="total-item">
         <div class="label">
           <i class="iconfont-sys">&#xe77f;</i>
           <div class="label-text">
-            <span>{{ t('analysis.targetVsReality.realitySales.label') }}</span>
-            <span>{{ t('analysis.targetVsReality.realitySales.sublabel') }}</span>
+            <span>实际销售额</span>
+            <span>全球</span>
           </div>
         </div>
         <div class="value text-color-green">8,823</div>
@@ -21,8 +27,8 @@
         <div class="label">
           <i class="iconfont-sys">&#xe77c;</i>
           <div class="label-text">
-            <span>{{ t('analysis.targetVsReality.targetSales.label') }}</span>
-            <span>{{ t('analysis.targetVsReality.targetSales.sublabel') }}</span>
+            <span>目标销售额</span>
+            <span>商业</span>
           </div>
         </div>
         <div class="value text-color-orange">12,122</div>
@@ -32,83 +38,15 @@
 </template>
 
 <script setup lang="ts">
-  import { useChart } from '@/composables/useChart'
-  import { EChartsOption } from 'echarts'
-  import { useI18n } from 'vue-i18n'
-  const { t } = useI18n()
+  const weekDays = ref(['周一', '周二', '周三', '周四', '周五', '周六', '周日'])
 
-  const { chartRef, isDark, initChart } = useChart()
-
-  const options: () => EChartsOption = () => ({
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'shadow'
-      }
-    },
-    grid: {
-      top: 10,
-      right: 0,
-      bottom: 0,
-      left: 0,
-      containLabel: true
-    },
-    xAxis: {
-      type: 'category',
-      data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July'],
-      axisLabel: {
-        color: '#7B91B0'
-      },
-      axisLine: {
-        show: false // 隐藏 x 轴线
-      },
-      axisTick: {
-        show: false // 隐藏刻度线
-      }
-    },
-    yAxis: {
-      type: 'value',
-      axisLabel: {
-        show: false // 隐藏 y 轴文字
-      },
-      splitLine: {
-        show: false // 隐藏 y 轴分割线
-      },
-      axisLine: {
-        show: false // 隐藏 y 轴线
-      }
-    },
-    series: [
-      {
-        name: 'Reality Sales',
-        type: 'bar',
-        data: [8000, 7000, 6000, 8500, 9000, 10000, 9500],
-        barWidth: '15',
-        itemStyle: {
-          borderRadius: [4, 4, 0, 0],
-          color: '#2B8DFA'
-        }
-      },
-      {
-        name: 'Target Sales',
-        type: 'bar',
-        data: [10000, 9000, 11000, 10000, 12000, 12500, 11500],
-        barWidth: '15',
-        itemStyle: {
-          borderRadius: [4, 4, 4, 4],
-          color: '#95E0FB'
-        }
-      }
-    ]
-  })
-
-  watch(isDark, () => {
-    initChart(options())
-  })
-
-  onMounted(() => {
-    initChart(options())
-  })
+  const revenueData = ref([
+    {
+      name: '线上销售',
+      data: [12, 13, 5, 15, 10, 15, 18]
+      // color: '#6E93FF'
+    }
+  ])
 </script>
 
 <style lang="scss" scoped>
@@ -190,24 +128,6 @@
             color: #1cb8fc !important;
           }
         }
-      }
-    }
-  }
-
-  @media (max-width: $device-notebook) {
-    .custom-card {
-      height: 350px;
-
-      &-body {
-        padding-top: 10px;
-
-        > div {
-          height: 140px !important;
-        }
-      }
-
-      &-footer {
-        margin-top: 0;
       }
     }
   }

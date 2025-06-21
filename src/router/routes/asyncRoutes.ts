@@ -53,6 +53,80 @@ export const asyncRoutes: AppRouteRecord[] = [
     ]
   },
   {
+    path: '/template',
+    name: 'Template',
+    component: RoutesAlias.Home,
+    meta: {
+      title: 'menus.template.title',
+      icon: '&#xe860;'
+    },
+    children: [
+      {
+        path: 'cards',
+        name: 'Cards',
+        component: RoutesAlias.Cards,
+        meta: {
+          title: 'menus.template.cards',
+          keepAlive: false
+        }
+      },
+      {
+        path: 'banners',
+        name: 'Banners',
+        component: RoutesAlias.Banners,
+        meta: {
+          title: 'menus.template.banners',
+          keepAlive: false
+        }
+      },
+      {
+        path: 'charts',
+        name: 'Charts',
+        component: RoutesAlias.Charts,
+        meta: {
+          title: 'menus.template.charts',
+          keepAlive: false
+        }
+      },
+      {
+        path: 'map',
+        name: 'Map',
+        component: RoutesAlias.Map,
+        meta: {
+          title: 'menus.template.map',
+          keepAlive: true
+        }
+      },
+      {
+        path: 'chat',
+        name: 'Chat',
+        component: RoutesAlias.Chat,
+        meta: {
+          title: 'menus.template.chat',
+          keepAlive: true
+        }
+      },
+      {
+        path: 'calendar',
+        name: 'Calendar',
+        component: RoutesAlias.Calendar,
+        meta: {
+          title: 'menus.template.calendar',
+          keepAlive: true
+        }
+      },
+      {
+        path: 'pricing',
+        name: 'Pricing',
+        component: RoutesAlias.Pricing,
+        meta: {
+          title: 'menus.template.pricing',
+          keepAlive: true
+        }
+      }
+    ]
+  },
+  {
     path: '/widgets',
     name: 'Widgets',
     component: RoutesAlias.Home,
@@ -189,80 +263,6 @@ export const asyncRoutes: AppRouteRecord[] = [
           link: 'https://element-plus.org/zh-CN/component/overview.html',
           isIframe: true,
           showBadge: true
-        }
-      }
-    ]
-  },
-  {
-    path: '/template',
-    name: 'Template',
-    component: RoutesAlias.Home,
-    meta: {
-      title: 'menus.template.title',
-      icon: '&#xe860;'
-    },
-    children: [
-      {
-        path: 'cards',
-        name: 'Cards',
-        component: RoutesAlias.Cards,
-        meta: {
-          title: 'menus.template.cards',
-          keepAlive: false
-        }
-      },
-      {
-        path: 'banners',
-        name: 'Banners',
-        component: RoutesAlias.Banners,
-        meta: {
-          title: 'menus.template.banners',
-          keepAlive: false
-        }
-      },
-      {
-        path: 'charts',
-        name: 'Charts',
-        component: RoutesAlias.Charts,
-        meta: {
-          title: 'menus.template.charts',
-          keepAlive: false
-        }
-      },
-      {
-        path: 'map',
-        name: 'Map',
-        component: RoutesAlias.Map,
-        meta: {
-          title: 'menus.template.map',
-          keepAlive: true
-        }
-      },
-      {
-        path: 'chat',
-        name: 'Chat',
-        component: RoutesAlias.Chat,
-        meta: {
-          title: 'menus.template.chat',
-          keepAlive: true
-        }
-      },
-      {
-        path: 'calendar',
-        name: 'Calendar',
-        component: RoutesAlias.Calendar,
-        meta: {
-          title: 'menus.template.calendar',
-          keepAlive: true
-        }
-      },
-      {
-        path: 'pricing',
-        name: 'Pricing',
-        component: RoutesAlias.Pricing,
-        meta: {
-          title: 'menus.template.pricing',
-          keepAlive: true
         }
       }
     ]

@@ -1,18 +1,13 @@
 <template>
-  <div class="page-content" v-loading="loading" element-loading-text="加载中...">
-    <ArtMapChart @onRenderComplete="onLoaded" />
+  <div class="page-content" element-loading-text="加载中...">
+    <ArtMapChart />
   </div>
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
-
-  const loading = ref(true)
-  const onLoaded = () => {
-    loading.value = false
-  }
-
-  const ArtMapChart = defineAsyncComponent(() => import('@/components/core/charts/ArtMapChart.vue'))
+  const ArtMapChart = defineAsyncComponent(
+    () => import('@/components/core/charts/art-map-chart/index.vue')
+  )
 </script>
 
 <style lang="scss" scoped>

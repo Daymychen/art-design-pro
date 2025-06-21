@@ -1,5 +1,5 @@
 <template>
-  <div class="card art-custom-card yearly-card" style="height: 28.2rem">
+  <div class="card art-custom-card yearly-card">
     <div class="card-header">
       <p class="title">年度销售额</p>
       <p class="subtitle">按季度统计</p>
@@ -11,9 +11,9 @@
       :showSplitLine="false"
       :data="[50, 80, 50, 90, 60, 70, 50]"
       barWidth="26px"
-      height="16rem"
+      height="calc(100% - 155px)"
     />
-    <div class="icon-text-widget" style="margin-top: 50px">
+    <div class="icon-text-widget">
       <div class="item">
         <div class="icon">
           <i class="iconfont-sys">&#xe718;</i>
@@ -35,3 +35,19 @@
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+  .card {
+    height: 28.2rem;
+
+    .icon-text-widget {
+      margin-top: 2.5rem;
+    }
+  }
+
+  @media screen and (max-width: $device-phone) {
+    .card {
+      height: 20rem;
+    }
+  }
+</style>

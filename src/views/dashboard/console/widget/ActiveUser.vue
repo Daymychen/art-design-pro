@@ -1,6 +1,13 @@
 <template>
   <div class="card art-custom-card">
-    <div class="chart" ref="chartRef"></div>
+    <ArtBarChart
+      class="chart"
+      barWidth="50%"
+      height="13.7rem"
+      :showAxisLine="false"
+      :data="[160, 100, 150, 80, 190, 100, 175, 120, 160]"
+      :xAxisData="['1', '2', '3', '4', '5', '6', '7', '8', '9']"
+    />
     <div class="text">
       <h3 class="box-title">用户概述</h3>
       <p class="subtitle">比上周 <span class="text-success">+23%</span></p>
@@ -16,85 +23,12 @@
 </template>
 
 <script setup lang="ts">
-  import * as echarts from 'echarts'
-  import { getCssVar } from '@/utils/ui'
-  import { useChart } from '@/composables/useChart'
-  import { EChartsOption } from 'echarts'
-
-  const {
-    chartRef,
-    isDark,
-    initChart,
-    getAxisLineStyle,
-    getAxisLabelStyle,
-    getAxisTickStyle,
-    getSplitLineStyle
-  } = useChart()
-
   const list = [
     { name: '总用户量', num: '32k' },
     { name: '总访问量', num: '128k' },
     { name: '日访问量', num: '1.2k' },
     { name: '周同比', num: '+5%' }
   ]
-
-  const options: () => EChartsOption = () => {
-    return {
-      grid: {
-        top: 15,
-        right: 0,
-        bottom: 0,
-        left: 0,
-        containLabel: true
-      },
-      tooltip: {
-        trigger: 'item'
-      },
-      xAxis: {
-        type: 'category',
-        data: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-        axisTick: getAxisTickStyle(),
-        axisLine: getAxisLineStyle(true),
-        axisLabel: getAxisLabelStyle(true)
-      },
-      yAxis: {
-        axisLabel: getAxisLabelStyle(true),
-        axisLine: getAxisLineStyle(!isDark.value),
-        splitLine: getSplitLineStyle(true)
-      },
-      series: [
-        {
-          data: [160, 100, 150, 80, 190, 100, 175, 120, 160],
-          type: 'bar',
-          itemStyle: {
-            borderRadius: 4,
-            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              {
-                offset: 0,
-                color: getCssVar('--el-color-primary-light-4')
-              },
-              {
-                offset: 1,
-                color: getCssVar('--el-color-primary')
-              }
-            ])
-          },
-          barWidth: '50%',
-          animationDelay: (idx) => idx * 50 + 300,
-          animationDuration: (idx) => 1500 - idx * 50,
-          animationEasing: 'quarticOut' // 推荐动画： quarticOut exponentialOut quinticOut backOut
-        }
-      ]
-    }
-  }
-
-  watch(isDark, () => {
-    initChart(options())
-  })
-
-  onMounted(() => {
-    initChart(options())
-  })
 </script>
 
 <style lang="scss" scoped>
@@ -108,7 +42,7 @@
       box-sizing: border-box;
       width: 100%;
       height: 220px;
-      padding: 20px 0 20px 20px;
+      padding: 10px;
       border-radius: calc(var(--custom-radius) / 2 + 4px) !important;
     }
 

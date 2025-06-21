@@ -1,133 +1,66 @@
 <template>
   <div class="custom-card art-custom-card customer-satisfaction">
     <div class="custom-card-header">
-      <span class="title">{{ t('analysis.customerSatisfaction.title') }}</span>
+      <span class="title">客户满意度</span>
     </div>
     <div class="custom-card-body">
-      <div ref="chartRef" style="height: 300px; margin-top: 10px"></div>
+      <ArtLineChart
+        height="100%"
+        :data="chartData"
+        :xAxisData="xAxisData"
+        :showLegend="true"
+        :showAxisLabel="true"
+        :showAxisLine="false"
+        :showSplitLine="true"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-  import * as echarts from 'echarts'
-  import { useI18n } from 'vue-i18n'
-  import { useChart } from '@/composables/useChart'
-  const { t } = useI18n()
+  import type { LineDataItem } from '@/types/component/chart'
 
-  const { chartRef, isDark, initChart } = useChart()
-
-  const options: () => echarts.EChartsOption = () => ({
-    grid: {
-      top: 30,
-      right: 20,
-      bottom: 50,
-      left: 20,
-      containLabel: true
-    },
-    tooltip: {
-      trigger: 'axis',
-      confine: true
-    },
-    legend: {
-      data: [
-        t('analysis.customerSatisfaction.legend.lastMonth'),
-        t('analysis.customerSatisfaction.legend.thisMonth')
-      ],
-      bottom: 0,
-      textStyle: {
-        fontSize: 12,
-        color: isDark.value ? '#808290' : '#222B45'
+  // 图表数据配置
+  const chartData = computed<LineDataItem[]>(() => [
+    {
+      name: '上个月',
+      data: [65, 72, 68, 75, 82, 78, 85],
+      areaStyle: {
+        startOpacity: 0.08,
+        endOpacity: 0
       }
     },
-    xAxis: {
-      type: 'category',
-      boundaryGap: false,
-      data: ['Week 0', 'Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
-      axisLine: { show: false },
-      axisTick: { show: false },
-      axisLabel: { show: false } // 隐藏 x 轴标签
-    },
-    yAxis: {
-      type: 'value',
-      axisLine: { show: false },
-      axisTick: { show: false },
-      axisLabel: { show: false },
-      splitLine: {
-        show: false // 将 show 设置为 false 以去除水平线条
+    {
+      name: '本月',
+      data: [78, 85, 82, 88, 92, 89, 95],
+      areaStyle: {
+        startOpacity: 0.08,
+        endOpacity: 0
       }
-    },
-    series: [
-      {
-        name: t('analysis.customerSatisfaction.legend.lastMonth'),
-        type: 'line',
-        smooth: true,
-        data: [1800, 2800, 1800, 2300, 2600, 2500, 3000],
-        areaStyle: {
-          opacity: 0.8,
-          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            { offset: 0, color: 'rgba(0,157,255,0.33)' },
-            { offset: 1, color: 'rgba(255,255,255,0)' }
-          ])
-        },
-        lineStyle: {
-          width: 2,
-          color: '#0086E1'
-        },
-        symbol: 'none',
-        itemStyle: {
-          color: '#0095FF'
-        }
-      },
-      {
-        name: t('analysis.customerSatisfaction.legend.thisMonth'),
-        type: 'line',
-        smooth: true,
-        data: [4000, 3500, 4300, 3700, 4500, 3500, 4000],
-        areaStyle: {
-          opacity: 0.8,
-          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            { offset: 0, color: 'rgba(147,241,180,0.33)' },
-            { offset: 1, color: 'rgba(255,255,255,0)' }
-          ])
-        },
-        lineStyle: {
-          width: 2,
-          color: '#14DEB9'
-        },
-        symbol: 'none',
-        itemStyle: {
-          color: '#14DEB9'
-        }
-      }
-    ]
-  })
+    }
+  ])
 
-  watch(isDark, () => {
-    initChart(options())
-  })
-
-  onMounted(() => {
-    initChart(options())
-  })
+  // X轴数据
+  const xAxisData = ['1', '2', '3', '4', '5', '6', '7']
 </script>
+
 <style lang="scss" scoped>
-  .custom-card {
+  .customer-satisfaction {
     height: 400px;
 
-    &-body {
-      padding: 10px 0;
+    .custom-card-body {
+      height: calc(100% - 145px);
+      padding: 60px 20px 10px;
     }
   }
 
-  @media (max-width: $device-notebook) {
-    .custom-card {
-      height: 350px;
+  @media screen and (max-width: $device-phone) {
+    .customer-satisfaction {
+      height: 300px;
 
-      &-body {
-        > div {
-          height: 260px !important;
-        }
+      .custom-card-body {
+        height: calc(100% - 100px);
+        padding-top: 20px;
       }
     }
   }

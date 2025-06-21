@@ -5,11 +5,10 @@
       <p class="subtitle">月度销售对比</p>
     </div>
     <ArtDualBarCompareChart
-      :topData="[50, 80, 120, 90, 60]"
-      :bottomData="[30, 60, 90, 70, 40]"
+      :positiveData="[50, 80, 120, 90, 60]"
+      :negativeData="[30, 60, 90, 70, 40]"
       :xAxisData="['一月', '二月', '三月', '四月', '五月']"
-      height="18rem"
-      :barWidth="16"
+      height="19rem"
     />
   </div>
 </template>

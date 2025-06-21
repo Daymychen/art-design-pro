@@ -30,9 +30,8 @@
 <script setup lang="ts">
   import * as echarts from 'echarts'
   import { getCssVar, hexToRgba } from '@/utils/ui'
-  import { useChart, useChartOps } from '@/composables/useChart'
+  import { useChartOps, useChartComponent } from '@/composables/useChart'
   import { EChartsOption } from 'echarts'
-  const { chartRef, isDark, initChart } = useChart()
 
   defineOptions({ name: 'ArtLineChartCard' })
 
@@ -61,64 +60,66 @@
     height: 11
   })
 
-  const options: () => EChartsOption = () => {
-    const computedColor = props.color || useChartOps().themeColor
+  // 使用新的图表组件抽象
+  const { chartRef } = useChartComponent({
+    props: {
+      height: `${props.height}rem`,
+      loading: false,
+      isEmpty: !props.chartData?.length || props.chartData.every((val) => val === 0)
+    },
+    checkEmpty: () => !props.chartData?.length || props.chartData.every((val) => val === 0),
+    watchSources: [() => props.chartData, () => props.color, () => props.showAreaColor],
+    generateOptions: (): EChartsOption => {
+      const computedColor = props.color || useChartOps().themeColor
 
-    return {
-      grid: {
-        top: 0,
-        right: 0,
-        bottom: 0,
-        left: 0
-      },
-      xAxis: {
-        type: 'category',
-        show: false,
-        boundaryGap: false
-      },
-      yAxis: {
-        type: 'value',
-        show: false
-      },
-      series: [
-        {
-          data: props.chartData,
-          type: 'line',
-          smooth: true,
-          showSymbol: false,
-          lineStyle: {
-            width: 3,
-            color: computedColor
-          },
-          areaStyle: props.showAreaColor
-            ? {
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                  {
-                    offset: 0,
-                    color: props.color
-                      ? hexToRgba(props.color, 0.2).rgba
-                      : hexToRgba(getCssVar('--el-color-primary'), 0.2).rgba
-                  },
-                  {
-                    offset: 1,
-                    color: props.color
-                      ? hexToRgba(props.color, 0.01).rgba
-                      : hexToRgba(getCssVar('--el-color-primary'), 0.01).rgba
-                  }
-                ])
-              }
-            : undefined
-        }
-      ]
+      return {
+        grid: {
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0
+        },
+        xAxis: {
+          type: 'category',
+          show: false,
+          boundaryGap: false
+        },
+        yAxis: {
+          type: 'value',
+          show: false
+        },
+        series: [
+          {
+            data: props.chartData,
+            type: 'line',
+            smooth: true,
+            showSymbol: false,
+            lineStyle: {
+              width: 3,
+              color: computedColor
+            },
+            areaStyle: props.showAreaColor
+              ? {
+                  color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                    {
+                      offset: 0,
+                      color: props.color
+                        ? hexToRgba(props.color, 0.2).rgba
+                        : hexToRgba(getCssVar('--el-color-primary'), 0.2).rgba
+                    },
+                    {
+                      offset: 1,
+                      color: props.color
+                        ? hexToRgba(props.color, 0.01).rgba
+                        : hexToRgba(getCssVar('--el-color-primary'), 0.01).rgba
+                    }
+                  ])
+                }
+              : undefined
+          }
+        ]
+      }
     }
-  }
-
-  watch(isDark, () => {
-    initChart(options())
-  })
-
-  onMounted(() => {
-    initChart(options())
   })
 </script>
 

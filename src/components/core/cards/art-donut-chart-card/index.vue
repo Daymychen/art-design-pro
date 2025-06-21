@@ -27,8 +27,7 @@
 
 <script setup lang="ts">
   import { EChartsOption } from 'echarts'
-  import { useChart, useChartOps } from '@/composables/useChart'
-  const { chartRef, isDark, initChart } = useChart()
+  import { useChartOps, useChartComponent } from '@/composables/useChart'
 
   defineOptions({ name: 'ArtDonutChartCard' })
 
@@ -65,41 +64,49 @@
     return num.toLocaleString()
   }
 
-  const options: () => EChartsOption = () => {
-    const computedColor = props.color || useChartOps().themeColor
+  // 使用新的图表组件抽象
+  const { chartRef } = useChartComponent({
+    props: {
+      height: `${props.height}rem`,
+      loading: false,
+      isEmpty: props.data.every((val) => val === 0)
+    },
+    checkEmpty: () => props.data.every((val) => val === 0),
+    watchSources: [
+      () => props.data,
+      () => props.color,
+      () => props.radius,
+      () => props.currentValue,
+      () => props.previousValue
+    ],
+    generateOptions: (): EChartsOption => {
+      const computedColor = props.color || useChartOps().themeColor
 
-    return {
-      series: [
-        {
-          type: 'pie',
-          radius: props.radius,
-          avoidLabelOverlap: false,
-          label: {
-            show: false
-          },
-          data: [
-            {
-              value: props.data[0],
-              name: props.currentValue,
-              itemStyle: { color: computedColor }
+      return {
+        series: [
+          {
+            type: 'pie',
+            radius: props.radius,
+            avoidLabelOverlap: false,
+            label: {
+              show: false
             },
-            {
-              value: props.data[1],
-              name: props.previousValue,
-              itemStyle: { color: '#e6e8f7' }
-            }
-          ]
-        }
-      ]
+            data: [
+              {
+                value: props.data[0],
+                name: props.currentValue,
+                itemStyle: { color: computedColor }
+              },
+              {
+                value: props.data[1],
+                name: props.previousValue,
+                itemStyle: { color: '#e6e8f7' }
+              }
+            ]
+          }
+        ]
+      }
     }
-  }
-
-  watch(isDark, () => {
-    initChart(options())
-  })
-
-  onMounted(() => {
-    initChart(options())
   })
 </script>
 

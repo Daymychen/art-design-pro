@@ -26,9 +26,8 @@
 </template>
 
 <script setup lang="ts">
-  import { useChart, useChartOps } from '@/composables/useChart'
+  import { useChartOps, useChartComponent } from '@/composables/useChart'
   import { EChartsOption } from 'echarts'
-  const { chartRef, isDark, initChart } = useChart()
 
   defineOptions({ name: 'ArtBarChartCard' })
 
@@ -58,44 +57,46 @@
     barWidth: '26%'
   })
 
-  const options: () => EChartsOption = () => {
-    const computedColor = props.color || useChartOps().themeColor
+  // 使用新的图表组件抽象
+  const { chartRef } = useChartComponent({
+    props: {
+      height: `${props.height}rem`,
+      loading: false,
+      isEmpty: !props.chartData?.length || props.chartData.every((val) => val === 0)
+    },
+    checkEmpty: () => !props.chartData?.length || props.chartData.every((val) => val === 0),
+    watchSources: [() => props.chartData, () => props.color, () => props.barWidth],
+    generateOptions: (): EChartsOption => {
+      const computedColor = props.color || useChartOps().themeColor
 
-    return {
-      grid: {
-        top: 0,
-        right: 0,
-        bottom: 15,
-        left: 0
-      },
-      xAxis: {
-        type: 'category',
-        show: false
-      },
-      yAxis: {
-        type: 'value',
-        show: false
-      },
-      series: [
-        {
-          data: props.chartData,
-          type: 'bar',
-          barWidth: props.barWidth,
-          itemStyle: {
-            color: computedColor,
-            borderRadius: 2
+      return {
+        grid: {
+          top: 0,
+          right: 0,
+          bottom: 15,
+          left: 0
+        },
+        xAxis: {
+          type: 'category',
+          show: false
+        },
+        yAxis: {
+          type: 'value',
+          show: false
+        },
+        series: [
+          {
+            data: props.chartData,
+            type: 'bar',
+            barWidth: props.barWidth,
+            itemStyle: {
+              color: computedColor,
+              borderRadius: 2
+            }
           }
-        }
-      ]
+        ]
+      }
     }
-  }
-
-  watch(isDark, () => {
-    initChart(options())
-  })
-
-  onMounted(() => {
-    initChart(options())
   })
 </script>
 
