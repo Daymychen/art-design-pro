@@ -27,10 +27,7 @@
         <ArtFastEnter v-if="width >= 1200" />
 
         <!-- 面包屑 -->
-        <ArtBreadcrumb
-          v-if="(showCrumbs && isLeftMenu) || (showCrumbs && isDualMenu)"
-          :style="{ paddingLeft: !showRefreshButton && !showMenuButton ? '10px' : '0' }"
-        />
+        <ArtBreadcrumb v-if="(showCrumbs && isLeftMenu) || (showCrumbs && isDualMenu)" />
 
         <!-- 顶部菜单 -->
         <ArtHorizontalMenu v-if="isTopMenu" :list="menuList" :width="menuTopWidth" />

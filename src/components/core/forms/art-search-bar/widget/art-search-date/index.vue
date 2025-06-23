@@ -1,5 +1,5 @@
 <template>
-  <el-date-picker
+  <ElDatePicker
     v-model="modelValue"
     v-bind="config"
     @change="handleChange"

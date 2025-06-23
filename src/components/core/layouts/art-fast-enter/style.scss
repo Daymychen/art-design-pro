@@ -1,0 +1,128 @@
+.fast-enter-trigger {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  .btn {
+    position: relative;
+    display: block;
+    width: 38px;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s;
+
+    i {
+      display: block;
+      font-size: 19px;
+      color: var(--art-gray-600);
+    }
+
+    &:hover {
+      color: var(--main-color);
+      background-color: rgba(var(--art-gray-200-rgb), 0.7);
+    }
+
+    .red-dot {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 6px;
+      height: 6px;
+      background-color: var(--el-color-danger);
+      border-radius: 50%;
+    }
+  }
+}
+
+.fast-enter {
+  display: grid;
+  grid-template-columns: 2fr 0.8fr;
+
+  .apps-section {
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+    }
+
+    .app-item {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 8px 12px;
+      margin-right: 12px;
+      cursor: pointer;
+      border-radius: 8px;
+
+      &:hover {
+        background-color: rgba(var(--art-gray-200-rgb), 0.7);
+
+        .app-icon {
+          background-color: transparent !important;
+        }
+      }
+
+      .app-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 46px;
+        height: 46px;
+        background-color: rgba(var(--art-gray-200-rgb), 0.7);
+        border-radius: 8px;
+
+        i {
+          font-size: 20px;
+        }
+      }
+
+      .app-info {
+        h3 {
+          margin: 0;
+          font-size: 14px;
+          font-weight: 500;
+          color: var(--art-text-gray-800);
+        }
+
+        p {
+          margin: 4px 0 0;
+          font-size: 12px;
+          color: var(--art-text-gray-500);
+        }
+      }
+    }
+  }
+
+  .quick-links {
+    padding: 8px 0 0 24px;
+    border-left: 1px solid var(--el-border-color-lighter);
+
+    h3 {
+      margin: 0 0 10px;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--art-text-gray-800);
+    }
+
+    ul {
+      li {
+        padding: 8px 0;
+        cursor: pointer;
+
+        &:hover {
+          span {
+            color: var(--el-color-primary);
+          }
+        }
+
+        span {
+          color: var(--art-text-gray-600);
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

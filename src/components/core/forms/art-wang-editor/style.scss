@@ -1,0 +1,186 @@
+$box-radius: calc(var(--custom-radius) / 2 + 2px);
+
+/* 编辑器容器 */
+.editor-wrapper {
+  z-index: 5000;
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(var(--art-gray-300-rgb), 0.8);
+  border-radius: $box-radius !important;
+
+  .iconfont-sys {
+    font-size: 20px !important;
+  }
+
+  .w-e-bar {
+    border-radius: $box-radius $box-radius 0 0 !important;
+  }
+
+  .menu-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    i {
+      margin-right: 5px;
+    }
+  }
+
+  /* 工具栏 */
+  .editor-toolbar {
+    border-bottom: 1px solid var(--art-border-color);
+  }
+
+  /* 下拉选择框配置 */
+  .w-e-select-list {
+    min-width: 140px;
+    padding: 5px 10px 10px;
+    border: none;
+    border-radius: 12px;
+  }
+
+  /* 下拉选择框元素配置 */
+  .w-e-select-list ul li {
+    margin-top: 5px;
+    font-size: 15px !important;
+    border-radius: 10px;
+  }
+
+  /* 下拉选择框 正文文字大小调整 */
+  .w-e-select-list ul li:last-of-type {
+    font-size: 16px !important;
+  }
+
+  /* 下拉选择框 hover 样式调整 */
+  .w-e-select-list ul li:hover {
+    background-color: var(--art-gray-200);
+  }
+
+  :root {
+    /* 激活颜色 */
+    --w-e-toolbar-active-bg-color: var(--art-gray-200);
+
+    /* toolbar 图标和文字颜色 */
+    --w-e-toolbar-color: #000;
+
+    /* 表格选中时候的边框颜色 */
+    --w-e-textarea-selected-border-color: #ddd;
+
+    /* 表格头背景颜色 */
+    --w-e-textarea-slight-bg-color: var(--art-gray-200);
+  }
+
+  /* 工具栏按钮样式 */
+  .w-e-bar-item button {
+    border-radius: 8px;
+  }
+
+  /* 工具栏 hover 按钮背景颜色 */
+  .w-e-bar-item button:hover {
+    background-color: var(--art-gray-200);
+  }
+
+  /* 工具栏分割线 */
+  .w-e-bar-divider {
+    height: 20px;
+    margin-top: 10px;
+    background-color: #ccc;
+  }
+
+  /* 工具栏菜单 */
+  .w-e-bar-item-group .w-e-bar-item-menus-container {
+    min-width: 120px;
+    padding: 10px 0;
+    border: none;
+    border-radius: 12px;
+  }
+
+  /* 代码块 */
+  .w-e-text-container [data-slate-editor] pre > code {
+    padding: 0.6rem 1rem;
+    background-color: var(--art-gray-100);
+    border-radius: 6px;
+  }
+
+  /* 弹出框 */
+  .w-e-drop-panel {
+    border: 0;
+    border-radius: 12px;
+  }
+
+  a {
+    color: #318ef4;
+  }
+
+  /* 表格样式优化 */
+  .w-e-text-container [data-slate-editor] .table-container th {
+    border-right: none;
+  }
+
+  .w-e-text-container [data-slate-editor] .table-container th:last-of-type {
+    border-right: 1px solid #ccc !important;
+  }
+
+  /* 引用 */
+  .w-e-text-container [data-slate-editor] blockquote {
+    background-color: rgba(var(--art-gray-300-rgb), 0.25);
+    border-left: 4px solid var(--art-gray-300);
+  }
+
+  /* 输入区域弹出 bar  */
+  .w-e-hover-bar {
+    border-radius: 10px;
+  }
+
+  /* 超链接弹窗 */
+  .w-e-modal {
+    border: none;
+    border-radius: 12px;
+  }
+
+  /* 图片样式调整 */
+  .w-e-text-container [data-slate-editor] .w-e-selected-image-container {
+    overflow: inherit;
+
+    &:hover {
+      border: 0;
+    }
+
+    img {
+      border: 1px solid transparent;
+      transition: border 0.3s;
+
+      &:hover {
+        border: 1px solid #318ef4 !important;
+      }
+    }
+
+    .w-e-image-dragger {
+      width: 12px;
+      height: 12px;
+      background-color: #318ef4;
+      border: 2px solid #fff;
+      border-radius: 12px;
+    }
+
+    .left-top {
+      top: -6px;
+      left: -6px;
+    }
+
+    .right-top {
+      top: -6px;
+      right: -6px;
+    }
+
+    .left-bottom {
+      bottom: -6px;
+      left: -6px;
+    }
+
+    .right-bottom {
+      right: -6px;
+      bottom: -6px;
+    }
+  }
+}

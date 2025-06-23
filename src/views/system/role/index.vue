@@ -28,20 +28,18 @@
             {{ formatDate(scope.row.date) }}
           </template>
         </ElTableColumn>
-        <ElTableColumn fixed="right" label="操作" width="200px">
+        <ElTableColumn fixed="right" label="操作" width="100px">
           <template #default="scope">
             <ElRow>
-              <el-button link @click="showPermissionDialog()"> 菜单权限 </el-button>
-              <el-button link @click="showDialog('edit', scope.row)"> 编辑 </el-button>
-              <el-button link @click="deleteRole()"> 删除 </el-button>
-              <!-- <ArtButtonMore
+              <!-- 可以在 list 中添加 auth 属性来控制按钮的权限, auth 属性值为权限标识 -->
+              <ArtButtonMore
                 :list="[
                   { key: 'permission', label: '菜单权限' },
                   { key: 'edit', label: '编辑角色' },
                   { key: 'delete', label: '删除角色' }
                 ]"
                 @click="buttonMoreClick($event, scope.row)"
-              /> -->
+              />
             </ElRow>
           </template>
         </ElTableColumn>
@@ -124,6 +122,7 @@
   import { formatMenuTitle } from '@/router/utils/utils'
   // import { ButtonMoreItem } from '@/components/core/forms/ArtButtonMore.vue'
   import { Role, ROLE_LIST_DATA } from '@/mock/temp/formData'
+  import { ButtonMoreItem } from '@/components/core/forms/art-button-more/index.vue'
 
   defineOptions({ name: 'Role' })
 
@@ -213,15 +212,15 @@
     }
   }
 
-  // const buttonMoreClick = (item: ButtonMoreItem, row: any) => {
-  //   if (item.key === 'permission') {
-  //     showPermissionDialog()
-  //   } else if (item.key === 'edit') {
-  //     showDialog('edit', row)
-  //   } else if (item.key === 'delete') {
-  //     deleteRole()
-  //   }
-  // }
+  const buttonMoreClick = (item: ButtonMoreItem, row: any) => {
+    if (item.key === 'permission') {
+      showPermissionDialog()
+    } else if (item.key === 'edit') {
+      showDialog('edit', row)
+    } else if (item.key === 'delete') {
+      deleteRole()
+    }
+  }
 
   const showPermissionDialog = () => {
     permissionDialog.value = true

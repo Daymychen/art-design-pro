@@ -1,5 +1,5 @@
 <template>
-  <el-input v-model="value" v-bind="config" @change="(val) => changeValue(val)" />
+  <ElInput v-model="value" v-bind="config" @change="(val) => changeValue(val)" />
 </template>
 
 <script setup lang="ts">

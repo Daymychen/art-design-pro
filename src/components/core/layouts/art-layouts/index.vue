@@ -1,3 +1,4 @@
+<!-- 布局容器组件 -->
 <template>
   <div class="layouts" :style="layoutStyle">
     <slot></slot>
@@ -7,11 +8,12 @@
 <script setup lang="ts">
   import '@/assets/styles/transition.scss'
   import { MenuWidth, MenuTypeEnum } from '@/enums/appEnum'
-
   import { useMenuStore } from '@/store/modules/menu'
   import { useSettingStore } from '@/store/modules/setting'
   import { getTabConfig } from '@/utils/ui'
   import { useRouter } from 'vue-router'
+
+  defineOptions({ name: 'ArtLayouts' })
 
   const settingStore = useSettingStore()
   const menuStore = useMenuStore()

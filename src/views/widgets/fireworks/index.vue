@@ -26,12 +26,13 @@
       style="margin-top: 50px"
     >
       <ElDescriptionsItem label="显示时机">
-        礼花效果组件全局注册了，在节假日的时候，会自动显示，你可以通过配置文件来控制显示时机
+        礼花效果组件已全局注册，触发时机由配置文件控制。默认配置中的日期已过，不会在你使用过程中再次触发，无需担心。
       </ElDescriptionsItem>
       <ElDescriptionsItem label="礼花样式">
-        默认显示几何图形，可以配置图片，图片需要提前在 components/Ceremony/Fireworks 文件预先定义
+        默认显示几何图形，可以配置图片，图片需要提前在
+        src/components/core/layouts/art-fireworks-effect/index.vue 文件预先定义
       </ElDescriptionsItem>
-      <ElDescriptionsItem label="节日配置">
+      <ElDescriptionsItem label="配置文件">
         在 src/config/festival.ts 文件中，可以配置节日和对应的礼花样式
       </ElDescriptionsItem>
       <ElDescriptionsItem label="快捷键">

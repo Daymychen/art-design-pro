@@ -1,21 +1,24 @@
+<!-- 导入 Excel 文件 -->
 <template>
   <div class="excel-uploader">
-    <el-upload
+    <ElUpload
       :auto-upload="false"
       accept=".xlsx, .xls"
       :show-file-list="false"
       @change="handleFileChange"
     >
-      <el-button type="primary" v-ripple>
-        <slot name="import-text">导入 Excel</slot>
-      </el-button>
-    </el-upload>
+      <ElButton type="primary" v-ripple>
+        <slot>导入 Excel</slot>
+      </ElButton>
+    </ElUpload>
   </div>
 </template>
 
 <script setup lang="ts">
   import * as XLSX from 'xlsx'
   import type { UploadFile } from 'element-plus'
+
+  defineOptions({ name: 'ArtExcelImport' })
 
   // Excel 导入工具函数
   async function importExcel(file: File): Promise<any[]> {

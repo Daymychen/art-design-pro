@@ -1,6 +1,7 @@
+<!-- 全局搜索组件 -->
 <template>
   <div class="layout-search">
-    <el-dialog
+    <ElDialog
       v-model="showSearchDialog"
       width="600"
       :show-close="false"
@@ -8,7 +9,7 @@
       modal-class="search-modal"
       @close="closeSearchDialog"
     >
-      <el-input
+      <ElInput
         v-model.trim="searchVal"
         :placeholder="$t('search.placeholder')"
         @input="search"
@@ -21,8 +22,8 @@
             <span>ESC</span>
           </div>
         </template>
-      </el-input>
-      <el-scrollbar class="search-scrollbar" max-height="370px" ref="searchResultScrollbar" always>
+      </ElInput>
+      <ElScrollbar class="search-scrollbar" max-height="370px" ref="searchResultScrollbar" always>
         <div class="result" v-show="searchResult.length">
           <div class="box" v-for="(item, index) in searchResult" :key="index">
             <div
@@ -31,7 +32,7 @@
               @mouseenter="highlightOnHover(index)"
             >
               {{ formatMenuTitle(item.meta.title) }}
-              <i class="selected-icon iconfont-sys" v-show="isHighlighted(index)"></i>
+              <i class="selected-icon iconfont-sys" v-show="isHighlighted(index)">&#xe6e6;</i>
             </div>
           </div>
         </div>
@@ -51,38 +52,39 @@
               @mouseenter="highlightOnHoverHistory(index)"
             >
               {{ formatMenuTitle(item.meta.title) }}
-              <i class="selected-icon iconfont-sys" @click.stop="deleteHistory(index)"></i>
+              <i class="selected-icon iconfont-sys" @click.stop="deleteHistory(index)">&#xe83a;</i>
             </div>
           </div>
         </div>
-      </el-scrollbar>
+      </ElScrollbar>
 
       <template #footer>
         <div class="dialog-footer">
           <div>
-            <i class="iconfont-sys"></i>
-            <i class="iconfont-sys"></i>
+            <i class="iconfont-sys">&#xe864;</i>
+            <i class="iconfont-sys">&#xe867;</i>
             <span>{{ $t('search.switchKeydown') }}</span>
           </div>
           <div>
-            <i class="iconfont-sys"></i>
+            <i class="iconfont-sys">&#xe6e6;</i>
             <span>{{ $t('search.selectKeydown') }}</span>
           </div>
         </div>
       </template>
-    </el-dialog>
+    </ElDialog>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { nextTick } from 'vue'
   import { useUserStore } from '@/store/modules/user'
   import { AppRouteRecord } from '@/types/router'
   import { Search } from '@element-plus/icons-vue'
   import { mittBus } from '@/utils/sys'
   import { useMenuStore } from '@/store/modules/menu'
   import { formatMenuTitle } from '@/router/utils/utils'
-  import type { ScrollbarInstance } from 'element-plus'
+  import { type ScrollbarInstance } from 'element-plus'
+
+  defineOptions({ name: 'ArtGlobalSearch' })
 
   const router = useRouter()
   const userStore = useUserStore()

@@ -8,6 +8,18 @@ interface UpgradeLog {
 
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
+    version: 'v2.4.2.6',
+    title: '组件重构与性能优化',
+    date: '2025-06-23',
+    detail: [
+      '重构 components/core/forms 文件夹下的表单相关组件，提升可维护性与一致性',
+      '重构 ArtBreadcrumb 面包屑导航组件，优化逻辑结构与样式',
+      '优化 ArtChatWindow 与 ArtFastEnter 组件代码，提升可读性与性能',
+      '重构 ArtFireworksEffect 烟花效果组件，显著提升渲染性能与动画流畅度',
+      'README 文档新增官方网站链接，便于用户查看项目文档'
+    ]
+  },
+  {
     version: 'v2.4.2.5',
     title: '图表组件重构',
     date: '2025-06-22',
