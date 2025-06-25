@@ -255,6 +255,10 @@
       "notFound": "404",
       "serverError": "500"
     },
+    "examples": {
+      "title": "功能示例",
+      "tabs": "标签页"
+    },
     "system": {
       "title": "系统管理",
       "user": "用户管理",

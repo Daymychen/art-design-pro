@@ -263,6 +263,10 @@
       "notFound": "404",
       "serverError": "500"
     },
+    "examples": {
+      "title": "Feature Examples",
+      "tabs": "Tabs"
+    },
     "system": {
       "title": "System Settings",
       "user": "User Manage",

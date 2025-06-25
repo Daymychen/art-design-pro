@@ -1,54 +1,97 @@
-<!-- 内容布局 -->
+<!-- 布局内容 -->
 <template>
-  <div class="layout-content" :style="containerStyle">
+  <div class="layout-content" :class="{ 'no-basic-layout': isFullPage }" :style="containerStyle">
     <!-- 节日滚动 -->
-    <ArtFestivalTextScroll />
+    <ArtFestivalTextScroll v-if="!isFullPage" />
 
-    <RouterView
-      v-if="isRefresh"
-      v-slot="{ Component, route }"
-      :style="{ minHeight: containerMinHeight }"
-    >
+    <RouterView v-if="isRefresh" v-slot="{ Component, route }" :style="contentStyle">
+      <!-- 路由信息调试 -->
       <div v-if="isOpenRouteInfo === 'true'" class="route-info">
-        {{ route.meta }}
+        router meta：{{ route.meta }}
       </div>
 
-      <!-- 路由动画 -->
-      <Transition :name="pageTransition" mode="out-in" appear>
+      <!-- 缓存路由动画 -->
+      <Transition :name="showTransitionMask ? '' : actualTransition" mode="out-in" appear>
         <KeepAlive :max="10" :exclude="keepAliveExclude">
           <component :is="Component" :key="route.path" v-if="route.meta.keepAlive" />
         </KeepAlive>
       </Transition>
 
-      <Transition :name="pageTransition" mode="out-in" appear>
+      <!-- 非缓存路由动画 -->
+      <Transition :name="showTransitionMask ? '' : actualTransition" mode="out-in" appear>
         <component :is="Component" :key="route.path" v-if="!route.meta.keepAlive" />
       </Transition>
     </RouterView>
+
+    <!-- 全屏页面切换过渡遮罩（用于提升页面切换视觉体验） -->
+    <Teleport to="body">
+      <div v-show="showTransitionMask" class="full-page-mask" />
+    </Teleport>
   </div>
 </template>
-
 <script setup lang="ts">
+  import type { CSSProperties } from 'vue'
+  import { useRoute } from 'vue-router'
   import { useCommon } from '@/composables/useCommon'
-  import { useWorktabStore } from '@/store/modules/worktab'
   import { useSettingStore } from '@/store/modules/setting'
+  import { useWorktabStore } from '@/store/modules/worktab'
 
-  // Store refs
+  const route = useRoute()
+  const { containerMinHeight } = useCommon()
   const { pageTransition, containerWidth, refresh } = storeToRefs(useSettingStore())
   const { keepAliveExclude } = storeToRefs(useWorktabStore())
 
-  const { containerMinHeight } = useCommon()
+  const isRefresh = shallowRef(true)
+  const isOpenRouteInfo = import.meta.env.VITE_OPEN_ROUTE_INFO
+  const showTransitionMask = ref(false)
 
-  const containerStyle = computed(() => {
-    return {
-      maxWidth: containerWidth.value
+  // 检查当前路由是否需要使用无基础布局模式
+  const isFullPage = computed(() => route.matched.some((r) => r.meta?.isFullPage))
+  const prevIsFullPage = ref(isFullPage.value)
+
+  // 切换动画名称：从全屏返回时不使用动画
+  const actualTransition = computed(() =>
+    prevIsFullPage.value && !isFullPage.value ? '' : pageTransition.value
+  )
+
+  // 监听全屏状态变化，显示过渡遮罩
+  watch(isFullPage, (val, oldVal) => {
+    if (val !== oldVal) {
+      showTransitionMask.value = true
+      // 延迟隐藏遮罩，给足时间让页面完成切换
+      setTimeout(() => {
+        showTransitionMask.value = false
+      }, 50)
     }
+
+    nextTick(() => {
+      prevIsFullPage.value = val
+    })
   })
 
-  // State
-  const isRefresh = ref(true)
-  const isOpenRouteInfo = import.meta.env.VITE_OPEN_ROUTE_INFO
+  const containerStyle = computed(
+    (): CSSProperties =>
+      isFullPage.value
+        ? {
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100vh',
+            zIndex: 2000,
+            background: 'var(--art-bg-color)'
+          }
+        : {
+            maxWidth: containerWidth.value
+          }
+  )
 
-  // Methods
+  const contentStyle = computed(
+    (): CSSProperties => ({
+      minHeight: containerMinHeight.value
+    })
+  )
+
   const reload = () => {
     isRefresh.value = false
     nextTick(() => {
@@ -56,6 +99,34 @@
     })
   }
 
-  // Watchers
-  watch(refresh, reload)
+  watch(refresh, reload, { flush: 'post' })
 </script>
+
+<style lang="scss" scoped>
+  .layout-content {
+    &.no-basic-layout {
+      overflow: auto;
+    }
+  }
+
+  .route-info {
+    padding: 6px 8px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: var(--art-gray-600);
+    background: var(--art-gray-200);
+    border: 1px solid var(--art-border-dashed-color);
+    border-radius: 6px;
+  }
+
+  .full-page-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2000;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    background-color: var(--art-main-bg-color);
+  }
+</style>

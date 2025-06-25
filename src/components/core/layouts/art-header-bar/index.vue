@@ -135,7 +135,7 @@
             popper-style="border: 1px solid var(--art-border-dashed-color); border-radius: calc(var(--custom-radius) / 2 + 4px); padding: 5px 16px; 5px 16px;"
           >
             <template #reference>
-              <img class="cover" src="@imgs/user/avatar.webp" />
+              <img class="cover" src="@imgs/user/avatar.webp" alt="avatar" />
             </template>
             <template #default>
               <div class="user-menu-box">
@@ -186,7 +186,6 @@
   import { useUserStore } from '@/store/modules/user'
   import { useFullscreen } from '@vueuse/core'
   import { ElMessageBox } from 'element-plus'
-  import { HOME_PAGE } from '@/router/routesAlias'
   import { useI18n } from 'vue-i18n'
   import { mittBus } from '@/utils/sys'
   import { useMenuStore } from '@/store/modules/menu'
@@ -289,7 +288,7 @@
   }
 
   const toHome = () => {
-    router.push(HOME_PAGE)
+    router.push(useCommon().homePath.value)
   }
 
   const loginOut = () => {

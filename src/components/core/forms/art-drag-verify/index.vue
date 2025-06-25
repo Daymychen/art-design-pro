@@ -51,7 +51,7 @@
     /** 是否通过验证 */
     value: boolean
     /** 组件宽度 */
-    width?: number
+    width?: number | string
     /** 组件高度 */
     height?: number
     /** 默认提示文本 */
@@ -83,8 +83,8 @@
   // 属性默认值设置
   const props = withDefaults(defineProps<PropsType>(), {
     value: false,
-    width: 260,
-    height: 38,
+    width: '100%',
+    height: 40,
     text: '按住滑块拖动',
     successText: 'success',
     background: '#eee',
@@ -152,12 +152,34 @@
   document.addEventListener('touchstart', onTouchStart)
   document.addEventListener('touchmove', onTouchMove, { passive: false })
 
+  // 获取数值形式的宽度
+  const getNumericWidth = (): number => {
+    if (typeof props.width === 'string') {
+      // 如果是字符串，尝试从DOM元素获取实际宽度
+      return dragVerify.value?.offsetWidth || 260
+    }
+    return props.width
+  }
+
+  // 获取样式字符串形式的宽度
+  const getStyleWidth = (): string => {
+    if (typeof props.width === 'string') {
+      return props.width
+    }
+    return props.width + 'px'
+  }
+
   // 组件挂载后的初始化
   onMounted(() => {
     // 设置 CSS 自定义属性
     dragVerify.value?.style.setProperty('--textColor', props.textColor)
-    dragVerify.value?.style.setProperty('--width', Math.floor(props.width / 2) + 'px')
-    dragVerify.value?.style.setProperty('--pwidth', -Math.floor(props.width / 2) + 'px')
+
+    // 等待DOM更新后设置宽度相关属性
+    nextTick(() => {
+      const numericWidth = getNumericWidth()
+      dragVerify.value?.style.setProperty('--width', Math.floor(numericWidth / 2) + 'px')
+      dragVerify.value?.style.setProperty('--pwidth', -Math.floor(numericWidth / 2) + 'px')
+    })
 
     // 重复添加事件监听器（确保事件绑定）
     document.addEventListener('touchstart', onTouchStart)
@@ -179,13 +201,13 @@
   }
 
   // 主容器样式计算
-  const dragVerifyStyle = {
-    width: props.width + 'px',
+  const dragVerifyStyle = computed(() => ({
+    width: getStyleWidth(),
     height: props.height + 'px',
     lineHeight: props.height + 'px',
     background: props.background,
     borderRadius: props.circle ? props.height / 2 + 'px' : props.radius
-  }
+  }))
 
   // 进度条样式计算
   const progressBarStyle = {
@@ -197,11 +219,11 @@
   }
 
   // 文本样式计算
-  const textStyle = {
+  const textStyle = computed(() => ({
     height: props.height + 'px',
-    width: props.width + 'px',
+    width: getStyleWidth(),
     fontSize: props.textSize
-  }
+  }))
 
   // 显示消息计算属性
   const message = computed(() => {
@@ -229,17 +251,18 @@
    */
   const dragMoving = (e: any) => {
     if (state.isMoving && !props.value) {
+      const numericWidth = getNumericWidth()
       // 计算当前位置
       let _x = (e.pageX || e.touches[0].pageX) - state.x
 
       // 在有效范围内移动
-      if (_x > 0 && _x <= props.width - props.height) {
+      if (_x > 0 && _x <= numericWidth - props.height) {
         handler.value.style.left = _x + 'px'
         progressBar.value.style.width = _x + props.height / 2 + 'px'
-      } else if (_x > props.width - props.height) {
+      } else if (_x > numericWidth - props.height) {
         // 拖拽到末端，触发验证成功
-        handler.value.style.left = props.width - props.height + 'px'
-        progressBar.value.style.width = props.width - props.height / 2 + 'px'
+        handler.value.style.left = numericWidth - props.height + 'px'
+        progressBar.value.style.width = numericWidth - props.height / 2 + 'px'
         passVerify()
       }
     }
@@ -251,10 +274,11 @@
    */
   const dragFinish = (e: any) => {
     if (state.isMoving && !props.value) {
+      const numericWidth = getNumericWidth()
       // 计算最终位置
       let _x = (e.pageX || e.changedTouches[0].pageX) - state.x
 
-      if (_x < props.width - props.height) {
+      if (_x < numericWidth - props.height) {
         // 未拖拽到末端，重置位置
         state.isOk = true
         handler.value.style.left = '0'
@@ -264,8 +288,8 @@
       } else {
         // 拖拽到末端，保持验证成功状态
         handler.value.style.transition = 'none'
-        handler.value.style.left = props.width - props.height + 'px'
-        progressBar.value.style.width = props.width - props.height / 2 + 'px'
+        handler.value.style.left = numericWidth - props.height + 'px'
+        progressBar.value.style.width = numericWidth - props.height / 2 + 'px'
         passVerify()
       }
       state.isMoving = false
@@ -315,6 +339,7 @@
 <style lang="scss" scoped>
   .drag_verify {
     position: relative;
+    box-sizing: border-box;
     overflow: hidden;
     text-align: center;
     border: 1px solid var(--art-border-dashed-color);
@@ -323,6 +348,9 @@
       position: absolute;
       top: 0;
       left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: move;
 
       i {
@@ -356,6 +384,7 @@
         var(--textColor) 60%,
         var(--textColor) 100%
       );
+      background-clip: text;
       background-clip: text;
       animation: slidetounlock 3s infinite;
       -webkit-text-fill-color: transparent;

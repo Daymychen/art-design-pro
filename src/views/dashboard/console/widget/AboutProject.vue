@@ -24,7 +24,7 @@
         </div>
       </div>
     </div>
-    <img class="right-img" src="@imgs/draw/draw1.png" />
+    <img class="right-img" src="@imgs/draw/draw1.png" alt="draw1" />
   </div>
 </template>
 

@@ -105,13 +105,13 @@
 
 <script setup lang="ts">
   import AppConfig from '@/config'
-  import { HOME_PAGE } from '@/router/routesAlias'
   import { useSettingStore } from '@/store/modules/setting'
   import { MenuTypeEnum, MenuWidth } from '@/enums/appEnum'
   import { useMenuStore } from '@/store/modules/menu'
   import { isIframe } from '@/utils/navigation'
   import { handleMenuJump } from '@/utils/navigation'
   import SidebarSubmenu from './widget/SidebarSubmenu.vue'
+  import { useCommon } from '@/composables/useCommon'
 
   const route = useRoute()
   const router = useRouter()
@@ -210,7 +210,7 @@
   )
 
   const toHome = () => {
-    router.push(HOME_PAGE)
+    router.push(useCommon().homePath.value)
   }
 
   let screenWidth = 0

@@ -24,7 +24,7 @@
         <el-table-column label="头像" prop="avatar" width="150px">
           <template #default="scope">
             <div style="display: flex; align-items: center">
-              <img class="avatar" :src="scope.row.avatar" />
+              <img class="avatar" :src="scope.row.avatar" alt="avatar" />
               <span class="user-name">{{ scope.row.username }}</span>
             </div>
           </template>
@@ -39,7 +39,12 @@
         </el-table-column>
         <el-table-column label="进度" width="240">
           <template #default="scope">
-            <el-progress :percentage="scope.row.pro" :color="scope.row.color" :stroke-width="4" />
+            <el-progress
+              :percentage="scope.row.pro"
+              :color="scope.row.color"
+              :stroke-width="4"
+              :aria-label="`${scope.row.username}的完成进度: ${scope.row.pro}%`"
+            />
           </template>
         </el-table-column>
       </template>

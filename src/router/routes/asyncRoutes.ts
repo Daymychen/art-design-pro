@@ -6,11 +6,14 @@ import { WEB_LINKS } from '@/utils/constants'
  * 菜单列表、异步路由
  *
  * 支持两种模式:
- * 1. 前端静态配置 - 直接使用本文件中定义的路由配置
- * 2. 后端动态配置 - 后端返回菜单数据，前端解析生成路由
+ * 前端静态配置 - 直接使用本文件中定义的路由配置
+ * 后端动态配置 - 后端返回菜单数据，前端解析生成路由
  *
  * 菜单标题（title）:
  * 可以是 i18n 的 key，也可以是字符串，比如：'用户列表'
+ *
+ * RoutesAlias.Home 指向的是布局组件，后端返回的菜单数据中，component 字段需要指向 /index/index
+ * 路由元数据（meta）：异步路由在 asyncRoutes 中配置，静态路由在 staticRoutes 中配置
  */
 export const asyncRoutes: AppRouteRecord[] = [
   {
@@ -19,7 +22,8 @@ export const asyncRoutes: AppRouteRecord[] = [
     component: RoutesAlias.Home,
     meta: {
       title: 'menus.dashboard.title',
-      icon: '&#xe721;'
+      icon: '&#xe721;',
+      roles: ['R_SUPER', 'R_ADMIN'] // 角色权限，前端控制模式（只有拥有这些角色的用户才能访问）
     },
     children: [
       {
@@ -28,7 +32,7 @@ export const asyncRoutes: AppRouteRecord[] = [
         component: RoutesAlias.Dashboard,
         meta: {
           title: 'menus.dashboard.console',
-          keepAlive: false,
+          keepAlive: true,
           fixedTab: true
         }
       },
@@ -121,7 +125,8 @@ export const asyncRoutes: AppRouteRecord[] = [
         component: RoutesAlias.Pricing,
         meta: {
           title: 'menus.template.pricing',
-          keepAlive: true
+          keepAlive: true,
+          isFullPage: true // 是否全屏显示
         }
       }
     ]
@@ -263,6 +268,26 @@ export const asyncRoutes: AppRouteRecord[] = [
           link: 'https://element-plus.org/zh-CN/component/overview.html',
           isIframe: true,
           showBadge: true
+        }
+      }
+    ]
+  },
+  {
+    path: '/examples',
+    name: 'Examples',
+    component: RoutesAlias.Home,
+    meta: {
+      title: 'menus.examples.title',
+      icon: '&#xe8d4;'
+    },
+    children: [
+      {
+        path: 'tabs',
+        name: 'Tabs',
+        component: RoutesAlias.ExamplesTabs,
+        meta: {
+          title: 'menus.examples.tabs',
+          keepAlive: true
         }
       }
     ]

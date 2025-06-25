@@ -42,6 +42,8 @@
   import { ref } from 'vue'
   import { Check, Close } from '@element-plus/icons-vue'
 
+  defineOptions({ name: 'Pricing' })
+
   interface Feature {
     text: string
     available: boolean
@@ -122,7 +124,7 @@
 
 <style lang="scss" scoped>
   .pricing-container {
-    padding: 5rem 1rem !important;
+    padding: 6rem 5rem 0;
     background-color: transparent !important;
     border: none !important;
 
@@ -250,7 +252,7 @@
 
   @media only screen and (max-width: $device-notebook) {
     .pricing-container {
-      padding: 2rem 0 !important;
+      padding: 5rem 2rem 0 !important;
 
       .pricing-cards {
         margin-top: 0;

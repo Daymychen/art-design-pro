@@ -1,5 +1,6 @@
 import { getTabConfig } from '@/utils/ui'
 import { useSettingStore } from '@/store/modules/setting'
+import { useMenuStore } from '@/store/modules/menu'
 
 // 通用函数
 export function useCommon() {
@@ -10,6 +11,9 @@ export function useCommon() {
   const isFrontendMode = computed(() => {
     return import.meta.env.VITE_ACCESS_MODE === 'frontend'
   })
+
+  // 首页路径
+  const homePath = computed(() => useMenuStore().getHomePath())
 
   // 刷新页面
   const refresh = () => {
@@ -29,6 +33,7 @@ export function useCommon() {
 
   return {
     isFrontendMode,
+    homePath,
     refresh,
     scrollToTop,
     containerMinHeight

@@ -73,7 +73,6 @@
                 <ArtDragVerify
                   ref="dragVerify"
                   v-model:value="isPassing"
-                  :width="width < 500 ? 328 : 438"
                   :text="$t('login.sliderText')"
                   textColor="var(--art-gray-800)"
                   :successText="$t('login.sliderSuccessText')"
@@ -124,7 +123,6 @@
   import { RoutesAlias } from '@/router/routesAlias'
   import { ElNotification, ElMessage } from 'element-plus'
   import { useUserStore } from '@/store/modules/user'
-  import { HOME_PAGE } from '@/router/routesAlias'
   import { getCssVar } from '@/utils/ui'
   import { languageOptions } from '@/locales'
   import { LanguageEnum, SystemThemeEnum } from '@/enums/appEnum'
@@ -197,7 +195,6 @@
   }))
 
   const loading = ref(false)
-  const { width } = useWindowSize()
 
   onMounted(() => {
     setupAccount('super')
@@ -249,7 +246,7 @@
 
       // 登录成功处理
       showLoginSuccessNotice()
-      router.push(HOME_PAGE)
+      router.push('/')
     } catch (error) {
       // 处理 HttpError
       if (error instanceof HttpError) {

@@ -115,6 +115,14 @@ async function handleDynamicRoutes(
 ): Promise<void> {
   try {
     await getMenuData(router)
+
+    // 跳转到菜单的第一个有效路由（仅在非刷新情况下）
+    const { homePath } = useCommon()
+    if (homePath.value && to.path === '/') {
+      next({ path: homePath.value, replace: true })
+      return
+    }
+
     next({
       path: to.path,
       query: to.query,
@@ -230,16 +238,15 @@ function isValidMenuList(menuList: AppRouteRecord[]): boolean {
 
 /**
  * 重置路由相关状态
+ * 通过调用存储的移除函数来精确清除动态路由
  */
-export function resetRouterState(router: Router): void {
+export function resetRouterState(): void {
   isRouteRegistered.value = false
-  // 清理动态注册的路由
-  router.getRoutes().forEach((route) => {
-    if (route.meta?.dynamic) {
-      router.removeRoute(route.name as string)
-    }
-  })
-  // 清空菜单数据
+
+  // 通过调用存储的移除函数来清除动态路由
   const menuStore = useMenuStore()
+  menuStore.removeAllDynamicRoutes()
+
+  // 清空菜单数据
   menuStore.setMenuList([])
 }

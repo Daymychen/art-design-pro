@@ -8,6 +8,23 @@ interface UpgradeLog {
 
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
+    version: 'v2.4.2.7',
+    title: 'bug修复、优化用户体验',
+    date: '2025-06-25',
+    detail: [
+      '路由支持配置全屏模式',
+      '路由支持自动跳转到菜单的第一个有效路由',
+      '动态路由新增 removeAllDynamicRoutes 方法，可用于彻底清除所有动态路由',
+      '权限自定义指令优化、新增角色权限指令 v-roles、可用于控制元素的显示与隐藏',
+      '修复登录页面拖拽组件 ArtDragVerify 宽度、颜色异常bug',
+      '修复 iframe 页面混合模式、双列模式异常bug',
+      '优化锁屏页面被 el-loading 穿透bug',
+      '跨域请求携带 cookie 配置从环境变量中获取，默认关闭',
+      '针对SEO、可访问性做一些优化',
+      '新增标签页操作示例'
+    ]
+  },
+  {
     version: 'v2.4.2.6',
     title: '组件重构与性能优化',
     date: '2025-06-23',

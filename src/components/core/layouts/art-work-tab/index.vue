@@ -17,7 +17,7 @@
           @click="clickTab(item)"
           @contextmenu.prevent="(e: MouseEvent) => showMenu(e, item.path)"
         >
-          {{ formatMenuTitle(item.title) }}
+          {{ item.customTitle || formatMenuTitle(item.title) }}
           <el-icon
             v-if="list.length > 1 && !item.fixedTab"
             @click.stop="closeWorktab('current', item.path)"

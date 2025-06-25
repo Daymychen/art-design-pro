@@ -422,7 +422,7 @@
     .unlock-content {
       position: fixed;
       inset: 0;
-      z-index: 1000;
+      z-index: 2500;
       display: flex;
       align-items: center;
       justify-content: center;

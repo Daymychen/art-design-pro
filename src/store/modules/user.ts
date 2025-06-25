@@ -67,7 +67,7 @@ export const useUserStore = defineStore(
       refreshToken.value = ''
       useWorktabStore().opened = []
       sessionStorage.removeItem('iframeRoutes')
-      resetRouterState(router)
+      resetRouterState()
       router.push(RoutesAlias.Login)
     }
 

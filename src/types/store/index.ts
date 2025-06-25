@@ -48,6 +48,7 @@ export interface SettingState {
 // 多标签
 export interface WorkTab {
   title: string
+  customTitle?: string
   path: string
   name: string
   keepAlive: boolean

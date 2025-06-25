@@ -1,14 +1,13 @@
 <template>
   <div class="page-content">
     <ElForm>
-      <ElRow>
+      <ElRow :gutter="12">
         <ElCol :xs="24" :sm="12" :lg="6">
           <ElFormItem>
             <ElInput placeholder="部门名称"></ElInput>
           </ElFormItem>
         </ElCol>
-        <div style="width: 12px"></div>
-        <ElCol :xs="24" :sm="12" :lg="6" class="el-col2">
+        <ElCol :xs="24" :sm="12" :lg="6">
           <ElFormItem>
             <ElButton v-ripple>搜索</ElButton>
             <ElButton @click="showDialog('add')" v-ripple>新增角色</ElButton>
