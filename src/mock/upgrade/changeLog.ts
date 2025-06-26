@@ -8,6 +8,11 @@ interface UpgradeLog {
 
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
+    version: 'v2.4.2.8',
+    title: '修复 v2.4.2.7 版本访问 / 路径时显示 404 的问题',
+    date: '2025-06-26'
+  },
+  {
     version: 'v2.4.2.7',
     title: 'bug修复、优化用户体验',
     date: '2025-06-25',

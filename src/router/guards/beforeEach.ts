@@ -70,6 +70,11 @@ async function handleRouteGuard(
     return
   }
 
+  // 处理根路径跳转到首页
+  if (userStore.isLogin && isRouteRegistered.value && handleRootPathRedirect(to, next)) {
+    return
+  }
+
   // 处理已知的匹配路由
   if (to.matched.length > 0) {
     setWorktab(to)
@@ -117,9 +122,7 @@ async function handleDynamicRoutes(
     await getMenuData(router)
 
     // 跳转到菜单的第一个有效路由（仅在非刷新情况下）
-    const { homePath } = useCommon()
-    if (homePath.value && to.path === '/') {
-      next({ path: homePath.value, replace: true })
+    if (handleRootPathRedirect(to, next)) {
       return
     }
 
@@ -249,4 +252,21 @@ export function resetRouterState(): void {
 
   // 清空菜单数据
   menuStore.setMenuList([])
+}
+
+/**
+ * 处理根路径跳转到首页
+ * @param to 目标路由
+ * @param next 路由跳转函数
+ * @returns 是否处理了跳转
+ */
+function handleRootPathRedirect(to: RouteLocationNormalized, next: NavigationGuardNext): boolean {
+  if (to.path === '/') {
+    const { homePath } = useCommon()
+    if (homePath.value) {
+      next({ path: homePath.value, replace: true })
+      return true
+    }
+  }
+  return false
 }
