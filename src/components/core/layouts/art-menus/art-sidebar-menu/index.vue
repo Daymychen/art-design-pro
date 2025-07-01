@@ -6,12 +6,13 @@
     :class="{ 'no-border': menuList.length === 0 }"
   >
     <!-- 双列菜单（左侧） -->
-    <div class="dual-menu-left" :style="{ background: getMenuTheme.background }" v-if="isDualMenu">
+    <div v-if="isDualMenu" class="dual-menu-left" :style="{ background: getMenuTheme.background }">
       <ArtLogo class="logo" @click="toHome" />
-      <el-scrollbar style="height: calc(100% - 135px)">
+
+      <ElScrollbar style="height: calc(100% - 135px)">
         <ul>
           <li v-for="menu in firstLevelMenus" :key="menu.path" @click="handleMenuJump(menu, true)">
-            <el-tooltip
+            <ElTooltip
               class="box-item"
               effect="dark"
               :content="$t(menu.meta.title)"
@@ -38,15 +39,16 @@
                     fontSize: dualMenuShowText ? '18px' : '22px',
                     marginBottom: dualMenuShowText ? '5px' : '0'
                   }"
-                ></i>
+                />
                 <span v-if="dualMenuShowText">
                   {{ $t(menu.meta.title) }}
                 </span>
               </div>
-            </el-tooltip>
+            </ElTooltip>
           </li>
         </ul>
-      </el-scrollbar>
+      </ElScrollbar>
+
       <div class="switch-btn" @click="setDualMenuMode">
         <i class="iconfont-sys">&#xe798;</i>
       </div>
@@ -56,39 +58,44 @@
     <div
       v-show="menuList.length > 0"
       class="menu-left"
-      id="menu-left"
       :class="`menu-left-${getMenuTheme.theme} menu-left-${!menuOpen ? 'close' : 'open'}`"
       :style="{ background: getMenuTheme.background }"
     >
-      <div class="header" @click="toHome" :style="{ background: getMenuTheme.background }">
-        <ArtLogo class="logo" v-if="!isDualMenu" />
-        <p
-          :class="{ 'is-dual-menu-name': isDualMenu }"
-          :style="{ color: getMenuTheme.systemNameColor, opacity: !menuOpen ? 0 : 1 }"
+      <ElScrollbar style="height: calc(100% - 10px)" :view-style="{ backgroundColor: 'blue' }">
+        <div class="header" @click="toHome" :style="{ background: getMenuTheme.background }">
+          <ArtLogo v-if="!isDualMenu" class="logo" />
+          <p
+            :class="{ 'is-dual-menu-name': isDualMenu }"
+            :style="{
+              color: getMenuTheme.systemNameColor,
+              opacity: !menuOpen ? 0 : 1
+            }"
+          >
+            {{ AppConfig.systemInfo.name }}
+          </p>
+        </div>
+
+        <ElMenu
+          :class="'el-menu-' + getMenuTheme.theme"
+          :collapse="!menuOpen"
+          :default-active="routerPath"
+          :text-color="getMenuTheme.textColor"
+          :unique-opened="uniqueOpened"
+          :background-color="getMenuTheme.background"
+          :active-text-color="getMenuTheme.textActiveColor"
+          :default-openeds="defaultOpenedsArray"
+          :popper-class="`menu-left-${getMenuTheme.theme}-popper`"
+          :show-timeout="50"
+          :hide-timeout="50"
         >
-          {{ AppConfig.systemInfo.name }}
-        </p>
-      </div>
-      <el-menu
-        :class="'el-menu-' + getMenuTheme.theme"
-        :collapse="!menuOpen"
-        :default-active="routerPath"
-        :text-color="getMenuTheme.textColor"
-        :unique-opened="uniqueOpened"
-        :background-color="getMenuTheme.background"
-        :active-text-color="getMenuTheme.textActiveColor"
-        :default-openeds="defaultOpenedsArray"
-        :popper-class="`menu-left-${getMenuTheme.theme}-popper`"
-        :show-timeout="50"
-        :hide-timeout="50"
-      >
-        <SidebarSubmenu
-          :list="menuList"
-          :isMobile="isMobileModel"
-          :theme="getMenuTheme"
-          @close="closeMenu"
-        />
-      </el-menu>
+          <SidebarSubmenu
+            :list="menuList"
+            :isMobile="isMobileModel"
+            :theme="getMenuTheme"
+            @close="closeMenu"
+          />
+        </ElMenu>
+      </ElScrollbar>
 
       <div
         class="menu-model"
@@ -97,8 +104,7 @@
           opacity: !menuOpen ? 0 : 1,
           transform: showMobileModel ? 'scale(1)' : 'scale(0)'
         }"
-      >
-      </div>
+      />
     </div>
   </div>
 </template>
@@ -112,6 +118,8 @@
   import { handleMenuJump } from '@/utils/navigation'
   import SidebarSubmenu from './widget/SidebarSubmenu.vue'
   import { useCommon } from '@/composables/useCommon'
+
+  defineOptions({ name: 'ArtSidebarMenu' })
 
   const route = useRoute()
   const router = useRouter()
@@ -131,13 +139,15 @@
   )
   const isDualMenu = computed(() => menuType.value === MenuTypeEnum.DUAL_MENU)
 
-  const defaultOpenedsArray = ref([])
+  const firstLevelMenuPath = computed(() => route.matched[0]?.path)
+  const routerPath = computed(() => String(route.meta.activePath || route.path))
 
   // 一级菜单列表
   const firstLevelMenus = computed(() => {
     return useMenuStore().menuList.filter((menu) => !menu.meta.isHide)
   })
 
+  // 菜单列表
   const menuList = computed(() => {
     const list = useMenuStore().menuList
 
@@ -163,10 +173,14 @@
     return currentMenu?.children ?? []
   })
 
+  const defaultOpenedsArray = ref<string[]>([])
+  const isMobileModel = ref(false)
+  const showMobileModel = ref(false)
+
   // 查找 iframe 对应的二级菜单列表
   const findIframeMenuList = (currentPath: string, menuList: any[]) => {
     // 递归查找包含当前路径的菜单项
-    const hasPath = (items: any[]) => {
+    const hasPath = (items: any[]): boolean => {
       for (const item of items) {
         if (item.path === currentPath) {
           return true
@@ -187,52 +201,8 @@
     return []
   }
 
-  const firstLevelMenuPath = computed(() => {
-    return route.matched[0].path
-  })
-
-  const routerPath = computed(() => String(route.meta.activePath || route.path))
-
-  onMounted(() => {
-    listenerWindowResize()
-  })
-
-  const isMobileModel = ref(false)
-  const showMobileModel = ref(false)
-
-  watch(
-    () => !menuOpen.value,
-    (collapse: boolean) => {
-      if (!collapse) {
-        showMobileModel.value = true
-      }
-    }
-  )
-
   const toHome = () => {
     router.push(useCommon().homePath.value)
-  }
-
-  let screenWidth = 0
-
-  const listenerWindowResize = () => {
-    screenWidth = document.body.clientWidth
-
-    setMenuModel()
-
-    window.onresize = () => {
-      return (() => {
-        screenWidth = document.body.clientWidth
-        setMenuModel()
-      })()
-    }
-  }
-
-  const setMenuModel = () => {
-    // 小屏幕折叠菜单
-    if (screenWidth < 800) {
-      settingStore.setMenuOpen(false)
-    }
   }
 
   const visibleMenu = () => {
@@ -258,6 +228,40 @@
   const setDualMenuMode = () => {
     settingStore.setDualMenuShowText(!dualMenuShowText.value)
   }
+
+  let screenWidth = 0
+
+  const setMenuModel = () => {
+    // 小屏幕折叠菜单
+    if (screenWidth < 800) {
+      settingStore.setMenuOpen(false)
+    }
+  }
+
+  const listenerWindowResize = () => {
+    screenWidth = document.body.clientWidth
+    setMenuModel()
+
+    window.onresize = () => {
+      return (() => {
+        screenWidth = document.body.clientWidth
+        setMenuModel()
+      })()
+    }
+  }
+
+  watch(
+    () => !menuOpen.value,
+    (collapse: boolean) => {
+      if (!collapse) {
+        showMobileModel.value = true
+      }
+    }
+  )
+
+  onMounted(() => {
+    listenerWindowResize()
+  })
 </script>
 
 <style lang="scss" scoped>

@@ -30,10 +30,10 @@
         <ArtBreadcrumb v-if="(showCrumbs && isLeftMenu) || (showCrumbs && isDualMenu)" />
 
         <!-- 顶部菜单 -->
-        <ArtHorizontalMenu v-if="isTopMenu" :list="menuList" :width="menuTopWidth" />
+        <ArtHorizontalMenu v-if="isTopMenu" :list="menuList" />
 
         <!-- 混合菜单-顶部 -->
-        <ArtMixedMenu v-if="isTopLeftMenu" :list="menuList" :width="menuTopWidth" />
+        <ArtMixedMenu v-if="isTopLeftMenu" :list="menuList" />
       </div>
 
       <div class="right">
@@ -77,28 +77,28 @@
         </div>
         <!-- 语言 -->
         <div class="btn-box" v-if="showLanguage">
-          <el-dropdown @command="changeLanguage" popper-class="langDropDownStyle">
+          <ElDropdown @command="changeLanguage" popper-class="langDropDownStyle">
             <div class="btn language-btn">
               <i class="iconfont-sys">&#xe611;</i>
             </div>
             <template #dropdown>
-              <el-dropdown-menu>
+              <ElDropdownMenu>
                 <div v-for="item in languageOptions" :key="item.value" class="lang-btn-item">
-                  <el-dropdown-item
+                  <ElDropdownItem
                     :command="item.value"
                     :class="{ 'is-selected': locale === item.value }"
                   >
                     <span class="menu-txt">{{ item.label }}</span>
                     <i v-if="locale === item.value" class="iconfont-sys">&#xe621;</i>
-                  </el-dropdown-item>
+                  </ElDropdownItem>
                 </div>
-              </el-dropdown-menu>
+              </ElDropdownMenu>
             </template>
-          </el-dropdown>
+          </ElDropdown>
         </div>
         <!-- 设置 -->
         <div class="btn-box" @click="openSetting">
-          <el-popover :visible="showSettingGuide" placement="bottom-start" :width="190" :offset="0">
+          <ElPopover :visible="showSettingGuide" placement="bottom-start" :width="190" :offset="0">
             <template #reference>
               <div class="btn setting-btn">
                 <i class="iconfont-sys">&#xe6d0;</i>
@@ -112,7 +112,7 @@
                 >{{ $t('topBar.guide.description') }}
               </p>
             </template>
-          </el-popover>
+          </ElPopover>
         </div>
         <!-- 切换主题 -->
         <div class="btn-box" @click="themeAnimation">
@@ -123,7 +123,7 @@
 
         <!-- 用户头像、菜单 -->
         <div class="user">
-          <el-popover
+          <ElPopover
             ref="userMenuPopover"
             placement="bottom-end"
             :width="240"
@@ -170,33 +170,44 @@
                 </ul>
               </div>
             </template>
-          </el-popover>
+          </ElPopover>
         </div>
       </div>
     </div>
     <ArtWorkTab />
 
-    <art-notification v-model:value="showNotice" ref="notice" />
+    <ArtNotification v-model:value="showNotice" ref="notice" />
   </div>
 </template>
 
 <script setup lang="ts">
+  import { useI18n } from 'vue-i18n'
+  import { useRouter } from 'vue-router'
+  import { ElMessageBox } from 'element-plus'
+  import { useFullscreen, useWindowSize } from '@vueuse/core'
   import { LanguageEnum, MenuTypeEnum, MenuWidth } from '@/enums/appEnum'
   import { useSettingStore } from '@/store/modules/setting'
   import { useUserStore } from '@/store/modules/user'
-  import { useFullscreen } from '@vueuse/core'
-  import { ElMessageBox } from 'element-plus'
-  import { useI18n } from 'vue-i18n'
-  import { mittBus } from '@/utils/sys'
   import { useMenuStore } from '@/store/modules/menu'
   import AppConfig from '@/config'
   import { languageOptions } from '@/locales'
+  import { WEB_LINKS } from '@/utils/constants'
+  import { mittBus } from '@/utils/sys'
+  import { themeAnimation } from '@/utils/theme/animation'
+  import { useCommon } from '@/composables/useCommon'
+
+  defineOptions({ name: 'ArtHeaderBar' })
+
+  // 检测操作系统类型
   const isWindows = navigator.userAgent.includes('Windows')
-  const { locale } = useI18n()
+
+  const router = useRouter()
+  const { locale, t } = useI18n()
+  const { width } = useWindowSize()
 
   const settingStore = useSettingStore()
   const userStore = useUserStore()
-  const router = useRouter()
+  const menuStore = useMenuStore()
 
   const {
     showMenuButton,
@@ -212,29 +223,19 @@
   } = storeToRefs(settingStore)
 
   const { language, getUserInfo: userInfo } = storeToRefs(userStore)
-
-  const { menuList } = storeToRefs(useMenuStore())
+  const { menuList } = storeToRefs(menuStore)
 
   const showNotice = ref(false)
   const notice = ref(null)
   const userMenuPopover = ref()
 
+  // 菜单类型判断
   const isLeftMenu = computed(() => menuType.value === MenuTypeEnum.LEFT)
   const isDualMenu = computed(() => menuType.value === MenuTypeEnum.DUAL_MENU)
   const isTopMenu = computed(() => menuType.value === MenuTypeEnum.TOP)
   const isTopLeftMenu = computed(() => menuType.value === MenuTypeEnum.TOP_LEFT)
 
-  import { useCommon } from '@/composables/useCommon'
-  import { WEB_LINKS } from '@/utils/constants'
-  import { themeAnimation } from '@/utils/theme/animation'
-
-  const { t } = useI18n()
-
-  const { width } = useWindowSize()
-
-  const menuTopWidth = computed(() => {
-    return width.value * 0.5
-  })
+  const { isFullscreen, toggle: toggleFullscreen } = useFullscreen()
 
   onMounted(() => {
     initLanguage()
@@ -245,12 +246,17 @@
     document.removeEventListener('click', bodyCloseNotice)
   })
 
-  const { isFullscreen, toggle: toggleFullscreen } = useFullscreen()
-
-  const toggleFullScreen = () => {
+  /**
+   * 切换全屏状态
+   */
+  const toggleFullScreen = (): void => {
     toggleFullscreen()
   }
 
+  /**
+   * 计算顶部栏宽度
+   * @returns {string} 计算后的宽度值
+   */
   const topBarWidth = (): string => {
     const { TOP, DUAL_MENU, TOP_LEFT } = MenuTypeEnum
     const { getMenuOpenWidth } = settingStore
@@ -271,27 +277,46 @@
     return isMenuOpen ? `calc(100% - ${getMenuOpenWidth})` : `calc(100% - ${MenuWidth.CLOSE})`
   }
 
-  const visibleMenu = () => {
+  /**
+   * 切换菜单显示/隐藏状态
+   */
+  const visibleMenu = (): void => {
     settingStore.setMenuOpen(!menuOpen.value)
   }
 
-  const goPage = (path: string) => {
+  /**
+   * 页面跳转
+   * @param {string} path - 目标路径
+   */
+  const goPage = (path: string): void => {
     router.push(path)
   }
 
-  const toDocs = () => {
+  /**
+   * 打开文档页面
+   */
+  const toDocs = (): void => {
     window.open(WEB_LINKS.DOCS)
   }
 
-  const toGithub = () => {
+  /**
+   * 打开 GitHub 页面
+   */
+  const toGithub = (): void => {
     window.open(WEB_LINKS.GITHUB)
   }
 
-  const toHome = () => {
+  /**
+   * 跳转到首页
+   */
+  const toHome = (): void => {
     router.push(useCommon().homePath.value)
   }
 
-  const loginOut = () => {
+  /**
+   * 用户登出确认
+   */
+  const loginOut = (): void => {
     closeUserMenu()
     setTimeout(() => {
       ElMessageBox.confirm(t('common.logOutTips'), t('common.tips'), {
@@ -304,39 +329,58 @@
     }, 200)
   }
 
-  const reload = (time: number = 0) => {
+  /**
+   * 刷新页面
+   * @param {number} time - 延迟时间，默认为0毫秒
+   */
+  const reload = (time: number = 0): void => {
     setTimeout(() => {
       useCommon().refresh()
     }, time)
   }
 
-  const initLanguage = () => {
+  /**
+   * 初始化语言设置
+   */
+  const initLanguage = (): void => {
     locale.value = language.value
   }
 
-  const changeLanguage = (lang: LanguageEnum) => {
+  /**
+   * 切换系统语言
+   * @param {LanguageEnum} lang - 目标语言类型
+   */
+  const changeLanguage = (lang: LanguageEnum): void => {
     if (locale.value === lang) return
     locale.value = lang
     userStore.setLanguage(lang)
     reload(50)
   }
 
-  const openSetting = () => {
+  /**
+   * 打开设置面板
+   */
+  const openSetting = (): void => {
     mittBus.emit('openSetting')
 
-    // 隐藏设置引导
+    // 隐藏设置引导提示
     if (showSettingGuide.value) {
       settingStore.hideSettingGuide()
     }
-    // 打开设置引导
-    // settingStore.openSettingGuide()
   }
 
-  const openSearchDialog = () => {
+  /**
+   * 打开全局搜索对话框
+   */
+  const openSearchDialog = (): void => {
     mittBus.emit('openSearchDialog')
   }
 
-  const bodyCloseNotice = (e: any) => {
+  /**
+   * 点击页面其他区域关闭通知面板
+   * @param {Event} e - 点击事件对象
+   */
+  const bodyCloseNotice = (e: any): void => {
     let { className } = e.target
 
     if (showNotice.value) {
@@ -350,19 +394,31 @@
     }
   }
 
-  const visibleNotice = () => {
+  /**
+   * 切换通知面板显示状态
+   */
+  const visibleNotice = (): void => {
     showNotice.value = !showNotice.value
   }
 
-  const openChat = () => {
+  /**
+   * 打开聊天窗口
+   */
+  const openChat = (): void => {
     mittBus.emit('openChat')
   }
 
-  const lockScreen = () => {
+  /**
+   * 打开锁屏功能
+   */
+  const lockScreen = (): void => {
     mittBus.emit('openLockScreen')
   }
 
-  const closeUserMenu = () => {
+  /**
+   * 关闭用户菜单弹出层
+   */
+  const closeUserMenu = (): void => {
     setTimeout(() => {
       userMenuPopover.value.hide()
     }, 100)

@@ -3,14 +3,16 @@ import type { I18n, I18nOptions } from 'vue-i18n'
 import { LanguageEnum } from '@/enums/appEnum'
 import { getSystemStorage } from '@/utils/storage'
 import { StorageKeyManager } from '@/utils/storage/storage-key-manager'
+// 同步导入语言文件
+import enMessages from './langs/en.json'
+import zhMessages from './langs/zh.json'
 
 // 创建存储键管理器实例
 const storageKeyManager = new StorageKeyManager()
 
-// 动态导入语言文件
 const messages = {
-  [LanguageEnum.EN]: () => import('./langs/en.json'),
-  [LanguageEnum.ZH]: () => import('./langs/zh.json')
+  [LanguageEnum.EN]: enMessages,
+  [LanguageEnum.ZH]: zhMessages
 }
 
 // 语言选项
@@ -62,17 +64,10 @@ const i18nOptions: I18nOptions = {
   legacy: false,
   globalInjection: true,
   fallbackLocale: LanguageEnum.ZH,
-  messages: {}
+  messages
 }
 
 const i18n: I18n = createI18n(i18nOptions)
-
-// 异步加载语言文件
-Object.keys(messages).forEach((locale) => {
-  ;(messages as Record<string, () => Promise<any>>)[locale]().then((msg) => {
-    i18n.global.setLocaleMessage(locale, msg.default)
-  })
-})
 
 interface Translation {
   (key: string): string

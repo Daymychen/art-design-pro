@@ -4,3 +4,6 @@ dist
 dist-ssr
 *.local
 .cursorrules
+
+src/types/auto-imports.d.ts
+src/types/components.d.ts

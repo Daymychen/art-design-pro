@@ -145,10 +145,10 @@
       // 如果有 authList，将其转换为子节点
       if (node.meta && node.meta.authList && node.meta.authList.length) {
         const authNodes = node.meta.authList.map((auth: any) => ({
-          id: `${node.id}_${auth.auth_mark}`,
-          name: `${node.name}_${auth.auth_mark}`,
+          id: `${node.id}_${auth.authMark}`,
+          name: `${node.name}_${auth.authMark}`,
           label: auth.title,
-          auth_mark: auth.auth_mark,
+          authMark: auth.authMark,
           isAuth: true,
           checked: auth.checked || false
         }))

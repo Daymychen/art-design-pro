@@ -1,12 +1,15 @@
 <template>
   <template v-for="item in filteredMenuItems" :key="item.path">
     <!-- 包含子菜单的项目 -->
-    <el-sub-menu v-if="hasChildren(item)" :index="item.path || item.meta.title" :level="level">
+    <ElSubMenu v-if="hasChildren(item)" :index="item.path || item.meta.title" :level="level">
       <template #title>
         <MenuItemIcon :icon="item.meta.icon" :color="theme?.iconColor" />
-        <span class="menu-name">{{ formatMenuTitle(item.meta.title) }}</span>
+        <span class="menu-name">
+          {{ formatMenuTitle(item.meta.title) }}
+        </span>
         <div v-if="item.meta.showBadge" class="badge" style="right: 35px" />
       </template>
+
       <SidebarSubmenu
         :list="item.children"
         :is-mobile="isMobile"
@@ -14,24 +17,27 @@
         :theme="theme"
         @close="closeMenu"
       />
-    </el-sub-menu>
+    </ElSubMenu>
 
     <!-- 普通菜单项 -->
-    <el-menu-item
+    <ElMenuItem
       v-else
       :index="item.path || item.meta.title"
       :level-item="level + 1"
       @click="goPage(item)"
     >
       <MenuItemIcon :icon="item.meta.icon" :color="theme?.iconColor" />
+
       <template #title>
-        <span class="menu-name">{{ formatMenuTitle(item.meta.title) }}</span>
+        <span class="menu-name">
+          {{ formatMenuTitle(item.meta.title) }}
+        </span>
         <div v-if="item.meta.showBadge" class="badge" />
         <div v-if="item.meta.showTextBadge" class="text-badge">
           {{ item.meta.showTextBadge }}
         </div>
       </template>
-    </el-menu-item>
+    </ElMenuItem>
   </template>
 </template>
 
@@ -41,18 +47,28 @@
   import { formatMenuTitle } from '@/router/utils/utils'
   import { handleMenuJump } from '@/utils/navigation'
 
-  // 类型定义
+  interface MenuTheme {
+    iconColor?: string
+  }
+
   interface Props {
+    /** 菜单标题 */
     title?: string
+    /** 菜单列表 */
     list?: AppRouteRecord[]
-    theme?: {
-      iconColor?: string
-    }
+    /** 主题配置 */
+    theme?: MenuTheme
+    /** 是否为移动端模式 */
     isMobile?: boolean
+    /** 菜单层级 */
     level?: number
   }
 
-  // Props定义
+  interface Emits {
+    /** 关闭菜单事件 */
+    (e: 'close'): void
+  }
+
   const props = withDefaults(defineProps<Props>(), {
     title: '',
     list: () => [],
@@ -61,29 +77,45 @@
     level: 0
   })
 
-  // Emits定义
-  const emit = defineEmits<{
-    (e: 'close'): void
-  }>()
+  const emit = defineEmits<Emits>()
 
-  // 计算属性
+  /**
+   * 过滤后的菜单项列表
+   * 只显示未隐藏的菜单项
+   */
   const filteredMenuItems = computed(() => filterRoutes(props.list))
 
-  // 跳转页面
-  const goPage = (item: AppRouteRecord) => {
+  /**
+   * 跳转到指定页面
+   * @param item 菜单项数据
+   */
+  const goPage = (item: AppRouteRecord): void => {
     closeMenu()
     handleMenuJump(item)
   }
 
-  // 关闭菜单
-  const closeMenu = () => emit('close')
+  /**
+   * 关闭菜单
+   * 触发父组件的关闭事件
+   */
+  const closeMenu = (): void => {
+    emit('close')
+  }
 
-  // 判断是否有子菜单
+  /**
+   * 判断菜单项是否包含子菜单
+   * @param item 菜单项数据
+   * @returns 是否包含子菜单
+   */
   const hasChildren = (item: AppRouteRecord): boolean => {
     return Boolean(item.children?.length)
   }
 
-  // 过滤菜单项
+  /**
+   * 递归过滤菜单路由，移除隐藏的菜单项
+   * @param items 菜单项数组
+   * @returns 过滤后的菜单项数组
+   */
   const filterRoutes = (items: AppRouteRecord[]): AppRouteRecord[] => {
     return items
       .filter((item) => !item.meta.isHide)
@@ -95,12 +127,23 @@
 </script>
 
 <script lang="ts">
-  // 抽取图标组件
+  /**
+   * 菜单图标组件
+   * 用于渲染菜单项的图标
+   */
   const MenuItemIcon = defineComponent({
     name: 'MenuItemIcon',
     props: {
-      icon: String,
-      color: String
+      /** 图标内容 */
+      icon: {
+        type: String,
+        default: ''
+      },
+      /** 图标颜色 */
+      color: {
+        type: String,
+        default: ''
+      }
     },
     setup(props) {
       return () =>

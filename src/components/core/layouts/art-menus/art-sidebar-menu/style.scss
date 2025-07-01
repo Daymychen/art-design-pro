@@ -94,6 +94,15 @@
     }
   }
 
+  .menu-left {
+    box-sizing: border-box;
+    height: 100dvh;
+
+    .el-menu {
+      height: 100%;
+    }
+  }
+
   :deep(.badge) {
     position: absolute;
     top: 0;

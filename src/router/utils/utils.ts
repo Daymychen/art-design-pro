@@ -4,7 +4,7 @@ import { RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
 import AppConfig from '@/config'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-import { $t } from '@/locales'
+import i18n, { $t } from '@/locales'
 
 /** 扩展的路由配置类型 */
 export type AppRouteRecordRaw = RouteRecordRaw & {
@@ -52,7 +52,16 @@ export const setSystemTheme = (to: RouteLocationNormalized): void => {
  */
 export const formatMenuTitle = (title: string): string => {
   if (title) {
-    return title.startsWith('menus.') ? $t(title) : title
+    if (title.startsWith('menus.')) {
+      // 使用 te() 方法检查翻译键值是否存在，避免控制台警告
+      if (i18n.global.te(title)) {
+        return $t(title)
+      } else {
+        // 如果翻译不存在，返回键值的最后部分作为fallback
+        return title.split('.').pop() || title
+      }
+    }
+    return title
   }
   return ''
 }

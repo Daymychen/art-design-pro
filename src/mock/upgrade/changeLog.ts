@@ -8,6 +8,22 @@ interface UpgradeLog {
 
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
+    version: 'v2.4.2.9',
+    title: '代码重构、修复bug、优化用户体验',
+    date: '2025-07-02',
+    detail: [
+      '菜单布局、顶部导航代码重构',
+      '修复移动端锁屏页部分浏览器无法解锁bug',
+      '优化移动端菜单滚动用户体验',
+      '优化顶部菜单样式问题',
+      '顶部菜单宽度自适应，可显示更多内容，混合菜单支持鼠标滚动',
+      'asyncRoutes 路由配置 auth_mark 字段改为 authMark',
+      '去除重复的 components.d.ts 文件，components.d.ts、auto-imports.d.ts 忽略提交',
+      '优化国际化语言文件加载方式，异步改成同步模式',
+      '优化 el-pagination 大小不一致问题'
+    ]
+  },
+  {
     version: 'v2.4.2.8',
     title: '修复 v2.4.2.7 版本访问 / 路径时显示 404 的问题',
     date: '2025-06-26'

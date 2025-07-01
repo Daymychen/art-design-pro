@@ -27,7 +27,7 @@ export interface RouteMeta extends Record<string | number | symbol, unknown> {
   /** 操作权限 */
   authList?: Array<{
     title: string
-    auth_mark: string
+    authMark: string
   }>
   /** 是否为一级菜单 */
   isFirstLevel?: boolean

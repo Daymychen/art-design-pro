@@ -1,5 +1,5 @@
 <template>
-  <el-sub-menu v-if="hasChildren" :index="item.path || item.meta.title">
+  <ElSubMenu v-if="hasChildren" :index="item.path || item.meta.title">
     <template #title>
       <i
         class="menu-icon iconfont-sys"
@@ -19,9 +19,9 @@
       :level="level + 1"
       @close="closeMenu"
     />
-  </el-sub-menu>
+  </ElSubMenu>
 
-  <el-menu-item
+  <ElMenuItem
     v-else-if="!item.meta.isHide"
     :index="item.path || item.meta.title"
     @click="goPage(item)"
@@ -33,7 +33,7 @@
     ></i>
     <span>{{ formatMenuTitle(item.meta.title) }}</span>
     <div class="badge" v-if="item.meta.showBadge"></div>
-  </el-menu-item>
+  </ElMenuItem>
 </template>
 
 <script lang="ts" setup>
@@ -85,8 +85,6 @@
     padding: 0 !important;
 
     :deep(.el-sub-menu__title) {
-      padding: 0 30px 0 15px !important;
-
       .el-sub-menu__icon-arrow {
         right: 10px !important;
       }

@@ -287,7 +287,7 @@
         return h(
           'div',
           {},
-          row.meta.authList?.map((item: { title: string; auth_mark: string }, index: number) => {
+          row.meta.authList?.map((item: { title: string; authMark: string }, index: number) => {
             return h(
               ElPopover,
               {
@@ -554,7 +554,7 @@
         } else {
           // 权限按钮数据回显
           form.authName = row.title
-          form.authLabel = row.auth_mark
+          form.authLabel = row.authMark
           form.authIcon = row.icon || ''
           form.authSort = row.sort || 1
         }

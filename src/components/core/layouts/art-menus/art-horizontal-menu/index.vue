@@ -1,14 +1,13 @@
 <!-- 水平菜单 -->
 <template>
   <div class="top-menu">
-    <el-menu
+    <ElMenu
       :ellipsis="true"
       class="el-menu-popper-demo"
       mode="horizontal"
       :default-active="routerPath"
       text-color="var(--art-text-gray-700)"
       :popper-offset="-6"
-      :style="{ width: width + 'px' }"
       background-color="transparent"
       :show-timeout="50"
       :hide-timeout="50"
@@ -20,58 +19,65 @@
         :isMobile="false"
         :level="0"
       />
-    </el-menu>
+    </ElMenu>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { AppRouteRecord } from '@/types/router'
+  import type { AppRouteRecord } from '@/types/router'
+  import HorizontalSubmenu from './widget/HorizontalSubmenu.vue'
+
+  defineOptions({ name: 'ArtHorizontalMenu' })
+
+  interface Props {
+    /** 菜单列表数据 */
+    list: AppRouteRecord[]
+  }
 
   const route = useRoute()
 
-  const props = defineProps({
-    list: {
-      type: [Array] as PropType<AppRouteRecord[]>,
-      default: () => []
-    },
-    width: {
-      type: Number,
-      default: 500
-    }
+  const props = withDefaults(defineProps<Props>(), {
+    list: () => []
   })
 
+  /**
+   * 过滤后的菜单项列表
+   * 只显示未隐藏的菜单项
+   */
   const filteredMenuItems = computed(() => {
-    return props.list.filter((item) => !item.meta.isHide)
+    return filterMenuItems(props.list)
   })
 
+  /**
+   * 当前激活的路由路径
+   * 用于菜单高亮显示
+   */
   const routerPath = computed(() => String(route.meta.activePath || route.path))
+
+  /**
+   * 过滤菜单项，移除隐藏的菜单
+   * @param items 菜单项数组
+   * @returns 过滤后的菜单项数组
+   */
+  const filterMenuItems = (items: AppRouteRecord[]): AppRouteRecord[] => {
+    return items.filter((item) => !item.meta.isHide)
+  }
 </script>
 
 <style lang="scss" scoped>
-  // 去除 el-sub-menu 的底部横线
-  :deep(.el-menu--horizontal .el-sub-menu__title) {
-    border: 0 !important;
-  }
-
-  // 去除 el-menu 的底部横线
   .top-menu {
+    flex: 1;
+    overflow: hidden;
+
     .el-menu {
+      width: 100%;
       border: none;
     }
   }
 
-  // 可自定义选中样式
-  // :deep(.el-menu--horizontal .el-sub-menu.is-active) {
-  //   background-color: var(--art-gray-200);
-  //   margin: 10px 0;
-  //   border-radius: 6px;
-  // }
-
-  @media only screen and (max-width: $device-notebook) {
-    .top-menu {
-      .el-menu {
-        width: 38vw !important;
-      }
-    }
+  // 去除 el-sub-menu 的底部横线
+  :deep(.el-menu--horizontal .el-sub-menu__title) {
+    padding: 0 30px 0 10px !important;
+    border: 0 !important;
   }
 </style>

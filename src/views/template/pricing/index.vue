@@ -3,6 +3,10 @@
     <div class="pricing-header">
       <h1 class="title">超过 53,476 位信赖的开发者</h1>
       <h2 class="subtitle">以及众多科技巨头的选择</h2>
+      <div class="free-notice">
+        <p class="notice-text">本项目基于 MIT 协议开源免费，当前页面为定价模板，仅作演示用途</p>
+        <ElTag type="success" size="large" round>免费商用</ElTag>
+      </div>
     </div>
 
     <div class="pricing-cards">
@@ -139,9 +143,24 @@
       }
 
       .subtitle {
+        margin-bottom: 10px;
         font-size: 1.4rem;
         font-weight: 400;
-        color: #666;
+        color: var(--art-gray-600);
+      }
+
+      .free-notice {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        justify-content: center;
+        margin-top: 10px;
+
+        .notice-text {
+          font-size: 14px;
+          font-style: italic;
+          color: var(--art-gray-600);
+        }
       }
     }
 
@@ -269,6 +288,14 @@
 
         .subtitle {
           font-size: 1.5rem;
+        }
+
+        .free-notice {
+          margin-top: 15px;
+
+          .notice-text {
+            font-size: 13px;
+          }
         }
       }
 

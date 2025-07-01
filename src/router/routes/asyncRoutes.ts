@@ -344,15 +344,15 @@ export const asyncRoutes: AppRouteRecord[] = [
           authList: [
             {
               title: '新增',
-              auth_mark: 'add'
+              authMark: 'add'
             },
             {
               title: '编辑',
-              auth_mark: 'edit'
+              authMark: 'edit'
             },
             {
               title: '删除',
-              auth_mark: 'delete'
+              authMark: 'delete'
             }
           ]
         }
@@ -466,11 +466,11 @@ export const asyncRoutes: AppRouteRecord[] = [
           authList: [
             {
               title: '新增',
-              auth_mark: 'add'
+              authMark: 'add'
             },
             {
               title: '编辑',
-              auth_mark: 'edit'
+              authMark: 'edit'
             }
           ]
         }
@@ -506,7 +506,7 @@ export const asyncRoutes: AppRouteRecord[] = [
           authList: [
             {
               title: '发布',
-              auth_mark: 'article/article-publish/add'
+              authMark: 'article/article-publish/add'
             }
           ]
         }

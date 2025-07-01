@@ -22,7 +22,7 @@ export const useAuth = () => {
   // 前端按钮权限（例如：['add', 'edit']）
   const frontendAuthList = info.value?.buttons ?? []
 
-  // 后端路由 meta 配置的权限列表（例如：[{ auth_mark: 'add' }]）
+  // 后端路由 meta 配置的权限列表（例如：[{ authMark: 'add' }]）
   const backendAuthList: AuthItem[] = Array.isArray(route.meta.authList)
     ? (route.meta.authList as AuthItem[])
     : []
@@ -39,7 +39,7 @@ export const useAuth = () => {
     }
 
     // 后端模式
-    return backendAuthList.some((item) => item?.auth_mark === auth)
+    return backendAuthList.some((item) => item?.authMark === auth)
   }
 
   return {
