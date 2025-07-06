@@ -37,7 +37,7 @@
       </template>
       <template #default>
         <VueDraggable target="tbody" v-model="userList" :animation="150">
-          <ArtTable :data="userList" :pagination="false">
+          <ArtTable :data="userList">
             <ElTableColumn label="姓名" prop="name" />
             <ElTableColumn label="角色" prop="role" />
           </ArtTable>
@@ -51,7 +51,7 @@
       </template>
       <template #default>
         <VueDraggable target="tbody" handle=".handle" v-model="userList" :animation="150">
-          <ArtTable :data="userList" :pagination="false">
+          <ArtTable :data="userList">
             <ElTableColumn label="姓名" prop="name" />
             <ElTableColumn label="角色" prop="role" />
             <ElTableColumn label="操作" width="100">

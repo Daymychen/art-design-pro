@@ -45,7 +45,10 @@ export default [
     languageOptions: {
       globals: {
         // 合并从 autoImportConfig 中读取的全局变量配置
-        ...autoImportConfig.globals
+        ...autoImportConfig.globals,
+        // TypeScript 全局命名空间
+        Api: 'readonly',
+        Form: 'readonly'
       }
     },
     rules: {

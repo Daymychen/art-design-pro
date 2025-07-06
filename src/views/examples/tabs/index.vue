@@ -51,7 +51,7 @@
 <script setup lang="ts">
   import { useWorktabStore } from '@/store/modules/worktab'
   import { WorkTab } from '@/types'
-
+  import { ElMessage } from 'element-plus'
   const worktabStore = useWorktabStore()
   const currentTab = ref<WorkTab | null>(null)
   const newTabTitle = ref('')

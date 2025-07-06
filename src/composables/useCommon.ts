@@ -31,11 +31,23 @@ export function useCommon() {
     return `calc(100vh - ${showWorkTab.value ? openHeight : closeHeight}px)`
   })
 
+  // 设置容器高度CSS变量
+  const setContainerHeightCssVar = () => {
+    const height = containerMinHeight.value
+    document.documentElement.style.setProperty('--art-full-height', height)
+  }
+
+  // 监听容器高度变化并更新CSS变量
+  watchEffect(() => {
+    setContainerHeightCssVar()
+  })
+
   return {
     isFrontendMode,
     homePath,
     refresh,
     scrollToTop,
-    containerMinHeight
+    containerMinHeight,
+    setContainerHeightCssVar
   }
 }

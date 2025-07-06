@@ -140,16 +140,14 @@
   left: 0;
   right: 0;
   width: 100vw !important;
-  height: 100vh !important;
-  z-index: 500;
+  height: 100% !important;
+  z-index: 2300;
   margin-top: 0;
   padding: 15px;
   box-sizing: border-box;
   background-color: var(--art-main-bg-color);
-
-  .art-table-full-screen {
-    height: 100% !important;
-  }
+  display: flex;
+  flex-direction: column;
 }
 
 // 表格卡片
@@ -163,5 +161,16 @@
   .el-card__body {
     height: 100%;
     overflow: hidden;
+  }
+}
+
+// 容器全高
+.art-full-height {
+  height: var(--art-full-height);
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: $device-phone) {
+    height: auto;
   }
 }

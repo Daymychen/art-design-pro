@@ -1,3 +1,4 @@
+<!-- 设置面板 -->
 <template>
   <div class="layout-settings">
     <SettingDrawer v-model="showDrawer" @open="handleOpen" @close="handleClose">
@@ -34,7 +35,10 @@
   import ContainerSettings from './widget/ContainerSettings.vue'
   import BasicSettings from './widget/BasicSettings.vue'
 
+  defineOptions({ name: 'ArtSettingsPanel' })
+
   interface Props {
+    /** 是否打开 */
     open?: boolean
   }
 

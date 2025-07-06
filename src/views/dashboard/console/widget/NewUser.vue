@@ -11,14 +11,12 @@
         <el-radio-button value="今年" label="今年"></el-radio-button>
       </el-radio-group>
     </div>
-    <art-table
+    <ArtTable
       class="table"
       :data="tableData"
-      :pagination="false"
-      size="large"
-      :border="false"
-      :stripe="false"
-      :show-header-background="false"
+      :table-config="{
+        size: 'large'
+      }"
     >
       <template #default>
         <el-table-column label="头像" prop="avatar" width="150px">
@@ -48,7 +46,7 @@
           </template>
         </el-table-column>
       </template>
-    </art-table>
+    </ArtTable>
   </div>
 </template>
 

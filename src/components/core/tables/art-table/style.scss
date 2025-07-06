@@ -1,0 +1,74 @@
+@use '@styles/variables.scss' as *;
+
+.art-table {
+  .table-container {
+    height: 100%;
+  }
+
+  .table-pagination {
+    display: flex;
+    margin-top: 16px;
+
+    // 分页对齐方式
+    &.left {
+      justify-content: flex-start;
+    }
+
+    &.center {
+      justify-content: center;
+    }
+
+    &.right {
+      justify-content: flex-end;
+    }
+  }
+
+  :deep(.el-table) {
+    th.el-table__cell {
+      font-weight: 600;
+    }
+  }
+
+  &.header-background {
+    :deep(.el-table) {
+      th.el-table__cell {
+        background-color: var(--el-fill-color-light);
+      }
+    }
+  }
+}
+
+// 移动端分页
+@media (max-width: $device-phone) {
+  :deep(.el-pagination) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px 0;
+    align-items: center;
+    justify-content: center;
+
+    .el-pagination__sizes {
+      .el-select {
+        width: 100px !important;
+
+        .el-select__wrapper {
+          height: 30px !important;
+        }
+      }
+    }
+
+    .el-pager {
+      li {
+        margin-right: 2px;
+      }
+    }
+
+    .el-pagination__jump {
+      margin-left: 5px;
+
+      .el-input {
+        height: 32px !important;
+      }
+    }
+  }
+}

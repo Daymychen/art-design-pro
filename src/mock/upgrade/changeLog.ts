@@ -4,9 +4,24 @@ interface UpgradeLog {
   date: string // 更新日期
   detail?: string[] // 更新内容
   requireReLogin?: boolean // 是否需要重新登录
+  remark?: string // 备注
 }
 
 export const upgradeLogList = ref<UpgradeLog[]>([
+  {
+    version: 'v2.5.0',
+    title: '新增 useTable hooks 表格封装、组件重构',
+    date: '2025-07-06',
+    remark: '建议升级，带来更高效、更智能的表格开发体验',
+    detail: [
+      '重构 ArtTable、ArtTableHeader、ArtNotification 组件',
+      '新增 useTable hooks 表格封装，支持数据获取、转换、响应适配、智能缓存（基于 LRU 算法）、错误处理、列配置与插槽、分页控制、刷新策略等核心功能，全面提升开发效率与用户体验',
+      '修复菜单管理搜索直接修改 pinia 数据的问题',
+      '移除 CountTo 插件，替换为 ArtCountTo 组件',
+      'Echarts 版本升级到 5.6.0',
+      '修复路由守卫 loading 闪烁问题'
+    ]
+  },
   {
     version: 'v2.4.2.9',
     title: '代码重构、修复bug、优化用户体验',

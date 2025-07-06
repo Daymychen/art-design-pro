@@ -4,14 +4,12 @@
       <span class="title">热门产品</span>
     </div>
     <div class="custom-card-body">
-      <art-table
+      <ArtTable
         :data="products"
         style="width: 100%"
-        :pagination="false"
-        size="large"
-        :border="false"
-        :stripe="false"
-        :show-header-background="false"
+        :table-config="{
+          size: 'large'
+        }"
       >
         <el-table-column prop="name" label="产品名称" width="200" />
         <el-table-column prop="popularity" label="销量">
@@ -39,7 +37,7 @@
             >
           </template>
         </el-table-column>
-      </art-table>
+      </ArtTable>
     </div>
   </div>
 </template>

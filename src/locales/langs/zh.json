@@ -257,7 +257,9 @@
     },
     "examples": {
       "title": "功能示例",
-      "tabs": "标签页"
+      "tabs": "标签页",
+      "tablesBasic": "基础表格",
+      "tables": "高级表格"
     },
     "system": {
       "title": "系统管理",

@@ -12,14 +12,14 @@ import { WEB_LINKS } from '@/utils/constants'
  * 菜单标题（title）:
  * 可以是 i18n 的 key，也可以是字符串，比如：'用户列表'
  *
- * RoutesAlias.Home 指向的是布局组件，后端返回的菜单数据中，component 字段需要指向 /index/index
+ * RoutesAlias.Layout 指向的是布局组件，后端返回的菜单数据中，component 字段需要指向 /index/index
  * 路由元数据（meta）：异步路由在 asyncRoutes 中配置，静态路由在 staticRoutes 中配置
  */
 export const asyncRoutes: AppRouteRecord[] = [
   {
     name: 'Dashboard',
     path: '/dashboard',
-    component: RoutesAlias.Home,
+    component: RoutesAlias.Layout,
     meta: {
       title: 'menus.dashboard.title',
       icon: '&#xe721;',
@@ -32,7 +32,7 @@ export const asyncRoutes: AppRouteRecord[] = [
         component: RoutesAlias.Dashboard,
         meta: {
           title: 'menus.dashboard.console',
-          keepAlive: true,
+          keepAlive: false,
           fixedTab: true
         }
       },
@@ -59,7 +59,7 @@ export const asyncRoutes: AppRouteRecord[] = [
   {
     path: '/template',
     name: 'Template',
-    component: RoutesAlias.Home,
+    component: RoutesAlias.Layout,
     meta: {
       title: 'menus.template.title',
       icon: '&#xe860;'
@@ -134,7 +134,7 @@ export const asyncRoutes: AppRouteRecord[] = [
   {
     path: '/widgets',
     name: 'Widgets',
-    component: RoutesAlias.Home,
+    component: RoutesAlias.Layout,
     meta: {
       title: 'menus.widgets.title',
       icon: '&#xe81a;'
@@ -191,7 +191,8 @@ export const asyncRoutes: AppRouteRecord[] = [
         component: RoutesAlias.CountTo,
         meta: {
           title: 'menus.widgets.countTo',
-          keepAlive: false
+          keepAlive: false,
+          showTextBadge: 'New'
         }
       },
       {
@@ -275,10 +276,11 @@ export const asyncRoutes: AppRouteRecord[] = [
   {
     path: '/examples',
     name: 'Examples',
-    component: RoutesAlias.Home,
+    component: RoutesAlias.Layout,
     meta: {
       title: 'menus.examples.title',
-      icon: '&#xe8d4;'
+      icon: '&#xe8d4;',
+      showBadge: true
     },
     children: [
       {
@@ -286,8 +288,27 @@ export const asyncRoutes: AppRouteRecord[] = [
         name: 'Tabs',
         component: RoutesAlias.ExamplesTabs,
         meta: {
-          title: 'menus.examples.tabs',
-          keepAlive: true
+          title: 'menus.examples.tabs'
+        }
+      },
+      {
+        path: 'tables/basic',
+        name: 'TablesBasic',
+        component: RoutesAlias.ExamplesTablesBasic,
+        meta: {
+          title: 'menus.examples.tablesBasic',
+          keepAlive: true,
+          showTextBadge: 'New'
+        }
+      },
+      {
+        path: 'tables',
+        name: 'Tables',
+        component: RoutesAlias.ExamplesTables,
+        meta: {
+          title: 'menus.examples.tables',
+          keepAlive: true,
+          showTextBadge: 'New'
         }
       }
     ]
@@ -295,7 +316,7 @@ export const asyncRoutes: AppRouteRecord[] = [
   {
     path: '/system',
     name: 'System',
-    component: RoutesAlias.Home,
+    component: RoutesAlias.Layout,
     meta: {
       title: 'menus.system.title',
       icon: '&#xe7b9;',
@@ -449,7 +470,7 @@ export const asyncRoutes: AppRouteRecord[] = [
   {
     path: '/article',
     name: 'Article',
-    component: RoutesAlias.Home,
+    component: RoutesAlias.Layout,
     meta: {
       title: 'menus.article.title',
       icon: '&#xe7ae;',
@@ -516,7 +537,7 @@ export const asyncRoutes: AppRouteRecord[] = [
   {
     path: '/result',
     name: 'Result',
-    component: RoutesAlias.Home,
+    component: RoutesAlias.Layout,
     meta: {
       title: 'menus.result.title',
       icon: '&#xe715;'
@@ -545,7 +566,7 @@ export const asyncRoutes: AppRouteRecord[] = [
   {
     path: '/exception',
     name: 'Exception',
-    component: RoutesAlias.Home,
+    component: RoutesAlias.Layout,
     meta: {
       title: 'menus.exception.title',
       icon: '&#xe820;'
@@ -584,7 +605,7 @@ export const asyncRoutes: AppRouteRecord[] = [
   {
     path: '/safeguard',
     name: 'Safeguard',
-    component: RoutesAlias.Home,
+    component: RoutesAlias.Layout,
     meta: {
       title: 'menus.safeguard.title',
       icon: '&#xe816;',
@@ -605,7 +626,7 @@ export const asyncRoutes: AppRouteRecord[] = [
   {
     name: 'Help',
     path: '/help',
-    component: RoutesAlias.Home,
+    component: RoutesAlias.Layout,
     meta: {
       title: 'menus.help.title',
       icon: '&#xe719;',

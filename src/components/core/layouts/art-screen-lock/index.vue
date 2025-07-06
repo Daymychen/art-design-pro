@@ -1,3 +1,4 @@
+<!-- 锁屏 -->
 <template>
   <div class="layout-lock-screen">
     <!-- 开发者工具警告覆盖层 -->

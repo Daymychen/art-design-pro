@@ -56,7 +56,15 @@
     date?: string
   }
 
-  const props = defineProps<Props>()
+  const props = withDefaults(defineProps<Props>(), {
+    imageUrl: '',
+    title: '',
+    category: '',
+    readTime: '',
+    views: 0,
+    comments: 0,
+    date: ''
+  })
 
   const emit = defineEmits<{
     (e: 'click', card: Props): void

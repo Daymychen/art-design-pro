@@ -112,6 +112,18 @@ $box-radius: calc(var(--custom-radius) / 2 + 2px);
     color: #318ef4;
   }
 
+  .w-e-text-container {
+    strong,
+    b {
+      font-weight: 500;
+    }
+
+    i,
+    em {
+      font-style: italic;
+    }
+  }
+
   /* 表格样式优化 */
   .w-e-text-container [data-slate-editor] .table-container th {
     border-right: none;

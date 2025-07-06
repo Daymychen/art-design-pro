@@ -15,6 +15,9 @@ export const useTableStore = defineStore(
     // 表头背景
     const isHeaderBackground = ref(false)
 
+    // 是否全屏
+    const isFullScreen = ref(false)
+
     /**
      * 设置表格大小
      * @param size 表格大小枚举值
@@ -39,6 +42,12 @@ export const useTableStore = defineStore(
      */
     const setIsHeaderBackground = (value: boolean) => (isHeaderBackground.value = value)
 
+    /**
+     * 设置是否全屏
+     * @param value 是否全屏
+     */
+    const setIsFullScreen = (value: boolean) => (isFullScreen.value = value)
+
     return {
       tableSize,
       isZebra,
@@ -47,7 +56,9 @@ export const useTableStore = defineStore(
       setTableSize,
       setIsZebra,
       setIsBorder,
-      setIsHeaderBackground
+      setIsHeaderBackground,
+      isFullScreen,
+      setIsFullScreen
     }
   },
   {

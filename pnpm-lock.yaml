@@ -29,8 +29,8 @@ importers:
         specifier: ^4.2.0
         version: 4.2.0
       echarts:
-        specifier: ^5.4.0
-        version: 5.5.1
+        specifier: ^5.6.0
+        version: 5.6.0
       element-plus:
         specifier: ^2.8.0
         version: 2.9.11(vue@3.5.15(typescript@5.6.3))
@@ -70,9 +70,6 @@ importers:
       vue-router:
         specifier: ^4.4.2
         version: 4.5.0(vue@3.5.15(typescript@5.6.3))
-      vue3-count-to:
-        specifier: ^1.1.2
-        version: 1.1.2(vue@3.5.15(typescript@5.6.3))
       xgplayer:
         specifier: ^3.0.20
         version: 3.0.20(core-js@3.39.0)
@@ -1430,7 +1427,6 @@ packages:
     engines: { node: '>= 10.0.0' }
     cpu: [arm]
     os: [linux]
-    libc: [glibc]
 
   '@parcel/watcher-linux-arm-musl@2.5.0':
     resolution:
@@ -1440,7 +1436,6 @@ packages:
     engines: { node: '>= 10.0.0' }
     cpu: [arm]
     os: [linux]
-    libc: [musl]
 
   '@parcel/watcher-linux-arm64-glibc@2.5.0':
     resolution:
@@ -1450,7 +1445,6 @@ packages:
     engines: { node: '>= 10.0.0' }
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@parcel/watcher-linux-arm64-musl@2.5.0':
     resolution:
@@ -1460,7 +1454,6 @@ packages:
     engines: { node: '>= 10.0.0' }
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@parcel/watcher-linux-x64-glibc@2.5.0':
     resolution:
@@ -1470,7 +1463,6 @@ packages:
     engines: { node: '>= 10.0.0' }
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@parcel/watcher-linux-x64-musl@2.5.0':
     resolution:
@@ -1480,7 +1472,6 @@ packages:
     engines: { node: '>= 10.0.0' }
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@parcel/watcher-win32-arm64@2.5.0':
     resolution:
@@ -1596,7 +1587,6 @@ packages:
       }
     cpu: [arm]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-arm-musleabihf@4.34.8':
     resolution:
@@ -1605,7 +1595,6 @@ packages:
       }
     cpu: [arm]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-linux-arm64-gnu@4.34.8':
     resolution:
@@ -1614,7 +1603,6 @@ packages:
       }
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-arm64-musl@4.34.8':
     resolution:
@@ -1623,7 +1611,6 @@ packages:
       }
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-linux-loongarch64-gnu@4.34.8':
     resolution:
@@ -1632,7 +1619,6 @@ packages:
       }
     cpu: [loong64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-powerpc64le-gnu@4.34.8':
     resolution:
@@ -1641,7 +1627,6 @@ packages:
       }
     cpu: [ppc64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-riscv64-gnu@4.34.8':
     resolution:
@@ -1650,7 +1635,6 @@ packages:
       }
     cpu: [riscv64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-s390x-gnu@4.34.8':
     resolution:
@@ -1659,7 +1643,6 @@ packages:
       }
     cpu: [s390x]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-x64-gnu@4.34.8':
     resolution:
@@ -1668,7 +1651,6 @@ packages:
       }
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-x64-musl@4.34.8':
     resolution:
@@ -1677,7 +1659,6 @@ packages:
       }
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-win32-arm64-msvc@4.34.8':
     resolution:
@@ -3597,10 +3578,10 @@ packages:
         integrity: sha512-1A8za6ws41LQgv9HrE/66jyC5yuSjQ3L/KOpFtoBilsAK2iA2wuS5rTt1OCzIvtS2V7nVmedsUU+DGRcjBmOYA==
       }
 
-  echarts@5.5.1:
+  echarts@5.6.0:
     resolution:
       {
-        integrity: sha512-Fce8upazaAXUVUVsjgV6mBnGuqgO+JNDlcgF79Dksy4+wgGpQB2lmYoO4TSweFg/mZITdpGHomw/cNBJZj1icA==
+        integrity: sha512-oTbVTsXfKuEhxftHqL5xprgLoc0k7uScAwtryCgWF6hPYFLRwOUHiFmHGCBKP5NPFNkDVopOieyUqYGH8Fa3kA==
       }
 
   electron-to-chromium@1.5.166:
@@ -8239,12 +8220,6 @@ packages:
         integrity: sha512-AyFQ0EVmsOZOlAnxoFOGOq1SQDWAB7C6aqMGS23svWAllfOaxbuFvcT8D1i8z3Gyn8fraVeZNNmN6e9bxxXkKw==
       }
 
-  vue-count-to@1.0.13:
-    resolution:
-      {
-        integrity: sha512-6R4OVBVNtQTlcbXu6SJ8ENR35M2/CdWt3Jmv57jOUM+1ojiFmjVGvZPH8DfHpMDSA+ITs+EW5V6qthADxeyYOQ==
-      }
-
   vue-demi@0.14.10:
     resolution:
       {
@@ -8311,14 +8286,6 @@ packages:
     hasBin: true
     peerDependencies:
       typescript: '>=5.0.0'
-
-  vue3-count-to@1.1.2:
-    resolution:
-      {
-        integrity: sha512-C5AvlcGfyM4XvFqPDkni94rqGd5K/+RB+B4xv/1NQx3RrdC+GvXPFzeXW5hWL/jh8ehWLm4LITyK0eMKf4iJbg==
-      }
-    peerDependencies:
-      vue: '>= 3 < 4'
 
   vue@3.5.15:
     resolution:
@@ -8532,10 +8499,10 @@ packages:
       }
     engines: { node: '>=18' }
 
-  zrender@5.6.0:
+  zrender@5.6.1:
     resolution:
       {
-        integrity: sha512-uzgraf4njmmHAbEUxMJ8Oxg+P3fT04O+9p7gY+wJRVxo8Ge+KmYv0WJev945EH4wFuc4OY2NLXz46FZrWS9xJg==
+        integrity: sha512-OFXkDJKcrlx5su2XbzJvj/34Q3m6PvyCZkVPHGYpcCJ52ek4U/ymZyfuV1nKE23AyBJ51E/6Yr0mhZ7xGTO4ag==
       }
 
 snapshots:
@@ -10883,10 +10850,10 @@ snapshots:
 
   duplexer3@0.1.5: {}
 
-  echarts@5.5.1:
+  echarts@5.6.0:
     dependencies:
       tslib: 2.3.0
-      zrender: 5.6.0
+      zrender: 5.6.1
 
   electron-to-chromium@1.5.166: {}
 
@@ -13623,8 +13590,6 @@ snapshots:
 
   vscode-uri@3.0.8: {}
 
-  vue-count-to@1.0.13: {}
-
   vue-demi@0.14.10(vue@3.5.15(typescript@5.6.3)):
     dependencies:
       vue: 3.5.15(typescript@5.6.3)
@@ -13672,12 +13637,6 @@ snapshots:
       '@vue/language-core': 2.1.10(typescript@5.6.3)
       semver: 7.6.3
       typescript: 5.6.3
-
-  vue3-count-to@1.1.2(vue@3.5.15(typescript@5.6.3)):
-    dependencies:
-      core-js: 3.39.0
-      vue: 3.5.15(typescript@5.6.3)
-      vue-count-to: 1.0.13
 
   vue@3.5.15(typescript@5.6.3):
     dependencies:
@@ -13796,6 +13755,6 @@ snapshots:
 
   yoctocolors@2.1.1: {}
 
-  zrender@5.6.0:
+  zrender@5.6.1:
     dependencies:
       tslib: 2.3.0

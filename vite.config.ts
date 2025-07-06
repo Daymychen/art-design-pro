@@ -12,7 +12,7 @@ import { fileURLToPath } from 'url'
 // https://devtools.vuejs.org/getting-started/introduction
 import vueDevTools from 'vite-plugin-vue-devtools'
 
-export default ({ mode }) => {
+export default ({ mode }: { mode: string }) => {
   const root = process.cwd()
   const env = loadEnv(mode, root)
   const { VITE_VERSION, VITE_PORT, VITE_BASE_URL, VITE_API_URL } = env
@@ -264,6 +264,6 @@ export default ({ mode }) => {
   })
 }
 
-function resolvePath(paths) {
+function resolvePath(paths: string) {
   return path.resolve(__dirname, paths)
 }

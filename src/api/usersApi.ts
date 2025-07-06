@@ -18,7 +18,7 @@ export class UserService {
   }
 
   // 获取用户列表
-  static getUserList(params: Api.Common.PaginatingParams) {
+  static getUserList(params: Api.Common.PaginatingSearchParams) {
     return request.get<Api.User.UserListData>({
       url: '/api/user/list',
       params

@@ -1,3 +1,4 @@
+<!-- 顶部栏 -->
 <template>
   <div class="layout-top-bar" :class="[tabStyle]" :style="{ width: topBarWidth() }">
     <div class="menu">

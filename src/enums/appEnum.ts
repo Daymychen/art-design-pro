@@ -52,5 +52,6 @@ export enum BgColorEnum {
   WARNING = 'bg-warning',
   ERROR = 'bg-error',
   SUCCESS = 'bg-success',
-  DANGER = 'bg-danger'
+  DANGER = 'bg-danger',
+  INFO = 'bg-info'
 }

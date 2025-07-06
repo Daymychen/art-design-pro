@@ -82,7 +82,7 @@ function checkDuplicateRoutes(routes: AppRouteRecord[], parentPath = ''): void {
       if (route.component) {
         const componentPath = getComponentPathString(route.component)
 
-        if (componentPath && componentPath !== RoutesAlias.Home) {
+        if (componentPath && componentPath !== RoutesAlias.Layout) {
           const componentKey = `${parentPath}:${componentPath}`
 
           if (componentPathMap.has(componentKey)) {

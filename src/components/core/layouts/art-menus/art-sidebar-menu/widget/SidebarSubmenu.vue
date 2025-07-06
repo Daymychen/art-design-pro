@@ -7,7 +7,7 @@
         <span class="menu-name">
           {{ formatMenuTitle(item.meta.title) }}
         </span>
-        <div v-if="item.meta.showBadge" class="badge" style="right: 35px" />
+        <div v-if="item.meta.showBadge" class="badge" style="right: 10px" />
       </template>
 
       <SidebarSubmenu

@@ -39,6 +39,11 @@
   }
 }
 
+// 修改 el-loading-mask 背景色
+.el-loading-mask {
+  background-color: var(--el-bg-color-overlay) !important  ;
+}
+
 .el-pager li {
   padding: 0 10px !important;
   // border: 1px solid red !important;

@@ -9,7 +9,7 @@ export type Status = 0 | 1 // 0: 禁用, 1: 启用
 export type Gender = 'male' | 'female' | 'unknown'
 
 // 排序方向
-export type SortOrder = 'asc' | 'desc'
+export type SortOrder = 'ascending' | 'descending'
 
 // 操作类型
 export type ActionType = 'create' | 'update' | 'delete' | 'view'

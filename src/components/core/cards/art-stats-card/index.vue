@@ -19,7 +19,13 @@
       <p class="stats-card__title" :style="{ color: textColor }" v-if="title">
         {{ title }}
       </p>
-      <CountTo v-if="count" class="stats-card__count" :endVal="count" :duration="1000"></CountTo>
+      <ArtCountTo
+        v-if="count"
+        class="stats-card__count"
+        :target="count"
+        :duration="2000"
+        separator=","
+      />
       <p class="stats-card__description" :style="{ color: textColor }" v-if="description">{{
         description
       }}</p>
@@ -31,8 +37,6 @@
 </template>
 
 <script setup lang="ts">
-  import { CountTo } from 'vue3-count-to'
-
   defineOptions({ name: 'ArtStatsCard' })
 
   interface StatsCardProps {

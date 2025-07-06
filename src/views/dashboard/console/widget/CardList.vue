@@ -3,12 +3,7 @@
     <el-col v-for="(item, index) in dataList" :key="index" :sm="12" :md="6" :lg="6">
       <div class="card art-custom-card">
         <span class="des subtitle">{{ item.des }}</span>
-        <CountTo
-          class="number box-title"
-          :endVal="item.num"
-          :duration="1000"
-          separator=""
-        ></CountTo>
+        <ArtCountTo class="number box-title" :target="item.num" :duration="1300" />
         <div class="change-box">
           <span class="change-text">较上周</span>
           <span
@@ -28,7 +23,6 @@
   import { reactive } from 'vue'
   import { storeToRefs } from 'pinia'
   import { useSettingStore } from '@/store/modules/setting'
-  import { CountTo } from 'vue3-count-to'
 
   const { showWorkTab } = storeToRefs(useSettingStore())
 

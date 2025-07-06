@@ -14,12 +14,7 @@
           <div :class="['sales-card']">
             <i class="iconfont-sys" v-html="item.iconfont"></i>
             <h2>
-              <CountTo
-                class="number box-title"
-                :endVal="item.value"
-                :duration="1000"
-                separator=""
-              ></CountTo>
+              <ArtCountTo class="number box-title" :target="item.value" :duration="1500" />
             </h2>
             <p>{{ item.label }}</p>
             <small>
@@ -36,8 +31,6 @@
 </template>
 
 <script setup lang="ts">
-  import { CountTo } from 'vue3-count-to'
-
   const salesData = ref([
     {
       label: '总销售额',

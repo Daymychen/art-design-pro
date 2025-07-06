@@ -265,7 +265,9 @@
     },
     "examples": {
       "title": "Feature Examples",
-      "tabs": "Tabs"
+      "tabs": "Tabs",
+      "tablesBasic": "Basic Tables",
+      "tables": "Advanced Tables"
     },
     "system": {
       "title": "System Settings",

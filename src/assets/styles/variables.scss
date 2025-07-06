@@ -5,7 +5,7 @@
   --art-primary: 93, 135, 255;
   --art-secondary: 73, 190, 255;
   --art-error: 250, 137, 107;
-  --art-info: 83, 155, 255;
+  --art-info: 107, 125, 155;
   --art-success: 19, 222, 185;
   --art-warning: 255, 174, 31;
   --art-danger: 255, 77, 79;
@@ -15,7 +15,7 @@
   --art-bg-secondary: 232, 247, 255;
   --art-bg-success: 230, 255, 250;
   --art-bg-error: 253, 237, 232;
-  --art-bg-info: 235, 243, 254;
+  --art-bg-info: 240, 242, 247;
   --art-bg-warning: 254, 245, 229;
   --art-bg-danger: 253, 237, 232;
 
@@ -86,7 +86,7 @@ html.dark {
   --art-primary: 93, 135, 255;
   --art-secondary: 73, 190, 255;
   --art-error: 250, 137, 107;
-  --art-info: 83, 155, 255;
+  --art-info: 107, 125, 155;
   --art-success: 19, 222, 185;
   --art-warning: 255, 174, 31;
   --art-danger: 255, 77, 79;
@@ -96,7 +96,7 @@ html.dark {
   --art-bg-secondary: 28, 69, 93;
   --art-bg-success: 27, 60, 72;
   --art-bg-error: 75, 49, 61;
-  --art-bg-info: 34, 54, 98;
+  --art-bg-info: 45, 50, 62;
   --art-bg-warning: 77, 58, 42;
   --art-bg-danger: 100, 49, 61;
 
@@ -203,6 +203,11 @@ $device-phone: 500px;
 .bg-success {
   background-color: rgb(var(--art-bg-success)) !important;
   color: rgb(var(--art-success)) !important;
+}
+
+.bg-info {
+  background-color: rgb(var(--art-bg-info)) !important;
+  color: rgb(var(--art-info)) !important;
 }
 
 .bg-danger {

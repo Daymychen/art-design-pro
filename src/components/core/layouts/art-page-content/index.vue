@@ -1,6 +1,10 @@
 <!-- 布局内容 -->
 <template>
-  <div class="layout-content" :class="{ 'no-basic-layout': isFullPage }" :style="containerStyle">
+  <div
+    class="layout-content abc"
+    :class="{ 'no-basic-layout': isFullPage }"
+    :style="containerStyle"
+  >
     <!-- 节日滚动 -->
     <ArtFestivalTextScroll v-if="!isFullPage" />
 
@@ -13,13 +17,23 @@
       <!-- 缓存路由动画 -->
       <Transition :name="showTransitionMask ? '' : actualTransition" mode="out-in" appear>
         <KeepAlive :max="10" :exclude="keepAliveExclude">
-          <component :is="Component" :key="route.path" v-if="route.meta.keepAlive" />
+          <component
+            class="art-page-view"
+            :is="Component"
+            :key="route.path"
+            v-if="route.meta.keepAlive"
+          />
         </KeepAlive>
       </Transition>
 
       <!-- 非缓存路由动画 -->
       <Transition :name="showTransitionMask ? '' : actualTransition" mode="out-in" appear>
-        <component :is="Component" :key="route.path" v-if="!route.meta.keepAlive" />
+        <component
+          class="art-page-view"
+          :is="Component"
+          :key="route.path"
+          v-if="!route.meta.keepAlive"
+        />
       </Transition>
     </RouterView>
 
@@ -35,6 +49,8 @@
   import { useCommon } from '@/composables/useCommon'
   import { useSettingStore } from '@/store/modules/setting'
   import { useWorktabStore } from '@/store/modules/worktab'
+
+  defineOptions({ name: 'ArtPageContent' })
 
   const route = useRoute()
   const { containerMinHeight } = useCommon()

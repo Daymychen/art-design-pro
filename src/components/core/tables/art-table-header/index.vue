@@ -1,14 +1,15 @@
+<!-- 表格头部，包含表格大小、刷新、全屏、列设置、其他设置 -->
 <template>
   <div class="table-header">
     <div class="left">
       <slot name="left"></slot>
     </div>
     <div class="right">
-      <div class="btn" @click="refresh">
+      <div v-if="shouldShow('refresh')" class="btn" @click="refresh">
         <i class="iconfont-sys">&#xe614;</i>
       </div>
 
-      <ElDropdown @command="handleTableSizeChange">
+      <ElDropdown v-if="shouldShow('size')" @command="handleTableSizeChange">
         <div class="btn">
           <i class="iconfont-sys">&#xe63d;</i>
         </div>
@@ -27,14 +28,14 @@
         </template>
       </ElDropdown>
 
-      <div class="btn" @click="toggleFullScreen">
+      <div v-if="shouldShow('fullscreen')" class="btn" @click="toggleFullScreen">
         <i class="iconfont-sys">{{ isFullScreen ? '&#xe62d;' : '&#xe8ce;' }}</i>
       </div>
 
       <!-- 列设置 -->
-      <ElPopover placement="bottom" trigger="click">
+      <ElPopover v-if="shouldShow('columns')" placement="bottom" trigger="click">
         <template #reference>
-          <div class="btn"><i class="iconfont-sys" style="font-size: 17px">&#xe620;</i> </div>
+          <div class="btn"><i class="iconfont-sys">&#xe6bd;</i> </div>
         </template>
         <div>
           <VueDraggable v-model="columns">
@@ -50,7 +51,7 @@
         </div>
       </ElPopover>
       <!-- 其他设置 -->
-      <ElPopover placement="bottom" trigger="click">
+      <ElPopover v-if="shouldShow('settings')" placement="bottom" trigger="click">
         <template #reference>
           <div class="btn">
             <i class="iconfont-sys" style="font-size: 17px">&#xe72b;</i>
@@ -74,52 +75,52 @@
 </template>
 
 <script lang="ts" setup>
+  import { computed, ref, onMounted, onUnmounted } from 'vue'
+  import { storeToRefs } from 'pinia'
   import { TableSizeEnum } from '@/enums/formEnum'
   import { useTableStore } from '@/store/modules/table'
-  import { ElPopover, ElCheckbox } from 'element-plus'
+  import { ElPopover, ElCheckbox, ElDropdown, ElDropdownMenu, ElDropdownItem } from 'element-plus'
   import { VueDraggable } from 'vue-draggable-plus'
   import { useI18n } from 'vue-i18n'
+  import type { ColumnOption } from '@/types/component'
+
+  defineOptions({ name: 'ArtTableHeader' })
 
   const { t } = useI18n()
 
-  defineProps({
-    // 斑马纹
-    showZebra: {
-      type: Boolean,
-      default: true
-    },
-    // 边框
-    showBorder: {
-      type: Boolean,
-      default: true
-    },
-    // 表头背景
-    showHeaderBackground: {
-      type: Boolean,
-      default: true
-    }
+  interface Props {
+    /** 斑马纹 */
+    showZebra?: boolean
+    /** 边框 */
+    showBorder?: boolean
+    /** 表头背景 */
+    showHeaderBackground?: boolean
+    /** 全屏 class */
+    fullClass?: string
+    /** 组件布局，子组件名用逗号分隔 */
+    layout?: string
+  }
+
+  const props = withDefaults(defineProps<Props>(), {
+    showZebra: true,
+    showBorder: true,
+    showHeaderBackground: true,
+    fullClass: 'art-page-view',
+    layout: 'refresh,size,fullscreen,columns,settings'
   })
 
-  const columns = defineModel<ColumnOption[]>('columns', { required: true })
+  const columns = defineModel<ColumnOption[]>('columns', {
+    required: false,
+    default: () => []
+  })
 
   const emit = defineEmits<{
     (e: 'refresh'): void
   }>()
 
-  interface ColumnOption {
-    label?: string
-    prop?: string
-    type?: string
-    width?: string | number
-    fixed?: boolean | 'left' | 'right'
-    sortable?: boolean
-    filters?: any[]
-    filterMethod?: (value: any, row: any) => boolean
-    filterPlacement?: string
-    disabled?: boolean
-    checked?: boolean
-  }
+  // ========== 数据和状态 ==========
 
+  /** 表格大小选项配置 */
   const tableSizeOptions = [
     { value: TableSizeEnum.SMALL, label: t('table.sizeOptions.small') },
     { value: TableSizeEnum.DEFAULT, label: t('table.sizeOptions.default') },
@@ -129,41 +130,101 @@
   const tableStore = useTableStore()
   const { tableSize, isZebra, isBorder, isHeaderBackground } = storeToRefs(tableStore)
 
+  // ========== 计算属性 ==========
+
+  /** 解析 layout 属性，转换为数组 */
+  const layoutItems = computed(() => {
+    return props.layout.split(',').map((item) => item.trim())
+  })
+
+  // ========== 工具方法 ==========
+
+  /**
+   * 检查组件是否应该显示
+   * @param componentName 组件名称
+   * @returns 是否显示
+   */
+  const shouldShow = (componentName: string) => {
+    return layoutItems.value.includes(componentName)
+  }
+
+  // ========== 事件处理 ==========
+
+  /** 刷新事件处理 */
   const refresh = () => {
     emit('refresh')
   }
 
-  // 表格大小
+  /**
+   * 表格大小变化处理
+   * @param command 表格大小枚举值
+   */
   const handleTableSizeChange = (command: TableSizeEnum) => {
     useTableStore().setTableSize(command)
   }
 
+  // ========== 全屏功能 ==========
+
+  /** 是否全屏状态 */
   const isFullScreen = ref(false)
 
-  // 全屏
+  /** 保存原始的 overflow 样式，用于退出全屏时恢复 */
+  const originalOverflow = ref('')
+
+  /**
+   * 切换全屏状态
+   * 进入全屏时会隐藏页面滚动条，退出时恢复原状态
+   */
   const toggleFullScreen = () => {
-    const el = document.querySelector('#table-full-screen')
+    const el = document.querySelector(`.${props.fullClass}`)
     if (!el) return
+
     isFullScreen.value = !isFullScreen.value
 
-    el.classList.toggle('el-full-screen')
+    if (isFullScreen.value) {
+      // 进入全屏：保存原始样式并隐藏滚动条
+      originalOverflow.value = document.body.style.overflow
+      document.body.style.overflow = 'hidden'
+      el.classList.add('el-full-screen')
+      tableStore.setIsFullScreen(true)
+    } else {
+      // 退出全屏：恢复原始样式
+      document.body.style.overflow = originalOverflow.value
+      el.classList.remove('el-full-screen')
+      tableStore.setIsFullScreen(false)
+    }
   }
 
-  // 监听ESC键退出全屏
+  /**
+   * ESC键退出全屏的事件处理器
+   * 需要保存引用以便在组件卸载时正确移除监听器
+   */
+  const handleEscapeKey = (e: KeyboardEvent) => {
+    if (e.key === 'Escape' && isFullScreen.value) {
+      toggleFullScreen()
+    }
+  }
+
+  // ========== 生命周期钩子 ==========
+
+  /** 组件挂载时注册全局事件监听器 */
   onMounted(() => {
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && isFullScreen.value) {
-        toggleFullScreen()
-      }
-    })
+    document.addEventListener('keydown', handleEscapeKey)
   })
 
+  /** 组件卸载时清理资源 */
   onUnmounted(() => {
-    document.removeEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && isFullScreen.value) {
-        toggleFullScreen()
+    // 移除事件监听器
+    document.removeEventListener('keydown', handleEscapeKey)
+
+    // 如果组件在全屏状态下被卸载，恢复页面滚动状态
+    if (isFullScreen.value) {
+      document.body.style.overflow = originalOverflow.value
+      const el = document.querySelector(`.${props.fullClass}`)
+      if (el) {
+        el.classList.remove('el-full-screen')
       }
-    })
+    }
   })
 </script>
 

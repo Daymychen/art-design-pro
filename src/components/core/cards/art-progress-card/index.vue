@@ -16,13 +16,12 @@
         ></i>
       </div>
       <div class="right">
-        <CountTo
-          :key="percentage"
+        <ArtCountTo
           class="percentage"
-          :style="{ textAlign: icon ? 'right' : 'left' }"
-          :endVal="percentage"
+          :target="percentage"
           :duration="2000"
           suffix="%"
+          :style="{ textAlign: icon ? 'right' : 'left' }"
         />
         <p class="title">{{ title }}</p>
       </div>
@@ -37,8 +36,6 @@
 </template>
 
 <script setup lang="ts">
-  import { CountTo } from 'vue3-count-to'
-
   defineOptions({ name: 'ArtProgressCard' })
 
   interface Props {

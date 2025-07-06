@@ -23,11 +23,23 @@
   >
     <div class="banner-slot">
       <div class="item">
-        <p class="title">¥2,340<i class="iconfont-sys text-success">&#xe8d5;</i></p>
+        <p class="title">
+          <ArtCountTo
+            class="number box-title"
+            :target="2340"
+            :duration="1500"
+            prefix="¥"
+            separator=","
+          />
+          <i class="iconfont-sys text-success">&#xe8d5;</i>
+        </p>
         <p class="subtitle">今日销售额</p>
       </div>
       <div class="item">
-        <p class="title">35%<i class="iconfont-sys text-success">&#xe8d5;</i></p>
+        <p class="title">
+          <ArtCountTo class="number box-title" :target="35" :duration="1500" suffix="%" />
+          <i class="iconfont-sys text-success">&#xe8d5;</i>
+        </p>
         <p class="subtitle">较昨日</p>
       </div>
     </div>
