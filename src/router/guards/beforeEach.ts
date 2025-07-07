@@ -16,12 +16,17 @@ import { loadingService } from '@/utils/ui'
 import { useCommon } from '@/composables/useCommon'
 import { useWorktabStore } from '@/store/modules/worktab'
 
+// 前端权限模式 loading 关闭延时，提升用户体验
+const LOADING_DELAY = 300
+
 // 是否已注册动态路由
 const isRouteRegistered = ref(false)
 
+// 跟踪是否需要关闭 loading
+const pendingLoading = ref(false)
+
 /**
- * 路由全局前置守卫
- * 处理进度条、获取菜单列表、动态路由注册、404 检查、工作标签页及页面标题设置
+ * 设置路由全局前置守卫
  */
 export function setupBeforeEachGuard(router: Router): void {
   router.beforeEach(
@@ -38,6 +43,30 @@ export function setupBeforeEachGuard(router: Router): void {
       }
     }
   )
+
+  // 设置后置守卫以关闭 loading 和进度条
+  setupAfterEachGuard(router)
+}
+
+/**
+ * 设置路由全局后置守卫
+ */
+function setupAfterEachGuard(router: Router): void {
+  router.afterEach(() => {
+    // 关闭进度条
+    const settingStore = useSettingStore()
+    if (settingStore.showNprogress) {
+      NProgress.done()
+    }
+
+    // 关闭 loading 效果
+    if (pendingLoading.value) {
+      nextTick(() => {
+        loadingService.hideLoading()
+        pendingLoading.value = false
+      })
+    }
+  })
 }
 
 /**
@@ -84,13 +113,13 @@ async function handleRouteGuard(
     return
   }
 
-  // 尝试刷新路由重新注册（仅在已登录但路由没有匹配的情况下）
+  // 尝试刷新路由重新注册
   if (userStore.isLogin && !isRouteRegistered.value) {
     await handleDynamicRoutes(to, router, next)
     return
   }
 
-  // 如果以上都不匹配，跳转到404
+  // 未匹配到路由，跳转到 404
   next(RoutesAlias.Exception404)
 }
 
@@ -119,11 +148,14 @@ async function handleDynamicRoutes(
   next: NavigationGuardNext
 ): Promise<void> {
   try {
-    const closeLoading = await getMenuData(router)
+    // 显示 loading 并标记 pending
+    pendingLoading.value = true
+    loadingService.showLoading()
 
-    // 跳转到菜单的第一个有效路由（仅在非刷新情况下）
+    await getMenuData(router)
+
+    // 处理根路径跳转
     if (handleRootPathRedirect(to, next)) {
-      safeCloseLoading(closeLoading)
       return
     }
 
@@ -133,8 +165,6 @@ async function handleDynamicRoutes(
       hash: to.hash,
       replace: true
     })
-
-    safeCloseLoading(closeLoading)
   } catch (error) {
     console.error('动态路由注册失败:', error)
     next('/exception/500')
@@ -143,14 +173,13 @@ async function handleDynamicRoutes(
 
 /**
  * 获取菜单数据
- * @param router 路由实例
  */
-async function getMenuData(router: Router): Promise<() => void> {
+async function getMenuData(router: Router): Promise<void> {
   try {
     if (useCommon().isFrontendMode.value) {
-      return await processFrontendMenu(router) // 前端控制模式
+      await processFrontendMenu(router)
     } else {
-      return await processBackendMenu(router) // 后端控制模式
+      await processBackendMenu(router)
     }
   } catch (error) {
     handleMenuError(error)
@@ -161,44 +190,36 @@ async function getMenuData(router: Router): Promise<() => void> {
 /**
  * 处理前端控制模式的菜单逻辑
  */
-async function processFrontendMenu(router: Router): Promise<() => void> {
-  const closeLoading = loadingService.showLoading()
+async function processFrontendMenu(router: Router): Promise<void> {
   const menuList = asyncRoutes.map((route) => menuDataToRouter(route))
   const userStore = useUserStore()
   const roles = userStore.info.roles
 
   if (!roles) {
-    closeLoading()
     throw new Error('获取用户角色失败')
   }
 
   const filteredMenuList = filterMenuByRoles(menuList, roles)
 
-  // 添加延时以提升用户体验，让loading显示更久一点
-  await new Promise((resolve) => setTimeout(resolve, 300))
+  // 添加延时以提升用户体验
+  await new Promise((resolve) => setTimeout(resolve, LOADING_DELAY))
 
-  return await registerAndStoreMenu(router, filteredMenuList, closeLoading)
+  await registerAndStoreMenu(router, filteredMenuList)
 }
 
 /**
  * 处理后端控制模式的菜单逻辑
  */
-async function processBackendMenu(router: Router): Promise<() => void> {
-  const closeLoading = loadingService.showLoading()
+async function processBackendMenu(router: Router): Promise<void> {
   const { menuList } = await menuService.getMenuList()
-  return await registerAndStoreMenu(router, menuList, closeLoading)
+  await registerAndStoreMenu(router, menuList)
 }
 
 /**
  * 注册路由并存储菜单数据
  */
-async function registerAndStoreMenu(
-  router: Router,
-  menuList: AppRouteRecord[],
-  closeLoading: () => void
-): Promise<() => void> {
+async function registerAndStoreMenu(router: Router, menuList: AppRouteRecord[]): Promise<void> {
   if (!isValidMenuList(menuList)) {
-    closeLoading()
     throw new Error('获取菜单列表失败，请重新登录')
   }
 
@@ -207,9 +228,6 @@ async function registerAndStoreMenu(
   registerDynamicRoutes(router, menuList)
   isRouteRegistered.value = true
   useWorktabStore().validateWorktabs(router)
-
-  // 返回关闭loading的函数，让调用者决定何时关闭
-  return closeLoading
 }
 
 /**
@@ -250,24 +268,16 @@ function isValidMenuList(menuList: AppRouteRecord[]): boolean {
 
 /**
  * 重置路由相关状态
- * 通过调用存储的移除函数来精确清除动态路由
  */
 export function resetRouterState(): void {
   isRouteRegistered.value = false
-
-  // 通过调用存储的移除函数来清除动态路由
   const menuStore = useMenuStore()
   menuStore.removeAllDynamicRoutes()
-
-  // 清空菜单数据
   menuStore.setMenuList([])
 }
 
 /**
  * 处理根路径跳转到首页
- * @param to 目标路由
- * @param next 路由跳转函数
- * @returns 是否处理了跳转
  */
 function handleRootPathRedirect(to: RouteLocationNormalized, next: NavigationGuardNext): boolean {
   if (to.path === '/') {
@@ -278,16 +288,4 @@ function handleRootPathRedirect(to: RouteLocationNormalized, next: NavigationGua
     }
   }
   return false
-}
-
-/**
- * 安全地关闭loading，确保路由完全准备就绪
- */
-function safeCloseLoading(closeLoading: () => void, delay = 150): void {
-  nextTick(() => {
-    // 双重确保：nextTick + setTimeout
-    setTimeout(() => {
-      closeLoading()
-    }, delay)
-  })
 }

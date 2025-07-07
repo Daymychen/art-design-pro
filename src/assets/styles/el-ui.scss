@@ -25,6 +25,16 @@
   }
 }
 
+// el-card 背景色跟系统背景色保持一致
+html.dark .el-card {
+  --el-card-bg-color: var(--art-main-bg-color) !important;
+}
+
+// 修改 el-loading-mask 背景色
+.el-loading-mask {
+  background-color: var(--art-main-bg-color) !important  ;
+}
+
 // 修改 el-pagination 大小
 .el-pagination--default {
   --el-pagination-button-width: 32px !important;
@@ -37,11 +47,6 @@
   .el-pagination__jump .el-input {
     height: var(--el-pagination-button-width) !important;
   }
-}
-
-// 修改 el-loading-mask 背景色
-.el-loading-mask {
-  background-color: var(--el-bg-color-overlay) !important  ;
 }
 
 .el-pager li {

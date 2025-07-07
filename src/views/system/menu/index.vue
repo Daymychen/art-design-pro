@@ -28,12 +28,16 @@
       </ArtTableHeader>
       <!-- 表格 -->
       <ArtTable
-        rowKey="path"
         ref="tableRef"
         :loading="loading"
         :data="filteredTableData"
-        :marginTop="10"
-        :stripe="false"
+        :tableConfig="{
+          rowKey: 'path',
+          stripe: false
+        }"
+        :layout="{
+          marginTop: 10
+        }"
       >
         <template #default>
           <ElTableColumn v-for="col in columns" :key="col.prop || col.type" v-bind="col" />

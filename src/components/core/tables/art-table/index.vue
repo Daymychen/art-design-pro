@@ -430,7 +430,7 @@
   const computedHeaderCellStyle = computed(() => ({
     backgroundColor: computedShowHeaderBackground.value
       ? 'var(--el-fill-color-lighter)'
-      : 'var(--el-bg-color-overlay)',
+      : 'var(--art-main-bg-color)',
     fontWeight: '500'
   }))
 
@@ -767,6 +767,12 @@
     visibleColumns
   })
 </script>
+
+<style>
+  .el-table__row {
+    background-color: var(--art-main-bg-color) !important;
+  }
+</style>
 
 <style lang="scss" scoped>
   @use './style';

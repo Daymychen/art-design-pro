@@ -9,6 +9,17 @@ interface UpgradeLog {
 
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
+    version: 'v2.5.1',
+    title: 'bug修复、优化用户体验',
+    date: '2025-07-08',
+    detail: [
+      '修复首次登录系统时 loading 提前关闭bug',
+      'el-card、el-table 背景色跟系统保持一致',
+      '修复 v2.5.0 版本引起的全屏页样式层级过低bug',
+      '修复 v2.5.0 版本引起的表格展开行折叠bug'
+    ]
+  },
+  {
     version: 'v2.5.0',
     title: '新增 useTable hooks 表格封装、组件重构',
     date: '2025-07-06',

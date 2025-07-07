@@ -94,7 +94,7 @@
             left: 0,
             width: '100%',
             height: '100vh',
-            zIndex: 2000,
+            zIndex: 2500,
             background: 'var(--art-bg-color)'
           }
         : {
