@@ -1,6 +1,6 @@
 <template>
   <ArtSearchBar
-    v-model:filter="formFilters"
+    v-model:filter="searchFormState"
     :items="formItems"
     @reset="handleReset"
     @search="handleSearch"
@@ -10,17 +10,12 @@
 <script setup lang="ts">
   import { SearchChangeParams, SearchFormItem } from '@/types'
 
-  interface Props {
-    modelValue: any
-  }
-
   interface Emits {
     (e: 'update:modelValue', value: any): void
     (e: 'search'): void
     (e: 'reset'): void
   }
 
-  const props = defineProps<Props>()
   const emit = defineEmits<Emits>()
 
   // 定义表单搜索初始值
@@ -28,18 +23,14 @@
     name: '',
     phone: '',
     address: '',
-    level: '',
+    level: 'normal',
     email: '',
-    date: '',
-    daterange: '',
+    date: '2025-01-05',
+    daterange: ['2025-01-01', '2025-02-10'],
     status: '1'
   }
 
-  // 响应式表单数据
-  const formFilters = computed({
-    get: () => props.modelValue,
-    set: (value) => emit('update:modelValue', value)
-  })
+  const searchFormState = ref({ ...initialSearchState })
 
   // 重置表单
   const handleReset = () => {
@@ -49,7 +40,7 @@
 
   // 搜索处理
   const handleSearch = () => {
-    console.log('搜索参数:', formFilters.value)
+    console.log('搜索参数:', searchFormState.value)
     emit('search')
   }
 

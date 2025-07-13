@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { AppRouteRecord } from '@/types/router'
 import { getFirstMenuPath } from '@/utils'
+import { HOME_PAGE_PATH } from '@/router'
 
 /**
  * 菜单状态管理
@@ -9,7 +10,7 @@ import { getFirstMenuPath } from '@/utils'
  */
 export const useMenuStore = defineStore('menuStore', () => {
   /** 首页路径 */
-  const homePath = ref('')
+  const homePath = ref(HOME_PAGE_PATH)
   /** 菜单列表 */
   const menuList = ref<AppRouteRecord[]>([])
   /** 菜单宽度 */
@@ -23,8 +24,7 @@ export const useMenuStore = defineStore('menuStore', () => {
    */
   const setMenuList = (list: AppRouteRecord[]) => {
     menuList.value = list
-    const firstMenuPath = getFirstMenuPath(list) // 获取菜单的第一个路径
-    homePath.value = firstMenuPath
+    setHomePath(homePath.value || getFirstMenuPath(list))
   }
 
   /**
@@ -32,6 +32,14 @@ export const useMenuStore = defineStore('menuStore', () => {
    * @returns 首页路径字符串
    */
   const getHomePath = () => homePath.value
+
+  /**
+   * 设置主页路径
+   * @param path 主页路径
+   */
+  const setHomePath = (path: string) => {
+    homePath.value = path
+  }
 
   /**
    * 设置菜单宽度
@@ -70,6 +78,7 @@ export const useMenuStore = defineStore('menuStore', () => {
     setMenuList,
     setMenuWidth,
     getHomePath,
+    setHomePath,
     addRemoveRouteFns,
     removeAllDynamicRoutes,
     clearRemoveRouteFns

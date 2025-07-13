@@ -73,6 +73,7 @@
         "multiTab": "开启多标签栏",
         "accordion": "侧边栏开启手风琴模式",
         "collapseSidebar": "显示折叠侧边栏按钮",
+        "fastEnter": "显示快速入口",
         "reloadPage": "显示重载页面按钮",
         "breadcrumb": "显示全局面包屑导航",
         "language": "显示多语言选择",

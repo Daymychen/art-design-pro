@@ -30,11 +30,11 @@
   // 预设二维码样式配置
   const qrcodePresets = [
     {
-      title: '渲染成 img 标签',
+      title: '渲染成 svg 标签',
       config: {
         size: 160,
         level: 'H' as Level,
-        renderAs: 'canvas' as RenderAs,
+        renderAs: 'svg' as RenderAs,
         margin: 0,
         background: '#ffffff',
         foreground: '#000000'

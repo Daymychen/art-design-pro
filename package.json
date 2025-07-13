@@ -12,7 +12,8 @@
     "lint:stylelint": "stylelint  \"**/*.{css,scss,vue}\" --fix",
     "lint:lint-staged": "lint-staged",
     "prepare": "husky",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "clean:dev": "tsx scripts/clean-dev.ts"
   },
   "config": {
     "commitizen": {
@@ -99,6 +100,7 @@
     "stylelint-config-recommended-vue": "^1.5.0",
     "stylelint-config-standard": "^36.0.1",
     "terser": "^5.36.0",
+    "tsx": "^4.20.3",
     "typescript": "~5.6.3",
     "typescript-eslint": "^8.9.0",
     "unplugin-auto-import": "^0.18.3",

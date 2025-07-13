@@ -32,6 +32,7 @@
 
 // 顶部进度条颜色
 #nprogress .bar {
+  z-index: 2400;
   background-color: color-mix(in srgb, var(--main-color) 65%, white);
 }
 
@@ -173,4 +174,88 @@
   @media (max-width: $device-phone) {
     height: auto;
   }
+}
+
+// 徽章样式
+.art-badge {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  bottom: 0;
+  width: 6px;
+  height: 6px;
+  margin: auto;
+  background: #ff3860;
+  border-radius: 50%;
+  animation: breathe 1.5s ease-in-out infinite;
+
+  &.art-badge-horizontal {
+    right: 0;
+  }
+
+  &.art-badge-mixed {
+    right: 0;
+  }
+
+  &.art-badge-dual {
+    right: 5px;
+    top: 5px;
+    bottom: auto;
+  }
+}
+
+// 文字徽章样式
+.art-text-badge {
+  position: absolute;
+  top: 0;
+  right: 12px;
+  bottom: 0;
+  min-width: 20px;
+  height: 18px;
+  line-height: 17px;
+  padding: 0 5px;
+  margin: auto;
+  font-size: 10px;
+  color: #fff;
+  text-align: center;
+  background: #fd4e4e;
+  border-radius: 4px;
+}
+
+@keyframes breathe {
+  0% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+}
+
+// 修复老机型 loading 定位问题
+.art-loading-fix {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.art-loading-fix .el-loading-spinner {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  transform: none !important;
 }

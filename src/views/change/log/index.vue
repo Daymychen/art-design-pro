@@ -5,7 +5,7 @@
     <!-- 桌面端表格显示 -->
     <div class="desktop-view">
       <ArtTable :data="upgradeLogList">
-        <ElTableColumn label="版本号" prop="version" width="200" />
+        <ElTableColumn label="版本号" prop="version" width="100" />
         <ElTableColumn label="内容">
           <template #default="scope">
             <div class="title">{{ scope.row.title }}</div>
@@ -16,7 +16,7 @@
             </div>
           </template>
         </ElTableColumn>
-        <ElTableColumn label="时间" prop="date" width="200" />
+        <ElTableColumn label="时间" prop="date" width="150" />
         <ElTableColumn label="备注" prop="remark" width="260" />
       </ArtTable>
     </div>

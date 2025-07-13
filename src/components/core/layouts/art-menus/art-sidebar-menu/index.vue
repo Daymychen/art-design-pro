@@ -7,7 +7,7 @@
   >
     <!-- 双列菜单（左侧） -->
     <div v-if="isDualMenu" class="dual-menu-left" :style="{ background: getMenuTheme.background }">
-      <ArtLogo class="logo" @click="toHome" />
+      <ArtLogo class="logo" @click="navigateToHome" />
 
       <ElScrollbar style="height: calc(100% - 135px)">
         <ul>
@@ -43,13 +43,14 @@
                 <span v-if="dualMenuShowText">
                   {{ $t(menu.meta.title) }}
                 </span>
+                <div v-if="menu.meta.showBadge" class="art-badge art-badge-dual" />
               </div>
             </ElTooltip>
           </li>
         </ul>
       </ElScrollbar>
 
-      <div class="switch-btn" @click="setDualMenuMode">
+      <div class="switch-btn" @click="toggleDualMenuMode">
         <i class="iconfont-sys">&#xe798;</i>
       </div>
     </div>
@@ -62,8 +63,13 @@
       :style="{ background: getMenuTheme.background }"
     >
       <ElScrollbar style="height: calc(100% - 10px)" :view-style="{ backgroundColor: 'blue' }">
-        <div class="header" @click="toHome" :style="{ background: getMenuTheme.background }">
+        <div
+          class="header"
+          @click="navigateToHome"
+          :style="{ background: getMenuTheme.background }"
+        >
           <ArtLogo v-if="!isDualMenu" class="logo" />
+
           <p
             :class="{ 'is-dual-menu-name': isDualMenu }"
             :style="{
@@ -83,26 +89,26 @@
           :unique-opened="uniqueOpened"
           :background-color="getMenuTheme.background"
           :active-text-color="getMenuTheme.textActiveColor"
-          :default-openeds="defaultOpenedsArray"
+          :default-openeds="defaultOpenedMenus"
           :popper-class="`menu-left-${getMenuTheme.theme}-popper`"
           :show-timeout="50"
           :hide-timeout="50"
         >
           <SidebarSubmenu
             :list="menuList"
-            :isMobile="isMobileModel"
+            :isMobile="isMobileMode"
             :theme="getMenuTheme"
-            @close="closeMenu"
+            @close="handleMenuClose"
           />
         </ElMenu>
       </ElScrollbar>
 
       <div
         class="menu-model"
-        @click="visibleMenu"
+        @click="toggleMenuVisibility"
         :style="{
           opacity: !menuOpen ? 0 : 1,
-          transform: showMobileModel ? 'scale(1)' : 'scale(0)'
+          transform: showMobileModal ? 'scale(1)' : 'scale(0)'
         }"
       />
     </div>
@@ -121,6 +127,10 @@
 
   defineOptions({ name: 'ArtSidebarMenu' })
 
+  const MOBILE_BREAKPOINT = 800
+  const ANIMATION_DELAY = 350
+  const MENU_CLOSE_WIDTH = MenuWidth.CLOSE
+
   const route = useRoute()
   const router = useRouter()
   const settingStore = useSettingStore()
@@ -128,40 +138,45 @@
   const { getMenuOpenWidth, menuType, uniqueOpened, dualMenuShowText, menuOpen, getMenuTheme } =
     storeToRefs(settingStore)
 
-  const menuCloseWidth = MenuWidth.CLOSE
+  // 组件内部状态
+  const defaultOpenedMenus = ref<string[]>([])
+  const isMobileMode = ref(false)
+  const showMobileModal = ref(false)
+  const currentScreenWidth = ref(0)
 
-  const openwidth = computed(() => getMenuOpenWidth.value)
-  const closewidth = computed(() => menuCloseWidth)
+  // 菜单宽度相关
+  const menuopenwidth = computed(() => getMenuOpenWidth.value)
+  const menuclosewidth = computed(() => MENU_CLOSE_WIDTH)
 
+  // 菜单类型判断
   const isTopLeftMenu = computed(() => menuType.value === MenuTypeEnum.TOP_LEFT)
   const showLeftMenu = computed(
     () => menuType.value === MenuTypeEnum.LEFT || menuType.value === MenuTypeEnum.TOP_LEFT
   )
   const isDualMenu = computed(() => menuType.value === MenuTypeEnum.DUAL_MENU)
 
+  // 路由相关
   const firstLevelMenuPath = computed(() => route.matched[0]?.path)
   const routerPath = computed(() => String(route.meta.activePath || route.path))
 
-  // 一级菜单列表
+  // 菜单数据
   const firstLevelMenus = computed(() => {
     return useMenuStore().menuList.filter((menu) => !menu.meta.isHide)
   })
 
-  // 菜单列表
   const menuList = computed(() => {
-    const list = useMenuStore().menuList
+    const menuStore = useMenuStore()
+    const allMenus = menuStore.menuList
 
     // 如果不是顶部左侧菜单或双列菜单，直接返回完整菜单列表
     if (!isTopLeftMenu.value && !isDualMenu.value) {
-      return list
+      return allMenus
     }
 
     // 处理 iframe 路径
     if (isIframe(route.path)) {
-      return findIframeMenuList(route.path, list)
+      return findIframeMenuList(route.path, allMenus)
     }
-
-    const currentTopPath = `/${route.path.split('/')[1]}`
 
     // 处理一级菜单
     if (route.meta.isFirstLevel) {
@@ -169,15 +184,30 @@
     }
 
     // 返回当前顶级路径对应的子菜单
-    const currentMenu = list.find((menu) => menu.path === currentTopPath)
+    const currentTopPath = `/${route.path.split('/')[1]}`
+    const currentMenu = allMenus.find((menu) => menu.path === currentTopPath)
     return currentMenu?.children ?? []
   })
 
-  const defaultOpenedsArray = ref<string[]>([])
-  const isMobileModel = ref(false)
-  const showMobileModel = ref(false)
+  /**
+   * 检查是否为移动端屏幕
+   */
+  const isMobileScreen = (): boolean => {
+    return document.body.clientWidth < MOBILE_BREAKPOINT
+  }
 
-  // 查找 iframe 对应的二级菜单列表
+  /**
+   * 延迟隐藏移动端模态框
+   */
+  const delayHideMobileModal = (): void => {
+    setTimeout(() => {
+      showMobileModal.value = false
+    }, ANIMATION_DELAY)
+  }
+
+  /**
+   * 查找 iframe 对应的二级菜单列表
+   */
   const findIframeMenuList = (currentPath: string, menuList: any[]) => {
     // 递归查找包含当前路径的菜单项
     const hasPath = (items: any[]): boolean => {
@@ -201,66 +231,102 @@
     return []
   }
 
-  const toHome = () => {
+  /**
+   * 导航到首页
+   */
+  const navigateToHome = (): void => {
     router.push(useCommon().homePath.value)
   }
 
-  const visibleMenu = () => {
+  /**
+   * 切换菜单显示/隐藏
+   */
+  const toggleMenuVisibility = (): void => {
     settingStore.setMenuOpen(!menuOpen.value)
 
-    // 移动端模态框
-    if (!showMobileModel.value) {
-      showMobileModel.value = true
-    } else {
-      setTimeout(() => {
-        showMobileModel.value = false
-      }, 200)
+    // 移动端模态框控制逻辑
+    if (isMobileScreen()) {
+      if (!menuOpen.value) {
+        // 菜单即将打开，立即显示模态框
+        showMobileModal.value = true
+      } else {
+        // 菜单即将关闭，延迟隐藏模态框确保动画完成
+        delayHideMobileModal()
+      }
     }
   }
 
-  const closeMenu = () => {
-    if (document.body.clientWidth < 800) {
+  /**
+   * 处理菜单关闭（来自子组件）
+   */
+  const handleMenuClose = (): void => {
+    if (isMobileScreen()) {
       settingStore.setMenuOpen(false)
-      showMobileModel.value = false
+      delayHideMobileModal()
     }
   }
 
-  const setDualMenuMode = () => {
+  /**
+   * 切换双列菜单模式
+   */
+  const toggleDualMenuMode = (): void => {
     settingStore.setDualMenuShowText(!dualMenuShowText.value)
   }
 
-  let screenWidth = 0
-
-  const setMenuModel = () => {
-    // 小屏幕折叠菜单
-    if (screenWidth < 800) {
+  /**
+   * 处理屏幕尺寸变化
+   */
+  const handleScreenResize = (): void => {
+    // 小屏幕自动折叠菜单
+    if (currentScreenWidth.value < MOBILE_BREAKPOINT) {
       settingStore.setMenuOpen(false)
+      // 在小屏幕上，如果菜单关闭则隐藏模态框
+      if (!menuOpen.value) {
+        showMobileModal.value = false
+      }
+    } else {
+      // 大屏幕上始终隐藏模态框
+      showMobileModal.value = false
     }
   }
 
-  const listenerWindowResize = () => {
-    screenWidth = document.body.clientWidth
-    setMenuModel()
+  /**
+   * 设置窗口大小监听器
+   */
+  const setupWindowResizeListener = (): void => {
+    currentScreenWidth.value = document.body.clientWidth
+    handleScreenResize()
 
     window.onresize = () => {
-      return (() => {
-        screenWidth = document.body.clientWidth
-        setMenuModel()
-      })()
+      currentScreenWidth.value = document.body.clientWidth
+      handleScreenResize()
     }
   }
 
+  /**
+   * 监听菜单开关状态变化
+   */
   watch(
-    () => !menuOpen.value,
-    (collapse: boolean) => {
-      if (!collapse) {
-        showMobileModel.value = true
+    () => menuOpen.value,
+    (isMenuOpen: boolean) => {
+      if (!isMobileScreen()) {
+        // 大屏幕设备上，模态框始终隐藏
+        showMobileModal.value = false
+      } else {
+        // 小屏幕设备上，根据菜单状态控制模态框
+        if (isMenuOpen) {
+          // 菜单打开时立即显示模态框
+          showMobileModal.value = true
+        } else {
+          // 菜单关闭时延迟隐藏模态框，确保动画完成
+          delayHideMobileModal()
+        }
       }
     }
   )
 
   onMounted(() => {
-    listenerWindowResize()
+    setupWindowResizeListener()
   })
 </script>
 
@@ -274,12 +340,12 @@
   .layout-sidebar {
     // 展开的宽度
     .el-menu:not(.el-menu--collapse) {
-      width: v-bind(openwidth);
+      width: v-bind(menuopenwidth);
     }
 
     // 折叠后宽度
     .el-menu--collapse {
-      width: v-bind(closewidth);
+      width: v-bind(menuclosewidth);
     }
   }
 </style>

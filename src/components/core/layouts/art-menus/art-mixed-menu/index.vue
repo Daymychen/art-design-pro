@@ -26,6 +26,7 @@
           >
             <i class="iconfont-sys" v-html="item.meta.icon" />
             <span>{{ item.formattedTitle }}</span>
+            <div v-if="item.meta.showBadge" class="art-badge art-badge-mixed" />
           </div>
         </template>
       </div>

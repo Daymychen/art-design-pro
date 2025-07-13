@@ -234,12 +234,9 @@ function handleLayoutRoute(
 
   converted.children = [
     {
-      id: route.id,
-      path: route.path,
-      name: route.name,
-      component: loadComponent(component as string, String(route.name)),
-      meta: route.meta
-    }
+      ...route,
+      component: loadComponent(component as string, String(route.name))
+    } as ConvertedRoute
   ]
 }
 

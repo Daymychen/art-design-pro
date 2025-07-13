@@ -7,17 +7,12 @@ import { AppRouteRecord } from '@/types/router'
  * @returns 处理后的路由配置
  */
 export const menuDataToRouter = (route: AppRouteRecord, parentPath = ''): AppRouteRecord => {
-  const { id, name, component, meta, children } = route
-
   const fullPath = buildRoutePath(route, parentPath)
 
   return {
-    id,
-    name,
+    ...route,
     path: fullPath,
-    component,
-    meta,
-    children: processChildren(children || [], fullPath)
+    children: processChildren(route.children || [], fullPath)
   }
 }
 

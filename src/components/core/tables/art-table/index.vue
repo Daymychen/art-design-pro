@@ -57,48 +57,43 @@
         />
 
         <!-- 动态列渲染 -->
-        <template v-if="hasData">
-          <!-- 配置式列 -->
-          <template v-for="col in visibleColumns" :key="getColumnKey(col)">
-            <!-- 全局序号列的特殊处理 -->
-            <ElTableColumn
-              v-if="col.type === COLUMN_TYPES.GLOBAL_INDEX"
-              v-bind="getColumnProps(col)"
-            >
-              <template #default="{ $index }">
-                <span>{{ getGlobalIndex($index) }}</span>
-              </template>
-            </ElTableColumn>
+        <!-- 配置式列 -->
+        <template v-for="col in visibleColumns" :key="getColumnKey(col)">
+          <!-- 全局序号列的特殊处理 -->
+          <ElTableColumn v-if="col.type === COLUMN_TYPES.GLOBAL_INDEX" v-bind="getColumnProps(col)">
+            <template #default="{ $index }">
+              <span>{{ getGlobalIndex($index) }}</span>
+            </template>
+          </ElTableColumn>
 
-            <!-- 普通列 -->
-            <ElTableColumn v-else v-bind="getColumnProps(col)">
-              <!-- 表头插槽 -->
-              <template v-if="col.useHeaderSlot" #header="headerSlotScope">
-                <slot
-                  :name="col.headerSlotName || `${col.prop}-header`"
-                  v-bind="headerSlotScope"
-                  :prop="col.prop"
-                  :label="col.label"
-                >
-                  {{ col.label }}
-                </slot>
-              </template>
+          <!-- 普通列 -->
+          <ElTableColumn v-else v-bind="getColumnProps(col)">
+            <!-- 表头插槽 -->
+            <template v-if="col.useHeaderSlot" #header="headerSlotScope">
+              <slot
+                :name="col.headerSlotName || `${col.prop}-header`"
+                v-bind="headerSlotScope"
+                :prop="col.prop"
+                :label="col.label"
+              >
+                {{ col.label }}
+              </slot>
+            </template>
 
-              <!-- 内容插槽 -->
-              <template v-if="col.useSlot" #default="slotScope">
-                <slot
-                  :name="col.slotName || col.prop"
-                  v-bind="slotScope"
-                  :prop="col.prop"
-                  :value="col.prop ? slotScope.row[col.prop] : undefined"
-                />
-              </template>
-            </ElTableColumn>
-          </template>
-
-          <!-- 模板式列 - 支持直接写 ElTableColumn -->
-          <slot />
+            <!-- 内容插槽 -->
+            <template v-if="col.useSlot" #default="slotScope">
+              <slot
+                :name="col.slotName || col.prop"
+                v-bind="slotScope"
+                :prop="col.prop"
+                :value="col.prop ? slotScope.row[col.prop] : undefined"
+              />
+            </template>
+          </ElTableColumn>
         </template>
+
+        <!-- 模板式列 - 支持直接写 ElTableColumn -->
+        <slot />
 
         <!-- 空数据 -->
         <template #empty>
@@ -335,7 +330,7 @@
   const hasData = computed(() => props.data.length > 0)
 
   /** 是否显示序号列 */
-  const shouldShowIndex = computed(() => mergedLayoutConfig.value.showIndex && hasData.value)
+  const shouldShowIndex = computed(() => mergedLayoutConfig.value.showIndex)
 
   /** 是否显示分页器 */
   const shouldShowPagination = computed(
@@ -559,7 +554,6 @@
    */
   const scrollToTop = () => {
     nextTick(() => {
-      console.log('scrollToTop')
       tableRef.value?.setScrollTop(0)
     })
   }

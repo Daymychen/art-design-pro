@@ -100,14 +100,14 @@
   })
 
   // 组件状态接口定义
-  interface stateType {
+  interface StateType {
     isMoving: boolean // 是否正在拖拽
     x: number // 拖拽起始位置
     isOk: boolean // 是否验证成功
   }
 
   // 响应式状态定义
-  const state = reactive(<stateType>{
+  const state = reactive(<StateType>{
     isMoving: false,
     x: 0,
     isOk: false
@@ -220,8 +220,6 @@
 
   // 文本样式计算
   const textStyle = computed(() => ({
-    height: props.height + 'px',
-    width: getStyleWidth(),
     fontSize: props.textSize
   }))
 
@@ -373,7 +371,10 @@
 
     .dv_text {
       position: absolute;
-      top: 0;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: transparent;
       user-select: none;
       background: linear-gradient(
@@ -384,7 +385,7 @@
         var(--textColor) 60%,
         var(--textColor) 100%
       );
-      background-clip: text;
+      -webkit-background-clip: text;
       background-clip: text;
       animation: slidetounlock 3s infinite;
       -webkit-text-fill-color: transparent;

@@ -5,7 +5,7 @@
 <template>
   <div class="user-page art-full-height">
     <!-- 搜索栏 -->
-    <UserSearch v-model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
+    <UserSearch @reset="resetSearchParams" @search="getDataByPage" />
 
     <ElCard class="art-table-card" shadow="never">
       <!-- 表格头部 -->
@@ -89,7 +89,6 @@
     tableData: data,
     isLoading: loading,
     paginationState: pagination,
-    searchState: searchParams,
     searchData: getDataByPage,
     resetSearch: resetSearchParams,
     onPageSizeChange: handleSizeChange,

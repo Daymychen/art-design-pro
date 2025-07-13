@@ -46,6 +46,46 @@ export interface SystemBasicConfig {
   copyright?: string
 }
 
+// 快速入口应用项
+export interface FastEnterApplication {
+  /** 应用名称 */
+  name: string
+  /** 应用描述 */
+  description: string
+  /** 图标代码 */
+  icon: string
+  /** 图标颜色 */
+  iconColor: string
+  /** 跳转路径 */
+  path: string
+  /** 是否启用 */
+  enabled?: boolean
+  /** 排序权重 */
+  order?: number
+}
+
+// 快速链接项
+export interface FastEnterQuickLink {
+  /** 链接名称 */
+  name: string
+  /** 跳转路径 */
+  path: string
+  /** 是否启用 */
+  enabled?: boolean
+  /** 排序权重 */
+  order?: number
+}
+
+// 快速入口配置
+export interface FastEnterConfig {
+  /** 应用列表 */
+  applications: FastEnterApplication[]
+  /** 快速链接 */
+  quickLinks: FastEnterQuickLink[]
+  /** 显示条件（屏幕宽度） */
+  minWidth?: number
+}
+
 // 系统配置
 export interface SystemConfig {
   // Element Plus 主题配置
@@ -72,6 +112,10 @@ export interface SystemConfig {
     defaultCustomRadius: string
     defaultTabStyle: string
   }
+  // 快速入口配置
+  fastEnter?: FastEnterConfig
+  // 顶部栏功能配置
+  headerBar?: HeaderBarFeatureConfig
 }
 
 // 环境配置
@@ -104,4 +148,36 @@ export interface AppConfig extends SystemConfig {
   isProd: boolean
   // 测试模式
   isTest: boolean
+}
+
+// 功能配置项基础接口
+export interface FeatureConfigItem {
+  enabled: boolean
+  description: string
+}
+
+// 顶部栏功能配置接口
+export interface HeaderBarFeatureConfig {
+  /** 菜单按钮 */
+  menuButton: FeatureConfigItem
+  /** 刷新按钮 */
+  refreshButton: FeatureConfigItem
+  /** 快速入口 */
+  fastEnter: FeatureConfigItem
+  /** 面包屑导航 */
+  breadcrumb: FeatureConfigItem
+  /** 全局搜索 */
+  globalSearch: FeatureConfigItem
+  /** 全屏功能 */
+  fullscreen: FeatureConfigItem
+  /** 通知功能 */
+  notification: FeatureConfigItem
+  /** 聊天功能 */
+  chat: FeatureConfigItem
+  /** 多语言切换 */
+  language: FeatureConfigItem
+  /** 设置面板 */
+  settings: FeatureConfigItem
+  /** 主题切换 */
+  themeToggle: FeatureConfigItem
 }
