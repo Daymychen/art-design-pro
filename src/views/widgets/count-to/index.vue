@@ -25,7 +25,7 @@
     <div class="demo-section">
       <h2>小数点和分隔符</h2>
       <div class="number-display">
-        <ArtCountTo :target="2023.45" :duration="3000" :decimals="0" separator="," />
+        <ArtCountTo :target="2023.45" :duration="3000" :decimals="2" separator="," />
       </div>
     </div>
 

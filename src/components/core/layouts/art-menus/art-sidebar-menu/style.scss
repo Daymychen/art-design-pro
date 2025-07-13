@@ -34,6 +34,7 @@
     ul {
       li {
         > div {
+          position: relative;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -101,36 +102,6 @@
     .el-menu {
       height: 100%;
     }
-  }
-
-  :deep(.badge) {
-    position: absolute;
-    top: 0;
-    right: 20px;
-    bottom: 0;
-    width: 6px;
-    height: 6px;
-    margin: auto;
-    background: #ff3860;
-    border-radius: 50%;
-    animation: breathe 1.5s ease-in-out infinite;
-  }
-
-  :deep(.text-badge) {
-    position: absolute;
-    top: 0;
-    right: 12px;
-    bottom: 0;
-    min-width: 20px;
-    height: 20px;
-    padding: 0 5px;
-    margin: auto;
-    font-size: 12px;
-    line-height: 20px;
-    color: #fff;
-    text-align: center;
-    background: #fd4e4e;
-    border-radius: 5px;
   }
 
   .header {
@@ -217,22 +188,5 @@
       background: rgba($color: #000, $alpha: 50%);
       transition: opacity 0.2s ease-in-out;
     }
-  }
-}
-
-@keyframes breathe {
-  0% {
-    opacity: 0.7;
-    transform: scale(1);
-  }
-
-  50% {
-    opacity: 1;
-    transform: scale(1.1);
-  }
-
-  100% {
-    opacity: 0.7;
-    transform: scale(1);
   }
 }

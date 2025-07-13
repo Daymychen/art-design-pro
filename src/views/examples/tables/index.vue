@@ -317,7 +317,7 @@
               <ElTag size="small">{{ eventLogs.length }} 条</ElTag>
             </div>
             <div class="log-list">
-              <div v-for="(log, index) in eventLogs.slice(0, 5)" :key="index" class="log-item">
+              <div v-for="(log, index) in eventLogs.slice(0, 20)" :key="index" class="log-item">
                 <ElTag :type="getEventType(log.type)" size="small">{{ log.type }}</ElTag>
                 <span class="log-message">{{ log.message }}</span>
                 <span class="log-time">{{ log.time }}</span>
@@ -573,7 +573,7 @@
     onCurrentPageChange,
 
     // 搜索相关
-    searchState,
+    searchState, // 搜索参数
     resetSearch,
 
     // 数据操作
@@ -617,12 +617,19 @@
       apiParams: {
         current: 1,
         size: 20,
+        // pageNum: 1, // 自定义分页字段映射， 默认为 current
+        // pageSize: 20, // 自定义分页字段映射， 默认为 size
         name: '',
         phone: '',
         status: '',
         department: '',
         dateRange: undefined
-      } as any,
+      },
+      // 自定义分页字段映射，同时需要在 apiParams 中配置字段名
+      // paginationKey: {
+      //   current: 'pageNum',
+      //   size: 'pageSize'
+      // },
       immediate: true,
       columnsFactory: () => [
         { type: 'selection', width: 50 },
@@ -690,6 +697,16 @@
           status: ['1', '2', '3', '4'][Math.floor(Math.random() * 4)]
         }))
       }
+      // 自定义响应适配器，处理后端特殊的返回格式
+      // responseAdapter: (data: any) => {
+      //   const { list, total, pageNum, pageSize } = data
+      //   return {
+      //     records: list,
+      //     total: total,
+      //     current: pageNum,
+      //     size: pageSize
+      //   }
+      // }
     },
 
     // 性能优化

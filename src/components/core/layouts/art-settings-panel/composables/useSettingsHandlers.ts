@@ -69,6 +69,9 @@ export function useSettingsHandlers() {
     // 显示菜单按钮
     menuButton: createToggleHandler(() => settingStore.setButton()),
 
+    // 显示快速入口
+    fastEnter: createToggleHandler(() => settingStore.setFastEnter()),
+
     // 显示刷新按钮
     refreshButton: createToggleHandler(() => settingStore.setShowRefreshButton()),
 

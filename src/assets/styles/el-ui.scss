@@ -30,11 +30,6 @@ html.dark .el-card {
   --el-card-bg-color: var(--art-main-bg-color) !important;
 }
 
-// 修改 el-loading-mask 背景色
-.el-loading-mask {
-  background-color: var(--art-main-bg-color) !important  ;
-}
-
 // 修改 el-pagination 大小
 .el-pagination--default {
   --el-pagination-button-width: 32px !important;

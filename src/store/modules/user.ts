@@ -8,6 +8,7 @@ import { AppRouteRecord } from '@/types/router'
 import { setPageTitle } from '@/router/utils/utils'
 import { resetRouterState } from '@/router/guards/beforeEach'
 import { RoutesAlias } from '@/router/routesAlias'
+import { useMenuStore } from './menu'
 
 /**
  * 用户状态管理
@@ -122,6 +123,8 @@ export const useUserStore = defineStore(
       useWorktabStore().opened = []
       // 移除iframe路由缓存
       sessionStorage.removeItem('iframeRoutes')
+      // 清空主页路径
+      useMenuStore().setHomePath('')
       // 重置路由状态
       resetRouterState()
       // 跳转到登录页

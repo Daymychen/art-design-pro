@@ -12,23 +12,25 @@
         <ArtLogo class="logo2" @click="toHome" />
 
         <!-- 菜单按钮 -->
-        <div class="btn-box" v-if="isLeftMenu && showMenuButton">
+        <div class="btn-box" v-if="isLeftMenu && shouldShowMenuButton">
           <div class="btn menu-btn">
             <i class="iconfont-sys" @click="visibleMenu">&#xe6ba;</i>
           </div>
         </div>
         <!-- 刷新按钮 -->
-        <div class="btn-box" v-if="showRefreshButton">
+        <div class="btn-box" v-if="shouldShowRefreshButton">
           <div class="btn refresh-btn" :style="{ marginLeft: !isLeftMenu ? '10px' : '0' }">
             <i class="iconfont-sys" @click="reload()"> &#xe6b3; </i>
           </div>
         </div>
 
         <!-- 快速入口 -->
-        <ArtFastEnter v-if="width >= 1200" />
+        <ArtFastEnter v-if="shouldShowFastEnter && width >= headerBarFastEnterMinWidth" />
 
         <!-- 面包屑 -->
-        <ArtBreadcrumb v-if="(showCrumbs && isLeftMenu) || (showCrumbs && isDualMenu)" />
+        <ArtBreadcrumb
+          v-if="(shouldShowBreadcrumb && isLeftMenu) || (shouldShowBreadcrumb && isDualMenu)"
+        />
 
         <!-- 顶部菜单 -->
         <ArtHorizontalMenu v-if="isTopMenu" :list="menuList" />
@@ -39,7 +41,7 @@
 
       <div class="right">
         <!-- 搜索 -->
-        <div class="search-wrap">
+        <div class="search-wrap" v-if="shouldShowGlobalSearch">
           <div class="search-input" @click="openSearchDialog">
             <div class="left">
               <i class="iconfont-sys">&#xe710;</i>
@@ -54,7 +56,7 @@
         </div>
 
         <!-- 全屏按钮 -->
-        <div class="btn-box screen-box" @click="toggleFullScreen">
+        <div class="btn-box screen-box" v-if="shouldShowFullscreen" @click="toggleFullScreen">
           <div
             class="btn"
             :class="{ 'full-screen-btn': !isFullscreen, 'exit-full-screen-btn': isFullscreen }"
@@ -63,21 +65,21 @@
           </div>
         </div>
         <!-- 通知 -->
-        <div class="btn-box notice-btn" @click="visibleNotice">
+        <div class="btn-box notice-btn" v-if="shouldShowNotification" @click="visibleNotice">
           <div class="btn notice-button">
             <i class="iconfont-sys notice-btn">&#xe6c2;</i>
             <span class="count notice-btn"></span>
           </div>
         </div>
         <!-- 聊天 -->
-        <div class="btn-box chat-btn" @click="openChat">
+        <div class="btn-box chat-btn" v-if="shouldShowChat" @click="openChat">
           <div class="btn chat-button">
             <i class="iconfont-sys">&#xe89a;</i>
             <span class="dot"></span>
           </div>
         </div>
         <!-- 语言 -->
-        <div class="btn-box" v-if="showLanguage">
+        <div class="btn-box" v-if="shouldShowLanguage">
           <ElDropdown @command="changeLanguage" popper-class="langDropDownStyle">
             <div class="btn language-btn">
               <i class="iconfont-sys">&#xe611;</i>
@@ -98,7 +100,7 @@
           </ElDropdown>
         </div>
         <!-- 设置 -->
-        <div class="btn-box" @click="openSetting">
+        <div class="btn-box" v-if="shouldShowSettings" @click="openSetting">
           <ElPopover :visible="showSettingGuide" placement="bottom-start" :width="190" :offset="0">
             <template #reference>
               <div class="btn setting-btn">
@@ -116,7 +118,7 @@
           </ElPopover>
         </div>
         <!-- 切换主题 -->
-        <div class="btn-box" @click="themeAnimation">
+        <div class="btn-box" v-if="shouldShowThemeToggle" @click="themeAnimation">
           <div class="btn theme-btn">
             <i class="iconfont-sys">{{ isDark ? '&#xe6b5;' : '&#xe725;' }}</i>
           </div>
@@ -196,6 +198,7 @@
   import { mittBus } from '@/utils/sys'
   import { themeAnimation } from '@/utils/theme/animation'
   import { useCommon } from '@/composables/useCommon'
+  import { useHeaderBar } from '@/composables/useHeaderBar'
 
   defineOptions({ name: 'ArtHeaderBar' })
 
@@ -210,18 +213,24 @@
   const userStore = useUserStore()
   const menuStore = useMenuStore()
 
+  // 顶部栏功能配置
   const {
-    showMenuButton,
-    showRefreshButton,
-    showLanguage,
-    menuOpen,
-    showCrumbs,
-    systemThemeColor,
-    showSettingGuide,
-    menuType,
-    isDark,
-    tabStyle
-  } = storeToRefs(settingStore)
+    shouldShowMenuButton,
+    shouldShowRefreshButton,
+    shouldShowFastEnter,
+    shouldShowBreadcrumb,
+    shouldShowGlobalSearch,
+    shouldShowFullscreen,
+    shouldShowNotification,
+    shouldShowChat,
+    shouldShowLanguage,
+    shouldShowSettings,
+    shouldShowThemeToggle,
+    fastEnterMinWidth: headerBarFastEnterMinWidth
+  } = useHeaderBar()
+
+  const { menuOpen, systemThemeColor, showSettingGuide, menuType, isDark, tabStyle } =
+    storeToRefs(settingStore)
 
   const { language, getUserInfo: userInfo } = storeToRefs(userStore)
   const { menuList } = storeToRefs(menuStore)

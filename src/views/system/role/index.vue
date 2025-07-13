@@ -4,7 +4,7 @@
       <ElRow :gutter="12">
         <ElCol :xs="24" :sm="12" :lg="6">
           <ElFormItem>
-            <ElInput placeholder="部门名称"></ElInput>
+            <ElInput placeholder="请输入角色名称" v-model="form.roleName"></ElInput>
           </ElFormItem>
         </ElCol>
         <ElCol :xs="24" :sm="12" :lg="6">
@@ -124,7 +124,6 @@
   import { ElMessage, ElMessageBox } from 'element-plus'
   import type { FormInstance, FormRules } from 'element-plus'
   import { formatMenuTitle } from '@/router/utils/utils'
-  // import { ButtonMoreItem } from '@/components/core/forms/ArtButtonMore.vue'
   import { Role, ROLE_LIST_DATA } from '@/mock/temp/formData'
   import { ButtonMoreItem } from '@/components/core/forms/art-button-more/index.vue'
 

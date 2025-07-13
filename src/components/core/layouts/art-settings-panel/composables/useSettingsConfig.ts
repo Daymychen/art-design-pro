@@ -2,6 +2,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ContainerWidthEnum } from '@/enums/appEnum'
 import AppConfig from '@/config'
+import { headerBarConfig } from '@/config/headerBar'
 
 /**
  * 设置项配置选项管理
@@ -99,98 +100,138 @@ export function useSettingsConfig() {
   }
 
   // 基础设置项配置
-  const basicSettingsConfig = computed(() => [
-    {
-      key: 'showWorkTab',
-      label: t('setting.basics.list.multiTab'),
-      type: 'switch' as const,
-      handler: 'workTab'
-    },
-    {
-      key: 'uniqueOpened',
-      label: t('setting.basics.list.accordion'),
-      type: 'switch' as const,
-      handler: 'uniqueOpened'
-    },
-    {
-      key: 'showMenuButton',
-      label: t('setting.basics.list.collapseSidebar'),
-      type: 'switch' as const,
-      handler: 'menuButton'
-    },
-    {
-      key: 'showRefreshButton',
-      label: t('setting.basics.list.reloadPage'),
-      type: 'switch' as const,
-      handler: 'refreshButton'
-    },
-    {
-      key: 'showCrumbs',
-      label: t('setting.basics.list.breadcrumb'),
-      type: 'switch' as const,
-      handler: 'crumbs',
-      mobileHide: true
-    },
-    {
-      key: 'showLanguage',
-      label: t('setting.basics.list.language'),
-      type: 'switch' as const,
-      handler: 'language'
-    },
-    {
-      key: 'showNprogress',
-      label: t('setting.basics.list.progressBar'),
-      type: 'switch' as const,
-      handler: 'nprogress'
-    },
-    {
-      key: 'colorWeak',
-      label: t('setting.basics.list.weakMode'),
-      type: 'switch' as const,
-      handler: 'colorWeak'
-    },
-    {
-      key: 'watermarkVisible',
-      label: t('setting.basics.list.watermark'),
-      type: 'switch' as const,
-      handler: 'watermark'
-    },
-    {
-      key: 'menuOpenWidth',
-      label: t('setting.basics.list.menuWidth'),
-      type: 'input-number' as const,
-      handler: 'menuOpenWidth',
-      min: 180,
-      max: 320,
-      step: 10,
-      style: { width: '120px' },
-      controlsPosition: 'right' as const
-    },
-    {
-      key: 'tabStyle',
-      label: t('setting.basics.list.tabStyle'),
-      type: 'select' as const,
-      handler: 'tabStyle',
-      options: tabStyleOptions.value,
-      style: { width: '120px' }
-    },
-    {
-      key: 'pageTransition',
-      label: t('setting.basics.list.pageTransition'),
-      type: 'select' as const,
-      handler: 'pageTransition',
-      options: pageTransitionOptions.value,
-      style: { width: '120px' }
-    },
-    {
-      key: 'customRadius',
-      label: t('setting.basics.list.borderRadius'),
-      type: 'select' as const,
-      handler: 'customRadius',
-      options: customRadiusOptions,
-      style: { width: '120px' }
-    }
-  ])
+  const basicSettingsConfig = computed(() => {
+    // 定义所有基础设置项
+    const allSettings = [
+      {
+        key: 'showWorkTab',
+        label: t('setting.basics.list.multiTab'),
+        type: 'switch' as const,
+        handler: 'workTab',
+        headerBarKey: null // 不依赖headerBar配置
+      },
+      {
+        key: 'uniqueOpened',
+        label: t('setting.basics.list.accordion'),
+        type: 'switch' as const,
+        handler: 'uniqueOpened',
+        headerBarKey: null // 不依赖headerBar配置
+      },
+      {
+        key: 'showMenuButton',
+        label: t('setting.basics.list.collapseSidebar'),
+        type: 'switch' as const,
+        handler: 'menuButton',
+        headerBarKey: 'menuButton' as const
+      },
+      {
+        key: 'showFastEnter',
+        label: t('setting.basics.list.fastEnter'),
+        type: 'switch' as const,
+        handler: 'fastEnter',
+        headerBarKey: 'fastEnter' as const
+      },
+      {
+        key: 'showRefreshButton',
+        label: t('setting.basics.list.reloadPage'),
+        type: 'switch' as const,
+        handler: 'refreshButton',
+        headerBarKey: 'refreshButton' as const
+      },
+      {
+        key: 'showCrumbs',
+        label: t('setting.basics.list.breadcrumb'),
+        type: 'switch' as const,
+        handler: 'crumbs',
+        mobileHide: true,
+        headerBarKey: 'breadcrumb' as const
+      },
+      {
+        key: 'showLanguage',
+        label: t('setting.basics.list.language'),
+        type: 'switch' as const,
+        handler: 'language',
+        headerBarKey: 'language' as const
+      },
+      {
+        key: 'showNprogress',
+        label: t('setting.basics.list.progressBar'),
+        type: 'switch' as const,
+        handler: 'nprogress',
+        headerBarKey: null // 不依赖headerBar配置
+      },
+      {
+        key: 'colorWeak',
+        label: t('setting.basics.list.weakMode'),
+        type: 'switch' as const,
+        handler: 'colorWeak',
+        headerBarKey: null // 不依赖headerBar配置
+      },
+      {
+        key: 'watermarkVisible',
+        label: t('setting.basics.list.watermark'),
+        type: 'switch' as const,
+        handler: 'watermark',
+        headerBarKey: null // 不依赖headerBar配置
+      },
+      {
+        key: 'menuOpenWidth',
+        label: t('setting.basics.list.menuWidth'),
+        type: 'input-number' as const,
+        handler: 'menuOpenWidth',
+        min: 180,
+        max: 320,
+        step: 10,
+        style: { width: '120px' },
+        controlsPosition: 'right' as const,
+        headerBarKey: null // 不依赖headerBar配置
+      },
+      {
+        key: 'tabStyle',
+        label: t('setting.basics.list.tabStyle'),
+        type: 'select' as const,
+        handler: 'tabStyle',
+        options: tabStyleOptions.value,
+        style: { width: '120px' },
+        headerBarKey: null // 不依赖headerBar配置
+      },
+      {
+        key: 'pageTransition',
+        label: t('setting.basics.list.pageTransition'),
+        type: 'select' as const,
+        handler: 'pageTransition',
+        options: pageTransitionOptions.value,
+        style: { width: '120px' },
+        headerBarKey: null // 不依赖headerBar配置
+      },
+      {
+        key: 'customRadius',
+        label: t('setting.basics.list.borderRadius'),
+        type: 'select' as const,
+        handler: 'customRadius',
+        options: customRadiusOptions,
+        style: { width: '120px' },
+        headerBarKey: null // 不依赖headerBar配置
+      }
+    ]
+
+    // 根据 headerBarConfig 过滤设置项
+    return (
+      allSettings
+        .filter((setting) => {
+          // 如果设置项不依赖headerBar配置，则始终显示
+          if (setting.headerBarKey === null) {
+            return true
+          }
+
+          // 如果依赖headerBar配置，检查对应的功能是否启用
+          const headerBarFeature = headerBarConfig[setting.headerBarKey]
+          return headerBarFeature?.enabled !== false
+        })
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        .map(({ headerBarKey: _headerBarKey, ...setting }) => setting)
+    )
+  })
 
   return {
     // 选项配置

@@ -5,7 +5,8 @@ const DEFAULT_LOADING_CONFIG = {
   lock: true,
   background: 'rgba(0, 0, 0, 0)',
   svg: fourDotsSpinnerSvg,
-  svgViewBox: '0 0 40 40'
+  svgViewBox: '0 0 40 40',
+  customClass: 'art-loading-fix'
 } as const
 
 interface LoadingInstance {

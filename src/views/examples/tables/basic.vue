@@ -31,8 +31,6 @@
 
   defineOptions({ name: 'UserMixedUsageExample' })
 
-  type UserListItem = Api.User.UserListItem
-
   const {
     tableData,
     columns,
@@ -42,7 +40,7 @@
     refreshAll: refresh,
     onPageSizeChange: handleSizeChange,
     onCurrentPageChange: handleCurrentChange
-  } = useTable<UserListItem>({
+  } = useTable<Api.User.UserListItem>({
     core: {
       apiFn: UserService.getUserList,
       apiParams: {
