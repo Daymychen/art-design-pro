@@ -11,12 +11,11 @@
 
       <!-- 表格 -->
       <ArtTable
+        rowKey="id"
         :loading="loading"
         :data="tableData"
         :columns="columns"
         :pagination="pagination"
-        :table-config="{ rowKey: 'id' }"
-        :layout="{ marginTop: 10 }"
         @pagination:size-change="handleSizeChange"
         @pagination:current-change="handleCurrentChange"
       >

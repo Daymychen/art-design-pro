@@ -186,7 +186,8 @@ function convertRouteComponent(
   }
 
   // 是否为一级菜单
-  const isFirstLevel = depth === 0 && route.children?.length === 0
+  const isFirstLevel =
+    depth === 0 && route.children?.length === 0 && component !== RoutesAlias.Layout
 
   if (route.meta.isIframe) {
     handleIframeRoute(converted, route, iframeRoutes)

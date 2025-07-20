@@ -216,6 +216,35 @@ async function processBackendMenu(router: Router): Promise<void> {
 }
 
 /**
+ * 递归过滤空菜单项
+ */
+function filterEmptyMenus(menuList: AppRouteRecord[]): AppRouteRecord[] {
+  return menuList
+    .map((item) => {
+      // 如果有子菜单，先递归过滤子菜单
+      if (item.children && item.children.length > 0) {
+        const filteredChildren = filterEmptyMenus(item.children)
+        return {
+          ...item,
+          children: filteredChildren
+        }
+      }
+      return item
+    })
+    .filter((item) => {
+      // 过滤掉布局组件且没有子菜单的项
+      const isEmptyLayoutMenu =
+        item.component === RoutesAlias.Layout && (!item.children || item.children.length === 0)
+
+      // 过滤掉组件为空字符串且没有子菜单的项
+      const isEmptyComponentMenu =
+        item.component === '' && (!item.children || item.children.length === 0)
+
+      return !(isEmptyLayoutMenu || isEmptyComponentMenu)
+    })
+}
+
+/**
  * 注册路由并存储菜单数据
  */
 async function registerAndStoreMenu(router: Router, menuList: AppRouteRecord[]): Promise<void> {
@@ -224,8 +253,12 @@ async function registerAndStoreMenu(router: Router, menuList: AppRouteRecord[]):
   }
 
   const menuStore = useMenuStore()
-  menuStore.setMenuList(menuList)
-  registerDynamicRoutes(router, menuList)
+
+  // 递归过滤掉为空的菜单项
+  const list = filterEmptyMenus(menuList)
+
+  menuStore.setMenuList(list)
+  registerDynamicRoutes(router, list)
   isRouteRegistered.value = true
   useWorktabStore().validateWorktabs(router)
 }

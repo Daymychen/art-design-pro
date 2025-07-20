@@ -6,7 +6,13 @@
     </div>
     <div class="table">
       <el-scrollbar style="height: 21.55rem">
-        <ArtTable :data="tableData" style="margin-top: 0 !important">
+        <ArtTable
+          :data="tableData"
+          style="margin-top: 0 !important"
+          :border="false"
+          :stripe="false"
+          :header-cell-style="{ background: 'transparent' }"
+        >
           <template #default>
             <el-table-column label="产品" prop="product" width="220px">
               <template #default="scope">

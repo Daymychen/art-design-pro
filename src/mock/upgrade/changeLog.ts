@@ -9,6 +9,25 @@ interface UpgradeLog {
 
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
+    version: 'v2.5.3',
+    title: 'bug修复、优化用户体验',
+    date: '2025-07-20',
+    detail: [
+      'ArtTable 组件重构',
+      'Element Plus 升级到 v2.10.2',
+      '优化 useTable 分页参数问题',
+      '修复 ArtTable 切换分页大小时执行两次请求bug',
+      '优化网络请求示例：初始化参数、分页携带参数问题',
+      '优化搜索日期范围参数处理',
+      '优化 el-date-picker 组件圆角问题',
+      '优化 el-select 组件 hover 样式',
+      '新增表格左右布局示例',
+      '搜索组件、分页组件高度降低',
+      '优化登录页面滑块动画间隔时长',
+      '优化菜单没有子菜单显示的问题'
+    ]
+  },
+  {
     version: 'v2.5.2',
     title: 'bug修复、优化用户体验',
     date: '2025-07-13',

@@ -268,7 +268,8 @@
       "title": "Feature Examples",
       "tabs": "Tabs",
       "tablesBasic": "Basic Tables",
-      "tables": "Advanced Tables"
+      "tables": "Advanced Tables",
+      "tablesTree": "Tree Table Layout"
     },
     "system": {
       "title": "System Settings",

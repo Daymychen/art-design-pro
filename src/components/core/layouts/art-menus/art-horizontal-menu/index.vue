@@ -3,7 +3,6 @@
   <div class="top-menu">
     <ElMenu
       :ellipsis="true"
-      class="el-menu-popper-demo"
       mode="horizontal"
       :default-active="routerPath"
       text-color="var(--art-text-gray-700)"
@@ -11,6 +10,7 @@
       background-color="transparent"
       :show-timeout="50"
       :hide-timeout="50"
+      popper-class="horizontal-menu-popper"
     >
       <HorizontalSubmenu
         v-for="item in filteredMenuItems"

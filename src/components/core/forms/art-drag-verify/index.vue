@@ -303,7 +303,7 @@
     // 更新样式为成功状态
     progressBar.value.style.background = props.completedBg
     messageRef.value.style['-webkit-text-fill-color'] = 'unset'
-    messageRef.value.style.animation = 'slidetounlock2 3s infinite'
+    messageRef.value.style.animation = 'slidetounlock2 2s cubic-bezier(0, 0.2, 1, 1) infinite'
     messageRef.value.style.color = '#fff'
     emit('passCallback')
   }
@@ -319,7 +319,7 @@
     handler.value.children[0].innerHTML = props.handlerIcon
     // 重置文本样式
     messageRef.value.style['-webkit-text-fill-color'] = 'transparent'
-    messageRef.value.style.animation = 'slidetounlock 3s infinite'
+    messageRef.value.style.animation = 'slidetounlock 2s cubic-bezier(0, 0.2, 1, 1) infinite'
     messageRef.value.style.color = props.background
     // 重置状态
     emit('update:value', false)
@@ -387,7 +387,7 @@
       );
       -webkit-background-clip: text;
       background-clip: text;
-      animation: slidetounlock 3s infinite;
+      animation: slidetounlock 2s cubic-bezier(0, 0.2, 1, 1) infinite;
       -webkit-text-fill-color: transparent;
       text-size-adjust: none;
 

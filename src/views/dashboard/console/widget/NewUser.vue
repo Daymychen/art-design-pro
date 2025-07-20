@@ -14,9 +14,11 @@
     <ArtTable
       class="table"
       :data="tableData"
-      :table-config="{
-        size: 'large'
-      }"
+      style="width: 100%"
+      size="large"
+      :border="false"
+      :stripe="false"
+      :header-cell-style="{ background: 'transparent' }"
     >
       <template #default>
         <el-table-column label="头像" prop="avatar" width="150px">

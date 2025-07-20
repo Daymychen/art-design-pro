@@ -52,5 +52,6 @@ export enum RoutesAlias {
   ChangeLog = '/change/log', // 更新日志
   ExamplesTabs = '/examples/tabs', // 标签页
   ExamplesTablesBasic = '/examples/tables/basic', // 基础表格示例
-  ExamplesTables = '/examples/tables' // 高级表格示例
+  ExamplesTables = '/examples/tables', // 高级表格示例
+  ExamplesTablesTree = '/examples/tables/tree' // 左右布局表格示例
 }

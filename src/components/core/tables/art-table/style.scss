@@ -1,13 +1,42 @@
 @use '@styles/variables.scss' as *;
 
 .art-table {
-  .table-container {
+  position: relative;
+  height: 100%;
+
+  .el-table {
     height: 100%;
+    margin-top: 10px;
   }
 
-  .table-pagination {
+  :deep(.el-loading-mask) {
+    z-index: 100;
+    background-color: var(--art-main-bg-color) !important;
+  }
+
+  // Loading 过渡动画 - 消失时淡出
+  .loading-fade-leave-active {
+    transition: opacity 0.3s ease-out;
+  }
+
+  .loading-fade-leave-to {
+    opacity: 0;
+  }
+
+  // 空状态垂直居中
+  &.is-empty {
+    :deep(.el-scrollbar__wrap) {
+      display: flex;
+    }
+  }
+
+  .pagination {
     display: flex;
-    margin-top: 16px;
+    margin-top: 13px;
+
+    :deep(.el-select) {
+      width: 102px !important;
+    }
 
     // 分页对齐方式
     &.left {
@@ -21,18 +50,39 @@
     &.right {
       justify-content: flex-end;
     }
-  }
 
-  :deep(.el-table) {
-    th.el-table__cell {
-      font-weight: 600;
-    }
-  }
+    // 自定义分页组件样式
+    &.custom-pagination {
+      :deep(.el-pagination) {
+        .btn-prev,
+        .btn-next {
+          background-color: transparent;
+          border: 1px solid var(--art-gray-300);
+          transition: all 0.3s;
 
-  &.header-background {
-    :deep(.el-table) {
-      th.el-table__cell {
-        background-color: var(--el-fill-color-light);
+          &:hover:not(.is-disabled) {
+            color: var(--main-color);
+            border-color: var(--main-color);
+          }
+        }
+
+        li {
+          box-sizing: border-box;
+          font-weight: 400 !important;
+          background-color: transparent;
+          border: 1px solid var(--art-gray-300);
+          transition: all 0.2s ease-out;
+
+          &.is-active:not(.is-disabled) {
+            font-weight: 400;
+            color: var(--main-color);
+            border: 1px solid var(--main-color);
+          }
+
+          &:hover:not(.is-disabled) {
+            border-color: var(--main-color);
+          }
+        }
       }
     }
   }
@@ -46,29 +96,5 @@
     gap: 15px 0;
     align-items: center;
     justify-content: center;
-
-    .el-pagination__sizes {
-      .el-select {
-        width: 100px !important;
-
-        .el-select__wrapper {
-          height: 30px !important;
-        }
-      }
-    }
-
-    .el-pager {
-      li {
-        margin-right: 2px;
-      }
-    }
-
-    .el-pagination__jump {
-      margin-left: 5px;
-
-      .el-input {
-        height: 32px !important;
-      }
-    }
   }
 }

@@ -15,7 +15,7 @@
         </ElCol>
       </ElRow>
     </ElForm>
-    <ArtTable :data="roleList" index>
+    <ArtTable :data="roleList">
       <template #default>
         <ElTableColumn label="角色名称" prop="roleName" />
         <ElTableColumn label="角色编码" prop="roleCode" />

@@ -7,9 +7,10 @@
       <ArtTable
         :data="products"
         style="width: 100%"
-        :table-config="{
-          size: 'large'
-        }"
+        size="large"
+        :border="false"
+        :stripe="false"
+        :header-cell-style="{ background: 'transparent' }"
       >
         <el-table-column prop="name" label="产品名称" width="200" />
         <el-table-column prop="popularity" label="销量">

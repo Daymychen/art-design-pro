@@ -17,12 +17,18 @@
   // 边框、按钮圆角...
   --el-border-radius-base: calc(var(--custom-radius) / 3 + 2px) !important;
 
-  --el-border-radius-small: 10px !important;
-  --el-messagebox-border-radius: 10px !important;
+  --el-border-radius-small: calc(var(--custom-radius) / 3 + 4px) !important;
+  --el-messagebox-border-radius: calc(var(--custom-radius) / 3 + 4px) !important;
+  --el-popover-border-radius: calc(var(--custom-radius) / 3 + 4px) !important;
 
   .region .el-radio-button__original-radio:checked + .el-radio-button__inner {
     color: var(--main-color);
   }
+}
+
+// 日期选择器
+.el-date-range-picker {
+  --el-datepicker-inrange-bg-color: rgba(var(--art-gray-200-rgb), 0.6) !important;
 }
 
 // el-card 背景色跟系统背景色保持一致
@@ -32,8 +38,16 @@ html.dark .el-card {
 
 // 修改 el-pagination 大小
 .el-pagination--default {
-  --el-pagination-button-width: 32px !important;
-  --el-pagination-button-height: var(--el-pagination-button-width) !important;
+  & {
+    --el-pagination-button-width: 32px !important;
+    --el-pagination-button-height: var(--el-pagination-button-width) !important;
+  }
+
+  @media (max-width: $device-ipad-pro) {
+    & {
+      --el-pagination-button-width: 28px !important;
+    }
+  }
 
   .el-select--default .el-select__wrapper {
     min-height: var(--el-pagination-button-width) !important;
@@ -242,7 +256,7 @@ html.dark .el-card {
 
     &::before {
       content: '';
-      height: 3px !important;
+      height: 4px !important;
       top: 6px !important;
       background-color: #fff !important;
       transform: scale(0.6) !important;
@@ -251,10 +265,10 @@ html.dark .el-card {
     &::after {
       width: 4px;
       height: 8px;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 4px;
+      // left: 0;
+      // right: 0;
+      // top: 0;
+      bottom: 0px;
       margin: auto;
       border: 2px solid var(--el-checkbox-checked-icon-color);
       border-left: 0;
@@ -382,15 +396,19 @@ html.dark .el-card {
       line-height: 34px !important;
       border-radius: 6px !important;
 
+      &.is-hovering {
+        background-color: transparent !important;
+      }
+
       &.is-selected {
         color: var(--art-gray-900) !important;
         font-weight: 400 !important;
-        background-color: var(--art-gray-200) !important;
+        background-color: rgba(var(--art-gray-200-rgb), 0.8) !important;
         margin-bottom: 4px !important;
       }
 
       &:hover {
-        background-color: var(--art-gray-200) !important;
+        background-color: rgba(var(--art-gray-200-rgb), 0.8) !important;
       }
     }
 

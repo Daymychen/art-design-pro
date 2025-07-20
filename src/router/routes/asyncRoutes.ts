@@ -191,8 +191,7 @@ export const asyncRoutes: AppRouteRecord[] = [
         component: RoutesAlias.CountTo,
         meta: {
           title: 'menus.widgets.countTo',
-          keepAlive: false,
-          showTextBadge: 'New'
+          keepAlive: false
         }
       },
       {
@@ -307,6 +306,16 @@ export const asyncRoutes: AppRouteRecord[] = [
         component: RoutesAlias.ExamplesTables,
         meta: {
           title: 'menus.examples.tables',
+          keepAlive: true,
+          showTextBadge: 'New'
+        }
+      },
+      {
+        path: 'tables/tree',
+        name: 'TablesTree',
+        component: RoutesAlias.ExamplesTablesTree,
+        meta: {
+          title: 'menus.examples.tablesTree',
           keepAlive: true,
           showTextBadge: 'New'
         }

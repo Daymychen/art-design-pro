@@ -56,7 +56,7 @@
     "axios": "^1.7.5",
     "crypto-js": "^4.2.0",
     "echarts": "^5.6.0",
-    "element-plus": "^2.8.0",
+    "element-plus": "^2.10.2",
     "file-saver": "^2.0.5",
     "highlight.js": "^11.10.0",
     "md-editor-v3": "^4.17.0",

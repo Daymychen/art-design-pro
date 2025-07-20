@@ -1,3 +1,4 @@
+<!-- 用户搜索栏 -->
 <template>
   <ArtSearchBar
     v-model:filter="searchFormState"
@@ -8,48 +9,46 @@
 </template>
 
 <script setup lang="ts">
-  import { SearchChangeParams, SearchFormItem } from '@/types'
+  import type { SearchChangeParams, SearchFormItem } from '@/types'
 
   interface Emits {
-    (e: 'update:modelValue', value: any): void
-    (e: 'search'): void
+    (e: 'search', params: Record<string, any>): void
     (e: 'reset'): void
   }
 
+  const props = defineProps<{
+    filter: Record<string, any>
+  }>()
+
   const emit = defineEmits<Emits>()
 
-  // 定义表单搜索初始值
-  const initialSearchState = {
-    name: '',
-    phone: '',
-    address: '',
-    level: 'normal',
-    email: '',
-    date: '2025-01-05',
-    daterange: ['2025-01-01', '2025-02-10'],
-    status: '1'
-  }
+  const searchFormState = ref({ ...props.filter })
 
-  const searchFormState = ref({ ...initialSearchState })
+  watch(
+    () => props.filter,
+    (newFilter) => {
+      searchFormState.value = { ...newFilter }
+    },
+    { deep: true, immediate: true }
+  )
 
   // 重置表单
   const handleReset = () => {
-    emit('update:modelValue', { ...initialSearchState })
+    searchFormState.value = { ...props.filter }
     emit('reset')
   }
 
   // 搜索处理
   const handleSearch = () => {
     console.log('搜索参数:', searchFormState.value)
-    emit('search')
+    emit('search', searchFormState.value)
   }
 
-  // 表单项变更处理
   const handleFormChange = (params: SearchChangeParams): void => {
     console.log('表单项变更:', params)
   }
 
-  // 表单配置项
+  // --- 表单配置项 ---
   const formItems: SearchFormItem[] = [
     {
       label: '用户名',
@@ -76,7 +75,8 @@
       config: {
         clearable: true
       },
-      options: () => [
+      // options 可以是一个函数返回数组，也可以是直接的数组
+      options: [
         { label: '普通用户', value: 'normal' },
         { label: 'VIP用户', value: 'vip' },
         { label: '高级VIP', value: 'svip' },
@@ -102,8 +102,6 @@
       },
       onChange: handleFormChange
     },
-    // 支持 9 种日期类型定义
-    // 具体可参考 src/components/core/forms/art-search-bar/widget/art-search-date/README.md
     {
       prop: 'date',
       label: '日期',

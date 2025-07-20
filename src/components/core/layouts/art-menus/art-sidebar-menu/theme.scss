@@ -141,6 +141,7 @@ $hover-bg-color: rgba(var(--art-gray-200-rgb), 0.8); // 鼠标移入背景色
 
     // 选中颜色
     .el-menu-item.is-active {
+      color: var(--main-color) !important;
       background-color: var(--el-color-primary-light-9);
 
       &::before {
@@ -193,11 +194,6 @@ $hover-bg-color: rgba(var(--art-gray-200-rgb), 0.8); // 鼠标移入背景色
       }
     }
   }
-}
-
-.el-popper.is-pure {
-  border: 0.5px solid var(--art-border-dashed-color) !important;
-  border-radius: 12px;
 }
 
 // 菜单折叠 hover 弹窗样式

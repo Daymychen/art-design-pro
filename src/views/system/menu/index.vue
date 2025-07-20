@@ -26,23 +26,15 @@
           </ElButton>
         </template>
       </ArtTableHeader>
-      <!-- 表格 -->
+
       <ArtTable
         ref="tableRef"
+        rowKey="path"
         :loading="loading"
+        :columns="columns"
         :data="filteredTableData"
-        :tableConfig="{
-          rowKey: 'path',
-          stripe: false
-        }"
-        :layout="{
-          marginTop: 10
-        }"
-      >
-        <template #default>
-          <ElTableColumn v-for="col in columns" :key="col.prop || col.type" v-bind="col" />
-        </template>
-      </ArtTable>
+        :stripe="false"
+      />
 
       <ElDialog :title="dialogTitle" v-model="dialogVisible" width="700px" align-center>
         <ElForm ref="formRef" :model="form" :rules="rules" label-width="85px">
@@ -634,8 +626,17 @@
   const toggleExpand = () => {
     isExpanded.value = !isExpanded.value
     nextTick(() => {
-      if (tableRef.value) {
-        tableRef.value[isExpanded.value ? 'expandAll' : 'collapseAll']()
+      if (tableRef.value && filteredTableData.value) {
+        // 递归处理所有行的展开/收起状态
+        const processRows = (rows: AppRouteRecord[]) => {
+          rows.forEach((row) => {
+            if (row.children && row.children.length > 0) {
+              tableRef.value.elTableRef.toggleRowExpansion(row, isExpanded.value)
+              processRows(row.children)
+            }
+          })
+        }
+        processRows(filteredTableData.value)
       }
     })
   }

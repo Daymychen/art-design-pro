@@ -2,7 +2,7 @@
   <div class="page-content">
     <div class="action-buttons">
       <ElButton :disabled="isLaunching" v-ripple @click="handleSingleLaunch"
-        >✨ 放个小烟花</ElButton
+        >✨ 放个小礼花</ElButton
       >
       <ElButton :disabled="isLaunching" v-ripple @click="handleImageLaunch(bp)"
         >🎉 打开幸运红包</ElButton

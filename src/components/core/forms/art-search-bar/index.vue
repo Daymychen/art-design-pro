@@ -1,6 +1,6 @@
 <!-- 表格搜索栏 -->
 <template>
-  <section class="search-bar art-custom-card">
+  <section class="search-bar art-custom-card" :class="{ 'is-expanded': isExpanded }">
     <ElForm :model="filter" :label-position="labelPosition">
       <ElRow class="search-form-row" :gutter="gutter">
         <ElCol
@@ -222,9 +222,19 @@
 
 <style lang="scss" scoped>
   .search-bar {
-    padding: 20px 20px 0;
+    padding: 15px 20px 0;
     background-color: var(--art-main-bg-color);
     border-radius: calc(var(--custom-radius) / 2 + 2px);
+
+    :deep(.el-form-item--default) {
+      margin-bottom: 15px;
+    }
+
+    &.is-expanded {
+      :deep(.el-form-item--default) {
+        margin-bottom: 18px;
+      }
+    }
 
     :deep(.el-form-item__label) {
       display: flex;
