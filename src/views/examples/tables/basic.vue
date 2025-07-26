@@ -27,6 +27,7 @@
 <script setup lang="ts">
   import { useTable } from '@/composables/useTable'
   import { UserService } from '@/api/usersApi'
+  import { ElTag } from 'element-plus'
 
   defineOptions({ name: 'UserMixedUsageExample' })
 
@@ -63,6 +64,20 @@
           label: '性别',
           sortable: true,
           formatter: (row) => row.userGender || '未知'
+        },
+        {
+          prop: 'userGender_customRender',
+          label: '性别(customRender)',
+          sortable: true,
+          customRender: (scope) => {
+            return h(
+              ElTag,
+              {
+                type: scope.row.userGender === '男' ? 'success' : 'danger'
+              },
+              scope.row.userGender || '未知'
+            )
+          }
         },
         {
           prop: 'userPhone',

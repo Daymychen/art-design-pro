@@ -2,7 +2,9 @@
  * 组件相关类型定义
  */
 
+import { Component, VNode } from 'vue'
 import { Option } from '../common'
+import { JSX } from 'vue/jsx-runtime'
 
 // 搜索组件类型
 export type SearchComponentType =
@@ -91,6 +93,12 @@ export interface ColumnOption<T = any> {
   useHeaderSlot?: boolean
   // 表头插槽名称（默认为 `${prop}-header`）
   headerSlotName?: string
+  /**
+   * 自定义渲染函数
+   * @param scope 当前单元格作用域数据
+   * @returns 渲染内容
+   */
+  customRender?: (scope: any) => VNode | JSX.Element | Component
   // 其他属性
   [key: string]: any
 }
