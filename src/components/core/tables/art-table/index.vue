@@ -26,7 +26,20 @@
               {{ col.label }}
             </slot>
           </template>
-          <template v-if="col.useSlot && col.prop" #default="slotScope">
+          <!-- 优先使用 customRender 函数 -->
+          <template v-if="col.customRender" #default="slotScope">
+            <component
+              :is="
+                col.customRender({
+                  ...slotScope,
+                  prop: col.prop,
+                  value: col.prop ? slotScope.row[col.prop] : undefined
+                })
+              "
+            />
+          </template>
+          <!-- 其次使用插槽 -->
+          <template v-else-if="col.useSlot && col.prop" #default="slotScope">
             <slot
               :name="col.slotName || col.prop"
               v-bind="{
@@ -227,6 +240,7 @@
     delete columnProps.headerSlotName
     delete columnProps.useSlot
     delete columnProps.slotName
+    delete columnProps.customRender
     return columnProps
   }
 
