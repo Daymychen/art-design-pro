@@ -24,18 +24,19 @@ h1,
 h2,
 h3,
 h4,
-h4,
-h5 {
+h5,
+h6 {
   margin: 0;
   padding: 0;
   color: var(--art-text-gray-800);
 }
 
 body {
-  color: var(--art-text-gray-700); 
+  color: var(--art-text-gray-700);
   text-align: left;
-  font-family: Inter, 'Helvetica Neue', Helvetica, 'PingFang SC',
-  'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+  font-family:
+    Inter, 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+    '微软雅黑', Arial, sans-serif;
 }
 
 select {
@@ -48,7 +49,7 @@ table {
 
 fieldset,
 img {
-  border: 0none;
+  border: 0 none;
 }
 
 fieldset {
@@ -58,7 +59,7 @@ fieldset {
 
 fieldset p {
   margin: 0;
-  padding: 0008px;
+  padding: 0 0 0 8px;
 }
 
 legend {
@@ -80,12 +81,12 @@ table caption {
 }
 
 hr {
-  border-bottom: 1pxsolid #ffffff;
-  border-top: 1pxsolid #e4e4e4;
-  border-width: 1px0;
+  border-bottom: 1px solid #ffffff;
+  border-top: 1px solid #e4e4e4;
+  border-width: 1px 0;
   clear: both;
   height: 2px;
-  margin: 5px0;
+  margin: 5px 0;
   overflow: hidden;
 }
 

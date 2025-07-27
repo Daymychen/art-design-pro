@@ -9,6 +9,21 @@ interface UpgradeLog {
 
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
+    version: 'v2.5.4',
+    title: 'bug修复、优化用户体验',
+    date: '2025-07-27',
+    detail: [
+      '修复获取用户信息接口时序问题导致路由注册菜单渲染错误bug',
+      '修复动态路由校验问题导致的 iframe 不显示bug',
+      '修复 reset 文件语法错误',
+      '修复 ArtTable 数据类型错误',
+      '路由注册新增 component 校验',
+      '修复地图滚轮滚动放大问题',
+      '网络请求 headers 支持自定义配置',
+      '展开行支持 formatter 渲染'
+    ]
+  },
+  {
     version: 'v2.5.3',
     title: 'bug修复、优化用户体验',
     date: '2025-07-20',

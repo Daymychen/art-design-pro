@@ -211,7 +211,7 @@ class VersionManager {
 
     // 版本相同，无需升级
     if (this.isSameVersion(storedVersion!)) {
-      console.debug('[Upgrade] 版本相同，无需升级')
+      // console.debug('[Upgrade] 版本相同，无需升级')
       return
     }
 

@@ -249,6 +249,12 @@
     display: flex;
     justify-content: space-between;
 
+    .left {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 0;
+    }
+
     .right {
       display: flex;
       align-items: center;

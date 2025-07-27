@@ -17,6 +17,14 @@
           </template>
         </ElTableColumn>
 
+        <!-- 渲染展开行 -->
+        <ElTableColumn v-else-if="col.type === 'expand'" v-bind="cleanColumnProps(col)">
+          <template #default="{ row }">
+            <component :is="col.formatter ? col.formatter(row) : null" />
+          </template>
+        </ElTableColumn>
+
+        <!-- 渲染普通列 -->
         <ElTableColumn v-else v-bind="cleanColumnProps(col)">
           <template v-if="col.useHeaderSlot && col.prop" #header="headerScope">
             <slot
@@ -112,7 +120,7 @@
   }
 
   /** ArtTable 组件的 Props 接口 */
-  interface ArtTableProps extends TableProps<ColumnOption> {
+  interface ArtTableProps extends TableProps<Record<string, any>> {
     /** 加载状态 */
     loading?: boolean
     /** 列渲染配置 */

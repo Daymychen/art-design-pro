@@ -12,7 +12,7 @@ import { WEB_LINKS } from '@/utils/constants'
  * 菜单标题（title）:
  * 可以是 i18n 的 key，也可以是字符串，比如：'用户列表'
  *
- * RoutesAlias.Layout 指向的是布局组件，后端返回的菜单数据中，component 字段需要指向 /index/index
+ * 一级父级菜单 RoutesAlias.Layout 指向的是布局容器，后端返回的菜单数据中，component 字段需要指向 /index/index
  * 路由元数据（meta）：异步路由在 asyncRoutes 中配置，静态路由在 staticRoutes 中配置
  */
 export const asyncRoutes: AppRouteRecord[] = [

@@ -116,7 +116,7 @@ class StorageCompatibilityManager {
     try {
       // 优先检查新版本存储结构
       if (this.hasCurrentVersionStorage()) {
-        console.debug('[Storage] 发现当前版本存储数据')
+        // console.debug('[Storage] 发现当前版本存储数据')
         return true
       }
 
@@ -171,7 +171,7 @@ class StorageCompatibilityManager {
       const isEmpty = this.isStorageEmpty()
 
       if (isValid || isEmpty) {
-        console.debug('[Storage] 存储兼容性检查通过')
+        // console.debug('[Storage] 存储兼容性检查通过')
         return true
       }
 

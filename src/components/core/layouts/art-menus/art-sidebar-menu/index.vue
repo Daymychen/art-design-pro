@@ -62,7 +62,7 @@
       :class="`menu-left-${getMenuTheme.theme} menu-left-${!menuOpen ? 'close' : 'open'}`"
       :style="{ background: getMenuTheme.background }"
     >
-      <ElScrollbar style="height: calc(100% - 10px)" :view-style="{ backgroundColor: 'blue' }">
+      <ElScrollbar style="height: calc(100% - 10px)">
         <div
           class="header"
           @click="navigateToHome"

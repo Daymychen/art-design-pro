@@ -9,7 +9,7 @@
   import zh from 'element-plus/es/locale/lang/zh-cn'
   import en from 'element-plus/es/locale/lang/en'
   import { systemUpgrade } from './utils/sys'
-  import { UserService } from './api/usersApi'
+
   import { setThemeTransitionClass } from './utils/theme/animation'
   import { checkStorageCompatibility } from './utils/storage'
 
@@ -32,19 +32,5 @@
     setThemeTransitionClass(false)
     // 系统升级
     systemUpgrade()
-    // 获取用户信息
-    getUserInfo()
   })
-
-  // 获取用户信息
-  const getUserInfo = async () => {
-    if (userStore.isLogin) {
-      try {
-        const data = await UserService.getUserInfo()
-        userStore.setUserInfo(data)
-      } catch (error) {
-        console.error('获取用户信息失败', error)
-      }
-    }
-  }
 </script>

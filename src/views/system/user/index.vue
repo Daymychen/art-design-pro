@@ -121,7 +121,6 @@
       columnsFactory: () => [
         { type: 'selection' }, // 勾选列
         { type: 'index', width: 60, label: '序号' }, // 序号
-        // { type: 'expand' }, // 展开列
         {
           prop: 'avatar',
           label: '用户名',
@@ -140,6 +139,7 @@
           prop: 'userGender',
           label: '性别',
           sortable: true,
+          // checked: false, // 隐藏列
           formatter: (row) => row.userGender
         },
         { prop: 'userPhone', label: '手机号' },

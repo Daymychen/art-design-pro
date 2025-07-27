@@ -90,7 +90,7 @@
         map: 'china',
         zoom: 1,
         show: true,
-        roam: true, // 允许缩放和平移
+        roam: 'move',
         scaleLimit: {
           min: 0.8,
           max: 3

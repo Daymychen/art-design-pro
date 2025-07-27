@@ -14,6 +14,10 @@ export class UserService {
   static getUserInfo() {
     return request.get<Api.User.UserInfo>({
       url: '/api/user/info'
+      // 自定义请求头
+      // headers: {
+      //   'X-Custom-Header': 'your-custom-value'
+      // }
     })
   }
 
