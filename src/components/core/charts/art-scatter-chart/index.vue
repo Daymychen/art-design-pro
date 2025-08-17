@@ -6,7 +6,6 @@
     :style="{ height: props.height }"
     v-loading="props.loading"
   >
-    <ArtChartEmpty v-if="isEmpty" />
   </div>
 </template>
 
@@ -49,8 +48,7 @@
     getAxisTickStyle,
     getSplitLineStyle,
     getAnimationConfig,
-    getTooltipStyle,
-    isEmpty
+    getTooltipStyle
   } = useChartComponent({
     props,
     checkEmpty: () => {

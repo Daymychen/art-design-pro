@@ -12,10 +12,22 @@ import { WEB_LINKS } from '@/utils/constants'
  * 菜单标题（title）:
  * 可以是 i18n 的 key，也可以是字符串，比如：'用户列表'
  *
- * 一级父级菜单 RoutesAlias.Layout 指向的是布局容器，后端返回的菜单数据中，component 字段需要指向 /index/index
- * 路由元数据（meta）：异步路由在 asyncRoutes 中配置，静态路由在 staticRoutes 中配置
+ * 注意事项：
+ * 1、RoutesAlias.Layout 指向的是布局容器，后端返回的菜单数据中，component 字段需要指向 /index/index
+ * 2、path、name 不要和动态路由冲突，否则会导致路由冲突无法访问
  */
 export const asyncRoutes: AppRouteRecord[] = [
+  // 主页一级菜单配置示例：
+  // {
+  //   name: 'Home',
+  //   path: '/home',
+  //   component: RoutesAlias.Dashboard,
+  //   meta: {
+  //     title: 'menus.dashboard.console',
+  //     icon: '&#xe733;',
+  //     keepAlive: false
+  //   }
+  // },
   {
     name: 'Dashboard',
     path: '/dashboard',
@@ -296,8 +308,7 @@ export const asyncRoutes: AppRouteRecord[] = [
         component: RoutesAlias.ExamplesTablesBasic,
         meta: {
           title: 'menus.examples.tablesBasic',
-          keepAlive: true,
-          showTextBadge: 'New'
+          keepAlive: true
         }
       },
       {
@@ -306,6 +317,16 @@ export const asyncRoutes: AppRouteRecord[] = [
         component: RoutesAlias.ExamplesTables,
         meta: {
           title: 'menus.examples.tables',
+          keepAlive: true,
+          showBadge: true
+        }
+      },
+      {
+        path: 'form/search-bar',
+        name: 'SearchBar',
+        component: RoutesAlias.ExamplesSearchBar,
+        meta: {
+          title: 'menus.examples.searchBar',
           keepAlive: true,
           showTextBadge: 'New'
         }
@@ -316,8 +337,7 @@ export const asyncRoutes: AppRouteRecord[] = [
         component: RoutesAlias.ExamplesTablesTree,
         meta: {
           title: 'menus.examples.tablesTree',
-          keepAlive: true,
-          showTextBadge: 'New'
+          keepAlive: true
         }
       }
     ]
@@ -587,7 +607,8 @@ export const asyncRoutes: AppRouteRecord[] = [
         component: RoutesAlias.Exception403,
         meta: {
           title: 'menus.exception.forbidden',
-          keepAlive: true
+          keepAlive: true,
+          isFullPage: true
         }
       },
       {
@@ -596,7 +617,8 @@ export const asyncRoutes: AppRouteRecord[] = [
         component: RoutesAlias.Exception404,
         meta: {
           title: 'menus.exception.notFound',
-          keepAlive: true
+          keepAlive: true,
+          isFullPage: true
         }
       },
       {
@@ -605,7 +627,8 @@ export const asyncRoutes: AppRouteRecord[] = [
         component: RoutesAlias.Exception500,
         meta: {
           title: 'menus.exception.serverError',
-          keepAlive: true
+          keepAlive: true,
+          isFullPage: true
         }
       }
     ]
@@ -633,27 +656,16 @@ export const asyncRoutes: AppRouteRecord[] = [
     ]
   },
   {
-    name: 'Help',
-    path: '/help',
-    component: RoutesAlias.Layout,
+    name: 'Document',
+    path: '',
+    component: RoutesAlias.ChangeLog,
     meta: {
-      title: 'menus.help.title',
-      icon: '&#xe719;',
-      keepAlive: false,
-      roles: ['R_SUPER', 'R_ADMIN']
-    },
-    children: [
-      {
-        path: '',
-        name: 'Document',
-        meta: {
-          title: 'menus.help.document',
-          link: WEB_LINKS.DOCS,
-          isIframe: false,
-          keepAlive: false
-        }
-      }
-    ]
+      title: 'menus.help.document',
+      icon: '&#xe73e;',
+      link: WEB_LINKS.DOCS,
+      isIframe: false,
+      keepAlive: false
+    }
   },
   // 一级菜单
   {

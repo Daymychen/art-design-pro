@@ -1,4 +1,4 @@
-$box-radius: calc(var(--custom-radius) / 2 + 2px);
+$box-radius: calc(var(--custom-radius) / 3 + 2px);
 
 /* 编辑器容器 */
 .editor-wrapper {
@@ -36,14 +36,14 @@ $box-radius: calc(var(--custom-radius) / 2 + 2px);
     min-width: 140px;
     padding: 5px 10px 10px;
     border: none;
-    border-radius: 12px;
+    border-radius: $box-radius;
   }
 
   /* 下拉选择框元素配置 */
   .w-e-select-list ul li {
     margin-top: 5px;
     font-size: 15px !important;
-    border-radius: 10px;
+    border-radius: $box-radius;
   }
 
   /* 下拉选择框 正文文字大小调整 */
@@ -72,7 +72,7 @@ $box-radius: calc(var(--custom-radius) / 2 + 2px);
 
   /* 工具栏按钮样式 */
   .w-e-bar-item button {
-    border-radius: 8px;
+    border-radius: $box-radius;
   }
 
   /* 工具栏 hover 按钮背景颜色 */
@@ -92,20 +92,27 @@ $box-radius: calc(var(--custom-radius) / 2 + 2px);
     min-width: 120px;
     padding: 10px 0;
     border: none;
-    border-radius: 12px;
+    border-radius: $box-radius;
+
+    .w-e-bar-item {
+      button {
+        width: 100%;
+        margin: 0 5px;
+      }
+    }
   }
 
   /* 代码块 */
   .w-e-text-container [data-slate-editor] pre > code {
     padding: 0.6rem 1rem;
     background-color: var(--art-gray-100);
-    border-radius: 6px;
+    border-radius: $box-radius;
   }
 
   /* 弹出框 */
   .w-e-drop-panel {
     border: 0;
-    border-radius: 12px;
+    border-radius: $box-radius;
   }
 
   a {
@@ -141,13 +148,13 @@ $box-radius: calc(var(--custom-radius) / 2 + 2px);
 
   /* 输入区域弹出 bar  */
   .w-e-hover-bar {
-    border-radius: 10px;
+    border-radius: $box-radius;
   }
 
   /* 超链接弹窗 */
   .w-e-modal {
     border: none;
-    border-radius: 12px;
+    border-radius: $box-radius;
   }
 
   /* 图片样式调整 */
@@ -172,7 +179,7 @@ $box-radius: calc(var(--custom-radius) / 2 + 2px);
       height: 12px;
       background-color: #318ef4;
       border: 2px solid #fff;
-      border-radius: 12px;
+      border-radius: $box-radius;
     }
 
     .left-top {

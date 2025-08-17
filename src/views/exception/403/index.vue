@@ -10,6 +10,6 @@
 </template>
 
 <script setup lang="ts">
-  import imgUrl from '@imgs/state/403.png'
+  import imgUrl from '@imgs/svg/403.svg'
   defineOptions({ name: 'Exception403' })
 </script>

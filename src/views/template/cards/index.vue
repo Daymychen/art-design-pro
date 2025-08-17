@@ -24,9 +24,11 @@
           :count="card.count"
           :description="card.description"
           :iconSize="card.iconSize"
-          iconColor="#fff"
+          :decimals="0"
           :iconBgColor="card.iconBgColor"
           :showArrow="card.showArrow"
+          separator=","
+          iconColor="#fff"
         />
       </ElCol>
     </ElRow>

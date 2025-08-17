@@ -7,7 +7,7 @@
         rowKey="id"
         :show-table-header="false"
         :loading="loading"
-        :data="tableData"
+        :data="data"
         :columns="columns"
         :pagination="pagination"
         @pagination:size-change="handleSizeChange"
@@ -24,47 +24,41 @@
 
   defineOptions({ name: 'UserMixedUsageExample' })
 
-  const {
-    tableData,
-    columns,
-    isLoading: loading,
-    paginationState: pagination,
-    onPageSizeChange: handleSizeChange,
-    onCurrentPageChange: handleCurrentChange
-  } = useTable<Api.User.UserListItem>({
-    core: {
-      apiFn: UserService.getUserList,
-      apiParams: {
-        current: 1,
-        size: 20,
-        name: '',
-        phone: '',
-        address: undefined
-      },
-      columnsFactory: () => [
-        {
-          prop: 'id',
-          label: 'ID'
+  const { data, columns, loading, pagination, handleSizeChange, handleCurrentChange } =
+    useTable<Api.User.UserListItem>({
+      core: {
+        apiFn: UserService.getUserList,
+        apiParams: {
+          current: 1,
+          size: 20,
+          name: '',
+          phone: '',
+          address: undefined
         },
-        {
-          prop: 'nickName',
-          label: '昵称'
-        },
-        {
-          prop: 'userGender',
-          label: '性别',
-          sortable: true,
-          formatter: (row) => row.userGender || '未知'
-        },
-        {
-          prop: 'userPhone',
-          label: '手机号'
-        },
-        {
-          prop: 'userEmail',
-          label: '邮箱'
-        }
-      ]
-    }
-  })
+        columnsFactory: () => [
+          {
+            prop: 'id',
+            label: 'ID'
+          },
+          {
+            prop: 'nickName',
+            label: '昵称'
+          },
+          {
+            prop: 'userGender',
+            label: '性别',
+            sortable: true,
+            formatter: (row) => row.userGender || '未知'
+          },
+          {
+            prop: 'userPhone',
+            label: '手机号'
+          },
+          {
+            prop: 'userEmail',
+            label: '邮箱'
+          }
+        ]
+      }
+    })
 </script>

@@ -6,7 +6,6 @@
     :style="{ height: props.height }"
     v-loading="props.loading"
   >
-    <ArtChartEmpty v-if="isEmpty" />
   </div>
 </template>
 
@@ -301,9 +300,7 @@
 
   // 更新图表
   const updateChart = (options: EChartsOption) => {
-    if (!isEmpty.value) {
-      initChart(options)
-    }
+    initChart(options, isEmpty.value)
   }
 
   // 初始化动画函数（优化多数据阶梯式动画效果）

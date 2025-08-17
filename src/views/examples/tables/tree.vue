@@ -9,10 +9,10 @@
       </div>
 
       <div class="right-content art-full-height">
-        <UserSearch v-model:filter="defaultFilter" />
+        <UserSearch v-model="defaultFilter" />
 
         <ElCard class="art-table-card" shadow="never">
-          <ArtTableHeader v-model:columns="columnChecks" @refresh="refresh">
+          <ArtTableHeader v-model:columns="columnChecks" @refresh="refreshData">
             <template #left>
               <ElButton v-ripple>新增用户</ElButton>
             </template>
@@ -21,7 +21,7 @@
           <ArtTable
             rowKey="id"
             :loading="loading"
-            :data="tableData"
+            :data="data"
             :columns="columns"
             :pagination="pagination"
             @pagination:size-change="handleSizeChange"
@@ -48,14 +48,14 @@
   })
 
   const {
-    tableData,
+    data,
     columns,
     columnChecks,
-    isLoading: loading,
-    paginationState: pagination,
-    refreshAll: refresh,
-    onPageSizeChange: handleSizeChange,
-    onCurrentPageChange: handleCurrentChange
+    loading,
+    pagination,
+    refreshData,
+    handleSizeChange,
+    handleCurrentChange
   } = useTable<Api.User.UserListItem>({
     core: {
       apiFn: UserService.getUserList,

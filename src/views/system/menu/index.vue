@@ -2,7 +2,7 @@
   <div class="menu-page art-full-height">
     <!-- 搜索栏 -->
     <ArtSearchBar
-      v-model:filter="formFilters"
+      v-model="formFilters"
       :items="formItems"
       :showExpand="false"
       @reset="handleReset"
@@ -105,8 +105,8 @@
                 </ElFormItem>
               </ElCol>
               <ElCol :span="5">
-                <ElFormItem label="是否显示" prop="isHidden">
-                  <ElSwitch v-model="form.isHidden"></ElSwitch>
+                <ElFormItem label="是否显示" prop="isHide">
+                  <ElSwitch v-model="form.isHide"></ElSwitch>
                 </ElFormItem>
               </ElCol>
               <ElCol :span="5">
@@ -168,7 +168,6 @@
   import { ElPopover, ElButton } from 'element-plus'
   import { AppRouteRecord } from '@/types/router'
   import { useAuth } from '@/composables/useAuth'
-  import { SearchFormItem } from '@/types'
 
   defineOptions({ name: 'Menus' })
 
@@ -205,24 +204,24 @@
   }
 
   // 表单配置项
-  const formItems: SearchFormItem[] = [
+  const formItems = computed(() => [
     {
       label: '菜单名称',
-      prop: 'name',
+      key: 'name',
       type: 'input',
-      config: {
+      props: {
         clearable: true
       }
     },
     {
       label: '路由地址',
-      prop: 'route',
+      key: 'route',
       type: 'input',
-      config: {
+      props: {
         clearable: true
       }
     }
-  ]
+  ])
 
   // 构建菜单类型标签
   const buildMenuTypeTag = (row: AppRouteRecord) => {
@@ -393,7 +392,7 @@
     sort: 1,
     isMenu: true,
     keepAlive: true,
-    isHidden: true,
+    isHide: true,
     link: '',
     isIframe: false,
     // 权限 (修改这部分)
@@ -537,7 +536,7 @@
           form.sort = row.meta.sort || 1
           form.isMenu = row.meta.isMenu
           form.keepAlive = row.meta.keepAlive
-          form.isHidden = row.meta.isHidden || true
+          form.isHide = row.meta.isHide || true
           form.isEnable = row.meta.isEnable || true
           form.link = row.meta.link
           form.isIframe = row.meta.isIframe || false
@@ -563,7 +562,7 @@
       sort: 1,
       isMenu: true,
       keepAlive: true,
-      isHidden: true,
+      isHide: true,
       link: '',
       isIframe: false,
       // 权限

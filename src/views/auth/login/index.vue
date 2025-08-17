@@ -4,7 +4,7 @@
 
     <div class="right-wrap">
       <div class="top-right-wrap">
-        <div class="btn theme-btn" @click="toggleTheme">
+        <div class="btn theme-btn" @click="themeAnimation">
           <i class="iconfont-sys">
             {{ isDark ? '&#xe6b5;' : '&#xe725;' }}
           </i>
@@ -125,9 +125,11 @@
   import { useUserStore } from '@/store/modules/user'
   import { getCssVar } from '@/utils/ui'
   import { languageOptions } from '@/locales'
-  import { LanguageEnum, SystemThemeEnum } from '@/enums/appEnum'
+  import { LanguageEnum } from '@/enums/appEnum'
   import { useI18n } from 'vue-i18n'
   import { HttpError } from '@/utils/http/error'
+  import { themeAnimation } from '@/utils/theme/animation'
+  import { UserService } from '@/api/usersApi'
 
   defineOptions({ name: 'Login' })
 
@@ -170,7 +172,7 @@
   ])
 
   const settingStore = useSettingStore()
-  const { isDark, systemThemeType } = storeToRefs(settingStore)
+  const { isDark } = storeToRefs(settingStore)
 
   const dragVerify = ref()
 
@@ -287,15 +289,6 @@
     if (locale.value === lang) return
     locale.value = lang
     userStore.setLanguage(lang)
-  }
-
-  // 切换主题
-  import { useTheme } from '@/composables/useTheme'
-  import { UserService } from '@/api/usersApi'
-
-  const toggleTheme = () => {
-    let { LIGHT, DARK } = SystemThemeEnum
-    useTheme().switchThemeStyles(systemThemeType.value === LIGHT ? DARK : LIGHT)
   }
 </script>
 

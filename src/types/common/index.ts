@@ -24,14 +24,6 @@ export type KeyValue<T = any> = {
   label?: string
 }
 
-// 选项类型
-export interface Option {
-  label: string
-  value: string | number
-  disabled?: boolean
-  children?: Option[]
-}
-
 // 时间范围类型
 export interface TimeRange {
   startTime: string

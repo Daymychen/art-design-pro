@@ -146,7 +146,7 @@ html.dark .el-card {
   }
 }
 
-// ✅ el-message 样式优化
+// el-message 样式优化
 .el-message {
   background-color: var(--art-main-bg-color) !important;
   border: 0 !important;
@@ -248,31 +248,66 @@ html.dark .el-card {
   }
 }
 
+.el-radio--default {
+  // 优化单选按钮大小
+  .el-radio__input {
+    .el-radio__inner {
+      width: 16px;
+      height: 16px;
+
+      &::after {
+        width: 6px;
+        height: 6px;
+      }
+    }
+  }
+}
+
 .el-checkbox {
   .el-checkbox__inner {
-    width: 18px !important;
-    height: 18px !important;
+    border-radius: 2px !important;
+  }
+}
+
+// 优化复选框样式
+.el-checkbox--default {
+  .el-checkbox__inner {
+    width: 16px !important;
+    height: 16px !important;
     border-radius: 4px !important;
 
     &::before {
       content: '';
       height: 4px !important;
-      top: 6px !important;
+      top: 5px !important;
       background-color: #fff !important;
       transform: scale(0.6) !important;
     }
 
-    &::after {
-      width: 4px;
-      height: 8px;
-      // left: 0;
-      // right: 0;
-      // top: 0;
-      bottom: 0px;
-      margin: auto;
-      border: 2px solid var(--el-checkbox-checked-icon-color);
-      border-left: 0;
-      border-top: 0;
+    // &::after {
+    //   width: 3px;
+    //   height: 8px;
+    //   margin: auto;
+    //   border: 2px solid var(--el-checkbox-checked-icon-color);
+    //   border-left: 0;
+    //   border-top: 0;
+    //   transform: translate(-45%, -60%) rotate(45deg) scale(0.86) !important;
+    //   transform-origin: center;
+    // }
+  }
+
+  .is-checked {
+    .el-checkbox__inner {
+      &::after {
+        width: 3px;
+        height: 8px;
+        margin: auto;
+        border: 2px solid var(--el-checkbox-checked-icon-color);
+        border-left: 0;
+        border-top: 0;
+        transform: translate(-45%, -60%) rotate(45deg) scale(0.86) !important;
+        transform-origin: center;
+      }
     }
   }
 }
@@ -441,4 +476,16 @@ html.dark .el-card {
 .el-button > span {
   position: relative;
   z-index: 10;
+}
+
+// 优化颜色选择器圆角
+.el-color-picker__color {
+  border-radius: 2px !important;
+}
+
+// 优化日期时间选择器底部圆角
+.el-picker-panel {
+  .el-picker-panel__footer {
+    border-radius: 0 0 var(--el-border-radius-base) var(--el-border-radius-base);
+  }
 }

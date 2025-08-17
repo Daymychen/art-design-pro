@@ -19,7 +19,7 @@
       >
         <template #suffix>
           <div class="search-keydown">
-            <span>ESC</span>
+            <i class="iconfont-sys">&#xe6e6;</i>
           </div>
         </template>
       </ElInput>
@@ -61,13 +61,17 @@
       <template #footer>
         <div class="dialog-footer">
           <div>
+            <i class="iconfont-sys">&#xe6e6;</i>
+            <span>{{ $t('search.selectKeydown') }}</span>
+          </div>
+          <div>
             <i class="iconfont-sys">&#xe864;</i>
             <i class="iconfont-sys">&#xe867;</i>
             <span>{{ $t('search.switchKeydown') }}</span>
           </div>
           <div>
-            <i class="iconfont-sys">&#xe6e6;</i>
-            <span>{{ $t('search.selectKeydown') }}</span>
+            <i class="iconfont-sys esc"><p>ESC</p></i>
+            <span>{{ $t('search.exitKeydown') }}</span>
           </div>
         </div>
       </template>

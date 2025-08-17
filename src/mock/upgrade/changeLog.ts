@@ -9,6 +9,33 @@ interface UpgradeLog {
 
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
+    version: 'v2.5.5',
+    title: 'bug修复、优化用户体验',
+    date: '2025-08-17',
+    detail: [
+      '重构 ArtSearchBar 组件，支持更多组件、表单校验等能力',
+      'useTable 列配置：支持动态更新能力',
+      '修复多个富文本编辑器图标不统一问题',
+      '优化颜色选择器圆角',
+      'el-radio、el-checkbox 统一大小',
+      'art-stats-card 新增小数位、分隔符配置',
+      '路由配置示例优化',
+      '高级表格新增自定义获取数据示例（等待其他请求完成后执行 useTable 数据获取）',
+      'useTable 新增 excludeParams，用于排除某些参数不参与请求',
+      '优化路径别名类型问题',
+      '本地开发跨域配置优化',
+      '修复 useTable 删除最后一整页数据没有返回上一页的问题',
+      '修复 echarts 图表数据初始化、更新数据浏览器报错',
+      '删除 art-chart-empty 组件',
+      '新增 ArtSearchBar 组件示例',
+      '网络请求支持 http 状态码为 401 时退出登录',
+      '优化网络请求退出登录多次提示问题',
+      'useTable 属性、方法命名优化',
+      '登录页UI升级',
+      '403、404、500 页面UI升级'
+    ]
+  },
+  {
     version: 'v2.5.4',
     title: 'bug修复、优化用户体验',
     date: '2025-07-27',

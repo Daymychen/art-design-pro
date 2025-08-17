@@ -163,18 +163,73 @@
     editor.on('fullScreen', () => {
       console.log('编辑器进入全屏模式')
     })
+
+    // 确保在编辑器创建后应用自定义图标
+    applyCustomIcons()
   }
 
-  // 优化的图标替换函数
-  const overrideIcons = () => {
-    requestAnimationFrame(() => {
-      Object.entries(ICON_MAP).forEach(([menuKey, iconCode]) => {
-        const button = document.querySelector(`button[data-menu-key="${menuKey}"]`)
-        if (button) {
-          button.innerHTML = `<i class='iconfont-sys'>${iconCode}</i>`
-        }
-      })
+  // 优化的图标替换函数 - 针对特定编辑器实例
+  const overrideIcons = (editorInstance: IDomEditor) => {
+    // 获取当前编辑器的工具栏容器
+    const editorContainer = editorInstance.getEditableContainer().closest('.editor-wrapper')
+    if (!editorContainer) return
+
+    const toolbar = editorContainer.querySelector('.w-e-toolbar')
+    if (!toolbar) return
+
+    Object.entries(ICON_MAP).forEach(([menuKey, iconCode]) => {
+      const button = toolbar.querySelector(`button[data-menu-key="${menuKey}"]`)
+      if (button) {
+        button.innerHTML = `<i class='iconfont-sys'>${iconCode}</i>`
+      }
     })
+  }
+
+  // 应用自定义图标（带重试机制）
+  const applyCustomIcons = () => {
+    let retryCount = 0
+    const maxRetries = 10
+    const retryDelay = 100
+
+    const tryApplyIcons = () => {
+      const editor = editorRef.value
+      if (!editor) {
+        if (retryCount < maxRetries) {
+          retryCount++
+          setTimeout(tryApplyIcons, retryDelay)
+        }
+        return
+      }
+
+      // 获取当前编辑器的工具栏容器
+      const editorContainer = editor.getEditableContainer().closest('.editor-wrapper')
+      if (!editorContainer) {
+        if (retryCount < maxRetries) {
+          retryCount++
+          setTimeout(tryApplyIcons, retryDelay)
+        }
+        return
+      }
+
+      const toolbar = editorContainer.querySelector('.w-e-toolbar')
+      const toolbarButtons = editorContainer.querySelectorAll('.w-e-bar-item button[data-menu-key]')
+
+      if (toolbar && toolbarButtons.length > 0) {
+        overrideIcons(editor)
+        return
+      }
+
+      // 如果工具栏还没渲染完成，继续重试
+      if (retryCount < maxRetries) {
+        retryCount++
+        setTimeout(tryApplyIcons, retryDelay)
+      } else {
+        console.warn('工具栏渲染超时，无法应用自定义图标 - 编辑器实例:', editor.id)
+      }
+    }
+
+    // 使用 requestAnimationFrame 确保在下一帧执行
+    requestAnimationFrame(tryApplyIcons)
   }
 
   // 暴露编辑器实例和方法
@@ -193,7 +248,7 @@
 
   // 生命周期
   onMounted(() => {
-    overrideIcons()
+    // 图标替换已在 onCreateEditor 中处理
   })
 
   onBeforeUnmount(() => {

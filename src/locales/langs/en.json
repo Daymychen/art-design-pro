@@ -42,7 +42,8 @@
     "placeholder": "Search page",
     "historyTitle": "Search history",
     "switchKeydown": "Navigate",
-    "selectKeydown": "Select"
+    "selectKeydown": "Select",
+    "exitKeydown": "Close"
   },
   "setting": {
     "menuType": {
@@ -269,7 +270,8 @@
       "tabs": "Tabs",
       "tablesBasic": "Basic Tables",
       "tables": "Advanced Tables",
-      "tablesTree": "Tree Table Layout"
+      "tablesTree": "Tree Table Layout",
+      "searchBar": "Search Form"
     },
     "system": {
       "title": "System Settings",

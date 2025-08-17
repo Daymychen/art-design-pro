@@ -1,8 +1,6 @@
 <!-- 双向堆叠柱状图 -->
 <template>
-  <div ref="chartRef" :style="{ height: props.height }" v-loading="props.loading">
-    <ArtChartEmpty v-if="isEmpty" />
-  </div>
+  <div ref="chartRef" :style="{ height: props.height }" v-loading="props.loading"> </div>
 </template>
 
 <script setup lang="ts">
@@ -89,8 +87,7 @@
     getAnimationConfig,
     getTooltipStyle,
     getLegendStyle,
-    getGridWithLegend,
-    isEmpty
+    getGridWithLegend
   } = useChartComponent({
     props,
     checkEmpty: () => {

@@ -24,7 +24,8 @@
         class="stats-card__count"
         :target="count"
         :duration="2000"
-        separator=","
+        :decimals="decimals"
+        :separator="separator"
       />
       <p class="stats-card__description" :style="{ color: textColor }" v-if="description">{{
         description
@@ -46,6 +47,10 @@
     title?: string
     /** 数值 */
     count?: number
+    /** 小数位 */
+    decimals?: number
+    /** 分隔符 */
+    separator?: string
     /** 描述 */
     description: string
     /** 图标颜色 */
@@ -66,7 +71,9 @@
 
   withDefaults(defineProps<StatsCardProps>(), {
     iconSize: 30,
-    iconBgRadius: 50
+    iconBgRadius: 50,
+    decimals: 0,
+    separator: ','
   })
 </script>
 

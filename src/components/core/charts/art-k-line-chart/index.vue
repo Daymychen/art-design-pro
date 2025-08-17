@@ -1,8 +1,6 @@
 <!-- k线图表 -->
 <template>
-  <div ref="chartRef" :style="{ height: props.height }" v-loading="props.loading">
-    <ArtChartEmpty v-if="isEmpty" />
-  </div>
+  <div ref="chartRef" :style="{ height: props.height }" v-loading="props.loading"></div>
 </template>
 
 <script setup lang="ts">
@@ -45,8 +43,7 @@
     getAxisTickStyle,
     getSplitLineStyle,
     getAnimationConfig,
-    getTooltipStyle,
-    isEmpty
+    getTooltipStyle
   } = useChartComponent({
     props,
     checkEmpty: () => {

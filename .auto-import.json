@@ -309,6 +309,8 @@
     "watchWithFilter": true,
     "whenever": true,
     "ElMessage": true,
-    "ElTag": true
+    "ElTag": true,
+    "ElTimeSelect": true,
+    "ElRadio": true
   }
 }

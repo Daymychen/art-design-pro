@@ -45,6 +45,7 @@ export function useChart(options: UseChartOptions = {}) {
   let resizeTimeoutId: number | null = null
   let resizeFrameId: number | null = null
   let isDestroyed = false
+  let emptyStateDiv: HTMLElement | null = null
 
   // 清理定时器的统一方法
   const clearTimers = () => {
@@ -103,6 +104,9 @@ export function useChart(options: UseChartOptions = {}) {
   // 主题变化时重新设置图表选项
   if (autoTheme) {
     watch(isDark, () => {
+      // 更新空状态样式
+      emptyStateManager.updateStyle()
+
       if (chart && !isDestroyed) {
         // 使用 requestAnimationFrame 优化主题更新
         requestAnimationFrame(() => {
@@ -334,13 +338,81 @@ export function useChart(options: UseChartOptions = {}) {
     }
   }
 
+  // 空状态管理器
+  const emptyStateManager = {
+    create: () => {
+      if (!chartRef.value || emptyStateDiv) return
+
+      emptyStateDiv = document.createElement('div')
+      emptyStateDiv.style.cssText = `
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        color: ${isDark.value ? '#666' : '#999'};
+        background: transparent;
+        z-index: 10;
+        gap: 8px;
+      `
+      emptyStateDiv.innerHTML = `
+        <i class="iconfont-sys" style="font-size: 48px; color: ${isDark.value ? '#555' : '#ccc'};">&#xe6da;</i>
+        <span>暂无数据</span>
+      `
+
+      // 确保父容器有相对定位
+      if (
+        chartRef.value.style.position !== 'relative' &&
+        chartRef.value.style.position !== 'absolute'
+      ) {
+        chartRef.value.style.position = 'relative'
+      }
+
+      chartRef.value.appendChild(emptyStateDiv)
+    },
+
+    remove: () => {
+      if (emptyStateDiv && chartRef.value) {
+        chartRef.value.removeChild(emptyStateDiv)
+        emptyStateDiv = null
+      }
+    },
+
+    updateStyle: () => {
+      if (emptyStateDiv) {
+        emptyStateDiv.style.color = isDark.value ? '#666' : '#999'
+        const iconElement = emptyStateDiv.querySelector('i.iconfont-sys')
+        if (iconElement) {
+          ;(iconElement as HTMLElement).style.color = isDark.value ? '#555' : '#ccc'
+        }
+      }
+    }
+  }
+
   // 初始化图表
-  const initChart = (options: EChartsOption = {}) => {
+  const initChart = (options: EChartsOption = {}, isEmpty: boolean = false) => {
     if (!chartRef.value || isDestroyed) return
 
     const mergedOptions = { ...initOptions, ...options }
 
     try {
+      if (isEmpty) {
+        // 处理空数据情况 - 显示自定义空状态div
+        if (chart) {
+          chart.clear()
+        }
+        emptyStateManager.create()
+        return
+      } else {
+        // 有数据时移除空状态div
+        emptyStateManager.remove()
+      }
+
       if (isContainerVisible(chartRef.value)) {
         // 容器可见，正常初始化
         if (initDelay > 0) {
@@ -399,6 +471,8 @@ export function useChart(options: UseChartOptions = {}) {
       }
     }
 
+    // 清理空状态div
+    emptyStateManager.remove()
     cleanupIntersectionObserver()
     clearTimers()
     pendingOptions = null
@@ -431,6 +505,7 @@ export function useChart(options: UseChartOptions = {}) {
     destroyChart,
     getChartInstance,
     isChartInitialized,
+    emptyStateManager,
     getAxisLineStyle,
     getSplitLineStyle,
     getAxisLabelStyle,
@@ -470,7 +545,7 @@ export function useChartComponent<T extends BaseChartProps>(options: UseChartCom
   } = options
 
   const chart = useChart(chartOptions)
-  const { chartRef, initChart, isDark } = chart
+  const { chartRef, initChart, isDark, emptyStateManager } = chart
 
   // 检查是否为空数据
   const isEmpty = computed(() => {
@@ -481,9 +556,19 @@ export function useChartComponent<T extends BaseChartProps>(options: UseChartCom
 
   // 更新图表
   const updateChart = () => {
-    if (!isEmpty.value) {
-      initChart(generateOptions())
-    }
+    nextTick(() => {
+      if (isEmpty.value) {
+        // 处理空数据情况 - 显示自定义空状态div
+        if (chart.getChartInstance()) {
+          chart.getChartInstance()?.clear()
+        }
+        emptyStateManager.create()
+      } else {
+        // 有数据时移除空状态div并初始化图表
+        emptyStateManager.remove()
+        initChart(generateOptions())
+      }
+    })
   }
 
   // 处理图表进入可视区域时的逻辑
@@ -503,7 +588,10 @@ export function useChartComponent<T extends BaseChartProps>(options: UseChartCom
     }
 
     // 监听主题变化
-    watch(isDark, updateChart)
+    watch(isDark, () => {
+      emptyStateManager.updateStyle()
+      updateChart()
+    })
   }
 
   // 设置生命周期
@@ -522,6 +610,8 @@ export function useChartComponent<T extends BaseChartProps>(options: UseChartCom
       if (chartRef.value) {
         chartRef.value.removeEventListener('chartVisible', handleChartVisible)
       }
+      // 清理空状态div
+      emptyStateManager.remove()
     })
   }
 

@@ -2,8 +2,6 @@
  * 组件相关类型定义
  */
 
-import { Option } from '../common'
-
 // 搜索组件类型
 export type SearchComponentType =
   | 'input'
@@ -26,32 +24,6 @@ export type SearchComponentType =
 export interface SearchChangeParams {
   prop: string
   val: unknown
-}
-
-// 搜索表单项
-export interface SearchFormItem {
-  // 表单项标签
-  label: string
-  // 表单项属性名
-  prop: string
-  // 表单项类型
-  type: SearchComponentType
-  // 每列的宽度（基于 24 格布局）
-  elColSpan?: number
-  // select的选项
-  options?: Option[] | (() => Option[])
-  // 搜索框更改事件
-  onChange?: (changeParams: SearchChangeParams) => void
-  // 额外配置项
-  config?: Record<string, unknown>
-  // 默认值
-  defaultValue?: any
-  // 占位符
-  placeholder?: string
-  // 是否必填
-  required?: boolean
-  // 是否禁用
-  disabled?: boolean
 }
 
 // 表格列配置接口

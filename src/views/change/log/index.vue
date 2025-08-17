@@ -16,7 +16,7 @@
             </div>
           </template>
         </ElTableColumn>
-        <ElTableColumn label="时间" prop="date" width="150" />
+        <ElTableColumn label="发布日期" prop="date" width="150" />
         <ElTableColumn label="备注" prop="remark" width="260" />
       </ArtTable>
     </div>

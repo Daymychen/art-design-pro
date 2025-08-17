@@ -2,10 +2,7 @@ import { ref, reactive, computed, onMounted, onUnmounted, nextTick, readonly } f
 import { useWindowSize } from '@vueuse/core'
 import { useTableColumns } from './useTableColumns'
 import type { ColumnOption } from '@/types/component'
-
-// 导入拆分的模块
 import { TableCache, CacheInvalidationStrategy, type ApiResponse } from '../utils/table/tableCache'
-
 import {
   type BaseRequestParams,
   type TableError,
@@ -16,18 +13,20 @@ import {
   createErrorHandler
 } from '../utils/table/tableUtils'
 
-// 🚀 优化的配置接口 - 按功能域分组
+// 优化的配置接口 - 按功能域分组
 export interface UseTableConfig<
   T = unknown,
   P extends BaseRequestParams = BaseRequestParams,
   R = any
 > {
-  // 🔧 核心配置
+  // 核心配置
   core: {
     /** API 请求函数 */
     apiFn: (params: P) => Promise<R>
     /** 默认请求参数 */
     apiParams?: Partial<P>
+    /** 排除 apiParams 中的属性 */
+    excludeParams?: (keyof P)[]
     /** 是否立即加载数据 */
     immediate?: boolean
     /** 列配置工厂函数 */
@@ -41,7 +40,7 @@ export interface UseTableConfig<
     }
   }
 
-  // 🎯 数据处理
+  // 数据处理
   transform?: {
     /** 数据转换函数 */
     dataTransformer?: (data: unknown) => T[]
@@ -49,7 +48,7 @@ export interface UseTableConfig<
     responseAdapter?: (response: R) => ApiResponse<T>
   }
 
-  // 🚀 性能优化
+  // 性能优化
   performance?: {
     /** 是否启用缓存 */
     enableCache?: boolean
@@ -61,7 +60,7 @@ export interface UseTableConfig<
     maxCacheSize?: number
   }
 
-  // 🎪 生命周期钩子
+  // 生命周期钩子
   hooks?: {
     /** 数据加载成功回调（仅网络请求成功时触发） */
     onSuccess?: (data: T[], response: ApiResponse<T>) => void
@@ -75,7 +74,7 @@ export interface UseTableConfig<
     resetFormCallback?: () => void
   }
 
-  // 🔍 调试配置
+  // 调试配置
   debug?: {
     /** 是否启用日志输出 */
     enableLog?: boolean
@@ -85,7 +84,7 @@ export interface UseTableConfig<
 }
 
 /**
- * 🚀 useTable - 强大的表格数据管理 Hook
+ * useTable - 强大的表格数据管理 Hook
  *
  * 提供完整的表格解决方案，包括：
  * - 数据获取与缓存
@@ -98,11 +97,11 @@ export interface UseTableConfig<
 export function useTable<T = unknown, P extends BaseRequestParams = BaseRequestParams, R = any>(
   config: UseTableConfig<T, P, R>
 ) {
-  // 🔧 解构优化后的配置
   const {
     core: {
       apiFn,
       apiParams = {} as Partial<P>,
+      excludeParams = [],
       immediate = true,
       columnsFactory,
       paginationKey = { current: 'current', size: 'size' }
@@ -118,14 +117,14 @@ export function useTable<T = unknown, P extends BaseRequestParams = BaseRequestP
     debug: { enableLog = false } = {}
   } = config
 
-  // 🔧 分页字段名配置
+  // 分页字段名配置
   const pageKey = paginationKey?.current || 'current'
   const sizeKey = paginationKey?.size || 'size'
 
   // 响应式触发器，用于手动更新缓存统计信息
   const cacheUpdateTrigger = ref(0)
 
-  // 🔧 日志工具函数
+  // 日志工具函数
   const logger = {
     log: (message: string, ...args: any[]) => {
       if (enableLog) {
@@ -196,7 +195,7 @@ export function useTable<T = unknown, P extends BaseRequestParams = BaseRequestP
   const hasData = computed(() => data.value.length > 0)
 
   // 缓存统计信息
-  const cacheStats = computed(() => {
+  const cacheInfo = computed(() => {
     // 依赖触发器，确保缓存变化时重新计算
     void cacheUpdateTrigger.value
     if (!cache) return { total: 0, size: '0KB', hitRate: '0 avg hits' }
@@ -206,8 +205,8 @@ export function useTable<T = unknown, P extends BaseRequestParams = BaseRequestP
   // 错误处理函数
   const handleError = createErrorHandler(onError, enableLog)
 
-  // 智能缓存失效处理
-  const invalidateCache = (strategy: CacheInvalidationStrategy, context?: string): void => {
+  // 清理缓存，根据不同的业务场景选择性地清理缓存
+  const clearCache = (strategy: CacheInvalidationStrategy, context?: string): void => {
     if (!cache) return
 
     let clearedCount = 0
@@ -255,7 +254,7 @@ export function useTable<T = unknown, P extends BaseRequestParams = BaseRequestP
     error.value = null
 
     try {
-      const requestParams = Object.assign(
+      let requestParams = Object.assign(
         {},
         searchParams,
         {
@@ -265,6 +264,15 @@ export function useTable<T = unknown, P extends BaseRequestParams = BaseRequestP
         params || {}
       ) as P
 
+      // 剔除不需要的参数
+      if (excludeParams.length > 0) {
+        const filteredParams = { ...requestParams }
+        excludeParams.forEach((key) => {
+          delete (filteredParams as any)[key]
+        })
+        requestParams = filteredParams as P
+      }
+
       // 检查缓存
       if (useCache && cache) {
         const cachedItem = cache.get(requestParams)
@@ -272,7 +280,7 @@ export function useTable<T = unknown, P extends BaseRequestParams = BaseRequestP
           data.value = cachedItem.data
           updatePaginationFromResponse(pagination, cachedItem.response)
 
-          // 🔧 修复：避免重复设置相同的值，防止响应式循环更新
+          // 修复：避免重复设置相同的值，防止响应式循环更新
           if ((searchParams as any)[pageKey] !== pagination.current) {
             ;(searchParams as any)[pageKey] = pagination.current
           }
@@ -282,7 +290,7 @@ export function useTable<T = unknown, P extends BaseRequestParams = BaseRequestP
 
           loading.value = false
 
-          // 🔧 缓存命中时触发专门的回调，而不是 onSuccess
+          // 缓存命中时触发专门的回调，而不是 onSuccess
           if (onCacheHit) {
             onCacheHit(cachedItem.data, cachedItem.response)
           }
@@ -314,7 +322,7 @@ export function useTable<T = unknown, P extends BaseRequestParams = BaseRequestP
       data.value = tableData
       updatePaginationFromResponse(pagination, standardResponse)
 
-      // 🔧 修复：避免重复设置相同的值，防止响应式循环更新
+      // 修复：避免重复设置相同的值，防止响应式循环更新
       if ((searchParams as any)[pageKey] !== pagination.current) {
         ;(searchParams as any)[pageKey] = pagination.current
       }
@@ -369,8 +377,8 @@ export function useTable<T = unknown, P extends BaseRequestParams = BaseRequestP
     pagination.current = 1
     ;(searchParams as any)[pageKey] = 1
 
-    // 🔧 搜索时清空当前搜索条件的缓存，确保获取最新数据
-    invalidateCache(CacheInvalidationStrategy.CLEAR_CURRENT, '搜索数据')
+    // 搜索时清空当前搜索条件的缓存，确保获取最新数据
+    clearCache(CacheInvalidationStrategy.CLEAR_CURRENT, '搜索数据')
 
     try {
       return await fetchData(params, false) // 搜索时不使用缓存
@@ -410,7 +418,7 @@ export function useTable<T = unknown, P extends BaseRequestParams = BaseRequestP
     error.value = null
 
     // 清空缓存
-    invalidateCache(CacheInvalidationStrategy.CLEAR_ALL, '重置搜索')
+    clearCache(CacheInvalidationStrategy.CLEAR_ALL, '重置搜索')
 
     // 重新获取数据
     await getData()
@@ -436,7 +444,7 @@ export function useTable<T = unknown, P extends BaseRequestParams = BaseRequestP
     ;(searchParams as any)[sizeKey] = newSize
     ;(searchParams as any)[pageKey] = 1
 
-    invalidateCache(CacheInvalidationStrategy.CLEAR_CURRENT, '分页大小变化')
+    clearCache(CacheInvalidationStrategy.CLEAR_CURRENT, '分页大小变化')
 
     await getData()
   }
@@ -445,12 +453,12 @@ export function useTable<T = unknown, P extends BaseRequestParams = BaseRequestP
   const handleCurrentChange = async (newCurrent: number): Promise<void> => {
     if (newCurrent <= 0) return
 
-    // 🔧 修复：防止重复调用
+    // 修复：防止重复调用
     if (isCurrentChanging) {
       return
     }
 
-    // 🔧 修复：如果当前页没有变化，不需要重新请求
+    // 修复：如果当前页没有变化，不需要重新请求
     if (pagination.current === newCurrent) {
       logger.log('分页页码未变化，跳过请求')
       return
@@ -459,7 +467,7 @@ export function useTable<T = unknown, P extends BaseRequestParams = BaseRequestP
     try {
       isCurrentChanging = true
 
-      // 🔧 修复：只更新必要的状态
+      // 修复：只更新必要的状态
       pagination.current = newCurrent
       // 只有当 searchParams 的分页字段与新值不同时才更新
       if ((searchParams as any)[pageKey] !== newCurrent) {
@@ -472,45 +480,51 @@ export function useTable<T = unknown, P extends BaseRequestParams = BaseRequestP
     }
   }
 
-  // 🚀 针对不同业务场景的刷新方法
+  // 针对不同业务场景的刷新方法
 
-  // 新增数据后刷新 - 回到第一页，清空分页缓存
-  const refreshAfterAdd = async (): Promise<void> => {
+  // 新增后刷新：回到第一页并清空分页缓存（适用于新增数据后）
+  const refreshCreate = async (): Promise<void> => {
     debouncedGetDataByPage.cancel()
     pagination.current = 1
     ;(searchParams as any)[pageKey] = 1
-    invalidateCache(CacheInvalidationStrategy.CLEAR_PAGINATION, '新增数据')
+    clearCache(CacheInvalidationStrategy.CLEAR_PAGINATION, '新增数据')
     await getData()
   }
 
-  // 编辑数据后刷新 - 保持当前页，清空当前搜索缓存
-  const refreshAfterEdit = async (): Promise<void> => {
-    invalidateCache(CacheInvalidationStrategy.CLEAR_CURRENT, '编辑数据')
+  // 更新后刷新：保持当前页，仅清空当前搜索缓存（适用于更新数据后）
+  const refreshUpdate = async (): Promise<void> => {
+    clearCache(CacheInvalidationStrategy.CLEAR_CURRENT, '编辑数据')
     await getData()
   }
 
-  // 删除数据后刷新 - 智能处理页码
-  const refreshAfterDelete = async (): Promise<void> => {
-    // 如果当前页只有1条数据，且不是第1页，则回到上一页
-    if (data.value.length === 1 && pagination.current > 1) {
-      pagination.current = pagination.current - 1
+  // 删除后刷新：智能处理页码，避免空页面（适用于删除数据后）
+  const refreshRemove = async (): Promise<void> => {
+    const { total, size, current } = pagination
+    const totalPage = Math.max(1, Math.ceil(total / size))
+    const isLastPage = current === totalPage
+    const isSingleItemPage = data.value.length === 1
+    const isEmptyLastPage = isLastPage && data.value.length === 0
+
+    // 如果当前页是单条数据且不是第一页，或最后一页为空，则回到上一页
+    if ((isSingleItemPage && current > 1) || isEmptyLastPage) {
+      pagination.current -= 1
       ;(searchParams as any)[pageKey] = pagination.current
     }
 
-    invalidateCache(CacheInvalidationStrategy.CLEAR_CURRENT, '删除数据')
+    clearCache(CacheInvalidationStrategy.CLEAR_CURRENT, '删除数据')
     await getData()
   }
 
-  // 通用刷新 - 清空所有缓存
-  const refresh = async (): Promise<void> => {
+  // 全量刷新：清空所有缓存，重新获取数据（适用于手动刷新按钮）
+  const refreshData = async (): Promise<void> => {
     debouncedGetDataByPage.cancel()
-    invalidateCache(CacheInvalidationStrategy.CLEAR_ALL, '手动刷新')
+    clearCache(CacheInvalidationStrategy.CLEAR_ALL, '手动刷新')
     await getData()
   }
 
-  // 软刷新 - 仅清空当前搜索缓存
-  const softRefresh = async (): Promise<void> => {
-    invalidateCache(CacheInvalidationStrategy.CLEAR_CURRENT, '软刷新')
+  // 轻量刷新：仅清空当前搜索条件的缓存，保持分页状态（适用于定时刷新）
+  const refreshSoft = async (): Promise<void> => {
+    clearCache(CacheInvalidationStrategy.CLEAR_CURRENT, '软刷新')
     await getData()
   }
 
@@ -526,11 +540,11 @@ export function useTable<T = unknown, P extends BaseRequestParams = BaseRequestP
   const clearData = (): void => {
     data.value = []
     error.value = null
-    invalidateCache(CacheInvalidationStrategy.CLEAR_ALL, '清空数据')
+    clearCache(CacheInvalidationStrategy.CLEAR_ALL, '清空数据')
   }
 
-  // 手动清理过期缓存
-  const cleanupExpiredCache = (): number => {
+  // 清理已过期的缓存条目，释放内存空间
+  const clearExpiredCache = (): number => {
     if (!cache) return 0
     const cleanedCount = cache.cleanupExpired()
     if (cleanedCount > 0) {
@@ -570,50 +584,99 @@ export function useTable<T = unknown, P extends BaseRequestParams = BaseRequestP
     }
   })
 
-  // 🚀 优化的返回值结构
+  // 优化的返回值结构
   return {
-    // 数据相关 - 更明确的命名
-    tableData: data,
-    isLoading: readonly(loading),
-    hasError: readonly(error),
+    // 数据相关
+    /** 表格数据 */
+    data,
+    /** 数据加载状态 */
+    loading: readonly(loading),
+    /** 错误状态 */
+    error: readonly(error),
+    /** 数据是否为空 */
     isEmpty: computed(() => data.value.length === 0),
+    /** 是否有数据 */
     hasData,
 
-    // 分页相关 - 统一前缀
-    paginationState: readonly(pagination),
+    // 分页相关
+    /** 分页状态信息 */
+    pagination: readonly(pagination),
+    /** 移动端分页配置 */
     paginationMobile: mobilePagination,
-    onPageSizeChange: handleSizeChange,
-    onCurrentPageChange: handleCurrentChange,
+    /** 页面大小变化处理 */
+    handleSizeChange,
+    /** 当前页变化处理 */
+    handleCurrentChange,
 
     // 搜索相关 - 统一前缀
-    searchState: searchParams,
-    resetSearch: resetSearchParams,
+    /** 搜索参数 */
+    searchParams,
+    /** 重置搜索参数 */
+    resetSearchParams,
 
     // 数据操作 - 更明确的操作意图
-    loadData: getData,
-    searchData: getDataByPage,
-    searchDataDebounced: debouncedGetDataByPage,
+    /** 加载数据 */
+    fetchData: getData,
+    /** 获取数据 */
+    getData: getDataByPage,
+    /** 获取数据（防抖） */
+    getDataDebounced: debouncedGetDataByPage,
+    /** 清空数据 */
+    clearData,
 
-    // 刷新策略 - 更明确的场景
-    refreshAll: refresh,
-    refreshSoft: softRefresh,
-    refreshAfterCreate: refreshAfterAdd,
-    refreshAfterUpdate: refreshAfterEdit,
-    refreshAfterRemove: refreshAfterDelete,
+    // 刷新策略
+    /** 全量刷新：清空所有缓存，重新获取数据（适用于手动刷新按钮） */
+    refreshData,
+    /** 轻量刷新：仅清空当前搜索条件的缓存，保持分页状态（适用于定时刷新） */
+    refreshSoft,
+    /** 新增后刷新：回到第一页并清空分页缓存（适用于新增数据后） */
+    refreshCreate,
+    /** 更新后刷新：保持当前页，仅清空当前搜索缓存（适用于更新数据后） */
+    refreshUpdate,
+    /** 删除后刷新：智能处理页码，避免空页面（适用于删除数据后） */
+    refreshRemove,
 
     // 缓存控制
-    cacheStatistics: cacheStats,
-    invalidateCache,
-    clearExpiredCache: cleanupExpiredCache,
+    /** 缓存统计信息 */
+    cacheInfo,
+    /** 清除缓存，根据不同的业务场景选择性地清理缓存： */
+    clearCache,
+    // 支持4种清理策略
+    // clearCache(CacheInvalidationStrategy.CLEAR_ALL, '手动刷新')     // 清空所有缓存
+    // clearCache(CacheInvalidationStrategy.CLEAR_CURRENT, '搜索数据') // 只清空当前搜索条件的缓存
+    // clearCache(CacheInvalidationStrategy.CLEAR_PAGINATION, '新增数据') // 清空分页相关缓存
+    // clearCache(CacheInvalidationStrategy.KEEP_ALL, '保持缓存')      // 不清理任何缓存
+    /** 清理已过期的缓存条目，释放内存空间 */
+    clearExpiredCache,
 
     // 请求控制
-    abortRequest: cancelRequest,
-    clearAllData: clearData,
+    /** 取消当前请求 */
+    cancelRequest,
 
     // 列配置 (如果提供了 columnsFactory)
     ...(columnConfig && {
+      /** 表格列配置 */
       columns,
-      columnChecks
+      /** 列显示控制 */
+      columnChecks,
+      /** 新增列 */
+      addColumn: columnConfig.addColumn,
+      /** 删除列 */
+      removeColumn: columnConfig.removeColumn,
+      /** 切换列显示状态 */
+      toggleColumn: columnConfig.toggleColumn,
+      /** 更新列配置 */
+      updateColumn: columnConfig.updateColumn,
+      /** 批量更新列配置 */
+      batchUpdateColumns: columnConfig.batchUpdateColumns,
+      /** 重新排序列 */
+      reorderColumns: columnConfig.reorderColumns,
+      /** 获取指定列配置 */
+      getColumnConfig: columnConfig.getColumnConfig,
+      /** 获取所有列配置 */
+      getAllColumns: columnConfig.getAllColumns,
+      /** 重置所有列配置到默认状态 */
+      resetColumns: columnConfig.resetColumns
     })
   }
 }

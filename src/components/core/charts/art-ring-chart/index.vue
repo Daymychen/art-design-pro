@@ -6,7 +6,6 @@
     :style="{ height: props.height }"
     v-loading="props.loading"
   >
-    <ArtChartEmpty v-if="isEmpty" />
   </div>
 </template>
 
@@ -38,7 +37,7 @@
   })
 
   // 使用新的图表组件抽象
-  const { chartRef, isDark, getAnimationConfig, getTooltipStyle, getLegendStyle, isEmpty } =
+  const { chartRef, isDark, getAnimationConfig, getTooltipStyle, getLegendStyle } =
     useChartComponent({
       props,
       checkEmpty: () => {

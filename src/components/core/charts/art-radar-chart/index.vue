@@ -1,8 +1,6 @@
 <!-- 雷达图 -->
 <template>
-  <div ref="chartRef" :style="{ height: props.height }" v-loading="props.loading">
-    <ArtChartEmpty v-if="isEmpty" />
-  </div>
+  <div ref="chartRef" :style="{ height: props.height }" v-loading="props.loading"></div>
 </template>
 
 <script setup lang="ts">
@@ -30,7 +28,7 @@
   })
 
   // 使用新的图表组件抽象
-  const { chartRef, isDark, getAnimationConfig, getTooltipStyle, isEmpty } = useChartComponent({
+  const { chartRef, isDark, getAnimationConfig, getTooltipStyle } = useChartComponent({
     props,
     checkEmpty: () => {
       return !props.data?.length || props.data.every((item) => item.value.every((val) => val === 0))

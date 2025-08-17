@@ -15,7 +15,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 export default ({ mode }: { mode: string }) => {
   const root = process.cwd()
   const env = loadEnv(mode, root)
-  const { VITE_VERSION, VITE_PORT, VITE_BASE_URL, VITE_API_URL } = env
+  const { VITE_VERSION, VITE_PORT, VITE_BASE_URL, VITE_API_URL, VITE_API_PROXY_URL } = env
 
   console.log(`🚀 API_URL = ${VITE_API_URL}`)
   console.log(`🚀 VERSION = ${VITE_VERSION}`)
@@ -26,10 +26,10 @@ export default ({ mode }: { mode: string }) => {
     },
     base: VITE_BASE_URL,
     server: {
-      port: parseInt(VITE_PORT),
+      port: Number(VITE_PORT),
       proxy: {
         '/api': {
-          target: VITE_API_URL,
+          target: VITE_API_PROXY_URL,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, '')
         }

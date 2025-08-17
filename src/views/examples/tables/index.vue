@@ -33,15 +33,15 @@
                 </div>
                 <div class="stat-item">
                   <span class="label">缓存条数：</span>
-                  <span class="value">{{ cacheStatistics.total }}</span>
+                  <span class="value">{{ cacheInfo.total }}</span>
                 </div>
                 <div class="stat-item">
                   <span class="label">缓存大小：</span>
-                  <span class="value">{{ cacheStatistics.size }}</span>
+                  <span class="value">{{ cacheInfo.size }}</span>
                 </div>
                 <div class="stat-item">
                   <span class="label">命中信息：</span>
-                  <span class="value">{{ cacheStatistics.hitRate }}</span>
+                  <span class="value">{{ cacheInfo.hitRate }}</span>
                 </div>
 
                 <div class="debug-actions">
@@ -82,20 +82,20 @@
               <div class="debug-info">
                 <div class="stat-item">
                   <span class="label">加载状态：</span>
-                  <ElTag :type="isLoading ? 'warning' : 'success'">
-                    {{ isLoading ? '加载中' : '空闲' }}
+                  <ElTag :type="loading ? 'warning' : 'success'">
+                    {{ loading ? '加载中' : '空闲' }}
                   </ElTag>
                 </div>
                 <div class="stat-item">
                   <span class="label">数据状态：</span>
                   <ElTag :type="hasData ? 'success' : 'info'">
-                    {{ hasData ? `${tableData.length} 条数据` : '无数据' }}
+                    {{ hasData ? `${data.length} 条数据` : '无数据' }}
                   </ElTag>
                 </div>
                 <div class="stat-item">
                   <span class="label">错误状态：</span>
-                  <ElTag :type="hasError ? 'danger' : 'success'">
-                    {{ hasError ? '有错误' : '正常' }}
+                  <ElTag :type="error ? 'danger' : 'success'">
+                    {{ error ? '有错误' : '正常' }}
                   </ElTag>
                 </div>
                 <div class="stat-item request-params">
@@ -116,8 +116,6 @@
         <!-- 功能开关 -->
         <div class="feature-toggles">
           <ElSwitch v-model="showDebugPanel" active-text="调试面板" />
-          <ElSwitch v-model="enableErrorDemo" active-text="错误演示" />
-          <ElDivider direction="vertical" />
           <ElText type="info" size="small"> 💡 缓存功能已启用，可通过调试面板查看详细信息 </ElText>
         </div>
       </div>
@@ -125,10 +123,15 @@
 
     <!-- 搜索区域 -->
     <ArtSearchBar
-      v-model:filter="searchFormState"
+      ref="searchBarRef"
+      v-model="searchFormState"
       :items="searchItems"
+      :rules="rules"
       :is-expand="false"
       :show-expand="true"
+      :show-reset-button="true"
+      :show-search-button="true"
+      :disabled-search-button="false"
       @search="handleSearch"
       @reset="handleReset"
     />
@@ -139,9 +142,9 @@
         <div class="table-header-wrapper">
           <h4>用户数据表格</h4>
           <div class="table-info">
-            <ElTag v-if="hasError" type="danger">{{ hasError.message }}</ElTag>
-            <ElTag v-else-if="isLoading" type="warning">加载中...</ElTag>
-            <ElTag v-else type="success">{{ tableData.length }} 条数据</ElTag>
+            <ElTag v-if="error" type="danger">{{ error.message }}</ElTag>
+            <ElTag v-else-if="loading" type="warning">加载中...</ElTag>
+            <ElTag v-else type="success">{{ data.length }} 条数据</ElTag>
           </div>
         </div>
       </template>
@@ -156,13 +159,15 @@
       >
         <template #left>
           <ElButton type="primary" @click="handleAdd" v-ripple>
-            <ElIcon><Plus /></ElIcon>
+            <ElIcon>
+              <Plus />
+            </ElIcon>
             新增用户
           </ElButton>
 
           <!-- 导出导入功能 -->
           <ArtExcelExport
-            :data="tableData as any"
+            :data="data as any"
             :columns="exportColumns as any"
             filename="用户数据"
             :auto-index="true"
@@ -178,25 +183,47 @@
           <ElButton @click="handleClearData" plain v-ripple> 清空数据 </ElButton>
 
           <ElButton @click="handleBatchDelete" :disabled="selectedRows.length === 0" v-ripple>
-            <ElIcon><Delete /></ElIcon>
+            <ElIcon>
+              <Delete />
+            </ElIcon>
             批量删除 ({{ selectedRows.length }})
           </ElButton>
+          <!-- 动态列配置演示按钮 -->
+          <ElDropdown @command="handleColumnCommand" style="margin-left: 10px">
+            <ElButton type="primary" plain>
+              动态更新表格列
+              <ElIcon class="el-icon--right">
+                <ArrowDown />
+              </ElIcon>
+            </ElButton>
+            <template #dropdown>
+              <ElDropdownMenu>
+                <ElDropdownItem command="addColumn">新增列（备注列）</ElDropdownItem>
+                <ElDropdownItem command="toggleColumn">显示隐藏（手机号列）</ElDropdownItem>
+                <ElDropdownItem command="removeColumn">删除列（状态列）</ElDropdownItem>
+                <ElDropdownItem command="reorderColumns">交换列位置（性别、手机号）</ElDropdownItem>
+                <ElDropdownItem command="updateColumn">更新列（手机号列）</ElDropdownItem>
+                <ElDropdownItem command="batchUpdate">批量更新（性别、手机号）</ElDropdownItem>
+                <ElDropdownItem command="resetColumns" divided>重置所有列配置</ElDropdownItem>
+              </ElDropdownMenu>
+            </template>
+          </ElDropdown>
         </template>
       </ArtTableHeader>
 
       <ArtTable
         ref="tableRef"
-        :loading="isLoading"
-        :pagination="paginationState"
-        :data="tableData"
+        :loading="loading"
+        :pagination="pagination"
+        :data="data"
         :columns="columns"
         :height="computedTableHeight"
         @selection-change="handleSelectionChange"
         @row-click="handleRowClick"
         @header-click="handleHeaderClick"
         @sort-change="handleSortChange"
-        @pagination:size-change="onPageSizeChange"
-        @pagination:current-change="onCurrentPageChange"
+        @pagination:size-change="handleSizeChange"
+        @pagination:current-change="handleCurrentChange"
       >
         <!-- 用户信息列 -->
         <template #avatar="{ row }">
@@ -214,7 +241,9 @@
           <div style="display: flex; gap: 5px; align-items: center">
             <span>{{ column.label }}</span>
             <ElTooltip content="包含头像、姓名和邮箱" placement="top">
-              <ElIcon class="help-icon"><QuestionFilled /></ElIcon>
+              <ElIcon class="help-icon">
+                <QuestionFilled />
+              </ElIcon>
             </ElTooltip>
           </div>
         </template>
@@ -247,7 +276,9 @@
             <template #reference>
               <div class="custom-header">
                 <span>{{ column.label }}</span>
-                <ElIcon><Search /></ElIcon>
+                <ElIcon>
+                  <Search />
+                </ElIcon>
               </div>
             </template>
             <ElInput
@@ -257,7 +288,9 @@
               @input="handlePhoneSearch"
             >
               <template #prefix>
-                <ElIcon><Search /></ElIcon>
+                <ElIcon>
+                  <Search />
+                </ElIcon>
               </template>
             </ElInput>
           </ElPopover>
@@ -327,24 +360,34 @@
         <h4>🔄 【缓存】刷新策略演示</h4>
       </template>
       <div class="refresh-buttons">
-        <ElButton @click="refreshAll" v-ripple>
-          <ElIcon><Refresh /></ElIcon>
+        <ElButton @click="refreshData" v-ripple>
+          <ElIcon>
+            <Refresh />
+          </ElIcon>
           通用刷新
         </ElButton>
         <ElButton @click="refreshSoft" v-ripple>
-          <ElIcon><Refresh /></ElIcon>
+          <ElIcon>
+            <Refresh />
+          </ElIcon>
           软刷新
         </ElButton>
-        <ElButton @click="refreshAfterCreate" v-ripple>
-          <ElIcon><Plus /></ElIcon>
+        <ElButton @click="refreshCreate" v-ripple>
+          <ElIcon>
+            <Plus />
+          </ElIcon>
           新增后刷新
         </ElButton>
-        <ElButton @click="refreshAfterUpdate" v-ripple>
-          <ElIcon><Edit /></ElIcon>
+        <ElButton @click="refreshUpdate" v-ripple>
+          <ElIcon>
+            <Edit />
+          </ElIcon>
           编辑后刷新
         </ElButton>
-        <ElButton @click="refreshAfterRemove" v-ripple>
-          <ElIcon><Delete /></ElIcon>
+        <ElButton @click="refreshRemove" v-ripple>
+          <ElIcon>
+            <Delete />
+          </ElIcon>
           删除后刷新
         </ElButton>
       </div>
@@ -359,7 +402,7 @@
   import { useTable, CacheInvalidationStrategy } from '@/composables/useTable'
   import { UserService } from '@/api/usersApi'
   import { ACCOUNT_TABLE_DATA } from '@/mock/temp/formData'
-  import type { SearchFormItem } from '@/types'
+  import { getColumnKey } from '@/composables/useTableColumns'
 
   defineOptions({ name: 'AdvancedTableDemo' })
 
@@ -376,7 +419,6 @@
   // 调试面板状态
   const showDebugPanel = ref(false)
   const debugActiveNames = ref(['cache', 'request', 'logs'])
-  const enableErrorDemo = ref(false)
 
   // 缓存调试状态
   const cacheDebugLogs = ref<string[]>([])
@@ -387,7 +429,7 @@
     phone: '',
     status: '',
     department: '',
-    dateRange: undefined
+    daterange: undefined
   })
 
   // 缓存键信息
@@ -411,17 +453,29 @@
     return tableConfig.value.fixedHeight ? '500px' : ''
   })
 
+  // 搜索表单 ref
+  const searchBarRef = ref()
+
+  // 校验规则
+  const rules = {
+    name: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+    phone: [
+      { required: true, message: '请输入手机号', trigger: 'blur' },
+      { pattern: /^1[3456789]\d{9}$/, message: '请输入正确的手机号', trigger: 'blur' }
+    ]
+  }
+
   // 表单搜索初始值
-  const defaultFilter = ref({
-    name: 'jack',
+  const searchFormState = ref({
+    name: '',
     phone: '',
     status: '1',
     department: '',
-    dateRange: ['2025-01-01', '2025-02-10']
+    daterange: ['2025-01-01', '2025-02-10']
   })
 
   // 搜索表单状态
-  const searchFormState = ref({ ...defaultFilter.value })
+  // const searchFormState = ref({ ...defaultFilter.value })
 
   // 用户状态配置
   const USER_STATUS_CONFIG = {
@@ -433,25 +487,26 @@
 
   // 搜索表单配置
   // 日期选择器有多种类型，具体可以查看 src/components/core/forms/art-search-bar/widget/art-search-date/README.md 文档
-  const searchItems: SearchFormItem[] = [
+  const searchItems = computed(() => [
     {
-      prop: 'name',
+      key: 'name',
       label: '用户名',
       type: 'input',
-      config: {
+      props: {
         placeholder: '请输入用户名'
       }
     },
     {
-      prop: 'phone',
+      key: 'phone',
       label: '手机号',
       type: 'input',
-      config: {
-        placeholder: '请输入手机号'
+      props: {
+        placeholder: '请输入手机号',
+        maxlength: '11'
       }
     },
     {
-      prop: 'status',
+      key: 'status',
       label: '状态',
       type: 'select',
       options: [
@@ -463,7 +518,7 @@
       ]
     },
     {
-      prop: 'department',
+      key: 'department',
       label: '部门',
       type: 'select',
       options: [
@@ -476,16 +531,17 @@
       ]
     },
     {
-      prop: 'dateRange',
-      label: '注册时间',
+      key: 'daterange',
+      label: '日期范围',
       type: 'daterange',
-      config: {
+      props: {
         type: 'daterange',
-        format: 'YYYY-MM-DD',
+        startPlaceholder: '开始日期',
+        endPlaceholder: '结束日期',
         valueFormat: 'YYYY-MM-DD'
       }
     }
-  ]
+  ])
 
   // 导出列配置
   const exportColumns = computed(() => ({
@@ -511,56 +567,80 @@
     )
   }
 
-  // 模拟API错误
-  const simulateApiError = (originalFn: any) => {
-    return async (params: any) => {
-      if (enableErrorDemo.value && Math.random() > 0.7) {
-        throw new Error('模拟网络错误：请求超时')
-      }
-      return originalFn(params)
-    }
-  }
+  // 模拟网络请求
+  // const simulateNetworkRequest = (): Promise<void> => {
+  //   return new Promise((resolve) => {
+  //     setTimeout(() => {
+  //       resolve()
+  //     }, 500)
+  //   })
+  // }
+
+  // 模拟网络请求完成后加载数据
+  // onMounted(async () => {
+  //   // 等待模拟的网络请求完成
+  //   await simulateNetworkRequest()
+  //   await fetchData({ name: 'ricky', phone: 19388828388 })
+  // })
 
   // 使用 useTable Hook
   const {
+    // fetchData, // 手动加载数据的方法，可用于等待其他请求完成后调用，immediate 为 false 时使用
+
     // 数据相关
-    tableData,
-    isLoading,
-    hasError,
-    hasData,
+    data, // 表格数据
+    loading, // 加载中状态
+    error, // 数据加载错误状态
+    hasData, // 是否有数据
 
     // 分页相关
-    paginationState,
-    onPageSizeChange,
-    onCurrentPageChange,
+    pagination, // 分页信息
+    handleSizeChange, // 分页大小变化处理
+    handleCurrentChange, // 当前页变化处理
 
     // 搜索相关
-    searchState, // 搜索参数
-    resetSearch,
+    searchParams, // 搜索参数
+    resetSearchParams, // 重置搜索参数
 
     // 数据操作
-    searchData,
-    searchDataDebounced,
-
-    // 刷新策略
-    refreshAll,
-    refreshSoft,
-    refreshAfterCreate,
-    refreshAfterUpdate,
-    refreshAfterRemove,
-
-    // 缓存控制
-    cacheStatistics,
-    invalidateCache,
-    clearExpiredCache,
-
-    // 请求控制
-    abortRequest,
-    clearAllData,
+    getData, // 获取数据
+    getDataDebounced, // 获取数据（防抖）
+    clearData, // 清空数据
 
     // 列配置
-    columns,
-    columnChecks
+    columns, // 表格列配置
+    columnChecks, // 列显示、拖拽配置
+
+    // 刷新策略
+    refreshData, // 全量刷新：清空所有缓存，重新获取数据（适用于手动刷新按钮）
+    refreshSoft, // 轻量刷新：仅清空当前搜索条件的缓存，保持分页状态（适用于定时刷新）
+    refreshCreate, // 新增后刷新：回到第一页并清空分页缓存（适用于新增数据后）
+    refreshUpdate, // 更新后刷新：保持当前页，仅清空当前搜索缓存（适用于更新数据后）
+    refreshRemove, // 删除后刷新：智能处理页码，避免空页面（适用于删除数据后）
+
+    // 缓存控制
+    cacheInfo, // 缓存统计信息
+    clearCache, // 清除缓存，根据不同的业务场景选择性地清理缓存
+    // 支持4种清理策略
+    // clearCache(CacheInvalidationStrategy.CLEAR_ALL, '手动刷新')     // 清空所有缓存
+    // clearCache(CacheInvalidationStrategy.CLEAR_CURRENT, '搜索数据') // 只清空当前搜索条件的缓存
+    // clearCache(CacheInvalidationStrategy.CLEAR_PAGINATION, '新增数据') // 清空分页相关缓存
+    // clearCache(CacheInvalidationStrategy.KEEP_ALL, '保持缓存')      // 不清理任何缓存
+    clearExpiredCache, // 清理已过期的缓存，释放内存空间
+
+    // 请求控制
+    cancelRequest, // 取消当前请求
+
+    // 动态列配置方法
+    addColumn, // 新增列
+    removeColumn, // 删除列
+    updateColumn, // 更新列
+    toggleColumn, // 切换列显示状态
+    resetColumns, // 重置列配置
+    batchUpdateColumns, // 批量更新列配置
+    reorderColumns, // 重新排序列
+    getColumnConfig, // 获取列配置
+    getAllColumns // 获取所有列配置
   } = useTable<UserListItem>({
     // 核心配置
     core: {
@@ -574,21 +654,23 @@
         // 记录缓存键（这里假设会被缓存）
         updateCacheKeys(requestKey)
 
-        return simulateApiError(getUserList)(params)
+        return getUserList(params)
       },
       apiParams: {
         current: 1,
         size: 20,
         // pageNum: 1, // 自定义分页字段映射， 默认为 current
         // pageSize: 20, // 自定义分页字段映射， 默认为 size
-        ...defaultFilter
+        ...searchFormState.value
       },
+      // 排除 apiParams 中的属性
+      excludeParams: ['daterange'],
       // 自定义分页字段映射，同时需要在 apiParams 中配置字段名
       // paginationKey: {
       //   current: 'pageNum',
       //   size: 'pageSize'
       // },
-      immediate: true,
+      immediate: true, // 是否立即加载数据
       columnsFactory: () => [
         // {
         //   type: 'expand',
@@ -685,7 +767,7 @@
 
     // 性能优化
     performance: {
-      enableCache: true,
+      enableCache: true, // 开启缓存
       cacheTime: 5 * 60 * 1000, // 5分钟
       debounceTime: 300,
       maxCacheSize: 100
@@ -694,13 +776,11 @@
     // 生命周期钩子
     hooks: {
       onSuccess: (data, response) => {
-        console.log('✅ 数据加载成功:', data.length, '条')
         console.log('📊 响应详情:', response)
         addCacheLog(`✅ 网络请求成功: ${data.length} 条数据`)
         addCacheLog(
           `📝 响应信息: total=${response.total}, current=${response.current}, size=${response.size}`
         )
-        ElMessage.success(`加载 ${data.length} 条数据成功`)
       },
       onError: (error) => {
         console.error('❌ 数据加载失败:', error)
@@ -799,7 +879,6 @@
   }
 
   const handleScrollToPosition = () => {
-    console.log('123')
     tableRef.value?.elTableRef.setScrollTop(200)
   }
 
@@ -815,60 +894,60 @@
 
   const handleGetTableInfo = () => {
     const info = {
-      数据条数: tableData.value.length,
+      数据条数: data.value.length,
       选中条数: selectedRows.value.length,
       列数: columns?.value?.length ?? 0,
-      当前页: paginationState.current,
-      每页大小: paginationState.size,
-      总条数: paginationState.total
+      当前页: pagination.current,
+      每页大小: pagination.size,
+      总条数: pagination.total
     }
 
     console.log('表格信息:', info)
     ElMessage.info(`表格信息已输出到控制台，当前 ${info.数据条数} 条数据`)
   }
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
+    await searchBarRef.value.validate()
+
     console.log('搜索参数:', searchFormState.value)
-    const { dateRange, ...searchParams } = searchFormState.value
-    const [startTime, endTime] = Array.isArray(dateRange) ? dateRange : [null, null]
+    const { daterange, ...filtersParams } = searchFormState.value
+    const [startTime, endTime] = Array.isArray(daterange) ? daterange : [null, null]
 
     // 搜索参数赋值
-    Object.assign(searchState, { ...searchParams, startTime, endTime })
-    searchData()
+    Object.assign(searchParams, { ...filtersParams, startTime, endTime })
+    getData()
   }
 
   const handleReset = () => {
     addCacheLog('🔄 重置搜索')
     // 重置搜索表单状态
-    searchFormState.value = { ...defaultFilter.value }
-    resetSearch()
+    // searchFormState.value = { ...defaultFilter.value }
+    resetSearchParams()
   }
 
   const handlePhoneSearch = (value: string) => {
     searchFormState.value.phone = value
-    searchState.phone = value
-    requestParams.value = { ...searchState, phone: value }
+    searchParams.phone = value
+    requestParams.value = { ...searchParams, phone: value }
     addCacheLog(`📱 手机号搜索: ${value}`)
-    searchDataDebounced()
+    getDataDebounced()
   }
 
   const handleRefresh = () => {
     addCacheLog('🔄 手动刷新')
-    refreshAll()
+    refreshData()
   }
 
   // CRUD 操作
   const handleAdd = () => {
     ElMessage.success('新增用户成功')
-    setTimeout(() => {
-      refreshAfterCreate()
-    }, 1000)
+    refreshCreate()
   }
 
   const handleEdit = (row: UserListItem) => {
     ElMessage.success(`编辑用户 ${row.userName} 成功`)
     setTimeout(() => {
-      refreshAfterUpdate()
+      refreshUpdate()
     }, 1000)
   }
 
@@ -882,7 +961,7 @@
 
       ElMessage.success('删除成功')
       setTimeout(() => {
-        refreshAfterRemove()
+        refreshRemove()
       }, 1000)
     } catch {
       ElMessage.info('已取消删除')
@@ -908,7 +987,7 @@
       ElMessage.success(`批量删除 ${selectedRows.value.length} 个用户成功`)
       selectedRows.value = []
       setTimeout(() => {
-        refreshAfterRemove()
+        refreshRemove()
       }, 1000)
     } catch {
       ElMessage.info('已取消删除')
@@ -922,7 +1001,7 @@
 
   const handleImportSuccess = (data: any[]) => {
     ElMessage.success(`导入 ${data.length} 条数据成功`)
-    refreshAfterCreate()
+    refreshCreate()
   }
 
   const handleImportError = (error: Error) => {
@@ -931,7 +1010,7 @@
 
   // 调试功能
   const handleClearCache = () => {
-    invalidateCache(CacheInvalidationStrategy.CLEAR_ALL, '手动清空')
+    clearCache(CacheInvalidationStrategy.CLEAR_ALL, '手动清空')
     cacheKeys.value = [] // 清空缓存键列表
     addCacheLog('🗑️ 手动清空所有缓存')
     ElMessage.success('缓存已清空')
@@ -944,13 +1023,13 @@
   }
 
   const handleCancelRequest = () => {
-    abortRequest()
+    cancelRequest()
     addCacheLog('❌ 取消当前请求')
     ElMessage.info('请求已取消')
   }
 
   const handleClearData = () => {
-    clearAllData()
+    clearData()
     addCacheLog('🗑️ 清空所有数据')
     ElMessage.info('数据已清空')
   }
@@ -977,7 +1056,7 @@
       requestParams.value = { ...requestParams.value, current: page }
 
       // 切换到测试页面
-      onCurrentPageChange(page)
+      handleCurrentChange(page)
       index++
     }, 1000)
   }
@@ -1018,7 +1097,7 @@
   // 强制刷新缓存信息
   const forceRefreshCacheInfo = () => {
     // 模拟更新缓存键信息
-    const currentStats = cacheStatistics.value
+    const currentStats = cacheInfo.value
     addCacheLog(`🔄 缓存信息刷新: ${currentStats.total} 条缓存`)
 
     // 重置缓存键列表，因为我们无法直接访问缓存内容
@@ -1028,13 +1107,13 @@
 
     // 触发缓存统计的重新计算
     nextTick(() => {
-      console.log('当前缓存统计:', cacheStatistics.value)
+      console.log('当前缓存统计:', cacheInfo.value)
     })
   }
 
   // 监听分页和搜索状态变化
   watch(
-    () => [paginationState.current, paginationState.size, searchFormState.value],
+    () => [pagination.current, pagination.size, searchFormState.value],
     ([current, size, search]) => {
       requestParams.value = {
         ...(search as any),
@@ -1044,6 +1123,83 @@
     },
     { deep: true, immediate: true }
   )
+
+  /**
+   * 处理动态列配置命令
+   */
+  const handleColumnCommand = (command: string): void => {
+    switch (command) {
+      case 'addColumn': {
+        // 新增"备注"列
+        addColumn?.({
+          prop: 'remark',
+          label: '备注',
+          width: 150,
+          formatter: () => h('span', { style: 'color: #999' }, '暂无备注')
+        })
+        ElMessage.success('已新增"备注"列')
+        break
+      }
+
+      case 'toggleColumn': {
+        // 切换性别列显示/隐藏
+        if (getColumnConfig?.('userPhone')) {
+          toggleColumn?.('userPhone')
+        }
+        break
+      }
+
+      case 'removeColumn': {
+        // 删除列
+        removeColumn?.('status')
+        break
+      }
+
+      case 'reorderColumns': {
+        // 交换性别和手机号列位置
+        const allCols = getAllColumns?.()
+        if (allCols) {
+          const genderIndex = allCols.findIndex((col) => getColumnKey(col) === 'userGender')
+          const phoneIndex = allCols.findIndex((col) => getColumnKey(col) === 'userPhone')
+
+          if (genderIndex !== -1 && phoneIndex !== -1) {
+            reorderColumns?.(genderIndex, phoneIndex)
+            ElMessage.success('已交换性别和手机号列位置')
+          }
+        }
+        break
+      }
+
+      case 'updateColumn': {
+        // 修改手机号列标题
+        updateColumn?.('userPhone', {
+          label: '联系电话',
+          width: 140
+        })
+        ElMessage.success('手机号列标题已更新为"联系电话"')
+        break
+      }
+
+      case 'batchUpdate': {
+        // 批量更新数据
+        batchUpdateColumns?.([
+          { prop: 'userGender', updates: { width: 200, label: '性别-update', sortable: false } },
+          { prop: 'userPhone', updates: { width: 200, label: '手机号-update', sortable: false } }
+        ])
+        break
+      }
+
+      case 'resetColumns': {
+        // 重置所有列配置
+        resetColumns?.()
+        ElMessage.success('已重置所有列配置')
+        break
+      }
+
+      default:
+        console.warn('未知的列配置命令:', command)
+    }
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -1305,7 +1461,7 @@
   }
 
   // 响应式设计
-  @media (width <= 768px) {
+  @media (width <=768px) {
     .advanced-table-demo {
       .intro-card .intro-header {
         flex-direction: column;
