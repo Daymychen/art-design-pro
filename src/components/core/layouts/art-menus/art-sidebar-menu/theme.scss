@@ -213,6 +213,10 @@ $hover-bg-color: rgba(var(--art-gray-200-rgb), 0.8); // 鼠标移入背景色
       margin-bottom: 5px;
       border-radius: 6px;
 
+      .menu-icon {
+        margin-right: 5px;
+      }
+
       &:last-of-type {
         margin-bottom: 0;
       }
@@ -221,6 +225,10 @@ $hover-bg-color: rgba(var(--art-gray-200-rgb), 0.8); // 鼠标移入背景色
     .el-sub-menu {
       height: 40px !important;
       margin-bottom: 5px;
+
+      .menu-icon {
+        margin-right: 5px;
+      }
 
       .el-sub-menu__title {
         height: 40px !important;

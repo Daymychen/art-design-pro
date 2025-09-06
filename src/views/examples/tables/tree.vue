@@ -12,9 +12,16 @@
         <UserSearch v-model="defaultFilter" />
 
         <ElCard class="art-table-card" shadow="never">
-          <ArtTableHeader v-model:columns="columnChecks" @refresh="refreshData">
+          <ArtTableHeader v-model:columns="columnChecks" :loading="loading" @refresh="refreshData">
             <template #left>
-              <ElButton v-ripple>新增用户</ElButton>
+              <ElSpace wrap>
+                <ElButton @click="showButtons = !showButtons" v-ripple type="primary" plain
+                  >{{ showButtons ? '收起' : '展开' }}按钮组</ElButton
+                >
+                <ElButton v-show="showButtons" v-ripple v-for="value in 12" :key="value"
+                  >表格自适应</ElButton
+                >
+              </ElSpace>
             </template>
           </ArtTableHeader>
 
@@ -36,11 +43,13 @@
 
 <script setup lang="ts">
   import { useTable } from '@/composables/useTable'
-  import { UserService } from '@/api/usersApi'
+  import { fetchGetUserList } from '@/api/system-manage'
   import { ElButton, ElCard } from 'element-plus'
   import UserSearch from '@/views/system/user/modules/user-search.vue'
 
   defineOptions({ name: 'TreeTable' })
+
+  const showButtons = ref(false)
 
   // 表单搜索初始值
   const defaultFilter = ref({
@@ -56,15 +65,15 @@
     refreshData,
     handleSizeChange,
     handleCurrentChange
-  } = useTable<Api.User.UserListItem>({
+  } = useTable({
     core: {
-      apiFn: UserService.getUserList,
+      apiFn: fetchGetUserList,
       apiParams: {
         current: 1,
         size: 20,
-        name: '',
-        phone: '',
-        address: undefined
+        userName: '',
+        userPhone: '',
+        userEmail: ''
       },
       columnsFactory: () => [
         {

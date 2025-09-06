@@ -295,6 +295,79 @@ export const asyncRoutes: AppRouteRecord[] = [
     },
     children: [
       {
+        path: 'permission',
+        name: 'Permission',
+        component: '',
+        meta: {
+          title: 'menus.examples.permission.title',
+          showBadge: true
+        },
+        children: [
+          {
+            path: RoutesAlias.PermissionSwitchRole,
+            name: 'PermissionSwitchRole',
+            component: RoutesAlias.PermissionSwitchRole,
+            meta: {
+              title: 'menus.examples.permission.switchRole',
+              keepAlive: true
+            }
+          },
+          {
+            path: RoutesAlias.PermissionButtonAuth,
+            name: 'PermissionButtonAuth',
+            component: RoutesAlias.PermissionButtonAuth,
+            meta: {
+              title: 'menus.examples.permission.buttonAuth',
+              keepAlive: true,
+              authList: [
+                {
+                  title: '新增',
+                  authMark: 'add'
+                },
+                {
+                  title: '编辑',
+                  authMark: 'edit'
+                },
+                {
+                  title: '删除',
+                  authMark: 'delete'
+                },
+                {
+                  title: '导出',
+                  authMark: 'export'
+                },
+                {
+                  title: '查看',
+                  authMark: 'view'
+                },
+                {
+                  title: '发布',
+                  authMark: 'publish'
+                },
+                {
+                  title: '配置',
+                  authMark: 'config'
+                },
+                {
+                  title: '管理',
+                  authMark: 'manage'
+                }
+              ]
+            }
+          },
+          {
+            path: RoutesAlias.PermissionPageVisibility,
+            name: 'PermissionPageVisibility',
+            component: RoutesAlias.PermissionPageVisibility,
+            meta: {
+              title: 'menus.examples.permission.pageVisibility',
+              keepAlive: true,
+              roles: ['R_SUPER'] // 仅超级管理员可访问
+            }
+          }
+        ]
+      },
+      {
         path: 'tabs',
         name: 'Tabs',
         component: RoutesAlias.ExamplesTabs,
@@ -317,8 +390,7 @@ export const asyncRoutes: AppRouteRecord[] = [
         component: RoutesAlias.ExamplesTables,
         meta: {
           title: 'menus.examples.tables',
-          keepAlive: true,
-          showBadge: true
+          keepAlive: true
         }
       },
       {
@@ -327,8 +399,7 @@ export const asyncRoutes: AppRouteRecord[] = [
         component: RoutesAlias.ExamplesSearchBar,
         meta: {
           title: 'menus.examples.searchBar',
-          keepAlive: true,
-          showTextBadge: 'New'
+          keepAlive: true
         }
       },
       {
@@ -337,11 +408,13 @@ export const asyncRoutes: AppRouteRecord[] = [
         component: RoutesAlias.ExamplesTablesTree,
         meta: {
           title: 'menus.examples.tablesTree',
-          keepAlive: true
+          keepAlive: true,
+          showBadge: true
         }
       }
     ]
   },
+
   {
     path: '/system',
     name: 'System',
@@ -349,6 +422,7 @@ export const asyncRoutes: AppRouteRecord[] = [
     meta: {
       title: 'menus.system.title',
       icon: '&#xe7b9;',
+      showBadge: true,
       roles: ['R_SUPER', 'R_ADMIN']
     },
     children: [
@@ -369,6 +443,7 @@ export const asyncRoutes: AppRouteRecord[] = [
         meta: {
           title: 'menus.system.role',
           keepAlive: true,
+          showBadge: true,
           roles: ['R_SUPER']
         }
       },
@@ -391,6 +466,7 @@ export const asyncRoutes: AppRouteRecord[] = [
           title: 'menus.system.menu',
           keepAlive: true,
           roles: ['R_SUPER'],
+          showBadge: true,
           authList: [
             {
               title: '新增',
@@ -527,7 +603,7 @@ export const asyncRoutes: AppRouteRecord[] = [
       },
 
       {
-        path: 'detail',
+        path: 'detail/:id',
         name: 'ArticleDetail',
         component: RoutesAlias.ArticleDetail,
         meta: {
@@ -556,7 +632,7 @@ export const asyncRoutes: AppRouteRecord[] = [
           authList: [
             {
               title: '发布',
-              authMark: 'article/article-publish/add'
+              authMark: 'add'
             }
           ]
         }
@@ -658,11 +734,23 @@ export const asyncRoutes: AppRouteRecord[] = [
   {
     name: 'Document',
     path: '',
-    component: RoutesAlias.ChangeLog,
+    component: '',
     meta: {
       title: 'menus.help.document',
       icon: '&#xe73e;',
       link: WEB_LINKS.DOCS,
+      isIframe: false,
+      keepAlive: false
+    }
+  },
+  {
+    name: 'LiteVersion',
+    path: '',
+    component: '',
+    meta: {
+      title: 'menus.help.liteVersion',
+      icon: '&#xe7ff;',
+      link: WEB_LINKS.LiteVersion,
       isIframe: false,
       keepAlive: false
     }

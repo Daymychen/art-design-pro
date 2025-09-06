@@ -1,5 +1,5 @@
 <template>
-  <el-row :gutter="20" :style="{ marginTop: showWorkTab ? '0' : '10px' }" class="card-list">
+  <el-row :gutter="20" class="card-list">
     <el-col v-for="(item, index) in dataList" :key="index" :sm="12" :md="6" :lg="6">
       <div class="card art-custom-card">
         <span class="des subtitle">{{ item.des }}</span>
@@ -21,10 +21,6 @@
 
 <script setup lang="ts">
   import { reactive } from 'vue'
-  import { storeToRefs } from 'pinia'
-  import { useSettingStore } from '@/store/modules/setting'
-
-  const { showWorkTab } = storeToRefs(useSettingStore())
 
   const dataList = reactive([
     {

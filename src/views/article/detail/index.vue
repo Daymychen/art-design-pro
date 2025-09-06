@@ -25,7 +25,7 @@
 
   onMounted(() => {
     useCommon().scrollToTop()
-    articleId.value = Number(router.query.id)
+    articleId.value = Number(router.params.id)
     getArticleDetail()
   })
 

@@ -18,10 +18,6 @@
 
 @media screen and (max-width: $device-ipad) {
   .layout-top-bar {
-    left: 0;
-    z-index: 100;
-    width: 100% !important;
-
     .refresh-btn,
     .screen-box {
       display: none !important;

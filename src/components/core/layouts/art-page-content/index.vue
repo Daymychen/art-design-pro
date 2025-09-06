@@ -1,10 +1,6 @@
 <!-- 布局内容 -->
 <template>
-  <div
-    class="layout-content abc"
-    :class="{ 'no-basic-layout': isFullPage }"
-    :style="containerStyle"
-  >
+  <div class="layout-content" :class="{ 'no-basic-layout': isFullPage }" :style="containerStyle">
     <!-- 节日滚动 -->
     <ArtFestivalTextScroll v-if="!isFullPage" />
 
@@ -44,6 +40,7 @@
   </div>
 </template>
 <script setup lang="ts">
+  import '@/assets/styles/transition.scss'
   import type { CSSProperties } from 'vue'
   import { useRoute } from 'vue-router'
   import { useCommon } from '@/composables/useCommon'

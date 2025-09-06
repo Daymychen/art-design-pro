@@ -76,24 +76,29 @@ export const getIframeRoutes = (): AppRouteRecord[] => {
  * @param route 路由对象
  * @param parentPath 父级路径
  */
+/**
+ * 校验路由的 component 配置是否有效
+ * @param route 当前路由对象
+ * @param parentPath 父级路径
+ */
 const validateComponent = (route: AppRouteRecord, parentPath: string): void => {
   const hasExternalLink = !!route.meta?.link?.trim()
   const hasChildren = Array.isArray(route.children) && route.children.length > 0
+  const routePath = route.path || '[未定义路径]'
 
-  // 检查一级父级菜单的 component 配置是否为空
-  if (parentPath === '' && !route.component) {
+  // 如果配置了 component，则无需校验
+  if (route.component) return
+
+  // 一级菜单：必须指定 Layout，除非是外链
+  if (parentPath === '' && !hasExternalLink) {
     console.error(
-      `[路由错误] 一级父级菜单的 component 不存在或为空，必须指向 ${RoutesAlias.Layout} `
+      `[路由错误] 一级菜单(${routePath}) 缺少 component，必须指向 ${RoutesAlias.Layout}`
     )
-    console.error(route)
+    return
   }
 
-  // 检查 component 是否为空字符串
-  if (!route.component) {
-    // 如果不是特殊情况，则给出警告
-    if (!hasExternalLink && !hasChildren) {
-      console.error(`[路由错误] component 不存在或为空`)
-      console.error(route)
-    }
+  // 非一级菜单：如果既不是外链，也没有子路由，则必须配置 component
+  if (!hasExternalLink && !hasChildren) {
+    console.error(`[路由错误] 路由(${routePath}) 缺少 component 配置`)
   }
 }

@@ -22,7 +22,10 @@ export function useCommon() {
 
   // 回到顶部
   const scrollToTop = () => {
-    window.scrollTo({ top: 0 })
+    const scrollContainer = document.getElementById('app-main')
+    if (scrollContainer) {
+      scrollContainer.scrollTop = 0
+    }
   }
 
   // 页面最小高度

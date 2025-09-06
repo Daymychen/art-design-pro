@@ -30,18 +30,6 @@ export const useWorktabStore = defineStore(
     )
 
     /**
-     * 查询对象比较
-     */
-    const areQueriesEqual = (
-      query1: LocationQueryRaw | undefined,
-      query2: LocationQueryRaw | undefined
-    ): boolean => {
-      if (!query1 && !query2) return true
-      if (!query1 || !query2) return false
-      return JSON.stringify(query1) === JSON.stringify(query2)
-    }
-
-    /**
      * 查找标签页索引
      */
     const findTabIndex = (path: string): number => {
@@ -95,7 +83,14 @@ export const useWorktabStore = defineStore(
         removeKeepAliveExclude(tab.name)
       }
 
-      const existingIndex = findTabIndex(tab.path)
+      // 先根据路由名称查找（应对动态路由参数导致的多开问题），找不到再根据路径查找
+      let existingIndex = -1
+      if (tab.name) {
+        existingIndex = opened.value.findIndex((t) => t.name === tab.name)
+      }
+      if (existingIndex === -1) {
+        existingIndex = findTabIndex(tab.path)
+      }
 
       if (existingIndex === -1) {
         // 新增标签页
@@ -110,15 +105,19 @@ export const useWorktabStore = defineStore(
 
         current.value = newTab
       } else {
-        // 更新现有标签页
+        // 更新现有标签页（当动态路由参数或查询变更时，复用同一标签）
         const existingTab = opened.value[existingIndex]
 
-        if (!areQueriesEqual(existingTab.query, tab.query)) {
-          opened.value[existingIndex] = {
-            ...existingTab,
-            query: tab.query,
-            title: tab.title || existingTab.title
-          }
+        opened.value[existingIndex] = {
+          ...existingTab,
+          path: tab.path,
+          params: tab.params,
+          query: tab.query,
+          title: tab.title || existingTab.title,
+          fixedTab: tab.fixedTab ?? existingTab.fixedTab,
+          keepAlive: tab.keepAlive ?? existingTab.keepAlive,
+          name: tab.name || existingTab.name,
+          icon: tab.icon || existingTab.icon
         }
 
         current.value = opened.value[existingIndex]
@@ -396,10 +395,28 @@ export const useWorktabStore = defineStore(
      */
     const validateWorktabs = (routerInstance: Router): void => {
       try {
-        const validPaths = new Set(routerInstance.getRoutes().map((route) => route.path))
+        // 动态路由校验：优先使用路由 name 判断有效性；否则用 resolve 匹配参数化路径
+        const isTabRouteValid = (tab: Partial<WorkTab>): boolean => {
+          try {
+            if (tab.name) {
+              const routes = routerInstance.getRoutes()
+              if (routes.some((r) => r.name === tab.name)) return true
+            }
+            if (tab.path) {
+              const resolved = routerInstance.resolve({
+                path: tab.path,
+                query: (tab.query as LocationQueryRaw) || undefined
+              })
+              return resolved.matched.length > 0
+            }
+            return false
+          } catch {
+            return false
+          }
+        }
 
         // 过滤出有效的标签页
-        const validTabs = opened.value.filter((tab) => validPaths.has(tab.path))
+        const validTabs = opened.value.filter((tab) => isTabRouteValid(tab))
 
         if (validTabs.length !== opened.value.length) {
           console.warn('发现无效的标签页路由，已自动清理')
@@ -407,8 +424,7 @@ export const useWorktabStore = defineStore(
         }
 
         // 验证当前激活标签的有效性
-        const isCurrentValid =
-          current.value.path && validTabs.some((tab) => tab.path === current.value.path)
+        const isCurrentValid = current.value && isTabRouteValid(current.value)
 
         if (!isCurrentValid && validTabs.length > 0) {
           console.warn('当前激活标签无效，已自动切换')

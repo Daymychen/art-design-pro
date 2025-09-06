@@ -1,9 +1,20 @@
 import { fourDotsSpinnerSvg } from '@/assets/svg/loading'
 import { ElLoading } from 'element-plus'
 
+/**
+ * 获取当前主题对应的loading背景色
+ * @returns 背景色字符串
+ */
+const getLoadingBackground = (): string => {
+  const isDark = document.documentElement.classList.contains('dark')
+  return isDark ? 'rgba(7, 7, 7, 0.85)' : '#fff'
+}
+
 const DEFAULT_LOADING_CONFIG = {
   lock: true,
-  background: 'rgba(0, 0, 0, 0)',
+  get background() {
+    return getLoadingBackground()
+  },
   svg: fourDotsSpinnerSvg,
   svgViewBox: '0 0 40 40',
   customClass: 'art-loading-fix'
@@ -22,7 +33,12 @@ export const loadingService = {
    */
   showLoading(): () => void {
     if (!loadingInstance) {
-      loadingInstance = ElLoading.service(DEFAULT_LOADING_CONFIG)
+      // 每次显示时获取最新的配置，确保背景色与当前主题同步
+      const config = {
+        ...DEFAULT_LOADING_CONFIG,
+        background: getLoadingBackground()
+      }
+      loadingInstance = ElLoading.service(config)
     }
     return () => this.hideLoading()
   },

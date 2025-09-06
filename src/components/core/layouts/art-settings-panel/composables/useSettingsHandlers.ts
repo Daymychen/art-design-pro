@@ -30,9 +30,9 @@ export function useSettingsHandlers() {
     setBodyClass: (className: string, add: boolean) => {
       const el = document.getElementsByTagName('body')[0]
       if (add) {
-        el.setAttribute('class', className)
+        el.classList.add(className)
       } else {
-        el.removeAttribute('class')
+        el.classList.remove(className)
       }
     }
   }

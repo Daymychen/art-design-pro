@@ -153,6 +153,7 @@
       <!-- fullClass 属性用于设置全屏区域，如果需要设置全屏区域，请使用此属性 -->
       <ArtTableHeader
         v-model:columns="columnChecks"
+        :loading="loading"
         @refresh="handleRefresh"
         layout="refresh,size,fullscreen,columns,settings"
         fullClass="art-table-card"
@@ -218,6 +219,7 @@
         :data="data"
         :columns="columns"
         :height="computedTableHeight"
+        empty-height="360px"
         @selection-change="handleSelectionChange"
         @row-click="handleRowClick"
         @header-click="handleHeaderClick"
@@ -400,15 +402,13 @@
   import { ElMessage, ElMessageBox } from 'element-plus'
   import { Plus, Delete, Edit, Search, Refresh, QuestionFilled } from '@element-plus/icons-vue'
   import { useTable, CacheInvalidationStrategy } from '@/composables/useTable'
-  import { UserService } from '@/api/usersApi'
+  import { fetchGetUserList } from '@/api/system-manage'
   import { ACCOUNT_TABLE_DATA } from '@/mock/temp/formData'
   import { getColumnKey } from '@/composables/useTableColumns'
 
   defineOptions({ name: 'AdvancedTableDemo' })
 
-  type UserListItem = Api.User.UserListItem
-
-  const { getUserList } = UserService
+  type UserListItem = Api.SystemManage.UserListItem
 
   // 选中的行
   const selectedRows = ref<UserListItem[]>([])
@@ -641,7 +641,7 @@
     reorderColumns, // 重新排序列
     getColumnConfig, // 获取列配置
     getAllColumns // 获取所有列配置
-  } = useTable<UserListItem>({
+  } = useTable({
     // 核心配置
     core: {
       apiFn: (params) => {
@@ -654,7 +654,7 @@
         // 记录缓存键（这里假设会被缓存）
         updateCacheKeys(requestKey)
 
-        return getUserList(params)
+        return fetchGetUserList(params)
       },
       apiParams: {
         current: 1,
@@ -740,7 +740,7 @@
 
     // 数据处理
     transform: {
-      dataTransformer: (records: any) => {
+      dataTransformer: (records) => {
         if (!Array.isArray(records)) return []
 
         return records.map((item: any, index: number) => ({
@@ -1152,6 +1152,8 @@
       case 'removeColumn': {
         // 删除列
         removeColumn?.('status')
+        // 支持数组模式
+        // removeColumn?.(['status', 'score'])
         break
       }
 

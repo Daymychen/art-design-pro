@@ -263,7 +263,13 @@
       "tablesBasic": "基础表格",
       "tables": "高级表格",
       "tablesTree": "左右布局表格",
-      "searchBar": "搜索表单"
+      "searchBar": "搜索表单",
+      "permission": {
+        "title": "前端权限",
+        "switchRole": "切换权限",
+        "buttonAuth": "按钮权限演示",
+        "pageVisibility": "超级管理员可见"
+      }
     },
     "system": {
       "title": "系统管理",
@@ -290,7 +296,8 @@
     },
     "help": {
       "title": "帮助中心",
-      "document": "官方文档"
+      "document": "官方文档",
+      "liteVersion": "精简版本"
     }
   },
   "table": {

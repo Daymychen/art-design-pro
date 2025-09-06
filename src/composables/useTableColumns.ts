@@ -41,9 +41,9 @@ export interface DynamicColumnConfig<T = any> {
   addColumn: (column: ColumnOption<T>, index?: number) => void
   /**
    * 删除列
-   * @param prop 列的唯一标识
+   * @param prop 列的唯一标识或标识数组
    */
-  removeColumn: (prop: string) => void
+  removeColumn: (prop: string | string[]) => void
   /**
    * 切换列显示状态
    * @param prop 列的唯一标识
@@ -141,8 +141,11 @@ export function useTableColumns<T = any>(
         return next
       }),
 
-    removeColumn: (prop: string) =>
-      setDynamicColumns((cols) => cols.filter((c) => getColumnKey(c) !== prop)),
+    removeColumn: (prop: string | string[]) =>
+      setDynamicColumns((cols) => {
+        const propsToRemove = Array.isArray(prop) ? prop : [prop]
+        return cols.filter((c) => !propsToRemove.includes(getColumnKey(c)))
+      }),
 
     updateColumn: (prop: string, updates: Partial<ColumnOption<T>>) =>
       setDynamicColumns((cols) =>

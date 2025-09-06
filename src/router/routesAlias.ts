@@ -54,5 +54,9 @@ export enum RoutesAlias {
   ExamplesTablesBasic = '/examples/tables/basic', // 基础表格示例
   ExamplesTables = '/examples/tables', // 高级表格示例
   ExamplesTablesTree = '/examples/tables/tree', // 左右布局表格示例
-  ExamplesSearchBar = '/examples/forms/search-bar' // 搜索表单示例
+  ExamplesSearchBar = '/examples/forms/search-bar', // 搜索表单示例
+  // 权限演示页面
+  PermissionSwitchRole = '/examples/permission/switch-role', // 切换权限页面
+  PermissionButtonAuth = '/examples/permission/button-auth', // 按钮权限演示页面
+  PermissionPageVisibility = '/examples/permission/page-visibility' // 页面可见性演示页面
 }

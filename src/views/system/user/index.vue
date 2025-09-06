@@ -9,9 +9,11 @@
 
     <ElCard class="art-table-card" shadow="never">
       <!-- 表格头部 -->
-      <ArtTableHeader v-model:columns="columnChecks" @refresh="refreshData">
+      <ArtTableHeader v-model:columns="columnChecks" :loading="loading" @refresh="refreshData">
         <template #left>
-          <ElButton @click="showDialog('add')" v-ripple>新增用户</ElButton>
+          <ElSpace wrap>
+            <ElButton @click="showDialog('add')" v-ripple>新增用户</ElButton>
+          </ElSpace>
         </template>
       </ArtTableHeader>
 
@@ -43,14 +45,13 @@
   import { ACCOUNT_TABLE_DATA } from '@/mock/temp/formData'
   import { ElMessageBox, ElMessage, ElTag, ElImage } from 'element-plus'
   import { useTable } from '@/composables/useTable'
-  import { UserService } from '@/api/usersApi'
+  import { fetchGetUserList } from '@/api/system-manage'
   import UserSearch from './modules/user-search.vue'
   import UserDialog from './modules/user-dialog.vue'
 
   defineOptions({ name: 'User' })
 
-  type UserListItem = Api.User.UserListItem
-  const { getUserList } = UserService
+  type UserListItem = Api.SystemManage.UserListItem
 
   // 弹窗相关
   const dialogType = ref<Form.DialogType>('add')
@@ -101,10 +102,10 @@
     handleSizeChange,
     handleCurrentChange,
     refreshData
-  } = useTable<UserListItem>({
+  } = useTable({
     // 核心配置
     core: {
-      apiFn: getUserList,
+      apiFn: fetchGetUserList,
       apiParams: {
         current: 1,
         size: 20,

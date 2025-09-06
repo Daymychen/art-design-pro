@@ -129,7 +129,7 @@
   import { useI18n } from 'vue-i18n'
   import { HttpError } from '@/utils/http/error'
   import { themeAnimation } from '@/utils/theme/animation'
-  import { UserService } from '@/api/usersApi'
+  import { fetchLogin, fetchGetUserInfo } from '@/api/auth'
 
   defineOptions({ name: 'Login' })
 
@@ -230,7 +230,7 @@
       // 登录请求
       const { username, password } = formData
 
-      const { token, refreshToken } = await UserService.login({
+      const { token, refreshToken } = await fetchLogin({
         userName: username,
         password
       })
@@ -242,7 +242,7 @@
 
       // 存储token和用户信息
       userStore.setToken(token, refreshToken)
-      const userInfo = await UserService.getUserInfo()
+      const userInfo = await fetchGetUserInfo()
       userStore.setUserInfo(userInfo)
       userStore.setLoginStatus(true)
 

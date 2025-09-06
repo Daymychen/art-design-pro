@@ -32,9 +32,9 @@
           height: 52px;
           overflow: hidden;
           cursor: pointer;
-          border: 2px solid var(--art-gray-100);
+          border: 2px solid var(--art-border-color);
           border-radius: 8px;
-          box-shadow: 0 2px 8px 0 rgb(0 0 0 / 20%);
+          box-shadow: 0 0 8px 0 rgb(0 0 0 / 10%);
           transition: box-shadow 0.1s;
 
           &.mt-16 {
@@ -70,6 +70,12 @@
   .setting-modal {
     .el-drawer {
       background: rgba($color: #000, $alpha: 50%) !important;
+
+      .setting-item {
+        .box {
+          border: 2px solid transparent;
+        }
+      }
     }
   }
 

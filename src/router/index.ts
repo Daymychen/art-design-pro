@@ -8,8 +8,7 @@ import { setupAfterEachGuard } from './guards/afterEach'
 // 创建路由实例
 export const router = createRouter({
   history: createWebHashHistory(),
-  routes: staticRoutes, // 静态路由
-  scrollBehavior: () => ({ left: 0, top: 0 }) // 滚动行为
+  routes: staticRoutes // 静态路由
 })
 
 // 初始化路由

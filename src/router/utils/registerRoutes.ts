@@ -190,7 +190,7 @@ function convertRouteComponent(
     depth === 0 && route.children?.length === 0 && component !== RoutesAlias.Layout
 
   if (route.meta.isIframe) {
-    handleIframeRoute(converted, route, iframeRoutes)
+    handleIframeRoute(converted, route, iframeRoutes, depth)
   } else if (isFirstLevel) {
     handleLayoutRoute(converted, route, component as string)
   } else {
@@ -206,18 +206,37 @@ function convertRouteComponent(
 
   return converted
 }
-
 /**
  * 处理 iframe 类型路由
  */
 function handleIframeRoute(
-  converted: ConvertedRoute,
-  route: AppRouteRecord,
-  iframeRoutes: AppRouteRecord[]
+  targetRoute: ConvertedRoute,
+  sourceRoute: AppRouteRecord,
+  iframeRoutes: AppRouteRecord[],
+  depth: number
 ): void {
-  converted.path = `/outside/iframe/${String(route.name)}`
-  converted.component = () => import('@/views/outside/Iframe.vue')
-  iframeRoutes.push(route)
+  const LAYOUT_VIEW = () => import('@/views/index/index.vue')
+  const IFRAME_VIEW = () => import('@/views/outside/Iframe.vue')
+
+  if (depth === 0) {
+    // 顶级 iframe：用 Layout 包裹
+    targetRoute.component = LAYOUT_VIEW
+    targetRoute.path = `/${(sourceRoute.path?.split('/')[1] || '').trim()}`
+    targetRoute.name = ''
+
+    targetRoute.children = [
+      {
+        ...sourceRoute,
+        component: IFRAME_VIEW
+      } as ConvertedRoute
+    ]
+  } else {
+    // 非顶级（嵌套）iframe：直接使用 Iframe.vue
+    targetRoute.component = IFRAME_VIEW
+  }
+
+  // 记录 iframe 路由，供 Iframe.vue 查找对应的外链
+  iframeRoutes.push(sourceRoute)
 }
 
 /**

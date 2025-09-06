@@ -42,12 +42,6 @@ export const useMenuStore = defineStore('menuStore', () => {
   }
 
   /**
-   * 设置菜单宽度
-   * @param width 菜单宽度值
-   */
-  const setMenuWidth = (width: string) => (menuWidth.value = width)
-
-  /**
    * 添加路由移除函数
    * @param fns 要添加的路由移除函数数组
    */
@@ -76,7 +70,6 @@ export const useMenuStore = defineStore('menuStore', () => {
     menuWidth,
     removeRouteFns,
     setMenuList,
-    setMenuWidth,
     getHomePath,
     setHomePath,
     addRemoveRouteFns,

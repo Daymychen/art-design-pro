@@ -6,7 +6,7 @@ import { useUserStore } from '@/store/modules/user'
 import { useMenuStore } from '@/store/modules/menu'
 import { setWorktab } from '@/utils/navigation'
 import { setPageTitle, setSystemTheme } from '../utils/utils'
-import { menuService } from '@/api/menuApi'
+import { fetchGetMenuList } from '@/api/system-manage'
 import { registerDynamicRoutes } from '../utils/registerRoutes'
 import { AppRouteRecord } from '@/types/router'
 import { RoutesAlias } from '../routesAlias'
@@ -15,7 +15,7 @@ import { asyncRoutes } from '../routes/asyncRoutes'
 import { loadingService } from '@/utils/ui'
 import { useCommon } from '@/composables/useCommon'
 import { useWorktabStore } from '@/store/modules/worktab'
-import { UserService } from '@/api/usersApi'
+import { fetchGetUserInfo } from '@/api/auth'
 
 // 前端权限模式 loading 关闭延时，提升用户体验
 const LOADING_DELAY = 100
@@ -159,7 +159,7 @@ async function handleDynamicRoutes(
     const isRefresh = from.path === '/'
     if (isRefresh || !userStore.info || Object.keys(userStore.info).length === 0) {
       try {
-        const data = await UserService.getUserInfo()
+        const data = await fetchGetUserInfo()
         userStore.setUserInfo(data)
       } catch (error) {
         console.error('获取用户信息失败', error)
@@ -225,7 +225,7 @@ async function processFrontendMenu(router: Router): Promise<void> {
  * 处理后端控制模式的菜单逻辑
  */
 async function processBackendMenu(router: Router): Promise<void> {
-  const { menuList } = await menuService.getMenuList()
+  const { menuList } = await fetchGetMenuList()
   await registerAndStoreMenu(router, menuList)
 }
 
@@ -250,11 +250,12 @@ function filterEmptyMenus(menuList: AppRouteRecord[]): AppRouteRecord[] {
       const isEmptyLayoutMenu =
         item.component === RoutesAlias.Layout && (!item.children || item.children.length === 0)
 
-      // 过滤掉组件为空字符串且没有子菜单的项
+      // 过滤掉组件为空字符串且没有子菜单的项，但保留有外链的菜单项
       const isEmptyComponentMenu =
         item.component === '' &&
         (!item.children || item.children.length === 0) &&
-        item.meta.isIframe !== true
+        item.meta.isIframe !== true &&
+        !item.meta.link
 
       return !(isEmptyLayoutMenu || isEmptyComponentMenu)
     })

@@ -130,6 +130,17 @@ export function showError(error: HttpError, showMessage: boolean = true): void {
 }
 
 /**
+ * 显示成功消息
+ * @param message 成功消息
+ * @param showMessage 是否显示消息
+ */
+export function showSuccess(message: string, showMessage: boolean = true): void {
+  if (showMessage) {
+    ElMessage.success(message)
+  }
+}
+
+/**
  * 判断是否为 HttpError 类型
  * @param error 错误对象
  * @returns 是否为 HttpError 类型

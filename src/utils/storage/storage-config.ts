@@ -12,6 +12,9 @@ export class StorageConfig {
   /** 版本键名 */
   static readonly VERSION_KEY = 'sys-version'
 
+  /** 主题键名（index.html中使用了，如果修改，需要同步修改） */
+  static readonly THEME_KEY = 'sys-theme'
+
   /** 跳过升级检查的版本 */
   static readonly SKIP_UPGRADE_VERSION = '1.0.0'
 

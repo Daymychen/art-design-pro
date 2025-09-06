@@ -40,51 +40,66 @@
   // 使用computed替代watch，提高性能
   const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
     const { matched } = route
+    const matchedLength = matched.length
 
     // 处理首页情况
-    if (!matched.length || isHomeRoute(matched[0])) {
+    if (!matchedLength || isHomeRoute(matched[0])) {
       return []
     }
 
     // 处理一级菜单和普通路由
-    const isFirstLevel = matched[0].meta?.isFirstLevel
-    const currentRoute = matched[matched.length - 1]
+    const firstRoute = matched[0]
+    const isFirstLevel = firstRoute.meta?.isFirstLevel
+    const lastIndex = matchedLength - 1
+    const currentRoute = matched[lastIndex]
+    const currentRouteMeta = currentRoute.meta
 
-    return isFirstLevel ? [createBreadcrumbItem(currentRoute)] : matched.map(createBreadcrumbItem)
+    let items = isFirstLevel
+      ? [createBreadcrumbItem(currentRoute)]
+      : matched.map(createBreadcrumbItem)
+
+    // 过滤包裹容器：如果有多个项目且第一个是容器路由（如 /outside），则移除它
+    if (items.length > 1 && isWrapperContainer(items[0])) {
+      items = items.slice(1)
+    }
+
+    // IFrame 页面特殊处理：如果过滤后只剩一个 iframe 页面，或者所有项都是包裹容器，则仅展示当前页
+    if (currentRouteMeta?.isIframe && (items.length === 1 || items.every(isWrapperContainer))) {
+      return [createBreadcrumbItem(currentRoute)]
+    }
+
+    return items
   })
 
+  // 辅助函数：判断是否为包裹容器路由
+  const isWrapperContainer = (item: BreadcrumbItem): boolean =>
+    item.path === '/outside' && !!item.meta?.isIframe
+
   // 辅助函数：创建面包屑项目
-  function createBreadcrumbItem(route: RouteLocationMatched): BreadcrumbItem {
-    return {
-      path: route.path,
-      meta: route.meta
-    }
-  }
+  const createBreadcrumbItem = (route: RouteLocationMatched): BreadcrumbItem => ({
+    path: route.path,
+    meta: route.meta
+  })
 
   // 辅助函数：判断是否为首页
-  function isHomeRoute(route: RouteLocationMatched): boolean {
-    return route.name === '/'
-  }
+  const isHomeRoute = (route: RouteLocationMatched): boolean => route.name === '/'
 
   // 辅助函数：判断是否为最后一项
-  function isLastItem(index: number): boolean {
-    return index === breadcrumbItems.value.length - 1
+  const isLastItem = (index: number): boolean => {
+    const itemsLength = breadcrumbItems.value.length
+    return index === itemsLength - 1
   }
 
   // 辅助函数：判断是否可点击
-  function isClickable(item: BreadcrumbItem, index: number): boolean {
-    return item.path !== '/outside' && !isLastItem(index)
-  }
+  const isClickable = (item: BreadcrumbItem, index: number): boolean =>
+    item.path !== '/outside' && !isLastItem(index)
 
   // 辅助函数：查找路由的第一个有效子路由
-  function findFirstValidChild(route: RouteRecordRaw) {
-    return route.children?.find((child) => !child.redirect && !child.meta?.isHide)
-  }
+  const findFirstValidChild = (route: RouteRecordRaw) =>
+    route.children?.find((child) => !child.redirect && !child.meta?.isHide)
 
   // 辅助函数：构建完整路径
-  function buildFullPath(childPath: string): string {
-    return `/${childPath}`.replace('//', '/')
-  }
+  const buildFullPath = (childPath: string): string => `/${childPath}`.replace('//', '/')
 
   // 处理面包屑点击事件
   async function handleBreadcrumbClick(item: BreadcrumbItem, index: number): Promise<void> {
@@ -94,7 +109,9 @@
     }
 
     try {
-      const targetRoute = router.getRoutes().find((route) => route.path === item.path)
+      // 缓存路由表查找结果
+      const routes = router.getRoutes()
+      const targetRoute = routes.find((route) => route.path === item.path)
 
       if (!targetRoute?.children?.length) {
         await router.push(item.path)
@@ -102,9 +119,11 @@
       }
 
       const firstValidChild = findFirstValidChild(targetRoute)
-      const navigationPath = firstValidChild ? buildFullPath(firstValidChild.path) : item.path
-
-      await router.push(navigationPath)
+      if (firstValidChild) {
+        await router.push(buildFullPath(firstValidChild.path))
+      } else {
+        await router.push(item.path)
+      }
     } catch (error) {
       console.error('导航失败:', error)
     }

@@ -10,8 +10,18 @@
               v-if="!item.auth || hasAuth(item.auth)"
               :disabled="item.disabled"
               @click="handleClick(item)"
+              class="custom-dropdown-item"
             >
-              {{ item.label }}
+              <div class="dropdown-item-content">
+                <ElIcon
+                  v-if="item.icon"
+                  :size="15"
+                  :style="{ color: item.iconColor || item.color, margin: 0 }"
+                >
+                  <component :is="item.icon" />
+                </ElIcon>
+                <span :style="{ color: item.color }">{{ item.label }}</span>
+              </div>
             </ElDropdownItem>
           </template>
         </ElDropdownMenu>
@@ -36,6 +46,12 @@
     disabled?: boolean
     /** 权限标识 */
     auth?: string
+    /** 图标组件 */
+    icon?: any
+    /** 文本颜色 */
+    color?: string
+    /** 图标颜色（优先级高于 color） */
+    iconColor?: string
   }
 
   interface Props {
@@ -64,3 +80,11 @@
     emit('click', item)
   }
 </script>
+
+<style lang="scss" scoped>
+  .dropdown-item-content {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+</style>

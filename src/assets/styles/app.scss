@@ -117,6 +117,10 @@
 
   .layout-sidebar {
     border-right: 1px solid var(--art-card-border) !important;
+
+    @media only screen and (max-width: $device-phone) {
+      border-right: 0 !important;
+    }
   }
 }
 
@@ -156,7 +160,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  margin-top: 15px;
+  margin-top: 12px;
   border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
 
   .el-card__body {

@@ -58,7 +58,7 @@
         .btn-next {
           background-color: transparent;
           border: 1px solid var(--art-gray-300);
-          transition: all 0.3s;
+          transition: border-color 0.15s;
 
           &:hover:not(.is-disabled) {
             color: var(--main-color);
@@ -71,11 +71,12 @@
           font-weight: 400 !important;
           background-color: transparent;
           border: 1px solid var(--art-gray-300);
-          transition: all 0.2s ease-out;
+          transition: border-color 0.15s;
 
-          &.is-active:not(.is-disabled) {
+          &.is-active {
             font-weight: 400;
-            color: var(--main-color);
+            color: #fff;
+            background-color: var(--main-color);
             border: 1px solid var(--main-color);
           }
 

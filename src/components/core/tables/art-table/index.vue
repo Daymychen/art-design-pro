@@ -75,7 +75,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, computed, nextTick } from 'vue'
+  import { ref, computed, nextTick, onMounted, onUnmounted, watch } from 'vue'
   import { ElPagination, ElTable, ElTableColumn, ElEmpty, type TableProps } from 'element-plus'
   import { storeToRefs } from 'pinia'
   import { ColumnOption } from '@/types'
@@ -90,6 +90,12 @@
   const paginationRef = ref<HTMLElement>()
   const tableStore = useTableStore()
   const { isBorder, isZebra, tableSize, isFullScreen, isHeaderBackground } = storeToRefs(tableStore)
+
+  // 动态计算表格头部高度
+  const tableHeaderHeight = ref(0)
+
+  // ResizeObserver 用于监听表格头部高度变化
+  let resizeObserver: ResizeObserver | null = null
 
   /** 分页配置接口 */
   interface PaginationConfig {
@@ -144,7 +150,7 @@
     stripe: undefined,
     border: undefined,
     size: undefined,
-    emptyHeight: '360px',
+    emptyHeight: '100%',
     emptyText: '暂无数据',
     showTableHeader: true
   })
@@ -197,9 +203,14 @@
   const containerHeight = computed(() => {
     let offset = 0
     if (!props.showTableHeader) {
-      offset = paginationHeight.value === 0 ? 0 : 45
+      // 没有表格头部时，只考虑分页器高度
+      offset = paginationHeight.value === 0 ? 0 : paginationHeight.value + PAGINATION_SPACING.value
     } else {
-      offset = paginationHeight.value === 0 ? 25 : 84
+      // 有表格头部时，动态计算表格头部高度 + 分页器高度 + 间距
+      const headerHeight = tableHeaderHeight.value || DEFAULT_TABLE_HEADER_HEIGHT
+      const paginationOffset =
+        paginationHeight.value === 0 ? 0 : paginationHeight.value + PAGINATION_SPACING.value
+      offset = headerHeight + paginationOffset + TABLE_HEADER_SPACING
     }
     return { height: offset === 0 ? '100%' : `calc(100% - ${offset}px)` }
   })
@@ -268,6 +279,82 @@
     (e: 'pagination:size-change', val: number): void
     (e: 'pagination:current-change', val: number): void
   }>()
+
+  // 表格头部默认高度常量
+  const DEFAULT_TABLE_HEADER_HEIGHT = 44
+  // 分页器与表格之间的间距常量（计算属性，响应 showTableHeader 变化）
+  const PAGINATION_SPACING = computed(() => (props.showTableHeader ? 6 : 15))
+  // 表格头部与表格之间的间距常量
+  const TABLE_HEADER_SPACING = 12
+
+  // 查找并监听表格头部高度变化
+  const observeTableHeader = () => {
+    try {
+      // 清理之前的监听
+      if (resizeObserver) {
+        resizeObserver.disconnect()
+        resizeObserver = null
+      }
+
+      // 如果不需要显示表格头部，直接返回
+      if (!props.showTableHeader) {
+        tableHeaderHeight.value = 0
+        return
+      }
+
+      // 查找表格头部元素
+      const tableHeader = document.getElementById('art-table-header') as HTMLElement
+      if (!tableHeader) {
+        // 如果找不到表格头部，使用默认高度
+        tableHeaderHeight.value = DEFAULT_TABLE_HEADER_HEIGHT
+        return
+      }
+
+      // 初始化高度
+      tableHeaderHeight.value = tableHeader.offsetHeight
+
+      // 创建 ResizeObserver 监听高度变化
+      resizeObserver = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          if (entry.target === tableHeader) {
+            tableHeaderHeight.value = entry.contentRect.height
+          }
+        }
+      })
+
+      resizeObserver.observe(tableHeader)
+    } catch (error) {
+      console.warn('监听表格头部高度失败:', error)
+      // 出错时使用默认高度
+      tableHeaderHeight.value = DEFAULT_TABLE_HEADER_HEIGHT
+    }
+  }
+
+  // 组件挂载后查找表格头部
+  onMounted(() => {
+    nextTick(() => {
+      observeTableHeader()
+    })
+  })
+
+  // 监听数据变化和表格头部显示状态变化，重新观察表格头部
+  watch(
+    [() => props.data, () => props.showTableHeader],
+    () => {
+      nextTick(() => {
+        observeTableHeader()
+      })
+    },
+    { flush: 'post' }
+  )
+
+  // 组件卸载时清理 ResizeObserver
+  onUnmounted(() => {
+    if (resizeObserver) {
+      resizeObserver.disconnect()
+      resizeObserver = null
+    }
+  })
 
   defineExpose({
     scrollToTop,

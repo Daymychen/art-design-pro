@@ -103,6 +103,7 @@ html.dark .el-card {
 
 .el-popover {
   min-width: 80px;
+  border-radius: var(--el-border-radius-small) !important;
 }
 
 .el-dialog {
@@ -234,7 +235,7 @@ html.dark .el-card {
   line-height: 26px !important;
   border: 0 !important;
   border-radius: 6px !important;
-  font-weight: bold;
+  font-weight: 500;
   transition: all 0s !important;
 }
 

@@ -5,6 +5,7 @@ import AppConfig from '@/config'
 import { SystemThemeEnum, MenuThemeEnum, MenuTypeEnum, ContainerWidthEnum } from '@/enums/appEnum'
 import { setElementThemeColor } from '@/utils/ui'
 import { useCeremony } from '@/composables/useCeremony'
+import { StorageConfig } from '@/utils'
 
 const { defaultMenuWidth, defaultCustomRadius, defaultTabStyle } = AppConfig.systemSetting
 
@@ -151,6 +152,7 @@ export const useSettingStore = defineStore(
     const setGlopTheme = (theme: SystemThemeEnum, themeMode: SystemThemeEnum) => {
       systemThemeType.value = theme
       systemThemeMode.value = themeMode
+      localStorage.setItem(StorageConfig.THEME_KEY, theme)
     }
 
     /**

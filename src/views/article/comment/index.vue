@@ -1,5 +1,5 @@
 <template>
-  <div class="page-content">
+  <div class="page-comment">
     <h1 class="title">留言墙</h1>
     <p class="desc">每一份留言都记录了您的想法，也为我们提供了珍贵的回忆</p>
 
@@ -123,7 +123,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .page-content {
+  .page-comment {
     background-color: transparent !important;
     box-shadow: none !important;
 
@@ -228,7 +228,7 @@
   }
 
   @media screen and (max-width: $device-notebook) {
-    .page-content {
+    .page-comment {
       .comment-box {
         width: calc(25% - 16px);
       }
@@ -236,7 +236,7 @@
   }
 
   @media screen and (max-width: $device-ipad-pro) {
-    .page-content {
+    .page-comment {
       .comment-box {
         width: calc(33.333% - 16px);
       }
@@ -244,7 +244,7 @@
   }
 
   @media screen and (max-width: $device-ipad) {
-    .page-content {
+    .page-comment {
       .comment-box {
         width: calc(50% - 16px);
       }
@@ -252,7 +252,7 @@
   }
 
   @media screen and (max-width: $device-phone) {
-    .page-content {
+    .page-comment {
       .comment-box {
         width: calc(100% - 16px);
       }
@@ -260,7 +260,7 @@
   }
 
   .dark {
-    .page-content {
+    .page-comment {
       .comment-box {
         color: #333 !important;
       }

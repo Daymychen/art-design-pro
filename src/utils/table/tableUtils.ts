@@ -1,9 +1,10 @@
 // 表格工具函数
 
 import type { ApiResponse } from './tableCache'
+import { tableConfig } from './tableConfig'
 
 // 请求参数基础接口，扩展分页参数
-export interface BaseRequestParams extends Api.Common.PaginatingParams {
+export interface BaseRequestParams extends Api.Common.PaginationParams {
   [key: string]: unknown
 }
 
@@ -42,7 +43,7 @@ function extractPagination(
   const result: Partial<Pick<ApiResponse<unknown>, 'current' | 'size'>> = {}
   const sources = [obj, data ?? {}]
 
-  const currentFields = ['current', 'page', 'pageNum']
+  const currentFields = tableConfig.currentFields
   for (const src of sources) {
     for (const field of currentFields) {
       if (field in src && typeof src[field] === 'number') {
@@ -53,7 +54,7 @@ function extractPagination(
     if (result.current !== undefined) break
   }
 
-  const sizeFields = ['size', 'pageSize', 'limit']
+  const sizeFields = tableConfig.sizeFields
   for (const src of sources) {
     for (const field of sizeFields) {
       if (field in src && typeof src[field] === 'number') {
@@ -72,6 +73,9 @@ function extractPagination(
  * 默认响应适配器 - 支持多种常见的API响应格式
  */
 export const defaultResponseAdapter = <T>(response: unknown): ApiResponse<T> => {
+  // 定义支持的字段
+  const recordFields = tableConfig.recordFields
+
   if (!response) {
     return { records: [], total: 0 }
   }
@@ -81,7 +85,12 @@ export const defaultResponseAdapter = <T>(response: unknown): ApiResponse<T> => 
   }
 
   if (typeof response !== 'object') {
-    console.warn('[tableUtils] 无法识别的响应格式:', response)
+    console.warn(
+      '[tableUtils] 无法识别的响应格式，支持的格式包括: 数组、包含' +
+        recordFields.join('/') +
+        '字段的对象、嵌套data对象。当前格式:',
+      response
+    )
     return { records: [], total: 0 }
   }
 
@@ -91,16 +100,15 @@ export const defaultResponseAdapter = <T>(response: unknown): ApiResponse<T> => 
   let pagination: Pick<ApiResponse<unknown>, 'current' | 'size'> | undefined
 
   // 处理标准格式或直接列表
-  const recordFields = ['records', 'data', 'list', 'items', 'result']
   records = extractRecords(res, recordFields)
-  total = extractTotal(res, records, ['total', 'count'])
+  total = extractTotal(res, records, tableConfig.totalFields)
   pagination = extractPagination(res)
 
   // 如果没有找到，检查嵌套data
   if (records.length === 0 && 'data' in res && typeof res.data === 'object') {
     const data = res.data as Record<string, unknown>
     records = extractRecords(data, ['list', 'records', 'items'])
-    total = extractTotal(data, records, ['total', 'count'])
+    total = extractTotal(data, records, tableConfig.totalFields)
     pagination = extractPagination(res, data)
 
     if (Array.isArray(res.data)) {
@@ -109,9 +117,10 @@ export const defaultResponseAdapter = <T>(response: unknown): ApiResponse<T> => 
     }
   }
 
-  // 如果还是没有找到，使用兜底
-  if (records.length === 0) {
-    console.warn('[tableUtils] 无法识别的响应格式:', response)
+  if (!recordFields.some((field) => field in res) && records.length === 0) {
+    console.warn('[tableUtils] 无法识别的响应格式')
+    console.warn('支持的字段包括: ' + recordFields.join('、'), response)
+    console.warn('扩展字段请到 utils/table/tableConfig 文件配置')
   }
 
   const result: ApiResponse<T> = { records, total }
@@ -133,17 +142,13 @@ export const extractTableData = <T>(response: ApiResponse<T>): T[] => {
  * 根据API响应更新分页信息
  */
 export const updatePaginationFromResponse = <T>(
-  pagination: Api.Common.PaginatingParams,
+  pagination: Api.Common.PaginationParams,
   response: ApiResponse<T>
 ): void => {
   pagination.total = response.total ?? pagination.total ?? 0
 
   if (response.current !== undefined) {
     pagination.current = response.current
-  }
-
-  if (response.size !== undefined) {
-    pagination.size = response.size
   }
 
   const maxPage = Math.max(1, Math.ceil(pagination.total / (pagination.size || 1)))

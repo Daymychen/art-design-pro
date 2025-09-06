@@ -5,7 +5,8 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 0 20px 10px;
+  padding: 0 20px;
+  margin-bottom: 12px;
   user-select: none;
 
   .scroll-view {
@@ -147,6 +148,17 @@
           .line {
             opacity: 0;
           }
+
+          // 暗黑模式下的激活标签样式
+          .dark & {
+            color: var(--art-gray-800) !important;
+            background-color: var(--art-gray-200) !important;
+
+            &::before,
+            &::after {
+              box-shadow: 0 0 0 30px var(--art-gray-200);
+            }
+          }
         }
 
         &.activ-tab + li .line {
@@ -205,7 +217,7 @@
 
 @media only screen and (max-width: $device-ipad) {
   .worktab {
-    padding: 6px 10px;
+    padding: 0 10px;
   }
 }
 

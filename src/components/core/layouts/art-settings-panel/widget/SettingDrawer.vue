@@ -3,7 +3,7 @@
     <el-drawer
       size="300px"
       v-model="visible"
-      :lock-scroll="false"
+      :lock-scroll="true"
       :with-header="false"
       :before-close="handleClose"
       :destroy-on-close="false"

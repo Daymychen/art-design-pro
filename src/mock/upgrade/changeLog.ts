@@ -9,6 +9,40 @@ interface UpgradeLog {
 
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
+    version: 'v2.5.6',
+    title: '优化用户体验、bug修复',
+    date: '待定',
+    detail: [
+      'useTable 类型推导优化，不需要手动传递类型即可实现类型提示',
+      'useTable removeColumn 支持多数据删除',
+      'useTable 自动识别响应体支持自定义配置 (src/utils/table/tableConfig.ts)',
+      'useTable 空数据浏览器警告优化',
+      'api 接口请求代码优化、api.d.ts 类型优化',
+      '优化 ArtTable 顶部按钮换行无法自适应问题（示例：功能示例 / 左右布局表格）',
+      'ArtTable 分页组件选中样式优化',
+      'ArtTable 空状态高度默认撑满',
+      'ArtButtonMore 组件新增图标、颜色配置',
+      'ArtTableHeader 新增搜索按钮，用于控制顶部搜索栏的显示与隐藏',
+      'ArtSearchBar label 为空时不占空间',
+      '表格操作栏拖拽禁止固定列拖拽',
+      '角色管理页面接口对接、代码优化',
+      '菜单管理页面优化',
+      '优化设置中心滚动页面跟随滚动问题',
+      '一级路由是外链时，component 校验逻辑优化',
+      '优化地图右下角拖动问题',
+      '优化暗黑模式刷新页面白色背景问题',
+      '优化左侧菜单折叠按钮间距问题',
+      '移动端显示左侧菜单 logo',
+      '网络请求新增 showSuccessMessage，用于配置是否显示成功消息',
+      '添加全局错误处理基础框架',
+      '修复批量删除整页数据没有返回上一页的bug',
+      '修复动态路由参数导致的问题',
+      '修复动态路由配置 一级路由是 iframe 页面时，全屏问题',
+      '新增权限演示示例',
+      '全局组件采用异步加载策略，提升首屏加载性能'
+    ]
+  },
+  {
     version: 'v2.5.5',
     title: 'bug修复、优化用户体验',
     date: '2025-08-17',

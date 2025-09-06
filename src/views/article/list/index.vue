@@ -183,12 +183,7 @@
   }
 
   const toDetail = (item: any) => {
-    router.push({
-      path: RoutesAlias.ArticleDetail,
-      query: {
-        id: item.id
-      }
-    })
+    router.push({ name: 'ArticleDetail', params: { id: item.id } })
   }
 
   const toEdit = (item: any) => {

@@ -20,45 +20,44 @@
 
 <script setup lang="ts">
   import { useTable } from '@/composables/useTable'
-  import { UserService } from '@/api/usersApi'
+  import { fetchGetUserList } from '@/api/system-manage'
 
   defineOptions({ name: 'UserMixedUsageExample' })
 
-  const { data, columns, loading, pagination, handleSizeChange, handleCurrentChange } =
-    useTable<Api.User.UserListItem>({
-      core: {
-        apiFn: UserService.getUserList,
-        apiParams: {
-          current: 1,
-          size: 20,
-          name: '',
-          phone: '',
-          address: undefined
+  const { data, columns, loading, pagination, handleSizeChange, handleCurrentChange } = useTable({
+    core: {
+      apiFn: fetchGetUserList,
+      apiParams: {
+        current: 1,
+        size: 20,
+        userName: '',
+        userPhone: '',
+        userEmail: ''
+      },
+      columnsFactory: () => [
+        {
+          prop: 'id',
+          label: 'ID'
         },
-        columnsFactory: () => [
-          {
-            prop: 'id',
-            label: 'ID'
-          },
-          {
-            prop: 'nickName',
-            label: '昵称'
-          },
-          {
-            prop: 'userGender',
-            label: '性别',
-            sortable: true,
-            formatter: (row) => row.userGender || '未知'
-          },
-          {
-            prop: 'userPhone',
-            label: '手机号'
-          },
-          {
-            prop: 'userEmail',
-            label: '邮箱'
-          }
-        ]
-      }
-    })
+        {
+          prop: 'nickName',
+          label: '昵称'
+        },
+        {
+          prop: 'userGender',
+          label: '性别',
+          sortable: true,
+          formatter: (row) => row.userGender || '未知'
+        },
+        {
+          prop: 'userPhone',
+          label: '手机号'
+        },
+        {
+          prop: 'userEmail',
+          label: '邮箱'
+        }
+      ]
+    }
+  })
 </script>
