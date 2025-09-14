@@ -10,8 +10,7 @@
 </template>
 
 <script setup lang="ts">
-  import * as echarts from 'echarts'
-  import type { EChartsOption } from 'echarts'
+  import { echarts, graphic, type EChartsOption } from '@/utils/echarts'
   import { getCssVar, hexToRgba } from '@/utils/ui'
   import { useChartOps, useChart } from '@/composables/useChart'
   import type { LineChartProps, LineDataItem } from '@/types/component/chart'
@@ -163,7 +162,7 @@
     if (areaConfig.custom) return areaConfig.custom
 
     return {
-      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+      color: new graphic.LinearGradient(0, 0, 0, 1, [
         {
           offset: 0,
           color: hexToRgba(color, areaConfig.startOpacity || 0.2).rgba
@@ -182,7 +181,7 @@
 
     const color = getColor(props.colors[0])
     return {
-      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+      color: new graphic.LinearGradient(0, 0, 0, 1, [
         {
           offset: 0,
           color: hexToRgba(color, 0.2).rgba

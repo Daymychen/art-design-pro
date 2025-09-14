@@ -15,7 +15,7 @@ const appConfig: SystemConfig = {
   },
   // Element Plus 主题
   elementPlusTheme: {
-    primary: '#5D87FF'
+    primary: '#B48DF3'
   },
   // 系统主题
   systemThemeStyles: {

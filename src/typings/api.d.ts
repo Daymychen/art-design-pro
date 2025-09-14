@@ -60,9 +60,6 @@ declare namespace Api {
 
   /** 系统管理类型 */
   namespace SystemManage {
-    /** 用户状态 */
-    type UserStatus = '1' | '2' | '3' | '4' // 1: 在线 2: 离线 3: 异常 4: 注销
-
     /** 用户列表 */
     type UserList = Api.Common.PaginatedResponse<UserListItem>
 
@@ -70,7 +67,7 @@ declare namespace Api {
     interface UserListItem {
       id: number
       avatar: string
-      status: UserStatus
+      status: string
       userName: string
       userGender: string
       nickName: string

@@ -17,7 +17,6 @@
       <div class="fast-enter-trigger">
         <div class="btn">
           <i class="iconfont-sys">&#xe81a;</i>
-          <span class="red-dot"></span>
         </div>
       </div>
     </template>

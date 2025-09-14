@@ -1,35 +1,4 @@
 // 全局样式
-
-@font-face {
-  font-family: 'DMSans';
-  font-style: normal;
-  font-weight: 400;
-  src: url(../fonts/DMSans.woff2) format('woff2');
-}
-
-@font-face {
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 400;
-  src: url(../fonts/Montserrat.woff2) format('woff2');
-}
-
-.btn-icon {
-  font-size: 10px;
-}
-
-.el-btn-red {
-  color: #fa6962 !important;
-
-  &:hover {
-    opacity: 0.9;
-  }
-
-  &:active {
-    opacity: 0.7;
-  }
-}
-
 // 顶部进度条颜色
 #nprogress .bar {
   z-index: 2400;

@@ -1,4 +1,4 @@
-import type { EChartsOption } from 'echarts'
+import type { EChartsOption } from '@/utils/echarts'
 
 // 图例位置类型
 export type LegendPosition = 'bottom' | 'top' | 'left' | 'right'

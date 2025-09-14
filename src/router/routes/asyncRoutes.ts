@@ -278,8 +278,7 @@ export const asyncRoutes: AppRouteRecord[] = [
           title: 'menus.widgets.elementUI',
           keepAlive: false,
           link: 'https://element-plus.org/zh-CN/component/overview.html',
-          isIframe: true,
-          showBadge: true
+          isIframe: true
         }
       }
     ]
@@ -299,8 +298,7 @@ export const asyncRoutes: AppRouteRecord[] = [
         name: 'Permission',
         component: '',
         meta: {
-          title: 'menus.examples.permission.title',
-          showBadge: true
+          title: 'menus.examples.permission.title'
         },
         children: [
           {
@@ -394,6 +392,16 @@ export const asyncRoutes: AppRouteRecord[] = [
         }
       },
       {
+        path: 'forms',
+        name: 'Forms',
+        component: RoutesAlias.ExamplesForms,
+        meta: {
+          title: 'menus.examples.forms',
+          keepAlive: true,
+          showTextBadge: 'new'
+        }
+      },
+      {
         path: 'form/search-bar',
         name: 'SearchBar',
         component: RoutesAlias.ExamplesSearchBar,
@@ -408,8 +416,7 @@ export const asyncRoutes: AppRouteRecord[] = [
         component: RoutesAlias.ExamplesTablesTree,
         meta: {
           title: 'menus.examples.tablesTree',
-          keepAlive: true,
-          showBadge: true
+          keepAlive: true
         }
       }
     ]
@@ -422,7 +429,6 @@ export const asyncRoutes: AppRouteRecord[] = [
     meta: {
       title: 'menus.system.title',
       icon: '&#xe7b9;',
-      showBadge: true,
       roles: ['R_SUPER', 'R_ADMIN']
     },
     children: [
@@ -443,7 +449,6 @@ export const asyncRoutes: AppRouteRecord[] = [
         meta: {
           title: 'menus.system.role',
           keepAlive: true,
-          showBadge: true,
           roles: ['R_SUPER']
         }
       },
@@ -466,7 +471,6 @@ export const asyncRoutes: AppRouteRecord[] = [
           title: 'menus.system.menu',
           keepAlive: true,
           roles: ['R_SUPER'],
-          showBadge: true,
           authList: [
             {
               title: '新增',

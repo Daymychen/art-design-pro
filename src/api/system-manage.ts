@@ -24,6 +24,7 @@ interface MenuResponse {
 }
 
 // 获取菜单数据（模拟）
+// 当前使用本地模拟路由数据，实际项目中请求接口返回 asyncRoutes.ts 文件的数据
 export async function fetchGetMenuList(delay = 300): Promise<MenuResponse> {
   try {
     // 模拟接口返回的菜单数据

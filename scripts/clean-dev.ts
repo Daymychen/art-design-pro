@@ -387,7 +387,8 @@ export const asyncRoutes: AppRouteRecord[] = [
         component: RoutesAlias.Exception403,
         meta: {
           title: 'menus.exception.forbidden',
-          keepAlive: true
+          keepAlive: true,
+          isFullPage: true
         }
       },
       {
@@ -396,7 +397,8 @@ export const asyncRoutes: AppRouteRecord[] = [
         component: RoutesAlias.Exception404,
         meta: {
           title: 'menus.exception.notFound',
-          keepAlive: true
+          keepAlive: true,
+          isFullPage: true
         }
       },
       {
@@ -405,7 +407,8 @@ export const asyncRoutes: AppRouteRecord[] = [
         component: RoutesAlias.Exception500,
         meta: {
           title: 'menus.exception.serverError',
-          keepAlive: true
+          keepAlive: true,
+          isFullPage: true
         }
       }
     ]

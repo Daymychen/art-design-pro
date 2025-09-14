@@ -1,5 +1,4 @@
-import * as echarts from 'echarts'
-import type { EChartsOption } from 'echarts'
+import { echarts, type EChartsOption } from '@/utils/echarts'
 import { storeToRefs } from 'pinia'
 import { useSettingStore } from '@/store/modules/setting'
 import { getCssVar } from '@/utils/ui'

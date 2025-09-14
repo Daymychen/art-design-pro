@@ -1,60 +1,61 @@
-<!-- 表格搜索栏示例 -->
+<!-- 表单示例 -->
 <template>
-  <div class="search-bar">
-    <h2 class="title">基础示例（默认收起）</h2>
-    <ArtSearchBar
-      ref="searchBarBasicRef"
-      v-model="formDataBasic"
-      :items="formItemsBasic"
-      @reset="handleBasicReset"
-      @search="handleBasicSearch"
-    >
-    </ArtSearchBar>
+  <div class="form-example">
+    <h2 class="title">表单组件示例</h2>
 
-    <h2 class="title m-15">完整示例（默认展开）</h2>
-    <ArtSearchBar
-      ref="searchBarAdvancedRef"
-      v-model="formDataAdvanced"
-      :items="formItemsAdvanced"
-      :rules="rulesAdvanced"
-      :defaultExpanded="true"
-      :labelWidth="labelWidthAdvanced"
-      :labelPosition="labelPositionAdvanced"
-      :span="spanAdvanced"
-      :gutter="gutterAdvanced"
-      @reset="handleAdvancedReset"
-      @search="handleAdvancedSearch"
-    >
-      <template #slots>
-        <ElInput v-model="formDataAdvanced.slots" placeholder="我是插槽渲染出来的组件" />
-      </template>
-    </ArtSearchBar>
+    <ElCard class="art-custom-card" shadow="never">
+      <ArtForm
+        ref="formRef"
+        v-model="formData"
+        :items="formItems"
+        :rules="formRules"
+        :defaultExpanded="true"
+        :labelWidth="labelWidth"
+        :labelPosition="labelPosition"
+        :span="span"
+        :gutter="gutter"
+        @reset="handleReset"
+        @submit="handleSubmit"
+      >
+        <template #slots>
+          <ElInput v-model="formData.slots" placeholder="我是插槽渲染出来的组件" />
+        </template>
+      </ArtForm>
+    </ElCard>
 
     <div class="code">
-      <pre><code>{{ formDataAdvanced }}</code></pre>
+      <pre><code>{{ formData }}</code></pre>
     </div>
 
     <div class="button-group">
       <ElButton @click="getLevelOptions"> 获取用户等级数据 </ElButton>
-      <ElButton @click="advancedValidate"> 校验表单 </ElButton>
-      <ElButton @click="advancedReset"> 重置 </ElButton>
+      <ElButton @click="validateForm"> 校验表单 </ElButton>
+      <ElButton @click="resetForm"> 重置 </ElButton>
       <ElButton v-if="showUserName" @click="updateUserName"> 修改用户名 </ElButton>
       <ElButton v-if="showUserName" @click="deleteUserName"> 删除用户名 </ElButton>
-      <ElButton @click="labelWidthAdvanced = 120"> 修改 label 宽度 </ElButton>
-      <ElButton @click="spanAdvanced = 8"> 设置一行显示的组件数 </ElButton>
-      <ElButton @click="gutterAdvanced = 50"> 修改 gutter </ElButton>
-      <ElButton @click="labelPositionAdvanced = 'left'"> label 左对齐 </ElButton>
-      <ElButton @click="labelPositionAdvanced = 'right'"> label 右对齐 </ElButton>
-      <ElButton @click="labelPositionAdvanced = 'top'"> label 顶部对齐 </ElButton>
+      <ElButton @click="labelWidth = 120"> 修改 label 宽度 </ElButton>
+      <ElButton @click="span = 8"> 设置一行显示的组件数 </ElButton>
+      <ElButton @click="gutter = 50"> 修改 gutter </ElButton>
+      <ElButton @click="labelPosition = 'left'"> label 左对齐 </ElButton>
+      <ElButton @click="labelPosition = 'right'"> label 右对齐 </ElButton>
+      <ElButton @click="labelPosition = 'top'"> label 顶部对齐 </ElButton>
     </div>
+
+    <!-- 图片预览对话框 -->
+    <ElDialog v-model="dialogVisible">
+      <img w-full :src="dialogImageUrl" alt="Preview Image" style="width: 100%; height: auto" />
+    </ElDialog>
   </div>
 </template>
 
 <script setup lang="ts">
   import ArtIconSelector from '@/components/core/base/art-icon-selector/index.vue'
+  import ArtWangEditor from '@/components/core/forms/art-wang-editor/index.vue'
   import { SearchFormItem } from '@/components/core/forms/art-search-bar/index.vue'
   import { IconTypeEnum } from '@/enums/appEnum'
-  import { ElMessage } from 'element-plus'
+  import { ElMessage, ElUpload, ElButton, ElIcon } from 'element-plus'
+  import type { UploadFile, UploadFiles, UploadUserFile } from 'element-plus'
+  import { Plus } from '@element-plus/icons-vue'
 
   interface Emits {
     (e: 'update:modelValue', value: Record<string, any>): void
@@ -64,22 +65,12 @@
   const emit = defineEmits<Emits>()
 
   // 表单数据双向绑定
-  const searchBarBasicRef = ref()
-  const searchBarAdvancedRef = ref()
+  const formRef = ref()
+  const dialogVisible = ref(false)
+  const dialogImageUrl = ref('')
 
-  // 基础示例表单数据
-  const formDataBasic = ref({
-    name: undefined,
-    phone: undefined,
-    level: undefined,
-    address: undefined,
-    date: undefined,
-    daterange: undefined,
-    status: undefined
-  })
-
-  // 完整示例表单数据
-  const formDataAdvanced = ref({
+  // 表单数据
+  const formData = ref({
     name: undefined,
     phone: undefined,
     level: undefined,
@@ -92,25 +83,29 @@
     userGender: undefined,
     iconSelector: undefined,
     status: undefined,
-    systemName: undefined
+    systemName: undefined,
+    fileUpload: [] as UploadUserFile[],
+    imageUpload: [] as UploadUserFile[],
+    multipleFiles: [] as UploadUserFile[],
+    richTextContent: ''
   })
 
-  // 完整示例校验规则
-  const rulesAdvanced = {
-    name: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-    phone: [
-      { required: true, message: '请输入手机号', trigger: 'blur' },
-      { min: 11, max: 11, message: '请输入11位手机号', trigger: 'blur' },
-      { pattern: /^1[3456789]\d{9}$/, message: '请输入正确的手机号', trigger: 'blur' }
-    ],
-    level: [{ required: true, message: '请选择等级', trigger: 'change' }],
-    address: [{ required: true, message: '请输入地址', trigger: 'blur' }]
+  // 表单校验规则
+  const formRules = {
+    name: [{ required: true, message: '请输入用户名', trigger: 'blur' }]
+    // phone: [
+    //   { required: true, message: '请输入手机号', trigger: 'blur' },
+    //   { min: 11, max: 11, message: '请输入11位手机号', trigger: 'blur' },
+    //   { pattern: /^1[3456789]\d{9}$/, message: '请输入正确的手机号', trigger: 'blur' }
+    // ],
+    // level: [{ required: true, message: '请选择等级', trigger: 'change' }],
+    // address: [{ required: true, message: '请输入地址', trigger: 'blur' }]
   }
 
-  const labelWidthAdvanced = ref(100)
-  const labelPositionAdvanced = ref<'right' | 'left' | 'top'>('right')
-  const spanAdvanced = ref(6)
-  const gutterAdvanced = ref(12)
+  const labelWidth = ref(100)
+  const labelPosition = ref<'right' | 'left' | 'top'>('right')
+  const span = ref(6)
+  const gutter = ref(12)
 
   // 动态 options
   const levelOptions = ref<{ label: string; value: string; disabled?: boolean }[]>([])
@@ -206,26 +201,6 @@
     })
   }
 
-  // 表单配置
-  const formItemsBasic = computed(() => [
-    baseFormItems.username,
-    {
-      label: '密码',
-      key: 'password',
-      type: 'input',
-      props: {
-        type: 'password',
-        placeholder: '请输入密码',
-        clearable: true
-      }
-    },
-    baseFormItems.phone,
-    baseFormItems.level,
-    baseFormItems.address,
-    baseFormItems.date,
-    baseFormItems.gender
-  ])
-
   const userItem = ref<SearchFormItem>({
     label: '用户名',
     key: 'name',
@@ -314,8 +289,8 @@
     { label: '选项5（disabled）', value: 'option5', disabled: true }
   ]
 
-  // 完整示例表单配置
-  const formItemsAdvanced = computed(() => [
+  // 表单配置
+  const formItems = computed(() => [
     ...(showUserName.value ? [userItem.value] : []),
     {
       ...baseFormItems.phone
@@ -544,7 +519,7 @@
       label: '根据条件隐藏',
       key: 'systemName',
       type: 'input',
-      hidden: formDataAdvanced.value.systemName === 'mac',
+      hidden: formData.value.systemName === 'mac',
       placeholder: '输入 mac 组件隐藏'
     },
     {
@@ -553,40 +528,138 @@
       type: 'input',
       span: 12,
       placeholder: '示例：栅格 span=12 占容器一半宽度，span=24 占满容器'
+    },
+    // 文件上传示例 - 使用 h 函数渲染
+    {
+      label: '文件上传',
+      key: 'multipleFiles',
+      span: 12,
+      type: () =>
+        h(
+          ElUpload,
+          {
+            multiple: true,
+            limit: 5,
+            action: '#',
+            autoUpload: false,
+            showFileList: true,
+            // accept: '.pdf,.doc,.docx,.txt',
+            beforeUpload: (file: File) => {
+              console.log('准备上传文件:', file.name)
+              return true
+            },
+            onChange: (file: UploadFile, fileList: UploadFiles) => {
+              console.log('多文件变化:', file, fileList)
+              formData.value.multipleFiles = fileList as UploadUserFile[]
+            },
+            onRemove: (file: UploadFile, fileList: UploadFiles) => {
+              console.log('删除文件:', file, fileList)
+              formData.value.multipleFiles = fileList as UploadUserFile[]
+            },
+            onExceed: (files: File[], fileList: UploadUserFile[]) => {
+              ElMessage.warning(
+                `最多只能上传 5 个文件，当前选择了 ${files.length + fileList.length} 个文件`
+              )
+            }
+          },
+          {
+            default: () => [h(ElButton, { type: 'primary' }, () => '点击上传')]
+          }
+        )
+    },
+    // 图片上传示例 - 使用 h 函数渲染
+    {
+      label: '图片上传',
+      key: 'imageUpload',
+      span: 12,
+      type: () =>
+        h(
+          ElUpload,
+          {
+            accept: '.jpg,.jpeg,.png,.gif,.webp',
+            limit: 4,
+            action: '#',
+            autoUpload: false,
+            showFileList: true,
+            listType: 'picture-card',
+            beforeUpload: (file: File) => {
+              const isImage = file.type.startsWith('image/')
+              const isLt2M = file.size / 1024 / 1024 < 2
+              if (!isImage) {
+                ElMessage.error('只能上传图片文件!')
+                return false
+              }
+              if (!isLt2M) {
+                ElMessage.error('图片大小不能超过 2MB!')
+                return false
+              }
+              return true
+            },
+            onChange: (file: UploadFile, fileList: UploadFiles) => {
+              console.log('图片变化:', file, fileList)
+              formData.value.imageUpload = fileList as UploadUserFile[]
+            },
+            onRemove: (file: UploadFile, fileList: UploadFiles) => {
+              console.log('删除图片:', file, fileList)
+              formData.value.imageUpload = fileList as UploadUserFile[]
+            },
+            onPreview: (file: UploadFile) => {
+              dialogImageUrl.value = file.url || ''
+              dialogVisible.value = true
+            }
+          },
+          {
+            default: () => [h(ElIcon, { type: 'primary' }, () => h(Plus))]
+          }
+        )
+    },
+    // 富文本编辑器示例 - 使用 h 函数渲染
+    {
+      label: '富文本编辑器',
+      key: 'richTextContent',
+      span: 24,
+      type: () =>
+        h(ArtWangEditor, {
+          modelValue: formData.value.richTextContent,
+          height: '500px',
+          placeholder: '请输入富文本内容...',
+          'onUpdate:modelValue': (value: string) => {
+            formData.value.richTextContent = value
+            console.log('富文本内容变化:', value)
+          },
+          toolbarKeys: [
+            'headerSelect',
+            'bold',
+            'italic',
+            'underline',
+            '|',
+            'bulletedList',
+            'numberedList',
+            '|',
+            'insertLink',
+            'insertImage',
+            '|',
+            'undo',
+            'redo'
+          ]
+        })
     }
   ])
 
-  // 统一的表单处理函数
-  const createFormHandler = (ref: any, formData: any, type: string) => ({
-    reset: () => {
-      console.log(`重置${type}表单`)
-      emit('reset')
-    },
-    search: async () => {
-      await ref.value.validate()
-      emit('search', formData.value)
-      console.log(`${type}表单数据`, formData.value)
-    },
-    validate: () => ref.value.validate()
-  })
+  // 表单处理函数
+  const handleReset = () => {
+    console.log('重置表单')
+    emit('reset')
+  }
 
-  // 基础表单处理器
-  const basicFormHandler = computed(() =>
-    createFormHandler(searchBarBasicRef, formDataBasic, '基础')
-  )
+  const handleSubmit = async () => {
+    await formRef.value.validate()
+    emit('search', formData.value)
+    console.log('表单数据', formData.value)
+  }
 
-  // 高级表单处理器
-  const advancedFormHandler = computed(() =>
-    createFormHandler(searchBarAdvancedRef, formDataAdvanced, '完整')
-  )
-
-  // 事件处理函数
-  const handleBasicReset = () => basicFormHandler.value.reset()
-  const handleBasicSearch = () => basicFormHandler.value.search()
-  const handleAdvancedReset = () => advancedFormHandler.value.reset()
-  const handleAdvancedSearch = () => advancedFormHandler.value.search()
-  const advancedValidate = () => advancedFormHandler.value.validate()
-  const advancedReset = () => searchBarAdvancedRef.value.reset()
+  const validateForm = () => formRef.value.validate()
+  const resetForm = () => formRef.value.reset()
 
   const updateUserName = () => {
     userItem.value = {
@@ -600,12 +673,12 @@
 
   const deleteUserName = () => {
     showUserName.value = false
-    formDataAdvanced.value.name = undefined
+    formData.value.name = undefined
   }
 </script>
 
 <style scoped lang="scss">
-  .search-bar {
+  .form-example {
     padding-bottom: 20px;
 
     .title {

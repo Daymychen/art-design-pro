@@ -263,6 +263,7 @@
       "tablesBasic": "基础表格",
       "tables": "高级表格",
       "tablesTree": "左右布局表格",
+      "forms": "表单",
       "searchBar": "搜索表单",
       "permission": {
         "title": "前端权限",
@@ -301,6 +302,10 @@
     }
   },
   "table": {
+    "form": {
+      "reset": "重置",
+      "submit": "提交"
+    },
     "searchBar": {
       "reset": "重置",
       "search": "查询",

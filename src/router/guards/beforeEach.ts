@@ -18,7 +18,7 @@ import { useWorktabStore } from '@/store/modules/worktab'
 import { fetchGetUserInfo } from '@/api/auth'
 
 // 前端权限模式 loading 关闭延时，提升用户体验
-const LOADING_DELAY = 100
+const LOADING_DELAY = 50
 
 // 是否已注册动态路由
 const isRouteRegistered = ref(false)

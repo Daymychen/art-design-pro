@@ -26,6 +26,12 @@
   }
 }
 
+// 优化 el-form-item 标签高度
+.el-form-item__label {
+  height: var(--el-component-custom-height) !important;
+  line-height: var(--el-component-custom-height) !important;
+}
+
 // 日期选择器
 .el-date-range-picker {
   --el-datepicker-inrange-bg-color: rgba(var(--art-gray-200-rgb), 0.6) !important;
@@ -157,7 +163,6 @@ html.dark .el-card {
     0 9px 28px 8px rgba(0, 0, 0, 0.05) !important;
 
   p {
-    color: #515a6e !important;
     font-size: 13px;
   }
 }

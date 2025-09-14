@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-  import type { EChartsOption } from 'echarts'
+  import type { EChartsOption } from '@/utils/echarts'
   import { getCssVar } from '@/utils/ui'
   import { useChartOps, useChartComponent } from '@/composables/useChart'
   import type { ScatterChartProps } from '@/types/component/chart'

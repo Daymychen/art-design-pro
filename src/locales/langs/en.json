@@ -271,6 +271,7 @@
       "tablesBasic": "Basic Tables",
       "tables": "Advanced Tables",
       "tablesTree": "Tree Table Layout",
+      "forms": "Forms",
       "searchBar": "Search Form",
       "permission": {
         "title": "Frontend Permission",
@@ -310,6 +311,10 @@
     }
   },
   "table": {
+    "form": {
+      "reset": "Reset",
+      "submit": "Submit"
+    },
     "searchBar": {
       "reset": "Reset",
       "search": "Search",

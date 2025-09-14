@@ -63,11 +63,11 @@
 
   // 搜索表单
   const searchForm = ref({
-    name: undefined,
-    level: 'vip',
-    date: undefined,
-    daterange: undefined,
-    status: undefined
+    userName: undefined,
+    userGender: undefined,
+    userPhone: undefined,
+    userEmail: undefined,
+    status: '1'
   })
 
   // 用户状态配置
@@ -112,7 +112,7 @@
         ...searchForm.value
       },
       // 排除 apiParams 中的属性
-      excludeParams: ['daterange'],
+      excludeParams: [],
       columnsFactory: () => [
         { type: 'selection' }, // 勾选列
         { type: 'index', width: 60, label: '序号' }, // 序号
@@ -202,12 +202,8 @@
    * @param params 参数
    */
   const handleSearch = (params: Record<string, any>) => {
-    // 处理日期区间参数，把 daterange 转换为 startTime 和 endTime
-    const { daterange, ...filtersParams } = params
-    const [startTime, endTime] = Array.isArray(daterange) ? daterange : [null, null]
-
     // 搜索参数赋值
-    Object.assign(searchParams, { ...filtersParams, startTime, endTime })
+    Object.assign(searchParams, params)
     getData()
   }
 

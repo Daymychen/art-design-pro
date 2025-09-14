@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-  import { EChartsOption } from 'echarts'
+  import { type EChartsOption } from '@/utils/echarts'
   import { useChartOps, useChartComponent } from '@/composables/useChart'
 
   defineOptions({ name: 'ArtDonutChartCard' })

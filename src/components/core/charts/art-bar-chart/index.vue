@@ -6,9 +6,8 @@
 <script setup lang="ts">
   import { useChartOps, useChartComponent } from '@/composables/useChart'
   import { getCssVar } from '@/utils/ui'
-  import type { EChartsOption } from 'echarts'
+  import { graphic, type EChartsOption } from '@/utils/echarts'
   import type { BarChartProps, BarDataItem } from '@/types/component/chart'
-  import * as echarts from 'echarts'
 
   defineOptions({ name: 'ArtBarChart' })
 
@@ -56,7 +55,7 @@
     }
 
     // 默认渐变色
-    return new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+    return new graphic.LinearGradient(0, 0, 0, 1, [
       {
         offset: 0,
         color: getCssVar('--el-color-primary-light-4')
@@ -70,7 +69,7 @@
 
   // 创建渐变色
   const createGradientColor = (color: string) => {
-    return new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+    return new graphic.LinearGradient(0, 0, 0, 1, [
       {
         offset: 0,
         color: color
@@ -92,7 +91,7 @@
   const createSeriesItem = (config: {
     name?: string
     data: number[]
-    color?: string | echarts.graphic.LinearGradient
+    color?: string | InstanceType<typeof graphic.LinearGradient>
     barWidth?: string | number
     stack?: string
   }) => {

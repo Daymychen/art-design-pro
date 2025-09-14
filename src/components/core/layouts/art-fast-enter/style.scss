@@ -24,16 +24,6 @@
       color: var(--main-color);
       background-color: rgba(var(--art-gray-200-rgb), 0.7);
     }
-
-    .red-dot {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      width: 6px;
-      height: 6px;
-      background-color: var(--el-color-danger);
-      border-radius: 50%;
-    }
   }
 }
 

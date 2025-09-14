@@ -28,10 +28,9 @@
 </template>
 
 <script setup lang="ts">
-  import * as echarts from 'echarts'
+  import { graphic, type EChartsOption } from '@/utils/echarts'
   import { getCssVar, hexToRgba } from '@/utils/ui'
   import { useChartOps, useChartComponent } from '@/composables/useChart'
-  import { EChartsOption } from 'echarts'
 
   defineOptions({ name: 'ArtLineChartCard' })
 
@@ -100,7 +99,7 @@
             },
             areaStyle: props.showAreaColor
               ? {
-                  color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  color: new graphic.LinearGradient(0, 0, 0, 1, [
                     {
                       offset: 0,
                       color: props.color

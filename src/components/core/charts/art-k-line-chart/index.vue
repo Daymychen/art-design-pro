@@ -4,7 +4,7 @@
 </template>
 
 <script setup lang="ts">
-  import type { EChartsOption } from 'echarts'
+  import type { EChartsOption } from '@/utils/echarts'
   import { useChartOps, useChartComponent } from '@/composables/useChart'
   import type { KLineChartProps } from '@/types/component/chart'
 
