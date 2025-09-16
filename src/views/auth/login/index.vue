@@ -4,12 +4,16 @@
 
     <div class="right-wrap">
       <div class="top-right-wrap">
-        <div class="btn theme-btn" @click="themeAnimation">
+        <div v-if="shouldShowThemeToggle" class="btn theme-btn" @click="themeAnimation">
           <i class="iconfont-sys">
             {{ isDark ? '&#xe6b5;' : '&#xe725;' }}
           </i>
         </div>
-        <ElDropdown @command="changeLanguage" popper-class="langDropDownStyle">
+        <ElDropdown
+          v-if="shouldShowLanguage"
+          @command="changeLanguage"
+          popper-class="langDropDownStyle"
+        >
           <div class="btn language-btn">
             <i class="iconfont-sys icon-language">&#xe611;</i>
           </div>
@@ -130,6 +134,7 @@
   import { HttpError } from '@/utils/http/error'
   import { themeAnimation } from '@/utils/theme/animation'
   import { fetchLogin, fetchGetUserInfo } from '@/api/auth'
+  import { useHeaderBar } from '@/composables/useHeaderBar'
 
   defineOptions({ name: 'Login' })
 
@@ -173,6 +178,7 @@
 
   const settingStore = useSettingStore()
   const { isDark } = storeToRefs(settingStore)
+  const { shouldShowThemeToggle, shouldShowLanguage } = useHeaderBar()
 
   const dragVerify = ref()
 
