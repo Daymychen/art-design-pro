@@ -6,7 +6,7 @@
 
 ## 官方网站
 
-[访问官方文档](https://www.lingchen.kim/art-design-pro/docs/)
+[访问官方文档](https://www.artd.pro/docs/)
 
 ## 演示图
 

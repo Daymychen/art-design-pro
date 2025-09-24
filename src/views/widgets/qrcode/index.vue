@@ -24,7 +24,7 @@
   import type { Level, RenderAs, ImageSettings } from 'qrcode.vue'
 
   // 二维码内容
-  const qrValue = ref('https://www.lingchen.kim')
+  const qrValue = ref('https://www.artd.pro')
   const isShowLogo = ref(false)
 
   // 预设二维码样式配置
@@ -72,7 +72,7 @@
         background: '#ffffff',
         foreground: '#000000',
         imageSettings: {
-          src: 'https://www.lingchen.kim/art-design-pro/assets/avatar-DJIoI-3F.png',
+          src: 'https://www.artd.pro/assets/draw1-Ce1WF34i.png',
           width: 40,
           height: 40,
           excavate: true
@@ -90,7 +90,7 @@
     background: '#ffffff',
     foreground: '#000000',
     imageSettings: {
-      src: 'https://www.lingchen.kim/art-design-pro/assets/avatar-DJIoI-3F.png',
+      src: 'https://www.artd.pro/assets/draw1-Ce1WF34i.png',
       width: 40,
       height: 40,
       excavate: true
@@ -103,7 +103,7 @@
       qrcodeConfig.imageSettings = {} as ImageSettings
     } else {
       qrcodeConfig.imageSettings = {
-        src: 'https://www.lingchen.kim/art-design-pro/assets/avatar-DJIoI-3F.png',
+        src: 'https://www.artd.pro/assets/draw1-Ce1WF34i.png',
         width: 40,
         height: 40,
         excavate: true

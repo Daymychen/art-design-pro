@@ -6,7 +6,7 @@ As a developer, I needed to build admin management systems for multiple projects
 
 ## Official Website
 
-[Visit the official documentation](https://www.lingchen.kim/art-design-pro/docs/en/)
+[Visit the official documentation](https://www.artd.pro/docs/en/)
 
 ## Demo Images
 

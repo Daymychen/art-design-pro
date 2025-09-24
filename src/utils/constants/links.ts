@@ -6,20 +6,20 @@ export const WEB_LINKS = {
   GITHUB: 'https://github.com/Daymychen/art-design-pro',
 
   // 个人博客
-  BLOG: 'https://www.lingchen.kim',
+  BLOG: 'https://www.artd.pro',
 
   // 项目文档
-  DOCS: 'https://www.lingchen.kim/art-design-pro/docs/zh/',
+  DOCS: 'https://www.artd.pro/docs/zh/',
 
   // 精简版本
-  LiteVersion: 'https://www.lingchen.kim/art-design-pro/docs/zh/guide/lite-version.html',
+  LiteVersion: 'https://www.artd.pro/docs/zh/guide/lite-version.html',
 
   // 项目社区
-  COMMUNITY: 'https://www.lingchen.kim/art-design-pro/docs/zh/community/communicate.html',
+  COMMUNITY: 'https://www.artd.pro/docs/zh/community/communicate.html',
 
   // 个人 Bilibili 主页
   BILIBILI: 'https://space.bilibili.com/425500936?spm_id_from=333.1007.0.0',
 
   // 项目介绍
-  INTRODUCE: 'https://www.lingchen.kim/art-design-pro/docs/zh/guide/introduce.html'
+  INTRODUCE: 'https://www.artd.pro/docs/zh/guide/introduce.html'
 }
