@@ -399,7 +399,6 @@
 
 <script setup lang="ts">
   import { ref, computed, watch, nextTick } from 'vue'
-  import { ElMessage, ElMessageBox } from 'element-plus'
   import { Plus, Delete, Edit, Search, Refresh, QuestionFilled } from '@element-plus/icons-vue'
   import { useTable, CacheInvalidationStrategy } from '@/composables/useTable'
   import { fetchGetUserList } from '@/api/system-manage'

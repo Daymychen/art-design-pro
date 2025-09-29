@@ -51,7 +51,6 @@
 
 <script setup lang="ts">
   import { useMenuStore } from '@/store/modules/menu'
-  import { ElMessage, ElMessageBox, ElTag } from 'element-plus'
   import { formatMenuTitle } from '@/router/utils/utils'
   import ArtButtonTable from '@/components/core/forms/art-button-table/index.vue'
   import { useTableColumns } from '@/composables/useTableColumns'

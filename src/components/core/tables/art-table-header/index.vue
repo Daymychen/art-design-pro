@@ -103,7 +103,6 @@
   import { storeToRefs } from 'pinia'
   import { TableSizeEnum } from '@/enums/formEnum'
   import { useTableStore } from '@/store/modules/table'
-  import { ElPopover, ElCheckbox, ElDropdown, ElDropdownMenu, ElDropdownItem } from 'element-plus'
   import { VueDraggable } from 'vue-draggable-plus'
   import { useI18n } from 'vue-i18n'
   import type { ColumnOption } from '@/types/component'
@@ -363,6 +362,17 @@
       &.disabled {
         color: var(--art-gray-300);
         cursor: default;
+      }
+    }
+
+    .el-checkbox {
+      flex: 1;
+      min-width: 0;
+
+      .el-checkbox__label {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
   }

@@ -44,7 +44,6 @@
 <script setup lang="ts">
   import { useTable } from '@/composables/useTable'
   import { fetchGetUserList } from '@/api/system-manage'
-  import { ElButton, ElCard } from 'element-plus'
   import UserSearch from '@/views/system/user/modules/user-search.vue'
 
   defineOptions({ name: 'TreeTable' })

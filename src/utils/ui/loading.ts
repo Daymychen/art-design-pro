@@ -1,5 +1,4 @@
 import { fourDotsSpinnerSvg } from '@/assets/svg/loading'
-import { ElLoading } from 'element-plus'
 
 /**
  * 获取当前主题对应的loading背景色

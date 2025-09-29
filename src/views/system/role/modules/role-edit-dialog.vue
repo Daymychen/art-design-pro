@@ -8,13 +8,18 @@
   >
     <ElForm ref="formRef" :model="form" :rules="rules" label-width="120px">
       <ElFormItem label="角色名称" prop="roleName">
-        <ElInput v-model="form.roleName" />
+        <ElInput v-model="form.roleName" placeholder="请输入角色名称" />
       </ElFormItem>
       <ElFormItem label="角色编码" prop="roleCode">
-        <ElInput v-model="form.roleCode" />
+        <ElInput v-model="form.roleCode" placeholder="请输入角色编码" />
       </ElFormItem>
       <ElFormItem label="描述" prop="description">
-        <ElInput v-model="form.description" type="textarea" :rows="3" />
+        <ElInput
+          v-model="form.description"
+          type="textarea"
+          :rows="3"
+          placeholder="请输入角色描述"
+        />
       </ElFormItem>
       <ElFormItem label="启用">
         <ElSwitch v-model="form.enabled" />
@@ -30,7 +35,6 @@
 </template>
 
 <script setup lang="ts">
-  import { ElMessage } from 'element-plus'
   import type { FormInstance, FormRules } from 'element-plus'
 
   type RoleListItem = Api.SystemManage.RoleListItem

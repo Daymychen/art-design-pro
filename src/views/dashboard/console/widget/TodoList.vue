@@ -18,8 +18,6 @@
 </template>
 
 <script setup lang="ts">
-  import { reactive } from 'vue-demi'
-
   const list = reactive([
     {
       username: '查看今天工作内容',

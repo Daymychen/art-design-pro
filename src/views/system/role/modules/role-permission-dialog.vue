@@ -44,7 +44,6 @@
 
 <script setup lang="ts">
   import { useMenuStore } from '@/store/modules/menu'
-  import { ElMessage } from 'element-plus'
   import { formatMenuTitle } from '@/router/utils/utils'
 
   type RoleListItem = Api.SystemManage.RoleListItem

@@ -43,7 +43,6 @@
 
 <script setup lang="ts">
   import { ref, computed, onMounted, nextTick } from 'vue'
-  import { ElScrollbar, ElIcon } from 'element-plus'
   import { ArrowLeft, ArrowRight } from '@element-plus/icons-vue'
   import { useThrottleFn } from '@vueuse/core'
   import { formatMenuTitle } from '@/router/utils/utils'

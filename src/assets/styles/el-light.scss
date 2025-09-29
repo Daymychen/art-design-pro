@@ -1,34 +1,34 @@
 // https://github.com/element-plus/element-plus/blob/dev/packages/theme-chalk/src/common/var.scss
 // 自定义Element 亮色主题
 
-@forward 'element-plus/theme-chalk/src/common/var.scss' //
-  with (
-  //
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
   $colors: (
-      //
-      'white': #ffffff,
-      'black': #000000,
-      'success': ('base': #13deb9),
-      'warning': ('base': #ffae1f),
-      'danger': ('base': #ff4d4f),
-      'error': ('base': #fa896b)
+    'white': #ffffff,
+    'black': #000000,
+    'success': (
+      'base': #13deb9
     ),
+    'warning': (
+      'base': #ffae1f
+    ),
+    'danger': (
+      'base': #ff4d4f
+    ),
+    'error': (
+      'base': #fa896b
+    )
+  ),
   $button: (
-    //
     'hover-bg-color': var(--el-color-primary-light-9),
     'hover-border-color': var(--el-color-primary),
     'border-color': var(--el-color-primary),
     'text-color': var(--el-color-primary)
   ),
   $messagebox: (
-    //
     'border-radius': '12px'
   ),
   $popover: (
-    //
     'padding': '14px',
     'border-radius': '10px'
   )
 );
-
-@use 'element-plus/theme-chalk/src/index.scss' as *;

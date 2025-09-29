@@ -236,12 +236,12 @@ html.dark .el-card {
 
 // 修改el-tag样式
 .el-tag {
-  height: 26px !important;
-  line-height: 26px !important;
-  border: 0 !important;
-  border-radius: 6px !important;
   font-weight: 500;
   transition: all 0s !important;
+
+  &.el-tag--default {
+    height: 26px !important;
+  }
 }
 
 .el-checkbox-group {

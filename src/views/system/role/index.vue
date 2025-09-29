@@ -55,7 +55,6 @@
 </template>
 
 <script setup lang="ts">
-  import { ElMessage, ElMessageBox, ElTag } from 'element-plus'
   import { ButtonMoreItem } from '@/components/core/forms/art-button-more/index.vue'
   import { Setting, Edit, Delete } from '@element-plus/icons-vue'
   import { useTable } from '@/composables/useTable'

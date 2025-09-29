@@ -13,10 +13,6 @@ const appConfig: SystemConfig = {
   systemInfo: {
     name: 'Art Design Pro' // 系统名称
   },
-  // Element Plus 主题
-  elementPlusTheme: {
-    primary: '#5D87FF'
-  },
   // 系统主题
   systemThemeStyles: {
     [SystemThemeEnum.LIGHT]: { className: '' },
@@ -101,7 +97,7 @@ const appConfig: SystemConfig = {
       img: configImages.menuStyles.light
     }
   ],
-
+  // 暗黑模式菜单样式
   darkMenuStyles: [
     {
       theme: MenuThemeEnum.DARK,

@@ -54,7 +54,6 @@
   import ArtIconSelector from '@/components/core/base/art-icon-selector/index.vue'
   import { SearchFormItem } from '@/components/core/forms/art-search-bar/index.vue'
   import { IconTypeEnum } from '@/enums/appEnum'
-  import { ElMessage } from 'element-plus'
 
   interface Emits {
     (e: 'update:modelValue', value: Record<string, any>): void

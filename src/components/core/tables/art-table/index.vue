@@ -76,7 +76,7 @@
 
 <script setup lang="ts">
   import { ref, computed, nextTick, onMounted, onUnmounted, watch } from 'vue'
-  import { ElPagination, ElTable, ElTableColumn, ElEmpty, type TableProps } from 'element-plus'
+  import type { ElTable, TableProps } from 'element-plus'
   import { storeToRefs } from 'pinia'
   import { ColumnOption } from '@/types'
   import { useTableStore } from '@/store/modules/table'

@@ -14,7 +14,6 @@
   import { useSettingStore } from '@/store/modules/setting'
   import chinaMapJson from '@/mock/json/chinaMap.json'
   import type { MapChartProps } from '@/types/component/chart'
-  import { ElEmpty } from 'element-plus'
 
   defineOptions({ name: 'ArtMapChart' })
 
@@ -90,7 +89,7 @@
         map: 'china',
         zoom: 1,
         show: true,
-        roam: 'scale',
+        roam: false,
         scaleLimit: {
           min: 0.8,
           max: 3

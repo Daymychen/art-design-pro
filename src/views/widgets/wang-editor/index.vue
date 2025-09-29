@@ -212,7 +212,6 @@ const handleGetContent = () =&gt; {
 
 <script setup lang="ts">
   import { ref } from 'vue'
-  import { ElMessage } from 'element-plus'
 
   // 编辑器引用
   const fullEditorRef = ref()

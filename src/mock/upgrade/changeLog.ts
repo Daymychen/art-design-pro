@@ -9,6 +9,23 @@ interface UpgradeLog {
 
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
+    version: 'v2.5.8',
+    title: '依赖升级、bug修复',
+    date: '2025-09-29',
+    detail: [
+      'vue、vite、element-plus 等核心库升级',
+      '修复富文本编辑器全屏顶栏层级问题',
+      '修复表格列排序组件文字益处问题',
+      '修复统计卡片条件判断',
+      '优化 el-tag 样式',
+      '优化顶部进度条颜色',
+      '优化自定义主题配置',
+      '优化 ElementPlus 自定义主题问题',
+      '修复根路径 / 与 HOME_PAGE_PATH 同为 / 时出现的无限重定向'
+    ],
+    remark: '由于项目依赖升级，node 版本需要升级到 v20.19.0 或以上'
+  },
+  {
     version: 'v2.5.7',
     title: '新增表单组件',
     date: '2025-09-14',

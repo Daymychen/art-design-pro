@@ -92,29 +92,7 @@
 <script setup lang="ts">
   import { useWindowSize } from '@vueuse/core'
   import { useI18n } from 'vue-i18n'
-  import {
-    ElForm,
-    ElFormItem,
-    ElInput,
-    ElInputNumber,
-    ElSelect,
-    ElOption,
-    ElDatePicker,
-    ElSwitch,
-    ElCheckbox,
-    ElCheckboxGroup,
-    ElRadioGroup,
-    ElButton,
-    FormInstance,
-    ElRate,
-    ElSlider,
-    ElRow,
-    ElCol,
-    ElCascader,
-    ElTimePicker,
-    ElTimeSelect,
-    ElTreeSelect
-  } from 'element-plus'
+  import type { FormInstance } from 'element-plus'
 
   defineOptions({ name: 'ArtForm' })
 

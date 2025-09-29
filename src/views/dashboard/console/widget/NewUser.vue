@@ -53,7 +53,6 @@
 </template>
 
 <script setup lang="ts">
-  import { onMounted, ref, reactive } from 'vue-demi'
   import avatar1 from '@/assets/img/avatar/avatar1.webp'
   import avatar2 from '@/assets/img/avatar/avatar2.webp'
   import avatar3 from '@/assets/img/avatar/avatar3.webp'

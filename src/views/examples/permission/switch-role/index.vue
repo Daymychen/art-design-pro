@@ -93,7 +93,6 @@
 
 <script setup lang="ts">
   import { computed, ref } from 'vue'
-  import { ElMessage } from 'element-plus'
   import { useUserStore } from '@/store/modules/user'
   import { useI18n } from 'vue-i18n'
   import { fetchLogin, fetchGetUserInfo } from '@/api/auth'

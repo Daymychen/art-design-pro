@@ -125,7 +125,6 @@
 <script setup lang="ts">
   import AppConfig from '@/config'
   import { RoutesAlias } from '@/router/routesAlias'
-  import { ElNotification, ElMessage } from 'element-plus'
   import { useUserStore } from '@/store/modules/user'
   import { getCssVar } from '@/utils/ui'
   import { languageOptions } from '@/locales'
@@ -135,12 +134,12 @@
   import { themeAnimation } from '@/utils/theme/animation'
   import { fetchLogin, fetchGetUserInfo } from '@/api/auth'
   import { useHeaderBar } from '@/composables/useHeaderBar'
+  import type { FormInstance, FormRules } from 'element-plus'
+  import { useSettingStore } from '@/store/modules/setting'
 
   defineOptions({ name: 'Login' })
 
   const { t } = useI18n()
-  import { useSettingStore } from '@/store/modules/setting'
-  import type { FormInstance, FormRules } from 'element-plus'
 
   type AccountKey = 'super' | 'admin' | 'user'
 

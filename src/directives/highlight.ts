@@ -1,6 +1,5 @@
 import { App, Directive } from 'vue'
 import hljs from 'highlight.js'
-import { ElMessage } from 'element-plus'
 
 /**
  * 高亮代码

@@ -34,7 +34,7 @@ export const useSettingStore = defineStore(
     /** 菜单主题类型 */
     const menuThemeType = ref(MenuThemeEnum.DESIGN)
     /** 系统主题颜色 */
-    const systemThemeColor = ref(AppConfig.elementPlusTheme.primary)
+    const systemThemeColor = ref(AppConfig.systemMainColor[0])
 
     // 界面显示设置
     /** 是否显示菜单按钮 */

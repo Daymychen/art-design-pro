@@ -149,7 +149,7 @@
 
 <script setup lang="ts">
   import { useUserStore } from '@/store/modules/user'
-  import { ElForm, FormInstance, FormRules } from 'element-plus'
+  import type { FormInstance, FormRules } from 'element-plus'
 
   defineOptions({ name: 'UserCenter' })
 

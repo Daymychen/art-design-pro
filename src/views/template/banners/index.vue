@@ -148,7 +148,6 @@
   import icon3 from '@imgs/3d/icon3.webp'
   import icon4 from '@imgs/3d/icon4.webp'
   import icon5 from '@imgs/3d/icon7.webp'
-  import { ElRow } from 'element-plus'
 
   const handleBannerClick = () => {
     console.log('banner clicked')

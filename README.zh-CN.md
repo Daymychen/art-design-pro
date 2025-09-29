@@ -1,65 +1,53 @@
-简体中文 | [English](./README.md)
+<img  src="https://www.qiniu.lingchen.kim/github-cover-light6.webp" />
 
-## 关于 Art Design Pro
+<br />
+<h1 align="center">Art Design Pro</h1>
+<p align="center">一款兼具设计美学与高效开发的后台系统模版，助你快速构建专业级应用</p>
+<div align="center">简体中文 | <a href="./README.md">English</a></div>
 
-作为一名开发者，我在多个项目中需要搭建后台管理系统，但发现传统系统在用户体验和视觉设计上不能完全满足需求。因此，我创建了 Art Design Pro，一款专注于用户体验和快速开发的开源后台管理解决方案。基于 ElementPlus 设计规范，进行了视觉上的精心优化，提供更美观、更实用的前端界面，帮助你轻松构建高质量的后台系统。
+<br />
+<div align="center">
 
-## 官方网站
+[![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE) [![github stars](https://img.shields.io/github/stars/Daymychen/art-design-pro)](https://github.com/Daymychen/art-design-pro/stargazers) [![github forks](https://img.shields.io/github/forks/Daymychen/art-design-pro)](https://github.com/Daymychen/art-design-pro/network/members)
 
-[访问官方文档](https://www.artd.pro/docs/)
+</div>
+<br />
 
-## 演示图
+## 这个项目有什么特别的呢？
 
-### 浅色主题
+**界面设计**：现代化 UI 设计，流畅交互，以用户体验与视觉设计为核心
 
-![浅色主题](https://www.qiniu.lingchen.kim/art_design_pro_readme_cover1.png)
+**极速上手**：简洁架构 + 完整文档，后端开发者也能轻松使用
 
-![浅色主题](https://www.qiniu.lingchen.kim/art_design_pro_readme_cover2.png)
+**丰富组件**：内置数据展示、表单等多种高质量组件，满足不同业务场景的需求
 
-### 暗黑主题
+**丝滑交互**：按钮点击、主题切换、页面过渡、图表动画，体验媲美商业产品
 
-![暗黑主题](https://www.qiniu.lingchen.kim/art_design_pro_readme_cover3.png)
+**高效开发**：内置 useTable、ArtForm 等实用 API，显著提升开发效率
 
-![暗黑主题](https://www.qiniu.lingchen.kim/art_design_pro_readme_cover4.png)
-
-## 特点
-
-- 使用最新技术栈
-- 内置常用业务组件模版
-- 提供多种主题模式，可以自定义主题
-- 漂亮的 UI设计、极致的用户体验和细节处理
-- 系统全面支持自定义设置，满足您的个性化需求
+**精简脚本**：内置一键清理脚本，可快速清理演示数据，立即得到可开发的基础项目
 
 ## 技术栈
 
-- 开发框架：Vue3、TypeScript、Vite、Element-Plus
-- 代码规范：Eslint、Prettier、Stylelint、Husky、Lint-staged、cz-git
+开发框架：Vue3、TypeScript、Vite、Element-Plus
 
-## 功能
+代码规范：Eslint、Prettier、Stylelint、Husky、Lint-staged、cz-git
 
-- 丰富主题切换
-- 全局搜索
-- 锁屏
-- 多标签页
-- 全局面包屑
-- 多语言
-- 图标库
-- 富文本编辑器
-- Echarts 图表
-- Utils工具包
-- 网络异常处理
-- 路由级别鉴权
-- 侧边栏菜单鉴权
-- 鉴权指令
-- 移动端适配
-- 优秀的持久化存储方案
-- 本地数据存储校验
-- 代码提交校验与格式化
-- 代码提交规范化
+## 预览
 
-## 兼容性
+<kbd><img src="https://www.qiniu.lingchen.kim/github-c1.webp" alt="浅色主题"/></kbd>
 
-- 支持 Chrome、Safari、Firefox 等现代主流浏览器。
+<kbd><img src="https://www.qiniu.lingchen.kim/github-c2.webp" alt="浅色主题"/></kbd>
+
+<kbd><img src="https://www.qiniu.lingchen.kim/github-c4.webp" alt="暗黑主题"/></kbd>
+
+<kbd><img src="https://www.qiniu.lingchen.kim/github-c5.webp" alt="暗黑主题"/></kbd>
+
+## 快速访问
+
+[演示地址](https://www.artd.pro)
+
+[官方文档](https://www.artd.pro/docs)
 
 ## 安装运行
 
@@ -77,12 +65,42 @@ pnpm dev
 pnpm build
 ```
 
+## 精简版本
+
+项目内置精简脚本，可快速移除项目中的演示数据，让开发者获得一个可快速开发的基础项目
+
+```bash
+pnpm clean:dev
+```
+
 ## 技术支持
 
 QQ群：<a href="https://qm.qq.com/cgi-bin/qm/qr?k=Gg6yzZLFaNgmRhK0T5Qcjf7-XcAFWWXm&jump_from=webapi&authKey=YpRKVJQyFKYbGTiKw0GJ/YQXnNF+GdXNZC5beQQqnGZTvuLlXoMO7nw5fNXvmVhA">821834289</a>（点击链接加入群聊）
 
+## 兼容性
+
+支持 Chrome、Safari、Firefox 等现代主流浏览器。
+
+## 贡献
+
+我们真诚欢迎并感谢每一位贡献者的支持！无论您有新想法、功能建议还是代码优化，都可以通过以下方式参与：
+
+提交 Pull Request：分享您的代码，助力项目成长。
+
+创建 GitHub Issue：提出 bug 反馈或新功能建议，让我们一起完善。
+
+您的每一点贡献都让这个项目更进一步！快来加入我们的开源社区吧！
+
+## 持续优化与扩展
+
+项目保持活跃更新，支持最新前端技术栈，兼容主流框架，确保长期稳定性和扩展性。社区驱动的反馈机制，让你的需求快速融入项目迭代。
+
 ## 捐赠
 
-如果我的项目对你有所帮助，欢迎捐赠支持！你的支持将用于购买 ChatGPT、Cursor 等工具，以提升开发效率，让项目变得更好。感谢你的鼓励与支持！
+如果你觉得这个项目为你减少了开发成本、化解了工作 / 生活里的难题，可以通过以下方式支持一下～
 
-![捐赠二维码](https://www.qiniu.lingchen.kim/%E7%BB%84%202%402x%202.png)
+<img src="https://www.qiniu.lingchen.kim/%E7%BB%84%202%402x%202.png" alt="捐赠二维码"/>
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=Daymychen/art-design-pro&type=Date)](https://www.star-history.com/#Daymychen/art-design-pro&Date)

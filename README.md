@@ -1,68 +1,61 @@
-English | [简体中文](./README.zh-CN.md)
+<img  src="https://www.qiniu.lingchen.kim/github-cover-light6.webp" />
 
-## About Art Design Pro
+<br />
+<h1 align="center">Art Design Pro</h1>
+<p align="center">A backend system template that combines design aesthetics with efficient development, helping you quickly build professional-grade applications</p>
+<div align="center">English | <a href="./README.zh-CN.md">简体中文</a></div>
 
-As a developer, I needed to build admin management systems for multiple projects but found that traditional systems couldn't fully meet the requirements for user experience and visual design. Therefore, I created Art Design Pro, an open-source admin management solution focused on user experience and rapid development. Based on the ElementPlus design specifications, it has been visually optimized to provide a more beautiful and practical front-end interface, helping you easily build high-quality admin systems.
+<br />
+<div align="center">
 
-## Official Website
+[![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE) [![github stars](https://img.shields.io/github/stars/Daymychen/art-design-pro)](https://github.com/Daymychen/art-design-pro/stargazers) [![github forks](https://img.shields.io/github/forks/Daymychen/art-design-pro)](https://github.com/Daymychen/art-design-pro/network/members)
 
-[Visit the official documentation](https://www.artd.pro/docs/en/)
+</div>
+<br />
 
-## Demo Images
+## What makes this project special?
 
-### Light Theme
+**Interface Design**: Modern UI design with smooth interactions, focusing on user experience and visual design
 
-![Light Theme](https://www.qiniu.lingchen.kim/art_design_pro_readme_cover1.png)
+**Quick Start**: Clean architecture + comprehensive documentation, easy for backend developers to use
 
-![Light Theme](https://www.qiniu.lingchen.kim/art_design_pro_readme_cover2.png)
+**Rich Components**: Built-in high-quality components for data display, forms, and more to meet different business scenarios
 
-### Dark Theme
+**Smooth Interactions**: Button clicks, theme switching, page transitions, chart animations - experience comparable to commercial products
 
-![Dark Theme](https://www.qiniu.lingchen.kim/art_design_pro_readme_cover3.png)
+**Efficient Development**: Built-in practical APIs like useTable and ArtForm to significantly improve development efficiency
 
-![Dark Theme](https://www.qiniu.lingchen.kim/art_design_pro_readme_cover4.png)
+**Clean Scripts**: Built-in one-click cleanup script to quickly remove demo data and get a ready-to-develop base project
 
-## Features
+## Tech Stack
 
-- Uses the latest technology stack
-- Built-in common business component templates
-- Provides multiple theme modes and customizable themes
-- Beautiful UI design, excellent user experience, and attention to detail
-- System fully supports customization, meeting your personalized needs
+Development Framework: Vue3, TypeScript, Vite, Element-Plus
 
-## Functionality
+Code Standards: Eslint, Prettier, Stylelint, Husky, Lint-staged, cz-git
 
-- Rich theme switching
-- Global search
-- Lock screen
-- Multi-tabs
-- Global breadcrumbs
-- Multi-language support
-- Icon library
-- Rich text editor
-- Echarts charts
-- Utils toolkit
-- Network exception handling
-- Route-level authentication
-- Sidebar menu authentication
-- Authentication directives
-- Mobile adaptation
-- Excellent persistent storage solution
-- Local data storage validation
-- Code commit validation and formatting
-- Code commit standardization
+## Preview
 
-## Compatibility
+<kbd><img src="https://www.qiniu.lingchen.kim/github-c1.webp" alt="Light Theme"/></kbd>
 
-- Supports modern mainstream browsers such as Chrome, Safari, Firefox, etc.
+<kbd><img src="https://www.qiniu.lingchen.kim/github-c2.webp" alt="Light Theme"/></kbd>
 
-## Installation and Running
+<kbd><img src="https://www.qiniu.lingchen.kim/github-c4.webp" alt="Dark Theme"/></kbd>
+
+<kbd><img src="https://www.qiniu.lingchen.kim/github-c5.webp" alt="Dark Theme"/></kbd>
+
+## Quick Access
+
+[Live Demo](https://www.artd.pro)
+
+[Official Documentation](https://www.artd.pro/docs)
+
+## Installation & Setup
 
 ```bash
 # Install dependencies
 pnpm install
 
-# If pnpm install fails, try using the following command to install dependencies
+# If pnpm install fails, try using the command below
 pnpm install --ignore-scripts
 
 # Start local development environment
@@ -72,12 +65,42 @@ pnpm dev
 pnpm build
 ```
 
+## Clean Version
+
+The project includes a cleanup script to quickly remove demo data and provide developers with a ready-to-develop base project
+
+```bash
+pnpm clean:dev
+```
+
 ## Technical Support
 
 QQ Group: <a href="https://qm.qq.com/cgi-bin/qm/qr?k=Gg6yzZLFaNgmRhK0T5Qcjf7-XcAFWWXm&jump_from=webapi&authKey=YpRKVJQyFKYbGTiKw0GJ/YQXnNF+GdXNZC5beQQqnGZTvuLlXoMO7nw5fNXvmVhA">821834289</a> (Click the link to join the group chat)
 
+## Browser Compatibility
+
+Supports modern mainstream browsers including Chrome, Safari, Firefox, and more.
+
+## Contributing
+
+We sincerely welcome and appreciate the support of every contributor! Whether you have new ideas, feature suggestions, or code optimizations, you can participate in the following ways:
+
+Submit Pull Requests: Share your code and help the project grow.
+
+Create GitHub Issues: Provide bug feedback or new feature suggestions to help us improve together.
+
+Every contribution you make takes this project one step further! Come join our open source community!
+
+## Continuous Optimization & Extension
+
+The project maintains active updates, supports the latest frontend tech stack, is compatible with mainstream frameworks, and ensures long-term stability and extensibility. Community-driven feedback mechanisms allow your needs to be quickly integrated into project iterations.
+
 ## Donation
 
-If my project has been helpful to you, donations are welcome! Your support will be used to purchase tools like ChatGPT, Cursor, etc., to improve development efficiency and make the project even better. Thank you for your encouragement and support!
+If you feel this project has reduced your development costs and solved problems in your work/life, you can support us through the following ways:
 
-![Donation QR Code](https://www.qiniu.lingchen.kim/%E7%BB%84%202%402x%202.png)
+<img src="https://www.qiniu.lingchen.kim/%E7%BB%84%202%402x%202.png" alt="Donation QR Code"/>
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=Daymychen/art-design-pro&type=Date)](https://www.star-history.com/#Daymychen/art-design-pro&Date)

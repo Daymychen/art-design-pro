@@ -289,8 +289,7 @@ export const asyncRoutes: AppRouteRecord[] = [
     component: RoutesAlias.Layout,
     meta: {
       title: 'menus.examples.title',
-      icon: '&#xe8d4;',
-      showBadge: true
+      icon: '&#xe8d4;'
     },
     children: [
       {
@@ -397,8 +396,7 @@ export const asyncRoutes: AppRouteRecord[] = [
         component: RoutesAlias.ExamplesForms,
         meta: {
           title: 'menus.examples.forms',
-          keepAlive: true,
-          showTextBadge: 'new'
+          keepAlive: true
         }
       },
       {

@@ -5,20 +5,18 @@ import { useSettingStore } from '@/store/modules/setting'
 import { useUserStore } from '@/store/modules/user'
 import { useMenuStore } from '@/store/modules/menu'
 import { setWorktab } from '@/utils/navigation'
-import { setPageTitle, setSystemTheme } from '../utils/utils'
+import { setPageTitle } from '../utils/utils'
 import { fetchGetMenuList } from '@/api/system-manage'
 import { registerDynamicRoutes } from '../utils/registerRoutes'
 import { AppRouteRecord } from '@/types/router'
 import { RoutesAlias } from '../routesAlias'
 import { menuDataToRouter } from '../utils/menuToRouter'
 import { asyncRoutes } from '../routes/asyncRoutes'
+import { staticRoutes } from '../routes/staticRoutes'
 import { loadingService } from '@/utils/ui'
 import { useCommon } from '@/composables/useCommon'
 import { useWorktabStore } from '@/store/modules/worktab'
 import { fetchGetUserInfo } from '@/api/auth'
-
-// 前端权限模式 loading 关闭延时，提升用户体验
-const LOADING_DELAY = 50
 
 // 是否已注册动态路由
 const isRouteRegistered = ref(false)
@@ -87,9 +85,6 @@ async function handleRouteGuard(
     NProgress.start()
   }
 
-  // 设置系统主题
-  setSystemTheme(to)
-
   // 处理登录状态
   if (!(await handleLoginStatus(to, userStore, next))) {
     return
@@ -132,12 +127,34 @@ async function handleLoginStatus(
   userStore: ReturnType<typeof useUserStore>,
   next: NavigationGuardNext
 ): Promise<boolean> {
-  if (!userStore.isLogin && to.path !== RoutesAlias.Login && !to.meta.noLogin) {
+  // 检查是否为静态路由
+  const isStaticRoute = isRouteInStaticRoutes(to.path)
+
+  if (!userStore.isLogin && to.path !== RoutesAlias.Login && !isStaticRoute) {
     userStore.logOut()
     next(RoutesAlias.Login)
     return false
   }
   return true
+}
+
+/**
+ * 检查路由是否为静态路由
+ */
+function isRouteInStaticRoutes(path: string): boolean {
+  const checkRoute = (routes: any[], targetPath: string): boolean => {
+    return routes.some((route) => {
+      if (route.path === targetPath) {
+        return true
+      }
+      if (route.children && route.children.length > 0) {
+        return checkRoute(route.children, targetPath)
+      }
+      return false
+    })
+  }
+
+  return checkRoute(staticRoutes, path)
 }
 
 /**
@@ -214,9 +231,6 @@ async function processFrontendMenu(router: Router): Promise<void> {
   }
 
   const filteredMenuList = filterMenuByRoles(menuList, roles)
-
-  // 添加延时以提升用户体验
-  await new Promise((resolve) => setTimeout(resolve, LOADING_DELAY))
 
   await registerAndStoreMenu(router, filteredMenuList)
 }
@@ -329,7 +343,7 @@ export function resetRouterState(): void {
 function handleRootPathRedirect(to: RouteLocationNormalized, next: NavigationGuardNext): boolean {
   if (to.path === '/') {
     const { homePath } = useCommon()
-    if (homePath.value) {
+    if (homePath.value && homePath.value !== '/') {
       next({ path: homePath.value, replace: true })
       return true
     }

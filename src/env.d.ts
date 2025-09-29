@@ -32,17 +32,3 @@ declare module 'qrcode.vue' {
 
 // 全局变量声明
 declare const __APP_VERSION__: string // 版本号
-
-// 环境变量提示
-// interface ImportMetaEnv {
-//   VITE_BASE_API_URL: string
-// }
-
-// 导入 vue-i18n 的类型定义
-// import 'vue-i18n';
-
-// declare module 'vue' {
-//   interface ComponentCustomProperties {
-//     $t: typeof import('vue-i18n').t;
-//   }
-// }

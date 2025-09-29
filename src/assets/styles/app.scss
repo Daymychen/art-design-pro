@@ -5,6 +5,17 @@
   background-color: color-mix(in srgb, var(--main-color) 65%, white);
 }
 
+#nprogress .peg {
+  box-shadow:
+    0 0 10px var(--main-color),
+    0 0 5px var(--main-color) !important;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: var(--main-color) !important;
+  border-left-color: var(--main-color) !important;
+}
+
 // 处理移动端组件兼容性
 @media screen and (max-width: $device-phone) {
   * {

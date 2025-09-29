@@ -20,8 +20,8 @@
         {{ title }}
       </p>
       <ArtCountTo
-        v-if="count"
         class="stats-card__count"
+        v-if="count !== undefined"
         :target="count"
         :duration="2000"
         :decimals="decimals"

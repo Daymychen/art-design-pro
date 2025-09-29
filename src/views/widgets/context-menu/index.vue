@@ -20,7 +20,6 @@
   import { ref, computed, nextTick } from 'vue'
   import ArtMenuRight from '@/components/core/others/art-menu-right/index.vue'
   import type { MenuItemType } from '@/components/core/others/art-menu-right/index.vue'
-  import { ElMessage } from 'element-plus'
 
   const menuRef = ref<InstanceType<typeof ArtMenuRight>>()
   const lastAction = ref('')

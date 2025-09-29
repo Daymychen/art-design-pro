@@ -355,7 +355,6 @@
 
 <script setup lang="ts">
   import { computed, ref } from 'vue'
-  import { ElMessage } from 'element-plus'
   import { ArrowDown, Lock } from '@element-plus/icons-vue'
   import { useAuth } from '@/composables/useAuth'
   import { useUserStore } from '@/store/modules/user'

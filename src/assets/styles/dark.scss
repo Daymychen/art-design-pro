@@ -8,11 +8,11 @@ $background-color: #070707;
 
 /* 覆盖element-plus默认深色背景色 */
 html.dark {
-  // ✅ element-plus
+  // element-plus
   // --el-bg-color: $background-color;
   --el-text-color-regular: $font-color;
 
-  // ✅ 富文本编辑器
+  // 富文本编辑器
   // 工具栏背景颜色
   --w-e-toolbar-bg-color: var(--art-main-bg-color);
   // 输入区域背景颜色
@@ -71,7 +71,7 @@ html.dark {
     }
   }
 
-  // ✅ 左侧菜单样式
+  // 左侧菜单样式
   .layout-sidebar,
   .dual-menu {
     .el-menu-dark {
@@ -125,7 +125,7 @@ html.dark {
     border-right-color: var(--dark-border-color) !important;
   }
 
-  // ✅ 富文本编辑器
+  // 富文本编辑器
   // 分隔线
   .w-e-bar-divider {
     background-color: var(--art-gray-300) !important;

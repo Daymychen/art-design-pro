@@ -7,10 +7,10 @@
   >
     <ElForm ref="formRef" :model="formData" :rules="rules" label-width="80px">
       <ElFormItem label="用户名" prop="username">
-        <ElInput v-model="formData.username" />
+        <ElInput v-model="formData.username" placeholder="请输入用户名" />
       </ElFormItem>
       <ElFormItem label="手机号" prop="phone">
-        <ElInput v-model="formData.phone" />
+        <ElInput v-model="formData.phone" placeholder="请输入手机号" />
       </ElFormItem>
       <ElFormItem label="性别" prop="gender">
         <ElSelect v-model="formData.gender">
@@ -41,7 +41,6 @@
 <script setup lang="ts">
   import { ROLE_LIST_DATA } from '@/mock/temp/formData'
   import type { FormInstance, FormRules } from 'element-plus'
-  import { ElMessage } from 'element-plus'
 
   interface Props {
     visible: boolean
