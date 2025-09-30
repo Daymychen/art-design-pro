@@ -73,6 +73,7 @@
   const formData = ref({
     name: undefined,
     phone: undefined,
+    email: undefined,
     level: undefined,
     address: undefined,
     slots: undefined,
@@ -90,16 +91,10 @@
     richTextContent: ''
   })
 
-  // 表单校验规则
+  // 表单校验规则（外部传入方式 - 向后兼容）
   const formRules = {
-    name: [{ required: true, message: '请输入用户名', trigger: 'blur' }]
-    // phone: [
-    //   { required: true, message: '请输入手机号', trigger: 'blur' },
-    //   { min: 11, max: 11, message: '请输入11位手机号', trigger: 'blur' },
-    //   { pattern: /^1[3456789]\d{9}$/, message: '请输入正确的手机号', trigger: 'blur' }
-    // ],
-    // level: [{ required: true, message: '请选择等级', trigger: 'change' }],
-    // address: [{ required: true, message: '请输入地址', trigger: 'blur' }]
+    // 注意：现在支持在 formItems 中直接配置验证规则
+    // 这里的外部 rules 优先级更高，可以覆盖 formItems 中的配置
   }
 
   const labelWidth = ref(100)
@@ -205,11 +200,18 @@
     label: '用户名',
     key: 'name',
     type: 'input',
+    // 🆕 快捷必填配置
+    required: true,
+    // 🆕 详细验证规则
+    rules: [
+      { min: 2, max: 20, message: '长度在2到20个字符之间', trigger: 'blur' },
+      { pattern: /^[a-zA-Z0-9_]+$/, message: '只能包含字母、数字和下划线', trigger: 'blur' }
+    ],
     props: {
       placeholder: '请输入用户名',
       clearable: true
     }
-  })
+  } as any)
 
   // 控制用户名字段是否显示
   const showUserName = ref(true)
@@ -293,7 +295,19 @@
   const formItems = computed(() => [
     ...(showUserName.value ? [userItem.value] : []),
     {
-      ...baseFormItems.phone
+      ...baseFormItems.phone,
+      // 🆕 使用内置验证器
+      required: true,
+      rules: [{ pattern: /^1[3456789]\d{9}$/, message: '请输入正确的手机号码', trigger: 'blur' }]
+    },
+    // 🆕 新增邮箱字段演示验证
+    {
+      label: '邮箱',
+      key: 'email',
+      type: 'input',
+      required: true,
+      rules: [{ type: 'email', message: '请输入正确的邮箱格式', trigger: 'blur' }],
+      placeholder: '请输入邮箱'
     },
     {
       ...baseFormItems.level,

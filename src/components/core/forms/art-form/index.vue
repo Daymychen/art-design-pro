@@ -7,6 +7,7 @@
       ref="formRef"
       :model="modelValue"
       :label-position="labelPosition"
+      :rules="generateFormRules"
       v-bind="{ ...$attrs }"
     >
       <ElRow class="form-row" :gutter="gutter">
@@ -93,81 +94,16 @@
   import { useWindowSize } from '@vueuse/core'
   import { useI18n } from 'vue-i18n'
   import type { FormInstance } from 'element-plus'
+  import type { FormRule, FormProps, FormItem } from '@/types/component/form'
+  import { componentMap } from './componentMap'
 
   defineOptions({ name: 'ArtForm' })
-
-  const componentMap = {
-    input: ElInput, // 输入框
-    number: ElInputNumber, // 数字输入框
-    select: ElSelect, // 选择器
-    switch: ElSwitch, // 开关
-    checkbox: ElCheckbox, // 复选框
-    checkboxgroup: ElCheckboxGroup, // 复选框组
-    radiogroup: ElRadioGroup, // 单选框组
-    date: ElDatePicker, // 日期选择器
-    daterange: ElDatePicker, // 日期范围选择器
-    datetime: ElDatePicker, // 日期时间选择器
-    datetimerange: ElDatePicker, // 日期时间范围选择器
-    rate: ElRate, // 评分
-    slider: ElSlider, // 滑块
-    cascader: ElCascader, // 级联选择器
-    timepicker: ElTimePicker, // 时间选择器
-    timeselect: ElTimeSelect, // 时间选择
-    treeselect: ElTreeSelect // 树选择器
-  }
 
   const { width } = useWindowSize()
   const { t } = useI18n()
   const isMobile = computed(() => width.value < 500)
 
   const formInstance = useTemplateRef<FormInstance>('formRef')
-
-  // 表单项配置
-  export interface FormItem {
-    /** 表单项的唯一标识 */
-    key: string
-    /** 表单项的标签文本 */
-    label: string
-    /** 表单项标签的宽度，会覆盖 Form 的 labelWidth */
-    labelWidth?: string | number
-    /** 表单项类型，可以是预定义的字符串类型或自定义组件 */
-    type: keyof typeof componentMap | string | (() => VNode)
-    /** 是否隐藏该表单项 */
-    hidden?: boolean
-    /** 表单项占据的列宽，基于24格栅格系统 */
-    span?: number
-    /** 选项数据，用于 select、checkbox-group、radio-group 等 */
-    options?: Record<string, any>
-    /** 传递给表单项组件的属性 */
-    props?: Record<string, any>
-    /** 表单项的插槽配置 */
-    slots?: Record<string, (() => any) | undefined>
-    /** 表单项的占位符文本 */
-    placeholder?: string
-    /** 更多属性配置请参考 ElementPlus 官方文档 */
-  }
-
-  // 表单配置
-  interface FormProps {
-    /** 表单数据 */
-    items: FormItem[]
-    /** 每列的宽度（基于 24 格布局） */
-    span?: number
-    /** 表单控件间隙 */
-    gutter?: number
-    /** 表单域标签的位置 */
-    labelPosition?: 'left' | 'right' | 'top'
-    /** 文字宽度 */
-    labelWidth?: string | number
-    /** 按钮靠左对齐限制（表单项小于等于该值时） */
-    buttonLeftLimit?: number
-    /** 是否显示重置按钮 */
-    showReset?: boolean
-    /** 是否显示提交按钮 */
-    showSubmit?: boolean
-    /** 是否禁用提交按钮 */
-    disabledSubmit?: boolean
-  }
 
   const props = withDefaults(defineProps<FormProps>(), {
     items: () => [],
@@ -178,7 +114,8 @@
     buttonLeftLimit: 2,
     showReset: true,
     showSubmit: true,
-    disabledSubmit: false
+    disabledSubmit: false,
+    rules: () => ({})
   })
 
   interface FormEmits {
@@ -190,7 +127,50 @@
 
   const modelValue = defineModel<Record<string, any>>({ default: {} })
 
-  const rootProps = ['label', 'labelWidth', 'key', 'type', 'hidden', 'span', 'slots']
+  const rootProps = [
+    'label',
+    'labelWidth',
+    'key',
+    'type',
+    'hidden',
+    'span',
+    'slots',
+    'rules',
+    'required',
+    'requiredMessage'
+  ]
+
+  // 生成内部验证规则
+  const generateFormRules = computed(() => {
+    const internalRules: Record<string, FormRule[]> = {}
+
+    // 处理每个表单项的规则
+    props.items.forEach((item) => {
+      const itemRules: FormRule[] = []
+
+      // 处理快捷必填配置
+      if (item.required) {
+        itemRules.push({
+          required: true,
+          message: item.requiredMessage || `请输入${item.label}`,
+          trigger: 'blur'
+        })
+      }
+
+      // 处理详细规则配置
+      if (item.rules && item.rules.length > 0) {
+        itemRules.push(...item.rules)
+      }
+
+      // 如果有规则，添加到内部规则对象中
+      if (itemRules.length > 0) {
+        internalRules[item.key] = itemRules
+      }
+    })
+
+    // 合并外部传入的 rules (外部优先级更高)
+    return { ...internalRules, ...props.rules }
+  })
 
   const getProps = (item: FormItem) => {
     if (item.props) return item.props
