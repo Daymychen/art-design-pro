@@ -11,7 +11,7 @@
       :items="formItems"
       :rules="rules"
       :span="24"
-      label-width="80px"
+      label-width="90px"
     />
 
     <template #footer>

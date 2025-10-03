@@ -37,7 +37,7 @@
   - [13. 条件验证（Dependencies）](#13-条件验证dependencies)
   - [14. 动态数组字段](#14-动态数组字段)
   - [15. 表单分组/折叠](#15-表单分组折叠)
-  - [16. 重置到初始值](#16-重置到初始值)
+  - [16. 表单重置与清空](#16-表单重置与清空)
 - [完整示例](#完整示例)
 - [API 参考](#api-参考)
   - [Props（组件属性）](#props组件属性)
@@ -343,13 +343,18 @@ ArtForm 通过 `ref` 暴露了多个实用方法。
     })
   }
 
-  // ===== 3. 重置表单 =====
+  // ===== 3. 重置/清空表单 =====
 
   const handleReset = () => {
     // 方式 1: resetFields() - 仅重置可见字段（Element Plus 原生方法）
     formRef.value?.resetFields()
 
-    // 方式 2: reset() - 重置所有字段（包括隐藏字段）
+    // 方式 2: clear() - 清空所有字段（包括隐藏字段，设置为 undefined）
+    formRef.value?.clear()
+
+    // 方式 3: reset() - 重置到初始状态
+    // - 如果提供了 initialValues prop，则恢复到该初始值
+    // - 否则调用 resetFields() 恢复到表单注册时的值
     formRef.value?.reset()
   }
 
@@ -388,14 +393,15 @@ ArtForm 通过 `ref` 暴露了多个实用方法。
 
 **方法对比：**
 
-| 方法              | 说明                     | 使用场景             |
-| ----------------- | ------------------------ | -------------------- |
-| `validate()`      | 验证整个表单             | 表单提交前           |
-| `validateField()` | 验证指定字段             | 表单项失焦、动态验证 |
-| `resetFields()`   | 重置表单（仅可见字段）   | 取消编辑、清空表单   |
-| `reset()`         | 重置表单（包括隐藏字段） | 完全重置表单状态     |
-| `clearValidate()` | 清空验证提示             | 重新编辑时清空错误   |
-| `scrollToField()` | 滚动到指定字段           | 长表单定位错误       |
+| 方法 | 说明 | 使用场景 |
+| --- | --- | --- |
+| `validate()` | 验证整个表单 | 表单提交前 |
+| `validateField()` | 验证指定字段 | 表单项失焦、动态验证 |
+| `resetFields()` | 重置表单（仅可见字段，EP 原生） | 取消编辑、清空表单 |
+| `clear()` | 清空表单（所有字段包括隐藏字段设为 undefined） | 完全清空表单数据 |
+| `reset()` | 重置表单（有 initialValues 则恢复，否则调用 resetFields()） | 取消编辑恢复原值 |
+| `clearValidate()` | 清空验证提示 | 重新编辑时清空错误 |
+| `scrollToField()` | 滚动到指定字段 | 长表单定位错误 |
 
 ---
 
@@ -1748,17 +1754,18 @@ interface FormItem {
 
 ---
 
-### 16. ✅ 重置到初始值
+### 16. ✅ 表单重置与清空
 
-新增 `resetToInitial()` 方法和 `initialValues` prop，支持重置到表单初始值。
+提供多种表单重置和清空方法，满足不同场景需求。
 
 **用法示例：**
 
 ```vue
 <template>
   <ArtForm ref="formRef" v-model="formData" :items="formItems" :initialValues="initialValues" />
+  <ElButton @click="handleClear">清空</ElButton>
   <ElButton @click="handleReset">重置</ElButton>
-  <ElButton @click="handleResetToInitial">重置到初始值</ElButton>
+  <ElButton @click="handleResetFields">重置字段</ElButton>
 </template>
 
 <script setup lang="ts">
@@ -1780,33 +1787,90 @@ interface FormItem {
     { key: 'status', label: '状态', type: 'switch' }
   ]
 
-  // 重置为空
-  const handleReset = () => {
-    formRef.value?.reset()
+  // 清空所有字段
+  const handleClear = () => {
+    formRef.value?.clear()
     // 结果：{ username: undefined, email: undefined, status: undefined }
   }
 
-  // 重置到初始值
-  const handleResetToInitial = () => {
-    formRef.value?.resetToInitial()
+  // 重置到初始值（因为提供了 initialValues）
+  const handleReset = () => {
+    formRef.value?.reset()
     // 结果：{ username: 'admin', email: 'admin@example.com', status: true }
+  }
+
+  // Element Plus 原生方法（仅重置可见字段）
+  const handleResetFields = () => {
+    formRef.value?.resetFields()
   }
 </script>
 ```
 
-**对比：**
+**示例 2：不使用 initialValues 的场景（如编辑对话框）**
 
-| 方法               | 说明                 | 结果           |
-| ------------------ | -------------------- | -------------- |
-| `reset()`          | 重置为 undefined     | 所有字段清空   |
-| `resetFields()`    | Element Plus 原生    | 仅重置可见字段 |
-| `resetToInitial()` | 重置到 initialValues | 恢复初始值     |
+```vue
+<template>
+  <!-- 不传 initialValues，直接用 v-model 绑定表单数据 -->
+  <ArtForm ref="formRef" v-model="formData" :items="formItems" />
+  <ElButton @click="handleClear">清空</ElButton>
+  <ElButton @click="handleReset">重置</ElButton>
+</template>
+
+<script setup lang="ts">
+  const formRef = ref()
+
+  // 当对话框打开时，formData 会被初始化
+  const formData = ref({
+    username: 'admin', // 来自后端的数据
+    email: 'admin@example.com',
+    status: true
+  })
+
+  const formItems = [
+    { key: 'username', label: '用户名', type: 'input' },
+    { key: 'email', label: '邮箱', type: 'input' },
+    { key: 'status', label: '状态', type: 'switch' }
+  ]
+
+  // 清空所有字段
+  const handleClear = () => {
+    formRef.value?.clear()
+    // 结果：{ username: undefined, email: undefined, status: undefined }
+  }
+
+  // 重置到表单注册时的值（打开对话框时的初始值）
+  const handleReset = () => {
+    formRef.value?.reset()
+    // 因为没有 initialValues，会调用 resetFields()
+    // 结果：恢复到表单首次绑定时的值 { username: 'admin', email: 'admin@example.com', status: true }
+  }
+</script>
+```
+
+**方法对比：**
+
+| 方法 | 说明 | 行为逻辑 | 使用场景 |
+| --- | --- | --- | --- |
+| `clear()` | 清空所有字段 | 所有字段（包括隐藏）设为 undefined | 完全清空表单 |
+| `reset()` | 重置表单到初始状态 | 如果传了 initialValues 就恢复到 initialValues，否则调用 resetFields() | 取消编辑恢复原值 |
+| `resetFields()` | Element Plus 原生重置方法 | 恢复到表单注册时的值（仅可见字段） | 常规表单重置 |
 
 **应用场景：**
 
-- 编辑表单取消时恢复原值
-- 表单错误后恢复
-- 重置到默认配置
+- **清空表单**：新增表单时清空所有数据（使用 `clear()`）
+- **取消编辑**：
+  - 方式 1：编辑表单取消时恢复原值（使用 `reset()` + `initialValues`）
+  - 方式 2：直接恢复到表单打开时的值（使用 `reset()`，不传 initialValues）
+- **表单错误后恢复**：提交失败后恢复初始状态（使用 `reset()`）
+- **重置到默认配置**：恢复系统默认设置（使用 `reset()` + `initialValues`）
+
+**注意事项：**
+
+1. **`clear()` 适用场景**：完全清空表单，所有字段变为 `undefined`
+2. **`reset()` 适用场景**：
+   - 如果传入了 `initialValues` prop，会恢复到该初始值对象
+   - 如果没有传入 `initialValues`，会调用 Element Plus 的 `resetFields()`，恢复到表单注册时的值
+3. **`resetFields()` 适用场景**：Element Plus 原生方法，仅重置可见字段，隐藏字段不会被重置
 
 ---
 
@@ -1978,9 +2042,9 @@ interface FormItem {
 | --- | --- | --- | --- |
 | `validate` | `(callback?: (valid, fields) => void)` | `Promise<boolean>` | 验证整个表单 |
 | `validateField` | `(props: string \| string[], callback?)` | `Promise<void>` | 验证指定字段 |
-| `resetFields` | `()` | `void` | 重置表单（仅可见字段） |
-| `reset` | `()` | `void` | 重置表单（包括隐藏字段） |
-| `resetToInitial` | `()` | `void` | 重置到初始值（initialValues） |
+| `resetFields` | `()` | `void` | 重置表单字段（Element Plus 原生方法，仅可见字段） |
+| `clear` | `()` | `void` | 清空表单（所有字段包括隐藏字段设为 undefined） |
+| `reset` | `()` | `void` | 重置表单（有 initialValues 则恢复到该值，否则调用 resetFields()） |
 | `clearValidate` | `(props?: string \| string[])` | `void` | 清空验证提示 |
 | `scrollToField` | `(prop: string)` | `void` | 滚动到指定字段 |
 | `getSubmitData` | `()` | `Record<string, any>` | 获取提交数据（应用 transform.output） |
@@ -2368,7 +2432,7 @@ export interface FormProps {
 | **新增** | 条件验证         | dependencies 依赖字段验证     | ⭐⭐⭐⭐⭐ |
 | **新增** | 动态数组         | type='array' 动态增删         | ⭐⭐⭐⭐⭐ |
 | **新增** | 表单分组         | type='group' 折叠/展开        | ⭐⭐⭐⭐⭐ |
-| **新增** | 重置到初始值     | resetToInitial 方法           | ⭐⭐⭐⭐   |
+| **新增** | 表单重置/清空    | clear/reset 方法              | ⭐⭐⭐⭐   |
 
 ---
 
@@ -2376,8 +2440,8 @@ export interface FormProps {
 
 | 场景          | 推荐功能组合                               |
 | ------------- | ------------------------------------------ |
-| 🆕 新增表单   | defaultValue + required + validate         |
-| ✏️ 编辑表单   | v-model + readonly（部分字段） + validate  |
+| 🆕 新增表单   | defaultValue + required + validate + clear |
+| ✏️ 编辑表单   | v-model + readonly（部分字段） + reset     |
 | 👁️ 详情展示   | readonly（全局） + disabled                |
 | 🔗 表单联动   | computed items + onChange + hidden（函数） |
 | 📱 响应式表单 | span + 响应式断点 + gutter                 |
@@ -2389,6 +2453,7 @@ export interface FormProps {
 | 🔄 数据转换   | transform + getSubmitData                  |
 | 🔗 关联验证   | dependencies + rules                       |
 | 💡 用户提示   | tooltip + help + placeholder               |
+| ↩️ 取消编辑   | initialValues + reset（恢复原值）          |
 
 ---
 
@@ -2433,6 +2498,7 @@ ArtForm 是一个**功能完善、易于使用、高度灵活**的表单组件�
 - ✅ **数据转换**：输入输出自动转换
 - ✅ **关联验证**：依赖字段联动验证
 - ✅ **用户提示**：tooltip 和 help 文本
+- ✅ **智能重置**：清空（clear）和重置（reset）双重保障
 
 **v2.0 新增 6 大核心功能，让表单开发更简单、更强大！** 🎉
 
