@@ -100,6 +100,7 @@
 </template>
 
 <script setup lang="ts">
+  import type { Component, VNode } from 'vue'
   import type { FormItem } from '@/types/component/form'
   import { QuestionFilled, Delete, Plus } from '@element-plus/icons-vue'
 
@@ -111,9 +112,9 @@
     labelWidth?: string | number
     disabled?: boolean
     readonly?: boolean
-    getComponent: (item: Partial<FormItem>) => any
+    getComponent: (item: Partial<FormItem>) => Component | string
     getProps: (item: FormItem) => Record<string, any>
-    getSlots: (item: FormItem) => Record<string, () => any>
+    getSlots: (item: FormItem) => Record<string, () => VNode>
   }
 
   // props 和 emit 在模板中通过 $emit 等语法使用

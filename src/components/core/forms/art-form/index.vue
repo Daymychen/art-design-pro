@@ -8,7 +8,7 @@
       :model="modelValue"
       :label-position="labelPosition"
       :rules="generateFormRules"
-      v-bind="{ ...$attrs }"
+      v-bind="$attrs"
     >
       <!-- 处理表单分组和普通表单项 -->
       <template v-for="item in visibleFormItems" :key="item.key">
@@ -88,10 +88,12 @@
 </template>
 
 <script setup lang="ts">
+  import type { Component, VNode } from 'vue'
   import type { FormInstance } from 'element-plus'
   import type { FormRule, FormProps, FormItem } from '@/types/component/form'
   import { componentMap } from './componentMap'
   import FormItemRender from './FormItemRender.vue'
+  import { useFormGroup } from './useFormGroup'
 
   defineOptions({ name: 'ArtForm' })
 
@@ -110,8 +112,17 @@
 
   const modelValue = defineModel<Record<string, any>>({ default: {} })
 
-  // 分组展开状态
-  const groupExpandedKeys = ref<string[]>([])
+  /**
+   * 分组展开状态管理（使用 composable）
+   * 职责：
+   * - 管理分组的展开/折叠状态
+   * - 响应表单项配置的动态变化
+   * - 智能同步：新增分组自动展开，删除分组自动清理
+   * - 保留用户手动操作的状态
+   */
+  const { groupExpandedKeys } = useFormGroup({
+    items: () => props.items
+  })
 
   const rootProps = [
     'label',
@@ -135,19 +146,29 @@
     'groupConfig'
   ]
 
+  /**
+   * 遍历所有表单项（包括分组内的子项）
+   * 抽取公共遍历逻辑，避免重复代码
+   * @param items - 表单项数组
+   * @param callback - 对每个非分组表单项执行的回调
+   */
+  const traverseFormItems = (items: FormItem[], callback: (item: FormItem) => void) => {
+    items.forEach((item) => {
+      if (item.type === 'group' && item.groupConfig?.children) {
+        // 递归处理分组内的子项
+        traverseFormItems(item.groupConfig.children, callback)
+      } else if (item.type !== 'group') {
+        // 处理普通表单项
+        callback(item)
+      }
+    })
+  }
+
   // 生成内部验证规则
   const generateFormRules = computed(() => {
     const internalRules: Record<string, FormRule[]> = {}
 
-    // 处理每个表单项的规则（包括分组内的子项）
-    const processItem = (item: FormItem) => {
-      // 跳过分组类型本身
-      if (item.type === 'group') {
-        // 处理分组内的子项
-        item.groupConfig?.children.forEach(processItem)
-        return
-      }
-
+    traverseFormItems(props.items, (item) => {
       const itemRules: FormRule[] = []
 
       // 处理快捷必填配置
@@ -168,15 +189,13 @@
       if (itemRules.length > 0) {
         internalRules[item.key] = itemRules
       }
-    }
-
-    props.items.forEach(processItem)
+    })
 
     // 合并外部传入的 rules (外部优先级更高)
     return { ...internalRules, ...props.rules }
   })
 
-  const getProps = (item: FormItem) => {
+  const getProps = (item: FormItem): Record<string, any> => {
     // 基础属性处理
     let itemProps: Record<string, any>
     if (item.props) {
@@ -209,9 +228,9 @@
   }
 
   // 获取插槽
-  const getSlots = (item: FormItem) => {
+  const getSlots = (item: FormItem): Record<string, () => VNode> => {
     if (!item.slots) return {}
-    const validSlots: Record<string, () => any> = {}
+    const validSlots: Record<string, () => VNode> = {}
     Object.entries(item.slots).forEach(([key, slotFn]) => {
       if (slotFn) {
         validSlots[key] = slotFn
@@ -221,9 +240,9 @@
   }
 
   // 组件
-  const getComponent = (item: Partial<FormItem>) => {
+  const getComponent = (item: Partial<FormItem>): Component | string => {
     const { type } = item
-    if (type && typeof type !== 'string') return type
+    if (type && typeof type !== 'string') return type as Component
     // type不传递、默认使用 input
     return componentMap[type as keyof typeof componentMap] || componentMap['input']
   }
@@ -247,20 +266,11 @@
 
   /**
    * 初始化默认值
+   * 注意：分组展开状态由 watch 自动处理，这里不再重复处理
    */
   const initDefaultValues = () => {
-    const processItem = (item: FormItem) => {
-      // 处理分组
-      if (item.type === 'group') {
-        // 初始化分组展开状态
-        if (item.groupConfig?.defaultExpanded !== false) {
-          groupExpandedKeys.value.push(item.key)
-        }
-        // 处理分组内的子项
-        item.groupConfig?.children.forEach(processItem)
-        return
-      }
-
+    // 处理所有表单项的默认值
+    traverseFormItems(props.items, (item) => {
       // 应用默认值
       if (item.defaultValue !== undefined && modelValue.value[item.key] === undefined) {
         modelValue.value[item.key] = item.defaultValue
@@ -279,12 +289,10 @@
         const min = item.arrayConfig?.min || 1
         modelValue.value[item.key] = Array(min).fill('')
       }
-    }
-
-    props.items.forEach(processItem)
+    })
   }
 
-  // 组件挂载时初始化默认值和分组状态
+  // 组件挂载时初始化默认值
   onMounted(() => {
     initDefaultValues()
   })
@@ -294,21 +302,14 @@
    * 当指定字段变化时，重新验证所有依赖该字段的表单项
    */
   const handleFieldDependencies = (changedKey: string) => {
-    // 收集所有表单项（包括分组内的）
-    const allItems: FormItem[] = []
-    const collectItems = (items: FormItem[]) => {
-      items.forEach((item) => {
-        if (item.type === 'group' && item.groupConfig?.children) {
-          collectItems(item.groupConfig.children)
-        } else if (item.type !== 'group') {
-          allItems.push(item)
-        }
-      })
-    }
-    collectItems(props.items)
+    // 收集所有依赖当前字段的表单项
+    const dependentItems: FormItem[] = []
 
-    // 找出依赖当前变化字段的表单项
-    const dependentItems = allItems.filter((item) => item.dependencies?.includes(changedKey))
+    traverseFormItems(props.items, (item) => {
+      if (item.dependencies?.includes(changedKey)) {
+        dependentItems.push(item)
+      }
+    })
 
     // 异步验证依赖项
     if (dependentItems.length > 0) {
@@ -331,16 +332,9 @@
 
     // 收集所有表单项的 key（包括分组内的）
     const allKeys: string[] = []
-    const collectKeys = (items: FormItem[]) => {
-      items.forEach((item) => {
-        if (item.type === 'group' && item.groupConfig?.children) {
-          collectKeys(item.groupConfig.children)
-        } else if (item.type !== 'group') {
-          allKeys.push(item.key)
-        }
-      })
-    }
-    collectKeys(props.items)
+    traverseFormItems(props.items, (item) => {
+      allKeys.push(item.key)
+    })
 
     // 清空所有表单项值（包含隐藏项）
     Object.assign(modelValue.value, Object.fromEntries(allKeys.map((key) => [key, undefined])))
@@ -367,20 +361,12 @@
   const getSubmitData = () => {
     const submitData: Record<string, any> = { ...modelValue.value }
 
-    const processItem = (item: FormItem) => {
-      // 处理分组
-      if (item.type === 'group') {
-        item.groupConfig?.children.forEach(processItem)
-        return
-      }
-
+    traverseFormItems(props.items, (item) => {
       // 应用输出转换
       if (item.transform?.output && submitData[item.key] !== undefined) {
         submitData[item.key] = item.transform.output(submitData[item.key], submitData)
       }
-    }
-
-    props.items.forEach(processItem)
+    })
 
     return submitData
   }
