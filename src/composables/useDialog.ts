@@ -203,6 +203,7 @@ export function useDialog<T = any>() {
 
     // 检查是否可以确认
     if (!canConfirm.value) {
+      console.warn('Dialog confirm: 当前状态不允许确认操作')
       return false
     }
 
@@ -210,7 +211,9 @@ export function useDialog<T = any>() {
       loading.value = true
 
       // 执行确认回调
-      await onConfirm?.(data)
+      if (onConfirm) {
+        await onConfirm(data)
+      }
 
       // 显示成功消息
       if (showMessage) {
@@ -224,17 +227,30 @@ export function useDialog<T = any>() {
 
       return true
     } catch (error) {
-      const err = error instanceof Error ? error : new Error(String(error))
-      console.error('Dialog confirm error:', err)
-
-      // 调用错误处理回调
-      onError?.(err)
-
-      // 如果没有自定义错误处理，显示默认错误消息
-      if (!onError) {
-        ElMessage.error(err.message || '操作失败')
+      // 统一错误对象处理
+      let err: Error
+      if (error instanceof Error) {
+        err = error
+      } else if (typeof error === 'string') {
+        err = new Error(error)
+      } else if (error && typeof error === 'object') {
+        // 处理对象类型的错误（如 Element Plus 验证错误）
+        err = new Error(JSON.stringify(error))
+      } else {
+        err = new Error('未知错误')
       }
 
+      // 调用错误处理回调
+      if (onError) {
+        onError(err)
+      } else {
+        // 如果没有自定义错误处理，显示用户友好的错误消息
+        if (err.message && err.message !== 'Error' && err.message !== '未知错误') {
+          ElMessage.error(err.message)
+        }
+      }
+
+      // 继续抛出原始错误，让调用方处理（如阻止弹窗关闭）
       throw error
     } finally {
       loading.value = false

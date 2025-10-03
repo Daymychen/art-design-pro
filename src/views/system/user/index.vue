@@ -221,7 +221,7 @@
       title: '新增用户',
       width: '50%',
       onConfirm: async () => {
-        // 调用表单组件的提交方法（会进行验证）
+        // 手动触发表单验证和提交
         await userFormRef.value?.handleSubmit()
       }
     })
@@ -237,7 +237,7 @@
       title: '编辑用户',
       width: '50%',
       onConfirm: async () => {
-        // 调用表单组件的提交方法（会进行验证）
+        // 手动触发表单验证和提交
         await userFormRef.value?.handleSubmit()
       }
     })
@@ -245,15 +245,35 @@
 
   /**
    * 处理表单提交（从 UserDialogForm 组件触发）
+   * 表单验证通过后会触发 @submit 事件，执行此方法
    */
   const handleFormSubmit = async (formData: any) => {
-    console.log('表单数据:', formData)
-    // 根据 currentUserData 是否有数据判断是新增还是编辑
-    const isEdit = currentUserData.value && Object.keys(currentUserData.value).length > 0
-    // 这里执行实际的 API 调用
-    // await createOrUpdateUser(formData)
-    ElMessage.success(isEdit ? '更新成功' : '添加成功')
-    await refreshData()
+    try {
+      console.log('表单数据:', formData)
+      // 根据 currentUserData 是否有数据判断是新增还是编辑
+      const isEdit = currentUserData.value && Object.keys(currentUserData.value).length > 0
+
+      // 这里执行实际的 API 调用
+      // if (isEdit) {
+      //   await updateUser(currentUserData.value.id, formData)
+      // } else {
+      //   await createUser(formData)
+      // }
+
+      ElMessage.success(isEdit ? '更新成功' : '添加成功')
+      await refreshData()
+
+      // 关闭弹窗
+      userDialog.close()
+    } catch (error) {
+      // API 调用失败时的错误处理
+      if (import.meta.env.DEV) {
+        console.error('[用户管理] API调用失败:', error)
+      }
+      // 显示错误提示
+      ElMessage.error(error instanceof Error ? error.message : '操作失败，请重试')
+      throw error // 继续抛出错误，让调用方处理
+    }
   }
 
   /**

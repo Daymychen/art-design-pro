@@ -236,17 +236,14 @@
 
   // 提交表单
   const handleSubmit = async () => {
-    if (!formRef.value) return
-
-    try {
-      await formRef.value.validate()
-      console.log('formData', formData.value)
-      // 触发提交事件，传递表单数据
-      emit('submit', formData.value)
-    } catch (error) {
-      console.error('表单验证失败:', error)
-      throw error // 抛出错误，阻止弹窗关闭
+    if (!formRef.value) {
+      throw new Error('表单实例未初始化')
     }
+
+    await formRef.value.validate()
+    console.log('formData', formData.value)
+    // 触发提交事件，传递表单数据
+    emit('submit', formData.value)
   }
 
   // 暴露方法给父组件调用
