@@ -2,7 +2,7 @@
   <ElDialog
     v-model="dialogVisible"
     :title="dialogType === 'add' ? '添加用户' : '编辑用户'"
-    width="30%"
+    width="50%"
     align-center
   >
     <ArtForm
@@ -60,7 +60,10 @@
     username: '',
     phone: '',
     gender: '男',
-    role: [] as string[]
+    role: [] as string[],
+    emails: [''], // 🆕 动态数组字段
+    address: '',
+    bio: ''
   })
 
   // 提交状态
@@ -88,45 +91,133 @@
 
   // 表单项配置
   const formItems = computed<FormItem[]>(() => [
+    // 🆕 表单分组 1：基本信息
     {
-      key: 'username',
-      label: '用户名',
-      type: 'input',
-      placeholder: '请输入用户名',
-      props: {
-        clearable: true
+      key: 'group_basic',
+      type: 'group',
+      groupConfig: {
+        title: '📋 基本信息',
+        collapsible: true,
+        defaultExpanded: true,
+        children: [
+          {
+            key: 'username',
+            label: '用户名',
+            type: 'input',
+            placeholder: '请输入用户名',
+            tooltip: '用户名长度2-20个字符',
+            span: 12,
+            props: {
+              clearable: true
+            }
+          },
+          {
+            key: 'phone',
+            label: '手机号',
+            type: 'input',
+            placeholder: '请输入手机号',
+            help: '格式：13800138000',
+            span: 12,
+            props: {
+              clearable: true,
+              maxlength: 11
+            }
+          },
+          {
+            key: 'gender',
+            label: '性别',
+            type: 'select',
+            span: 12,
+            props: {
+              placeholder: '请选择性别',
+              options: genderOptions
+            }
+          },
+          {
+            key: 'role',
+            label: '角色',
+            type: 'select',
+            tooltip: '可选择多个角色',
+            span: 12,
+            props: {
+              placeholder: '请选择角色',
+              multiple: true,
+              options: roleList.value.map((role) => ({
+                label: role.roleName,
+                value: role.roleCode
+              }))
+            }
+          }
+        ]
       }
     },
+
+    // 🆕 表单分组 2：联系方式（动态数组）
     {
-      key: 'phone',
-      label: '手机号',
-      type: 'input',
-      placeholder: '请输入手机号',
-      props: {
-        clearable: true,
-        maxlength: 11
+      key: 'group_contact',
+      type: 'group',
+      groupConfig: {
+        title: '📧 联系方式',
+        collapsible: true,
+        defaultExpanded: true,
+        children: [
+          {
+            key: 'emails',
+            label: '邮箱地址',
+            type: 'array',
+            placeholder: '请输入邮箱地址',
+            tooltip: '可添加多个邮箱地址',
+            span: 24,
+            arrayConfig: {
+              itemType: 'input',
+              itemProps: {
+                type: 'email',
+                clearable: true
+              },
+              min: 1,
+              max: 5,
+              addText: '添加邮箱',
+              showActions: true
+            }
+          }
+        ]
       }
     },
+
+    // 🆕 表单分组 3：其他信息（可折叠）
     {
-      key: 'gender',
-      label: '性别',
-      type: 'select',
-      props: {
-        placeholder: '请选择性别',
-        options: genderOptions
-      }
-    },
-    {
-      key: 'role',
-      label: '角色',
-      type: 'select',
-      props: {
-        placeholder: '请选择角色',
-        multiple: true,
-        options: roleList.value.map((role) => ({
-          label: role.roleName,
-          value: role.roleCode
-        }))
+      key: 'group_other',
+      type: 'group',
+      groupConfig: {
+        title: '📝 其他信息',
+        collapsible: true,
+        defaultExpanded: false, // 默认折叠
+        children: [
+          {
+            key: 'address',
+            label: '地址',
+            type: 'input',
+            placeholder: '请输入地址',
+            span: 24,
+            props: {
+              clearable: true
+            }
+          },
+          {
+            key: 'bio',
+            label: '个人简介',
+            type: 'input',
+            placeholder: '请输入个人简介',
+            help: '不超过200字',
+            span: 24,
+            props: {
+              type: 'textarea',
+              rows: 3,
+              maxlength: 200,
+              showWordLimit: true
+            }
+          }
+        ]
       }
     }
   ])
@@ -140,7 +231,16 @@
       username: isEdit ? row.userName || '' : '',
       phone: isEdit ? row.userPhone || '' : '',
       gender: isEdit ? row.userGender || '男' : '男',
-      role: isEdit ? (Array.isArray(row.userRoles) ? row.userRoles : []) : []
+      role: isEdit ? (Array.isArray(row.userRoles) ? row.userRoles : []) : [],
+      // 🆕 动态数组字段初始化
+      emails: isEdit
+        ? Array.isArray(row.emails) && row.emails.length > 0
+          ? row.emails
+          : ['']
+        : [''],
+      // 🆕 其他信息字段初始化
+      address: isEdit ? row.address || '' : '',
+      bio: isEdit ? row.bio || '' : ''
     }
   }
 
@@ -166,6 +266,7 @@
     try {
       await formRef.value.validate((valid: boolean) => {
         if (valid) {
+          console.log('formData', formData.value)
           ElMessage.success(dialogType.value === 'add' ? '添加成功' : '更新成功')
           dialogVisible.value = false
           emit('submit')
