@@ -9,18 +9,21 @@
         v-model="formData"
         :items="formItems"
         :rules="formRules"
-        :defaultExpanded="true"
         :labelWidth="labelWidth"
         :labelPosition="labelPosition"
         :span="span"
         :gutter="gutter"
-        @reset="handleReset"
-        @submit="handleSubmit"
       >
         <template #slots>
           <ElInput v-model="formData.slots" placeholder="我是插槽渲染出来的组件" />
         </template>
       </ArtForm>
+
+      <!-- 外部按钮控制 -->
+      <div class="form-actions">
+        <ElButton @click="handleReset" v-ripple>重置</ElButton>
+        <ElButton type="primary" @click="handleSubmit" v-ripple>提交</ElButton>
+      </div>
     </ElCard>
 
     <div class="code">
@@ -671,17 +674,25 @@
   // 表单处理函数
   const handleReset = () => {
     console.log('重置表单')
+    formRef.value?.reset()
     emit('reset')
   }
 
   const handleSubmit = async () => {
-    await formRef.value.validate()
-    emit('search', formData.value)
-    console.log('表单数据', formData.value)
+    await formRef.value?.validate((valid: boolean) => {
+      if (valid) {
+        emit('search', formData.value)
+        console.log('表单验证通过，提交数据：', formData.value)
+        ElMessage.success('表单提交成功')
+      } else {
+        console.log('表单验证失败')
+        ElMessage.error('请检查表单填写是否正确')
+      }
+    })
   }
 
-  const validateForm = () => formRef.value.validate()
-  const resetForm = () => formRef.value.reset()
+  const validateForm = () => formRef.value?.validate()
+  const resetForm = () => formRef.value?.reset()
 
   const updateUserName = () => {
     userItem.value = {
@@ -711,6 +722,15 @@
       &.m-15 {
         margin-top: 15px;
       }
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+      padding: 20px 20px 10px;
+      margin-top: 20px;
+      border-top: 1px solid var(--art-border-color);
     }
 
     .code {

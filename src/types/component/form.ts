@@ -61,14 +61,6 @@ export interface FormProps {
   labelPosition?: 'left' | 'right' | 'top'
   /** 文字宽度 */
   labelWidth?: string | number
-  /** 按钮靠左对齐限制（表单项小于等于该值时） */
-  buttonLeftLimit?: number
-  /** 是否显示重置按钮 */
-  showReset?: boolean
-  /** 是否显示提交按钮 */
-  showSubmit?: boolean
-  /** 是否禁用提交按钮 */
-  disabledSubmit?: boolean
   /** 外部传入的验证规则（向后兼容） */
   rules?: Record<string, FormRule[]>
 }

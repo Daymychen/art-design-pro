@@ -66,42 +66,17 @@
             </slot>
           </ElFormItem>
         </ElCol>
-        <ElCol :xs="24" :sm="24" :md="span" :lg="span" :xl="span" class="action-column">
-          <div class="action-buttons-wrapper" :style="actionButtonsStyle">
-            <div class="form-buttons">
-              <ElButton v-if="showReset" class="reset-button" @click="handleReset" v-ripple>
-                {{ t('table.form.reset') }}
-              </ElButton>
-              <ElButton
-                v-if="showSubmit"
-                type="primary"
-                class="submit-button"
-                @click="handleSubmit"
-                v-ripple
-                :disabled="disabledSubmit"
-              >
-                {{ t('table.form.submit') }}
-              </ElButton>
-            </div>
-          </div>
-        </ElCol>
       </ElRow>
     </ElForm>
   </section>
 </template>
 
 <script setup lang="ts">
-  import { useWindowSize } from '@vueuse/core'
-  import { useI18n } from 'vue-i18n'
   import type { FormInstance } from 'element-plus'
   import type { FormRule, FormProps, FormItem } from '@/types/component/form'
   import { componentMap } from './componentMap'
 
   defineOptions({ name: 'ArtForm' })
-
-  const { width } = useWindowSize()
-  const { t } = useI18n()
-  const isMobile = computed(() => width.value < 500)
 
   const formInstance = useTemplateRef<FormInstance>('formRef')
 
@@ -111,19 +86,8 @@
     gutter: 12,
     labelPosition: 'right',
     labelWidth: '70px',
-    buttonLeftLimit: 2,
-    showReset: true,
-    showSubmit: true,
-    disabledSubmit: false,
     rules: () => ({})
   })
-
-  interface FormEmits {
-    reset: []
-    submit: []
-  }
-
-  const emit = defineEmits<FormEmits>()
 
   const modelValue = defineModel<Record<string, any>>({ default: {} })
 
@@ -207,20 +171,9 @@
   })
 
   /**
-   * 操作按钮样式
+   * 重置表单
    */
-  const actionButtonsStyle = computed(() => ({
-    'justify-content': isMobile.value
-      ? 'flex-end'
-      : props.items.filter((item) => !item.hidden).length <= props.buttonLeftLimit
-        ? 'flex-start'
-        : 'flex-end'
-  }))
-
-  /**
-   * 处理重置事件
-   */
-  const handleReset = () => {
+  const resetForm = () => {
     // 重置表单字段（UI 层）
     formInstance.value?.resetFields()
 
@@ -229,22 +182,28 @@
       modelValue.value,
       Object.fromEntries(props.items.map(({ key }) => [key, undefined]))
     )
-
-    // 触发 reset 事件
-    emit('reset')
   }
 
   /**
-   * 处理提交事件
+   * 暴露方法供外部调用
    */
-  const handleSubmit = () => {
-    emit('submit')
-  }
-
   defineExpose({
-    ref: formInstance,
-    validate: (...args: any[]) => formInstance.value?.validate(...args),
-    reset: handleReset
+    /** 表单实例 */
+    formRef: formInstance,
+    /** 验证表单 */
+    validate: (callback?: (valid: boolean, fields?: Record<string, any>) => void) =>
+      formInstance.value?.validate(callback),
+    /** 验证指定字段 */
+    validateField: (props: string | string[], callback?: (valid: boolean) => void) =>
+      formInstance.value?.validateField(props, callback),
+    /** 重置表单 */
+    resetFields: () => formInstance.value?.resetFields(),
+    /** 清空验证 */
+    clearValidate: (props?: string | string[]) => formInstance.value?.clearValidate(props),
+    /** 滚动到指定字段 */
+    scrollToField: (prop: string) => formInstance.value?.scrollToField(prop),
+    /** 重置表单（包括隐藏字段） */
+    reset: resetForm
   })
 
   // 解构 props 以便在模板中直接使用
@@ -256,75 +215,6 @@
     .form-row {
       display: flex;
       flex-wrap: wrap;
-    }
-
-    .action-column {
-      flex: 1;
-      max-width: 100%;
-
-      .action-buttons-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: flex-end;
-        margin-bottom: 12px;
-      }
-
-      .form-buttons {
-        display: flex;
-        gap: 8px;
-      }
-
-      .filter-toggle {
-        display: flex;
-        align-items: center;
-        margin-left: 10px;
-        line-height: 32px;
-        color: var(--main-color);
-        cursor: pointer;
-        transition: color 0.2s ease;
-
-        &:hover {
-          color: var(--ElColor-primary);
-        }
-
-        span {
-          font-size: 14px;
-          user-select: none;
-        }
-
-        .icon-wrapper {
-          display: flex;
-          align-items: center;
-          margin-left: 4px;
-          font-size: 14px;
-          transition: transform 0.2s ease;
-        }
-      }
-    }
-  }
-
-  // 响应式优化
-  @media (width <= 768px) {
-    .art-form {
-      padding: 16px 16px 0;
-
-      .action-column {
-        .action-buttons-wrapper {
-          flex-direction: column;
-          gap: 8px;
-          align-items: stretch;
-
-          .form-buttons {
-            justify-content: center;
-          }
-
-          .filter-toggle {
-            justify-content: center;
-            margin-left: 0;
-          }
-        }
-      }
     }
   }
 </style>

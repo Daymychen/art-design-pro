@@ -13,6 +13,7 @@
         <template #left>
           <ElSpace wrap>
             <ElButton @click="showDialog('add')" v-ripple>新增用户</ElButton>
+            <ArtDialogButton text="新增用户" test="ffff" @confirm="handleDialogSubmit" />
           </ElSpace>
         </template>
       </ArtTableHeader>
@@ -47,6 +48,7 @@
   import { fetchGetUserList } from '@/api/system-manage'
   import UserSearch from './modules/user-search.vue'
   import UserDialog from './modules/user-dialog.vue'
+  import ArtDialogButton from '@/components/core/base/art-dialog-button/inde.vue'
 
   defineOptions({ name: 'User' })
 
