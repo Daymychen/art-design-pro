@@ -8,6 +8,7 @@ import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import ElementPlus from 'unplugin-element-plus/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import UnoCSS from 'unocss/vite'
 // import { visualizer } from 'rollup-plugin-visualizer'
 
 export default ({ mode }: { mode: string }) => {
@@ -68,6 +69,7 @@ export default ({ mode }: { mode: string }) => {
     },
     plugins: [
       vue(),
+      UnoCSS(),
       // 自动按需导入 API
       AutoImport({
         imports: ['vue', 'vue-router', '@vueuse/core', 'pinia'],
