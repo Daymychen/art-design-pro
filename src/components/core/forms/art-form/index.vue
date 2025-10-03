@@ -290,35 +290,37 @@
   })
 
   /**
-   * 监听表单值变化，触发 onChange 回调和依赖验证
+   * 处理字段依赖验证
+   * 当指定字段变化时，重新验证所有依赖该字段的表单项
    */
-  watch(
-    () => modelValue.value,
-    (newVal, oldVal) => {
-      // 找出变化的字段
-      Object.keys(newVal).forEach((key) => {
-        if (newVal[key] !== oldVal?.[key]) {
-          // 触发 onChange 回调
-          if (props.onChange) {
-            props.onChange(key, newVal[key], { ...newVal })
-          }
-
-          // 检查是否有字段依赖于当前变化的字段
-          props.items.forEach((item) => {
-            if (item.dependencies?.includes(key)) {
-              // 验证依赖该字段的表单项
-              nextTick(() => {
-                formInstance.value?.validateField(item.key).catch(() => {
-                  // 忽略验证错误
-                })
-              })
-            }
-          })
+  const handleFieldDependencies = (changedKey: string) => {
+    // 收集所有表单项（包括分组内的）
+    const allItems: FormItem[] = []
+    const collectItems = (items: FormItem[]) => {
+      items.forEach((item) => {
+        if (item.type === 'group' && item.groupConfig?.children) {
+          collectItems(item.groupConfig.children)
+        } else if (item.type !== 'group') {
+          allItems.push(item)
         }
       })
-    },
-    { deep: true }
-  )
+    }
+    collectItems(props.items)
+
+    // 找出依赖当前变化字段的表单项
+    const dependentItems = allItems.filter((item) => item.dependencies?.includes(changedKey))
+
+    // 异步验证依赖项
+    if (dependentItems.length > 0) {
+      nextTick(() => {
+        dependentItems.forEach((item) => {
+          formInstance.value?.validateField(item.key).catch(() => {
+            // 忽略验证错误，避免控制台警告
+          })
+        })
+      })
+    }
+  }
 
   /**
    * 清空表单
@@ -402,9 +404,19 @@
 
   /**
    * 更新字段值
+   * 性能优化：在此统一处理 onChange 回调和依赖验证，避免使用 deep watch
    */
   const updateField = (key: string, value: any) => {
+    // 更新字段值
     modelValue.value[key] = value
+
+    // 触发 onChange 回调
+    if (props.onChange) {
+      props.onChange(key, value, { ...modelValue.value })
+    }
+
+    // 处理字段依赖验证
+    handleFieldDependencies(key)
   }
 
   /**

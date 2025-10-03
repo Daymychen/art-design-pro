@@ -23,7 +23,14 @@
         <div v-for="(arrayItem, index) in modelValue[item.key]" :key="index" class="array-item">
           <component
             :is="getComponent({ type: item.arrayConfig?.itemType || 'input' })"
-            v-model="editableModel[item.key][index]"
+            :modelValue="modelValue[item.key][index]"
+            @update:modelValue="
+              (value: any) => {
+                const newArray = [...modelValue[item.key]]
+                newArray[index] = value
+                $emit('update:field', item.key, newArray)
+              }
+            "
             v-bind="item.arrayConfig?.itemProps || {}"
             :placeholder="item.placeholder"
             style="width: calc(100% - 40px); margin-right: 8px"
@@ -55,7 +62,8 @@
       <component
         v-else
         :is="getComponent(item)"
-        v-model="editableModel[item.key]"
+        :modelValue="modelValue[item.key]"
+        @update:modelValue="(value: any) => $emit('update:field', item.key, value)"
         v-bind="getProps(item)"
       >
         <!-- 下拉选择 -->
@@ -108,25 +116,14 @@
     getSlots: (item: FormItem) => Record<string, () => any>
   }
 
-  const props = defineProps<Props>()
-  const emit = defineEmits<{
+  // props 和 emit 在模板中通过 $emit 等语法使用
+  defineProps<Props>()
+
+  defineEmits<{
     'add-array-item': [key: string]
     'remove-array-item': [key: string, index: number]
     'update:field': [key: string, value: any]
   }>()
-
-  // 创建一个可编辑的代理对象，拦截属性修改并通过事件通知父组件
-  const editableModel = computed(() => {
-    return new Proxy(props.modelValue, {
-      set(_target, key, value) {
-        emit('update:field', key as string, value)
-        return true
-      },
-      get(target, key) {
-        return target[key as string]
-      }
-    })
-  })
 </script>
 
 <style lang="scss" scoped>
