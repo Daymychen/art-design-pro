@@ -9,18 +9,21 @@
         v-model="formData"
         :items="formItems"
         :rules="formRules"
-        :defaultExpanded="true"
         :labelWidth="labelWidth"
         :labelPosition="labelPosition"
         :span="span"
         :gutter="gutter"
-        @reset="handleReset"
-        @submit="handleSubmit"
       >
         <template #slots>
           <ElInput v-model="formData.slots" placeholder="我是插槽渲染出来的组件" />
         </template>
       </ArtForm>
+
+      <!-- 外部按钮控制 -->
+      <div class="form-actions">
+        <ElButton @click="handleReset" v-ripple>重置</ElButton>
+        <ElButton type="primary" @click="handleSubmit" v-ripple>提交</ElButton>
+      </div>
     </ElCard>
 
     <div class="code">
@@ -73,6 +76,7 @@
   const formData = ref({
     name: undefined,
     phone: undefined,
+    email: undefined,
     level: undefined,
     address: undefined,
     slots: undefined,
@@ -90,7 +94,7 @@
     richTextContent: ''
   })
 
-  // 表单校验规则
+  // 表单校验规则（外部传入方式 - 向后兼容）
   const formRules = {
     name: [{ required: true, message: '请输入用户名', trigger: 'blur' }]
     // phone: [
@@ -100,6 +104,8 @@
     // ],
     // level: [{ required: true, message: '请选择等级', trigger: 'change' }],
     // address: [{ required: true, message: '请输入地址', trigger: 'blur' }]
+    // 注意：现在支持在 formItems 中直接配置验证规则
+    // 这里的外部 rules 优先级更高，可以覆盖 formItems 中的配置
   }
 
   const labelWidth = ref(100)
@@ -205,11 +211,18 @@
     label: '用户名',
     key: 'name',
     type: 'input',
+    // 🆕 快捷必填配置
+    required: true,
+    // 🆕 详细验证规则
+    rules: [
+      { min: 2, max: 20, message: '长度在2到20个字符之间', trigger: 'blur' },
+      { pattern: /^[a-zA-Z0-9_]+$/, message: '只能包含字母、数字和下划线', trigger: 'blur' }
+    ],
     props: {
       placeholder: '请输入用户名',
       clearable: true
     }
-  })
+  } as any)
 
   // 控制用户名字段是否显示
   const showUserName = ref(true)
@@ -293,7 +306,19 @@
   const formItems = computed(() => [
     ...(showUserName.value ? [userItem.value] : []),
     {
-      ...baseFormItems.phone
+      ...baseFormItems.phone,
+      // 🆕 使用内置验证器
+      required: true,
+      rules: [{ pattern: /^1[3456789]\d{9}$/, message: '请输入正确的手机号码', trigger: 'blur' }]
+    },
+    // 🆕 新增邮箱字段演示验证
+    {
+      label: '邮箱',
+      key: 'email',
+      type: 'input',
+      required: true,
+      rules: [{ type: 'email', message: '请输入正确的邮箱格式', trigger: 'blur' }],
+      placeholder: '请输入邮箱'
     },
     {
       ...baseFormItems.level,
@@ -649,17 +674,25 @@
   // 表单处理函数
   const handleReset = () => {
     console.log('重置表单')
+    formRef.value?.reset()
     emit('reset')
   }
 
   const handleSubmit = async () => {
-    await formRef.value.validate()
-    emit('search', formData.value)
-    console.log('表单数据', formData.value)
+    await formRef.value?.validate((valid: boolean) => {
+      if (valid) {
+        emit('search', formData.value)
+        console.log('表单验证通过，提交数据：', formData.value)
+        ElMessage.success('表单提交成功')
+      } else {
+        console.log('表单验证失败')
+        ElMessage.error('请检查表单填写是否正确')
+      }
+    })
   }
 
-  const validateForm = () => formRef.value.validate()
-  const resetForm = () => formRef.value.reset()
+  const validateForm = () => formRef.value?.validate()
+  const resetForm = () => formRef.value?.reset()
 
   const updateUserName = () => {
     userItem.value = {
@@ -689,6 +722,15 @@
       &.m-15 {
         margin-top: 15px;
       }
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+      padding: 20px 20px 10px;
+      margin-top: 20px;
+      border-top: 1px solid var(--art-border-color);
     }
 
     .code {

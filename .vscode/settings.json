@@ -1,3 +1,7 @@
 {
-  "volar.inlayHints.eventArgumentInInlineHandlers": true
+  "volar.inlayHints.eventArgumentInInlineHandlers": true,
+  "i18n-ally.localesPaths": ["src/locales", "src/locales/langs"],
+  "common-intellisense.ui": {
+    "/Users/moweiwei/github/moweiwei2025/art-design-pro/package.json": ["elementPlus2"]
+  }
 }

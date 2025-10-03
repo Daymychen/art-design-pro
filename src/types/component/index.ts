@@ -2,6 +2,10 @@
  * 组件相关类型定义
  */
 
+// 导出表单相关类型和组件映射
+export { componentMap, type ComponentMapKeys } from '@/components/core/forms/art-form/componentMap'
+export type { FormRule, FormItem, FormProps } from './form'
+
 // 搜索组件类型
 export type SearchComponentType =
   | 'input'
@@ -81,24 +85,6 @@ export interface PaginationConfig {
   layout?: string
   // 是否为小型分页
   small?: boolean
-}
-
-// 表单规则
-export interface FormRule {
-  // 是否必填
-  required?: boolean
-  // 错误提示信息
-  message?: string
-  // 触发方式
-  trigger?: string | string[]
-  // 最小长度
-  min?: number
-  // 最大长度
-  max?: number
-  // 正则表达式
-  pattern?: RegExp
-  // 自定义验证函数
-  validator?: (rule: any, value: any, callback: any) => void
 }
 
 // 对话框配置

@@ -7,167 +7,283 @@
       ref="formRef"
       :model="modelValue"
       :label-position="labelPosition"
+      :rules="generateFormRules"
       v-bind="{ ...$attrs }"
     >
-      <ElRow class="form-row" :gutter="gutter">
-        <ElCol
-          v-for="item in visibleFormItems"
-          :key="item.key"
-          :xs="24"
-          :sm="12"
-          :md="8"
-          :lg="item.span || span"
-          :xl="item.span || span"
+      <!-- 处理表单分组和普通表单项 -->
+      <template v-for="item in visibleFormItems" :key="item.key">
+        <!-- 表单分组 -->
+        <ElCollapse
+          v-if="item.type === 'group' && item.groupConfig"
+          v-model="groupExpandedKeys"
+          class="form-group"
         >
-          <ElFormItem
-            :label="item.label"
-            :prop="item.key"
-            :label-width="item.label ? item.labelWidth || labelWidth : undefined"
+          <ElCollapseItem
+            :name="item.key"
+            :title="item.groupConfig.title || item.label"
+            :disabled="!item.groupConfig.collapsible"
           >
-            <slot :name="item.key" :item="item" :modelValue="modelValue">
-              <component
-                :is="getComponent(item)"
-                v-model="modelValue[item.key]"
-                v-bind="getProps(item)"
+            <ElRow class="form-row" :gutter="gutter">
+              <ElCol
+                v-for="childItem in item.groupConfig.children.filter(
+                  (child) => !isItemHidden(child)
+                )"
+                :key="childItem.key"
+                :xs="24"
+                :sm="12"
+                :md="8"
+                :lg="childItem.span || span"
+                :xl="childItem.span || span"
               >
-                <!-- 下拉选择 -->
-                <template v-if="item.type === 'select' && getProps(item)?.options">
-                  <ElOption
-                    v-for="option in getProps(item).options"
-                    v-bind="option"
-                    :key="option.value"
-                  />
+                <!-- 子表单项渲染 -->
+                <ElFormItem
+                  :label="childItem.label"
+                  :prop="childItem.key"
+                  :label-width="childItem.label ? childItem.labelWidth || labelWidth : undefined"
+                >
+                  <!-- Label 插槽：添加 tooltip -->
+                  <template v-if="childItem.tooltip" #label>
+                    <span>
+                      {{ childItem.label }}
+                      <ElTooltip :content="childItem.tooltip" placement="top">
+                        <ElIcon style="margin-left: 4px; cursor: help">
+                          <QuestionFilled />
+                        </ElIcon>
+                      </ElTooltip>
+                    </span>
+                  </template>
+
+                  <slot :name="childItem.key" :item="childItem" :modelValue="modelValue">
+                    <!-- 动态数组字段 -->
+                    <template v-if="childItem.type === 'array'">
+                      <div
+                        v-for="(arrayItem, index) in modelValue[childItem.key]"
+                        :key="index"
+                        class="array-item"
+                      >
+                        <component
+                          :is="getComponent({ type: childItem.arrayConfig?.itemType || 'input' })"
+                          v-model="modelValue[childItem.key][index]"
+                          v-bind="childItem.arrayConfig?.itemProps || {}"
+                          :placeholder="childItem.placeholder"
+                          style="width: calc(100% - 40px); margin-right: 8px"
+                        />
+                        <ElButton
+                          v-if="childItem.arrayConfig?.showActions !== false"
+                          type="danger"
+                          :icon="Delete"
+                          circle
+                          size="small"
+                          :disabled="
+                            (modelValue[childItem.key]?.length || 0) <=
+                            (childItem.arrayConfig?.min || 0)
+                          "
+                          @click="removeArrayItem(childItem.key, index)"
+                        />
+                      </div>
+                      <ElButton
+                        v-if="childItem.arrayConfig?.showActions !== false"
+                        type="primary"
+                        :icon="Plus"
+                        size="small"
+                        :disabled="
+                          (modelValue[childItem.key]?.length || 0) >=
+                          (childItem.arrayConfig?.max || Infinity)
+                        "
+                        @click="addArrayItem(childItem.key)"
+                        class="array-add-btn"
+                      >
+                        {{ childItem.arrayConfig?.addText || '添加' }}
+                      </ElButton>
+                    </template>
+
+                    <!-- 普通表单组件 -->
+                    <component
+                      v-else
+                      :is="getComponent(childItem)"
+                      v-model="modelValue[childItem.key]"
+                      v-bind="getProps(childItem)"
+                    >
+                      <!-- 下拉选择 -->
+                      <template v-if="childItem.type === 'select' && getProps(childItem)?.options">
+                        <ElOption
+                          v-for="option in getProps(childItem).options"
+                          v-bind="option"
+                          :key="option.value"
+                        />
+                      </template>
+
+                      <!-- 复选框组 -->
+                      <template
+                        v-if="childItem.type === 'checkboxgroup' && getProps(childItem)?.options"
+                      >
+                        <ElCheckbox
+                          v-for="option in getProps(childItem).options"
+                          v-bind="option"
+                          :key="option.value"
+                        />
+                      </template>
+
+                      <!-- 单选框组 -->
+                      <template
+                        v-if="childItem.type === 'radiogroup' && getProps(childItem)?.options"
+                      >
+                        <ElRadio
+                          v-for="option in getProps(childItem).options"
+                          v-bind="option"
+                          :key="option.value"
+                        />
+                      </template>
+
+                      <!-- 动态插槽支持 -->
+                      <template
+                        v-for="(slotFn, slotName) in getSlots(childItem)"
+                        :key="slotName"
+                        #[slotName]
+                      >
+                        <component :is="slotFn" />
+                      </template>
+                    </component>
+                  </slot>
+
+                  <!-- 帮助文本 -->
+                  <div v-if="childItem.help" class="form-item-help">
+                    {{ childItem.help }}
+                  </div>
+                </ElFormItem>
+              </ElCol>
+            </ElRow>
+          </ElCollapseItem>
+        </ElCollapse>
+
+        <!-- 普通表单项（非分组） -->
+        <ElRow v-else class="form-row" :gutter="gutter">
+          <ElCol :xs="24" :sm="12" :md="8" :lg="item.span || span" :xl="item.span || span">
+            <ElFormItem
+              :label="item.label"
+              :prop="item.key"
+              :label-width="item.label ? item.labelWidth || labelWidth : undefined"
+            >
+              <!-- Label 插槽：添加 tooltip -->
+              <template v-if="item.tooltip" #label>
+                <span>
+                  {{ item.label }}
+                  <ElTooltip :content="item.tooltip" placement="top">
+                    <ElIcon style="margin-left: 4px; cursor: help">
+                      <QuestionFilled />
+                    </ElIcon>
+                  </ElTooltip>
+                </span>
+              </template>
+
+              <slot :name="item.key" :item="item" :modelValue="modelValue">
+                <!-- 动态数组字段 -->
+                <template v-if="item.type === 'array'">
+                  <div
+                    v-for="(arrayItem, index) in modelValue[item.key]"
+                    :key="index"
+                    class="array-item"
+                  >
+                    <component
+                      :is="getComponent({ type: item.arrayConfig?.itemType || 'input' })"
+                      v-model="modelValue[item.key][index]"
+                      v-bind="item.arrayConfig?.itemProps || {}"
+                      :placeholder="item.placeholder"
+                      style="width: calc(100% - 40px); margin-right: 8px"
+                    />
+                    <ElButton
+                      v-if="item.arrayConfig?.showActions !== false"
+                      type="danger"
+                      :icon="Delete"
+                      circle
+                      size="small"
+                      :disabled="
+                        (modelValue[item.key]?.length || 0) <= (item.arrayConfig?.min || 0)
+                      "
+                      @click="removeArrayItem(item.key, index)"
+                    />
+                  </div>
+                  <ElButton
+                    v-if="item.arrayConfig?.showActions !== false"
+                    type="primary"
+                    :icon="Plus"
+                    size="small"
+                    :disabled="
+                      (modelValue[item.key]?.length || 0) >= (item.arrayConfig?.max || Infinity)
+                    "
+                    @click="addArrayItem(item.key)"
+                    class="array-add-btn"
+                  >
+                    {{ item.arrayConfig?.addText || '添加' }}
+                  </ElButton>
                 </template>
 
-                <!-- 复选框组 -->
-                <template v-if="item.type === 'checkboxgroup' && getProps(item)?.options">
-                  <ElCheckbox
-                    v-for="option in getProps(item).options"
-                    v-bind="option"
-                    :key="option.value"
-                  />
-                </template>
+                <!-- 普通表单组件 -->
+                <component
+                  v-else
+                  :is="getComponent(item)"
+                  v-model="modelValue[item.key]"
+                  v-bind="getProps(item)"
+                >
+                  <!-- 下拉选择 -->
+                  <template v-if="item.type === 'select' && getProps(item)?.options">
+                    <ElOption
+                      v-for="option in getProps(item).options"
+                      v-bind="option"
+                      :key="option.value"
+                    />
+                  </template>
 
-                <!-- 单选框组 -->
-                <template v-if="item.type === 'radiogroup' && getProps(item)?.options">
-                  <ElRadio
-                    v-for="option in getProps(item).options"
-                    v-bind="option"
-                    :key="option.value"
-                  />
-                </template>
+                  <!-- 复选框组 -->
+                  <template v-if="item.type === 'checkboxgroup' && getProps(item)?.options">
+                    <ElCheckbox
+                      v-for="option in getProps(item).options"
+                      v-bind="option"
+                      :key="option.value"
+                    />
+                  </template>
 
-                <!-- 动态插槽支持 -->
-                <template v-for="(slotFn, slotName) in getSlots(item)" :key="slotName" #[slotName]>
-                  <component :is="slotFn" />
-                </template>
-              </component>
-            </slot>
-          </ElFormItem>
-        </ElCol>
-        <ElCol :xs="24" :sm="24" :md="span" :lg="span" :xl="span" class="action-column">
-          <div class="action-buttons-wrapper" :style="actionButtonsStyle">
-            <div class="form-buttons">
-              <ElButton v-if="showReset" class="reset-button" @click="handleReset" v-ripple>
-                {{ t('table.form.reset') }}
-              </ElButton>
-              <ElButton
-                v-if="showSubmit"
-                type="primary"
-                class="submit-button"
-                @click="handleSubmit"
-                v-ripple
-                :disabled="disabledSubmit"
-              >
-                {{ t('table.form.submit') }}
-              </ElButton>
-            </div>
-          </div>
-        </ElCol>
-      </ElRow>
+                  <!-- 单选框组 -->
+                  <template v-if="item.type === 'radiogroup' && getProps(item)?.options">
+                    <ElRadio
+                      v-for="option in getProps(item).options"
+                      v-bind="option"
+                      :key="option.value"
+                    />
+                  </template>
+
+                  <!-- 动态插槽支持 -->
+                  <template
+                    v-for="(slotFn, slotName) in getSlots(item)"
+                    :key="slotName"
+                    #[slotName]
+                  >
+                    <component :is="slotFn" />
+                  </template>
+                </component>
+              </slot>
+
+              <!-- 帮助文本 -->
+              <div v-if="item.help" class="form-item-help">
+                {{ item.help }}
+              </div>
+            </ElFormItem>
+          </ElCol>
+        </ElRow>
+      </template>
     </ElForm>
   </section>
 </template>
 
 <script setup lang="ts">
-  import { useWindowSize } from '@vueuse/core'
-  import { useI18n } from 'vue-i18n'
   import type { FormInstance } from 'element-plus'
+  import type { FormRule, FormProps, FormItem } from '@/types/component/form'
+  import { componentMap } from './componentMap'
+  import { QuestionFilled, Delete, Plus } from '@element-plus/icons-vue'
 
   defineOptions({ name: 'ArtForm' })
 
-  const componentMap = {
-    input: ElInput, // 输入框
-    number: ElInputNumber, // 数字输入框
-    select: ElSelect, // 选择器
-    switch: ElSwitch, // 开关
-    checkbox: ElCheckbox, // 复选框
-    checkboxgroup: ElCheckboxGroup, // 复选框组
-    radiogroup: ElRadioGroup, // 单选框组
-    date: ElDatePicker, // 日期选择器
-    daterange: ElDatePicker, // 日期范围选择器
-    datetime: ElDatePicker, // 日期时间选择器
-    datetimerange: ElDatePicker, // 日期时间范围选择器
-    rate: ElRate, // 评分
-    slider: ElSlider, // 滑块
-    cascader: ElCascader, // 级联选择器
-    timepicker: ElTimePicker, // 时间选择器
-    timeselect: ElTimeSelect, // 时间选择
-    treeselect: ElTreeSelect // 树选择器
-  }
-
-  const { width } = useWindowSize()
-  const { t } = useI18n()
-  const isMobile = computed(() => width.value < 500)
-
   const formInstance = useTemplateRef<FormInstance>('formRef')
-
-  // 表单项配置
-  export interface FormItem {
-    /** 表单项的唯一标识 */
-    key: string
-    /** 表单项的标签文本 */
-    label: string
-    /** 表单项标签的宽度，会覆盖 Form 的 labelWidth */
-    labelWidth?: string | number
-    /** 表单项类型，可以是预定义的字符串类型或自定义组件 */
-    type: keyof typeof componentMap | string | (() => VNode)
-    /** 是否隐藏该表单项 */
-    hidden?: boolean
-    /** 表单项占据的列宽，基于24格栅格系统 */
-    span?: number
-    /** 选项数据，用于 select、checkbox-group、radio-group 等 */
-    options?: Record<string, any>
-    /** 传递给表单项组件的属性 */
-    props?: Record<string, any>
-    /** 表单项的插槽配置 */
-    slots?: Record<string, (() => any) | undefined>
-    /** 表单项的占位符文本 */
-    placeholder?: string
-    /** 更多属性配置请参考 ElementPlus 官方文档 */
-  }
-
-  // 表单配置
-  interface FormProps {
-    /** 表单数据 */
-    items: FormItem[]
-    /** 每列的宽度（基于 24 格布局） */
-    span?: number
-    /** 表单控件间隙 */
-    gutter?: number
-    /** 表单域标签的位置 */
-    labelPosition?: 'left' | 'right' | 'top'
-    /** 文字宽度 */
-    labelWidth?: string | number
-    /** 按钮靠左对齐限制（表单项小于等于该值时） */
-    buttonLeftLimit?: number
-    /** 是否显示重置按钮 */
-    showReset?: boolean
-    /** 是否显示提交按钮 */
-    showSubmit?: boolean
-    /** 是否禁用提交按钮 */
-    disabledSubmit?: boolean
-  }
 
   const props = withDefaults(defineProps<FormProps>(), {
     items: () => [],
@@ -175,28 +291,109 @@
     gutter: 12,
     labelPosition: 'right',
     labelWidth: '70px',
-    buttonLeftLimit: 2,
-    showReset: true,
-    showSubmit: true,
-    disabledSubmit: false
+    disabled: false,
+    readonly: false,
+    rules: () => ({})
   })
-
-  interface FormEmits {
-    reset: []
-    submit: []
-  }
-
-  const emit = defineEmits<FormEmits>()
 
   const modelValue = defineModel<Record<string, any>>({ default: {} })
 
-  const rootProps = ['label', 'labelWidth', 'key', 'type', 'hidden', 'span', 'slots']
+  // 分组展开状态
+  const groupExpandedKeys = ref<string[]>([])
+
+  const rootProps = [
+    'label',
+    'labelWidth',
+    'key',
+    'type',
+    'hidden',
+    'span',
+    'slots',
+    'rules',
+    'required',
+    'requiredMessage',
+    'disabled',
+    'readonly',
+    'defaultValue',
+    'tooltip',
+    'help',
+    'transform',
+    'dependencies',
+    'arrayConfig',
+    'groupConfig'
+  ]
+
+  // 生成内部验证规则
+  const generateFormRules = computed(() => {
+    const internalRules: Record<string, FormRule[]> = {}
+
+    // 处理每个表单项的规则（包括分组内的子项）
+    const processItem = (item: FormItem) => {
+      // 跳过分组类型本身
+      if (item.type === 'group') {
+        // 处理分组内的子项
+        item.groupConfig?.children.forEach(processItem)
+        return
+      }
+
+      const itemRules: FormRule[] = []
+
+      // 处理快捷必填配置
+      if (item.required) {
+        itemRules.push({
+          required: true,
+          message: item.requiredMessage || `请输入${item.label}`,
+          trigger: 'blur'
+        })
+      }
+
+      // 处理详细规则配置
+      if (item.rules && item.rules.length > 0) {
+        itemRules.push(...item.rules)
+      }
+
+      // 如果有规则，添加到内部规则对象中
+      if (itemRules.length > 0) {
+        internalRules[item.key] = itemRules
+      }
+    }
+
+    props.items.forEach(processItem)
+
+    // 合并外部传入的 rules (外部优先级更高)
+    return { ...internalRules, ...props.rules }
+  })
 
   const getProps = (item: FormItem) => {
-    if (item.props) return item.props
-    const props = { ...item }
-    rootProps.forEach((key) => delete (props as Record<string, any>)[key])
-    return props
+    // 基础属性处理
+    let itemProps: Record<string, any>
+    if (item.props) {
+      itemProps = { ...item.props }
+    } else {
+      itemProps = { ...item }
+      rootProps.forEach((key) => delete itemProps[key])
+    }
+
+    // 处理禁用状态：item.disabled 优先级高于全局 disabled
+    if (item.disabled !== undefined) {
+      itemProps.disabled = item.disabled
+    } else if (props.disabled) {
+      itemProps.disabled = true
+    }
+
+    // 处理只读状态：item.readonly 优先级高于全局 readonly
+    if (item.readonly !== undefined) {
+      itemProps.readonly = item.readonly
+    } else if (props.readonly) {
+      itemProps.readonly = true
+    }
+
+    // 处理 placeholder
+    if (item.placeholder && !itemProps.placeholder) {
+      itemProps.placeholder = item.placeholder
+    }
+
+    return itemProps
   }
 
   // 获取插槽
@@ -212,59 +409,240 @@
   }
 
   // 组件
-  const getComponent = (item: FormItem) => {
+  const getComponent = (item: Partial<FormItem>) => {
     const { type } = item
-    if (type && typeof item.type !== 'string') return type
+    if (type && typeof type !== 'string') return type
     // type不传递、默认使用 input
     return componentMap[type as keyof typeof componentMap] || componentMap['input']
+  }
+
+  /**
+   * 判断表单项是否隐藏
+   */
+  const isItemHidden = (item: FormItem) => {
+    if (typeof item.hidden === 'function') {
+      return item.hidden(modelValue.value)
+    }
+    return !!item.hidden
   }
 
   /**
    * 可见的表单项
    */
   const visibleFormItems = computed(() => {
-    return props.items.filter((item) => !item.hidden)
+    return props.items.filter((item) => !isItemHidden(item))
   })
 
   /**
-   * 操作按钮样式
+   * 初始化默认值
    */
-  const actionButtonsStyle = computed(() => ({
-    'justify-content': isMobile.value
-      ? 'flex-end'
-      : props.items.filter((item) => !item.hidden).length <= props.buttonLeftLimit
-        ? 'flex-start'
-        : 'flex-end'
-  }))
+  const initDefaultValues = () => {
+    const processItem = (item: FormItem) => {
+      // 处理分组
+      if (item.type === 'group') {
+        // 初始化分组展开状态
+        if (item.groupConfig?.defaultExpanded !== false) {
+          groupExpandedKeys.value.push(item.key)
+        }
+        // 处理分组内的子项
+        item.groupConfig?.children.forEach(processItem)
+        return
+      }
+
+      // 应用默认值
+      if (item.defaultValue !== undefined && modelValue.value[item.key] === undefined) {
+        modelValue.value[item.key] = item.defaultValue
+      }
+
+      // 应用输入转换
+      if (item.transform?.input && modelValue.value[item.key] !== undefined) {
+        modelValue.value[item.key] = item.transform.input(
+          modelValue.value[item.key],
+          modelValue.value
+        )
+      }
+
+      // 初始化动态数组字段
+      if (item.type === 'array' && !modelValue.value[item.key]) {
+        const min = item.arrayConfig?.min || 1
+        modelValue.value[item.key] = Array(min).fill('')
+      }
+    }
+
+    props.items.forEach(processItem)
+  }
+
+  // 组件挂载时初始化默认值和分组状态
+  onMounted(() => {
+    initDefaultValues()
+  })
 
   /**
-   * 处理重置事件
+   * 监听表单值变化，触发 onChange 回调和依赖验证
    */
-  const handleReset = () => {
+  watch(
+    () => modelValue.value,
+    (newVal, oldVal) => {
+      // 找出变化的字段
+      Object.keys(newVal).forEach((key) => {
+        if (newVal[key] !== oldVal?.[key]) {
+          // 触发 onChange 回调
+          if (props.onChange) {
+            props.onChange(key, newVal[key], { ...newVal })
+          }
+
+          // 检查是否有字段依赖于当前变化的字段
+          props.items.forEach((item) => {
+            if (item.dependencies?.includes(key)) {
+              // 验证依赖该字段的表单项
+              nextTick(() => {
+                formInstance.value?.validateField(item.key).catch(() => {
+                  // 忽略验证错误
+                })
+              })
+            }
+          })
+        }
+      })
+    },
+    { deep: true }
+  )
+
+  /**
+   * 重置表单
+   */
+  const resetForm = () => {
     // 重置表单字段（UI 层）
     formInstance.value?.resetFields()
 
-    // 清空所有表单项值（包含隐藏项）
-    Object.assign(
-      modelValue.value,
-      Object.fromEntries(props.items.map(({ key }) => [key, undefined]))
-    )
+    // 收集所有表单项的 key（包括分组内的）
+    const allKeys: string[] = []
+    const collectKeys = (items: FormItem[]) => {
+      items.forEach((item) => {
+        if (item.type === 'group' && item.groupConfig?.children) {
+          collectKeys(item.groupConfig.children)
+        } else if (item.type !== 'group') {
+          allKeys.push(item.key)
+        }
+      })
+    }
+    collectKeys(props.items)
 
-    // 触发 reset 事件
-    emit('reset')
+    // 清空所有表单项值（包含隐藏项）
+    Object.assign(modelValue.value, Object.fromEntries(allKeys.map((key) => [key, undefined])))
   }
 
   /**
-   * 处理提交事件
+   * 重置到初始值
    */
-  const handleSubmit = () => {
-    emit('submit')
+  const resetToInitial = () => {
+    if (props.initialValues) {
+      Object.assign(modelValue.value, { ...props.initialValues })
+    } else {
+      resetForm()
+    }
+    // 清空验证
+    formInstance.value?.clearValidate()
   }
 
+  /**
+   * 获取提交数据（应用 transform.output）
+   */
+  const getSubmitData = () => {
+    const submitData: Record<string, any> = { ...modelValue.value }
+
+    const processItem = (item: FormItem) => {
+      // 处理分组
+      if (item.type === 'group') {
+        item.groupConfig?.children.forEach(processItem)
+        return
+      }
+
+      // 应用输出转换
+      if (item.transform?.output && submitData[item.key] !== undefined) {
+        submitData[item.key] = item.transform.output(submitData[item.key], submitData)
+      }
+    }
+
+    props.items.forEach(processItem)
+
+    return submitData
+  }
+
+  /**
+   * 递归查找表单项（包括分组内的子项）
+   */
+  const findFormItem = (key: string, items: FormItem[] = props.items): FormItem | undefined => {
+    for (const item of items) {
+      if (item.key === key) {
+        return item
+      }
+      // 如果是分组，递归查找子项
+      if (item.type === 'group' && item.groupConfig?.children) {
+        const found = findFormItem(key, item.groupConfig.children)
+        if (found) return found
+      }
+    }
+    return undefined
+  }
+
+  /**
+   * 动态数组字段操作
+   */
+  const addArrayItem = (key: string) => {
+    const item = findFormItem(key)
+    if (!item || item.type !== 'array') return
+
+    const currentArray = modelValue.value[key] || []
+    const max = item.arrayConfig?.max || Infinity
+
+    if (currentArray.length < max) {
+      modelValue.value[key] = [...currentArray, '']
+    }
+  }
+
+  const removeArrayItem = (key: string, index: number) => {
+    const item = findFormItem(key)
+    if (!item || item.type !== 'array') return
+
+    const currentArray = modelValue.value[key] || []
+    const min = item.arrayConfig?.min || 0
+
+    if (currentArray.length > min) {
+      const newArray = [...currentArray]
+      newArray.splice(index, 1)
+      modelValue.value[key] = newArray
+    }
+  }
+
+  /**
+   * 暴露方法供外部调用
+   */
   defineExpose({
-    ref: formInstance,
-    validate: (...args: any[]) => formInstance.value?.validate(...args),
-    reset: handleReset
+    /** 表单实例 */
+    formRef: formInstance,
+    /** 验证表单 */
+    validate: (callback?: (valid: boolean, fields?: Record<string, any>) => void) =>
+      formInstance.value?.validate(callback),
+    /** 验证指定字段 */
+    validateField: (props: string | string[], callback?: (valid: boolean) => void) =>
+      formInstance.value?.validateField(props, callback),
+    /** 重置表单 */
+    resetFields: () => formInstance.value?.resetFields(),
+    /** 清空验证 */
+    clearValidate: (props?: string | string[]) => formInstance.value?.clearValidate(props),
+    /** 滚动到指定字段 */
+    scrollToField: (prop: string) => formInstance.value?.scrollToField(prop),
+    /** 重置表单（包括隐藏字段） */
+    reset: resetForm,
+    /** 重置到初始值 */
+    resetToInitial,
+    /** 获取提交数据（应用 transform） */
+    getSubmitData,
+    /** 添加数组项 */
+    addArrayItem,
+    /** 删除数组项 */
+    removeArrayItem
   })
 
   // 解构 props 以便在模板中直接使用
@@ -278,72 +656,42 @@
       flex-wrap: wrap;
     }
 
-    .action-column {
-      flex: 1;
-      max-width: 100%;
+    // 表单项帮助文本
+    .form-item-help {
+      margin-top: 4px;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--el-text-color-secondary);
+    }
 
-      .action-buttons-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: flex-end;
-        margin-bottom: 12px;
-      }
+    // 动态数组项
+    .array-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
 
-      .form-buttons {
-        display: flex;
-        gap: 8px;
-      }
-
-      .filter-toggle {
-        display: flex;
-        align-items: center;
-        margin-left: 10px;
-        line-height: 32px;
-        color: var(--main-color);
-        cursor: pointer;
-        transition: color 0.2s ease;
-
-        &:hover {
-          color: var(--ElColor-primary);
-        }
-
-        span {
-          font-size: 14px;
-          user-select: none;
-        }
-
-        .icon-wrapper {
-          display: flex;
-          align-items: center;
-          margin-left: 4px;
-          font-size: 14px;
-          transition: transform 0.2s ease;
-        }
+      &:last-child {
+        margin-bottom: 0;
       }
     }
-  }
 
-  // 响应式优化
-  @media (width <= 768px) {
-    .art-form {
-      padding: 16px 16px 0;
+    // 数组添加按钮
+    .array-add-btn {
+      display: flex;
+      align-items: center;
+    }
 
-      .action-column {
-        .action-buttons-wrapper {
-          flex-direction: column;
-          gap: 8px;
-          align-items: stretch;
+    // 表单分组
+    .form-group {
+      margin-bottom: 16px;
 
-          .form-buttons {
-            justify-content: center;
-          }
+      :deep(.el-collapse-item__header) {
+        font-size: 14px;
+        font-weight: 600;
+      }
 
-          .filter-toggle {
-            justify-content: center;
-            margin-left: 0;
-          }
-        }
+      :deep(.el-collapse-item__content) {
+        padding-bottom: 0;
       }
     }
   }
