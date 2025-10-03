@@ -86,6 +86,8 @@
     gutter: 12,
     labelPosition: 'right',
     labelWidth: '70px',
+    disabled: false,
+    readonly: false,
     rules: () => ({})
   })
 
@@ -101,7 +103,10 @@
     'slots',
     'rules',
     'required',
-    'requiredMessage'
+    'requiredMessage',
+    'disabled',
+    'readonly',
+    'defaultValue'
   ]
 
   // 生成内部验证规则
@@ -137,10 +142,35 @@
   })
 
   const getProps = (item: FormItem) => {
-    if (item.props) return item.props
-    const props = { ...item }
-    rootProps.forEach((key) => delete (props as Record<string, any>)[key])
-    return props
+    // 基础属性处理
+    let itemProps: Record<string, any>
+    if (item.props) {
+      itemProps = { ...item.props }
+    } else {
+      itemProps = { ...item }
+      rootProps.forEach((key) => delete itemProps[key])
+    }
+
+    // 处理禁用状态：item.disabled 优先级高于全局 disabled
+    if (item.disabled !== undefined) {
+      itemProps.disabled = item.disabled
+    } else if (props.disabled) {
+      itemProps.disabled = true
+    }
+
+    // 处理只读状态：item.readonly 优先级高于全局 readonly
+    if (item.readonly !== undefined) {
+      itemProps.readonly = item.readonly
+    } else if (props.readonly) {
+      itemProps.readonly = true
+    }
+
+    // 处理 placeholder
+    if (item.placeholder && !itemProps.placeholder) {
+      itemProps.placeholder = item.placeholder
+    }
+
+    return itemProps
   }
 
   // 获取插槽
@@ -164,11 +194,55 @@
   }
 
   /**
+   * 判断表单项是否隐藏
+   */
+  const isItemHidden = (item: FormItem) => {
+    if (typeof item.hidden === 'function') {
+      return item.hidden(modelValue.value)
+    }
+    return !!item.hidden
+  }
+
+  /**
    * 可见的表单项
    */
   const visibleFormItems = computed(() => {
-    return props.items.filter((item) => !item.hidden)
+    return props.items.filter((item) => !isItemHidden(item))
   })
+
+  /**
+   * 初始化默认值
+   */
+  const initDefaultValues = () => {
+    props.items.forEach((item) => {
+      if (item.defaultValue !== undefined && modelValue.value[item.key] === undefined) {
+        modelValue.value[item.key] = item.defaultValue
+      }
+    })
+  }
+
+  // 组件挂载时初始化默认值
+  onMounted(() => {
+    initDefaultValues()
+  })
+
+  /**
+   * 监听表单值变化，触发 onChange 回调
+   */
+  watch(
+    () => modelValue.value,
+    (newVal, oldVal) => {
+      if (!props.onChange) return
+
+      // 找出变化的字段
+      Object.keys(newVal).forEach((key) => {
+        if (newVal[key] !== oldVal?.[key]) {
+          props.onChange?.(key, newVal[key], { ...newVal })
+        }
+      })
+    },
+    { deep: true }
+  )
 
   /**
    * 重置表单

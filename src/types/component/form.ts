@@ -28,8 +28,8 @@ export interface FormItem {
   labelWidth?: string | number
   /** 表单项类型，可以是预定义的字符串类型或自定义组件 */
   type: ComponentMapKeys | string | (() => VNode)
-  /** 是否隐藏该表单项 */
-  hidden?: boolean
+  /** 是否隐藏该表单项，支持函数动态判断 */
+  hidden?: boolean | ((formData: Record<string, any>) => boolean)
   /** 表单项占据的列宽，基于24格栅格系统 */
   span?: number
   /** 选项数据，用于 select、checkbox-group、radio-group 等 */
@@ -40,6 +40,12 @@ export interface FormItem {
   slots?: Record<string, (() => any) | undefined>
   /** 表单项的占位符文本 */
   placeholder?: string
+  /** 是否禁用该表单项 */
+  disabled?: boolean
+  /** 是否只读该表单项 */
+  readonly?: boolean
+  /** 表单项的默认值 */
+  defaultValue?: any
   /** 表单项的验证规则 */
   rules?: FormRule[]
   /** 是否必填（快捷配置） */
@@ -61,6 +67,12 @@ export interface FormProps {
   labelPosition?: 'left' | 'right' | 'top'
   /** 文字宽度 */
   labelWidth?: string | number
+  /** 是否禁用整个表单 */
+  disabled?: boolean
+  /** 是否只读整个表单 */
+  readonly?: boolean
   /** 外部传入的验证规则（向后兼容） */
   rules?: Record<string, FormRule[]>
+  /** 表单项值变化回调 */
+  onChange?: (key: string, value: any, formData: Record<string, any>) => void
 }
