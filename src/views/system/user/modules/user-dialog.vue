@@ -1,26 +1,12 @@
 <template>
-  <ElDialog
-    v-model="dialogVisible"
-    :title="dialogType === 'add' ? '添加用户' : '编辑用户'"
-    width="50%"
-    align-center
-  >
-    <ArtForm
-      ref="formRef"
-      v-model="formData"
-      :items="formItems"
-      :rules="rules"
-      :span="24"
-      label-width="90px"
-    />
-
-    <template #footer>
-      <div class="dialog-footer">
-        <ElButton @click="dialogVisible = false">取消</ElButton>
-        <ElButton type="primary" @click="handleSubmit" :loading="submitting"> 提交 </ElButton>
-      </div>
-    </template>
-  </ElDialog>
+  <ArtForm
+    ref="formRef"
+    v-model="formData"
+    :items="formItems"
+    :rules="rules"
+    :span="24"
+    label-width="90px"
+  />
 </template>
 
 <script setup lang="ts">
@@ -28,29 +14,25 @@
   import type { FormItem, FormRule } from '@/types/component/form'
 
   interface Props {
-    visible: boolean
-    type: string
-    userData?: any
+    record?: any
+    loading?: boolean
   }
 
   interface Emits {
-    (e: 'update:visible', value: boolean): void
-    (e: 'submit'): void
+    (e: 'submit', data?: any): void
+    (e: 'cancel'): void
   }
 
   const props = defineProps<Props>()
   const emit = defineEmits<Emits>()
 
-  // 角色列表数据
-  const roleList = ref(ROLE_LIST_DATA)
-
-  // 对话框显示控制
-  const dialogVisible = computed({
-    get: () => props.visible,
-    set: (value) => emit('update:visible', value)
+  // 根据 record 判断是新增还是编辑模式
+  const isEditMode = computed(() => {
+    return props.record && Object.keys(props.record).length > 0
   })
 
-  const dialogType = computed(() => props.type)
+  // 角色列表数据
+  const roleList = ref(ROLE_LIST_DATA)
 
   // 表单实例
   const formRef = ref()
@@ -65,9 +47,6 @@
     address: '',
     bio: ''
   })
-
-  // 提交状态
-  const submitting = ref(false)
 
   // 性别选项
   const genderOptions = [
@@ -224,36 +203,33 @@
 
   // 初始化表单数据
   const initFormData = () => {
-    const isEdit = props.type === 'edit' && props.userData
-    const row = props.userData
+    const row = props.record
 
     formData.value = {
-      username: isEdit ? row.userName || '' : '',
-      phone: isEdit ? row.userPhone || '' : '',
-      gender: isEdit ? row.userGender || '男' : '男',
-      role: isEdit ? (Array.isArray(row.userRoles) ? row.userRoles : []) : [],
+      username: isEditMode.value ? row.userName || '' : '',
+      phone: isEditMode.value ? row.userPhone || '' : '',
+      gender: isEditMode.value ? row.userGender || '男' : '男',
+      role: isEditMode.value ? (Array.isArray(row.userRoles) ? row.userRoles : []) : [],
       // 🆕 动态数组字段初始化
-      emails: isEdit
+      emails: isEditMode.value
         ? Array.isArray(row.emails) && row.emails.length > 0
           ? row.emails
           : ['']
         : [''],
       // 🆕 其他信息字段初始化
-      address: isEdit ? row.address || '' : '',
-      bio: isEdit ? row.bio || '' : ''
+      address: isEditMode.value ? row.address || '' : '',
+      bio: isEditMode.value ? row.bio || '' : ''
     }
   }
 
-  // 统一监听对话框状态变化
+  // 统一监听 props 变化
   watch(
-    () => [props.visible, props.type, props.userData],
-    ([visible]) => {
-      if (visible) {
-        initFormData()
-        nextTick(() => {
-          formRef.value?.clearValidate()
-        })
-      }
+    () => props.record,
+    () => {
+      initFormData()
+      nextTick(() => {
+        formRef.value?.clearValidate()
+      })
     },
     { immediate: true }
   )
@@ -262,18 +238,20 @@
   const handleSubmit = async () => {
     if (!formRef.value) return
 
-    submitting.value = true
     try {
-      await formRef.value.validate((valid: boolean) => {
-        if (valid) {
-          console.log('formData', formData.value)
-          ElMessage.success(dialogType.value === 'add' ? '添加成功' : '更新成功')
-          dialogVisible.value = false
-          emit('submit')
-        }
-      })
-    } finally {
-      submitting.value = false
+      await formRef.value.validate()
+      console.log('formData', formData.value)
+      // 触发提交事件，传递表单数据
+      emit('submit', formData.value)
+    } catch (error) {
+      console.error('表单验证失败:', error)
+      throw error // 抛出错误，阻止弹窗关闭
     }
   }
+
+  // 暴露方法给父组件调用
+  defineExpose({
+    handleSubmit,
+    formRef
+  })
 </script>

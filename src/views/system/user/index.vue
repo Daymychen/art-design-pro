@@ -12,8 +12,7 @@
       <ArtTableHeader v-model:columns="columnChecks" :loading="loading" @refresh="refreshData">
         <template #left>
           <ElSpace wrap>
-            <ElButton @click="showDialog('add')" v-ripple>新增用户</ElButton>
-            <ArtDialogButton text="新增用户" test="ffff" @confirm="handleDialogSubmit" />
+            <ElButton @click="handleAdd" v-ripple type="primary">新增用户</ElButton>
           </ElSpace>
         </template>
       </ArtTableHeader>
@@ -30,13 +29,15 @@
       >
       </ArtTable>
 
-      <!-- 用户弹窗 -->
-      <UserDialog
-        v-model:visible="dialogVisible"
-        :type="dialogType"
-        :user-data="currentUserData"
-        @submit="handleDialogSubmit"
-      />
+      <!-- 用户弹窗 - 使用新的 ArtDialog -->
+      <ArtDialog :dialog-instance="userDialog">
+        <UserDialogForm
+          ref="userFormRef"
+          :record="currentUserData"
+          :loading="userDialog.loading.value"
+          @submit="handleFormSubmit"
+        />
+      </ArtDialog>
     </ElCard>
   </div>
 </template>
@@ -45,19 +46,20 @@
   import ArtButtonTable from '@/components/core/forms/art-button-table/index.vue'
   import { ACCOUNT_TABLE_DATA } from '@/mock/temp/formData'
   import { useTable } from '@/composables/useTable'
+  import { useDialog } from '@/composables/useDialog'
   import { fetchGetUserList } from '@/api/system-manage'
   import UserSearch from './modules/user-search.vue'
-  import UserDialog from './modules/user-dialog.vue'
-  import ArtDialogButton from '@/components/core/base/art-dialog-button/inde.vue'
+  import ArtDialog from '@/components/core/base/art-dialog/index.vue'
+  import UserDialogForm from './modules/user-dialog.vue'
 
   defineOptions({ name: 'User' })
 
   type UserListItem = Api.SystemManage.UserListItem
 
-  // 弹窗相关
-  const dialogType = ref<Form.DialogType>('add')
-  const dialogVisible = ref(false)
+  // 使用新的 useDialog composable
+  const userDialog = useDialog()
   const currentUserData = ref<Partial<UserListItem>>({})
+  const userFormRef = ref()
 
   // 选中行
   const selectedRows = ref<UserListItem[]>([])
@@ -167,7 +169,7 @@
             h('div', [
               h(ArtButtonTable, {
                 type: 'edit',
-                onClick: () => showDialog('edit', row)
+                onClick: () => handleEdit(row)
               }),
               h(ArtButtonTable, {
                 type: 'delete',
@@ -210,15 +212,48 @@
   }
 
   /**
-   * 显示用户弹窗
+   * 新增用户
    */
-  const showDialog = (type: Form.DialogType, row?: UserListItem): void => {
-    console.log('打开弹窗:', { type, row })
-    dialogType.value = type
-    currentUserData.value = row || {}
-    nextTick(() => {
-      dialogVisible.value = true
+  const handleAdd = () => {
+    currentUserData.value = {}
+
+    userDialog.open({
+      title: '新增用户',
+      width: '50%',
+      onConfirm: async () => {
+        // 调用表单组件的提交方法（会进行验证）
+        await userFormRef.value?.handleSubmit()
+      }
     })
+  }
+
+  /**
+   * 编辑用户
+   */
+  const handleEdit = (row: UserListItem) => {
+    currentUserData.value = row
+
+    userDialog.open({
+      title: '编辑用户',
+      width: '50%',
+      onConfirm: async () => {
+        // 调用表单组件的提交方法（会进行验证）
+        await userFormRef.value?.handleSubmit()
+      }
+    })
+  }
+
+  /**
+   * 处理表单提交（从 UserDialogForm 组件触发）
+   */
+  const handleFormSubmit = async (formData: any) => {
+    console.log('表单数据:', formData)
+    // 根据 currentUserData 是否有数据判断是新增还是编辑
+    const isEdit = currentUserData.value && Object.keys(currentUserData.value).length > 0
+    // 这里执行实际的 API 调用
+    // await createOrUpdateUser(formData)
+    ElMessage.success(isEdit ? '更新成功' : '添加成功')
+    await refreshData()
   }
 
   /**
@@ -232,19 +267,8 @@
       type: 'error'
     }).then(() => {
       ElMessage.success('注销成功')
+      refreshData()
     })
-  }
-
-  /**
-   * 处理弹窗提交事件
-   */
-  const handleDialogSubmit = async () => {
-    try {
-      dialogVisible.value = false
-      currentUserData.value = {}
-    } catch (error) {
-      console.error('提交失败:', error)
-    }
   }
 
   /**
