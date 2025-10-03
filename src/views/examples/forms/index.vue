@@ -93,6 +93,14 @@
 
   // 表单校验规则（外部传入方式 - 向后兼容）
   const formRules = {
+    name: [{ required: true, message: '请输入用户名', trigger: 'blur' }]
+    // phone: [
+    //   { required: true, message: '请输入手机号', trigger: 'blur' },
+    //   { min: 11, max: 11, message: '请输入11位手机号', trigger: 'blur' },
+    //   { pattern: /^1[3456789]\d{9}$/, message: '请输入正确的手机号', trigger: 'blur' }
+    // ],
+    // level: [{ required: true, message: '请选择等级', trigger: 'change' }],
+    // address: [{ required: true, message: '请输入地址', trigger: 'blur' }]
     // 注意：现在支持在 formItems 中直接配置验证规则
     // 这里的外部 rules 优先级更高，可以覆盖 formItems 中的配置
   }
