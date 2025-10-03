@@ -1,21 +1,27 @@
 <template>
-  <ArtForm
-    ref="formRef"
-    v-model="formData"
-    :items="formItems"
-    :rules="rules"
-    :span="24"
-    label-width="90px"
-  />
+  <ArtDialog :dialog-instance="dialogInstance">
+    <ArtForm
+      ref="formRef"
+      v-model="formData"
+      :items="formItems"
+      :rules="rules"
+      :span="24"
+      label-width="90px"
+    />
+  </ArtDialog>
 </template>
 
 <script setup lang="ts">
   import { ROLE_LIST_DATA } from '@/mock/temp/formData'
   import type { FormItem, FormRule } from '@/types/component/form'
+  import ArtDialog from '@/components/core/base/art-dialog/index.vue'
+  import type { useDialog } from '@/composables/useDialog'
 
   interface Props {
+    /** useDialog 实例 - 从父组件传入 */
+    dialogInstance: ReturnType<typeof useDialog>
+    /** 编辑时的数据记录 */
     record?: any
-    loading?: boolean
   }
 
   interface Emits {

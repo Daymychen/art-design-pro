@@ -29,15 +29,13 @@
       >
       </ArtTable>
 
-      <!-- 用户弹窗 - 使用新的 ArtDialog -->
-      <ArtDialog :dialog-instance="userDialog">
-        <UserDialogForm
-          ref="userFormRef"
-          :record="currentUserData"
-          :loading="userDialog.loading.value"
-          @submit="handleFormSubmit"
-        />
-      </ArtDialog>
+      <!-- 用户弹窗 - ArtDialog 已封装在内部 -->
+      <UserDialog
+        ref="userFormRef"
+        :dialog-instance="userDialog"
+        :record="currentUserData"
+        @submit="handleFormSubmit"
+      />
     </ElCard>
   </div>
 </template>
@@ -49,8 +47,7 @@
   import { useDialog } from '@/composables/useDialog'
   import { fetchGetUserList } from '@/api/system-manage'
   import UserSearch from './modules/user-search.vue'
-  import ArtDialog from '@/components/core/base/art-dialog/index.vue'
-  import UserDialogForm from './modules/user-dialog.vue'
+  import UserDialog from './modules/user-dialog.vue'
 
   defineOptions({ name: 'User' })
 
