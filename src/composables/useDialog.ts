@@ -1,34 +1,8 @@
 import { ref, computed, nextTick } from 'vue'
-import type { DialogProps } from 'element-plus'
+import type { DialogOptions } from '@/components/core/base/art-dialog/types'
 
-/**
- * 自定义弹窗配置（非 ElDialog 原生属性）
- */
-interface CustomDialogOptions<T = any> {
-  /** 是否显示 Footer */
-  showFooter?: boolean
-  /** 确认按钮文本 */
-  confirmText?: string
-  /** 取消按钮文本 */
-  cancelText?: string
-  /** 传递给内容组件的 props */
-  props?: Record<string, any>
-  /** 提交回调（表单验证通过后自动调用） */
-  onSubmit?: (data?: T) => void | Promise<void>
-  /** 取消回调 */
-  onCancel?: () => void | Promise<void>
-  /** 打开后回调 */
-  onOpened?: () => void
-  /** 关闭后回调 */
-  onClosed?: () => void
-  /** 是否禁用确认按钮 */
-  disableConfirm?: boolean
-}
-
-/**
- * 弹窗配置选项（自定义属性 + ElDialog 原生属性）
- */
-export type DialogOptions<T = any> = CustomDialogOptions<T> & Partial<DialogProps>
+// 导出类型供外部使用
+export type { DialogOptions } from '@/components/core/base/art-dialog/types'
 
 export function useDialog<T = any>() {
   /** 弹窗可见性 */
