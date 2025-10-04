@@ -30,7 +30,7 @@
       </ArtTable>
 
       <!-- 用户弹窗 - ArtDialog 已封装在内部 -->
-      <UserDialog ref="userFormRef" :dialog-instance="userDialog" @submit="handleFormSubmit" />
+      <UserDialog :dialog-instance="userDialog" />
     </ElCard>
   </div>
 </template>
@@ -48,9 +48,8 @@
 
   type UserListItem = Api.SystemManage.UserListItem
 
-  // 使用新的 useDialog composable
+  // 使用 useDialog composable
   const userDialog = useDialog()
-  const userFormRef = ref()
 
   // 选中行
   const selectedRows = ref<UserListItem[]>([])
@@ -209,12 +208,11 @@
     userDialog.open({
       title: '新增用户',
       width: '50%',
-      props: {
-        record: {}
-      },
-      onConfirm: async () => {
-        // 手动触发表单验证和提交
-        await userFormRef.value?.handleSubmit()
+      onSubmit: async (formData: any) => {
+        console.log('formData11', formData)
+        // await createUser(formData)
+        ElMessage.success('添加成功')
+        await refreshData()
       }
     })
   }
@@ -229,45 +227,13 @@
       props: {
         record: row
       },
-      onConfirm: async () => {
-        // 手动触发表单验证和提交
-        await userFormRef.value?.handleSubmit()
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      onSubmit: async (formData: any) => {
+        // await updateUser(row.id, formData)
+        ElMessage.success('更新成功')
+        await refreshData()
       }
     })
-  }
-
-  /**
-   *
-   * 表单验证通过后会触发 @submit 事件，执行此方法
-   */
-  const handleFormSubmit = async (formData: any) => {
-    try {
-      console.log('表单数据:', formData)
-      // 从 dialogConfig.props 中获取 record 判断是新增还是编辑
-      const record = userDialog.dialogConfig.value.props?.record
-      const isEdit = record && Object.keys(record).length > 0
-
-      // 这里执行实际的 API 调用
-      // if (isEdit) {
-      //   await updateUser(record.id, formData)
-      // } else {
-      //   await createUser(formData)
-      // }
-
-      ElMessage.success(isEdit ? '更新成功' : '添加成功')
-      await refreshData()
-
-      // 关闭弹窗
-      userDialog.close()
-    } catch (error) {
-      // API 调用失败时的错误处理
-      if (import.meta.env.DEV) {
-        console.error('[用户管理] API调用失败:', error)
-      }
-      // 显示错误提示
-      ElMessage.error(error instanceof Error ? error.message : '操作失败，请重试')
-      throw error // 继续抛出错误，让调用方处理
-    }
   }
 
   /**

@@ -1,5 +1,5 @@
 <template>
-  <ArtDialog :dialog-instance="dialogInstance">
+  <ArtDialog :dialog-instance="dialogInstance" @confirm-click="handleSubmit">
     <ArtForm
       ref="formRef"
       v-model="formData"
@@ -22,13 +22,7 @@
     dialogInstance: ReturnType<typeof useDialog>
   }
 
-  interface Emits {
-    (e: 'submit', data?: any): void
-    (e: 'cancel'): void
-  }
-
   const props = defineProps<Props>()
-  const emit = defineEmits<Emits>()
 
   // 从 dialogInstance 中获取 record
   const record = computed(() => props.dialogInstance.dialogConfig.value.props?.record || {})
@@ -241,16 +235,18 @@
     { immediate: true, deep: true }
   )
 
-  // 提交表单
+  /**
+   * 处理确认按钮点击（由 ArtDialog 触发）
+   */
   const handleSubmit = async () => {
-    if (!formRef.value) {
-      throw new Error('表单实例未初始化')
-    }
-
+    // 1. 验证表单
     await formRef.value.validate()
     console.log('formData', formData.value)
-    // 触发提交事件，传递表单数据
-    emit('submit', formData.value)
+
+    // 2. 调用 dialog.confirm(formData)
+    //    - 会执行 open 时传入的 onSubmit 回调
+    //    - 回调完成后自动关闭弹窗
+    await props.dialogInstance.confirm(formData.value)
   }
 
   // 暴露方法给父组件调用

@@ -9,6 +9,7 @@
     "ElLoading": true,
     "ElMessage": true,
     "ElMessageBox": true,
+    "ElNotification": true,
     "ElTag": true,
     "ExtractDefaultPropTypes": true,
     "ExtractPropTypes": true,
