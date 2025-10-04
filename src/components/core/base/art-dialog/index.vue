@@ -39,6 +39,7 @@
         :status="dialog.status.value"
         :can-confirm="dialog.canConfirm.value"
         :dialog-instance="dialog"
+        :props="config.props"
       />
     </div>
 

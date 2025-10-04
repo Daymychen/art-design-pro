@@ -30,12 +30,7 @@
       </ArtTable>
 
       <!-- 用户弹窗 - ArtDialog 已封装在内部 -->
-      <UserDialog
-        ref="userFormRef"
-        :dialog-instance="userDialog"
-        :record="currentUserData"
-        @submit="handleFormSubmit"
-      />
+      <UserDialog ref="userFormRef" :dialog-instance="userDialog" @submit="handleFormSubmit" />
     </ElCard>
   </div>
 </template>
@@ -55,7 +50,6 @@
 
   // 使用新的 useDialog composable
   const userDialog = useDialog()
-  const currentUserData = ref<Partial<UserListItem>>({})
   const userFormRef = ref()
 
   // 选中行
@@ -212,11 +206,12 @@
    * 新增用户
    */
   const handleAdd = () => {
-    currentUserData.value = {}
-
     userDialog.open({
       title: '新增用户',
       width: '50%',
+      props: {
+        record: {}
+      },
       onConfirm: async () => {
         // 手动触发表单验证和提交
         await userFormRef.value?.handleSubmit()
@@ -228,11 +223,12 @@
    * 编辑用户
    */
   const handleEdit = (row: UserListItem) => {
-    currentUserData.value = row
-
     userDialog.open({
       title: '编辑用户',
       width: '50%',
+      props: {
+        record: row
+      },
       onConfirm: async () => {
         // 手动触发表单验证和提交
         await userFormRef.value?.handleSubmit()
@@ -241,18 +237,19 @@
   }
 
   /**
-   * 处理表单提交（从 UserDialogForm 组件触发）
+   *
    * 表单验证通过后会触发 @submit 事件，执行此方法
    */
   const handleFormSubmit = async (formData: any) => {
     try {
       console.log('表单数据:', formData)
-      // 根据 currentUserData 是否有数据判断是新增还是编辑
-      const isEdit = currentUserData.value && Object.keys(currentUserData.value).length > 0
+      // 从 dialogConfig.props 中获取 record 判断是新增还是编辑
+      const record = userDialog.dialogConfig.value.props?.record
+      const isEdit = record && Object.keys(record).length > 0
 
       // 这里执行实际的 API 调用
       // if (isEdit) {
-      //   await updateUser(currentUserData.value.id, formData)
+      //   await updateUser(record.id, formData)
       // } else {
       //   await createUser(formData)
       // }

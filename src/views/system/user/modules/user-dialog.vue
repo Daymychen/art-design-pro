@@ -20,8 +20,6 @@
   interface Props {
     /** useDialog 实例 - 从父组件传入 */
     dialogInstance: ReturnType<typeof useDialog>
-    /** 编辑时的数据记录 */
-    record?: any
   }
 
   interface Emits {
@@ -32,9 +30,12 @@
   const props = defineProps<Props>()
   const emit = defineEmits<Emits>()
 
+  // 从 dialogInstance 中获取 record
+  const record = computed(() => props.dialogInstance.dialogConfig.value.props?.record || {})
+
   // 根据 record 判断是新增还是编辑模式
   const isEditMode = computed(() => {
-    return props.record && Object.keys(props.record).length > 0
+    return record.value && Object.keys(record.value).length > 0
   })
 
   // 角色列表数据
@@ -209,7 +210,7 @@
 
   // 初始化表单数据
   const initFormData = () => {
-    const row = props.record
+    const row = record.value
 
     formData.value = {
       username: isEditMode.value ? row.userName || '' : '',
@@ -228,16 +229,16 @@
     }
   }
 
-  // 统一监听 props 变化
+  // 统一监听 record 变化
   watch(
-    () => props.record,
+    () => record.value,
     () => {
       initFormData()
       nextTick(() => {
         formRef.value?.clearValidate()
       })
     },
-    { immediate: true }
+    { immediate: true, deep: true }
   )
 
   // 提交表单
