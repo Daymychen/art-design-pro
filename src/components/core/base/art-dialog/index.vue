@@ -15,7 +15,7 @@
     <div class="art-dialog-content">
       <slot
         :close="dialog.close"
-        :confirm="handleConfirmClick"
+        :confirm="handleConfirm"
         :cancel="dialog.cancel"
         :loading="loading"
         :visible="dialog.visible.value"
@@ -30,7 +30,7 @@
       <slot
         name="footer"
         :close="dialog.close"
-        :confirm="handleConfirmClick"
+        :confirm="handleConfirm"
         :cancel="dialog.cancel"
         :loading="loading"
         :can-confirm="dialog.canConfirm.value"
@@ -43,7 +43,7 @@
             type="primary"
             :loading="loading"
             :disabled="!dialog.canConfirm.value"
-            @click="handleConfirmClick"
+            @click="handleConfirm"
           >
             {{ config.confirmText }}
           </ElButton>
@@ -63,7 +63,7 @@
 
   interface Emits {
     /** 确认按钮点击事件（插槽模式下使用） */
-    (e: 'confirm-click'): void | Promise<void>
+    (e: 'confirm'): void | Promise<void>
   }
 
   const props = defineProps<Props>()
@@ -104,9 +104,9 @@
    * 处理确认按钮点击
    * emit 事件给父组件，让父组件处理验证和提交
    */
-  const handleConfirmClick = async () => {
+  const handleConfirm = async () => {
     try {
-      await emit('confirm-click')
+      await emit('confirm')
     } catch (error) {
       // 只在开发环境记录错误详情，生产环境静默处理
       if (import.meta.env.DEV) {

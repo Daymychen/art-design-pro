@@ -1,5 +1,5 @@
 <template>
-  <ArtDialog :dialog-instance="dialogInstance" @confirm-click="handleSubmit">
+  <ArtDialog :dialog-instance="dialogInstance" @confirm="handleSubmit">
     <ArtForm
       ref="formRef"
       v-model="formData"
@@ -243,10 +243,10 @@
     await formRef.value.validate()
     console.log('formData', formData.value)
 
-    // 2. 调用 dialog.confirm(formData)
+    // 2. 调用 dialog.submit(formData)
     //    - 会执行 open 时传入的 onSubmit 回调
     //    - 回调完成后自动关闭弹窗
-    await props.dialogInstance.confirm(formData.value)
+    await props.dialogInstance.submit(formData.value)
   }
 
   // 暴露方法给父组件调用

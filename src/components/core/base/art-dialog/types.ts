@@ -46,8 +46,8 @@ export interface DialogInstance<T = any> {
   open: (options?: DialogOptions<T>) => Promise<boolean>
   /** 关闭弹窗 */
   close: () => void
-  /** 确认操作（执行 onSubmit 并自动关闭） */
-  confirm: (data?: T) => Promise<boolean>
+  /** 提交表单数据（执行 onSubmit 并自动关闭） */
+  submit: (data?: T) => Promise<boolean>
   /** 取消操作 */
   cancel: () => Promise<boolean>
   /** 设置弹窗可见性 */

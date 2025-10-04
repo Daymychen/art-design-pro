@@ -66,14 +66,15 @@ export function useDialog<T = any>() {
   }
 
   /**
-   * 确认操作
+   * 提交表单数据
+   * 执行 onSubmit 回调并在成功后自动关闭弹窗
    */
-  const confirm = async (data?: T) => {
+  const submit = async (data?: T) => {
     const { onSubmit } = dialogConfig.value
 
-    // 检查是否可以确认
+    // 检查是否可以提交
     if (!canConfirm.value) {
-      console.warn('Dialog confirm: 当前状态不允许确认操作')
+      console.warn('Dialog submit: 当前状态不允许提交操作')
       return false
     }
 
@@ -90,7 +91,7 @@ export function useDialog<T = any>() {
 
       return true
     } catch (error) {
-      console.error('Dialog confirm error:', error)
+      console.error('Dialog submit error:', error)
       return false
     } finally {
       loading.value = false
@@ -155,7 +156,7 @@ export function useDialog<T = any>() {
     // 核心方法
     open,
     close,
-    confirm,
+    submit,
     cancel,
 
     // 辅助方法

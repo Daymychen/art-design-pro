@@ -52,7 +52,7 @@
 
 ```vue
 <template>
-  <ArtDialog :dialog-instance="dialogInstance" @confirm-click="handleConfirmClick">
+  <ArtDialog :dialog-instance="dialogInstance" @confirm="handleConfirm">
     <ArtForm ref="formRef" v-model="formData" :items="formItems" :rules="rules" />
   </ArtDialog>
 </template>
@@ -85,12 +85,12 @@
   )
 
   // 处理确认按钮点击
-  const handleConfirmClick = async () => {
+  const handleConfirm = async () => {
     // 1. 验证表单
     await formRef.value?.validate()
 
-    // 2. 调用 confirm 执行 onSubmit
-    await props.dialogInstance.confirm(formData.value)
+    // 2. 提交表单数据，执行 onSubmit 回调
+    await props.dialogInstance.submit(formData.value)
   }
 </script>
 ```
@@ -102,11 +102,11 @@
 ```
 用户点击"确定"按钮
     ↓
-触发 @confirm-click 事件
+触发 @confirm 事件
     ↓
-handleConfirmClick 验证表单
+handleConfirm 验证表单
     ↓
-调用 dialogInstance.confirm(formData)
+调用 dialogInstance.submit(formData)
     ↓
 执行 onSubmit 回调（业务逻辑）
     ↓
@@ -129,7 +129,7 @@ dialog.canConfirm // 是否可以确认（computed）
 // 核心方法
 dialog.open(options) // 打开弹窗
 dialog.close() // 关闭弹窗
-dialog.confirm(data) // 确认操作（执行 onSubmit 并自动关闭）
+dialog.submit(data) // 提交表单数据（执行 onSubmit 并自动关闭）
 dialog.cancel() // 取消操作
 
 // 辅助方法
@@ -202,7 +202,7 @@ const handleEdit = (row: User) => {
 ### 场景 2：自定义 Footer
 
 ```vue
-<ArtDialog :dialog-instance="dialogInstance" @confirm-click="handleConfirmClick">
+<ArtDialog :dialog-instance="dialogInstance" @confirm="handleConfirm">
   <template #default>
     <!-- 弹窗内容 -->
   </template>
@@ -280,7 +280,7 @@ const handleAdd = () => {
       } catch (error) {
         // 自定义错误处理
         ElMessage.error('添加失败: ' + error.message)
-        throw error // 抛出错误以阻止弹窗关闭
+        throw error // 抛出错误，弹窗不会关闭，让用户修正后重试
       }
     }
   })
@@ -323,7 +323,7 @@ const handleEditUserRole = (user: User) => {
 
 ```vue
 <template>
-  <ArtDialog :dialog-instance="dialogInstance" @confirm-click="handleConfirmClick">
+  <ArtDialog :dialog-instance="dialogInstance" @confirm="handleConfirm">
     <template #default="{ props }">
       <ElForm :model="formData">
         <ElFormItem label="用户名">
@@ -344,8 +344,8 @@ const handleEditUserRole = (user: User) => {
 
   const formData = ref({ username: '', email: '' })
 
-  const handleConfirmClick = async () => {
-    await dialogInstance.confirm(formData.value)
+  const handleConfirm = async () => {
+    await dialogInstance.submit(formData.value)
   }
 </script>
 ```
@@ -356,7 +356,7 @@ const handleEditUserRole = (user: User) => {
 
 ```vue
 <template>
-  <ArtDialog :dialog-instance="dialogInstance" @confirm-click="handleConfirmClick">
+  <ArtDialog :dialog-instance="dialogInstance" @confirm="handleConfirm">
     <ArtForm ref="formRef" v-model="formData" :items="formItems" :rules="rules" />
   </ArtDialog>
 </template>
@@ -376,9 +376,9 @@ const handleEditUserRole = (user: User) => {
   const formData = ref({})
 
   // ✅ 处理确认按钮点击
-  const handleConfirmClick = async () => {
+  const handleConfirm = async () => {
     await formRef.value?.validate()
-    await props.dialogInstance.confirm(formData.value)
+    await props.dialogInstance.submit(formData.value)
   }
 
   // ✅ 监听 record 变化初始化表单
@@ -419,8 +419,8 @@ const handleAdd = () => {
     title: '新增用户',
     props: { record: {} },
     onSubmit: async (formData) => {
-      // 如果出错，onSubmit 会抛出异常
-      // confirm 方法会捕获异常并阻止弹窗关闭
+      // 如果出错，submit 方法会捕获异常并阻止弹窗关闭
+      // 弹窗保持打开状态，让用户修正后重试
       await createUser(formData)
       ElMessage.success('添加成功')
       await refreshData()
@@ -494,7 +494,7 @@ userDialog.open({
 
 1. **弹窗自动关闭** - `onSubmit` 执行成功后会自动关闭弹窗，无需手动调用 `close()`
 2. **错误处理** - 如果 `onSubmit` 抛出错误，弹窗会保持打开状态，用户可以修改后重试
-3. **表单验证** - 在子组件的 `@confirm-click` 处理函数中进行表单验证
+3. **表单验证** - 在子组件的 `@confirm` 处理函数中进行表单验证
 4. **数据传递** - 使用 `dialogConfig.value.props` 在父子组件间传递数据
 
 ## 🆚 对比
