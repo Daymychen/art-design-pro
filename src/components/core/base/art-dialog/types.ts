@@ -15,7 +15,7 @@ interface CustomDialogOptions<T = any> {
   props?: Record<string, any>
   /** 提交回调（表单验证通过后自动调用） */
   onSubmit?: (data?: T) => void | Promise<void>
-  /** 取消回调 */
+  /** 取消回调（抛出错误可阻止关闭，用于关闭前确认） */
   onCancel?: () => void | Promise<void>
   /** 打开后回调（用于 DOM 操作） */
   onOpened?: () => void
@@ -46,9 +46,9 @@ export interface DialogInstance<T = any> {
   open: (options?: DialogOptions<T>) => Promise<boolean>
   /** 关闭弹窗 */
   close: () => void
-  /** 提交表单数据（执行 onSubmit 并自动关闭） */
-  submit: (data?: T) => Promise<boolean>
-  /** 取消操作 */
+  /** 提交表单数据（执行 onSubmit 并自动关闭），失败时抛出错误 */
+  submit: (data?: T) => Promise<void>
+  /** 取消操作（总是成功） */
   cancel: () => Promise<boolean>
   /** 设置弹窗可见性 */
   setVisible: (value: boolean) => void

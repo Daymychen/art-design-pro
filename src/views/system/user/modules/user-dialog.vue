@@ -17,6 +17,29 @@
   import ArtDialog from '@/components/core/base/art-dialog/index.vue'
   import type { useDialog } from '@/composables/useDialog'
 
+  /** 用户记录类型（扩展 API 类型，添加表单专用字段） */
+  interface UserRecord extends Partial<Api.SystemManage.UserListItem> {
+    emails?: string[]
+    address?: string
+    bio?: string
+  }
+
+  /** 表单数据类型 */
+  interface UserFormData {
+    username: string
+    phone: string
+    gender: string
+    role: string[]
+    emails: string[]
+    address: string
+    bio: string
+  }
+
+  /** Dialog Props 类型 */
+  interface UserDialogProps {
+    record?: UserRecord
+  }
+
   interface Props {
     /** useDialog 实例 - 从父组件传入 */
     dialogInstance: ReturnType<typeof useDialog>
@@ -24,8 +47,11 @@
 
   const props = defineProps<Props>()
 
-  // 从 dialogInstance 中获取 record
-  const record = computed(() => props.dialogInstance.dialogConfig.value.props?.record || {})
+  // 从 dialogInstance 中获取 record（带类型约束）
+  const record = computed<UserRecord>(() => {
+    const dialogProps = props.dialogInstance.dialogConfig.value.props as UserDialogProps | undefined
+    return (dialogProps?.record || {}) as UserRecord
+  })
 
   // 根据 record 判断是新增还是编辑模式
   const isEditMode = computed(() => {
@@ -35,15 +61,15 @@
   // 角色列表数据
   const roleList = ref(ROLE_LIST_DATA)
 
-  // 表单实例
-  const formRef = ref()
+  // 表单实例（带类型）
+  const formRef = ref<{ validate: () => Promise<void>; clearValidate: () => void }>()
 
-  // 表单数据
-  const formData = ref({
+  // 表单数据（带类型）
+  const formData = ref<UserFormData>({
     username: '',
     phone: '',
     gender: '男',
-    role: [] as string[],
+    role: [],
     emails: [''], // 🆕 动态数组字段
     address: '',
     bio: ''
@@ -223,16 +249,17 @@
     }
   }
 
-  // 统一监听 record 变化
+  // 监听弹窗打开状态（优化性能，避免 deep watch）
   watch(
-    () => record.value,
-    () => {
-      initFormData()
-      nextTick(() => {
-        formRef.value?.clearValidate()
-      })
-    },
-    { immediate: true, deep: true }
+    () => props.dialogInstance.visible.value,
+    (isVisible) => {
+      if (isVisible) {
+        initFormData()
+        nextTick(() => {
+          formRef.value?.clearValidate()
+        })
+      }
+    }
   )
 
   /**
@@ -240,7 +267,7 @@
    */
   const handleSubmit = async () => {
     // 1. 验证表单
-    await formRef.value.validate()
+    await formRef.value?.validate()
     console.log('formData', formData.value)
 
     // 2. 调用 dialog.submit(formData)

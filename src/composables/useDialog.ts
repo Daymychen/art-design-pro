@@ -51,31 +51,27 @@ export function useDialog<T = any>() {
   }
 
   /**
-   * 关闭弹窗
+   * 关闭弹窗（简化版，无拦截）
    */
   const close = () => {
-    const { beforeClose } = dialogConfig.value
-
-    if (beforeClose) {
-      beforeClose(() => {
-        visible.value = false
-      })
-    } else {
-      visible.value = false
-    }
+    visible.value = false
   }
 
   /**
    * 提交表单数据
    * 执行 onSubmit 回调并在成功后自动关闭弹窗
+   * @param data - 要提交的表单数据（可选）
+   * @returns Promise<void> - 成功时 resolve，失败时 reject
+   * @throws {Error} 当前状态不允许提交或 onSubmit 失败时抛出
    */
-  const submit = async (data?: T) => {
+  const submit = async (data?: T): Promise<void> => {
     const { onSubmit } = dialogConfig.value
 
-    // 检查是否可以提交
+    // 检查是否可以提交（统一使用抛出错误的方式）
     if (!canConfirm.value) {
-      console.warn('Dialog submit: 当前状态不允许提交操作')
-      return false
+      const error = new Error('当前状态不允许提交操作（loading 或 disableConfirm）')
+      console.warn('Dialog submit:', error.message)
+      throw error
     }
 
     try {
@@ -88,11 +84,10 @@ export function useDialog<T = any>() {
 
       // 成功后自动关闭
       close()
-
-      return true
     } catch (error) {
+      // 记录错误但重新抛出，让调用方可以处理
       console.error('Dialog submit error:', error)
-      return false
+      throw error // 重新抛出错误，保持错误传播链
     } finally {
       loading.value = false
     }
@@ -101,19 +96,22 @@ export function useDialog<T = any>() {
   /**
    * 取消操作
    */
-  const cancel = async () => {
+  const cancel = async (): Promise<boolean> => {
     const { onCancel } = dialogConfig.value
 
     try {
-      loading.value = true
-      await onCancel?.()
+      // 执行取消回调（如果有）
+      if (onCancel) {
+        await onCancel()
+      }
+
+      // 成功后关闭弹窗
       close()
       return true
     } catch (error) {
-      console.error('Dialog cancel error:', error)
+      // onCancel 抛出错误，阻止关闭弹窗
+      console.warn('Dialog cancel intercepted:', error)
       return false
-    } finally {
-      loading.value = false
     }
   }
 
@@ -128,19 +126,24 @@ export function useDialog<T = any>() {
    * 弹窗关闭后的回调
    */
   const handleClosed = () => {
-    // 重置状态
+    // 保存 onClosed 回调，因为重置后会清除
+    const onClosedCallback = dialogConfig.value.onClosed
+
+    // 重置所有状态，避免污染下次打开
     loading.value = false
+    dialogConfig.value = { ...defaultConfig }
 
     // 触发关闭后回调
-    dialogConfig.value.onClosed?.()
+    onClosedCallback?.()
   }
 
   /**
    * 设置弹窗可见性
+   * 关闭时会调用 cancel（支持 onCancel 拦截）
    */
   const setVisible = (value: boolean) => {
     if (!value) {
-      close()
+      cancel()
     } else {
       visible.value = value
     }

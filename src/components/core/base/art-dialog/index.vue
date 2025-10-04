@@ -2,7 +2,7 @@
   <ElDialog
     :model-value="dialog.visible.value"
     v-bind="dialogProps"
-    @update:model-value="dialog.setVisible"
+    @update:model-value="handleVisibleChange"
     @opened="dialog.handleOpened"
     @closed="dialog.handleClosed"
   >
@@ -101,20 +101,25 @@
   })
 
   /**
+   * 处理弹窗可见性变化
+   * 当用户点击 X、ESC 或遮罩层关闭时，调用 cancel 方法（支持拦截）
+   */
+  const handleVisibleChange = (value: boolean) => {
+    if (!value) {
+      // 关闭弹窗时调用 cancel（支持 onCancel 拦截）
+      dialog.cancel()
+    } else {
+      // 打开弹窗
+      dialog.visible.value = value
+    }
+  }
+
+  /**
    * 处理确认按钮点击
    * emit 事件给父组件，让父组件处理验证和提交
    */
-  const handleConfirm = async () => {
-    try {
-      await emit('confirm')
-    } catch (error) {
-      // 只在开发环境记录错误详情，生产环境静默处理
-      if (import.meta.env.DEV) {
-        console.error('[ArtDialog] 确认操作失败:', error)
-      }
-      // 错误已被捕获，不再向上抛出，避免未捕获的 Promise rejection
-      // 弹窗保持打开状态，让用户修正错误
-    }
+  const handleConfirm = () => {
+    emit('confirm')
   }
 </script>
 
