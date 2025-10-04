@@ -112,8 +112,8 @@
       if (import.meta.env.DEV) {
         console.error('[ArtDialog] 确认操作失败:', error)
       }
-      // 抛出错误，阻止弹窗关闭
-      throw error
+      // 错误已被捕获，不再向上抛出，避免未捕获的 Promise rejection
+      // 弹窗保持打开状态，让用户修正错误
     }
   }
 </script>

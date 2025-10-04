@@ -1,9 +1,6 @@
 import { ref, computed, nextTick } from 'vue'
 import type { DialogOptions } from '@/components/core/base/art-dialog/types'
 
-// 导出类型供外部使用
-export type { DialogOptions } from '@/components/core/base/art-dialog/types'
-
 export function useDialog<T = any>() {
   /** 弹窗可见性 */
   const visible = ref(false)
@@ -80,9 +77,9 @@ export function useDialog<T = any>() {
       return false
     }
 
-    loading.value = true
-
     try {
+      loading.value = true
+
       // 执行提交回调
       if (onSubmit) {
         await onSubmit(data)
@@ -92,6 +89,9 @@ export function useDialog<T = any>() {
       close()
 
       return true
+    } catch (error) {
+      console.error('Dialog confirm error:', error)
+      return false
     } finally {
       loading.value = false
     }
@@ -138,7 +138,11 @@ export function useDialog<T = any>() {
    * 设置弹窗可见性
    */
   const setVisible = (value: boolean) => {
-    visible.value = value
+    if (!value) {
+      close()
+    } else {
+      visible.value = value
+    }
   }
 
   return {
