@@ -14,6 +14,7 @@ import {
   ElTimeSelect,
   ElTreeSelect
 } from 'element-plus'
+import ApiSelect from '@/components/core/forms/art-form-item/api-select/index.vue'
 
 /**
  * 表单组件映射表
@@ -23,6 +24,7 @@ export const componentMap = {
   input: ElInput, // 输入框
   number: ElInputNumber, // 数字输入框
   select: ElSelect, // 选择器
+  'api-select': ApiSelect, // API 异步选择器
   switch: ElSwitch, // 开关
   checkbox: ElCheckbox, // 复选框
   checkboxgroup: ElCheckboxGroup, // 复选框组

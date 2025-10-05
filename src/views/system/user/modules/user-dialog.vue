@@ -16,6 +16,7 @@
   import type { FormItem, FormRule } from '@/types/component/form'
   import ArtDialog from '@/components/core/base/art-dialog/index.vue'
   import type { useDialog } from '@/composables/useDialog'
+  import { fetchGetGenderOptions } from '@/api/system-manage'
 
   /** 用户记录类型（扩展 API 类型，添加表单专用字段） */
   interface UserRecord extends Partial<Api.SystemManage.UserListItem> {
@@ -75,12 +76,6 @@
     bio: ''
   })
 
-  // 性别选项
-  const genderOptions = [
-    { label: '男', value: '男' },
-    { label: '女', value: '女' }
-  ]
-
   // 表单验证规则（外部配置，优先级更高）
   const rules: Record<string, FormRule[]> = {
     username: [
@@ -132,11 +127,16 @@
           {
             key: 'gender',
             label: '性别',
-            type: 'select',
+            type: 'api-select',
             span: 12,
+            tooltip: '使用 API 异步加载选项',
             props: {
               placeholder: '请选择性别',
-              options: genderOptions
+              api: fetchGetGenderOptions,
+              labelField: 'label',
+              valueField: 'value',
+              dataPath: 'data',
+              clearable: true
             }
           },
           {

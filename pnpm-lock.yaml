@@ -40,6 +40,9 @@ importers:
       highlight.js:
         specifier: ^11.10.0
         version: 11.11.1
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
       mitt:
         specifier: ^3.0.1
         version: 3.0.1
@@ -83,6 +86,9 @@ importers:
       '@eslint/js':
         specifier: ^9.9.1
         version: 9.36.0
+      '@types/lodash-es':
+        specifier: ^4.17.12
+        version: 4.17.12
       '@types/node':
         specifier: ^22.1.0
         version: 22.18.6
