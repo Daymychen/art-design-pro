@@ -30,7 +30,19 @@
 </template>
 
 <script setup lang="ts">
-  const weeklyList = [
+  interface WeeklyItem {
+    icon: string
+    title: string
+    subtitle: string
+    value: string
+    color: string
+  }
+
+  /**
+   * 本周热销商品列表
+   * 展示销量排名前三的商品信息
+   */
+  const weeklyList: WeeklyItem[] = [
     {
       icon: '&#xe718;',
       title: '智能手表Pro',

@@ -38,7 +38,7 @@ export function setupBeforeEachGuard(router: Router): void {
         await handleRouteGuard(to, from, next, router)
       } catch (error) {
         console.error('路由守卫处理失败:', error)
-        next('/exception/500')
+        next({ name: 'Exception500' })
       }
     }
   )
@@ -116,7 +116,7 @@ async function handleRouteGuard(
   }
 
   // 未匹配到路由，跳转到 404
-  next(RoutesAlias.Exception404)
+  next({ name: 'Exception404' })
 }
 
 /**
@@ -132,7 +132,7 @@ async function handleLoginStatus(
 
   if (!userStore.isLogin && to.path !== RoutesAlias.Login && !isStaticRoute) {
     userStore.logOut()
-    next(RoutesAlias.Login)
+    next({ name: 'Login' })
     return false
   }
   return true
@@ -198,7 +198,7 @@ async function handleDynamicRoutes(
     })
   } catch (error) {
     console.error('动态路由注册失败:', error)
-    next('/exception/500')
+    next({ name: 'Exception500' })
   }
 }
 
@@ -238,9 +238,14 @@ async function processFrontendMenu(router: Router): Promise<void> {
 /**
  * 处理后端控制模式的菜单逻辑
  */
-async function processBackendMenu(router: Router): Promise<void> {
-  const { menuList } = await fetchGetMenuList()
-  await registerAndStoreMenu(router, menuList)
+async function processBackendMenu(router: Router) {
+  try {
+    const list = await fetchGetMenuList()
+    const menuList = list.map((route) => menuDataToRouter(route))
+    await registerAndStoreMenu(router, menuList)
+  } catch (error) {
+    throw error instanceof Error ? error : new Error('获取菜单失败')
+  }
 }
 
 /**

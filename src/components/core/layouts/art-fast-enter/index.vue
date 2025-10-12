@@ -29,7 +29,7 @@
             v-for="application in enabledApplications"
             :key="application.name"
             class="app-item"
-            @click="handleNavigate(application.path)"
+            @click="handleApplicationClick(application)"
           >
             <div class="app-icon">
               <i
@@ -52,7 +52,7 @@
           <li
             v-for="quickLink in enabledQuickLinks"
             :key="quickLink.name"
-            @click="handleNavigate(quickLink.path)"
+            @click="handleQuickLinkClick(quickLink)"
           >
             <span>{{ quickLink.name }}</span>
           </li>
@@ -64,6 +64,7 @@
 
 <script setup lang="ts">
   import { useFastEnter } from '@/composables/useFastEnter'
+  import type { FastEnterApplication, FastEnterQuickLink } from '@/types/config'
 
   defineOptions({ name: 'ArtFastEnter' })
 
@@ -73,15 +74,42 @@
   // 使用快速入口配置
   const { enabledApplications, enabledQuickLinks } = useFastEnter()
 
-  const isExternalLink = (path: string): boolean => path.startsWith('http')
+  /**
+   * 处理导航跳转
+   * @param routeName 路由名称
+   * @param link 外部链接
+   */
+  const handleNavigate = (routeName?: string, link?: string): void => {
+    const targetPath = routeName || link
 
-  const handleNavigate = (path: string): void => {
-    if (isExternalLink(path)) {
-      window.open(path, '_blank')
-    } else {
-      router.push(path)
+    if (!targetPath) {
+      console.warn('导航配置无效：缺少路由名称或链接')
+      return
     }
+
+    if (targetPath.startsWith('http')) {
+      window.open(targetPath, '_blank')
+    } else {
+      router.push({ name: targetPath })
+    }
+
     popoverRef.value?.hide()
+  }
+
+  /**
+   * 处理应用项点击
+   * @param application 应用配置对象
+   */
+  const handleApplicationClick = (application: FastEnterApplication): void => {
+    handleNavigate(application.routeName, application.link)
+  }
+
+  /**
+   * 处理快速链接点击
+   * @param quickLink 快速链接配置对象
+   */
+  const handleQuickLinkClick = (quickLink: FastEnterQuickLink): void => {
+    handleNavigate(quickLink.routeName, quickLink.link)
   }
 </script>
 

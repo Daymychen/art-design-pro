@@ -23,7 +23,16 @@
 </template>
 
 <script setup lang="ts">
-  const list = [
+  interface UserStatItem {
+    name: string
+    num: string
+  }
+
+  /**
+   * 用户统计数据列表
+   * 包含总用户量、总访问量、日访问量和周同比等关键指标
+   */
+  const list: UserStatItem[] = [
     { name: '总用户量', num: '32k' },
     { name: '总访问量', num: '128k' },
     { name: '日访问量', num: '1.2k' },

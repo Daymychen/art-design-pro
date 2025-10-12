@@ -161,8 +161,22 @@
     return roleMap[role] || '未知角色'
   }
 
-  // 切换角色
-  const switchRole = async (account: any) => {
+  /**
+   * 账号信息类型
+   */
+  interface AccountInfo {
+    userName: string
+    password: string
+    role?: string
+    roles?: string[]
+    [key: string]: any
+  }
+
+  /**
+   * 切换角色
+   * @param account 账号信息
+   */
+  const switchRole = async (account: AccountInfo) => {
     try {
       switching.value = true
 

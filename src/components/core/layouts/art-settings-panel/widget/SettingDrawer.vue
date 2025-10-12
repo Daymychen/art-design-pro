@@ -1,6 +1,6 @@
 <template>
   <div class="setting-drawer">
-    <el-drawer
+    <ElDrawer
       size="300px"
       v-model="visible"
       :lock-scroll="true"
@@ -14,7 +14,7 @@
       <div class="drawer-con">
         <slot />
       </div>
-    </el-drawer>
+    </ElDrawer>
   </div>
 </template>
 

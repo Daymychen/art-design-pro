@@ -80,7 +80,7 @@ class StorageCompatibilityManager {
       try {
         localStorage.clear()
         useUserStore().logOut()
-        router.push(RoutesAlias.Login)
+        router.push({ name: 'Login' })
         console.info('[Storage] 已执行系统登出')
       } catch (error) {
         console.error('[Storage] 系统登出失败:', error)

@@ -5,7 +5,7 @@
       <p class="subtitle">本月销售情况</p>
     </div>
     <div class="table">
-      <el-scrollbar style="height: 21.55rem">
+      <ElScrollbar style="height: 21.55rem">
         <ArtTable
           :data="tableData"
           style="margin-top: 0 !important"
@@ -14,7 +14,7 @@
           :header-cell-style="{ background: 'transparent' }"
         >
           <template #default>
-            <el-table-column label="产品" prop="product" width="220px">
+            <ElTableColumn label="产品" prop="product" width="220px">
               <template #default="scope">
                 <div style="display: flex; align-items: center">
                   <img class="product-image" :src="scope.row.image" />
@@ -24,40 +24,37 @@
                   </div>
                 </div>
               </template>
-            </el-table-column>
-            <el-table-column label="价格" prop="price">
+            </ElTableColumn>
+            <ElTableColumn label="价格" prop="price">
               <template #default="scope">
                 <span class="price">¥{{ scope.row.price.toLocaleString() }}</span>
               </template>
-            </el-table-column>
-            <el-table-column label="库存" prop="stock">
+            </ElTableColumn>
+            <ElTableColumn label="库存" prop="stock">
               <template #default="scope">
                 <div class="stock-badge" :class="getStockClass(scope.row.stock)">
                   {{ getStockStatus(scope.row.stock) }}
                 </div>
               </template>
-            </el-table-column>
-            <el-table-column label="销量" prop="sales" />
-            <el-table-column label="销售趋势" width="240">
+            </ElTableColumn>
+            <ElTableColumn label="销量" prop="sales" />
+            <ElTableColumn label="销售趋势" width="240">
               <template #default="scope">
-                <el-progress
+                <ElProgress
                   :percentage="scope.row.pro"
                   :color="scope.row.color"
                   :stroke-width="4"
                 />
               </template>
-            </el-table-column>
+            </ElTableColumn>
           </template>
         </ArtTable>
-      </el-scrollbar>
+      </ElScrollbar>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { reactive, onMounted } from 'vue'
-
-  // 导入产品图片
   import product1 from '@/assets/img/3d/icon1.webp'
   import product2 from '@/assets/img/3d/icon2.webp'
   import product3 from '@/assets/img/3d/icon3.webp'
@@ -65,7 +62,29 @@
   import product5 from '@/assets/img/3d/icon5.webp'
   import product6 from '@/assets/img/3d/icon6.webp'
 
-  const tableData = reactive([
+  interface ProductItem {
+    name: string
+    category: string
+    price: number
+    stock: number
+    sales: number
+    percentage: number
+    pro: number
+    color: string
+    image: string
+  }
+
+  const ANIMATION_DELAY = 100
+  const STOCK_THRESHOLD = {
+    LOW: 20,
+    MEDIUM: 50
+  } as const
+
+  /**
+   * 热销产品表格数据
+   * 包含产品信息、库存、销量和销售趋势
+   */
+  const tableData = reactive<ProductItem[]>([
     {
       name: '智能手表 Pro',
       category: '电子设备',
@@ -134,34 +153,45 @@
     }
   ])
 
-  // 根据库存获取状态文本
-  const getStockStatus = (stock: number) => {
+  /**
+   * 根据库存数量获取状态文本
+   * @param stock 库存数量
+   * @returns 库存状态文本
+   */
+  const getStockStatus = (stock: number): string => {
     if (stock === 0) return '缺货'
-    if (stock < 20) return '低库存'
-    if (stock < 50) return '适中'
+    if (stock < STOCK_THRESHOLD.LOW) return '低库存'
+    if (stock < STOCK_THRESHOLD.MEDIUM) return '适中'
     return '充足'
   }
 
-  // 根据库存获取状态类名
-  const getStockClass = (stock: number) => {
+  /**
+   * 根据库存数量获取状态样式类名
+   * @param stock 库存数量
+   * @returns CSS 类名
+   */
+  const getStockClass = (stock: number): string => {
     if (stock === 0) return 'out-of-stock'
-    if (stock < 20) return 'low-stock'
-    if (stock < 50) return 'medium-stock'
+    if (stock < STOCK_THRESHOLD.LOW) return 'low-stock'
+    if (stock < STOCK_THRESHOLD.MEDIUM) return 'medium-stock'
     return 'in-stock'
+  }
+
+  /**
+   * 添加进度条动画效果
+   * 延迟后将进度值从 0 更新到目标百分比，触发动画
+   */
+  const addAnimation = (): void => {
+    setTimeout(() => {
+      tableData.forEach((item) => {
+        item.pro = item.percentage
+      })
+    }, ANIMATION_DELAY)
   }
 
   onMounted(() => {
     addAnimation()
   })
-
-  const addAnimation = () => {
-    setTimeout(() => {
-      for (let i = 0; i < tableData.length; i++) {
-        let item = tableData[i]
-        tableData[i].pro = item.percentage
-      }
-    }, 100)
-  }
 </script>
 
 <style lang="scss" scoped>

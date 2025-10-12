@@ -18,7 +18,17 @@
 </template>
 
 <script setup lang="ts">
-  const list = reactive([
+  interface DynamicItem {
+    username: string
+    type: string
+    target: string
+  }
+
+  /**
+   * 用户动态列表
+   * 记录用户的关注、发文、提问、兑换等各类活动
+   */
+  const list = reactive<DynamicItem[]>([
     {
       username: '中小鱼',
       type: '关注了',

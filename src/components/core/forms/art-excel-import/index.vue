@@ -21,7 +21,7 @@
   defineOptions({ name: 'ArtExcelImport' })
 
   // Excel 导入工具函数
-  async function importExcel(file: File): Promise<any[]> {
+  async function importExcel(file: File): Promise<Array<Record<string, unknown>>> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader()
 
@@ -32,7 +32,7 @@
           const firstSheetName = workbook.SheetNames[0]
           const worksheet = workbook.Sheets[firstSheetName]
           const results = XLSX.utils.sheet_to_json(worksheet)
-          resolve(results)
+          resolve(results as Array<Record<string, unknown>>)
         } catch (error) {
           reject(error)
         }
@@ -45,7 +45,7 @@
 
   // 定义 emits
   const emit = defineEmits<{
-    'import-success': [data: any[]]
+    'import-success': [data: Array<Record<string, unknown>>]
     'import-error': [error: Error]
   }>()
 

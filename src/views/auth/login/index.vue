@@ -94,7 +94,7 @@
               <ElCheckbox v-model="formData.rememberPassword">{{
                 $t('login.rememberPwd')
               }}</ElCheckbox>
-              <RouterLink :to="RoutesAlias.ForgetPassword">{{ $t('login.forgetPwd') }}</RouterLink>
+              <RouterLink :to="{ name: 'ForgetPassword' }">{{ $t('login.forgetPwd') }}</RouterLink>
             </div>
 
             <div style="margin-top: 30px">
@@ -112,7 +112,7 @@
             <div class="footer">
               <p>
                 {{ $t('login.noAccount') }}
-                <RouterLink :to="RoutesAlias.Register">{{ $t('login.register') }}</RouterLink>
+                <RouterLink :to="{ name: 'Register' }">{{ $t('login.register') }}</RouterLink>
               </p>
             </div>
           </ElForm>
@@ -124,7 +124,6 @@
 
 <script setup lang="ts">
   import AppConfig from '@/config'
-  import { RoutesAlias } from '@/router/routesAlias'
   import { useUserStore } from '@/store/modules/user'
   import { getCssVar } from '@/utils/ui'
   import { languageOptions } from '@/locales'

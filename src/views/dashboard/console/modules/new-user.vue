@@ -5,11 +5,11 @@
         <h4 class="box-title">新用户</h4>
         <p class="subtitle">这个月增长<span class="text-success">+20%</span></p>
       </div>
-      <el-radio-group v-model="radio2">
-        <el-radio-button value="本月" label="本月"></el-radio-button>
-        <el-radio-button value="上月" label="上月"></el-radio-button>
-        <el-radio-button value="今年" label="今年"></el-radio-button>
-      </el-radio-group>
+      <ElRadioGroup v-model="radio2">
+        <ElRadioButton value="本月" label="本月"></ElRadioButton>
+        <ElRadioButton value="上月" label="上月"></ElRadioButton>
+        <ElRadioButton value="今年" label="今年"></ElRadioButton>
+      </ElRadioGroup>
     </div>
     <ArtTable
       class="table"
@@ -21,32 +21,32 @@
       :header-cell-style="{ background: 'transparent' }"
     >
       <template #default>
-        <el-table-column label="头像" prop="avatar" width="150px">
+        <ElTableColumn label="头像" prop="avatar" width="150px">
           <template #default="scope">
             <div style="display: flex; align-items: center">
               <img class="avatar" :src="scope.row.avatar" alt="avatar" />
               <span class="user-name">{{ scope.row.username }}</span>
             </div>
           </template>
-        </el-table-column>
-        <el-table-column label="地区" prop="province" />
-        <el-table-column label="性别" prop="avatar">
+        </ElTableColumn>
+        <ElTableColumn label="地区" prop="province" />
+        <ElTableColumn label="性别" prop="avatar">
           <template #default="scope">
             <div style="display: flex; align-items: center">
               <span style="margin-left: 10px">{{ scope.row.sex === 1 ? '男' : '女' }}</span>
             </div>
           </template>
-        </el-table-column>
-        <el-table-column label="进度" width="240">
+        </ElTableColumn>
+        <ElTableColumn label="进度" width="240">
           <template #default="scope">
-            <el-progress
+            <ElProgress
               :percentage="scope.row.pro"
               :color="scope.row.color"
               :stroke-width="4"
               :aria-label="`${scope.row.username}的完成进度: ${scope.row.pro}%`"
             />
           </template>
-        </el-table-column>
+        </ElTableColumn>
       </template>
     </ArtTable>
   </div>
@@ -60,9 +60,26 @@
   import avatar5 from '@/assets/img/avatar/avatar5.webp'
   import avatar6 from '@/assets/img/avatar/avatar6.webp'
 
+  interface UserTableItem {
+    username: string
+    province: string
+    sex: 0 | 1
+    age: number
+    percentage: number
+    pro: number
+    color: string
+    avatar: string
+  }
+
+  const ANIMATION_DELAY = 100
+
   const radio2 = ref('本月')
 
-  const tableData = reactive([
+  /**
+   * 新用户表格数据
+   * 包含用户基本信息和完成进度
+   */
+  const tableData = reactive<UserTableItem[]>([
     {
       username: '中小鱼',
       province: '北京',
@@ -125,18 +142,21 @@
     }
   ])
 
+  /**
+   * 添加进度条动画效果
+   * 延迟后将进度值从 0 更新到目标百分比，触发动画
+   */
+  const addAnimation = (): void => {
+    setTimeout(() => {
+      tableData.forEach((item) => {
+        item.pro = item.percentage
+      })
+    }, ANIMATION_DELAY)
+  }
+
   onMounted(() => {
     addAnimation()
   })
-
-  const addAnimation = () => {
-    setTimeout(() => {
-      for (let i = 0; i < tableData.length; i++) {
-        let item = tableData[i]
-        tableData[i].pro = item.percentage
-      }
-    }, 100)
-  }
 </script>
 
 <style lang="scss">

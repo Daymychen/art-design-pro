@@ -51,38 +51,45 @@
 <script setup lang="ts">
   import { useWorktabStore } from '@/store/modules/worktab'
   import { WorkTab } from '@/types'
+
+  defineOptions({ name: 'TabsExample' })
+
   const worktabStore = useWorktabStore()
   const currentTab = ref<WorkTab | null>(null)
   const newTabTitle = ref('')
   const routePath = '/examples/tabs'
 
   /**
-   * 处理更新标签页标题
-   * 验证输入内容后调用store方法更新标题
+   * 更新当前标签页标题
+   * 验证输入内容后调用 store 方法更新标题
    */
-  const handleUpdateTabTitle = () => {
-    if (newTabTitle.value.trim()) {
-      worktabStore.updateTabTitle(routePath, newTabTitle.value.trim())
+  const handleUpdateTabTitle = (): void => {
+    const trimmedTitle = newTabTitle.value.trim()
+    if (trimmedTitle) {
+      worktabStore.updateTabTitle(routePath, trimmedTitle)
+      ElMessage.success('标签页标题已更新')
     }
   }
 
   /**
-   * 处理重置标签页标题
+   * 重置标签页标题
    * 将标题重置为默认值并清空输入框
    */
-  const handleResetTabTitle = () => {
+  const handleResetTabTitle = (): void => {
     worktabStore.resetTabTitle(routePath)
     newTabTitle.value = ''
+    ElMessage.success('标签页标题已重置')
   }
 
   /**
    * 获取指定路径的标签页信息
-   * @param path - 标签页路径
+   * @param path 标签页路径
    */
-  const handleGetCurrentTabTitle = (path: string) => {
+  const handleGetCurrentTabTitle = (path: string): void => {
     const tab = worktabStore.getTabTitle(path)
     if (tab) {
       currentTab.value = tab
+      ElMessage.success('已获取标签页信息')
     } else {
       ElMessage.warning('未找到标签信息')
     }
@@ -90,24 +97,24 @@
 
   /**
    * 关闭指定路径的标签页
-   * @param path - 要关闭的标签页路径
+   * @param path 要关闭的标签页路径
    */
-  const handleCloseTab = (path: string) => {
+  const handleCloseTab = (path: string): void => {
     worktabStore.removeTab(path)
   }
 
   /**
    * 关闭除指定路径外的其他所有标签页
-   * @param path - 要保留的标签页路径
+   * @param path 要保留的标签页路径
    */
-  const handleCloseOthersTab = (path: string) => {
+  const handleCloseOthersTab = (path: string): void => {
     worktabStore.removeOthers(path)
   }
 
   /**
    * 关闭所有标签页
    */
-  const handleCloseAllTab = () => {
+  const handleCloseAllTab = (): void => {
     worktabStore.removeAll()
   }
 </script>

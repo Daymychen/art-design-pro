@@ -11,14 +11,24 @@
       <div v-for="(item, index) in list" :key="index">
         <p class="title">{{ item.username }}</p>
         <p class="date subtitle">{{ item.date }}</p>
-        <el-checkbox v-model="item.complate" />
+        <ElCheckbox v-model="item.complate" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-  const list = reactive([
+  interface TodoItem {
+    username: string
+    date: string
+    complate: boolean
+  }
+
+  /**
+   * 待办事项列表
+   * 记录每日工作任务及完成状态
+   */
+  const list = reactive<TodoItem[]>([
     {
       username: '查看今天工作内容',
       date: '上午 09:30',

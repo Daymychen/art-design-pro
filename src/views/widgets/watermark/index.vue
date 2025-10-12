@@ -56,13 +56,21 @@
 <script setup lang="ts">
   import { useSettingStore } from '@/store/modules/setting'
 
+  defineOptions({ name: 'Watermark' })
+
   const settingStore = useSettingStore()
 
-  // 这里替换成你的实际logo图片地址
+  /**
+   * 水印图片 URL
+   */
   const watermarkImage = ref('https://element-plus.org/images/element-plus-logo.svg')
 
+  /**
+   * 切换全局水印显示状态
+   */
   const handleWatermarkVisible = () => {
     useSettingStore().setWatermarkVisible(!settingStore.watermarkVisible)
+    ElMessage.success(settingStore.watermarkVisible ? '已显示全局水印' : '已隐藏全局水印')
   }
 </script>
 

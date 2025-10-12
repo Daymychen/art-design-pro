@@ -211,6 +211,11 @@
   import cover3 from '@imgs/cover/img3.webp'
   import cover4 from '@imgs/cover/img4.webp'
 
+  defineOptions({ name: 'TemplateCards' })
+
+  /**
+   * 统计卡片数据配置
+   */
   const statsCards = [
     {
       id: 1,
@@ -426,10 +431,33 @@
     }
   ]
 
-  const handleMore = () => {}
+  /**
+   * 处理查看更多按钮点击
+   */
+  const handleMore = () => {
+    ElMessage.info('查看更多')
+  }
 
-  const handleImageCardClick = (card: any) => {
-    console.log(card)
+  /**
+   * 图片卡片类型定义
+   */
+  interface ImageCard {
+    id: number
+    imageUrl: string
+    title: string
+    category: string
+    readTime: string
+    views: number
+    comments: number
+    date: string
+  }
+
+  /**
+   * 处理图片卡片点击事件
+   * @param card 卡片数据
+   */
+  const handleImageCardClick = (card: ImageCard) => {
+    console.log('点击卡片:', card)
   }
 </script>
 

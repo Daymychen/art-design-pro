@@ -25,8 +25,21 @@
 <script setup lang="ts">
   import { IconTypeEnum } from '@/enums/appEnum'
 
+  defineOptions({ name: 'WidgetsIconSelector' })
+
+  /**
+   * Unicode 类型图标值
+   */
   const icon1 = ref('&#xe6b5;')
+
+  /**
+   * ClassName 类型图标值
+   */
   const icon2 = ref('iconsys-baitianmoshi3')
+
+  /**
+   * 禁用状态的图标值
+   */
   const icon3 = ref('iconsys-baitianmoshi3')
 </script>
 

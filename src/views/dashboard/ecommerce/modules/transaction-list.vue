@@ -10,7 +10,19 @@
 </template>
 
 <script setup lang="ts">
-  const dataList = [
+  interface TransactionItem {
+    title: string
+    status: string
+    time: string
+    class: string
+    icon: string
+  }
+
+  /**
+   * 最近活动数据列表
+   * 展示订单处理、退款申请、投诉处理等业务活动状态
+   */
+  const dataList: TransactionItem[] = [
     {
       title: '新订单 #38291',
       status: '待处理',
@@ -48,5 +60,10 @@
     }
   ]
 
-  const handleMore = () => {}
+  /**
+   * 处理查看更多按钮点击事件
+   */
+  const handleMore = (): void => {
+    // TODO: 添加查看更多逻辑
+  }
 </script>

@@ -45,7 +45,7 @@
   interface Props {
     visible: boolean
     type: string
-    userData?: any
+    userData?: Partial<Api.SystemManage.UserListItem>
   }
 
   interface Emits {
@@ -92,20 +92,26 @@
     role: [{ required: true, message: '请选择角色', trigger: 'blur' }]
   }
 
-  // 初始化表单数据
+  /**
+   * 初始化表单数据
+   * 根据对话框类型（新增/编辑）填充表单
+   */
   const initFormData = () => {
     const isEdit = props.type === 'edit' && props.userData
     const row = props.userData
 
     Object.assign(formData, {
-      username: isEdit ? row.userName || '' : '',
-      phone: isEdit ? row.userPhone || '' : '',
-      gender: isEdit ? row.userGender || '男' : '男',
-      role: isEdit ? (Array.isArray(row.userRoles) ? row.userRoles : []) : []
+      username: isEdit && row ? row.userName || '' : '',
+      phone: isEdit && row ? row.userPhone || '' : '',
+      gender: isEdit && row ? row.userGender || '男' : '男',
+      role: isEdit && row ? (Array.isArray(row.userRoles) ? row.userRoles : []) : []
     })
   }
 
-  // 统一监听对话框状态变化
+  /**
+   * 监听对话框状态变化
+   * 当对话框打开时初始化表单数据并清除验证状态
+   */
   watch(
     () => [props.visible, props.type, props.userData],
     ([visible]) => {
@@ -119,7 +125,10 @@
     { immediate: true }
   )
 
-  // 提交表单
+  /**
+   * 提交表单
+   * 验证通过后触发提交事件
+   */
   const handleSubmit = async () => {
     if (!formRef.value) return
 

@@ -40,7 +40,6 @@
 
 <script setup lang="ts">
   import AppConfig from '@/config'
-  import { RoutesAlias } from '@/router/routesAlias'
 
   defineOptions({ name: 'ForgetPassword' })
 
@@ -54,7 +53,7 @@
   const register = async () => {}
 
   const toLogin = () => {
-    router.push(RoutesAlias.Login)
+    router.push({ name: 'Login' })
   }
 </script>
 

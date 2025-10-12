@@ -37,14 +37,14 @@
           </div>
         </div>
 
-        <!-- <el-carousel class="gallery" height="160px"
+        <!-- <ElCarousel class="gallery" height="160px"
           :interval="5000"
           indicator-position="none"
         >
-          <el-carousel-item class="item" v-for="item in galleryList" :key="item">
+          <ElCarouselItem class="item" v-for="item in galleryList" :key="item">
             <img :src="item"/>
-          </el-carousel-item>
-        </el-carousel> -->
+          </ElCarouselItem>
+        </ElCarousel> -->
       </div>
       <div class="right-wrap">
         <div class="info box-style">
@@ -60,7 +60,7 @@
           >
             <ElRow>
               <ElFormItem label="姓名" prop="realName">
-                <el-input v-model="form.realName" :disabled="!isEdit" />
+                <ElInput v-model="form.realName" :disabled="!isEdit" />
               </ElFormItem>
               <ElFormItem label="性别" prop="sex" class="right-input">
                 <ElSelect v-model="form.sex" placeholder="Select" :disabled="!isEdit">
@@ -159,6 +159,11 @@
   const isEdit = ref(false)
   const isEditPwd = ref(false)
   const date = ref('')
+  const ruleFormRef = ref<FormInstance>()
+
+  /**
+   * 用户信息表单
+   */
   const form = reactive({
     realName: 'John Snow',
     nikeName: '皮卡丘',
@@ -169,72 +174,74 @@
     des: 'Art Design Pro 是一款漂亮的后台管理系统模版.'
   })
 
+  /**
+   * 密码修改表单
+   */
   const pwdForm = reactive({
     password: '123456',
     newPassword: '123456',
     confirmPassword: '123456'
   })
 
-  const ruleFormRef = ref<FormInstance>()
-
+  /**
+   * 表单验证规则
+   */
   const rules = reactive<FormRules>({
     realName: [
-      { required: true, message: '请输入昵称', trigger: 'blur' },
-      { min: 2, max: 50, message: '长度在 2 到 30 个字符', trigger: 'blur' }
+      { required: true, message: '请输入姓名', trigger: 'blur' },
+      { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
     ],
     nikeName: [
       { required: true, message: '请输入昵称', trigger: 'blur' },
-      { min: 2, max: 50, message: '长度在 2 到 30 个字符', trigger: 'blur' }
+      { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
     ],
-    email: [{ required: true, message: '请输入昵称', trigger: 'blur' }],
+    email: [{ required: true, message: '请输入邮箱', trigger: 'blur' }],
     mobile: [{ required: true, message: '请输入手机号码', trigger: 'blur' }],
     address: [{ required: true, message: '请输入地址', trigger: 'blur' }],
-    sex: [{ type: 'array', required: true, message: '请选择性别', trigger: 'blur' }]
+    sex: [{ required: true, message: '请选择性别', trigger: 'blur' }]
   })
 
+  /**
+   * 性别选项
+   */
   const options = [
-    {
-      value: '1',
-      label: '男'
-    },
-    {
-      value: '2',
-      label: '女'
-    }
+    { value: '1', label: '男' },
+    { value: '2', label: '女' }
   ]
 
+  /**
+   * 用户标签列表
+   */
   const lableList: Array<string> = ['专注设计', '很有想法', '辣~', '大长腿', '川妹子', '海纳百川']
 
   onMounted(() => {
     getDate()
   })
 
+  /**
+   * 根据当前时间获取问候语
+   */
   const getDate = () => {
-    const d = new Date()
-    const h = d.getHours()
-    let text = ''
+    const h = new Date().getHours()
 
-    if (h >= 6 && h < 9) {
-      text = '早上好'
-    } else if (h >= 9 && h < 11) {
-      text = '上午好'
-    } else if (h >= 11 && h < 13) {
-      text = '中午好'
-    } else if (h >= 13 && h < 18) {
-      text = '下午好'
-    } else if (h >= 18 && h < 24) {
-      text = '晚上好'
-    } else if (h >= 0 && h < 6) {
-      text = '很晚了，早点睡'
-    }
-
-    date.value = text
+    if (h >= 6 && h < 9) date.value = '早上好'
+    else if (h >= 9 && h < 11) date.value = '上午好'
+    else if (h >= 11 && h < 13) date.value = '中午好'
+    else if (h >= 13 && h < 18) date.value = '下午好'
+    else if (h >= 18 && h < 24) date.value = '晚上好'
+    else date.value = '很晚了，早点睡'
   }
 
+  /**
+   * 切换用户信息编辑状态
+   */
   const edit = () => {
     isEdit.value = !isEdit.value
   }
 
+  /**
+   * 切换密码编辑状态
+   */
   const editPwd = () => {
     isEditPwd.value = !isEditPwd.value
   }

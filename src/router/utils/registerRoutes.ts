@@ -5,9 +5,9 @@
 import type { Router, RouteRecordRaw } from 'vue-router'
 import type { AppRouteRecord } from '@/types/router'
 import { saveIframeRoutes } from './menuToRouter'
-import { RoutesAlias } from '../routesAlias'
 import { h } from 'vue'
 import { useMenuStore } from '@/store/modules/menu'
+import { RoutesAlias } from '../routesAlias'
 
 /**
  * 动态导入 views 目录下所有 .vue 组件
@@ -109,13 +109,6 @@ function checkDuplicateRoutes(routes: AppRouteRecord[], parentPath = ''): void {
 function getComponentPathString(component: any): string {
   if (typeof component === 'string') {
     return component
-  }
-
-  // 对于其他别名路由，获取组件名称
-  for (const key in RoutesAlias) {
-    if (RoutesAlias[key as keyof typeof RoutesAlias] === component) {
-      return `RoutesAlias.${key}`
-    }
   }
 
   return ''
@@ -269,9 +262,7 @@ function handleNormalRoute(
   routeName: string
 ): void {
   if (component) {
-    const aliasComponent = RoutesAlias[
-      component as keyof typeof RoutesAlias
-    ] as unknown as RouteRecordRaw['component']
-    converted.component = aliasComponent || loadComponent(component as string, routeName)
+    // 直接使用组件路径加载组件
+    converted.component = loadComponent(component as string, routeName)
   }
 }

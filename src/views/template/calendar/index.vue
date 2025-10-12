@@ -76,7 +76,11 @@
 </template>
 
 <script setup lang="ts">
-  // 类型定义
+  defineOptions({ name: 'TemplateCalendar' })
+
+  /**
+   * 日历事件类型定义
+   */
   interface CalendarEvent {
     date: string
     endDate?: string
@@ -84,7 +88,9 @@
     type?: 'bg-primary' | 'bg-success' | 'bg-warning' | 'bg-danger'
   }
 
-  // 常量定义
+  /**
+   * 事件类型选项
+   */
   const eventTypes = [
     { label: '基本', value: 'bg-primary' },
     { label: '成功', value: 'bg-success' },
@@ -92,8 +98,14 @@
     { label: '危险', value: 'bg-danger' }
   ] as const
 
-  // 状态管理
   const currentDate = ref(new Date('2025-02-07'))
+  const dialogVisible = ref(false)
+  const dialogTitle = ref('添加事件')
+  const editingEventIndex = ref<number>(-1)
+
+  /**
+   * 事件列表数据
+   */
   const events = ref<CalendarEvent[]>([
     { date: '2025-02-01', content: '产品需求评审', type: 'bg-primary' },
     {
@@ -111,10 +123,9 @@
     { date: '2025-02-28', content: '月度总结会', type: 'bg-warning' }
   ])
 
-  // 弹窗状态管理
-  const dialogVisible = ref(false)
-  const dialogTitle = ref('添加事件')
-  const editingEventIndex = ref<number>(-1)
+  /**
+   * 事件表单数据
+   */
   const eventForm = ref<CalendarEvent>({
     date: '',
     endDate: '',
@@ -122,12 +133,24 @@
     type: 'bg-primary'
   })
 
-  // 计算属性
+  /**
+   * 是否处于编辑模式
+   */
   const isEditing = computed(() => editingEventIndex.value >= 0)
 
-  // 工具函数
+  /**
+   * 格式化日期，只显示日
+   * @param date 完整日期字符串
+   * @returns 日期中的日部分
+   */
   const formatDate = (date: string) => date.split('-')[2]
 
+  /**
+   * 获取指定日期的所有事件
+   * 支持跨日期事件的显示
+   * @param day 日期字符串
+   * @returns 该日期的事件列表
+   */
   const getEvents = (day: string) => {
     return events.value.filter((event) => {
       const eventDate = new Date(event.date)
@@ -138,6 +161,9 @@
     })
   }
 
+  /**
+   * 重置表单数据
+   */
   const resetForm = () => {
     eventForm.value = {
       date: '',
@@ -148,7 +174,11 @@
     editingEventIndex.value = -1
   }
 
-  // 事件处理函数
+  /**
+   * 处理日历单元格点击事件
+   * 打开添加事件弹窗
+   * @param day 点击的日期
+   */
   const handleCellClick = (day: string) => {
     dialogTitle.value = '添加事件'
     eventForm.value = {
@@ -160,6 +190,11 @@
     dialogVisible.value = true
   }
 
+  /**
+   * 处理事件点击
+   * 打开编辑事件弹窗
+   * @param event 点击的事件对象
+   */
   const handleEventClick = (event: CalendarEvent) => {
     dialogTitle.value = '编辑事件'
     eventForm.value = { ...event }
@@ -169,10 +204,12 @@
     dialogVisible.value = true
   }
 
+  /**
+   * 保存事件
+   * 根据编辑模式决定是新增还是更新
+   */
   const handleSaveEvent = () => {
-    if (!eventForm.value.content || !eventForm.value.date) {
-      return
-    }
+    if (!eventForm.value.content || !eventForm.value.date) return
 
     if (isEditing.value) {
       events.value[editingEventIndex.value] = { ...eventForm.value }
@@ -184,6 +221,9 @@
     resetForm()
   }
 
+  /**
+   * 删除事件
+   */
   const handleDeleteEvent = () => {
     if (isEditing.value) {
       events.value.splice(editingEventIndex.value, 1)

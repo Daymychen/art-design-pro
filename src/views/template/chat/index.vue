@@ -132,8 +132,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, onMounted } from 'vue'
-  import { Picture, Paperclip } from '@element-plus/icons-vue'
+  import { Picture, Paperclip, ArrowDown } from '@element-plus/icons-vue'
   import { mittBus } from '@/utils/sys'
   import meAvatar from '@/assets/img/avatar/avatar5.webp'
   import aiAvatar from '@/assets/img/avatar/avatar10.webp'
@@ -148,15 +147,13 @@
   import avatar10 from '@/assets/img/avatar/avatar10.webp'
   import { useCommon } from '@/composables/useCommon'
 
+  defineOptions({ name: 'TemplateChat' })
+
   const { containerMinHeight } = useCommon()
 
-  const searchQuery = ref('')
-
-  // 抽屉显示状态
-  const isDrawerVisible = ref(false)
-  // 是否在线
-  const isOnline = ref(true)
-
+  /**
+   * 联系人类型定义
+   */
   interface Person {
     id: number
     name: string
@@ -167,8 +164,18 @@
     unread?: number
   }
 
+  const searchQuery = ref('')
+  const isDrawerVisible = ref(false)
+  const isOnline = ref(true)
   const selectedPerson = ref<Person | null>(null)
+  const messageText = ref('')
+  const messageId = ref(10)
+  const userAvatar = ref(meAvatar)
+  const messageContainer = ref<HTMLElement | null>(null)
 
+  /**
+   * 联系人列表数据
+   */
   const personList = ref<Person[]>([
     {
       id: 1,
@@ -289,12 +296,17 @@
     }
   ])
 
+  /**
+   * 选择联系人
+   * @param person 联系人对象
+   */
   const selectPerson = (person: Person) => {
     selectedPerson.value = person
   }
 
-  // 消息相关数据
-  const messageText = ref('')
+  /**
+   * 消息列表数据
+   */
   const messages = ref([
     {
       id: 1,
@@ -370,11 +382,10 @@
     }
   ])
 
-  const messageId = ref(10) // 用于生成唯一的消息ID
-
-  const userAvatar = ref(meAvatar) // 使用导入的头像
-
-  // 发送消息
+  /**
+   * 发送消息
+   * 添加新消息到消息列表并滚动到底部
+   */
   const sendMessage = () => {
     const text = messageText.value.trim()
     if (!text) return
@@ -392,8 +403,9 @@
     scrollToBottom()
   }
 
-  // 滚动到底部
-  const messageContainer = ref<HTMLElement | null>(null)
+  /**
+   * 滚动到消息列表底部
+   */
   const scrollToBottom = () => {
     setTimeout(() => {
       if (messageContainer.value) {
@@ -402,6 +414,9 @@
     }, 100)
   }
 
+  /**
+   * 打开聊天窗口
+   */
   const openChat = () => {
     isDrawerVisible.value = true
   }
@@ -409,7 +424,6 @@
   onMounted(() => {
     scrollToBottom()
     mittBus.on('openChat', openChat)
-
     selectedPerson.value = personList.value[0]
   })
 </script>

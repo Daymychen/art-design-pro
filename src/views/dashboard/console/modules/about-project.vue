@@ -34,8 +34,12 @@
 
   const systemName = AppConfig.systemInfo.name
 
-  const goPage = (url: string) => {
-    window.open(url)
+  /**
+   * 在新标签页中打开指定 URL
+   * @param url 要打开的网页地址
+   */
+  const goPage = (url: string): void => {
+    window.open(url, '_blank', 'noopener,noreferrer')
   }
 </script>
 

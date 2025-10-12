@@ -17,14 +17,18 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, computed, nextTick } from 'vue'
+  import { computed, nextTick } from 'vue'
   import ArtMenuRight from '@/components/core/others/art-menu-right/index.vue'
   import type { MenuItemType } from '@/components/core/others/art-menu-right/index.vue'
+
+  defineOptions({ name: 'TemplateContextMenu' })
 
   const menuRef = ref<InstanceType<typeof ArtMenuRight>>()
   const lastAction = ref('')
 
-  // 右键菜单选项
+  /**
+   * 右键菜单选项配置
+   */
   const menuItems = computed((): MenuItemType[] => [
     {
       key: 'copy',
@@ -95,28 +99,39 @@
     }
   ])
 
+  /**
+   * 处理菜单项选择
+   * @param item 选中的菜单项
+   */
   const handleSelect = (item: MenuItemType) => {
     lastAction.value = `${item.label} (${item.key})`
     ElMessage.success(`执行操作: ${item.label}`)
     console.log('选择了菜单项:', item)
   }
 
+  /**
+   * 显示右键菜单
+   * @param e 鼠标事件
+   */
   const showMenu = (e: MouseEvent) => {
-    console.log('触发右键菜单', e)
-    // 确保阻止默认行为
     e.preventDefault()
     e.stopPropagation()
 
-    // 延迟一帧执行，确保事件处理完成
     nextTick(() => {
       menuRef.value?.show(e)
     })
   }
 
+  /**
+   * 菜单显示回调
+   */
   const onMenuShow = () => {
     console.log('菜单显示')
   }
 
+  /**
+   * 菜单隐藏回调
+   */
   const onMenuHide = () => {
     console.log('菜单隐藏')
   }

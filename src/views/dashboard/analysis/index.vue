@@ -1,49 +1,49 @@
 <template>
   <div class="analysis-dashboard">
-    <el-row :gutter="20">
-      <el-col :xl="14" :lg="15" :xs="24">
+    <ElRow :gutter="20">
+      <ElCol :xl="14" :lg="15" :xs="24">
         <TodaySales />
-      </el-col>
-      <el-col :xl="10" :lg="9" :xs="24">
+      </ElCol>
+      <ElCol :xl="10" :lg="9" :xs="24">
         <VisitorInsights />
-      </el-col>
-    </el-row>
+      </ElCol>
+    </ElRow>
 
-    <el-row :gutter="20" class="mt-20">
-      <el-col :xl="10" :lg="10" :xs="24">
+    <ElRow :gutter="20" class="mt-20">
+      <ElCol :xl="10" :lg="10" :xs="24">
         <TotalRevenue />
-      </el-col>
-      <el-col :xl="7" :lg="7" :xs="24">
+      </ElCol>
+      <ElCol :xl="7" :lg="7" :xs="24">
         <CustomerSatisfaction />
-      </el-col>
-      <el-col :xl="7" :lg="7" :xs="24">
+      </ElCol>
+      <ElCol :xl="7" :lg="7" :xs="24">
         <TargetVsReality />
-      </el-col>
-    </el-row>
+      </ElCol>
+    </ElRow>
 
-    <el-row :gutter="20" class="mt-20">
-      <el-col :xl="10" :lg="10" :xs="24">
+    <ElRow :gutter="20" class="mt-20">
+      <ElCol :xl="10" :lg="10" :xs="24">
         <TopProducts />
-      </el-col>
-      <el-col :xl="7" :lg="7" :xs="24">
+      </ElCol>
+      <ElCol :xl="7" :lg="7" :xs="24">
         <SalesMappingByCountry />
-      </el-col>
-      <el-col :xl="7" :lg="7" :xs="24">
+      </ElCol>
+      <ElCol :xl="7" :lg="7" :xs="24">
         <VolumeServiceLevel />
-      </el-col>
-    </el-row>
+      </ElCol>
+    </ElRow>
   </div>
 </template>
 
 <script setup lang="ts">
-  import TodaySales from './widget/TodaySales.vue'
-  import VisitorInsights from './widget/VisitorInsights.vue'
-  import TotalRevenue from './widget/TotalRevenue.vue'
-  import CustomerSatisfaction from './widget/CustomerSatisfaction.vue'
-  import TargetVsReality from './widget/TargetVsReality.vue'
-  import TopProducts from './widget/TopProducts.vue'
-  import SalesMappingByCountry from './widget/SalesMappingByCountry.vue'
-  import VolumeServiceLevel from './widget/VolumeServiceLevel.vue'
+  import TodaySales from './modules/today-sales.vue'
+  import VisitorInsights from './modules/visitor-insights.vue'
+  import TotalRevenue from './modules/total-revenue.vue'
+  import CustomerSatisfaction from './modules/customer-satisfaction.vue'
+  import TargetVsReality from './modules/target-vs-reality.vue'
+  import TopProducts from './modules/top-products.vue'
+  import SalesMappingByCountry from './modules/sales-mapping-by-country.vue'
+  import VolumeServiceLevel from './modules/volume-service-level.vue'
 
   defineOptions({ name: 'Analysis' })
 </script>

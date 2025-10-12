@@ -83,181 +83,254 @@
 
   defineOptions({ name: 'ArticlePublish' })
 
+  interface ArticleType {
+    id: number
+    name: string
+  }
+
+  interface UploadResponse {
+    data: {
+      url: string
+    }
+  }
+
+  interface ArticleDetailResponse {
+    code: number
+    data: {
+      title: string
+      blog_class: string
+      html_content: string
+    }
+  }
+
+  const MAX_IMAGE_SIZE = 2 // MB
+  const EMPTY_EDITOR_CONTENT = '<p><br></p>'
+
   const route = useRoute()
-
   const userStore = useUserStore()
-  let { accessToken } = userStore
+  const { accessToken } = userStore
 
-  // 上传路径
   const uploadImageUrl = `${import.meta.env.VITE_API_URL}/api/common/upload`
-  // 传递 token
   const uploadHeaders = { Authorization: accessToken }
 
-  let pageMode: PageModeEnum = PageModeEnum.Add // 页面类型 新增 ｜ 编辑
-  const articleName = ref('') // 文章标题
-  const articleType = ref() // 文章类型
-  const articleTypes = ref() // 类型列表
-  const editorHtml = ref('') // 编辑器内容
-  const createDate = ref('') // 创建时间
-  const cover = ref('') // 图片
-  const visible = ref(true) // 可见
-  // const outlineList = ref()
+  const pageMode = ref<PageModeEnum>(PageModeEnum.Add)
+  const articleName = ref('')
+  const articleType = ref<number>()
+  const articleTypes = ref<ArticleType[]>([])
+  const editorHtml = ref('')
+  const createDate = ref('')
+  const cover = ref('')
+  const visible = ref(true)
 
-  onMounted(() => {
-    useCommon().scrollToTop()
-    getArticleTypes()
-    initPageMode()
-  })
-
-  // 初始化页面类型 新增 ｜ 编辑
+  /**
+   * 初始化页面模式（新增或编辑）
+   */
   const initPageMode = () => {
     const { id } = route.query
-    pageMode = id ? PageModeEnum.Edit : PageModeEnum.Add
-    if (pageMode === PageModeEnum.Edit && id) {
-      initEditArticle()
+    pageMode.value = id ? PageModeEnum.Edit : PageModeEnum.Add
+
+    if (pageMode.value === PageModeEnum.Edit) {
+      getArticleDetail()
     } else {
-      initAddArticle()
+      createDate.value = formatDate(useNow().value)
     }
   }
 
-  // 初始化编辑文章的逻辑
-  const initEditArticle = () => {
-    getArticleDetail()
-  }
-
-  // 初始化新增文章逻辑
-  const initAddArticle = () => {
-    createDate.value = formDate(useNow().value)
-  }
-
-  // 获取文章类型
+  /**
+   * 获取文章分类列表
+   */
   const getArticleTypes = async () => {
     try {
-      const response = await axios.get('https://www.qiniu.lingchen.kim/classify.json')
-      if (response.data.code === 200) {
-        articleTypes.value = response.data.data
+      const { data } = await axios.get('https://www.qiniu.lingchen.kim/classify.json')
+      if (data.code === 200) {
+        articleTypes.value = data.data
       }
     } catch (error) {
-      console.error('Error fetching JSON data:', error)
+      console.error('获取文章分类失败:', error)
+      ElMessage.error('获取文章分类失败')
     }
-    // try {
-    //   const res = await ArticleService.getArticleTypes({})
-    //   if (res.code === ApiStatus.success) {
-    //     articleTypes.value = res.data
-    //   }
-    // } catch (err) { }
+
+    // TODO: 替换为真实 API 调用
+    // const res = await ArticleService.getArticleTypes({})
+    // if (res.code === ApiStatus.success) {
+    //   articleTypes.value = res.data
+    // }
   }
 
+  /**
+   * 获取文章详情（编辑模式）
+   */
   const getArticleDetail = async () => {
-    const res = await axios.get('https://www.qiniu.lingchen.kim/blog_list.json')
+    try {
+      const { data } = await axios.get<ArticleDetailResponse>(
+        'https://www.qiniu.lingchen.kim/blog_list.json'
+      )
 
-    if (res.data.code === ApiStatus.success) {
-      let { title, blog_class, html_content } = res.data.data
-      articleName.value = title
-      articleType.value = Number(blog_class)
-      editorHtml.value = html_content
+      if (data.code === ApiStatus.success) {
+        const { title, blog_class, html_content } = data.data
+        articleName.value = title
+        articleType.value = Number(blog_class)
+        editorHtml.value = html_content
+      }
+    } catch (error) {
+      console.error('获取文章详情失败:', error)
+      ElMessage.error('获取文章详情失败')
     }
   }
 
-  // const getOutline = (content: string) => {
-  //   const regex = /<h([1-3])>(.*?)<\/h\1>/g
-  //   const headings = []
-  //   let match
+  /**
+   * 格式化日期为 YYYY-MM-DD 格式
+   */
+  const formatDate = (date: string | Date): string => {
+    return useDateFormat(date, 'YYYY-MM-DD').value
+  }
 
-  //   while ((match = regex.exec(content)) !== null) {
-  //     headings.push({ level: match[1], text: match[2] })
-  //   }
-  //   outlineList.value = headings
-  // }
+  /**
+   * 验证文章表单数据
+   */
+  const validateArticle = (): boolean => {
+    if (!articleName.value.trim()) {
+      ElMessage.error('请输入文章标题')
+      return false
+    }
 
-  // 提交
+    if (!articleType.value) {
+      ElMessage.error('请选择文章类型')
+      return false
+    }
+
+    if (!editorHtml.value || editorHtml.value === EMPTY_EDITOR_CONTENT) {
+      ElMessage.error('请输入文章内容')
+      return false
+    }
+
+    if (!cover.value) {
+      ElMessage.error('请上传封面图片')
+      return false
+    }
+
+    return true
+  }
+
+  /**
+   * 清理代码块中的多余空格
+   */
+  const cleanCodeContent = (content: string): string => {
+    return content.replace(/(\s*)<\/code>/g, '</code>')
+  }
+
+  /**
+   * 新增文章
+   */
+  const addArticle = async () => {
+    if (!validateArticle()) return
+
+    try {
+      const cleanedContent = cleanCodeContent(editorHtml.value)
+
+      // TODO: 替换为真实 API 调用
+      // const params = {
+      //   title: articleName.value,
+      //   type: articleType.value,
+      //   content: cleanedContent,
+      //   cover: cover.value,
+      //   visible: visible.value
+      // }
+      // const res = await ArticleService.addArticle(params)
+      // if (res.code === ApiStatus.success) {
+      //   ElMessage.success('文章发布成功')
+      //   router.push({ name: 'ArticleList' })
+      // }
+
+      console.log('新增文章:', { cleanedContent })
+    } catch (error) {
+      console.error('发布文章失败:', error)
+      ElMessage.error('发布文章失败')
+    }
+  }
+
+  /**
+   * 编辑文章
+   */
+  const editArticle = async () => {
+    if (!validateArticle()) return
+
+    try {
+      const cleanedContent = cleanCodeContent(editorHtml.value)
+
+      // TODO: 替换为真实 API 调用
+      // const params = {
+      //   id: route.query.id,
+      //   title: articleName.value,
+      //   type: articleType.value,
+      //   content: cleanedContent,
+      //   cover: cover.value,
+      //   visible: visible.value
+      // }
+      // const res = await ArticleService.editArticle(params)
+      // if (res.code === ApiStatus.success) {
+      //   ElMessage.success('文章保存成功')
+      //   router.push({ name: 'ArticleList' })
+      // }
+
+      console.log('编辑文章:', { cleanedContent })
+    } catch (error) {
+      console.error('保存文章失败:', error)
+      ElMessage.error('保存文章失败')
+    }
+  }
+
+  /**
+   * 提交表单（新增或编辑）
+   */
   const submit = () => {
-    if (pageMode === PageModeEnum.Edit) {
+    if (pageMode.value === PageModeEnum.Edit) {
       editArticle()
     } else {
       addArticle()
     }
   }
 
-  // 格式化日期
-  const formDate = (date: string | Date): string => {
-    return useDateFormat(date, 'YYYY-MM-DD').value
-  }
-
-  // 验证输入
-  const validateArticle = () => {
-    if (!articleName.value) {
-      ElMessage.error(`请输入文章标题`)
-      return false
-    }
-
-    if (!articleType.value) {
-      ElMessage.error(`请选择文章类型`)
-      return false
-    }
-
-    if (editorHtml.value === '<p><br></p>') {
-      ElMessage.error(`请输入文章内容`)
-      return false
-    }
-
-    if (!cover.value) {
-      ElMessage.error(`请上传图片`)
-      return false
-    }
-
-    return true
-  }
-
-  // 添加文章
-  const addArticle = async () => {
-    try {
-      if (!validateArticle()) return
-      editorHtml.value = delCodeTrim(editorHtml.value)
-    } catch (err) {
-      console.error(err)
-    }
-  }
-
-  // 编辑文章
-  const editArticle = async () => {
-    try {
-      if (!validateArticle()) return
-
-      editorHtml.value = delCodeTrim(editorHtml.value)
-    } catch (err) {
-      console.error(err)
-    }
-  }
-
-  const delCodeTrim = (content: string): string => {
-    return content.replace(/(\s*)<\/code>/g, '</code>')
-  }
-
-  const onSuccess = (response: any) => {
+  /**
+   * 图片上传成功回调
+   */
+  const onSuccess = (response: UploadResponse) => {
     cover.value = response.data.url
     ElMessage.success(`图片上传成功 ${EmojiText[200]}`)
   }
 
+  /**
+   * 图片上传失败回调
+   */
   const onError = () => {
     ElMessage.error(`图片上传失败 ${EmojiText[500]}`)
   }
 
-  // 添加上传前的校验
-  const beforeUpload = (file: File) => {
+  /**
+   * 上传前的文件校验
+   */
+  const beforeUpload = (file: File): boolean => {
     const isImage = file.type.startsWith('image/')
-    const isLt2M = file.size / 1024 / 1024 < 2
+    const isLt2M = file.size / 1024 / 1024 < MAX_IMAGE_SIZE
 
     if (!isImage) {
-      ElMessage.error('只能上传图片文件!')
+      ElMessage.error('只能上传图片文件')
       return false
     }
+
     if (!isLt2M) {
-      ElMessage.error('图片大小不能超过 2MB!')
+      ElMessage.error(`图片大小不能超过 ${MAX_IMAGE_SIZE}MB`)
       return false
     }
+
     return true
   }
+
+  onMounted(() => {
+    useCommon().scrollToTop()
+    getArticleTypes()
+    initPageMode()
+  })
 </script>
 
 <style lang="scss" scoped>

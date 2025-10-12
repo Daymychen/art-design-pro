@@ -70,13 +70,14 @@ export default ({ mode }: { mode: string }) => {
       vue(),
       // 自动按需导入 API
       AutoImport({
-        imports: ['vue', 'vue-router', '@vueuse/core', 'pinia'],
+        imports: ['vue', 'vue-router', 'pinia', '@vueuse/core'],
         dts: 'src/types/auto-imports.d.ts',
+        resolvers: [ElementPlusResolver()],
         eslintrc: {
           enabled: true,
-          filepath: './.auto-import.json'
-        },
-        resolvers: [ElementPlusResolver()]
+          filepath: './.auto-import.json',
+          globalsPropValue: true
+        }
       }),
       // 自动按需导入组件
       Components({
@@ -105,9 +106,23 @@ export default ({ mode }: { mode: string }) => {
       //   filename: 'dist/stats.html' // 分析图生成的文件名及路径
       // }),
     ],
-    // 依赖预构建
+    // 依赖预构建：避免运行时重复请求与转换，提升首次加载速度
     optimizeDeps: {
-      include: ['element-plus/es/components/*/style/css']
+      include: [
+        'xlsx',
+        'xgplayer',
+        'crypto-js',
+        'file-saver',
+        'vue-img-cutter',
+        'element-plus/es',
+        'element-plus/es/components/*/style/css',
+        'element-plus/es/components/message-box/style/index',
+        'element-plus/es/components/notification/style/index',
+        'element-plus/es/components/message/style/index',
+        'element-plus/es/components/upload/style/index',
+        'element-plus/es/components/button/style/index',
+        'element-plus/es/components/icon/style/index'
+      ]
     },
     css: {
       preprocessorOptions: {

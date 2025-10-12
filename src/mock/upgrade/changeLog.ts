@@ -9,6 +9,17 @@ interface UpgradeLog {
 
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
+    version: 'v2.5.9',
+    title: '代码优化',
+    date: '2025-10-12',
+    detail: [
+      'views 文件目录、文件名、代码优化',
+      'useTable 分页请求字段增加全局配置 tableConfig.ts',
+      '优化路由配置为模块化结构',
+      '获取菜单接口使用 apifox mock 数据（需在 .env 中 将 VITE_ACCESS_MODE 设为 backend 模式）'
+    ]
+  },
+  {
     version: 'v2.5.8',
     title: '依赖升级、bug修复',
     date: '2025-09-29',
@@ -216,5 +227,119 @@ export const upgradeLogList = ref<UpgradeLog[]>([
       '针对SEO、可访问性做一些优化',
       '新增标签页操作示例'
     ]
+  },
+  {
+    version: 'v2.4.2.6',
+    title: '组件重构与性能优化',
+    date: '2025-06-23',
+    detail: [
+      '重构 components/core/forms 文件夹下的表单相关组件，提升可维护性与一致性',
+      '重构 ArtBreadcrumb 面包屑导航组件，优化逻辑结构与样式',
+      '优化 ArtChatWindow 与 ArtFastEnter 组件代码，提升可读性与性能',
+      '重构 ArtFireworksEffect 烟花效果组件，显著提升渲染性能与动画流畅度',
+      'README 文档新增官方网站链接，便于用户查看项目文档'
+    ]
+  },
+  {
+    version: 'v2.4.2.5',
+    title: '图表组件重构',
+    date: '2025-06-22',
+    detail: [
+      '重构图表组件，优化代码结构与可维护性',
+      '精细调整图表动画与主题配色方案，提升视觉一致性'
+    ]
+  },
+  {
+    version: 'v2.4.2.4',
+    title: '组件重构、代码优化',
+    date: '2025-06-18',
+    detail: [
+      'ArtMenuRight 组件重构',
+      'ArtWatermark 增加类型注释',
+      'components/core/cards 下面的组件重构，代码优化'
+    ]
+  },
+  {
+    version: 'v2.4.2.3',
+    title: '组件重构、代码优化',
+    date: '2025-06-18',
+    detail: [
+      'ArtResultPage 组件重构',
+      'ArtTextScroll 组件代码优化',
+      'ArtException 组件增加类型提示',
+      'ArtCutterImg 组件样式优化、增加类型定义',
+      'ArtVideoPlayer 组件增加类型定义'
+    ]
+  },
+  {
+    version: 'v2.4.2.2',
+    title: '组件重构',
+    date: '2025-06-16',
+    detail: ['返回顶部组件重构', '图标选择器组件重构', '系统Logo组件属性变更']
+  },
+  {
+    version: 'v2.4.2.1',
+    title: '横幅组件重构、Bug修复',
+    date: '2025-06-16',
+    detail: ['横幅组件重构以及优化', '修复混合菜单下第一个菜单是嵌套菜单跳转bug']
+  },
+  {
+    version: 'v2.4.2',
+    title: 'Bug修复与体验优化',
+    date: '2025-06-14',
+    detail: [
+      '重构网络请求模块，增强错误处理、类型安全与多语言支持',
+      '修复移动端搜索栏无法滚动、iPad端页面滚动异常问题',
+      '修复 el-dialog 启用 draggable 属性后，自定义动画失效的问题',
+      '修复 2.3.0 版本本地存储重构后，导致登录、注册等页面多语言设置无法持久化的问题',
+      '引导、列设置多语言完善',
+      '修复表格固定列不起作用bug',
+      '路由配置新增 activePath 激活菜单路径属性',
+      '去除用户列表、菜单管理页面无效代码',
+      '更新技术支持链接'
+    ],
+    requireReLogin: true
+  },
+  {
+    version: 'v2.4.1.1',
+    title: 'Bug修复与体验优化',
+    date: '2025-06-07',
+    detail: [
+      '修复菜单管理折叠 bug',
+      '优化角色管理页面代码',
+      '修复表格数据为空高度无限变大bug',
+      'el-dialog视觉效果优化，支持配置线条',
+      '系统主题模式从Light改成跟随系统模式'
+    ]
+  },
+  {
+    version: 'v2.4.1',
+    title: '优化菜单交互体验、Echarts 图表性能优化',
+    date: '2025-06-07',
+    detail: [
+      '提升菜单操作跟手感',
+      '页面入场动画时间减少0.04s',
+      '修复 Echarts 图表组件在弹窗中不显示的 bug',
+      'Echarts 图表性能优化，新增可视区域初始化、内存泄漏防护、防抖处理',
+      '锁屏状下禁止使用开发者工具破解锁屏'
+    ]
+  },
+  {
+    version: 'v2.4.0',
+    title: '代码重构与资源优化',
+    date: '2025-06-06',
+    detail: [
+      '全局 TypeScript 类型体系重构，提升类型准确性与可维护性',
+      '重构 utils 工具包，统一工具方法结构，增强可读性与复用性',
+      'utils 新增表单验证与 Cookie 操作相关工具函数',
+      '删除未使用的工具模块与无效资源，精简项目体积',
+      '优化 views 页面结构，移除冗余页面文件',
+      '页面组件增加 defineOptions，明确组件命名',
+      '异常页面多语言支持, 提升国际化体验',
+      '图片资源统一转换为 webp 格式，整体资源体积减少约 50%',
+      '打包产物减少约 1MB，提高加载效率',
+      'HTTP 请求增加 token 过期自动处理逻辑，提升安全性与用户体验'
+    ],
+    requireReLogin: true
   }
 ])

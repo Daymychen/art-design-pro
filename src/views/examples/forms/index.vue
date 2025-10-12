@@ -28,17 +28,19 @@
     </div>
 
     <div class="button-group">
-      <ElButton @click="getLevelOptions"> 获取用户等级数据 </ElButton>
-      <ElButton @click="validateForm"> 校验表单 </ElButton>
-      <ElButton @click="resetForm"> 重置 </ElButton>
-      <ElButton v-if="showUserName" @click="updateUserName"> 修改用户名 </ElButton>
-      <ElButton v-if="showUserName" @click="deleteUserName"> 删除用户名 </ElButton>
-      <ElButton @click="labelWidth = 120"> 修改 label 宽度 </ElButton>
-      <ElButton @click="span = 8"> 设置一行显示的组件数 </ElButton>
-      <ElButton @click="gutter = 50"> 修改 gutter </ElButton>
-      <ElButton @click="labelPosition = 'left'"> label 左对齐 </ElButton>
-      <ElButton @click="labelPosition = 'right'"> label 右对齐 </ElButton>
-      <ElButton @click="labelPosition = 'top'"> label 顶部对齐 </ElButton>
+      <ElSpace wrap>
+        <ElButton @click="getLevelOptions"> 获取用户等级数据 </ElButton>
+        <ElButton @click="validateForm"> 校验表单 </ElButton>
+        <ElButton @click="resetForm"> 重置 </ElButton>
+        <ElButton v-if="showUserName" @click="updateUserName"> 修改用户名 </ElButton>
+        <ElButton v-if="showUserName" @click="deleteUserName"> 删除用户名 </ElButton>
+        <ElButton @click="labelWidth = 120"> 修改 label 宽度 </ElButton>
+        <ElButton @click="span = 8"> 设置一行显示的组件数 </ElButton>
+        <ElButton @click="gutter = 50"> 修改 gutter </ElButton>
+        <ElButton @click="labelPosition = 'left'"> label 左对齐 </ElButton>
+        <ElButton @click="labelPosition = 'right'"> label 右对齐 </ElButton>
+        <ElButton @click="labelPosition = 'top'"> label 顶部对齐 </ElButton>
+      </ElSpace>
     </div>
 
     <!-- 图片预览对话框 -->
@@ -62,15 +64,45 @@
     (e: 'search', params: Record<string, any>): void
     (e: 'reset'): void
   }
+
+  interface OptionItem {
+    label: string
+    value: string
+    disabled?: boolean
+  }
+
+  interface FormData {
+    name?: string
+    phone?: string
+    level?: string
+    address?: string
+    slots?: string
+    date?: string
+    daterange?: string[]
+    cascader?: string[]
+    checkboxgroup?: string[]
+    userGender?: string
+    iconSelector?: string
+    status?: boolean
+    systemName?: string
+    fileUpload: UploadUserFile[]
+    imageUpload: UploadUserFile[]
+    multipleFiles: UploadUserFile[]
+    richTextContent: string
+  }
+
   const emit = defineEmits<Emits>()
 
-  // 表单数据双向绑定
+  const FETCH_DELAY = 500
+
   const formRef = ref()
   const dialogVisible = ref(false)
   const dialogImageUrl = ref('')
 
-  // 表单数据
-  const formData = ref({
+  /**
+   * 表单数据
+   */
+  const formData = ref<FormData>({
     name: undefined,
     phone: undefined,
     level: undefined,
@@ -84,22 +116,17 @@
     iconSelector: undefined,
     status: undefined,
     systemName: undefined,
-    fileUpload: [] as UploadUserFile[],
-    imageUpload: [] as UploadUserFile[],
-    multipleFiles: [] as UploadUserFile[],
+    fileUpload: [],
+    imageUpload: [],
+    multipleFiles: [],
     richTextContent: ''
   })
 
-  // 表单校验规则
+  /**
+   * 表单校验规则
+   */
   const formRules = {
     name: [{ required: true, message: '请输入用户名', trigger: 'blur' }]
-    // phone: [
-    //   { required: true, message: '请输入手机号', trigger: 'blur' },
-    //   { min: 11, max: 11, message: '请输入11位手机号', trigger: 'blur' },
-    //   { pattern: /^1[3456789]\d{9}$/, message: '请输入正确的手机号', trigger: 'blur' }
-    // ],
-    // level: [{ required: true, message: '请选择等级', trigger: 'change' }],
-    // address: [{ required: true, message: '请输入地址', trigger: 'blur' }]
   }
 
   const labelWidth = ref(100)
@@ -107,47 +134,73 @@
   const span = ref(6)
   const gutter = ref(12)
 
-  // 动态 options
-  const levelOptions = ref<{ label: string; value: string; disabled?: boolean }[]>([])
+  const levelOptions = ref<OptionItem[]>([])
 
-  // 共享的选项数据
-  const LEVEL_OPTIONS = [
+  /**
+   * 用户等级选项
+   */
+  const LEVEL_OPTIONS: OptionItem[] = [
     { label: '普通用户', value: 'normal' },
     { label: 'VIP用户', value: 'vip' },
     { label: '高级VIP', value: 'svip' },
     { label: '企业用户', value: 'enterprise', disabled: true }
   ]
 
-  const GENDER_OPTIONS = [
+  /**
+   * 性别选项
+   */
+  const GENDER_OPTIONS: OptionItem[] = [
     { label: '男', value: '1' },
     { label: '女', value: '2' }
   ]
 
+  /**
+   * 日期快捷选项
+   */
   const DATE_SHORTCUTS = [
     { text: '今日', value: new Date() },
     { text: '昨日', value: () => new Date(Date.now() - 86400000) },
     { text: '一周前', value: () => new Date(Date.now() - 604800000) }
   ]
 
-  // 模拟接口返回用户等级
-  function fetchLevelOptions(): Promise<typeof levelOptions.value> {
+  /**
+   * 模拟接口获取用户等级数据
+   * @returns 用户等级选项列表
+   */
+  const fetchLevelOptions = (): Promise<OptionItem[]> => {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(LEVEL_OPTIONS)
-      }, 500)
+      }, FETCH_DELAY)
     })
   }
 
-  // 获取用户等级数据
-  async function getLevelOptions() {
+  /**
+   * 获取用户等级数据
+   */
+  const getLevelOptions = async (): Promise<void> => {
     levelOptions.value = await fetchLevelOptions()
     if (levelOptions.value.length) {
       ElMessage.success('成功获取到数据')
     }
   }
 
-  // 创建表单项的工厂函数
-  const createFormItem = (config: any) => config
+  /**
+   * 表单项配置类型
+   */
+  interface FormItemConfig {
+    label: string
+    key: string
+    type: string
+    placeholder?: string
+    props?: Record<string, any>
+    [key: string]: any
+  }
+
+  /**
+   * 创建表单项的工厂函数
+   */
+  const createFormItem = (config: FormItemConfig) => config
 
   // 基础表单项配置
   const baseFormItems = {
@@ -646,22 +699,37 @@
     }
   ])
 
-  // 表单处理函数
-  const handleReset = () => {
+  /**
+   * 处理表单重置事件
+   */
+  const handleReset = (): void => {
     console.log('重置表单')
     emit('reset')
   }
 
-  const handleSubmit = async () => {
+  /**
+   * 处理表单提交事件
+   */
+  const handleSubmit = async (): Promise<void> => {
     await formRef.value.validate()
     emit('search', formData.value)
     console.log('表单数据', formData.value)
   }
 
+  /**
+   * 校验表单
+   */
   const validateForm = () => formRef.value.validate()
+
+  /**
+   * 重置表单
+   */
   const resetForm = () => formRef.value.reset()
 
-  const updateUserName = () => {
+  /**
+   * 更新用户名字段配置
+   */
+  const updateUserName = (): void => {
     userItem.value = {
       ...userItem.value,
       label: '昵称',
@@ -671,7 +739,10 @@
     }
   }
 
-  const deleteUserName = () => {
+  /**
+   * 删除用户名字段
+   */
+  const deleteUserName = (): void => {
     showUserName.value = false
     formData.value.name = undefined
   }

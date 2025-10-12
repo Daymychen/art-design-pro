@@ -68,7 +68,7 @@
         },
         tooltip: props.showTooltip
           ? getTooltipStyle('item', {
-              formatter: (params: any) => {
+              formatter: (params: { value: [number, number] }) => {
                 const [x, y] = params.value
                 return `X: ${x}<br/>Y: ${y}`
               }

@@ -67,23 +67,17 @@
 <script setup lang="ts">
   import { VueDraggable } from 'vue-draggable-plus'
 
+  defineOptions({ name: 'TemplateDrag' })
+
+  /**
+   * 用户列表数据
+   * 用于演示拖拽排序功能
+   */
   const userList = ref([
-    {
-      name: '孙悟空',
-      role: '斗战胜佛'
-    },
-    {
-      name: '猪八戒',
-      role: '净坛使者'
-    },
-    {
-      name: '沙僧',
-      role: '金身罗汉'
-    },
-    {
-      name: '唐僧',
-      role: '旃檀功德佛'
-    }
+    { name: '孙悟空', role: '斗战胜佛' },
+    { name: '猪八戒', role: '净坛使者' },
+    { name: '沙僧', role: '金身罗汉' },
+    { name: '唐僧', role: '旃檀功德佛' }
   ])
 </script>
 

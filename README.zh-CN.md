@@ -45,9 +45,7 @@
 
 ## 快速访问
 
-[演示地址](https://www.artd.pro)
-
-[官方文档](https://www.artd.pro/docs)
+[演示地址](https://www.artd.pro) | [官方文档](https://www.artd.pro/docs) | [更新日志](./CHANGELOG.md)
 
 ## 安装运行
 
