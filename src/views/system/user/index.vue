@@ -48,6 +48,7 @@
   import { fetchGetUserList } from '@/api/system-manage'
   import UserSearch from './modules/user-search.vue'
   import UserDialog from './modules/user-dialog.vue'
+  import { ElTag, ElMessageBox, ElImage } from 'element-plus'
 
   defineOptions({ name: 'User' })
 

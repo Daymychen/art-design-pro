@@ -55,6 +55,7 @@
   import type { AppRouteRecord } from '@/types/router'
   import MenuDialog from './modules/menu-dialog.vue'
   import { fetchGetMenuList } from '@/api/system-manage'
+  import { ElTag, ElMessageBox } from 'element-plus'
 
   defineOptions({ name: 'Menus' })
 
