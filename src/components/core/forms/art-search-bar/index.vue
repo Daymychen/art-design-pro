@@ -102,7 +102,23 @@
   import { ArrowUpBold, ArrowDownBold } from '@element-plus/icons-vue'
   import { useWindowSize } from '@vueuse/core'
   import { useI18n } from 'vue-i18n'
-  import type { FormInstance } from 'element-plus'
+  import {
+    ElCascader,
+    ElCheckbox,
+    ElCheckboxGroup,
+    ElDatePicker,
+    ElInput,
+    ElInputNumber,
+    ElRadioGroup,
+    ElRate,
+    ElSelect,
+    ElSlider,
+    ElSwitch,
+    ElTimePicker,
+    ElTimeSelect,
+    ElTreeSelect,
+    type FormInstance
+  } from 'element-plus'
 
   defineOptions({ name: 'ArtSearchBar' })
 
