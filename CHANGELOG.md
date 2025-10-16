@@ -6,6 +6,36 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Released]
 
+### v2.6.0 - 2025-10-16
+
+#### Added
+
+- Extended registration and password reset page top component support
+
+#### Optimized
+
+- Optimized streamlined version menu data structure, improved data consistency
+- Optimized local development environment network request proxy configuration
+- Optimized ElTree component default styles
+- Added VsCode recommended plugin related configuration
+- Optimized ElDropdown component click trigger mode interaction styles
+- Optimized menu filtering logic
+- Optimized page switching animation, improved loading speed
+- Optimized dark mode text color
+
+#### Fixed
+
+- Fixed static route custom home page path first visit redirecting to login page issue
+- Fixed logout briefly jumping to 500 page issue
+- Fixed v2.5.9 version home route redirect configuration failure issue
+- Fixed v2.5.9 auto-import mechanism causing build exception
+
+#### ⚠️ Important Notice
+
+> This version requires re-login
+
+---
+
 ### v2.5.9 - 2025-10-12
 
 #### Code Optimized

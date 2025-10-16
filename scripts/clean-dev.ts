@@ -585,6 +585,25 @@ export default Object.freeze(fastEnterConfig)
   }
 }
 
+// 更新菜单接口
+async function updateMenuApi() {
+  const apiPath = path.resolve(process.cwd(), 'src/api/system-manage.ts')
+
+  try {
+    const content = await fs.readFile(apiPath, 'utf-8')
+    const updatedContent = content.replace(
+      "url: '/api/system/menus'",
+      "url: '/api/system/menus/simple'"
+    )
+
+    await fs.writeFile(apiPath, updatedContent, 'utf-8')
+    console.log(`     ${icons.success} ${fmt.success('更新菜单接口完成')}`)
+  } catch (err) {
+    console.log(`     ${icons.error} ${fmt.error('更新菜单接口失败')}`)
+    console.log(`     ${fmt.dim('错误详情: ' + err)}`)
+  }
+}
+
 // 用户确认函数
 async function getUserConfirmation(): Promise<boolean> {
   const { createInterface } = await import('readline')
@@ -792,9 +811,14 @@ async function main() {
   await cleanLanguageFiles()
   console.log()
 
-  console.log(`  ${fmt.badge('步骤 6/6', theme.bgBlue)} ${fmt.title('清理快速入口')}`)
+  console.log(`  ${fmt.badge('步骤 6/7', theme.bgBlue)} ${fmt.title('清理快速入口')}`)
   console.log()
   await cleanFastEnterComponent()
+  console.log()
+
+  console.log(`  ${fmt.badge('步骤 7/7', theme.bgBlue)} ${fmt.title('更新菜单接口')}`)
+  console.log()
+  await updateMenuApi()
 
   // 显示统计信息
   await showStats()

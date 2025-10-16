@@ -3,35 +3,7 @@
     <LoginLeftView></LoginLeftView>
 
     <div class="right-wrap">
-      <div class="top-right-wrap">
-        <div v-if="shouldShowThemeToggle" class="btn theme-btn" @click="themeAnimation">
-          <i class="iconfont-sys">
-            {{ isDark ? '&#xe6b5;' : '&#xe725;' }}
-          </i>
-        </div>
-        <ElDropdown
-          v-if="shouldShowLanguage"
-          @command="changeLanguage"
-          popper-class="langDropDownStyle"
-        >
-          <div class="btn language-btn">
-            <i class="iconfont-sys icon-language">&#xe611;</i>
-          </div>
-          <template #dropdown>
-            <ElDropdownMenu>
-              <div v-for="lang in languageOptions" :key="lang.value" class="lang-btn-item">
-                <ElDropdownItem
-                  :command="lang.value"
-                  :class="{ 'is-selected': locale === lang.value }"
-                >
-                  <span class="menu-txt">{{ lang.label }}</span>
-                  <i v-if="locale === lang.value" class="iconfont-sys icon-check">&#xe621;</i>
-                </ElDropdownItem>
-              </div>
-            </ElDropdownMenu>
-          </template>
-        </ElDropdown>
-      </div>
+      <AuthTopBar></AuthTopBar>
       <div class="header">
         <ArtLogo class="icon" />
         <h1>{{ systemName }}</h1>
@@ -44,6 +16,7 @@
             ref="formRef"
             :model="formData"
             :rules="rules"
+            :key="formKey"
             @keyup.enter="handleSubmit"
             style="margin-top: 25px"
           >
@@ -60,11 +33,14 @@
               </ElSelect>
             </ElFormItem>
             <ElFormItem prop="username">
-              <ElInput :placeholder="$t('login.placeholder[0]')" v-model.trim="formData.username" />
+              <ElInput
+                :placeholder="$t('login.placeholder.username')"
+                v-model.trim="formData.username"
+              />
             </ElFormItem>
             <ElFormItem prop="password">
               <ElInput
-                :placeholder="$t('login.placeholder[1]')"
+                :placeholder="$t('login.placeholder.password')"
                 v-model.trim="formData.password"
                 type="password"
                 radius="8px"
@@ -86,7 +62,7 @@
                 />
               </div>
               <p class="error-text" :class="{ 'show-error-text': !isPassing && isClickPass }">{{
-                $t('login.placeholder[2]')
+                $t('login.placeholder.slider')
               }}</p>
             </div>
 
@@ -126,19 +102,20 @@
   import AppConfig from '@/config'
   import { useUserStore } from '@/store/modules/user'
   import { getCssVar } from '@/utils/ui'
-  import { languageOptions } from '@/locales'
-  import { LanguageEnum } from '@/enums/appEnum'
   import { useI18n } from 'vue-i18n'
   import { HttpError } from '@/utils/http/error'
-  import { themeAnimation } from '@/utils/theme/animation'
   import { fetchLogin, fetchGetUserInfo } from '@/api/auth'
-  import { useHeaderBar } from '@/composables/useHeaderBar'
   import { ElNotification, type FormInstance, type FormRules } from 'element-plus'
-  import { useSettingStore } from '@/store/modules/setting'
 
   defineOptions({ name: 'Login' })
 
-  const { t } = useI18n()
+  const { t, locale } = useI18n()
+  const formKey = ref(0)
+
+  // 监听语言切换，重置表单
+  watch(locale, () => {
+    formKey.value++
+  })
 
   type AccountKey = 'super' | 'admin' | 'user'
 
@@ -174,10 +151,6 @@
     }
   ])
 
-  const settingStore = useSettingStore()
-  const { isDark } = storeToRefs(settingStore)
-  const { shouldShowThemeToggle, shouldShowLanguage } = useHeaderBar()
-
   const dragVerify = ref()
 
   const userStore = useUserStore()
@@ -196,8 +169,8 @@
   })
 
   const rules = computed<FormRules>(() => ({
-    username: [{ required: true, message: t('login.placeholder[0]'), trigger: 'blur' }],
-    password: [{ required: true, message: t('login.placeholder[1]'), trigger: 'blur' }]
+    username: [{ required: true, message: t('login.placeholder.username'), trigger: 'blur' }],
+    password: [{ required: true, message: t('login.placeholder.password'), trigger: 'blur' }]
   }))
 
   const loading = ref(false)
@@ -259,7 +232,7 @@
         // console.log(error.code)
       } else {
         // 处理非 HttpError
-        ElMessage.error('登录失败，请稍后重试')
+        // ElMessage.error('登录失败，请稍后重试')
         console.error('[Login] Unexpected error:', error)
       }
     } finally {
@@ -284,15 +257,6 @@
         message: `${t('login.success.message')}, ${systemName}!`
       })
     }, 150)
-  }
-
-  // 切换语言
-  const { locale } = useI18n()
-
-  const changeLanguage = (lang: LanguageEnum) => {
-    if (locale.value === lang) return
-    locale.value = lang
-    userStore.setLanguage(lang)
   }
 </script>
 

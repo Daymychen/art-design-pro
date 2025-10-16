@@ -2,7 +2,7 @@
 @use '@styles/mixin.scss' as *;
 
 // 重新修改菜单样式
-$menu-height: 46px; // 菜单高度
+$menu-height: 42px; // 菜单高度
 $menu-icon-size: 20px; // 菜单图标大小
 $menu-font-size: 14px; // 菜单字体大小
 $hover-bg-color: rgba(var(--art-gray-200-rgb), 0.8); // 鼠标移入背景色
@@ -21,7 +21,7 @@ $hover-bg-color: rgba(var(--art-gray-200-rgb), 0.8); // 鼠标移入背景色
 
   // 菜单图标
   .menu-icon {
-    margin-right: 10px;
+    margin-right: 8px;
     font-size: $menu-icon-size;
   }
 
@@ -111,6 +111,7 @@ $hover-bg-color: rgba(var(--art-gray-200-rgb), 0.8); // 鼠标移入背景色
 
     // 选中颜色
     .el-menu-item.is-active {
+      color: #fff !important;
       background-color: var(--el-color-primary-light-1);
 
       .menu-icon {

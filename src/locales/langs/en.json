@@ -122,7 +122,7 @@
   },
   "login": {
     "leftView": {
-      "title": "An Admin template focused on user experience",
+      "title": "A backend system of beauty and efficiency",
       "subTitle": "A sleek and practical interface for a great user experience"
     },
     "title": "Welcome back",
@@ -132,11 +132,11 @@
       "admin": "Admin",
       "user": "User"
     },
-    "placeholder": [
-      "Please enter your account",
-      "Please enter your password",
-      "Please slide to verify"
-    ],
+    "placeholder": {
+      "username": "Please enter your account",
+      "password": "Please enter your password",
+      "slider": "Please slide to verify"
+    },
     "sliderText": "Please slide to verify",
     "sliderSuccessText": "Verification successful",
     "rememberPwd": "Remember password",
@@ -159,18 +159,18 @@
   "register": {
     "title": "Create account",
     "subTitle": "Welcome to join us, please fill in the following information to complete the registration",
-    "placeholder": [
-      "Please enter your account",
-      "Please enter your password",
-      "Please enter your password again"
-    ],
-    "rule": [
-      "Please enter your password again",
-      "The two passwords are inconsistent!",
-      "The length is 3 to 20 characters",
-      "The password length cannot be less than 6 digits",
-      "Please agree to the privacy policy"
-    ],
+    "placeholder": {
+      "username": "Please enter your account",
+      "password": "Please enter your password",
+      "confirmPassword": "Please enter your password again"
+    },
+    "rule": {
+      "confirmPasswordRequired": "Please enter your password again",
+      "passwordMismatch": "The two passwords are inconsistent!",
+      "usernameLength": "The length is 3 to 20 characters",
+      "passwordLength": "The password length cannot be less than 6 digits",
+      "agreementRequired": "Please agree to the privacy policy"
+    },
     "agreeText": "I agree",
     "privacyPolicy": "Privacy policy",
     "submitBtnText": "Register",
@@ -248,7 +248,7 @@
       "pricing": "Pricing"
     },
     "article": {
-      "title": "Article Management",
+      "title": "Article",
       "articleList": "Article List",
       "articleDetail": "Article Detail",
       "comment": "Comment",
@@ -280,7 +280,6 @@
         "pageVisibility": "Super Admin Visibility"
       }
     },
-
     "system": {
       "title": "System Settings",
       "user": "User Manage",

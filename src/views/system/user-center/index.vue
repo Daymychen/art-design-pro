@@ -6,7 +6,7 @@
           <img class="bg" src="@imgs/user/bg.webp" />
           <img class="avatar" src="@imgs/user/avatar.webp" />
           <h2 class="name">{{ userInfo.userName }}</h2>
-          <p class="des">Art Design Pro 是一款漂亮的后台管理系统模版.</p>
+          <p class="des">专注于用户体验跟视觉设计</p>
 
           <div class="outer-info">
             <div>
@@ -171,7 +171,7 @@
     mobile: '18888888888',
     address: '广东省深圳市宝安区西乡街道101栋201',
     sex: '2',
-    des: 'Art Design Pro 是一款漂亮的后台管理系统模版.'
+    des: 'Art Design Pro 是一款兼具设计美学与高效开发的后台系统.'
   })
 
   /**

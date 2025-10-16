@@ -3,14 +3,14 @@
 * 单页面移除深色主题 document.getElementsByTagName("html")[0].removeAttribute('class')
 */
 
-$font-color: rgba(#ffffff, 0.7);
+$font-color: rgba(#ffffff, 0.8);
 $background-color: #070707;
 
 /* 覆盖element-plus默认深色背景色 */
 html.dark {
   // element-plus
   // --el-bg-color: $background-color;
-  --el-text-color-regular: $font-color;
+  --el-text-color-regular: #{$font-color};
 
   // 富文本编辑器
   // 工具栏背景颜色

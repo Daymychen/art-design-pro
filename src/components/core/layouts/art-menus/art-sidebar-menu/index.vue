@@ -88,7 +88,6 @@
           :text-color="getMenuTheme.textColor"
           :unique-opened="uniqueOpened"
           :background-color="getMenuTheme.background"
-          :active-text-color="getMenuTheme.textActiveColor"
           :default-openeds="defaultOpenedMenus"
           :popper-class="`menu-left-${getMenuTheme.theme}-popper`"
           :show-timeout="50"

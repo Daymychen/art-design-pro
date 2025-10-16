@@ -2,6 +2,7 @@
   <div class="login register">
     <LoginLeftView></LoginLeftView>
     <div class="right-wrap">
+      <AuthTopBar />
       <div class="header">
         <ArtLogo class="icon" />
         <h1>{{ systemName }}</h1>

@@ -122,7 +122,7 @@
   },
   "login": {
     "leftView": {
-      "title": "专注于用户体验的后台管理系统模版",
+      "title": "一款兼具设计美学与高效开发的后台系统",
       "subTitle": "美观实用的界面，经过视觉优化，确保卓越的用户体验"
     },
     "title": "欢迎回来",
@@ -132,7 +132,11 @@
       "admin": "管理员",
       "user": "普通用户"
     },
-    "placeholder": ["请输入账号", "请输入密码", "请拖动滑块完成验证"],
+    "placeholder": {
+      "username": "请输入账号",
+      "password": "请输入密码",
+      "slider": "请拖动滑块完成验证"
+    },
     "sliderText": "按住滑块拖动",
     "sliderSuccessText": "验证成功",
     "rememberPwd": "记住密码",
@@ -155,14 +159,18 @@
   "register": {
     "title": "创建账号",
     "subTitle": "欢迎加入我们，请填写以下信息完成注册",
-    "placeholder": ["请输入账号", "请输入密码", "请再次输入密码"],
-    "rule": [
-      "请再次输入密码",
-      "两次输入密码不一致!",
-      "长度在 3 到 20 个字符",
-      "密码长度不能小于6位",
-      "请同意隐私协议"
-    ],
+    "placeholder": {
+      "username": "请输入账号",
+      "password": "请输入密码",
+      "confirmPassword": "请再次输入密码"
+    },
+    "rule": {
+      "confirmPasswordRequired": "请再次输入密码",
+      "passwordMismatch": "两次输入密码不一致!",
+      "usernameLength": "长度在 3 到 20 个字符",
+      "passwordLength": "密码长度不能小于6位",
+      "agreementRequired": "请同意隐私协议"
+    },
     "agreeText": "我同意",
     "privacyPolicy": "《隐私政策》",
     "submitBtnText": "注册",
