@@ -32,7 +32,7 @@
               >
                 <!-- 下拉选择 -->
                 <template v-if="item.type === 'select' && getProps(item)?.options">
-                  <el-option
+                  <ElOption
                     v-for="option in getProps(item).options"
                     v-bind="option"
                     :key="option.value"
@@ -41,7 +41,7 @@
 
                 <!-- 复选框组 -->
                 <template v-if="item.type === 'checkboxgroup' && getProps(item)?.options">
-                  <el-checkbox
+                  <ElCheckbox
                     v-for="option in getProps(item).options"
                     v-bind="option"
                     :key="option.value"
@@ -50,7 +50,7 @@
 
                 <!-- 单选框组 -->
                 <template v-if="item.type === 'radiogroup' && getProps(item)?.options">
-                  <el-radio
+                  <ElRadio
                     v-for="option in getProps(item).options"
                     v-bind="option"
                     :key="option.value"
@@ -68,10 +68,10 @@
         <ElCol :xs="24" :sm="24" :md="span" :lg="span" :xl="span" class="action-column">
           <div class="action-buttons-wrapper" :style="actionButtonsStyle">
             <div class="form-buttons">
-              <el-button v-if="showReset" class="reset-button" @click="handleReset" v-ripple>
+              <ElButton v-if="showReset" class="reset-button" @click="handleReset" v-ripple>
                 {{ t('table.searchBar.reset') }}
-              </el-button>
-              <el-button
+              </ElButton>
+              <ElButton
                 v-if="showSearch"
                 type="primary"
                 class="search-button"
@@ -80,15 +80,15 @@
                 :disabled="disabledSearch"
               >
                 {{ t('table.searchBar.search') }}
-              </el-button>
+              </ElButton>
             </div>
             <div v-if="shouldShowExpandToggle" class="filter-toggle" @click="toggleExpand">
               <span>{{ expandToggleText }}</span>
               <div class="icon-wrapper">
-                <el-icon>
+                <ElIcon>
                   <ArrowUpBold v-if="isExpanded" />
                   <ArrowDownBold v-else />
-                </el-icon>
+                </ElIcon>
               </div>
             </div>
           </div>
@@ -102,7 +102,23 @@
   import { ArrowUpBold, ArrowDownBold } from '@element-plus/icons-vue'
   import { useWindowSize } from '@vueuse/core'
   import { useI18n } from 'vue-i18n'
-  import type { FormInstance } from 'element-plus'
+  import {
+    ElCascader,
+    ElCheckbox,
+    ElCheckboxGroup,
+    ElDatePicker,
+    ElInput,
+    ElInputNumber,
+    ElRadioGroup,
+    ElRate,
+    ElSelect,
+    ElSlider,
+    ElSwitch,
+    ElTimePicker,
+    ElTimeSelect,
+    ElTreeSelect,
+    type FormInstance
+  } from 'element-plus'
 
   defineOptions({ name: 'ArtSearchBar' })
 

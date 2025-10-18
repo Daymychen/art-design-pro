@@ -205,7 +205,7 @@ class VersionManager {
     // 首次访问处理
     if (this.isFirstVisit(storedVersion)) {
       this.setStoredVersion(StorageConfig.CURRENT_VERSION)
-      console.info('[Upgrade] 首次访问，已设置当前版本')
+      // console.info('[Upgrade] 首次访问，已设置当前版本')
       return
     }
 

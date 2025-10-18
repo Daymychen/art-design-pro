@@ -2,7 +2,7 @@
   <div class="card about-project art-custom-card">
     <div>
       <h2 class="box-title">关于项目</h2>
-      <p>{{ systemName }} 是一款专注于用户体验和视觉设计的后台管理系统模版</p>
+      <p>{{ systemName }} 是一款兼具设计美学与高效开发的后台系统</p>
       <p>使用了 Vue3、TypeScript、Vite、Element Plus 等前沿技术</p>
 
       <div class="button-wrap">
@@ -34,8 +34,12 @@
 
   const systemName = AppConfig.systemInfo.name
 
-  const goPage = (url: string) => {
-    window.open(url)
+  /**
+   * 在新标签页中打开指定 URL
+   * @param url 要打开的网页地址
+   */
+  const goPage = (url: string): void => {
+    window.open(url, '_blank', 'noopener,noreferrer')
   }
 </script>
 

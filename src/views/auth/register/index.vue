@@ -2,6 +2,7 @@
   <div class="login register">
     <LoginLeftView></LoginLeftView>
     <div class="right-wrap">
+      <AuthTopBar />
       <div class="header">
         <ArtLogo class="icon" />
         <h1>{{ systemName }}</h1>
@@ -10,18 +11,24 @@
         <div class="form">
           <h3 class="title">{{ $t('register.title') }}</h3>
           <p class="sub-title">{{ $t('register.subTitle') }}</p>
-          <ElForm ref="formRef" :model="formData" :rules="rules" label-position="top">
+          <ElForm
+            ref="formRef"
+            :model="formData"
+            :rules="rules"
+            label-position="top"
+            :key="formKey"
+          >
             <ElFormItem prop="username">
               <ElInput
                 v-model.trim="formData.username"
-                :placeholder="$t('register.placeholder[0]')"
+                :placeholder="$t('register.placeholder.username')"
               />
             </ElFormItem>
 
             <ElFormItem prop="password">
               <ElInput
                 v-model.trim="formData.password"
-                :placeholder="$t('register.placeholder[1]')"
+                :placeholder="$t('register.placeholder.password')"
                 type="password"
                 autocomplete="off"
                 show-password
@@ -31,7 +38,7 @@
             <ElFormItem prop="confirmPassword">
               <ElInput
                 v-model.trim="formData.confirmPassword"
-                :placeholder="$t('register.placeholder[2]')"
+                :placeholder="$t('register.placeholder.confirmPassword')"
                 type="password"
                 autocomplete="off"
                 @keyup.enter="register"
@@ -65,7 +72,7 @@
             <div class="footer">
               <p>
                 {{ $t('register.hasAccount') }}
-                <router-link :to="RoutesAlias.Login">{{ $t('register.toLogin') }}</router-link>
+                <router-link :to="{ name: 'Login' }">{{ $t('register.toLogin') }}</router-link>
               </p>
             </div>
           </ElForm>
@@ -77,72 +84,116 @@
 
 <script setup lang="ts">
   import AppConfig from '@/config'
-  import { RoutesAlias } from '@/router/routesAlias'
-  import type { FormInstance, FormRules } from 'element-plus'
   import { useI18n } from 'vue-i18n'
+  import type { FormInstance, FormRules } from 'element-plus'
 
   defineOptions({ name: 'Register' })
 
-  const { t } = useI18n()
+  interface RegisterForm {
+    username: string
+    password: string
+    confirmPassword: string
+    agreement: boolean
+  }
 
+  const USERNAME_MIN_LENGTH = 3
+  const USERNAME_MAX_LENGTH = 20
+  const PASSWORD_MIN_LENGTH = 6
+  const REDIRECT_DELAY = 1000
+
+  const { t, locale } = useI18n()
   const router = useRouter()
   const formRef = ref<FormInstance>()
 
   const systemName = AppConfig.systemInfo.name
   const loading = ref(false)
+  const formKey = ref(0)
 
-  const formData = reactive({
+  // 监听语言切换，重置表单
+  watch(locale, () => {
+    formKey.value++
+  })
+
+  const formData = reactive<RegisterForm>({
     username: '',
     password: '',
     confirmPassword: '',
     agreement: false
   })
 
-  const validatePass = (rule: any, value: string, callback: any) => {
-    if (value === '') {
-      callback(new Error(t('register.placeholder[1]')))
-    } else {
-      if (formData.confirmPassword !== '') {
-        formRef.value?.validateField('confirmPassword')
-      }
-      callback()
+  /**
+   * 验证密码
+   * 当密码输入后，如果确认密码已填写，则触发确认密码的验证
+   */
+  const validatePassword = (_rule: any, value: string, callback: (error?: Error) => void) => {
+    if (!value) {
+      callback(new Error(t('register.placeholder.password')))
+      return
     }
+
+    if (formData.confirmPassword) {
+      formRef.value?.validateField('confirmPassword')
+    }
+
+    callback()
   }
 
-  const validatePass2 = (rule: any, value: string, callback: any) => {
-    if (value === '') {
-      callback(new Error(t('register.rule[0]')))
-    } else if (value !== formData.password) {
-      callback(new Error(t('register.rule[1]')))
-    } else {
-      callback()
+  /**
+   * 验证确认密码
+   * 检查确认密码是否与密码一致
+   */
+  const validateConfirmPassword = (
+    _rule: any,
+    value: string,
+    callback: (error?: Error) => void
+  ) => {
+    if (!value) {
+      callback(new Error(t('register.rule.confirmPasswordRequired')))
+      return
     }
+
+    if (value !== formData.password) {
+      callback(new Error(t('register.rule.passwordMismatch')))
+      return
+    }
+
+    callback()
   }
 
-  const rules = reactive<FormRules>({
+  /**
+   * 验证用户协议
+   * 确保用户已勾选同意协议
+   */
+  const validateAgreement = (_rule: any, value: boolean, callback: (error?: Error) => void) => {
+    if (!value) {
+      callback(new Error(t('register.rule.agreementRequired')))
+      return
+    }
+    callback()
+  }
+
+  const rules = computed<FormRules<RegisterForm>>(() => ({
     username: [
-      { required: true, message: t('register.placeholder[0]'), trigger: 'blur' },
-      { min: 3, max: 20, message: t('register.rule[2]'), trigger: 'blur' }
+      { required: true, message: t('register.placeholder.username'), trigger: 'blur' },
+      {
+        min: USERNAME_MIN_LENGTH,
+        max: USERNAME_MAX_LENGTH,
+        message: t('register.rule.usernameLength'),
+        trigger: 'blur'
+      }
     ],
     password: [
-      { required: true, validator: validatePass, trigger: 'blur' },
-      { min: 6, message: t('register.rule[3]'), trigger: 'blur' }
+      { required: true, validator: validatePassword, trigger: 'blur' },
+      { min: PASSWORD_MIN_LENGTH, message: t('register.rule.passwordLength'), trigger: 'blur' }
     ],
-    confirmPassword: [{ required: true, validator: validatePass2, trigger: 'blur' }],
-    agreement: [
-      {
-        validator: (rule: any, value: boolean, callback: any) => {
-          if (!value) {
-            callback(new Error(t('register.rule[4]')))
-          } else {
-            callback()
-          }
-        },
-        trigger: 'change'
-      }
-    ]
-  })
+    confirmPassword: [{ required: true, validator: validateConfirmPassword, trigger: 'blur' }],
+    agreement: [{ validator: validateAgreement, trigger: 'change' }]
+  }))
 
+  /**
+   * 注册用户
+   * 验证表单后提交注册请求
+   */
   const register = async () => {
     if (!formRef.value) return
 
@@ -150,21 +201,36 @@
       await formRef.value.validate()
       loading.value = true
 
+      // TODO: 替换为真实 API 调用
+      // const params = {
+      //   username: formData.username,
+      //   password: formData.password
+      // }
+      // const res = await AuthService.register(params)
+      // if (res.code === ApiStatus.success) {
+      //   ElMessage.success('注册成功')
+      //   toLogin()
+      // }
+
       // 模拟注册请求
       setTimeout(() => {
         loading.value = false
         ElMessage.success('注册成功')
         toLogin()
-      }, 1000)
+      }, REDIRECT_DELAY)
     } catch (error) {
-      console.log('验证失败', error)
+      console.error('表单验证失败:', error)
+      loading.value = false
     }
   }
 
+  /**
+   * 跳转到登录页面
+   */
   const toLogin = () => {
     setTimeout(() => {
-      router.push(RoutesAlias.Login)
-    }, 1000)
+      router.push({ name: 'Login' })
+    }, REDIRECT_DELAY)
   }
 </script>
 

@@ -63,6 +63,7 @@
   import RoleSearch from './modules/role-search.vue'
   import RoleEditDialog from './modules/role-edit-dialog.vue'
   import RolePermissionDialog from './modules/role-permission-dialog.vue'
+  import { ElTag, ElMessageBox } from 'element-plus'
 
   defineOptions({ name: 'Role' })
 

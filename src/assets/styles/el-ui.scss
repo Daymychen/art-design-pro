@@ -181,6 +181,11 @@ html.dark .el-card {
       color: var(--art-gray-900) !important;
       background-color: var(--art-gray-200) !important;
     }
+
+    &:focus:not(.is-disabled) {
+      color: var(--art-gray-900) !important;
+      background-color: var(--art-gray-200) !important;
+    }
   }
 }
 
@@ -493,5 +498,22 @@ html.dark .el-card {
 .el-picker-panel {
   .el-picker-panel__footer {
     border-radius: 0 0 var(--el-border-radius-base) var(--el-border-radius-base);
+  }
+}
+
+// 优化树型菜单样式
+.el-tree-node__content {
+  border-radius: 4px;
+  margin-bottom: 4px;
+  padding: 1px 0;
+
+  &:hover {
+    background-color: rgba(var(--art-gray-200-rgb), 0.6) !important;
+  }
+}
+
+.dark {
+  .el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {
+    background-color: rgba(var(--art-gray-300-rgb), 0.7) !important;
   }
 }

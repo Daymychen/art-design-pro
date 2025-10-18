@@ -7,9 +7,9 @@
       <ul class="offset">
         <li
           class="comment-box"
-          v-for="item in commentList"
+          v-for="item in commentsWithColors"
           :key="item.id"
-          :style="{ background: randomColor() }"
+          :style="{ background: item.color }"
           @click="openDrawer(item)"
         >
           <p class="date">{{ item.date }}</p>
@@ -39,7 +39,7 @@
       </template>
       <template #default>
         <div class="drawer-default">
-          <div class="comment-box" :style="{ background: randomColor() }">
+          <div class="comment-box" :style="{ background: clickItem.color }">
             <p class="date">{{ clickItem.date }}</p>
             <p class="content">{{ clickItem.content }}</p>
             <div class="bottom">
@@ -57,66 +57,64 @@
           <CommentWidget />
         </div>
       </template>
-      <template #footer>
-        <div>
-          <!-- <ElButton @click="cancelClick">cancel</ElButton> -->
-          <!-- <ElButton type="primary" @click="confirmClick">confirm</ElButton> -->
-        </div>
-      </template>
     </ElDrawer>
   </div>
 </template>
 
 <script setup lang="ts">
   import { commentList } from '@/mock/temp/commentList'
-  const showDrawer = ref(false)
 
   defineOptions({ name: 'ArticleComment' })
 
-  // const colorList = reactive([
-  //   'rgba(216, 248, 255, 0.8)',
-  //   'rgba(253, 223, 217, 0.8)',
-  //   'rgba(252, 230, 240, 0.8)',
-  //   'rgba(211, 248, 240, 0.8)',
-  //   'rgba(255, 234, 188, 0.8)',
-  //   'rgba(245, 225, 255, 0.8)',
-  //   'rgba(225, 230, 254, 0.8)'
-  // ])
-
-  const colorList = reactive([
-    '#D8F8FF',
-    '#FDDFD9',
-    '#FCE6F0',
-    '#D3F8F0',
-    '#FFEABC',
-    '#F5E1FF',
-    '#E1E6FE'
-  ])
-
-  let lastColor: string | null = null
-
-  const randomColor = () => {
-    let newColor: string
-
-    do {
-      const index = Math.floor(Math.random() * colorList.length)
-      newColor = colorList[index]
-    } while (newColor === lastColor)
-
-    lastColor = newColor
-    return newColor
+  interface CommentItem {
+    id: number
+    date: string
+    content: string
+    collection: number
+    comment: number
+    userName: string
+    color?: string
   }
 
-  const clickItem = ref({
+  const COLOR_LIST = ['#D8F8FF', '#FDDFD9', '#FCE6F0', '#D3F8F0', '#FFEABC', '#F5E1FF', '#E1E6FE']
+
+  const showDrawer = ref(false)
+  const clickItem = ref<CommentItem>({
     id: 1,
     date: '2024-9-3',
     content: '加油！学好Node 自己写个小Demo',
     collection: 5,
     comment: 8,
-    userName: '匿名'
+    userName: '匿名',
+    color: COLOR_LIST[0]
   })
 
-  const openDrawer = (item: any) => {
+  /**
+   * 为评论列表分配随机颜色
+   */
+  const commentsWithColors = computed(() => {
+    let lastColorIndex = -1
+
+    return commentList.map((item) => {
+      let newIndex: number
+
+      do {
+        newIndex = Math.floor(Math.random() * COLOR_LIST.length)
+      } while (newIndex === lastColorIndex && COLOR_LIST.length > 1)
+
+      lastColorIndex = newIndex
+
+      return {
+        ...item,
+        color: COLOR_LIST[newIndex]
+      }
+    })
+  })
+
+  /**
+   * 打开评论详情抽屉
+   */
+  const openDrawer = (item: CommentItem) => {
     showDrawer.value = true
     clickItem.value = item
   }

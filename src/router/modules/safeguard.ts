@@ -1,0 +1,23 @@
+import { AppRouteRecord } from '@/types/router'
+
+export const safeguardRoutes: AppRouteRecord = {
+  path: '/safeguard',
+  name: 'Safeguard',
+  component: '/index/index',
+  meta: {
+    title: 'menus.safeguard.title',
+    icon: '&#xe816;',
+    keepAlive: false
+  },
+  children: [
+    {
+      path: 'server',
+      name: 'SafeguardServer',
+      component: '/safeguard/server',
+      meta: {
+        title: 'menus.safeguard.server',
+        keepAlive: true
+      }
+    }
+  ]
+}

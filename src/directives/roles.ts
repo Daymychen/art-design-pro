@@ -5,8 +5,8 @@ import { App, Directive, DirectiveBinding } from 'vue'
  * 角色权限指令
  * 只要用户角色包含指令值中的任意一个角色，则显示元素
  * 用法：
- * <el-button v-roles="['R_SUPER', 'R_ADMIN']">按钮</el-button>
- * <el-button v-roles="'R_ADMIN'">按钮</el-button>
+ * <ElButton v-roles="['R_SUPER', 'R_ADMIN']">按钮</ElButton>
+ * <ElButton v-roles="'R_ADMIN'">按钮</ElButton>
  */
 
 interface RolesBinding extends DirectiveBinding {

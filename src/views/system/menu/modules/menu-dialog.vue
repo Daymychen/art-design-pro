@@ -12,7 +12,7 @@
       <ElFormItem label="菜单类型">
         <ElRadioGroup v-model="menuType" :disabled="disableMenuType">
           <ElRadioButton value="menu" label="menu">菜单</ElRadioButton>
-          <ElRadioButton value="button" label="button">权限</ElRadioButton>
+          <ElRadioButton value="button" label="button">按钮</ElRadioButton>
         </ElRadioGroup>
       </ElFormItem>
 
@@ -52,7 +52,11 @@
           </ElCol>
           <ElCol :span="12">
             <ElFormItem label="角色权限" prop="roles">
-              <ElInput v-model="rolesString" placeholder="角色权限，多个用逗号分隔" />
+              <ElInputTag
+                v-model="form.roles"
+                placeholder="输入角色权限后按回车添加"
+                style="width: 100%"
+              />
             </ElFormItem>
           </ElCol>
         </ElRow>
@@ -124,6 +128,11 @@
               <ElSwitch v-model="form.isHideTab" />
             </ElFormItem>
           </ElCol>
+          <ElCol :span="6">
+            <ElFormItem label="全屏页面" prop="isFullPage">
+              <ElSwitch v-model="form.isFullPage" />
+            </ElFormItem>
+          </ElCol>
         </ElRow>
       </template>
 
@@ -191,6 +200,7 @@
     fixedTab: boolean
     activePath: string
     roles: string[]
+    isFullPage: boolean
     authName: string
     authLabel: string
     authIcon: string
@@ -242,6 +252,7 @@
     fixedTab: false,
     activePath: '',
     roles: [],
+    isFullPage: false,
     authName: '',
     authLabel: '',
     authIcon: '',
@@ -261,29 +272,23 @@
   })
 
   const dialogTitle = computed(() => {
-    const type = menuType.value === 'menu' ? '菜单' : '权限'
+    const type = menuType.value === 'menu' ? '菜单' : '按钮'
     return isEdit.value ? `编辑${type}` : `新建${type}`
   })
 
+  /**
+   * 是否禁用菜单类型切换
+   */
   const disableMenuType = computed(() => {
     if (isEdit.value) return true
     if (!isEdit.value && menuType.value === 'menu' && props.lockType) return true
     return false
   })
 
-  const rolesString = computed({
-    get: () => form.roles.join(','),
-    set: (value: string) => {
-      form.roles = value
-        ? value
-            .split(',')
-            .map((role) => role.trim())
-            .filter((role) => role)
-        : []
-    }
-  })
-
-  const resetForm = () => {
+  /**
+   * 重置表单数据
+   */
+  const resetForm = (): void => {
     formRef.value?.resetFields()
     Object.assign(form, {
       id: 0,
@@ -305,6 +310,7 @@
       fixedTab: false,
       activePath: '',
       roles: [],
+      isFullPage: false,
       authName: '',
       authLabel: '',
       authIcon: '',
@@ -312,7 +318,10 @@
     })
   }
 
-  const loadFormData = () => {
+  /**
+   * 加载表单数据（编辑模式）
+   */
+  const loadFormData = (): void => {
     if (!props.editData) return
 
     isEdit.value = true
@@ -338,6 +347,7 @@
       form.fixedTab = row.meta?.fixedTab ?? false
       form.activePath = row.meta?.activePath || ''
       form.roles = row.meta?.roles || []
+      form.isFullPage = row.meta?.isFullPage ?? false
     } else {
       const row = props.editData
       form.authName = row.title || ''
@@ -347,7 +357,10 @@
     }
   }
 
-  const handleSubmit = async () => {
+  /**
+   * 提交表单
+   */
+  const handleSubmit = async (): Promise<void> => {
     if (!formRef.value) return
 
     await formRef.value.validate(async (valid) => {
@@ -363,15 +376,24 @@
     })
   }
 
-  const handleCancel = () => {
+  /**
+   * 取消操作
+   */
+  const handleCancel = (): void => {
     emit('update:visible', false)
   }
 
-  const handleClosed = () => {
+  /**
+   * 对话框关闭后的回调
+   */
+  const handleClosed = (): void => {
     resetForm()
     isEdit.value = false
   }
 
+  /**
+   * 监听对话框显示状态
+   */
   watch(
     () => props.visible,
     (newVal) => {
@@ -386,7 +408,9 @@
     }
   )
 
-  // 监听 type 变化
+  /**
+   * 监听菜单类型变化
+   */
   watch(
     () => props.type,
     (newType) => {

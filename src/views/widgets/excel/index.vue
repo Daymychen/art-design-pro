@@ -34,30 +34,20 @@
 </template>
 
 <script setup lang="ts">
+  defineOptions({ name: 'WidgetsExcel' })
+
+  /**
+   * 表格数据类型定义
+   */
   interface TableData {
     name: string
     age: number
     city: string
   }
 
-  const handleImportSuccess = (data: any[]) => {
-    // 将导入的数据转换为正确的格式
-    const formattedData = data.map((item) => ({
-      name: item['姓名'],
-      age: Number(item['年龄']),
-      city: item['城市']
-    }))
-    tableData.value = formattedData
-
-    // tableData.value = data
-  }
-
-  const handleImportError = (error: Error) => {
-    // 处理导入错误
-    console.error('导入失败:', error)
-  }
-
-  // 使用类型化的ref
+  /**
+   * 表格数据
+   */
   const tableData = ref<TableData[]>([
     { name: '李四', age: 20, city: '上海' },
     { name: '张三', age: 25, city: '北京' },
@@ -71,44 +61,91 @@
     { name: '陈二', age: 33, city: '西安' }
   ])
 
-  // 自定义表头映射
+  /**
+   * 表头映射配置
+   * 用于 Excel 导入导出时的字段映射
+   */
   const headers = {
     name: '姓名',
     age: '年龄',
     city: '城市'
   }
 
+  /**
+   * 列配置
+   * 用于 Excel 导出时的列宽和格式化
+   */
   const columnConfig = {
     name: {
       title: '姓名',
       width: 20,
-      formatter: (value: any) => value || '未知'
+      formatter: (value: unknown) => (value ? String(value) : '未知')
     },
     age: {
       title: '年龄',
       width: 10,
-      formatter: (value: any) => `${value}岁`
+      formatter: (value: unknown) => (value ? `${value}岁` : '0岁')
     },
     city: {
       title: '城市',
       width: 12,
-      formatter: (value: any) => `${value}市`
+      formatter: (value: unknown) => (value ? `${value}市` : '未知')
     }
   }
 
-  const handleExportSuccess = () => {
-    console.log('导出成功')
+  /**
+   * 处理 Excel 导入成功
+   * 将导入的数据转换为表格数据格式
+   * @param data 导入的原始数据
+   */
+  const handleImportSuccess = (data: Array<Record<string, unknown>>) => {
+    const formattedData: TableData[] = data.map((item) => ({
+      name: String(item['姓名'] || ''),
+      age: Number(item['年龄']) || 0,
+      city: String(item['城市'] || '')
+    }))
+    tableData.value = formattedData
+    ElMessage.success(`成功导入 ${formattedData.length} 条数据`)
   }
 
+  /**
+   * 处理 Excel 导入错误
+   * @param error 错误对象
+   */
+  const handleImportError = (error: Error) => {
+    console.error('导入失败:', error)
+    ElMessage.error(`导入失败: ${error.message}`)
+  }
+
+  /**
+   * 处理 Excel 导出成功
+   */
+  const handleExportSuccess = () => {
+    console.log('导出成功')
+    ElMessage.success('Excel 导出成功')
+  }
+
+  /**
+   * 处理 Excel 导出错误
+   * @param error 错误对象
+   */
   const handleExportError = (error: Error) => {
     ElMessage.error(`导出失败: ${error.message}`)
   }
 
+  /**
+   * 处理导出进度
+   * @param progress 导出进度百分比
+   */
   const handleProgress = (progress: number) => {
     console.log('导出进度:', progress)
   }
 
+  /**
+   * 清空表格数据
+   */
   const handleClear = () => {
     tableData.value = []
+    ElMessage.info('已清空数据')
   }
 </script>

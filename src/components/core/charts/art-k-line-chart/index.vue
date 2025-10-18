@@ -76,7 +76,7 @@
           axisPointer: {
             type: 'cross'
           },
-          formatter: (params: any) => {
+          formatter: (params: Array<{ name: string; data: number[] }>) => {
             const param = params[0]
             const data = param.data
             return `

@@ -55,18 +55,27 @@
     "btnText": "Login",
     "forgetPwd": "Forgot password",
     "leftView": {
-      "subTitle": "A sleek and practical interface for a great user experience",
-      "title": "An Admin template focused on user experience"
+      "title": "A backend system of beauty and efficiency",
+      "subTitle": "A sleek and practical interface for a great user experience"
     },
+    "title": "Welcome back",
+    "subTitle": "Please enter your account and password to login",
+    "roles": {
+      "super": "Super Admin",
+      "admin": "Admin",
+      "user": "User"
+    },
+    "placeholder": {
+      "username": "Please enter your account",
+      "password": "Please enter your password",
+      "slider": "Please slide to verify"
+    },
+    "sliderText": "Please slide to verify",
+    "sliderSuccessText": "Verification successful",
+    "rememberPwd": "Remember password",
+    "forgetPwd": "Forgot password",
+    "btnText": "Login",
     "noAccount": "No account yet?",
-    "placeholder": [
-      "Please enter your account",
-      "Please enter your password",
-      "Please slide to verify"
-    ],
-    "placeholder[0]": "placeholder[0]",
-    "placeholder[1]": "placeholder[1]",
-    "placeholder[2]": "placeholder[2]",
     "register": "Register",
     "rememberPwd": "Remember password",
     "roles": {
@@ -203,30 +212,22 @@
     "viewAll": "View all"
   },
   "register": {
-    "agreeText": "I agree",
-    "hasAccount": "Already have an account?",
-    "placeholder": [
-      "Please enter your account",
-      "Please enter your password",
-      "Please enter your password again"
-    ],
-    "placeholder[0]": "placeholder[0]",
-    "placeholder[1]": "placeholder[1]",
-    "placeholder[2]": "placeholder[2]",
-    "privacyPolicy": "Privacy policy",
-    "rule": [
-      "Please enter your password again",
-      "The two passwords are inconsistent!",
-      "The length is 3 to 20 characters",
-      "The password length cannot be less than 6 digits",
-      "Please agree to the privacy policy"
-    ],
-    "rule[0]": "rule[0]",
-    "rule[1]": "rule[1]",
-    "rule[2]": "rule[2]",
-    "rule[3]": "rule[3]",
-    "rule[4]": "rule[4]",
+    "title": "Create account",
     "subTitle": "Welcome to join us, please fill in the following information to complete the registration",
+    "placeholder": {
+      "username": "Please enter your account",
+      "password": "Please enter your password",
+      "confirmPassword": "Please enter your password again"
+    },
+    "rule": {
+      "confirmPasswordRequired": "Please enter your password again",
+      "passwordMismatch": "The two passwords are inconsistent!",
+      "usernameLength": "The length is 3 to 20 characters",
+      "passwordLength": "The password length cannot be less than 6 digits",
+      "agreementRequired": "Please agree to the privacy policy"
+    },
+    "agreeText": "I agree",
+    "privacyPolicy": "Privacy policy",
     "submitBtnText": "Register",
     "title": "Create account",
     "toLogin": "To login"
@@ -285,9 +286,12 @@
       "default": "Default",
       "google": "Chrome"
     },
-    "theme": {
-      "list": ["Light", "Dark", "System"],
-      "title": "Theme Style"
+    "article": {
+      "title": "Article",
+      "articleList": "Article List",
+      "articleDetail": "Article Detail",
+      "comment": "Comment",
+      "articlePublish": "Article Publish"
     },
     "transition": {
       "list": {
@@ -297,6 +301,34 @@
         "slideLeft": "Slide Left",
         "slideTop": "Slide Top"
       }
+    },
+    "system": {
+      "title": "System Settings",
+      "user": "User Manage",
+      "role": "Role Manage",
+      "userCenter": "User Center",
+      "menu": "Menu Manage",
+      "nested": "Nested Menu",
+      "menu1": "Menu 1",
+      "menu2": "Menu 2",
+      "menu21": "Menu 2-1",
+      "menu3": "Menu 3",
+      "menu31": "Menu 3-1",
+      "menu32": "Menu 3-2",
+      "menu321": "Menu 3-2-1"
+    },
+    "safeguard": {
+      "title": "Safeguard",
+      "server": "Server"
+    },
+    "plan": {
+      "title": "Version Plan",
+      "log": "Change Log"
+    },
+    "help": {
+      "title": "Help Center",
+      "document": "Document",
+      "liteVersion": "Lite Version"
     }
   },
   "table": {

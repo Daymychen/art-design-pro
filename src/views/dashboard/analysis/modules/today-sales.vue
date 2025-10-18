@@ -9,8 +9,8 @@
       </div>
     </div>
     <div class="sales-summary">
-      <el-row :gutter="20">
-        <el-col :span="6" :xs="24" v-for="(item, index) in salesData" :key="index">
+      <ElRow :gutter="20">
+        <ElCol :span="6" :xs="24" v-for="(item, index) in salesData" :key="index">
           <div :class="['sales-card']">
             <i class="iconfont-sys" v-html="item.iconfont"></i>
             <h2>
@@ -24,14 +24,26 @@
               }}</span>
             </small>
           </div>
-        </el-col>
-      </el-row>
+        </ElCol>
+      </ElRow>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-  const salesData = ref([
+  interface SalesDataItem {
+    label: string
+    value: number
+    change: string
+    iconfont: string
+    class: string
+  }
+
+  /**
+   * 今日销售数据统计
+   * 包含销售额、订单量、产品销量和新客户数等关键指标
+   */
+  const salesData = ref<SalesDataItem[]>([
     {
       label: '总销售额',
       value: 999,

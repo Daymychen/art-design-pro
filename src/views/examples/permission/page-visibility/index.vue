@@ -53,7 +53,7 @@
                 <pre><code>{
   path: 'page-visibility',
   name: 'PermissionPageVisibility',
-  component: RoutesAlias.PermissionPageVisibility,
+  component: '/examples/permission/page-visibility',
   meta: {
     title: 'menus.permission.pageVisibility',
     roles: ['R_SUPER'], // 仅超级管理员可访问

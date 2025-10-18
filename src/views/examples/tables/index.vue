@@ -6,7 +6,7 @@
     <ElCard class="intro-card" shadow="never">
       <template #header>
         <div class="intro-header">
-          <h3>🚀 高级表格完整能力展示</h3>
+          <h3>高级表格完整能力展示</h3>
           <div class="intro-badges">
             <ElTag type="success" effect="light">智能缓存</ElTag>
             <ElTag type="primary" effect="light">防抖搜索</ElTag>
@@ -25,7 +25,7 @@
         <!-- 调试面板 -->
         <div class="debug-panel" v-if="showDebugPanel">
           <ElCollapse v-model="debugActiveNames">
-            <ElCollapseItem name="cache" title="📊 缓存统计与演示">
+            <ElCollapseItem name="cache" title="缓存统计与演示">
               <div class="debug-info">
                 <div class="stat-item">
                   <span class="label">缓存状态：</span>
@@ -52,7 +52,7 @@
                 </div>
               </div>
             </ElCollapseItem>
-            <ElCollapseItem name="logs" title="📋 缓存日志">
+            <ElCollapseItem name="logs" title="缓存日志">
               <div class="debug-info">
                 <div class="logs-container">
                   <div v-if="cacheDebugLogs.length === 0" class="empty-logs">
@@ -78,7 +78,7 @@
                 </div>
               </div>
             </ElCollapseItem>
-            <ElCollapseItem name="request" title="🔄 请求状态">
+            <ElCollapseItem name="request" title="请求状态">
               <div class="debug-info">
                 <div class="stat-item">
                   <span class="label">加载状态：</span>
@@ -303,12 +303,12 @@
     <!-- 高级功能演示 -->
     <ElCard class="advanced-features-card" shadow="never">
       <template #header>
-        <h4>🚀 高级功能演示</h4>
+        <h4>高级功能演示</h4>
       </template>
       <div class="feature-demo-section">
         <!-- 事件监听演示 -->
         <div class="demo-group">
-          <h5>📊 事件监听演示</h5>
+          <h5>事件监听演示</h5>
           <div class="demo-buttons">
             <ElButton @click="toggleEventDemo" :type="eventDemoEnabled ? 'success' : 'primary'">
               {{ eventDemoEnabled ? '关闭' : '开启' }}事件监听
@@ -332,7 +332,7 @@
 
         <!-- 表格配置演示 -->
         <div class="demo-group">
-          <h5>⚙️ 表格配置演示</h5>
+          <h5>表格配置演示</h5>
           <div class="demo-buttons">
             <ElSwitch
               v-model="tableConfig.fixedHeight"
@@ -345,7 +345,7 @@
 
         <!-- 自定义功能演示 -->
         <div class="demo-group">
-          <h5>🎯 自定义功能</h5>
+          <h5>自定义功能</h5>
           <div class="demo-buttons">
             <ElButton @click="handleScrollToTop">滚动到顶部</ElButton>
             <ElButton @click="handleScrollToPosition">滚动到指定位置</ElButton>
@@ -359,7 +359,7 @@
     <!-- 缓存刷新策略演示 -->
     <ElCard class="refresh-demo-card" shadow="never">
       <template #header>
-        <h4>🔄 【缓存】刷新策略演示</h4>
+        <h4>缓存刷新策略演示</h4>
       </template>
       <div class="refresh-buttons">
         <ElButton @click="refreshData" v-ripple>
@@ -399,7 +399,16 @@
 
 <script setup lang="ts">
   import { ref, computed, watch, nextTick } from 'vue'
-  import { Plus, Delete, Edit, Search, Refresh, QuestionFilled } from '@element-plus/icons-vue'
+  import {
+    Plus,
+    Delete,
+    Edit,
+    Search,
+    Refresh,
+    QuestionFilled,
+    ArrowDown
+  } from '@element-plus/icons-vue'
+  import { ElMessageBox } from 'element-plus'
   import { useTable, CacheInvalidationStrategy } from '@/composables/useTable'
   import { fetchGetUserList } from '@/api/system-manage'
   import { ACCOUNT_TABLE_DATA } from '@/mock/temp/formData'
@@ -582,18 +591,21 @@
   //   await fetchData({ name: 'ricky', phone: 19388828388 })
   // })
 
-  // 使用 useTable Hook
+  /**
+   * 使用 useTable Hook 管理表格数据
+   * 提供完整的表格解决方案，包括数据获取、缓存、分页、搜索等功能
+   */
   const {
-    // fetchData, // 手动加载数据的方法，可用于等待其他请求完成后调用，immediate 为 false 时使用
-
     // 数据相关
     data, // 表格数据
     loading, // 加载中状态
     error, // 数据加载错误状态
     hasData, // 是否有数据
+    // isEmpty, // 数据是否为空
 
     // 分页相关
     pagination, // 分页信息
+    // paginationMobile, // 移动端分页配置
     handleSizeChange, // 分页大小变化处理
     handleCurrentChange, // 当前页变化处理
 
@@ -602,13 +614,10 @@
     resetSearchParams, // 重置搜索参数
 
     // 数据操作
+    // fetchData, // 手动加载数据的方法，可用于等待其他请求完成后调用，immediate 为 false 时使用
     getData, // 获取数据
     getDataDebounced, // 获取数据（防抖）
     clearData, // 清空数据
-
-    // 列配置
-    columns, // 表格列配置
-    columnChecks, // 列显示、拖拽配置
 
     // 刷新策略
     refreshData, // 全量刷新：清空所有缓存，重新获取数据（适用于手动刷新按钮）
@@ -631,6 +640,8 @@
     cancelRequest, // 取消当前请求
 
     // 动态列配置方法
+    columns, // 表格列配置
+    columnChecks, // 列显示、拖拽配置
     addColumn, // 新增列
     removeColumn, // 删除列
     updateColumn, // 更新列
@@ -658,13 +669,11 @@
       apiParams: {
         current: 1,
         size: 20,
-        // pageNum: 1, // 自定义分页字段映射， 默认为 current
-        // pageSize: 20, // 自定义分页字段映射， 默认为 size
         ...searchFormState.value
       },
       // 排除 apiParams 中的属性
       excludeParams: ['daterange'],
-      // 自定义分页字段映射，同时需要在 apiParams 中配置字段名
+      // 自定义分页字段映射，未设置时将使用全局配置 tableConfig.ts 中的 paginationKey
       // paginationKey: {
       //   current: 'pageNum',
       //   size: 'pageSize'
@@ -742,7 +751,7 @@
       dataTransformer: (records) => {
         if (!Array.isArray(records)) return []
 
-        return records.map((item: any, index: number) => ({
+        return records.map((item, index: number) => ({
           ...item,
           avatar: ACCOUNT_TABLE_DATA[index % ACCOUNT_TABLE_DATA.length].avatar,
           department: ['技术部', '产品部', '运营部', '市场部', '设计部'][
@@ -753,7 +762,7 @@
         }))
       }
       // 自定义响应适配器，处理后端特殊的返回格式
-      // responseAdapter: (data: any) => {
+      // responseAdapter: (data) => {
       //   const { list, total, pageNum, pageSize } = data
       //   return {
       //     records: list,
@@ -818,12 +827,28 @@
     logEvent('行点击', `点击了用户: ${row.userName}`)
   }
 
-  const handleHeaderClick = (column: any) => {
+  /**
+   * 表头点击事件处理
+   * @param column 列信息
+   */
+  const handleHeaderClick = (column: { label: string; property: string }) => {
     console.log('表头点击:', column)
     logEvent('表头点击', `点击了 ${column.label} 列表头`)
   }
 
-  const handleSortChange = (sortInfo: any) => {
+  /**
+   * 排序信息类型
+   */
+  interface SortInfo {
+    prop: string
+    order: 'ascending' | 'descending' | null
+  }
+
+  /**
+   * 排序变更事件处理
+   * @param sortInfo 排序信息
+   */
+  const handleSortChange = (sortInfo: SortInfo) => {
     console.log('排序事件:', sortInfo)
     console.log('排序字段:', sortInfo.prop)
     console.log('排序方向:', sortInfo.order)
@@ -998,7 +1023,11 @@
     ElMessage.success(`导出 ${count} 条数据成功`)
   }
 
-  const handleImportSuccess = (data: any[]) => {
+  /**
+   * Excel 导入成功处理
+   * @param data 导入的数据数组
+   */
+  const handleImportSuccess = (data: Record<string, any>[]) => {
     ElMessage.success(`导入 ${data.length} 条数据成功`)
     refreshCreate()
   }
@@ -1060,8 +1089,11 @@
     }, 1000)
   }
 
-  // 添加缓存调试日志
-  const addCacheLog = (message: string) => {
+  /**
+   * 添加缓存调试日志
+   * @param message 日志消息
+   */
+  const addCacheLog = (message: string): void => {
     const timestamp = new Date().toLocaleTimeString()
     cacheDebugLogs.value.unshift(`[${timestamp}] ${message}`)
     if (cacheDebugLogs.value.length > 20) {
@@ -1069,22 +1101,30 @@
     }
   }
 
-  // 更新缓存键列表
-  const updateCacheKeys = (key: string, operation: 'add' | 'remove' = 'add') => {
+  /**
+   * 更新缓存键列表
+   * @param key 缓存键
+   * @param operation 操作类型
+   */
+  const updateCacheKeys = (key: string, operation: 'add' | 'remove' = 'add'): void => {
     if (operation === 'add' && !cacheKeys.value.includes(key)) {
       cacheKeys.value.push(key)
-      addCacheLog(`🔑 新增缓存键: ${getCacheKeySummary(key)}`)
+      addCacheLog(`新增缓存键: ${getCacheKeySummary(key)}`)
     } else if (operation === 'remove') {
       const index = cacheKeys.value.indexOf(key)
       if (index > -1) {
         cacheKeys.value.splice(index, 1)
-        addCacheLog(`🗑️ 移除缓存键: ${getCacheKeySummary(key)}`)
+        addCacheLog(`移除缓存键: ${getCacheKeySummary(key)}`)
       }
     }
   }
 
-  // 获取缓存键摘要
-  const getCacheKeySummary = (key: string) => {
+  /**
+   * 获取缓存键摘要信息
+   * @param key 缓存键
+   * @returns 缓存键摘要
+   */
+  const getCacheKeySummary = (key: string): string => {
     try {
       const params = JSON.parse(key)
       return `页码: ${params.current || 1}, 大小: ${params.size || 20}${params.name ? ', 名称: ' + params.name : ''}${params.status ? ', 状态: ' + params.status : ''}`
@@ -1093,18 +1133,17 @@
     }
   }
 
-  // 强制刷新缓存信息
-  const forceRefreshCacheInfo = () => {
-    // 模拟更新缓存键信息
+  /**
+   * 强制刷新缓存信息
+   */
+  const forceRefreshCacheInfo = (): void => {
     const currentStats = cacheInfo.value
-    addCacheLog(`🔄 缓存信息刷新: ${currentStats.total} 条缓存`)
+    addCacheLog(`缓存信息刷新: ${currentStats.total} 条缓存`)
 
-    // 重置缓存键列表，因为我们无法直接访问缓存内容
     if (currentStats.total === 0) {
       cacheKeys.value = []
     }
 
-    // 触发缓存统计的重新计算
     nextTick(() => {
       console.log('当前缓存统计:', cacheInfo.value)
     })

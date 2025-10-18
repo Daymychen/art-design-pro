@@ -7,7 +7,6 @@ import { useWorktabStore } from './worktab'
 import { AppRouteRecord } from '@/types/router'
 import { setPageTitle } from '@/router/utils/utils'
 import { resetRouterState } from '@/router/guards/beforeEach'
-import { RoutesAlias } from '@/router/routesAlias'
 import { useMenuStore } from './menu'
 
 /**
@@ -128,7 +127,7 @@ export const useUserStore = defineStore(
       // 重置路由状态
       resetRouterState()
       // 跳转到登录页
-      router.push(RoutesAlias.Login)
+      router.push({ name: 'Login' })
     }
 
     return {

@@ -233,194 +233,144 @@ async function remove(targetPath: string, index: number) {
   }
 }
 
-// 清理异步路由
-async function cleanAsyncRoutes() {
-  const asyncRoutesPath = path.resolve(process.cwd(), 'src/router/routes/asyncRoutes.ts')
+// 清理路由模块
+async function cleanRouteModules() {
+  const modulesPath = path.resolve(process.cwd(), 'src/router/modules')
 
   try {
-    const cleanedRoutes = `import { RoutesAlias } from '../routesAlias'
-import { AppRouteRecord } from '@/types/router'
+    // 删除演示相关的路由模块
+    const modulesToRemove = [
+      'template.ts',
+      'widgets.ts',
+      'examples.ts',
+      'article.ts',
+      'safeguard.ts',
+      'help.ts'
+    ]
+
+    for (const module of modulesToRemove) {
+      const modulePath = path.join(modulesPath, module)
+      try {
+        await fs.rm(modulePath, { force: true })
+      } catch {
+        // 文件不存在时忽略错误
+      }
+    }
+
+    // 重写 dashboard.ts - 只保留 console
+    const dashboardContent = `import { AppRouteRecord } from '@/types/router'
+
+export const dashboardRoutes: AppRouteRecord = {
+  name: 'Dashboard',
+  path: '/dashboard',
+  component: '/index/index',
+  meta: {
+    title: 'menus.dashboard.title',
+    icon: '&#xe721;',
+    roles: ['R_SUPER', 'R_ADMIN']
+  },
+  children: [
+    {
+      path: 'console',
+      name: 'Console',
+      component: '/dashboard/console',
+      meta: {
+        title: 'menus.dashboard.console',
+        keepAlive: false,
+        fixedTab: true
+      }
+    }
+  ]
+}
+`
+    await fs.writeFile(path.join(modulesPath, 'dashboard.ts'), dashboardContent, 'utf-8')
+
+    // 重写 system.ts - 移除 nested 嵌套菜单
+    const systemContent = `import { AppRouteRecord } from '@/types/router'
+
+export const systemRoutes: AppRouteRecord = {
+  path: '/system',
+  name: 'System',
+  component: '/index/index',
+  meta: {
+    title: 'menus.system.title',
+    icon: '&#xe7b9;',
+    roles: ['R_SUPER', 'R_ADMIN']
+  },
+  children: [
+    {
+      path: 'user',
+      name: 'User',
+      component: '/system/user',
+      meta: {
+        title: 'menus.system.user',
+        keepAlive: true,
+        roles: ['R_SUPER', 'R_ADMIN']
+      }
+    },
+    {
+      path: 'role',
+      name: 'Role',
+      component: '/system/role',
+      meta: {
+        title: 'menus.system.role',
+        keepAlive: true,
+        roles: ['R_SUPER']
+      }
+    },
+    {
+      path: 'user-center',
+      name: 'UserCenter',
+      component: '/system/user-center',
+      meta: {
+        title: 'menus.system.userCenter',
+        isHide: true,
+        keepAlive: true,
+        isHideTab: true
+      }
+    },
+    {
+      path: 'menu',
+      name: 'Menus',
+      component: '/system/menu',
+      meta: {
+        title: 'menus.system.menu',
+        keepAlive: true,
+        roles: ['R_SUPER'],
+        authList: [
+          { title: '新增', authMark: 'add' },
+          { title: '编辑', authMark: 'edit' },
+          { title: '删除', authMark: 'delete' }
+        ]
+      }
+    }
+  ]
+}
+`
+    await fs.writeFile(path.join(modulesPath, 'system.ts'), systemContent, 'utf-8')
+
+    // 重写 index.ts - 只导入保留的模块
+    const indexContent = `import { AppRouteRecord } from '@/types/router'
+import { dashboardRoutes } from './dashboard'
+import { systemRoutes } from './system'
+import { resultRoutes } from './result'
+import { exceptionRoutes } from './exception'
 
 /**
- * 菜单列表、异步路由
- *
- * 支持两种模式:
- * 前端静态配置 - 直接使用本文件中定义的路由配置
- * 后端动态配置 - 后端返回菜单数据，前端解析生成路由
- *
- * 菜单标题（title）:
- * 可以是 i18n 的 key，也可以是字符串，比如：'用户列表'
- *
- * RoutesAlias.Layout 指向的是布局组件，后端返回的菜单数据中，component 字段需要指向 /index/index
- * 路由元数据（meta）：异步路由在 asyncRoutes 中配置，静态路由在 staticRoutes 中配置
+ * 导出所有模块化路由
  */
-export const asyncRoutes: AppRouteRecord[] = [
-  {
-    name: 'Dashboard',
-    path: '/dashboard',
-    component: RoutesAlias.Layout,
-    meta: {
-      title: 'menus.dashboard.title',
-      icon: '&#xe721;',
-      roles: ['R_SUPER', 'R_ADMIN']
-    },
-    children: [
-      {
-        path: 'console',
-        name: 'Console',
-        component: RoutesAlias.Dashboard,
-        meta: {
-          title: 'menus.dashboard.console',
-          keepAlive: false,
-          fixedTab: true
-        }
-      }
-    ]
-  },
-  {
-    path: '/system',
-    name: 'System',
-    component: RoutesAlias.Layout,
-    meta: {
-      title: 'menus.system.title',
-      icon: '&#xe7b9;',
-      roles: ['R_SUPER', 'R_ADMIN']
-    },
-    children: [
-      {
-        path: 'user',
-        name: 'User',
-        component: RoutesAlias.User,
-        meta: {
-          title: 'menus.system.user',
-          keepAlive: true,
-          roles: ['R_SUPER', 'R_ADMIN']
-        }
-      },
-      {
-        path: 'role',
-        name: 'Role',
-        component: RoutesAlias.Role,
-        meta: {
-          title: 'menus.system.role',
-          keepAlive: true,
-          roles: ['R_SUPER']
-        }
-      },
-      {
-        path: 'user-center',
-        name: 'UserCenter',
-        component: RoutesAlias.UserCenter,
-        meta: {
-          title: 'menus.system.userCenter',
-          isHide: true,
-          keepAlive: true,
-          isHideTab: true
-        }
-      },
-      {
-        path: 'menu',
-        name: 'Menus',
-        component: RoutesAlias.Menu,
-        meta: {
-          title: 'menus.system.menu',
-          keepAlive: true,
-          roles: ['R_SUPER'],
-          authList: [
-            {
-              title: '新增',
-              authMark: 'add'
-            },
-            {
-              title: '编辑',
-              authMark: 'edit'
-            },
-            {
-              title: '删除',
-              authMark: 'delete'
-            }
-          ]
-        }
-      }
-    ]
-  },
-  {
-    path: '/result',
-    name: 'Result',
-    component: RoutesAlias.Layout,
-    meta: {
-      title: 'menus.result.title',
-      icon: '&#xe715;'
-    },
-    children: [
-      {
-        path: 'success',
-        name: 'ResultSuccess',
-        component: RoutesAlias.Success,
-        meta: {
-          title: 'menus.result.success',
-          keepAlive: true
-        }
-      },
-      {
-        path: 'fail',
-        name: 'ResultFail',
-        component: RoutesAlias.Fail,
-        meta: {
-          title: 'menus.result.fail',
-          keepAlive: true
-        }
-      }
-    ]
-  },
-  {
-    path: '/exception',
-    name: 'Exception',
-    component: RoutesAlias.Layout,
-    meta: {
-      title: 'menus.exception.title',
-      icon: '&#xe820;'
-    },
-    children: [
-      {
-        path: '403',
-        name: '403',
-        component: RoutesAlias.Exception403,
-        meta: {
-          title: 'menus.exception.forbidden',
-          keepAlive: true,
-          isFullPage: true
-        }
-      },
-      {
-        path: '404',
-        name: '404',
-        component: RoutesAlias.Exception404,
-        meta: {
-          title: 'menus.exception.notFound',
-          keepAlive: true,
-          isFullPage: true
-        }
-      },
-      {
-        path: '500',
-        name: '500',
-        component: RoutesAlias.Exception500,
-        meta: {
-          title: 'menus.exception.serverError',
-          keepAlive: true,
-          isFullPage: true
-        }
-      }
-    ]
-  }
+export const routeModules: AppRouteRecord[] = [
+  dashboardRoutes,
+  systemRoutes,
+  resultRoutes,
+  exceptionRoutes
 ]
 `
+    await fs.writeFile(path.join(modulesPath, 'index.ts'), indexContent, 'utf-8')
 
-    await fs.writeFile(asyncRoutesPath, cleanedRoutes, 'utf-8')
-    console.log(`     ${icons.success} ${fmt.success('重写异步路由配置完成')}`)
+    console.log(`     ${icons.success} ${fmt.success('清理路由模块完成')}`)
   } catch (err) {
-    console.log(`     ${icons.error} ${fmt.error('清理异步路由失败')}`)
+    console.log(`     ${icons.error} ${fmt.error('清理路由模块失败')}`)
     console.log(`     ${fmt.dim('错误详情: ' + err)}`)
   }
 }
@@ -431,32 +381,12 @@ async function cleanRoutesAlias() {
 
   try {
     const cleanedAlias = `/**
- * 路由别名，方便快速找到页面，同时可以用作路由跳转
+ * 公共路由别名
+ # 存放系统级公共路由路径，如布局容器、登录页等   
  */
 export enum RoutesAlias {
-  // 布局和认证
   Layout = '/index/index', // 布局容器
-  Login = '/auth/login', // 登录
-  Register = '/auth/register', // 注册
-  ForgetPassword = '/auth/forget-password', // 忘记密码
-
-  // 异常页面
-  Exception403 = '/exception/403', // 403
-  Exception404 = '/exception/404', // 404
-  Exception500 = '/exception/500', // 500
-
-  // 结果页面
-  Success = '/result/success', // 成功
-  Fail = '/result/fail', // 失败
-
-  // 仪表板
-  Dashboard = '/dashboard/console', // 工作台
-
-  // 系统管理
-  User = '/system/user', // 账户
-  Role = '/system/role', // 角色
-  UserCenter = '/system/user-center', // 用户中心
-  Menu = '/system/menu' // 菜单
+  Login = '/auth/login' // 登录页
 }
 `
 
@@ -571,7 +501,6 @@ async function cleanFastEnterComponent() {
  * 快速入口配置
  * 包含：应用列表、快速链接等配置
  */
-import { RoutesAlias } from '@/router/routesAlias'
 import { WEB_LINKS } from '@/utils/constants'
 import type { FastEnterConfig } from '@/types/config'
 
@@ -585,63 +514,63 @@ const fastEnterConfig: FastEnterConfig = {
       description: '系统概览与数据统计',
       icon: '&#xe721;',
       iconColor: '#377dff',
-      path: RoutesAlias.Dashboard,
       enabled: true,
-      order: 1
+      order: 1,
+      routeName: 'Console'
     },
     {
       name: '官方文档',
       description: '使用指南与开发文档',
       icon: '&#xe788;',
       iconColor: '#ffb100',
-      path: WEB_LINKS.DOCS,
       enabled: true,
-      order: 2
+      order: 2,
+      link: WEB_LINKS.DOCS
     },
     {
       name: '技术支持',
       description: '技术支持与问题反馈',
       icon: '&#xe86e;',
       iconColor: '#ff6b6b',
-      path: WEB_LINKS.COMMUNITY,
       enabled: true,
-      order: 3
+      order: 3,
+      link: WEB_LINKS.COMMUNITY
     },
     {
       name: '哔哩哔哩',
       description: '技术分享与交流',
       icon: '&#xe6b4;',
       iconColor: '#FB7299',
-      path: WEB_LINKS.BILIBILI,
       enabled: true,
-      order: 4
+      order: 4,
+      link: WEB_LINKS.BILIBILI
     }
   ],
   // 快速链接
   quickLinks: [
     {
       name: '登录',
-      path: RoutesAlias.Login,
       enabled: true,
-      order: 1
+      order: 1,
+      routeName: 'Login'
     },
     {
       name: '注册',
-      path: RoutesAlias.Register,
       enabled: true,
-      order: 2
+      order: 2,
+      routeName: 'Register'
     },
     {
       name: '忘记密码',
-      path: RoutesAlias.ForgetPassword,
       enabled: true,
-      order: 3
+      order: 3,
+      routeName: 'ForgetPassword'
     },
     {
       name: '个人中心',
-      path: RoutesAlias.UserCenter,
       enabled: true,
-      order: 4
+      order: 4,
+      routeName: 'UserCenter'
     }
   ]
 }
@@ -653,6 +582,25 @@ export default Object.freeze(fastEnterConfig)
     console.log(`     ${icons.success} ${fmt.success('清理快速入口配置完成')}`)
   } catch (err) {
     console.log(`     ${icons.error} ${fmt.error('清理快速入口配置失败')}`)
+    console.log(`     ${fmt.dim('错误详情: ' + err)}`)
+  }
+}
+
+// 更新菜单接口
+async function updateMenuApi() {
+  const apiPath = path.resolve(process.cwd(), 'src/api/system-manage.ts')
+
+  try {
+    const content = await fs.readFile(apiPath, 'utf-8')
+    const updatedContent = content.replace(
+      "url: '/api/system/menus'",
+      "url: '/api/system/menus/simple'"
+    )
+
+    await fs.writeFile(apiPath, updatedContent, 'utf-8')
+    console.log(`     ${icons.success} ${fmt.success('更新菜单接口完成')}`)
+  } catch (err) {
+    console.log(`     ${icons.error} ${fmt.error('更新菜单接口失败')}`)
     console.log(`     ${fmt.dim('错误详情: ' + err)}`)
   }
 }
@@ -702,8 +650,8 @@ async function showCleanupWarning() {
     },
     {
       icon: icons.code,
-      name: '动态路由文件',
-      desc: '重写asyncRoutes.ts，只保留核心路由',
+      name: '路由模块文件',
+      desc: '删除演示路由模块，只保留核心模块（dashboard、system、result、exception）',
       color: theme.primary
     },
     {
@@ -844,9 +792,9 @@ async function main() {
   }
   console.log()
 
-  console.log(`  ${fmt.badge('步骤 2/6', theme.bgBlue)} ${fmt.title('重写路由配置')}`)
+  console.log(`  ${fmt.badge('步骤 2/6', theme.bgBlue)} ${fmt.title('清理路由模块')}`)
   console.log()
-  await cleanAsyncRoutes()
+  await cleanRouteModules()
   console.log()
 
   console.log(`  ${fmt.badge('步骤 3/6', theme.bgBlue)} ${fmt.title('重写路由别名')}`)
@@ -864,9 +812,14 @@ async function main() {
   await cleanLanguageFiles()
   console.log()
 
-  console.log(`  ${fmt.badge('步骤 6/6', theme.bgBlue)} ${fmt.title('清理快速入口')}`)
+  console.log(`  ${fmt.badge('步骤 6/7', theme.bgBlue)} ${fmt.title('清理快速入口')}`)
   console.log()
   await cleanFastEnterComponent()
+  console.log()
+
+  console.log(`  ${fmt.badge('步骤 7/7', theme.bgBlue)} ${fmt.title('更新菜单接口')}`)
+  console.log()
+  await updateMenuApi()
 
   // 显示统计信息
   await showStats()

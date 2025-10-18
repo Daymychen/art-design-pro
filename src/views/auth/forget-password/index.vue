@@ -2,6 +2,7 @@
   <div class="login register">
     <LoginLeftView></LoginLeftView>
     <div class="right-wrap">
+      <AuthTopBar />
       <div class="header">
         <ArtLogo class="icon" />
         <h1>{{ systemName }}</h1>
@@ -40,7 +41,6 @@
 
 <script setup lang="ts">
   import AppConfig from '@/config'
-  import { RoutesAlias } from '@/router/routesAlias'
 
   defineOptions({ name: 'ForgetPassword' })
 
@@ -54,7 +54,7 @@
   const register = async () => {}
 
   const toLogin = () => {
-    router.push(RoutesAlias.Login)
+    router.push({ name: 'Login' })
   }
 </script>
 

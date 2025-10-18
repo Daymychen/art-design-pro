@@ -17,6 +17,8 @@ import { loadingService } from '@/utils/ui'
 import { useCommon } from '@/composables/useCommon'
 import { useWorktabStore } from '@/store/modules/worktab'
 import { fetchGetUserInfo } from '@/api/auth'
+import { ApiStatus } from '@/utils/http/status'
+import { HttpError, isHttpError } from '@/utils/http/error'
 
 // 是否已注册动态路由
 const isRouteRegistered = ref(false)
@@ -38,7 +40,7 @@ export function setupBeforeEachGuard(router: Router): void {
         await handleRouteGuard(to, from, next, router)
       } catch (error) {
         console.error('路由守卫处理失败:', error)
-        next('/exception/500')
+        next({ name: 'Exception500' })
       }
     }
   )
@@ -109,14 +111,8 @@ async function handleRouteGuard(
     return
   }
 
-  // 尝试刷新路由重新注册
-  if (userStore.isLogin && !isRouteRegistered.value) {
-    await handleDynamicRoutes(to, from, next, router)
-    return
-  }
-
   // 未匹配到路由，跳转到 404
-  next(RoutesAlias.Exception404)
+  next({ name: 'Exception404' })
 }
 
 /**
@@ -132,7 +128,7 @@ async function handleLoginStatus(
 
   if (!userStore.isLogin && to.path !== RoutesAlias.Login && !isStaticRoute) {
     userStore.logOut()
-    next(RoutesAlias.Login)
+    next({ name: 'Login' })
     return false
   }
   return true
@@ -166,23 +162,15 @@ async function handleDynamicRoutes(
   next: NavigationGuardNext,
   router: Router
 ): Promise<void> {
+  // 显示 loading 并标记 pending
+  pendingLoading.value = true
+  loadingService.showLoading()
+
   try {
-    // 显示 loading 并标记 pending
-    pendingLoading.value = true
-    loadingService.showLoading()
-
     // 获取用户信息
-    const userStore = useUserStore()
-    const isRefresh = from.path === '/'
-    if (isRefresh || !userStore.info || Object.keys(userStore.info).length === 0) {
-      try {
-        const data = await fetchGetUserInfo()
-        userStore.setUserInfo(data)
-      } catch (error) {
-        console.error('获取用户信息失败', error)
-      }
-    }
+    await fetchUserInfoIfNeeded(from)
 
+    // 获取菜单数据并注册路由
     await getMenuData(router)
 
     // 处理根路径跳转
@@ -198,7 +186,13 @@ async function handleDynamicRoutes(
     })
   } catch (error) {
     console.error('动态路由注册失败:', error)
-    next('/exception/500')
+    // 401 错误：axios 拦截器已处理退出登录，取消当前导航即可
+    if (isUnauthorizedError(error)) {
+      next(false)
+      return
+    }
+    // 其他错误：跳转到 500 页面
+    next({ name: 'Exception500' })
   }
 }
 
@@ -206,15 +200,10 @@ async function handleDynamicRoutes(
  * 获取菜单数据
  */
 async function getMenuData(router: Router): Promise<void> {
-  try {
-    if (useCommon().isFrontendMode.value) {
-      await processFrontendMenu(router)
-    } else {
-      await processBackendMenu(router)
-    }
-  } catch (error) {
-    handleMenuError(error)
-    throw error
+  if (useCommon().isFrontendMode.value) {
+    await processFrontendMenu(router)
+  } else {
+    await processBackendMenu(router)
   }
 }
 
@@ -239,7 +228,8 @@ async function processFrontendMenu(router: Router): Promise<void> {
  * 处理后端控制模式的菜单逻辑
  */
 async function processBackendMenu(router: Router): Promise<void> {
-  const { menuList } = await fetchGetMenuList()
+  const list = await fetchGetMenuList()
+  const menuList = list.map((route) => menuDataToRouter(route))
   await registerAndStoreMenu(router, menuList)
 }
 
@@ -260,18 +250,23 @@ function filterEmptyMenus(menuList: AppRouteRecord[]): AppRouteRecord[] {
       return item
     })
     .filter((item) => {
-      // 过滤掉布局组件且没有子菜单的项
-      const isEmptyLayoutMenu =
-        item.component === RoutesAlias.Layout && (!item.children || item.children.length === 0)
+      // 如果定义了 children 属性（即使是空数组），说明这是一个目录菜单，应该保留
+      if ('children' in item) {
+        return true
+      }
 
-      // 过滤掉组件为空字符串且没有子菜单的项，但保留有外链的菜单项
-      const isEmptyComponentMenu =
-        item.component === '' &&
-        (!item.children || item.children.length === 0) &&
-        item.meta.isIframe !== true &&
-        !item.meta.link
+      // 如果有外链或 iframe，保留
+      if (item.meta?.isIframe === true || item.meta?.link) {
+        return true
+      }
 
-      return !(isEmptyLayoutMenu || isEmptyComponentMenu)
+      // 如果有有效的 component，保留
+      if (item.component && item.component !== '' && item.component !== RoutesAlias.Layout) {
+        return true
+      }
+
+      // 其他情况过滤掉
+      return false
     })
 }
 
@@ -289,15 +284,6 @@ async function registerAndStoreMenu(router: Router, menuList: AppRouteRecord[]):
   registerDynamicRoutes(router, list)
   isRouteRegistered.value = true
   useWorktabStore().validateWorktabs(router)
-}
-
-/**
- * 处理菜单相关错误
- */
-function handleMenuError(error: unknown): void {
-  console.error('菜单处理失败:', error)
-  useUserStore().logOut()
-  throw error instanceof Error ? error : new Error('获取菜单列表失败，请重新登录')
 }
 
 /**
@@ -349,4 +335,25 @@ function handleRootPathRedirect(to: RouteLocationNormalized, next: NavigationGua
     }
   }
   return false
+}
+
+/**
+ * 获取用户信息（如果需要）
+ */
+async function fetchUserInfoIfNeeded(from: RouteLocationNormalized): Promise<void> {
+  const userStore = useUserStore()
+  const isRefresh = from.path === '/'
+  const needFetch = isRefresh || !userStore.info || Object.keys(userStore.info).length === 0
+
+  if (needFetch) {
+    const data = await fetchGetUserInfo()
+    userStore.setUserInfo(data)
+  }
+}
+
+/**
+ * 判断是否为未授权错误（401）
+ */
+function isUnauthorizedError(error: unknown): error is HttpError {
+  return isHttpError(error) && error.code === ApiStatus.unauthorized
 }

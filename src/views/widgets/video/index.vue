@@ -14,13 +14,20 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
   import lockImg from '@imgs/lock/lock_screen_1.webp'
 
-  // 视频源和封面图片URL
+  defineOptions({ name: 'WidgetsVideo' })
+
+  /**
+   * 视频源 URL
+   */
   const videoUrl = ref(
     '//lf3-static.bytednsdoc.com/obj/eden-cn/nupenuvpxnuvo/xgplayer_doc/xgplayer-demo.mp4'
   )
+
+  /**
+   * 视频封面图片 URL
+   */
   const posterUrl = ref(lockImg)
 </script>
 

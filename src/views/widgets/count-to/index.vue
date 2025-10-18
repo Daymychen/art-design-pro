@@ -41,7 +41,7 @@
         </div>
       </div>
       <div class="trigger-center">
-        <el-button @click="triggerEasing">触发所有动画</el-button>
+        <ElButton @click="triggerEasing">触发所有动画</ElButton>
       </div>
     </div>
 
@@ -61,26 +61,26 @@
       </div>
 
       <div class="control-buttons">
-        <el-button @click="startCount">开始</el-button>
-        <el-button @click="pauseCount">暂停</el-button>
-        <el-button @click="resetCount">重置</el-button>
+        <ElButton @click="startCount">开始</ElButton>
+        <ElButton @click="pauseCount">暂停</ElButton>
+        <ElButton @click="resetCount">重置</ElButton>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
   import ArtCountTo from '@/components/core/text-effect/art-count-to/index.vue'
 
-  // 控制变量
+  defineOptions({ name: 'TemplateCountTo' })
+
   const controlTarget = ref(0)
   const countToRef = ref()
-
-  // 缓动动画目标值
   const easingTarget = ref(0)
 
-  // 动画类型定义
+  /**
+   * 缓动动画类型配置
+   */
   const easingTypes = [
     { name: 'Linear', type: 'linear' },
     { name: 'Ease Out Cubic', type: 'easeOutCubic' },
@@ -90,42 +90,65 @@
     { name: 'Ease In Quad', type: 'easeInQuad' }
   ] as const
 
-  // 开始
+  /**
+   * 开始计数动画
+   */
   const startCount = () => {
     const newTarget = 5000
     controlTarget.value = newTarget
     countToRef.value?.start(newTarget)
   }
 
-  // 暂停
+  /**
+   * 暂停计数动画
+   */
   const pauseCount = () => {
     countToRef.value?.pause()
   }
 
-  // 重置
+  /**
+   * 重置计数动画
+   */
   const resetCount = () => {
     countToRef.value?.reset()
     controlTarget.value = 0
   }
 
-  // 触发缓动效果演示
+  /**
+   * 触发缓动效果演示
+   * 在 0 和 1000 之间切换
+   */
   const triggerEasing = () => {
     easingTarget.value = easingTarget.value === 0 ? 1000 : 0
   }
 
-  // 监听动画事件
+  /**
+   * 动画开始回调
+   * @param value 目标值
+   */
   const handleAnimationStarted = (value: number) => {
     console.log('动画开始，目标值:', value)
   }
 
+  /**
+   * 动画完成回调
+   * @param value 最终值
+   */
   const handleAnimationFinished = (value: number) => {
     console.log('动画完成，最终值:', value)
   }
 
+  /**
+   * 动画暂停回调
+   * @param value 当前值
+   */
   const handleAnimationPaused = (value: number) => {
     console.log('动画暂停，当前值:', value)
   }
 
+  /**
+   * 动画重置回调
+   */
   const handleAnimationReset = () => {
     console.log('动画已重置')
   }

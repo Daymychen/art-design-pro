@@ -33,46 +33,57 @@
 <script lang="ts" setup>
   import { extractIconClasses, IconfontType } from '@/utils/constants'
 
+  defineOptions({ name: 'WidgetsIconList' })
+
   const iconType = ref('unicode')
-  const options = [
-    {
-      value: 'unicode',
-      label: 'Unicode'
-    },
-    {
-      value: 'fontClass',
-      label: 'Font class'
-    }
-  ]
+  const isColorsIcon = ref(false)
   const systemIconClasses = ref<IconfontType[]>([])
 
-  const isColorsIcon = ref(false)
+  /**
+   * 图标类型选项
+   */
+  const options = [
+    { value: 'unicode', label: 'Unicode' },
+    { value: 'fontClass', label: 'Font class' }
+  ]
 
   onMounted(() => {
     systemIconClasses.value = extractIconClasses()
   })
 
+  /**
+   * 复制图标代码到剪贴板
+   * @param text 图标对象
+   */
   const copyIcon = (text: IconfontType) => {
     if (!text) return
 
-    let copyipt = document.createElement('input')
-    copyipt.setAttribute(
+    const copyInput = document.createElement('input')
+    copyInput.setAttribute(
       'value',
       (iconType.value === 'unicode' ? text.unicode : text.className) || ''
     )
-    document.body.appendChild(copyipt)
-    copyipt.select()
+    document.body.appendChild(copyInput)
+    copyInput.select()
     document.execCommand('copy')
-    document.body.removeChild(copyipt)
+    document.body.removeChild(copyInput)
 
-    ElMessage.success(`已复制`)
+    ElMessage.success('已复制')
   }
 
+  /**
+   * 获取随机颜色
+   * @returns 随机颜色值
+   */
   const getRandomColor = () => {
     const colors = ['#2d8cf0', '#19be6b', '#ff9900', '#f24965', '#9463f7']
     return colors[Math.floor(Math.random() * colors.length)]
   }
 
+  /**
+   * 获取图标样式
+   * @returns 图标样式对象
+   */
   const getIconStyle = () => {
     return isColorsIcon.value ? { color: getRandomColor() } : { color: 'var(--art-text-gray-700)' }
   }

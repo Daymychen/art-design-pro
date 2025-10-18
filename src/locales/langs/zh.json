@@ -55,8 +55,8 @@
     "btnText": "登录",
     "forgetPwd": "忘记密码",
     "leftView": {
-      "subTitle": "美观实用的界面，经过视觉优化，确保卓越的用户体验",
-      "title": "专注于用户体验的后台管理系统模版"
+      "title": "一款兼具设计美学与高效开发的后台系统",
+      "subTitle": "美观实用的界面，经过视觉优化，确保卓越的用户体验"
     },
     "noAccount": "还没有账号？",
     "placeholder": ["请输入账号", "请输入密码", "请拖动滑块完成验证"],
@@ -70,6 +70,12 @@
       "super": "超级管理员",
       "user": "普通用户"
     },
+    "placeholder": {
+      "username": "请输入账号",
+      "password": "请输入密码",
+      "slider": "请拖动滑块完成验证"
+    },
+    "sliderText": "按住滑块拖动",
     "sliderSuccessText": "验证成功",
     "sliderText": "按住滑块拖动",
     "subTitle": "输入您的账号和密码登录",
@@ -199,26 +205,22 @@
     "viewAll": "查看全部"
   },
   "register": {
-    "agreeText": "我同意",
-    "hasAccount": "已有账号？",
-    "placeholder": ["请输入账号", "请输入密码", "请再次输入密码"],
-    "placeholder[0]": "placeholder[0]",
-    "placeholder[1]": "placeholder[1]",
-    "placeholder[2]": "placeholder[2]",
-    "privacyPolicy": "《隐私政策》",
-    "rule": [
-      "请再次输入密码",
-      "两次输入密码不一致!",
-      "长度在 3 到 20 个字符",
-      "密码长度不能小于6位",
-      "请同意隐私协议"
-    ],
-    "rule[0]": "rule[0]",
-    "rule[1]": "rule[1]",
-    "rule[2]": "rule[2]",
-    "rule[3]": "rule[3]",
-    "rule[4]": "rule[4]",
+    "title": "创建账号",
     "subTitle": "欢迎加入我们，请填写以下信息完成注册",
+    "placeholder": {
+      "username": "请输入账号",
+      "password": "请输入密码",
+      "confirmPassword": "请再次输入密码"
+    },
+    "rule": {
+      "confirmPasswordRequired": "请再次输入密码",
+      "passwordMismatch": "两次输入密码不一致!",
+      "usernameLength": "长度在 3 到 20 个字符",
+      "passwordLength": "密码长度不能小于6位",
+      "agreementRequired": "请同意隐私协议"
+    },
+    "agreeText": "我同意",
+    "privacyPolicy": "《隐私政策》",
     "submitBtnText": "注册",
     "title": "创建账号",
     "toLogin": "去登录"

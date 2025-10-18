@@ -1,6 +1,6 @@
 <template>
-  <el-row :gutter="20" class="card-list">
-    <el-col v-for="(item, index) in dataList" :key="index" :sm="12" :md="6" :lg="6">
+  <ElRow :gutter="20" class="card-list">
+    <ElCol v-for="(item, index) in dataList" :key="index" :sm="12" :md="6" :lg="6">
       <div class="card art-custom-card">
         <span class="des subtitle">{{ item.des }}</span>
         <ArtCountTo class="number box-title" :target="item.num" :duration="1300" />
@@ -15,14 +15,25 @@
         </div>
         <i class="iconfont-sys" v-html="item.icon"></i>
       </div>
-    </el-col>
-  </el-row>
+    </ElCol>
+  </ElRow>
 </template>
 
 <script setup lang="ts">
-  import { reactive } from 'vue'
+  interface CardDataItem {
+    des: string
+    icon: string
+    startVal: number
+    duration: number
+    num: number
+    change: string
+  }
 
-  const dataList = reactive([
+  /**
+   * 卡片统计数据列表
+   * 展示总访问次数、在线访客数、点击量和新用户等核心数据指标
+   */
+  const dataList = reactive<CardDataItem[]>([
     {
       des: '总访问次数',
       icon: '&#xe721;',

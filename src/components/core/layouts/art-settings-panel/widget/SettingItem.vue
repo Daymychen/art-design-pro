@@ -3,10 +3,10 @@
     <span class="label">{{ config.label }}</span>
 
     <!-- 开关类型 -->
-    <el-switch v-if="config.type === 'switch'" :model-value="modelValue" @change="handleChange" />
+    <ElSwitch v-if="config.type === 'switch'" :model-value="modelValue" @change="handleChange" />
 
     <!-- 数字输入类型 -->
-    <el-input-number
+    <ElInputNumber
       v-else-if="config.type === 'input-number'"
       :model-value="modelValue"
       :min="config.min"
@@ -18,19 +18,19 @@
     />
 
     <!-- 选择器类型 -->
-    <el-select
+    <ElSelect
       v-else-if="config.type === 'select'"
       :model-value="modelValue"
       :style="config.style"
       @change="handleChange"
     >
-      <el-option
+      <ElOption
         v-for="option in normalizedOptions"
         :key="option.value"
         :label="option.label"
         :value="option.value"
       />
-    </el-select>
+    </ElSelect>
   </div>
 </template>
 

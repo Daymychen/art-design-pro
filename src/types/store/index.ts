@@ -21,13 +21,7 @@ export interface MenuThemeType {
   background: string
   systemNameColor: string
   textColor: string
-  textActiveColor: string
   iconColor: string
-  iconActiveColor: string
-  tabBarBackground: string
-  systemBackground: string
-  leftLineColor: string
-  rightLineColor: string
   img?: string
 }
 

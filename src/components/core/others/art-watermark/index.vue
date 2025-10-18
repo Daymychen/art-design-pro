@@ -1,7 +1,7 @@
 <!-- 水印组件 -->
 <template>
   <div v-if="watermarkVisible" class="layout-watermark" :style="{ zIndex: zIndex }">
-    <el-watermark
+    <ElWatermark
       :content="content"
       :font="{ fontSize: fontSize, color: fontColor }"
       :rotate="rotate"
@@ -9,7 +9,7 @@
       :offset="[offsetX, offsetY]"
     >
       <div style="height: 100vh"></div>
-    </el-watermark>
+    </ElWatermark>
   </div>
 </template>
 

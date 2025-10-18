@@ -20,14 +20,19 @@
 
 <script setup lang="ts">
   import QrcodeVue from 'qrcode.vue'
-  import { ref, reactive, watch } from 'vue'
   import type { Level, RenderAs, ImageSettings } from 'qrcode.vue'
 
-  // 二维码内容
+  defineOptions({ name: 'WidgetsQrcode' })
+
+  /**
+   * 二维码内容
+   */
   const qrValue = ref('https://www.artd.pro')
   const isShowLogo = ref(false)
 
-  // 预设二维码样式配置
+  /**
+   * 预设二维码样式配置
+   */
   const qrcodePresets = [
     {
       title: '渲染成 svg 标签',
@@ -81,7 +86,9 @@
     }
   ]
 
-  // 二维码配置
+  /**
+   * 二维码配置
+   */
   const qrcodeConfig = reactive({
     size: 160,
     level: 'H' as Level,
@@ -97,7 +104,10 @@
     } as ImageSettings
   })
 
-  // 监听是否显示 logo
+  /**
+   * 监听是否显示 logo
+   * 根据状态动态设置二维码中心的 logo 图片
+   */
   watch(isShowLogo, (val) => {
     if (!val) {
       qrcodeConfig.imageSettings = {} as ImageSettings

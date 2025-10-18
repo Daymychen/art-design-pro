@@ -12,18 +12,18 @@
         :stripe="false"
         :header-cell-style="{ background: 'transparent' }"
       >
-        <el-table-column prop="name" label="产品名称" width="200" />
-        <el-table-column prop="popularity" label="销量">
+        <ElTableColumn prop="name" label="产品名称" width="200" />
+        <ElTableColumn prop="popularity" label="销量">
           <template #default="scope">
-            <el-progress
+            <ElProgress
               :percentage="scope.row.popularity"
               :color="getColor(scope.row.popularity)"
               :stroke-width="5"
               :show-text="false"
             />
           </template>
-        </el-table-column>
-        <el-table-column prop="sales" label="销量" width="80">
+        </ElTableColumn>
+        <ElTableColumn prop="sales" label="销量" width="80">
           <template #default="scope">
             <span
               :style="{
@@ -37,7 +37,7 @@
               >{{ scope.row.sales }}</span
             >
           </template>
-        </el-table-column>
+        </ElTableColumn>
       </ArtTable>
     </div>
   </div>
@@ -46,44 +46,48 @@
 <script setup lang="ts">
   import { hexToRgb } from '@/utils/ui'
 
-  const products = computed(() => [
-    {
-      name: '智能手机',
-      popularity: 10,
-      sales: '100'
-    },
-    {
-      name: '笔记本电脑',
-      popularity: 29,
-      sales: '100'
-    },
-    {
-      name: '平板电脑',
-      popularity: 65,
-      sales: '100'
-    },
-    {
-      name: '智能手表',
-      popularity: 32,
-      sales: '100'
-    },
-    {
-      name: '无线耳机',
-      popularity: 78,
-      sales: '100'
-    },
-    {
-      name: '智能音箱',
-      popularity: 41,
-      sales: '100'
-    }
+  interface Product {
+    name: string
+    popularity: number
+    sales: string
+  }
+
+  const COLOR_THRESHOLDS = {
+    LOW: 25,
+    MEDIUM: 50,
+    HIGH: 75
+  } as const
+
+  const POPULARITY_COLORS = {
+    LOW: '#00E096',
+    MEDIUM: '#0095FF',
+    HIGH: '#884CFF',
+    VERY_HIGH: '#FE8F0E'
+  } as const
+
+  /**
+   * 热门产品列表数据
+   * 包含产品名称、热度和销量信息
+   */
+  const products = computed<Product[]>(() => [
+    { name: '智能手机', popularity: 10, sales: '100' },
+    { name: '笔记本电脑', popularity: 29, sales: '100' },
+    { name: '平板电脑', popularity: 65, sales: '100' },
+    { name: '智能手表', popularity: 32, sales: '100' },
+    { name: '无线耳机', popularity: 78, sales: '100' },
+    { name: '智能音箱', popularity: 41, sales: '100' }
   ])
 
-  const getColor = (percentage: number) => {
-    if (percentage < 25) return '#00E096'
-    if (percentage < 50) return '#0095FF'
-    if (percentage < 75) return '#884CFF'
-    return '#FE8F0E'
+  /**
+   * 根据热度百分比获取对应的颜色
+   * @param percentage 热度百分比 (0-100)
+   * @returns 对应的颜色值
+   */
+  const getColor = (percentage: number): string => {
+    if (percentage < COLOR_THRESHOLDS.LOW) return POPULARITY_COLORS.LOW
+    if (percentage < COLOR_THRESHOLDS.MEDIUM) return POPULARITY_COLORS.MEDIUM
+    if (percentage < COLOR_THRESHOLDS.HIGH) return POPULARITY_COLORS.HIGH
+    return POPULARITY_COLORS.VERY_HIGH
   }
 </script>
 

@@ -22,24 +22,24 @@
           @contextmenu.prevent="(e: MouseEvent) => showMenu(e, item.path)"
         >
           {{ item.customTitle || formatMenuTitle(item.title) }}
-          <el-icon
+          <ElIcon
             v-if="list.length > 1 && !item.fixedTab"
             @click.stop="closeWorktab('current', item.path)"
           >
             <Close />
-          </el-icon>
+          </ElIcon>
           <div class="line"></div>
         </li>
       </ul>
     </div>
 
     <div class="right">
-      <el-icon
+      <ElIcon
         class="btn console-box art-custom-card"
         @click="(e: MouseEvent) => showMenu(e, activeTab)"
       >
         <ArrowDown />
-      </el-icon>
+      </ElIcon>
     </div>
 
     <ArtMenuRight

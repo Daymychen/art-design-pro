@@ -5,8 +5,6 @@
     "ComputedRef": true,
     "DirectiveBinding": true,
     "EffectScope": true,
-    "ElLoading": true,
-    "ElMessage": true,
     "ExtractDefaultPropTypes": true,
     "ExtractPropTypes": true,
     "ExtractPublicPropTypes": true,

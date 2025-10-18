@@ -2,13 +2,14 @@
 
 // === 变量区域 ===
 $transition: (
-  duration: 0.3s,
   // 动画持续时间
-  distance: 20px,
+  duration: 0.25s,
   // 滑动动画的移动距离
-  easing: cubic-bezier(0.4, 0, 0.2, 1),
+  distance: 15px,
   // 默认缓动函数
-  fade-easing: ease // 淡入淡出专用的缓动函数
+  easing: cubic-bezier(0.25, 0.1, 0.25, 1),
+  // 淡入淡出专用的缓动函数
+  fade-easing: cubic-bezier(0.4, 0, 0.6, 1)
 );
 
 // 抽取配置值函数，提高可复用性
@@ -58,11 +59,17 @@ $fade-easing: transition-config('fade-easing');
     $distance-y: $distance;
   }
 
-  &-enter-active,
-  &-leave-active {
+  &-enter-active {
     transition:
       opacity $duration $easing,
       transform $duration $easing;
+    will-change: opacity, transform;
+  }
+
+  &-leave-active {
+    transition:
+      opacity calc($duration * 0.7) $easing,
+      transform calc($duration * 0.7) $easing;
     will-change: opacity, transform;
   }
 

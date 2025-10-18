@@ -67,7 +67,7 @@
 
           <template #button>
             <div style="margin-top: 12px">
-              <el-button type="primary" color="#04A1FF"> 查看文档 </el-button>
+              <ElButton type="primary" color="#04A1FF"> 查看文档 </ElButton>
             </div>
           </template>
         </ArtBasicBanner>
@@ -149,18 +149,33 @@
   import icon4 from '@imgs/3d/icon4.webp'
   import icon5 from '@imgs/3d/icon7.webp'
 
+  defineOptions({ name: 'TemplateBanners' })
+
+  /**
+   * 处理横幅点击事件
+   */
   const handleBannerClick = () => {
     console.log('banner clicked')
   }
 
+  /**
+   * 处理确认按钮点击事件
+   */
   const handleConfirm = () => {
     console.log('confirm clicked')
   }
 
+  /**
+   * 处理取消按钮点击事件
+   */
   const handleCancel = () => {
     console.log('cancel clicked')
   }
 
+  /**
+   * 预设横幅配置
+   * 提供常用的横幅样式配置，可直接通过 v-bind 使用
+   */
   const PresetBanners = {
     marketing: {
       title: '限时优惠活动',

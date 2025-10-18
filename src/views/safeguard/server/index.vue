@@ -57,8 +57,6 @@
 </template>
 
 <script setup lang="ts">
-  import { reactive, onMounted, onUnmounted } from 'vue'
-
   defineOptions({ name: 'SafeguardServer' })
 
   interface ServerInfo {
@@ -70,6 +68,12 @@
     disk: number
   }
 
+  const UPDATE_INTERVAL = 3000 // 更新间隔时间（毫秒）
+
+  /**
+   * 服务器列表数据
+   * 包含各服务器的基本信息和资源使用情况
+   */
   const serverList = reactive<ServerInfo[]>([
     {
       name: '开发服务器',
@@ -105,13 +109,21 @@
     }
   ])
 
-  // 生成随机数据的函数
-  function generateRandomValue(min = 0, max = 100): number {
+  /**
+   * 生成指定范围内的随机整数
+   * @param min 最小值（默认 0）
+   * @param max 最大值（默认 100）
+   * @returns 随机整数
+   */
+  const generateRandomValue = (min = 0, max = 100): number => {
     return Math.floor(Math.random() * (max - min + 1)) + min
   }
 
-  // 更新服务器数据
-  function updateServerData() {
+  /**
+   * 更新所有服务器的资源使用数据
+   * 模拟服务器资源使用情况的实时变化
+   */
+  const updateServerData = (): void => {
     serverList.forEach((server) => {
       server.cup = generateRandomValue()
       server.memory = generateRandomValue()
@@ -120,13 +132,20 @@
     })
   }
 
-  // 修改 timer 类型为 number | null
   let timer: number | null = null
 
+  /**
+   * 组件挂载时启动定时器
+   * 每隔指定时间自动更新服务器数据
+   */
   onMounted(() => {
-    timer = window.setInterval(updateServerData, 3000)
+    timer = window.setInterval(updateServerData, UPDATE_INTERVAL)
   })
 
+  /**
+   * 组件卸载时清理定时器
+   * 防止内存泄漏
+   */
   onUnmounted(() => {
     if (timer !== null) {
       window.clearInterval(timer)
@@ -173,7 +192,8 @@
           .box {
             display: flex;
             align-items: center;
-            padding: 40px;
+            padding: 36px;
+            transform: scale(0.8);
 
             .left {
               margin: 0 40px;

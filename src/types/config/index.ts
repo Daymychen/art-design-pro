@@ -46,35 +46,32 @@ export interface SystemBasicConfig {
   copyright?: string
 }
 
-// 快速入口应用项
-export interface FastEnterApplication {
-  /** 应用名称 */
+// 快速入口基础项
+export interface FastEnterBaseItem {
+  /** 名称 */
   name: string
+  /** 是否启用 */
+  enabled?: boolean
+  /** 排序权重 */
+  order?: number
+  /** 路由名称 */
+  routeName?: string
+  /** 外部链接 */
+  link?: string
+}
+
+// 快速入口应用项
+export interface FastEnterApplication extends FastEnterBaseItem {
   /** 应用描述 */
   description: string
   /** 图标代码 */
   icon: string
   /** 图标颜色 */
   iconColor: string
-  /** 跳转路径 */
-  path: string
-  /** 是否启用 */
-  enabled?: boolean
-  /** 排序权重 */
-  order?: number
 }
 
 // 快速链接项
-export interface FastEnterQuickLink {
-  /** 链接名称 */
-  name: string
-  /** 跳转路径 */
-  path: string
-  /** 是否启用 */
-  enabled?: boolean
-  /** 排序权重 */
-  order?: number
-}
+export type FastEnterQuickLink = FastEnterBaseItem
 
 // 快速入口配置
 export interface FastEnterConfig {

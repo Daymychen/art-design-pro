@@ -3,7 +3,18 @@
 </template>
 
 <script setup lang="ts">
-  const timelineData = [
+  interface TimelineItem {
+    time: string
+    status: string
+    content: string
+    code?: string
+  }
+
+  /**
+   * 最近交易时间线数据
+   * 记录今日订单处理、商品上架、支付等关键活动
+   */
+  const timelineData: TimelineItem[] = [
     {
       time: '上午 09:30',
       status: 'rgb(73, 190, 255)',

@@ -14,33 +14,42 @@
   interface Props {
     modelValue: Record<string, any>
   }
+
   interface Emits {
     (e: 'update:modelValue', value: Record<string, any>): void
     (e: 'search', params: Record<string, any>): void
     (e: 'reset'): void
   }
+
   const props = defineProps<Props>()
   const emit = defineEmits<Emits>()
 
-  // 表单数据双向绑定
   const searchBarRef = ref()
+
+  /**
+   * 表单数据双向绑定
+   */
   const formData = computed({
     get: () => props.modelValue,
     set: (val) => emit('update:modelValue', val)
   })
 
-  // 校验规则
-  const rules = {
-    // name: [{ required: true, message: '请输入用户名', trigger: 'blur' }]
-  }
+  /**
+   * 表单校验规则
+   */
+  const rules = {}
 
-  // 角色状态选项
+  /**
+   * 角色状态选项
+   */
   const statusOptions = ref([
     { label: '启用', value: true },
     { label: '禁用', value: false }
   ])
 
-  // 表单配置
+  /**
+   * 搜索表单配置项
+   */
   const formItems = computed(() => [
     {
       label: '角色名称',
@@ -87,28 +96,26 @@
         valueFormat: 'YYYY-MM-DD',
         shortcuts: [
           { text: '今日', value: [new Date(), new Date()] },
-          {
-            text: '最近一周',
-            value: [new Date(Date.now() - 604800000), new Date()]
-          },
-          {
-            text: '最近一个月',
-            value: [new Date(Date.now() - 2592000000), new Date()]
-          }
+          { text: '最近一周', value: [new Date(Date.now() - 604800000), new Date()] },
+          { text: '最近一个月', value: [new Date(Date.now() - 2592000000), new Date()] }
         ]
       }
     }
   ])
 
-  // 事件
-  function handleReset() {
-    console.log('重置表单')
+  /**
+   * 处理重置事件
+   */
+  const handleReset = () => {
     emit('reset')
   }
 
-  async function handleSearch() {
+  /**
+   * 处理搜索事件
+   * 验证表单后触发搜索
+   */
+  const handleSearch = async () => {
     await searchBarRef.value.validate()
     emit('search', formData.value)
-    console.log('表单数据', formData.value)
   }
 </script>

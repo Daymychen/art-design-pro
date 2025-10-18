@@ -11,8 +11,8 @@
       <p><i class="icon iconfont-sys">&#xe71a;</i>您的账户还不具备申请资格</p>
     </template>
     <template #buttons>
-      <el-button type="primary" v-ripple>返回修改</el-button>
-      <el-button v-ripple>查看</el-button>
+      <ElButton type="primary" v-ripple>返回修改</ElButton>
+      <ElButton v-ripple>查看</ElButton>
     </template>
   </ArtResultPage>
 </template>

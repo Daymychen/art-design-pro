@@ -4,9 +4,9 @@
       <ThemeSvg :src="data.imgUrl" size="100%" />
       <div class="right-wrap">
         <p>{{ data.desc }}</p>
-        <el-button type="primary" size="large" @click="backHome" v-ripple>{{
+        <ElButton type="primary" size="large" @click="backHome" v-ripple>{{
           data.btnText
-        }}</el-button>
+        }}</ElButton>
       </div>
     </div>
   </div>

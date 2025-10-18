@@ -5,6 +5,7 @@
   height: 100vh;
   user-select: none;
   scrollbar-width: none;
+  border-right: 1px solid var(--art-border-color);
 
   &.no-border {
     border-right: none !important;
@@ -14,7 +15,7 @@
     position: relative;
     width: 80px;
     height: 100%;
-    border-right: 1px solid var(--art-card-border) !important;
+    border-right: 1px solid var(--art-border-color) !important;
 
     // 隐藏滚动条
     :deep(.el-scrollbar__bar.is-vertical) {
@@ -198,5 +199,11 @@
       background: rgba($color: #000, $alpha: 50%);
       transition: opacity 0.2s ease-in-out;
     }
+  }
+}
+
+@media only screen and (max-width: $device-phone) {
+  .layout-sidebar {
+    border-right: 0 !important;
   }
 }

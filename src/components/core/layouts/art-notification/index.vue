@@ -77,9 +77,9 @@
       </div>
 
       <div class="btn-wrapper">
-        <el-button class="view-all" @click="handleViewAll" v-ripple>
+        <ElButton class="view-all" @click="handleViewAll" v-ripple>
           {{ $t('notice.viewAll') }}
-        </el-button>
+        </ElButton>
       </div>
     </div>
 

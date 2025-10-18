@@ -12,7 +12,7 @@
       </ElCol>
       <ElCol :lg="12" :md="12" :sm="0" :xs="0">
         <div class="custom-segmented">
-          <ElSegmented v-model="yearVal" :options="options" @change="searchArticleByYear" />
+          <ElSegmented v-model="yearVal" :options="YEAR_OPTIONS" @change="searchArticleByYear" />
         </div>
       </ElCol>
       <ElCol :lg="6" :md="6" :sm="10" :xs="6" style="display: flex; justify-content: end">
@@ -90,91 +90,78 @@
 </template>
 
 <script setup lang="ts">
-  import { Picture as IconPicture } from '@element-plus/icons-vue'
-
-  import { ref, onMounted, computed } from 'vue'
+  import { Picture as IconPicture, Search } from '@element-plus/icons-vue'
   import { router } from '@/router'
   import { useDateFormat } from '@vueuse/core'
-  import { Search } from '@element-plus/icons-vue'
   import EmojiText from '@/utils/ui/emojo'
   import { ArticleList } from '@/mock/temp/articleList'
   import { useCommon } from '@/composables/useCommon'
-  import { RoutesAlias } from '@/router/routesAlias'
 
   defineOptions({ name: 'ArticleList' })
 
+  interface Article {
+    id: number
+    home_img: string
+    type_name: string
+    title: string
+    create_time: string
+    count: number
+  }
+
+  interface GetArticleListOptions {
+    backTop?: boolean
+  }
+
+  const YEAR_OPTIONS = ['All', '2024', '2023', '2022', '2021', '2020', '2019']
+  const PAGE_SIZE = 40
+
   const yearVal = ref('All')
-
-  const options = ['All', '2024', '2023', '2022', '2021', '2020', '2019']
-
   const searchVal = ref('')
-  const articleList = ref<any[]>([])
+  const articleList = ref<Article[]>([])
   const currentPage = ref(1)
-  const pageSize = ref(40)
-  // const lastPage = ref(0)
+  const pageSize = ref(PAGE_SIZE)
   const total = ref(0)
   const isLoading = ref(true)
 
-  const showEmpty = computed(() => {
-    return articleList.value.length === 0 && !isLoading.value
-  })
+  const showEmpty = computed(() => articleList.value.length === 0 && !isLoading.value)
 
-  onMounted(() => {
-    getArticleList({ backTop: false })
-  })
-
-  // 搜索文章
-  const searchArticle = () => {
-    getArticleList({ backTop: true })
-  }
-
-  // 根据年份查询文章
-  const searchArticleByYear = () => {
-    getArticleList({ backTop: true })
-  }
-
-  const getArticleList = async ({ backTop = false }) => {
+  const getArticleList = async ({ backTop = false }: GetArticleListOptions = {}) => {
     isLoading.value = true
-    // let year = yearVal.value
 
-    if (searchVal.value) {
-      yearVal.value = 'All'
+    try {
+      if (searchVal.value) {
+        yearVal.value = 'All'
+      }
+
+      // TODO: 替换为真实 API 调用
+      // const params = {
+      //   page: currentPage.value,
+      //   size: pageSize.value,
+      //   searchVal: searchVal.value,
+      //   year: yearVal.value === 'All' ? '' : yearVal.value
+      // }
+      // const res = await ArticleService.getArticleList(params)
+
+      articleList.value = ArticleList as Article[]
+
+      if (backTop) {
+        useCommon().scrollToTop()
+      }
+    } catch (error) {
+      console.error('获取文章列表失败:', error)
+    } finally {
+      isLoading.value = false
     }
+  }
 
-    if (yearVal.value === 'All') {
-      // year = ''
-    }
+  const searchArticle = () => {
+    currentPage.value = 1
+    getArticleList({ backTop: true })
+  }
 
-    // const params = {
-    //   page: currentPage.value,
-    //   size: pageSize.value,
-    //   searchVal: searchVal.value,
-    //   year
-    // }
-
-    articleList.value = ArticleList
-    isLoading.value = false
-
-    if (backTop) {
-      useCommon().scrollToTop()
-    }
-
-    // const res = await ArticleService.getArticleList(params)
-    // if (res.code === ApiStatus.success) {
-    //   currentPage.value = res.currentPage
-    //   pageSize.value = res.pageSize
-    //   lastPage.value = res.lastPage
-    //   total.value = res.total
-    //   articleList.value = res.data
-
-    //   // setTimeout(() => {
-    //   isLoading.value = false
-    //   // }, 3000)
-
-    //   if (searchVal.value) {
-    //     searchVal.value = ''
-    //   }
-    // }
+  const searchArticleByYear = () => {
+    currentPage.value = 1
+    getArticleList({ backTop: true })
   }
 
   const handleCurrentChange = (val: number) => {
@@ -182,24 +169,21 @@
     getArticleList({ backTop: true })
   }
 
-  const toDetail = (item: any) => {
+  const toDetail = (item: Article) => {
     router.push({ name: 'ArticleDetail', params: { id: item.id } })
   }
 
-  const toEdit = (item: any) => {
-    router.push({
-      path: RoutesAlias.ArticlePublish,
-      query: {
-        id: item.id
-      }
-    })
+  const toEdit = (item: Article) => {
+    router.push({ name: 'ArticlePublish', query: { id: item.id } })
   }
 
   const toAddArticle = () => {
-    router.push({
-      path: RoutesAlias.ArticlePublish
-    })
+    router.push({ name: 'ArticlePublish' })
   }
+
+  onMounted(() => {
+    getArticleList()
+  })
 </script>
 
 <style lang="scss" scoped>

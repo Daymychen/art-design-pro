@@ -292,9 +292,12 @@
 
 <script setup lang="ts">
   import type { LineDataItem } from '@/types/component/chart'
-  import { ref } from 'vue'
 
-  // 多组数据折线图示例数据
+  defineOptions({ name: 'TemplateCharts' })
+
+  /**
+   * 多组数据折线图示例数据
+   */
   const multiLineData: LineDataItem[] = [
     {
       name: '销售额',
@@ -314,34 +317,26 @@
     }
   ]
 
-  // 单数据示例
+  /**
+   * 单数据柱状图示例数据
+   */
   const singleBarData = ref([120, 200, 150, 80, 70, 110, 130])
   const xAxisData = ref(['周一', '周二', '周三', '周四', '周五', '周六', '周日'])
 
-  // 多数据示例
+  /**
+   * 多数据柱状图示例数据
+   */
   const multiBarData = ref([
-    {
-      name: '销售额',
-      data: [120, 200, 150, 80, 70, 110, 130]
-    },
-    {
-      name: '利润',
-      data: [20, 50, 30, 15, 10, 25, 35]
-    }
+    { name: '销售额', data: [120, 200, 150, 80, 70, 110, 130] },
+    { name: '利润', data: [20, 50, 30, 15, 10, 25, 35] }
   ])
 
-  // 堆叠柱状图示例
+  /**
+   * 堆叠柱状图示例数据
+   */
   const stackBarData = ref([
-    {
-      name: 'Q1',
-      data: [20, 25, 30, 35, 40],
-      stack: 'total'
-    },
-    {
-      name: 'Q2',
-      data: [30, 35, 40, 45, 50],
-      stack: 'total'
-    }
+    { name: 'Q1', data: [20, 25, 30, 35, 40], stack: 'total' },
+    { name: 'Q2', data: [30, 35, 40, 45, 50], stack: 'total' }
   ])
 
   const stackXAxisData = ref(['产品A', '产品B', '产品C', '产品D', '产品E'])

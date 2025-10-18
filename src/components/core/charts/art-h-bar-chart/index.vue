@@ -81,7 +81,9 @@
   }
 
   // 获取基础样式配置
-  const getBaseItemStyle = (color: any) => ({
+  const getBaseItemStyle = (
+    color: string | InstanceType<typeof graphic.LinearGradient> | undefined
+  ) => ({
     borderRadius: 4,
     color: typeof color === 'string' ? createGradientColor(color) : color
   })

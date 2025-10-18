@@ -13,41 +13,61 @@
   import '@/assets/styles/one-dark-pro.scss'
   import { useCommon } from '@/composables/useCommon'
   import axios from 'axios'
-  // import 'highlight.js/styles/atom-one-dark.css';
-  // import 'highlight.js/styles/vs2015.css';
 
   defineOptions({ name: 'ArticleDetail' })
 
-  const articleId = ref(0)
-  const router = useRoute()
+  interface ArticleResponse {
+    code: number
+    data: {
+      title: string
+      html_content: string
+    }
+  }
+
+  const route = useRoute()
+  const articleId = computed(() => Number(route.params.id))
   const articleTitle = ref('')
   const articleHtml = ref('')
+  const loading = ref(false)
+  const error = ref<string | null>(null)
+
+  const getArticleDetail = async () => {
+    if (!articleId.value) return
+
+    loading.value = true
+    error.value = null
+
+    try {
+      const { data } = await axios.get<ArticleResponse>(
+        'https://www.qiniu.lingchen.kim/blog_detail.json'
+      )
+
+      if (data.code === 200) {
+        articleTitle.value = data.data.title
+        articleHtml.value = data.data.html_content
+      }
+    } catch (err) {
+      error.value = '文章加载失败'
+      console.error('获取文章详情失败:', err)
+    } finally {
+      loading.value = false
+    }
+  }
 
   onMounted(() => {
     useCommon().scrollToTop()
-    articleId.value = Number(router.params.id)
     getArticleDetail()
   })
-
-  const getArticleDetail = async () => {
-    if (articleId.value) {
-      const res = await axios.get('https://www.qiniu.lingchen.kim/blog_detail.json')
-      if (res.data.code === 200) {
-        articleTitle.value = res.data.data.title
-        articleHtml.value = res.data.data.html_content
-      }
-    }
-  }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .article-detail {
     .content {
       max-width: 800px;
       margin: auto;
       margin-top: 60px;
 
-      .markdown-body {
+      :deep(.markdown-body) {
         margin-top: 60px;
 
         img {
