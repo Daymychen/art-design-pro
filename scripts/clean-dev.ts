@@ -153,6 +153,7 @@ const stats = {
 const targets = [
   'README.md',
   'README.zh-CN.md',
+  'docs',
   'src/views/change',
   'src/views/safeguard',
   'src/views/article',

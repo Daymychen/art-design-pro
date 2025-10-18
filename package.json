@@ -17,7 +17,8 @@
     "lint:lint-staged": "lint-staged",
     "prepare": "husky",
     "commit": "git-cz",
-    "clean:dev": "tsx scripts/clean-dev.ts"
+    "clean:dev": "tsx scripts/clean-dev.ts",
+    "i18n:scan": "tsx scripts/i18n-scan.ts"
   },
   "config": {
     "commitizen": {
@@ -63,6 +64,7 @@
     "element-plus": "^2.11.2",
     "file-saver": "^2.0.5",
     "highlight.js": "^11.10.0",
+    "lodash-es": "^4.17.21",
     "mitt": "^3.0.1",
     "nprogress": "^0.2.0",
     "pinia": "^3.0.2",
@@ -79,10 +81,12 @@
     "@commitlint/cli": "^19.4.1",
     "@commitlint/config-conventional": "^19.4.1",
     "@eslint/js": "^9.9.1",
+    "@types/lodash-es": "^4.17.12",
     "@types/node": "^22.1.0",
     "@typescript-eslint/eslint-plugin": "^8.3.0",
     "@typescript-eslint/parser": "^8.3.0",
     "@vitejs/plugin-vue": "^5.2.1",
+    "@vitejs/plugin-vue-jsx": "^5.1.1",
     "@vue/compiler-sfc": "^3.0.5",
     "commitizen": "^4.3.0",
     "cz-git": "^1.11.1",
@@ -92,6 +96,7 @@
     "eslint-plugin-vue": "^9.27.0",
     "globals": "^15.9.0",
     "husky": "^9.1.5",
+    "i18next-scanner": "^4.6.0",
     "lint-staged": "^15.5.2",
     "prettier": "^3.5.3",
     "rollup-plugin-visualizer": "^5.12.0",
@@ -106,6 +111,7 @@
     "tsx": "^4.20.3",
     "typescript": "~5.6.3",
     "typescript-eslint": "^8.9.0",
+    "unocss": "^66.5.2",
     "unplugin-auto-import": "^20.2.0",
     "unplugin-element-plus": "^0.10.0",
     "unplugin-vue-components": "^29.1.0",

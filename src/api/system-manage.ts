@@ -39,3 +39,19 @@ export async function fetchGetMenuList(delay = 300): Promise<MenuResponse> {
     throw error instanceof Error ? error : new Error('获取菜单失败')
   }
 }
+
+// 获取性别选项（模拟 API）
+export async function fetchGetGenderOptions(delay = 500) {
+  // 模拟接口延迟
+  await new Promise((resolve) => setTimeout(resolve, delay))
+
+  return {
+    code: 200,
+    message: 'success',
+    data: [
+      { label: '男', value: '男' },
+      { label: '女', value: '女' },
+      { label: '其他', value: '其他' }
+    ]
+  }
+}
