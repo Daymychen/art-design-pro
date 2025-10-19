@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Released]
 
+### v2.6.1 - 2025-10-19
+
+#### Fixed
+
+- Fixed repeated API calls issue when accessing invalid addresses for user info and menu endpoints
+- Fixed ElButton circle mode styles
+- Fixed ElSelect keyboard selection issue
+- Fixed static routes with parameters redirecting to login page issue
+
+#### Optimized
+
+- Upgraded some dependencies to be compatible with tailwindcss
+- Optimized external link menu click selection state
+- Added theme color switching feature to authorization pages
+
+---
+
 ### v2.6.0 - 2025-10-16
 
 #### Added

@@ -86,6 +86,11 @@ html.dark .el-card {
   height: var(--el-component-custom-height) !important;
 }
 
+// circle 按钮宽度优化
+.el-button--default.is-circle {
+  width: var(--el-component-custom-height) !important;
+}
+
 // 修改 el-select 高度
 .el-select--default {
   .el-select__wrapper {
@@ -441,10 +446,6 @@ html.dark .el-card {
       height: 34px !important;
       line-height: 34px !important;
       border-radius: 6px !important;
-
-      &.is-hovering {
-        background-color: transparent !important;
-      }
 
       &.is-selected {
         color: var(--art-gray-900) !important;

@@ -9,6 +9,20 @@ interface UpgradeLog {
 
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
+    version: 'v2.6.1',
+    title: 'bug修复、授权页增加主题色切换功能',
+    date: '2025-10-19',
+    detail: [
+      '修复获取用户信息、获取菜单接口访问无效地址重复调用问题',
+      '升级部分依赖兼容 tailwindcss',
+      '修复 ElButton circle 模式样式',
+      '修复 ElSlect 无法通过键盘选择问题',
+      '修复带参数静态路由跳转登录页面问题',
+      '优化外部链接菜单点击选中状态',
+      '授权页增加主题色切换功能'
+    ]
+  },
+  {
     version: 'v2.6.0',
     title: '代码优化、bug修复',
     date: '2025-10-16',
