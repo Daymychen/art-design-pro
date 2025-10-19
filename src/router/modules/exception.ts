@@ -16,6 +16,7 @@ export const exceptionRoutes: AppRouteRecord = {
       meta: {
         title: 'menus.exception.forbidden',
         keepAlive: true,
+        isHideTab: true,
         isFullPage: true
       }
     },
@@ -26,6 +27,7 @@ export const exceptionRoutes: AppRouteRecord = {
       meta: {
         title: 'menus.exception.notFound',
         keepAlive: true,
+        isHideTab: true,
         isFullPage: true
       }
     },
@@ -36,6 +38,7 @@ export const exceptionRoutes: AppRouteRecord = {
       meta: {
         title: 'menus.exception.serverError',
         keepAlive: true,
+        isHideTab: true,
         isFullPage: true
       }
     }

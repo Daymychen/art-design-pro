@@ -123,7 +123,7 @@ async function handleLoginStatus(
   userStore: ReturnType<typeof useUserStore>,
   next: NavigationGuardNext
 ): Promise<boolean> {
-  // 检查是否为静态路由
+  // 检查是否为静态路由（通过路由 name 判断）
   const isStaticRoute = isRouteInStaticRoutes(to.path)
 
   if (!userStore.isLogin && to.path !== RoutesAlias.Login && !isStaticRoute) {
@@ -140,7 +140,12 @@ async function handleLoginStatus(
 function isRouteInStaticRoutes(path: string): boolean {
   const checkRoute = (routes: any[], targetPath: string): boolean => {
     return routes.some((route) => {
-      if (route.path === targetPath) {
+      // 处理动态路由参数匹配
+      const routePath = route.path
+      const pattern = routePath.replace(/:[^/]+/g, '[^/]+').replace(/\*/g, '.*')
+      const regex = new RegExp(`^${pattern}$`)
+
+      if (regex.test(targetPath)) {
         return true
       }
       if (route.children && route.children.length > 0) {
@@ -191,7 +196,9 @@ async function handleDynamicRoutes(
       next(false)
       return
     }
-    // 其他错误：跳转到 500 页面
+
+    // 其他错误：标记路由已注册（避免无限重试）
+    isRouteRegistered.value = true
     next({ name: 'Exception500' })
   }
 }
