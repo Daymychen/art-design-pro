@@ -53,6 +53,8 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.2",
+    "@iconify/vue": "^5.0.0",
+    "@tailwindcss/vite": "^4.1.14",
     "@vue/reactivity": "^3.4.35",
     "@vueuse/core": "^13.9.0",
     "@wangeditor/editor": "^5.1.23",
@@ -68,6 +70,7 @@
     "pinia": "^3.0.2",
     "pinia-plugin-persistedstate": "^4.3.0",
     "qrcode.vue": "^3.6.0",
+    "tailwindcss": "^4.1.14",
     "vue": "^3.5.21",
     "vue-draggable-plus": "^0.6.0",
     "vue-i18n": "^9.14.0",
