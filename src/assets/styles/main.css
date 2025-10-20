@@ -1,3 +1,46 @@
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+/* 为 html 元素添加默认样式 */
+/* @layer base {
+   h1 {
+    font-size: var(--text-2xl);
+  }
+  h2 {
+    font-size: var(--text-xl);
+  }
+} */
+
+
+/* 主题类 */
+@theme {
+  /* Background color | Hover color */
+  --color-art-gray-100: var(--art-gray-100);
+  --color-art-gray-200: var(--art-gray-200);
+  --color-art-gray-300: var(--art-gray-300);
+  --color-art-gray-400: var(--art-gray-400);
+  --color-art-gray-500: var(--art-gray-500);
+  --color-art-gray-600: var(--art-gray-600);
+  --color-art-gray-700: var(--art-gray-700);
+  --color-art-gray-800: var(--art-gray-800);
+  --color-art-gray-900: var(--art-gray-900);
+}
+
+/* 添加组件类 */
+@layer components {
+  .card {
+    /* @apply bg-gray-200 p-5 rounded-2xl */
+  }
+
+  .button {
+    /* @apply bg-gray-800 p-10 rounded-2xl text-white cursor-pointer */
+  }
+}
+
+/* 添加自定义工具类 */
+
+/* 自定义圆角 */
+@utility rounded-custom-sm {
+  border-radius: calc(var(--custom-radius)/2 + 2px);
+}
