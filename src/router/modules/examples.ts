@@ -93,6 +93,15 @@ export const examplesRoutes: AppRouteRecord = {
       }
     },
     {
+      path: 'cforms',
+      name: 'CForms',
+      component: '/examples/cForms',
+      meta: {
+        title: 'menus.examples.cforms',
+        keepAlive: true
+      }
+    },
+    {
       path: 'form/search-bar',
       name: 'SearchBar',
       component: '/examples/forms/search-bar',
