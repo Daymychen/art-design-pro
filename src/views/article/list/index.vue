@@ -48,10 +48,10 @@
             <h2 class="text-[16px] text-gray-800 font-medium">{{ item.title }}</h2>
             <div class="flex justify-between w-full h-[25px] mt-[6px]">
               <div class="flex items-center text-gray-500">
-                <i class="iconfont-sys mr-[5px] text-[14px]">&#xe6f7;</i>
+                <ArtSvgIcon icon="ri:time-line" class="mr-[5px] text-[14px]" />
                 <span class="text-[14px]">{{ useDateFormat(item.create_time, 'YYYY-MM-DD') }}</span>
                 <div class="w-[1px] h-[12px] bg-art-gray-400 mx-[15px]"></div>
-                <i class="iconfont-sys mr-[5px]">&#xe689;</i>
+                <ArtSvgIcon icon="ri:eye-line" class="mr-[5px] text-[14px]" />
                 <span class="text-[14px]">{{ item.count }}</span>
               </div>
               <ElButton
@@ -188,6 +188,7 @@
   .custom-segmented .el-segmented {
     height: 40px;
     padding: 6px;
+
     --el-border-radius-base: 8px;
   }
 </style>

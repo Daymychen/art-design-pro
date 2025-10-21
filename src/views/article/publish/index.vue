@@ -1,7 +1,7 @@
 <template>
-  <div class="article-edit">
+  <div>
     <div>
-      <div class="editor-wrap">
+      <div class="max-w-[1000px] mx-auto my-5">
         <!-- 文章标题、类型 -->
         <ElRow :gutter="10">
           <ElCol :span="18">
@@ -24,16 +24,18 @@
         </ElRow>
 
         <!-- 富文本编辑器 -->
-        <ArtWangEditor class="el-top" v-model="editorHtml" />
+        <ArtWangEditor class="mt-2.5" v-model="editorHtml" />
 
-        <div class="form-wrap">
-          <h2>发布设置</h2>
+        <div
+          class="p-5 mt-5 bg-[var(--art-main-bg-color)] border border-[var(--art-border-color)] rounded-custom-sm"
+        >
+          <h2 class="mb-5 text-xl font-medium">发布设置</h2>
           <!-- 图片上传 -->
           <ElForm>
             <ElFormItem label="封面">
-              <div class="el-top upload-container">
+              <div class="mt-2.5">
                 <ElUpload
-                  class="cover-uploader"
+                  class="relative overflow-hidden cursor-pointer rounded-md transition-[var(--el-transition-duration)] hover:border-[var(--el-color-primary)]"
                   :action="uploadImageUrl"
                   :headers="uploadHeaders"
                   :show-file-list="false"
@@ -41,13 +43,16 @@
                   :on-error="onError"
                   :before-upload="beforeUpload"
                 >
-                  <div v-if="!cover" class="upload-placeholder">
-                    <ElIcon class="upload-icon"><Plus /></ElIcon>
-                    <div class="upload-text">点击上传封面</div>
+                  <div
+                    v-if="!cover"
+                    class="flex flex-col items-center justify-center w-[260px] h-[160px] border border-dashed border-[#d9d9d9] rounded-md"
+                  >
+                    <ElIcon class="text-[28px] text-[#8c939d]"><Plus /></ElIcon>
+                    <div class="mt-2 text-sm text-[#8c939d]">点击上传封面</div>
                   </div>
-                  <img v-else :src="cover" class="cover-image" />
+                  <img v-else :src="cover" class="block w-[260px] h-[160px] object-cover" />
                 </ElUpload>
-                <div class="el-upload__tip">建议尺寸 16:9，jpg/png 格式</div>
+                <div class="mt-2 text-xs text-[#666]">建议尺寸 16:9，jpg/png 格式</div>
               </div>
             </ElFormItem>
             <ElFormItem label="可见">
@@ -55,8 +60,8 @@
             </ElFormItem>
           </ElForm>
 
-          <div style="display: flex; justify-content: flex-end">
-            <ElButton type="primary" @click="submit" style="width: 100px">
+          <div class="flex justify-end">
+            <ElButton type="primary" @click="submit" class="w-[100px]">
               {{ pageMode === PageModeEnum.Edit ? '保存' : '发布' }}
             </ElButton>
           </div>
@@ -64,9 +69,9 @@
       </div>
     </div>
 
-    <!-- <div class="outline-wrap">
-        <div class="item" v-for="(item, index) in outlineList" :key="index">
-          <p :class="`level${item.level}`">{{ item.text }}</p>
+    <!-- <div class="box-border w-[280px] p-5 border border-[#e3e3e3] rounded-lg">
+        <div v-for="(item, index) in outlineList" :key="index">
+          <p :class="['h-[30px] text-[13px] leading-[30px] cursor-pointer', item.level === 3 && 'pl-2.5']">{{ item.text }}</p>
         </div>
       </div> -->
   </div>
@@ -333,99 +338,4 @@
   })
 </script>
 
-<style lang="scss" scoped>
-  .article-edit {
-    .editor-wrap {
-      max-width: 1000px;
-      margin: 20px auto;
-
-      .el-top {
-        margin-top: 10px;
-      }
-
-      .form-wrap {
-        padding: 20px;
-        margin-top: 20px;
-        background-color: var(--art-main-bg-color);
-        border: 1px solid var(--art-border-color);
-        border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
-
-        h2 {
-          margin-bottom: 20px;
-          font-size: 20px;
-          font-weight: 500;
-        }
-      }
-    }
-
-    .outline-wrap {
-      box-sizing: border-box;
-      width: 280px;
-      padding: 20px;
-      border: 1px solid #e3e3e3;
-      border-radius: 8px;
-
-      .item {
-        p {
-          height: 30px;
-          font-size: 13px;
-          line-height: 30px;
-          cursor: pointer;
-        }
-
-        .level3 {
-          padding-left: 10px;
-        }
-      }
-    }
-
-    .upload-container {
-      .cover-uploader {
-        position: relative;
-        overflow: hidden;
-        cursor: pointer;
-        border-radius: 6px;
-        transition: var(--el-transition-duration);
-
-        &:hover {
-          border-color: var(--el-color-primary);
-        }
-
-        .upload-placeholder {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          width: 260px;
-          height: 160px;
-          border: 1px dashed #d9d9d9;
-          border-radius: 6px;
-
-          .upload-icon {
-            font-size: 28px;
-            color: #8c939d;
-          }
-
-          .upload-text {
-            margin-top: 8px;
-            font-size: 14px;
-            color: #8c939d;
-          }
-        }
-
-        .cover-image {
-          display: block;
-          width: 260px;
-          height: 160px;
-          object-fit: cover;
-        }
-      }
-
-      .el-upload__tip {
-        margin-top: 8px;
-        font-size: 12px;
-        color: #666;
-      }
-    }
-  }
-</style>
+<style scoped></style>

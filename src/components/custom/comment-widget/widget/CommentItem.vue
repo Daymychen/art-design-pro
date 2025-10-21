@@ -1,19 +1,32 @@
 <template>
-  <li class="comment-item">
-    <div class="comment-main">
-      <div class="comment-header">
-        <div class="avatar" :style="{ background: randomColor() }">{{
-          comment.author.substring(0, 1)
-        }}</div>
-        <strong class="name dark-text">{{ comment.author }}</strong>
+  <li>
+    <div>
+      <div class="flex items-center">
+        <div
+          class="w-[30px] h-[30px] mr-2.5 text-xs font-medium leading-[30px] text-white text-center rounded-full"
+          :style="{ background: randomColor() }"
+        >
+          {{ comment.author.substring(0, 1) }}
+        </div>
+        <strong class="block text-sm font-medium text-black dark:text-gray-100">{{
+          comment.author
+        }}</strong>
       </div>
-      <span class="content">{{ comment.content }}</span>
-      <div class="comment-info">
-        <span class="date">{{ formatDate(comment.timestamp) }}</span>
-        <div class="btn-text" @click="toggleReply(comment.id)">回复</div>
+      <span class="block mt-2.5 text-sm text-gray-800 dark:text-gray-200">{{
+        comment.content
+      }}</span>
+      <div class="flex items-center mt-2.5">
+        <span class="text-xs text-gray-500">{{ formatDate(comment.timestamp) }}</span>
+        <div
+          class="ml-5 text-xs text-gray-800 dark:text-gray-200 cursor-pointer select-none hover:text-[var(--main-color)]"
+          @click="toggleReply(comment.id)"
+        >
+          回复
+        </div>
       </div>
     </div>
-    <ul class="comment-replies" v-if="comment.replies.length > 0">
+
+    <ul class="pl-2.5" v-if="comment.replies.length > 0">
       <CommentItem
         v-for="reply in comment.replies"
         :key="reply.id"
@@ -21,16 +34,30 @@
         :show-reply-form="showReplyForm"
         @toggle-reply="toggleReply"
         @add-reply="addReply"
+        class="mt-5"
       />
     </ul>
 
-    <form v-if="showReplyForm === comment.id" @submit="handleSubmit">
-      <div>
-        <input v-model="replyAuthor" placeholder="你的名称" required />
-        <textarea v-model="replyContent" placeholder="你的回复" required></textarea>
-        <button class="btn" type="submit">发布</button>
-      </div>
-    </form>
+    <ElForm v-if="showReplyForm === comment.id" @submit.prevent="handleSubmit" class="mt-4">
+      <ElFormItem prop="author">
+        <ElInput v-model="replyAuthor" placeholder="你的名称" clearable />
+      </ElFormItem>
+      <ElFormItem prop="content">
+        <ElInput
+          v-model="replyContent"
+          placeholder="你的回复..."
+          type="textarea"
+          :rows="3"
+          clearable
+        />
+      </ElFormItem>
+      <ElFormItem>
+        <div class="flex justify-end gap-2 w-full">
+          <ElButton @click="toggleReply(comment.id)">取消</ElButton>
+          <ElButton type="primary" @click="handleSubmit">发布</ElButton>
+        </div>
+      </ElFormItem>
+    </ElForm>
   </li>
 </template>
 
@@ -69,7 +96,12 @@
     replyContent.value = ''
   }
   const handleSubmit = () => {
+    if (!replyAuthor.value.trim() || !replyContent.value.trim()) {
+      return
+    }
     emit('add-reply', props.comment.id, replyAuthor.value, replyContent.value)
+    replyAuthor.value = ''
+    replyContent.value = ''
   }
 
   const formatDate = (timestamp: string) => {
@@ -91,77 +123,3 @@
     return newColor
   }
 </script>
-
-<style scoped lang="scss">
-  .comment-module {
-    margin-top: 40px;
-
-    .comment-item,
-    .reply-item {
-      .comment-header {
-        display: flex;
-        align-items: center;
-
-        .avatar {
-          width: 30px;
-          height: 30px;
-          margin-right: 10px;
-          font-size: 12px;
-          font-weight: 500;
-          line-height: 30px;
-          color: #fff;
-          text-align: center;
-          background-color: var(--main-color);
-          border-radius: 50%;
-        }
-
-        .name {
-          display: block;
-          font-size: 14px;
-          font-weight: 500;
-          color: #000;
-        }
-      }
-
-      .content {
-        display: block;
-        margin-top: 10px;
-        font-size: 14px;
-        color: var(--art-gray-800);
-      }
-
-      .comment-info,
-      .reply-info {
-        display: flex;
-        align-items: center;
-        margin: 10px 0;
-        margin-top: 10px;
-
-        .date {
-          font-size: 12px;
-          color: var(--art-gray-500);
-        }
-
-        .btn-text {
-          margin-left: 20px;
-          font-size: 12px;
-          color: var(--art-gray-800);
-          cursor: pointer;
-          user-select: none;
-
-          &:hover {
-            color: var(--main-color);
-          }
-        }
-      }
-    }
-
-    .comment-replies {
-      padding-left: 10px;
-
-      .reply-item {
-        margin-top: 20px;
-      }
-    }
-  }
-</style>

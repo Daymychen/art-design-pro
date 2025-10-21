@@ -1,23 +1,42 @@
 <template>
-  <div class="comment-module">
-    <form @submit.prevent="addComment">
-      <div>
-        <input v-model="newComment.author" placeholder="你的名称" required />
-        <textarea v-model="newComment.content" placeholder="简单说两句..." required></textarea>
-        <button class="btn" type="submit">发布</button>
-      </div>
-    </form>
+  <div>
+    <ElForm @submit.prevent="addComment" class="w-full mx-auto mb-10">
+      <ElFormItem prop="author" class="mt-[20px]">
+        <ElInput
+          v-model="newComment.author"
+          placeholder="你的名称"
+          class="block w-full"
+          clearable
+        />
+      </ElFormItem>
+      <ElFormItem prop="content">
+        <ElInput
+          v-model="newComment.content"
+          placeholder="简单说两句..."
+          type="textarea"
+          :rows="5"
+          clearable
+        />
+      </ElFormItem>
+      <ElFormItem>
+        <div class="flex justify-end w-full">
+          <ElButton type="primary" @click="addComment"> 发布 </ElButton>
+        </div>
+      </ElFormItem>
+    </ElForm>
 
     <ul>
-      <div class="comment-header">评论 {{ comments.length }}</div>
+      <div class="pb-5 text-lg font-medium text-gray-900 dark:text-gray-100">
+        评论 {{ comments.length }}
+      </div>
       <CommentItem
-        class="comment-item"
         v-for="comment in comments.slice().reverse()"
         :key="comment.id"
         :comment="comment"
         :show-reply-form="showReplyForm"
         @toggle-reply="toggleReply"
         @add-reply="addReply"
+        class="pb-2.5 mb-5 border-b border-[var(--art-border-dashed-color)]"
       />
     </ul>
   </div>
@@ -37,34 +56,41 @@
   const showReplyForm = ref<number | null>(null)
 
   const addComment = () => {
-    if (newComment.value.author && newComment.value.content) {
-      comments.value.push({
-        id: Date.now(),
-        author: newComment.value.author,
-        content: newComment.value.content,
-        timestamp: new Date().toISOString(),
-        replies: []
-      })
-      newComment.value.author = ''
-      newComment.value.content = ''
-    } else {
-      alert('请填写完整的评论信息')
+    if (!newComment.value.author?.trim() || !newComment.value.content?.trim()) {
+      ElMessage.warning('请填写完整的评论信息')
+      return
     }
+
+    comments.value.push({
+      id: Date.now(),
+      author: newComment.value.author.trim(),
+      content: newComment.value.content.trim(),
+      timestamp: new Date().toISOString(),
+      replies: []
+    })
+
+    newComment.value.author = ''
+    newComment.value.content = ''
+    ElMessage.success('评论发布成功')
   }
 
   const addReply = (commentId: number, replyAuthor: string, replyContent: string) => {
+    if (!replyAuthor?.trim() || !replyContent?.trim()) {
+      ElMessage.warning('请填写完整的回复信息')
+      return
+    }
+
     const comment = findComment(comments.value, commentId)
-    if (comment && replyAuthor && replyContent) {
+    if (comment) {
       comment.replies.push({
         id: Date.now(),
-        author: replyAuthor,
-        content: replyContent,
+        author: replyAuthor.trim(),
+        content: replyContent.trim(),
         timestamp: new Date().toISOString(),
         replies: []
       })
       showReplyForm.value = null
-    } else {
-      alert('请填写完整的回复信息')
+      ElMessage.success('回复发布成功')
     }
   }
 
@@ -85,72 +111,3 @@
     return undefined
   }
 </script>
-
-<style scoped lang="scss">
-  .comment-module {
-    .comment-header {
-      padding-bottom: 20px;
-      font-size: 18px;
-      font-weight: 500;
-      color: var(--art-gray-900);
-    }
-
-    .comment-item {
-      padding-bottom: 10px;
-      margin-bottom: 20px;
-      border-bottom: 1px solid var(--art-border-dashed-color);
-    }
-
-    form {
-      margin-bottom: 40px !important;
-    }
-
-    :deep(form) {
-      position: relative;
-      box-sizing: border-box;
-      width: 100%;
-      padding-bottom: 50px;
-      margin: auto;
-
-      > div {
-        input,
-        textarea {
-          box-sizing: border-box;
-          display: block;
-          width: 100%;
-          margin-top: 10px;
-          border: 1px solid var(--art-border-dashed-color);
-          outline: none;
-        }
-
-        input {
-          height: 36px;
-          padding-left: 10px;
-        }
-
-        textarea {
-          height: 100px;
-          padding: 10px;
-        }
-
-        .btn {
-          position: absolute;
-          right: 0;
-          bottom: 0;
-          display: inline-block;
-          width: 60px;
-          height: 32px;
-          margin-top: 15px;
-          font-size: 14px;
-          line-height: 30px;
-          color: #fff;
-          text-align: center;
-          cursor: pointer;
-          background-color: var(--main-color);
-          border: 0;
-          border-radius: 4px;
-        }
-      }
-    }
-  }
-</style>
