@@ -94,6 +94,12 @@
   .art-table-card {
     border: 1px solid var(--art-card-border) !important;
   }
+
+  .art-card {
+    border: 1px solid var(--art-card-border) !important;
+    background: var(--art-main-bg-color);
+    border-radius: calc(var(--custom-radius) + 4px) !important;
+  }
 }
 
 // 盒子阴影
@@ -107,6 +113,13 @@
 
   .layout-sidebar {
     border-right: 1px solid rgba(var(--art-gray-300-rgb), 0.4) !important;
+  }
+
+  .art-card {
+    background: var(--art-main-bg-color);
+    border-radius: calc(var(--custom-radius) + 4px) !important;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.04) !important;
+    border: 1px solid rgba(var(--art-gray-300-rgb), 0.3) !important;
   }
 }
 

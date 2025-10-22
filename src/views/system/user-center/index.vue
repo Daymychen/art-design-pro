@@ -1,58 +1,66 @@
 <template>
-  <div class="page-content user">
-    <div class="content">
-      <div class="left-wrap">
-        <div class="user-wrap box-style">
-          <img class="bg" src="@imgs/user/bg.webp" />
-          <img class="avatar" src="@imgs/user/avatar.webp" />
-          <h2 class="name">{{ userInfo.userName }}</h2>
-          <p class="des">专注于用户体验跟视觉设计</p>
+  <div class="w-full h-full p-0 bg-transparent border-none shadow-none">
+    <div class="relative flex justify-between mt-2.5 max-md:block max-md:mt-[5px]">
+      <div class="w-[450px] mr-[25px] max-md:w-full max-md:mr-0">
+        <div
+          class="relative p-[35px_40px] pb-6 overflow-hidden text-center bg-[var(--art-main-bg-color)] border border-[var(--art-border-color)] rounded-[calc(var(--custom-radius)+4px)]"
+        >
+          <img
+            class="absolute top-0 left-0 w-full h-[200px] object-cover"
+            src="@imgs/user/bg.webp"
+          />
+          <img
+            class="relative z-10 w-20 h-20 mt-[120px] mx-auto object-cover border-2 border-white rounded-full"
+            src="@imgs/user/avatar.webp"
+          />
+          <h2 class="mt-5 text-[22px] font-normal">{{ userInfo.userName }}</h2>
+          <p class="mt-5 text-sm">专注于用户体验跟视觉设计</p>
 
-          <div class="outer-info">
-            <div>
+          <div class="w-[300px] mx-auto mt-[30px] text-left">
+            <div class="mt-2.5">
               <i class="iconfont-sys">&#xe72e;</i>
-              <span>jdkjjfnndf@mall.com</span>
+              <span class="ml-2 text-sm">jdkjjfnndf@mall.com</span>
             </div>
-            <div>
+            <div class="mt-2.5">
               <i class="iconfont-sys">&#xe608;</i>
-              <span>交互专家</span>
+              <span class="ml-2 text-sm">交互专家</span>
             </div>
-            <div>
+            <div class="mt-2.5">
               <i class="iconfont-sys">&#xe736;</i>
-              <span>广东省深圳市</span>
+              <span class="ml-2 text-sm">广东省深圳市</span>
             </div>
-            <div>
+            <div class="mt-2.5">
               <i class="iconfont-sys">&#xe811;</i>
-              <span>字节跳动－某某平台部－UED</span>
+              <span class="ml-2 text-sm">字节跳动－某某平台部－UED</span>
             </div>
           </div>
 
-          <div class="lables">
-            <h3>标签</h3>
-            <div>
-              <div v-for="item in lableList" :key="item">
+          <div class="mt-10">
+            <h3 class="text-[15px] font-medium">标签</h3>
+            <div class="flex flex-wrap justify-center mt-[15px]">
+              <div
+                v-for="item in lableList"
+                :key="item"
+                class="py-[3px] px-[6px] mr-2.5 mb-2.5 text-xs bg-[var(--art-main-bg-color)] border border-[var(--art-border-color)] rounded-[2px]"
+              >
                 {{ item }}
               </div>
             </div>
           </div>
         </div>
-
-        <!-- <ElCarousel class="gallery" height="160px"
-          :interval="5000"
-          indicator-position="none"
-        >
-          <ElCarouselItem class="item" v-for="item in galleryList" :key="item">
-            <img :src="item"/>
-          </ElCarouselItem>
-        </ElCarousel> -->
       </div>
-      <div class="right-wrap">
-        <div class="info box-style">
-          <h1 class="title">基本设置</h1>
+      <div class="flex-1 overflow-hidden max-md:w-full max-md:mt-[15px]">
+        <div
+          class="bg-[var(--art-main-bg-color)] border border-[var(--art-border-color)] rounded-[calc(var(--custom-radius)+4px)]"
+        >
+          <h1
+            class="p-[15px_25px] text-xl font-normal text-[var(--art-text-gray-800)] border-b border-[var(--art-border-color)]"
+            >基本设置</h1
+          >
 
           <ElForm
             :model="form"
-            class="form"
+            class="box-border p-[30px_25px] [&>.el-row_.el-form-item]:w-[calc(50%-10px)] [&>.el-row_.el-input]:w-full [&>.el-row_.el-select]:w-full"
             ref="ruleFormRef"
             :rules="rules"
             label-width="86px"
@@ -62,7 +70,7 @@
               <ElFormItem label="姓名" prop="realName">
                 <ElInput v-model="form.realName" :disabled="!isEdit" />
               </ElFormItem>
-              <ElFormItem label="性别" prop="sex" class="right-input">
+              <ElFormItem label="性别" prop="sex" class="ml-5">
                 <ElSelect v-model="form.sex" placeholder="Select" :disabled="!isEdit">
                   <ElOption
                     v-for="item in options"
@@ -78,7 +86,7 @@
               <ElFormItem label="昵称" prop="nikeName">
                 <ElInput v-model="form.nikeName" :disabled="!isEdit" />
               </ElFormItem>
-              <ElFormItem label="邮箱" prop="email" class="right-input">
+              <ElFormItem label="邮箱" prop="email" class="ml-5">
                 <ElInput v-model="form.email" :disabled="!isEdit" />
               </ElFormItem>
             </ElRow>
@@ -87,27 +95,37 @@
               <ElFormItem label="手机" prop="mobile">
                 <ElInput v-model="form.mobile" :disabled="!isEdit" />
               </ElFormItem>
-              <ElFormItem label="地址" prop="address" class="right-input">
+              <ElFormItem label="地址" prop="address" class="ml-5">
                 <ElInput v-model="form.address" :disabled="!isEdit" />
               </ElFormItem>
             </ElRow>
 
-            <ElFormItem label="个人介绍" prop="des" :style="{ height: '130px' }">
+            <ElFormItem label="个人介绍" prop="des" class="h-[130px]">
               <ElInput type="textarea" :rows="4" v-model="form.des" :disabled="!isEdit" />
             </ElFormItem>
 
-            <div class="el-form-item-right">
-              <ElButton type="primary" style="width: 90px" v-ripple @click="edit">
+            <div class="flex items-center justify-end [&_.el-button]:!w-[110px]">
+              <ElButton type="primary" class="w-[90px]" v-ripple @click="edit">
                 {{ isEdit ? '保存' : '编辑' }}
               </ElButton>
             </div>
           </ElForm>
         </div>
 
-        <div class="info box-style" style="margin-top: 20px">
-          <h1 class="title">更改密码</h1>
+        <div
+          class="mt-5 bg-[var(--art-main-bg-color)] border border-[var(--art-border-color)] rounded-[calc(var(--custom-radius)+4px)]"
+        >
+          <h1
+            class="p-[15px_25px] text-xl font-normal text-[var(--art-text-gray-800)] border-b border-[var(--art-border-color)]"
+            >更改密码</h1
+          >
 
-          <ElForm :model="pwdForm" class="form" label-width="86px" label-position="top">
+          <ElForm
+            :model="pwdForm"
+            class="box-border p-[30px_25px]"
+            label-width="86px"
+            label-position="top"
+          >
             <ElFormItem label="当前密码" prop="password">
               <ElInput
                 v-model="pwdForm.password"
@@ -135,8 +153,8 @@
               />
             </ElFormItem>
 
-            <div class="el-form-item-right">
-              <ElButton type="primary" style="width: 90px" v-ripple @click="editPwd">
+            <div class="flex items-center justify-end [&_.el-button]:!w-[110px]">
+              <ElButton type="primary" class="w-[90px]" v-ripple @click="editPwd">
                 {{ isEditPwd ? '保存' : '编辑' }}
               </ElButton>
             </div>
@@ -246,206 +264,3 @@
     isEditPwd.value = !isEditPwd.value
   }
 </script>
-
-<style lang="scss">
-  .user {
-    .icon {
-      width: 1.4em;
-      height: 1.4em;
-      overflow: hidden;
-      vertical-align: -0.15em;
-      fill: currentcolor;
-    }
-  }
-</style>
-
-<style lang="scss" scoped>
-  .page-content {
-    width: 100%;
-    height: 100%;
-    padding: 0 !important;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-
-    $box-radius: calc(var(--custom-radius) + 4px);
-
-    .box-style {
-      border: 1px solid var(--art-border-color);
-    }
-
-    .content {
-      position: relative;
-      display: flex;
-      justify-content: space-between;
-      margin-top: 10px;
-
-      .left-wrap {
-        width: 450px;
-        margin-right: 25px;
-
-        .user-wrap {
-          position: relative;
-          height: 600px;
-          padding: 35px 40px;
-          overflow: hidden;
-          text-align: center;
-          background: var(--art-main-bg-color);
-          border-radius: $box-radius;
-
-          .bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-          }
-
-          .avatar {
-            position: relative;
-            z-index: 10;
-            width: 80px;
-            height: 80px;
-            margin-top: 120px;
-            object-fit: cover;
-            border: 2px solid #fff;
-            border-radius: 50%;
-          }
-
-          .name {
-            margin-top: 20px;
-            font-size: 22px;
-            font-weight: 400;
-          }
-
-          .des {
-            margin-top: 20px;
-            font-size: 14px;
-          }
-
-          .outer-info {
-            width: 300px;
-            margin: auto;
-            margin-top: 30px;
-            text-align: left;
-
-            > div {
-              margin-top: 10px;
-
-              span {
-                margin-left: 8px;
-                font-size: 14px;
-              }
-            }
-          }
-
-          .lables {
-            margin-top: 40px;
-
-            h3 {
-              font-size: 15px;
-              font-weight: 500;
-            }
-
-            > div {
-              display: flex;
-              flex-wrap: wrap;
-              justify-content: center;
-              margin-top: 15px;
-
-              > div {
-                padding: 3px 6px;
-                margin: 0 10px 10px 0;
-                font-size: 12px;
-                background: var(--art-main-bg-color);
-                border: 1px solid var(--art-border-color);
-                border-radius: 2px;
-              }
-            }
-          }
-        }
-
-        .gallery {
-          margin-top: 25px;
-          border-radius: 10px;
-
-          .item {
-            img {
-              width: 100%;
-              height: 100%;
-              object-fit: cover;
-            }
-          }
-        }
-      }
-
-      .right-wrap {
-        flex: 1;
-        overflow: hidden;
-        border-radius: $box-radius;
-
-        .info {
-          background: var(--art-main-bg-color);
-          border-radius: $box-radius;
-
-          .title {
-            padding: 15px 25px;
-            font-size: 20px;
-            font-weight: 400;
-            color: var(--art-text-gray-800);
-            border-bottom: 1px solid var(--art-border-color);
-          }
-
-          .form {
-            box-sizing: border-box;
-            padding: 30px 25px;
-
-            > .el-row {
-              .el-form-item {
-                width: calc(50% - 10px);
-              }
-
-              .el-input,
-              .el-select {
-                width: 100%;
-              }
-            }
-
-            .right-input {
-              margin-left: 20px;
-            }
-
-            .el-form-item-right {
-              display: flex;
-              align-items: center;
-              justify-content: end;
-
-              .el-button {
-                width: 110px !important;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  @media only screen and (max-width: $device-ipad-vertical) {
-    .page-content {
-      .content {
-        display: block;
-        margin-top: 5px;
-
-        .left-wrap {
-          width: 100%;
-        }
-
-        .right-wrap {
-          width: 100%;
-          margin-top: 15px;
-        }
-      }
-    }
-  }
-</style>

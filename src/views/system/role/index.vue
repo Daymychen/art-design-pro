@@ -1,5 +1,5 @@
 <template>
-  <div class="role-page art-full-height">
+  <div class="art-full-height">
     <RoleSearch
       v-show="showSearchBar"
       v-model="searchForm"
@@ -240,9 +240,3 @@
       })
   }
 </script>
-
-<style lang="scss" scoped>
-  .role-page {
-    padding-bottom: 15px;
-  }
-</style>

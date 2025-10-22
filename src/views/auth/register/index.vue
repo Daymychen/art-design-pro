@@ -1,17 +1,16 @@
 <template>
-  <div class="login register">
-    <LoginLeftView></LoginLeftView>
-    <div class="right-wrap">
+  <div class="flex w-full h-screen">
+    <LoginLeftView />
+
+    <div class="relative flex-1">
       <AuthTopBar />
-      <div class="header">
-        <ArtLogo class="icon" />
-        <h1>{{ systemName }}</h1>
-      </div>
-      <div class="login-wrap">
+
+      <div class="auth-right-wrap">
         <div class="form">
           <h3 class="title">{{ $t('register.title') }}</h3>
           <p class="sub-title">{{ $t('register.subTitle') }}</p>
           <ElForm
+            class="mt-[30px]"
             ref="formRef"
             :model="formData"
             :rules="rules"
@@ -20,6 +19,7 @@
           >
             <ElFormItem prop="username">
               <ElInput
+                class="custom-height"
                 v-model.trim="formData.username"
                 :placeholder="$t('register.placeholder.username')"
               />
@@ -27,6 +27,7 @@
 
             <ElFormItem prop="password">
               <ElInput
+                class="custom-height"
                 v-model.trim="formData.password"
                 :placeholder="$t('register.placeholder.password')"
                 type="password"
@@ -37,6 +38,7 @@
 
             <ElFormItem prop="confirmPassword">
               <ElInput
+                class="custom-height"
                 v-model.trim="formData.confirmPassword"
                 :placeholder="$t('register.placeholder.confirmPassword')"
                 type="password"
@@ -49,17 +51,17 @@
             <ElFormItem prop="agreement">
               <ElCheckbox v-model="formData.agreement">
                 {{ $t('register.agreeText') }}
-                <router-link
+                <RouterLink
                   style="color: var(--main-color); text-decoration: none"
                   to="/privacy-policy"
-                  >{{ $t('register.privacyPolicy') }}</router-link
+                  >{{ $t('register.privacyPolicy') }}</RouterLink
                 >
               </ElCheckbox>
             </ElFormItem>
 
             <div style="margin-top: 15px">
               <ElButton
-                class="register-btn"
+                class="w-full custom-height"
                 type="primary"
                 @click="register"
                 :loading="loading"
@@ -69,11 +71,11 @@
               </ElButton>
             </div>
 
-            <div class="footer">
-              <p>
-                {{ $t('register.hasAccount') }}
-                <router-link :to="{ name: 'Login' }">{{ $t('register.toLogin') }}</router-link>
-              </p>
+            <div class="mt-[20px] text-[14px] text-gray-600">
+              <span>{{ $t('register.hasAccount') }}</span>
+              <RouterLink class="text-primary" :to="{ name: 'Login' }">{{
+                $t('register.toLogin')
+              }}</RouterLink>
             </div>
           </ElForm>
         </div>
@@ -83,7 +85,6 @@
 </template>
 
 <script setup lang="ts">
-  import AppConfig from '@/config'
   import { useI18n } from 'vue-i18n'
   import type { FormInstance, FormRules } from 'element-plus'
 
@@ -105,7 +106,6 @@
   const router = useRouter()
   const formRef = ref<FormInstance>()
 
-  const systemName = AppConfig.systemInfo.name
   const loading = ref(false)
   const formKey = ref(0)
 
@@ -233,8 +233,3 @@
     }, REDIRECT_DELAY)
   }
 </script>
-
-<style lang="scss" scoped>
-  @use '../login/index' as login;
-  @use './index' as register;
-</style>

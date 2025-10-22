@@ -1,9 +1,9 @@
 <template>
-  <div class="card art-custom-card">
-    <div class="card-header">
+  <div class="art-card p-[20px] h-[510px] overflow-hidden mb-[20px]">
+    <div class="art-card-header">
       <div class="title">
-        <h4 class="box-title">新用户</h4>
-        <p class="subtitle">这个月增长<span class="text-success">+20%</span></p>
+        <h4>新用户</h4>
+        <p>这个月增长<span class="text-lime-500">+20%</span></p>
       </div>
       <ElRadioGroup v-model="radio2">
         <ElRadioButton value="本月" label="本月"></ElRadioButton>
@@ -12,7 +12,7 @@
       </ElRadioGroup>
     </div>
     <ArtTable
-      class="table"
+      class="w-full"
       :data="tableData"
       style="width: 100%"
       size="large"
@@ -24,8 +24,8 @@
         <ElTableColumn label="头像" prop="avatar" width="150px">
           <template #default="scope">
             <div style="display: flex; align-items: center">
-              <img class="avatar" :src="scope.row.avatar" alt="avatar" />
-              <span class="user-name">{{ scope.row.username }}</span>
+              <img class="size-[36px] rounded-[6px]" :src="scope.row.avatar" alt="avatar" />
+              <span class="ml-[10px]">{{ scope.row.username }}</span>
             </div>
           </template>
         </ElTableColumn>
@@ -169,32 +169,6 @@
     .el-radio-button__original-radio:checked + .el-radio-button__inner {
       color: var(--el-color-primary) !important;
       background: transparent !important;
-    }
-  }
-</style>
-
-<style lang="scss" scoped>
-  .card {
-    width: 100%;
-    height: 510px;
-    overflow: hidden;
-
-    .card-header {
-      padding-left: 25px !important;
-    }
-
-    :deep(.el-table__body tr:last-child td) {
-      border-bottom: none !important;
-    }
-
-    .avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 6px;
-    }
-
-    .user-name {
-      margin-left: 10px;
     }
   }
 </style>

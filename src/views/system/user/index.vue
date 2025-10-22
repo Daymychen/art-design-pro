@@ -125,7 +125,7 @@
           label: '用户名',
           width: 280,
           formatter: (row) => {
-            return h('div', { class: 'user', style: 'display: flex; align-items: center' }, [
+            return h('div', { class: 'user flex items-center' }, [
               h(ElImage, {
                 class: 'avatar',
                 src: row.avatar,
@@ -259,24 +259,20 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .user-page {
-    :deep(.user) {
-      .avatar {
-        width: 40px;
-        height: 40px;
-        margin-left: 0;
-        border-radius: 6px;
-      }
+<style scoped>
+  .user-page :deep(.user .avatar) {
+    width: 40px;
+    height: 40px;
+    margin-left: 0;
+    border-radius: 6px;
+  }
 
-      > div {
-        margin-left: 10px;
+  .user-page :deep(.user > div) {
+    margin-left: 10px;
+  }
 
-        .user-name {
-          font-weight: 500;
-          color: var(--art-text-gray-800);
-        }
-      }
-    }
+  .user-page :deep(.user > div .user-name) {
+    font-weight: 500;
+    color: var(--art-text-gray-800);
   }
 </style>

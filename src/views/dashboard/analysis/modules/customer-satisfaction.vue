@@ -1,19 +1,19 @@
 <template>
-  <div class="custom-card art-custom-card customer-satisfaction">
-    <div class="custom-card-header">
-      <span class="title">客户满意度</span>
+  <div class="art-card h-[400px] p-[20px] mb-[20px]">
+    <div class="art-card-header">
+      <div class="title">
+        <h4>客户满意度</h4>
+      </div>
     </div>
-    <div class="custom-card-body">
-      <ArtLineChart
-        height="100%"
-        :data="chartData"
-        :xAxisData="xAxisData"
-        :showLegend="true"
-        :showAxisLabel="true"
-        :showAxisLine="false"
-        :showSplitLine="true"
-      />
-    </div>
+    <ArtLineChart
+      height="calc(100% - 30px)"
+      :data="chartData"
+      :xAxisData="xAxisData"
+      :showLegend="true"
+      :showAxisLabel="true"
+      :showAxisLine="false"
+      :showSplitLine="true"
+    />
   </div>
 </template>
 

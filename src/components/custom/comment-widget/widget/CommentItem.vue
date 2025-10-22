@@ -18,7 +18,7 @@
       <div class="flex items-center mt-2.5">
         <span class="text-xs text-gray-500">{{ formatDate(comment.timestamp) }}</span>
         <div
-          class="ml-5 text-xs text-gray-800 dark:text-gray-200 cursor-pointer select-none hover:text-[var(--main-color)]"
+          class="ml-5 text-xs text-gray-800 dark:text-gray-200 cursor-pointer select-none hover:text-primary"
           @click="toggleReply(comment.id)"
         >
           回复

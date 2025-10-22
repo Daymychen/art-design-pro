@@ -74,7 +74,3 @@
 
   defineOptions({ name: 'Ecommerce' })
 </script>
-
-<style lang="scss" scoped>
-  @use './style';
-</style>

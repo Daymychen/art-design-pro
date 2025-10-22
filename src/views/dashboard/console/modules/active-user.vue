@@ -1,22 +1,24 @@
 <template>
-  <div class="card art-custom-card">
+  <div class="art-card h-[420px] p-[16px] box-border mb-[20px]">
     <ArtBarChart
-      class="chart"
+      class="box-border p-[10px]"
       barWidth="50%"
       height="13.7rem"
       :showAxisLine="false"
       :data="[160, 100, 150, 80, 190, 100, 175, 120, 160]"
       :xAxisData="['1', '2', '3', '4', '5', '6', '7', '8', '9']"
     />
-    <div class="text">
-      <h3 class="box-title">用户概述</h3>
-      <p class="subtitle">比上周 <span class="text-success">+23%</span></p>
-      <p class="subtitle">我们为您创建了多个选项，可将它们组合在一起并定制为像素完美的页面</p>
+    <div class="ml-[3px]">
+      <h3 class="mt-[20px] text-[18px] font-medium">用户概述</h3>
+      <p class="mt-[5px] text-[14px]">比上周 <span class="text-lime-500 font-medium">+23%</span></p>
+      <p class="mt-[5px] text-[14px]"
+        >我们为您创建了多个选项，可将它们组合在一起并定制为像素完美的页面</p
+      >
     </div>
-    <div class="list">
-      <div v-for="(item, index) in list" :key="index">
-        <p>{{ item.num }}</p>
-        <p class="subtitle">{{ item.name }}</p>
+    <div class="flex justify-between mt-[10px]">
+      <div class="flex-1" v-for="(item, index) in list" :key="index">
+        <p class="text-[24px] text-g-900">{{ item.num }}</p>
+        <p class="text-[13px] text-g-500">{{ item.name }}</p>
       </div>
     </div>
   </div>
@@ -39,81 +41,3 @@
     { name: '周同比', num: '+5%' }
   ]
 </script>
-
-<style lang="scss" scoped>
-  .card {
-    box-sizing: border-box;
-    width: 100%;
-    height: 420px;
-    padding: 16px;
-
-    .chart {
-      box-sizing: border-box;
-      width: 100%;
-      height: 220px;
-      padding: 10px;
-      border-radius: calc(var(--custom-radius) / 2 + 4px) !important;
-    }
-
-    .text {
-      margin-left: 3px;
-
-      h3 {
-        margin-top: 20px;
-        font-size: 18px;
-        font-weight: 500;
-      }
-
-      p {
-        margin-top: 5px;
-        font-size: 14px;
-
-        &:last-of-type {
-          height: 42px;
-          margin-top: 5px;
-        }
-      }
-    }
-
-    .list {
-      display: flex;
-      justify-content: space-between;
-      margin-left: 3px;
-
-      > div {
-        flex: 1;
-
-        p {
-          font-weight: 400;
-
-          &:first-of-type {
-            font-size: 24px;
-            color: var(--art-gray-900);
-          }
-
-          &:last-of-type {
-            font-size: 13px;
-          }
-        }
-      }
-    }
-  }
-
-  .dark {
-    .card {
-      .chart {
-        background: none;
-      }
-    }
-  }
-
-  @media screen and (max-width: $device-phone) {
-    .dark {
-      .card {
-        .chart {
-          padding: 15px 0 0 !important;
-        }
-      }
-    }
-  }
-</style>

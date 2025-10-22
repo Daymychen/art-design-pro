@@ -1,0 +1,41 @@
+@import 'tailwindcss';
+
+/* 添加组件类 */
+@layer components {
+  /* 授权页右侧区域 */
+  .auth-right-wrap {
+    @apply absolute inset-0 w-[440px] h-[650px] py-[5px] m-auto overflow-hidden
+           max-sm:px-[30px] max-sm:w-full
+           animate-[slideInRight_0.6s_cubic-bezier(0.25,0.46,0.45,0.94)_forwards]
+           max-md:animate-none;
+
+    .form {
+      @apply h-full py-[40px];
+    }
+
+    .title {
+      @apply text-gray-900 text-[34px] font-semibold max-md:text-[30px];
+    }
+
+    .sub-title {
+      @apply mt-[10px] text-gray-400 text-[14px];
+    }
+
+    .custom-height {
+      @apply !h-[40px];
+    }
+  }
+}
+
+/* 滑入动画 */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

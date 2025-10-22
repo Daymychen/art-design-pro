@@ -1,10 +1,10 @@
 <template>
-  <div class="card art-custom-card" style="height: 11rem">
-    <div class="card-header">
-      <p class="title" style="font-size: 24px"
-        >12%<i class="iconfont-sys text-success">&#xe8d5;</i></p
-      >
-      <p class="subtitle">增长</p>
+  <div class="art-card p-[20px] pt-[15px] mb-[20px] h-[180px]">
+    <div class="art-card-header">
+      <div class="title">
+        <h4 class="text-2xl">12%<i class="iconfont-sys text-success">&#xe8d5;</i></h4>
+        <p>增长</p>
+      </div>
     </div>
 
     <ArtLineChart
@@ -14,7 +14,7 @@
       :showSplitLine="false"
       :data="[50, 85, 65, 95, 75, 130, 180]"
       barWidth="16px"
-      height="4rem"
+      height="5rem"
     />
   </div>
 </template>

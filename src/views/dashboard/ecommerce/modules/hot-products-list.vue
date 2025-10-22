@@ -1,56 +1,56 @@
 <template>
-  <div class="card art-custom-card" style="height: 27.8rem">
-    <div class="card-header">
-      <p class="title">热销产品</p>
-      <p class="subtitle">本月销售情况</p>
+  <div class="art-card p-[20px] h-[27.8rem] mb-[20px]">
+    <div class="art-card-header">
+      <div class="title">
+        <h4>热销产品</h4>
+        <p>本月销售情况</p>
+      </div>
     </div>
-    <div class="table">
-      <ElScrollbar style="height: 21.55rem">
-        <ArtTable
-          :data="tableData"
-          style="margin-top: 0 !important"
-          :border="false"
-          :stripe="false"
-          :header-cell-style="{ background: 'transparent' }"
-        >
-          <template #default>
-            <ElTableColumn label="产品" prop="product" width="220px">
-              <template #default="scope">
-                <div style="display: flex; align-items: center">
-                  <img class="product-image" :src="scope.row.image" />
-                  <div class="product-info">
-                    <div class="product-name">{{ scope.row.name }}</div>
-                    <div class="product-category">{{ scope.row.category }}</div>
-                  </div>
+
+    <ElScrollbar style="height: 21.55rem" class="w-full">
+      <ArtTable
+        :data="tableData"
+        style="margin-top: 0 !important"
+        :border="false"
+        :stripe="false"
+        :header-cell-style="{ background: 'transparent' }"
+      >
+        <template #default>
+          <ElTableColumn label="产品" prop="product" width="220px">
+            <template #default="scope">
+              <div class="flex items-center">
+                <img class="w-[50px] h-[50px] object-cover rounded-md" :src="scope.row.image" />
+                <div class="flex flex-col ml-3">
+                  <div class="font-medium">{{ scope.row.name }}</div>
+                  <div class="text-xs text-slate-500">{{ scope.row.category }}</div>
                 </div>
-              </template>
-            </ElTableColumn>
-            <ElTableColumn label="价格" prop="price">
-              <template #default="scope">
-                <span class="price">¥{{ scope.row.price.toLocaleString() }}</span>
-              </template>
-            </ElTableColumn>
-            <ElTableColumn label="库存" prop="stock">
-              <template #default="scope">
-                <div class="stock-badge" :class="getStockClass(scope.row.stock)">
-                  {{ getStockStatus(scope.row.stock) }}
-                </div>
-              </template>
-            </ElTableColumn>
-            <ElTableColumn label="销量" prop="sales" />
-            <ElTableColumn label="销售趋势" width="240">
-              <template #default="scope">
-                <ElProgress
-                  :percentage="scope.row.pro"
-                  :color="scope.row.color"
-                  :stroke-width="4"
-                />
-              </template>
-            </ElTableColumn>
-          </template>
-        </ArtTable>
-      </ElScrollbar>
-    </div>
+              </div>
+            </template>
+          </ElTableColumn>
+          <ElTableColumn label="价格" prop="price">
+            <template #default="scope">
+              <span class="font-semibold">¥{{ scope.row.price.toLocaleString() }}</span>
+            </template>
+          </ElTableColumn>
+          <ElTableColumn label="库存" prop="stock">
+            <template #default="scope">
+              <div
+                class="inline-block px-2 py-1 text-xs font-medium rounded"
+                :class="getStockClass(scope.row.stock)"
+              >
+                {{ getStockStatus(scope.row.stock) }}
+              </div>
+            </template>
+          </ElTableColumn>
+          <ElTableColumn label="销量" prop="sales" />
+          <ElTableColumn label="销售趋势" width="240">
+            <template #default="scope">
+              <ElProgress :percentage="scope.row.pro" :color="scope.row.color" :stroke-width="4" />
+            </template>
+          </ElTableColumn>
+        </template>
+      </ArtTable>
+    </ElScrollbar>
   </div>
 </template>
 
@@ -171,10 +171,12 @@
    * @returns CSS 类名
    */
   const getStockClass = (stock: number): string => {
-    if (stock === 0) return 'out-of-stock'
-    if (stock < STOCK_THRESHOLD.LOW) return 'low-stock'
-    if (stock < STOCK_THRESHOLD.MEDIUM) return 'medium-stock'
-    return 'in-stock'
+    if (stock === 0) return 'text-[rgb(var(--art-error))] bg-[rgba(var(--art-error),0.1)]'
+    if (stock < STOCK_THRESHOLD.LOW)
+      return 'text-[rgb(var(--art-warning))] bg-[rgba(var(--art-warning),0.1)]'
+    if (stock < STOCK_THRESHOLD.MEDIUM)
+      return 'text-[rgb(var(--art-info))] bg-[rgba(var(--art-info),0.1)]'
+    return 'text-[rgb(var(--art-success))] bg-[rgba(var(--art-success),0.1)]'
   }
 
   /**
@@ -193,67 +195,3 @@
     addAnimation()
   })
 </script>
-
-<style lang="scss" scoped>
-  .table {
-    width: 100%;
-
-    .card-header {
-      padding-left: 25px !important;
-    }
-
-    .product-image {
-      width: 50px;
-      height: 50px;
-      object-fit: cover;
-      border-radius: 6px;
-    }
-
-    .product-info {
-      display: flex;
-      flex-direction: column;
-      margin-left: 12px;
-    }
-
-    .product-name {
-      font-weight: 500;
-    }
-
-    .product-category {
-      font-size: 12px;
-      color: #64748b;
-    }
-
-    .price {
-      font-weight: 600;
-    }
-
-    .stock-badge {
-      display: inline-block;
-      padding: 4px 8px;
-      font-size: 12px;
-      font-weight: 500;
-      border-radius: 4px;
-    }
-
-    .in-stock {
-      color: rgb(var(--art-success));
-      background-color: rgba(var(--art-success-rgb), 0.1);
-    }
-
-    .medium-stock {
-      color: rgb(var(--art-info));
-      background-color: rgba(var(--art-info-rgb), 0.1);
-    }
-
-    .low-stock {
-      color: rgb(var(--art-warning));
-      background-color: rgba(var(--art-warning-rgb), 0.1);
-    }
-
-    .out-of-stock {
-      color: rgb(var(--art-error));
-      background-color: rgba(var(--art-error-rgb), 0.1);
-    }
-  }
-</style>

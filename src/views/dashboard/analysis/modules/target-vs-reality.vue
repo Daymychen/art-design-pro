@@ -1,37 +1,36 @@
 <template>
-  <div class="custom-card art-custom-card target-vs-reality">
-    <div class="custom-card-header">
-      <span class="title">目标与实际</span>
-    </div>
-    <div class="custom-card-body">
-      <ArtBarChart
-        height="10rem"
-        :data="revenueData"
-        :xAxisData="weekDays"
-        :showAxisLine="false"
-        barWidth="28%"
-      />
-    </div>
-    <div class="custom-card-footer">
-      <div class="total-item">
-        <div class="label">
-          <i class="iconfont-sys">&#xe77f;</i>
-          <div class="label-text">
-            <span>实际销售额</span>
-            <span>全球</span>
-          </div>
-        </div>
-        <div class="value text-color-green">8,823</div>
+  <div class="art-card h-[400px] p-[20px] mb-[20px]">
+    <div class="art-card-header">
+      <div class="title">
+        <h4>目标与实际</h4>
       </div>
-      <div class="total-item">
-        <div class="label">
-          <i class="iconfont-sys">&#xe77c;</i>
-          <div class="label-text">
-            <span>目标销售额</span>
-            <span>商业</span>
+    </div>
+
+    <ArtBarChart
+      class="p-[20px]"
+      height="12rem"
+      :data="revenueData"
+      :xAxisData="weekDays"
+      :showAxisLine="false"
+      barWidth="28%"
+    />
+
+    <div class="px-5 mt-4">
+      <div v-for="item in totalItems" :key="item.label" class="flex items-center mb-5 last:mb-0">
+        <div class="flex items-center justify-start w-3/5 text-sm text-gray-600">
+          <div
+            class="w-10 h-10 mr-3 text-lg leading-10 text-center rounded-md flex items-center justify-center"
+            :class="item.iconClass"
+          >
+            <ArtSvgIcon icon="ri:message-3-line" />
+          </div>
+
+          <div class="flex flex-col items-start">
+            <span class="text-base text-gray-800">{{ item.label }}</span>
+            <span class="mt-1 text-xs text-gray-500">{{ item.subLabel }}</span>
           </div>
         </div>
-        <div class="value text-color-orange">12,122</div>
+        <div class="text-lg font-normal" :class="item.valueClass">{{ item.value }}</div>
       </div>
     </div>
   </div>
@@ -58,104 +57,26 @@
       data: [12, 13, 5, 15, 10, 15, 18]
     }
   ])
+
+  /**
+   * 统计项数据
+   */
+  const totalItems = [
+    {
+      icon: '&#xe77f;',
+      iconClass: 'text-[#2b8dfa] bg-[#e6f7ff]',
+      label: '实际销售额',
+      subLabel: '全球',
+      value: '8,823',
+      valueClass: 'text-[#2b8dfa]'
+    },
+    {
+      icon: '&#xe77c;',
+      iconClass: 'text-[#1cb8fc] bg-[#e6f7ff]',
+      label: '目标销售额',
+      subLabel: '商业',
+      value: '12,122',
+      valueClass: 'text-[#1cb8fc]'
+    }
+  ]
 </script>
-
-<style lang="scss" scoped>
-  .custom-card {
-    height: 400px;
-
-    &-body {
-      padding: 20px;
-    }
-
-    &-footer {
-      box-sizing: border-box;
-      padding: 0 20px;
-      margin-top: 15px;
-
-      .total-item {
-        display: flex;
-        margin-bottom: 20px;
-        text-align: center;
-
-        &:first-of-type .label .iconfont-sys {
-          color: #2b8dfa !important;
-          background-color: #e6f7ff !important;
-        }
-
-        &:last-of-type .label .iconfont-sys {
-          color: #1cb8fc !important;
-          background-color: #e6f7ff !important;
-        }
-
-        .label {
-          display: flex;
-          align-items: center;
-          justify-content: flex-start;
-          width: 60%;
-          font-size: 14px;
-          color: #606266;
-
-          .iconfont-sys {
-            width: 40px;
-            height: 40px;
-            margin-right: 12px;
-            font-size: 18px;
-            line-height: 40px;
-            text-align: center;
-            background-color: #f2f2f2;
-            border-radius: 6px;
-          }
-
-          .label-text {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-
-            span {
-              &:first-of-type {
-                font-size: 16px;
-                color: var(--art-text-gray-800);
-              }
-
-              &:last-of-type {
-                margin-top: 4px;
-                font-size: 12px;
-                color: #737791;
-              }
-            }
-          }
-        }
-
-        .value {
-          font-size: 18px;
-          font-weight: 400;
-
-          &.text-color-green {
-            color: #2b8dfa !important;
-          }
-
-          &.text-color-orange {
-            color: #1cb8fc !important;
-          }
-        }
-      }
-    }
-  }
-
-  .dark {
-    .custom-card {
-      &-footer {
-        .total-item {
-          &:first-of-type .label .iconfont-sys {
-            background-color: #222 !important;
-          }
-
-          &:last-of-type .label .iconfont-sys {
-            background-color: #222 !important;
-          }
-        }
-      }
-    }
-  }
-</style>

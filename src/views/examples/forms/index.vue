@@ -1,7 +1,7 @@
 <!-- 表单示例 -->
 <template>
-  <div class="form-example">
-    <h2 class="title">表单组件示例</h2>
+  <div class="pb-5">
+    <h2 class="mb-[5px] text-lg font-medium">表单组件示例</h2>
 
     <ElCard class="art-custom-card" shadow="never">
       <ArtForm
@@ -23,11 +23,11 @@
       </ArtForm>
     </ElCard>
 
-    <div class="code">
+    <div class="art-card p-[20px] !rounded-[6px] mt-[20px]">
       <pre><code>{{ formData }}</code></pre>
     </div>
 
-    <div class="button-group">
+    <div class="mt-[15px]">
       <ElSpace wrap>
         <ElButton @click="getLevelOptions"> 获取用户等级数据 </ElButton>
         <ElButton @click="validateForm"> 校验表单 </ElButton>
@@ -45,7 +45,7 @@
 
     <!-- 图片预览对话框 -->
     <ElDialog v-model="dialogVisible">
-      <img w-full :src="dialogImageUrl" alt="Preview Image" style="width: 100%; height: auto" />
+      <img w-full :src="dialogImageUrl" alt="Preview Image" class="w-full h-auto" />
     </ElDialog>
   </div>
 </template>
@@ -747,32 +747,3 @@
     formData.value.name = undefined
   }
 </script>
-
-<style scoped lang="scss">
-  .form-example {
-    padding-bottom: 20px;
-
-    .title {
-      margin-bottom: 5px;
-      font-size: 18px;
-      font-weight: 500;
-
-      &.m-15 {
-        margin-top: 15px;
-      }
-    }
-
-    .code {
-      padding: 15px;
-      margin-top: 15px;
-      font-size: 14px;
-      background-color: var(--art-main-bg-color);
-      border: 1px solid var(--art-border-color);
-      border-radius: var(--el-border-radius-base);
-    }
-
-    .button-group {
-      margin-top: 15px;
-    }
-  }
-</style>

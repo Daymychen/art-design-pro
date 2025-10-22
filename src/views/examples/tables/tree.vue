@@ -1,8 +1,8 @@
 <template>
   <div class="art-full-height">
-    <div class="tree-container">
-      <div class="left-sidebar">
-        <ElCard class="art-table-card" shadow="never" style="margin-top: 0">
+    <div class="box-border flex gap-4 h-full max-md:block max-md:gap-0 max-md:h-auto">
+      <div class="flex-shrink-0 w-[230px] h-full max-md:w-full max-md:h-auto max-md:mb-5">
+        <ElCard class="tree-card flex flex-col h-full mt-0" shadow="never">
           <template #header>
             <b>分类树</b>
           </template>
@@ -19,10 +19,10 @@
         </ElCard>
       </div>
 
-      <div class="right-content art-full-height">
+      <div class="flex flex-col flex-grow">
         <UserSearch v-model="defaultFilter" />
 
-        <ElCard class="art-table-card" shadow="never">
+        <ElCard class="flex flex-col flex-1 min-h-0 art-table-card" shadow="never">
           <ArtTableHeader v-model:columns="columnChecks" :loading="loading" @refresh="refreshData">
             <template #left>
               <ElSpace wrap>
@@ -227,43 +227,10 @@
   })
 </script>
 
-<style lang="scss" scoped>
-  .tree-container {
-    box-sizing: border-box;
-    display: flex;
-    gap: 16px;
-    height: 100%;
-
-    .left-sidebar {
-      flex-shrink: 0;
-      width: 230px;
-      height: 100%;
-    }
-
-    .right-content {
-      flex-grow: 1;
-      min-width: 0;
-      height: 100%;
-    }
-
-    .art-table-card {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-  }
-
-  @media screen and (max-width: $device-ipad) {
-    .tree-container {
-      display: block;
-      gap: 0;
-      height: auto;
-
-      .left-sidebar {
-        width: 100%;
-        height: auto;
-        margin-bottom: 20px;
-      }
-    }
+<style scoped>
+  .tree-card :deep(.el-card__body) {
+    flex: 1;
+    min-height: 0;
+    padding: 10px 2px 10px 10px;
   }
 </style>

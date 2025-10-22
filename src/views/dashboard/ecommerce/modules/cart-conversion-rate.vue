@@ -1,6 +1,6 @@
 <template>
   <ArtLineChartCard
-    class="margin-bottom-0"
+    class="mb-[20px]"
     :value="2545"
     label="购物车转化率"
     :percentage="1.2"

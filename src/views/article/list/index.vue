@@ -25,7 +25,7 @@
         class="grid grid-cols-5 gap-[20px] max-2xl:grid-cols-4 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1"
       >
         <div
-          class="group cursor-pointer overflow-hidden border border-art-gray-300/60 rounded-custom-sm"
+          class="group cursor-pointer overflow-hidden border border-g-300/60 rounded-custom-sm"
           v-for="item in articleList"
           :key="item.id"
           @click="toDetail(item)"
@@ -45,12 +45,12 @@
             >
           </div>
           <div class="px-[10px] py-[5px]">
-            <h2 class="text-[16px] text-gray-800 font-medium">{{ item.title }}</h2>
+            <h2 class="text-[16px] text-g-800 font-medium">{{ item.title }}</h2>
             <div class="flex justify-between w-full h-[25px] mt-[6px]">
-              <div class="flex items-center text-gray-500">
+              <div class="flex items-center text-g-500">
                 <ArtSvgIcon icon="ri:time-line" class="mr-[5px] text-[14px]" />
                 <span class="text-[14px]">{{ useDateFormat(item.create_time, 'YYYY-MM-DD') }}</span>
-                <div class="w-[1px] h-[12px] bg-art-gray-400 mx-[15px]"></div>
+                <div class="w-[1px] h-[12px] bg-g-400 mx-[15px]"></div>
                 <ArtSvgIcon icon="ri:eye-line" class="mr-[5px] text-[14px]" />
                 <span class="text-[14px]">{{ item.count }}</span>
               </div>

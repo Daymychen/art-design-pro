@@ -476,21 +476,3 @@
     })
   }
 </script>
-
-<style lang="scss" scoped>
-  .menu-page {
-    .svg-icon {
-      width: 1.8em;
-      height: 1.8em;
-      overflow: hidden;
-      vertical-align: -8px;
-      fill: currentcolor;
-    }
-
-    :deep(.small-btn) {
-      height: 30px !important;
-      padding: 0 10px !important;
-      font-size: 12px !important;
-    }
-  }
-</style>

@@ -1,14 +1,11 @@
 <template>
-  <div class="login">
-    <LoginLeftView></LoginLeftView>
+  <div class="flex w-full h-screen">
+    <LoginLeftView />
 
-    <div class="right-wrap">
-      <AuthTopBar></AuthTopBar>
-      <div class="header">
-        <ArtLogo class="icon" />
-        <h1>{{ systemName }}</h1>
-      </div>
-      <div class="login-wrap">
+    <div class="relative flex-1">
+      <AuthTopBar />
+
+      <div class="auth-right-wrap">
         <div class="form">
           <h3 class="title">{{ $t('login.title') }}</h3>
           <p class="sub-title">{{ $t('login.subTitle') }}</p>
@@ -21,7 +18,7 @@
             style="margin-top: 25px"
           >
             <ElFormItem prop="account">
-              <ElSelect v-model="formData.account" @change="setupAccount" class="account-select">
+              <ElSelect v-model="formData.account" @change="setupAccount">
                 <ElOption
                   v-for="account in accounts"
                   :key="account.key"
@@ -34,22 +31,26 @@
             </ElFormItem>
             <ElFormItem prop="username">
               <ElInput
+                class="custom-height"
                 :placeholder="$t('login.placeholder.username')"
                 v-model.trim="formData.username"
               />
             </ElFormItem>
             <ElFormItem prop="password">
               <ElInput
+                class="custom-height"
                 :placeholder="$t('login.placeholder.password')"
                 v-model.trim="formData.password"
                 type="password"
-                radius="8px"
                 autocomplete="off"
                 show-password
               />
             </ElFormItem>
-            <div class="drag-verify">
-              <div class="drag-verify-content" :class="{ error: !isPassing && isClickPass }">
+            <div class="relative pb-5 mt-[25px]">
+              <div
+                class="relative z-[2] overflow-hidden select-none rounded-[6px] border border-transparent transition-all duration-300"
+                :class="{ '!border-[#ff4d4f]': !isPassing && isClickPass }"
+              >
                 <ArtDragVerify
                   ref="dragVerify"
                   v-model:value="isPassing"
@@ -61,21 +62,26 @@
                   handlerBg="var(--art-main-bg-color)"
                 />
               </div>
-              <p class="error-text" :class="{ 'show-error-text': !isPassing && isClickPass }">{{
-                $t('login.placeholder.slider')
-              }}</p>
+              <p
+                class="absolute top-0 z-[1] px-[1px] mt-[10px] text-[13px] text-[#f56c6c] transition-all duration-300"
+                :class="{ 'translate-y-10': !isPassing && isClickPass }"
+              >
+                {{ $t('login.placeholder.slider') }}
+              </p>
             </div>
 
-            <div class="forget-password">
+            <div class="flex items-center justify-between mt-[10px] text-[14px]">
               <ElCheckbox v-model="formData.rememberPassword">{{
                 $t('login.rememberPwd')
               }}</ElCheckbox>
-              <RouterLink :to="{ name: 'ForgetPassword' }">{{ $t('login.forgetPwd') }}</RouterLink>
+              <RouterLink class="text-primary" :to="{ name: 'ForgetPassword' }">{{
+                $t('login.forgetPwd')
+              }}</RouterLink>
             </div>
 
             <div style="margin-top: 30px">
               <ElButton
-                class="login-btn"
+                class="w-full custom-height"
                 type="primary"
                 @click="handleSubmit"
                 :loading="loading"
@@ -85,11 +91,11 @@
               </ElButton>
             </div>
 
-            <div class="footer">
-              <p>
-                {{ $t('login.noAccount') }}
-                <RouterLink :to="{ name: 'Register' }">{{ $t('login.register') }}</RouterLink>
-              </p>
+            <div class="mt-[20px] text-[14px] text-gray-600">
+              <span>{{ $t('login.noAccount') }}</span>
+              <RouterLink class="text-primary" :to="{ name: 'Register' }">{{
+                $t('login.register')
+              }}</RouterLink>
             </div>
           </ElForm>
         </div>
@@ -260,6 +266,8 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  @use './index';
+<style scoped>
+  :deep(.el-select__wrapper) {
+    height: 40px !important;
+  }
 </style>

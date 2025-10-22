@@ -81,8 +81,8 @@
 <style lang="scss" scoped>
   .top-right-wrap {
     position: absolute;
-    top: 30px;
-    right: 30px;
+    top: 20px;
+    right: 20px;
     z-index: 10;
     display: flex;
     gap: 10px;

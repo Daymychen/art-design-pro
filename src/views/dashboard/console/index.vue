@@ -1,5 +1,5 @@
 <template>
-  <div class="console">
+  <div>
     <CardList></CardList>
 
     <ElRow :gutter="20">
@@ -41,7 +41,3 @@
 
   useCommon().scrollToTop()
 </script>
-
-<style lang="scss" scoped>
-  @use './style';
-</style>

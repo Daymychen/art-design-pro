@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -12,29 +12,89 @@
   }
 } */
 
+/* @layer base {
+  [data-theme='light'] {
+  }
+
+  [data-theme='dark'] {
+  }
+} */
+
+:root {
+  --a-gray-50: oklch(0.985 0.002 247.839);
+  --a-gray-100: oklch(0.967 0.003 264.542);
+  --a-gray-200: oklch(0.928 0.006 264.531);
+  --a-gray-300: oklch(0.872 0.01 258.338);
+  --a-gray-400: oklch(0.707 0.022 261.325);
+  --a-gray-500: oklch(0.551 0.027 264.364);
+  --a-gray-600: oklch(0.446 0.03 256.802);
+  --a-gray-700: oklch(0.373 0.034 259.733);
+  --a-gray-800: oklch(0.278 0.033 256.848);
+  --a-gray-900: oklch(0.21 0.034 264.665);
+  --a-gray-950: oklch(0.13 0.028 261.692);
+}
+
+.dark {
+  --a-gray-50: oklch(0.13 0.028 261.692);
+  --a-gray-100: oklch(0.21 0.034 264.665);
+  --a-gray-200: oklch(0.278 0.033 256.848);
+  --a-gray-300: oklch(0.373 0.034 259.733);
+  --a-gray-400: oklch(0.446 0.03 256.802);
+  --a-gray-500: oklch(0.551 0.027 264.364);
+  --a-gray-600: oklch(0.707 0.022 261.325);
+  --a-gray-700: oklch(0.872 0.01 258.338);
+  --a-gray-800: oklch(0.928 0.006 264.531);
+  --a-gray-900: oklch(0.967 0.003 264.542);
+  --a-gray-950: oklch(0.985 0.002 247.839);
+}
 
 /* 主题类 */
 @theme {
-  /* Background color | Hover color */
-  --color-art-gray-100: var(--art-gray-100);
-  --color-art-gray-200: var(--art-gray-200);
-  --color-art-gray-300: var(--art-gray-300);
-  --color-art-gray-400: var(--art-gray-400);
-  --color-art-gray-500: var(--art-gray-500);
-  --color-art-gray-600: var(--art-gray-600);
-  --color-art-gray-700: var(--art-gray-700);
-  --color-art-gray-800: var(--art-gray-800);
-  --color-art-gray-900: var(--art-gray-900);
+  /* 主题色 */
+  --color-primary: var(--main-color);
+
+  /* 颜色反转，自动适配暗黑模式 */
+  --color-g-50: var(--a-gray-50);
+  --color-g-100: var(--a-gray-100);
+  --color-g-200: var(--a-gray-200);
+  --color-g-300: var(--a-gray-300);
+  --color-g-400: var(--a-gray-400);
+  --color-g-500: var(--a-gray-500);
+  --color-g-600: var(--a-gray-600);
+  --color-g-700: var(--a-gray-700);
+  --color-g-800: var(--a-gray-800);
+  --color-g-900: var(--a-gray-900);
+  --color-g-950: var(--a-gray-950);
 }
 
 /* 添加组件类 */
 @layer components {
-  .card {
+  .art-card {
+    /* border: 1px solid var(--art-card-border) !important;
+    background: var(--art-main-bg-color);
+    border-radius: calc(var(--custom-radius) + 4px) !important; */
+    /* border-radius: calc(var(--custom-radius) / 2 + 2px) !important; */
+    /* @apply rounded-[calc(var(--custom-radius) + 4px)] */
     /* @apply bg-gray-200 p-5 rounded-2xl */
   }
 
-  .button {
-    /* @apply bg-gray-800 p-10 rounded-2xl text-white cursor-pointer */
+  /* art-card header style */
+  .art-card-header {
+    @apply flex justify-between pr-[25px] pb-[5px];
+
+    .title {
+      h4 {
+        @apply text-[18px] font-medium text-g-900;
+      }
+
+      p {
+        @apply mt-[3px] text-[13px] text-g-600;
+
+        span {
+          @apply ml-[10px] text-lime-500 font-medium;
+        }
+      }
+    }
   }
 }
 
@@ -42,5 +102,5 @@
 
 /* 自定义圆角 */
 @utility rounded-custom-sm {
-  border-radius: calc(var(--custom-radius)/2 + 2px);
+  border-radius: calc(var(--custom-radius) / 2 + 2px);
 }

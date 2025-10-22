@@ -1,5 +1,5 @@
 <template>
-  <div class="analysis-dashboard">
+  <div>
     <ElRow :gutter="20">
       <ElCol :xl="14" :lg="15" :xs="24">
         <TodaySales />
@@ -9,7 +9,7 @@
       </ElCol>
     </ElRow>
 
-    <ElRow :gutter="20" class="mt-20">
+    <ElRow :gutter="20">
       <ElCol :xl="10" :lg="10" :xs="24">
         <TotalRevenue />
       </ElCol>
@@ -21,7 +21,7 @@
       </ElCol>
     </ElRow>
 
-    <ElRow :gutter="20" class="mt-20">
+    <ElRow :gutter="20">
       <ElCol :xl="10" :lg="10" :xs="24">
         <TopProducts />
       </ElCol>
@@ -47,7 +47,3 @@
 
   defineOptions({ name: 'Analysis' })
 </script>
-
-<style lang="scss" scoped>
-  @use './style';
-</style>

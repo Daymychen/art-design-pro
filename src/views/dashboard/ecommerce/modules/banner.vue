@@ -1,6 +1,6 @@
 <template>
   <ArtBasicBanner
-    class="banner"
+    class="justify-center mb-[20px]"
     height="13.3rem"
     :title="`欢迎回来 ${userInfo.userName}`"
     backgroundColor="var(--el-color-primary-light-9)"
@@ -21,9 +21,9 @@
     }"
     @click="handleBannerClick"
   >
-    <div class="banner-slot">
-      <div class="item">
-        <p class="title">
+    <div class="flex mt-6">
+      <div class="mr-[30px] pr-[30px] border-r border-gray-300">
+        <p class="text-[30px] text-gray-900">
           <ArtCountTo
             class="number box-title"
             :target="2340"
@@ -31,16 +31,16 @@
             prefix="¥"
             separator=","
           />
-          <i class="iconfont-sys text-success">&#xe8d5;</i>
+          <i class="iconfont-sys text-success text-base ml-2.5 relative -top-2.5">&#xe8d5;</i>
         </p>
-        <p class="subtitle">今日销售额</p>
+        <p class="mt-1 text-sm text-gray-700">今日销售额</p>
       </div>
-      <div class="item">
-        <p class="title">
+      <div class="mr-[30px]">
+        <p class="text-[30px] text-gray-900">
           <ArtCountTo class="number box-title" :target="35" :duration="1500" suffix="%" />
-          <i class="iconfont-sys text-success">&#xe8d5;</i>
+          <i class="iconfont-sys text-success text-base ml-2.5 relative -top-2.5">&#xe8d5;</i>
         </p>
-        <p class="subtitle">较昨日</p>
+        <p class="mt-1 text-sm text-gray-700">较昨日</p>
       </div>
     </div>
   </ArtBasicBanner>
@@ -64,41 +64,3 @@
     // TODO: 添加横幅点击处理逻辑
   }
 </script>
-
-<style lang="scss" scoped>
-  .banner {
-    justify-content: center;
-
-    .banner-slot {
-      display: flex;
-      margin-top: 24px;
-
-      .item {
-        margin-right: 30px;
-
-        &:first-of-type {
-          padding-right: 30px;
-          border-right: 1px solid var(--art-gray-300);
-        }
-
-        .title {
-          font-size: 30px;
-          color: var(--art-gray-900) !important;
-
-          i {
-            position: relative;
-            top: -10px;
-            margin-left: 10px;
-            font-size: 16px;
-          }
-        }
-
-        .subtitle {
-          margin-top: 4px;
-          font-size: 14px;
-          color: var(--art-gray-700) !important;
-        }
-      }
-    }
-  }
-</style>
