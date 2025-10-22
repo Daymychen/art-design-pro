@@ -1,5 +1,5 @@
 <template>
-  <div class="art-card p-[20px] flex justify-between">
+  <div class="art-card p-[20px] flex justify-between mb-5">
     <div>
       <h2 class="text-2xl font-medium">关于项目</h2>
       <p class="text-g-500 mt-[5px]">{{ systemName }} 是一款兼具设计美学与高效开发的后台系统</p>

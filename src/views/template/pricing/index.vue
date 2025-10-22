@@ -1,30 +1,58 @@
 <template>
-  <div class="pricing-container">
-    <div class="pricing-header">
-      <h1 class="title">超过 53,476 位信赖的开发者</h1>
-      <h2 class="subtitle">以及众多科技巨头的选择</h2>
-      <div class="free-notice">
-        <p class="notice-text">本项目基于 MIT 协议开源免费，当前页面为定价模板，仅作演示用途</p>
+  <div class="pt-24 px-20 max-notebook:!pt-20 max-notebook:!px-8 bg-transparent !border-none">
+    <div class="mb-10 text-center">
+      <h1 class="mb-2 text-[2.5rem] font-medium max-phone:text-[2rem]"
+        >超过 53,476 位信赖的开发者</h1
+      >
+      <h2 class="mb-2.5 text-[1.4rem] font-normal text-[var(--art-gray-600)] max-phone:text-2xl">
+        以及众多科技巨头的选择
+      </h2>
+      <div class="flex gap-2 items-center justify-center mt-2.5 max-phone:mt-[15px]">
+        <p class="text-sm italic text-[var(--art-gray-600)] max-phone:text-[13px]">
+          本项目基于 MIT 协议开源免费，当前页面为定价模板，仅作演示用途
+        </p>
         <ElTag type="success" size="large" round>免费商用</ElTag>
       </div>
     </div>
 
-    <div class="pricing-cards">
+    <div class="mt-20 max-notebook:mt-0">
       <ElRow :gutter="20" justify="center">
-        <ElCol v-for="plan in pricingPlans" :key="plan.type" :xs="24" :sm="12" :md="6">
-          <ElCard class="pricing-card" :class="{ popular: plan.isPopular }" shadow="never">
-            <div class="card-header">
-              <h3>{{ plan.title }}</h3>
-              <p class="description">{{ plan.description }}</p>
-              <div class="price">
-                <span class="amount">¥{{ plan.price }}</span>
-                <span class="period">/一次性付款</span>
+        <ElCol v-for="plan in pricingPlans" :key="plan.type" :xs="24" :sm="12" :md="6" class="mb-5">
+          <ElCard
+            class="flex flex-col h-full rounded-[10px]"
+            :class="{
+              'relative border-2 border-[var(--el-color-primary)] after:content-[\'热门\'] after:absolute after:top-2.5 after:right-2.5 after:px-2 after:py-0.5 after:text-xs after:text-[var(--el-color-primary)] after:bg-[var(--el-color-primary-light-9)] after:rounded-xl':
+                plan.isPopular
+            }"
+            shadow="never"
+          >
+            <div class="mb-5">
+              <h3 class="mb-2.5 text-[1.3rem] text-[var(--art-text-gray-900)]">{{ plan.title }}</h3>
+              <p
+                class="h-10 pb-5 mb-5 overflow-hidden text-sm text-[var(--art-text-gray-600)] text-ellipsis border-b border-[var(--art-border-color)] line-clamp-2"
+              >
+                {{ plan.description }}
+              </p>
+              <div class="mt-[30px]">
+                <span class="text-[1.8rem] font-semibold">¥{{ plan.price }}</span>
+                <span class="ml-2.5 text-sm text-[var(--art-text-gray-600)]">/一次性付款</span>
               </div>
             </div>
 
-            <div class="features">
-              <div v-for="(feature, index) in plan.features" :key="index" class="feature-item">
-                <ElIcon :class="feature.available ? 'available' : 'unavailable'">
+            <div class="flex-grow mb-5">
+              <div
+                v-for="(feature, index) in plan.features"
+                :key="index"
+                class="flex items-center mb-2.5 text-sm"
+              >
+                <ElIcon
+                  class="mr-2.5"
+                  :class="
+                    feature.available
+                      ? 'text-[var(--el-color-primary)]'
+                      : 'text-[var(--el-color-danger)]'
+                  "
+                >
                   <Check v-if="feature.available" />
                   <Close v-else />
                 </ElIcon>
@@ -32,8 +60,8 @@
               </div>
             </div>
 
-            <div class="card-footer">
-              <ElButton type="primary" class="purchase-btn" v-ripple>立即购买</ElButton>
+            <div class="mt-auto text-center">
+              <ElButton type="primary" class="w-full h-10" v-ripple>立即购买</ElButton>
             </div>
           </ElCard>
         </ElCol>
@@ -125,183 +153,3 @@
     }
   ])
 </script>
-
-<style lang="scss" scoped>
-  .pricing-container {
-    padding: 6rem 5rem 0;
-    background-color: transparent !important;
-    border: none !important;
-
-    .pricing-header {
-      margin-bottom: 40px;
-      text-align: center;
-
-      .title {
-        margin-bottom: 0.5rem;
-        font-size: 2.5rem;
-        font-weight: 500;
-      }
-
-      .subtitle {
-        margin-bottom: 10px;
-        font-size: 1.4rem;
-        font-weight: 400;
-        color: var(--art-gray-600);
-      }
-
-      .free-notice {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-        justify-content: center;
-        margin-top: 10px;
-
-        .notice-text {
-          font-size: 14px;
-          font-style: italic;
-          color: var(--art-gray-600);
-        }
-      }
-    }
-
-    .pricing-cards {
-      margin-top: 80px;
-
-      .el-col {
-        margin-bottom: 20px;
-      }
-
-      .pricing-card {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        border-radius: 10px;
-
-        &.popular {
-          position: relative;
-          border: 2px solid var(--el-color-primary);
-
-          &::after {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            padding: 2px 8px;
-            font-size: 12px;
-            color: var(--el-color-primary);
-            content: '热门';
-            background-color: var(--el-color-primary-light-9);
-            border-radius: 12px;
-          }
-        }
-
-        .card-header {
-          margin-bottom: 20px;
-
-          h3 {
-            margin-bottom: 10px;
-            font-size: 1.3rem;
-            color: var(--art-text-gray-900) !important;
-          }
-
-          .description {
-            display: -webkit-box;
-            height: 40px;
-            padding-bottom: 20px;
-            margin-bottom: 20px;
-            overflow: hidden;
-            font-size: 14px;
-            color: var(--art-text-gray-600);
-            text-overflow: ellipsis;
-            border-bottom: 1px solid var(--art-border-color);
-            -webkit-box-orient: vertical;
-          }
-
-          .price {
-            margin-top: 30px;
-
-            .amount {
-              font-size: 1.8rem;
-              font-weight: 600;
-            }
-
-            .period {
-              margin-left: 10px;
-              font-size: 14px;
-              color: var(--art-text-gray-600);
-            }
-          }
-        }
-
-        .features {
-          flex-grow: 1;
-          margin-bottom: 20px;
-
-          .feature-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-            font-size: 14px;
-
-            .el-icon {
-              margin-right: 10px;
-
-              &.available {
-                color: var(--el-color-primary);
-              }
-
-              &.unavailable {
-                color: var(--el-color-danger);
-              }
-            }
-          }
-        }
-
-        .card-footer {
-          margin-top: auto;
-          text-align: center;
-
-          .purchase-btn {
-            width: 100%;
-            height: 40px;
-          }
-        }
-      }
-    }
-  }
-
-  @media only screen and (max-width: $device-notebook) {
-    .pricing-container {
-      padding: 5rem 2rem 0 !important;
-
-      .pricing-cards {
-        margin-top: 0;
-      }
-    }
-  }
-
-  @media only screen and (max-width: $device-phone) {
-    .pricing-container {
-      .pricing-header {
-        .title {
-          font-size: 2rem;
-        }
-
-        .subtitle {
-          font-size: 1.5rem;
-        }
-
-        .free-notice {
-          margin-top: 15px;
-
-          .notice-text {
-            font-size: 13px;
-          }
-        }
-      }
-
-      .el-col {
-        margin-bottom: 20px;
-      }
-    }
-  }
-</style>

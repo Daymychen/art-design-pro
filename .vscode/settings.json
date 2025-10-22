@@ -1,5 +1,6 @@
 {
   "volar.inlayHints.eventArgumentInInlineHandlers": true,
+  "css.lint.unknownAtRules": "ignore",
   "i18n-ally.localesPaths": ["src/locales/langs", "src/locales"],
   "i18n-ally.enabledParsers": ["json"],
   "i18n-ally.sourceLanguage": "en",

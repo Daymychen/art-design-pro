@@ -1,14 +1,14 @@
 <template>
-  <div class="banners">
+  <div class="pt-5">
     <h1 class="page-title">基础 & 自定义按钮+背景色</h1>
     <ElRow :gutter="20">
-      <ElCol :xs="24" :sm="12" :md="12">
+      <ElCol :xs="24" :sm="12" :md="12" class="mb-5">
         <ArtBasicBanner
           title="数据中心运行状态"
           subtitle="系统访问量同比增长 23%，所有服务运行稳定，数据监控正常。"
         />
       </ElCol>
-      <ElCol :xs="24" :sm="12" :md="12">
+      <ElCol :xs="24" :sm="12" :md="12" class="mb-5">
         <ArtBasicBanner
           title="欢迎使用 Art Design Pro"
           subtitle="基于 Vue 3 + TypeScript + Element Plus 构建的现代化管理系统。"
@@ -30,7 +30,7 @@
     <h1 class="page-title">自定义图片 & 使用 slot 自定义内容</h1>
 
     <ElRow :gutter="20">
-      <ElCol :xs="24" :sm="12" :md="12">
+      <ElCol :xs="24" :sm="12" :md="12" class="mb-5">
         <ArtBasicBanner
           title="探索星空计划"
           subtitle="加入我们的天文观测活动，发现宇宙的奥秘"
@@ -46,7 +46,7 @@
           }"
         />
       </ElCol>
-      <ElCol :xs="24" :sm="12" :md="12">
+      <ElCol :xs="24" :sm="12" :md="12" class="mb-5">
         <ArtBasicBanner
           backgroundColor="#70B1FF"
           :imageConfig="{
@@ -76,23 +76,23 @@
 
     <h1 class="page-title">抽象配置方案（Preset 模式）</h1>
     <ElRow :gutter="20">
-      <ElCol :xs="24" :sm="12" :md="12">
+      <ElCol :xs="24" :sm="12" :md="12" class="mb-5">
         <ArtBasicBanner v-bind="PresetBanners.marketing" />
       </ElCol>
-      <ElCol :xs="24" :sm="12" :md="12">
+      <ElCol :xs="24" :sm="12" :md="12" class="mb-5">
         <ArtBasicBanner v-bind="PresetBanners.info" />
       </ElCol>
     </ElRow>
 
     <h1 class="page-title">卡片横幅</h1>
     <ElRow :gutter="20">
-      <ElCol :xs="24" :sm="12" :md="12" :lg="6">
+      <ElCol :xs="24" :sm="12" :md="12" :lg="6" class="mb-5">
         <ArtCardBanner
           title="系统运行正常"
           description="所有核心服务运行稳定，响应时间在正常范围内。"
         />
       </ElCol>
-      <ElCol :xs="24" :sm="12" :md="12" :lg="6">
+      <ElCol :xs="24" :sm="12" :md="12" :lg="6" class="mb-5">
         <ArtCardBanner
           :image="icon2"
           title="重要消息通知"
@@ -105,7 +105,7 @@
           }"
         />
       </ElCol>
-      <ElCol :xs="24" :sm="12" :md="12" :lg="6">
+      <ElCol :xs="24" :sm="12" :md="12" :lg="6" class="mb-5">
         <ArtCardBanner
           :image="icon3"
           title="数据分析报告"
@@ -118,7 +118,7 @@
           }"
         />
       </ElCol>
-      <ElCol :xs="24" :sm="12" :md="12" :lg="6">
+      <ElCol :xs="24" :sm="12" :md="12" :lg="6" class="mb-5">
         <ArtCardBanner
           :image="icon4"
           title="版本更新提醒"
@@ -208,22 +208,10 @@
   } as const
 </script>
 
-<style lang="scss" scoped>
-  .banners {
-    padding-top: 20px;
+<style>
+  @import 'tailwindcss';
 
-    .page-title {
-      margin: 20px 0 15px;
-      font-size: 22px;
-      font-weight: 500;
-
-      &:first-child {
-        margin-top: 0;
-      }
-    }
-
-    .el-col {
-      margin-bottom: 20px;
-    }
+  .page-title {
+    @apply my-5 text-[22px] font-medium first:mt-0;
   }
 </style>

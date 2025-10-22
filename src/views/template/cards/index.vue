@@ -1,8 +1,8 @@
 <template>
-  <div class="cards">
+  <div class="py-5">
     <h1 class="page-title">统计卡片（文字）</h1>
     <ElRow :gutter="20">
-      <ElCol :xs="24" :sm="12" :md="6" v-for="card in statsCards" :key="card.id">
+      <ElCol :xs="24" :sm="12" :md="6" v-for="card in statsCards" :key="card.id" class="mb-5">
         <ArtStatsCard
           :icon="card.icon"
           :title="card.title"
@@ -18,7 +18,7 @@
 
     <h1 class="page-title">统计卡片（数字滚动）</h1>
     <ElRow :gutter="20">
-      <ElCol :xs="24" :sm="12" :md="6" v-for="card in statsCards" :key="card.id">
+      <ElCol :xs="24" :sm="12" :md="6" v-for="card in statsCards" :key="card.id" class="mb-5">
         <ArtStatsCard
           :icon="card.icon"
           :count="card.count"
@@ -35,7 +35,7 @@
 
     <h1 class="page-title">统计卡片（自定义样式）</h1>
     <ElRow :gutter="20">
-      <ElCol :xs="24" :sm="12" :md="6" v-for="card in statsCards" :key="card.id">
+      <ElCol :xs="24" :sm="12" :md="6" v-for="card in statsCards" :key="card.id" class="mb-5">
         <ArtStatsCard
           :icon="card.icon"
           :title="card.title"
@@ -50,14 +50,14 @@
 
     <h1 class="page-title">进度卡片</h1>
     <ElRow :gutter="20">
-      <ElCol :xs="24" :sm="12" :md="6" v-for="card in progressCards" :key="card.id">
+      <ElCol :xs="24" :sm="12" :md="6" v-for="card in progressCards" :key="card.id" class="mb-5">
         <ArtProgressCard :percentage="card.percentage" :title="card.title" :color="card.color" />
       </ElCol>
     </ElRow>
 
     <h1 class="page-title">进度卡片（icon）</h1>
     <ElRow :gutter="20">
-      <ElCol :xs="24" :sm="12" :md="6" v-for="card in progressCards" :key="card.id">
+      <ElCol :xs="24" :sm="12" :md="6" v-for="card in progressCards" :key="card.id" class="mb-5">
         <ArtProgressCard
           :percentage="card.percentage"
           :title="card.title"
@@ -73,7 +73,7 @@
 
     <h1 class="page-title">图表卡片（小图表）</h1>
     <ElRow :gutter="20">
-      <ElCol :xs="24" :sm="12" :md="6">
+      <ElCol :xs="24" :sm="12" :md="6" class="mb-5">
         <ArtLineChartCard
           :isMiniChart="true"
           :value="2545"
@@ -84,7 +84,7 @@
           :chartData="[120, 132, 101, 134, 90, 230, 210]"
         />
       </ElCol>
-      <ElCol :xs="24" :sm="12" :md="6">
+      <ElCol :xs="24" :sm="12" :md="6" class="mb-5">
         <ArtBarChartCard
           :isMiniChart="true"
           :value="15480"
@@ -96,7 +96,7 @@
           :chartData="[120, 100, 150, 140, 90, 120, 130]"
         />
       </ElCol>
-      <ElCol :xs="24" :sm="12" :md="6">
+      <ElCol :xs="24" :sm="12" :md="6" class="mb-5">
         <ArtLineChartCard
           :isMiniChart="true"
           :value="2545"
@@ -108,7 +108,7 @@
           :chartData="[150, 180, 160, 200, 180, 220, 240]"
         />
       </ElCol>
-      <ElCol :xs="24" :sm="12" :md="6">
+      <ElCol :xs="24" :sm="12" :md="6" class="mb-5">
         <ArtDonutChartCard
           :value="36358"
           title="粉丝量"
@@ -125,7 +125,7 @@
 
     <h1 class="page-title">图表卡片（大图表）</h1>
     <ElRow :gutter="20">
-      <ElCol :xs="24" :sm="12" :md="6">
+      <ElCol :xs="24" :sm="12" :md="6" class="mb-5">
         <ArtLineChartCard
           :value="2545"
           label="新用户"
@@ -134,7 +134,7 @@
           :chartData="[120, 132, 101, 134, 90, 230, 210]"
         />
       </ElCol>
-      <ElCol :xs="24" :sm="12" :md="6">
+      <ElCol :xs="24" :sm="12" :md="6" class="mb-5">
         <ArtBarChartCard
           :value="15480"
           label="浏览量"
@@ -143,7 +143,7 @@
           :chartData="[120, 100, 150, 140, 90, 120, 130, 110]"
         />
       </ElCol>
-      <ElCol :xs="24" :sm="12" :md="6">
+      <ElCol :xs="24" :sm="12" :md="6" class="mb-5">
         <ArtLineChartCard
           :value="2545"
           label="粉丝数"
@@ -153,7 +153,7 @@
           :chartData="[150, 180, 160, 200, 180, 220, 240]"
         />
       </ElCol>
-      <ElCol :xs="24" :sm="12" :md="6">
+      <ElCol :xs="24" :sm="12" :md="6" class="mb-5">
         <ArtDonutChartCard
           :value="36358"
           title="粉丝量"
@@ -169,10 +169,10 @@
 
     <h1 class="page-title">数据列表卡片</h1>
     <ElRow :gutter="20">
-      <ElCol :xs="24" :sm="12" :lg="8">
+      <ElCol :xs="24" :sm="12" :lg="8" class="mb-5">
         <ArtDataListCard :list="dataList" title="待办事项" subtitle="今日待处理任务" />
       </ElCol>
-      <ElCol :xs="24" :sm="12" :lg="8">
+      <ElCol :xs="24" :sm="12" :lg="8" class="mb-5">
         <ArtDataListCard
           :maxCount="4"
           :list="dataList"
@@ -182,14 +182,14 @@
           @more="handleMore"
         />
       </ElCol>
-      <ElCol :xs="24" :sm="12" :lg="8">
+      <ElCol :xs="24" :sm="12" :lg="8" class="mb-5">
         <ArtTimelineListCard :list="timelineData" title="最近交易" subtitle="2024年12月20日" />
       </ElCol>
     </ElRow>
 
     <h1 class="page-title">图片卡片</h1>
     <ElRow :gutter="20">
-      <ElCol :xs="24" :sm="12" :md="6" v-for="card in imageCards" :key="card.id">
+      <ElCol :xs="24" :sm="12" :md="6" v-for="card in imageCards" :key="card.id" class="mb-5">
         <ArtImageCard
           :imageUrl="card.imageUrl"
           :title="card.title"
@@ -461,22 +461,10 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .cards {
-    padding: 20px 0;
+<style scoped>
+  @import 'tailwindcss';
 
-    .page-title {
-      margin: 20px 0 15px;
-      font-size: 22px;
-      font-weight: 500;
-
-      &:first-child {
-        margin-top: 0;
-      }
-    }
-
-    .el-col {
-      margin-bottom: 20px;
-    }
+  .page-title {
+    @apply my-5 text-[22px] font-medium first:mt-0;
   }
 </style>

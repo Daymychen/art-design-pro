@@ -1,25 +1,27 @@
 <template>
-  <div class="page-content">
+  <div class="page-content mb-5">
     <!-- 日历主体 -->
     <ElCalendar v-model="currentDate">
       <template #date-cell="{ data }">
         <div
-          class="calendar-cell"
+          class="relative flex flex-col h-full min-h-[120px] max-h-[120px] p-1 overflow-hidden cursor-pointer"
           :class="{ 'is-selected': data.isSelected }"
           @click="handleCellClick(data.day)"
         >
           <!-- 日期显示 -->
-          <p class="calendar-date">{{ formatDate(data.day) }}</p>
+          <p class="absolute top-1 right-1 text-sm">{{ formatDate(data.day) }}</p>
 
           <!-- 事件列表 -->
-          <div class="calendar-events">
+          <div class="flex flex-col gap-1 w-full max-h-[85px] pr-1 mt-6 overflow-y-auto">
             <div
               v-for="event in getEvents(data.day)"
               :key="`${event.date}-${event.content}`"
-              class="calendar-event"
               @click.stop="handleEventClick(event)"
             >
-              <div class="event-tag" :class="[`${event.type || 'bg-primary'}`]">
+              <div
+                class="min-w-[100px] px-3 py-1.5 overflow-hidden text-[13px] font-medium leading-6 text-ellipsis whitespace-nowrap rounded hover:opacity-80"
+                :class="[`${event.type || 'bg-primary'}`]"
+              >
                 {{ event.content }}
               </div>
             </div>
@@ -233,99 +235,29 @@
   }
 </script>
 
-<style scoped lang="scss">
-  .page-content {
+<style scoped>
+  :deep(.el-calendar) {
     height: 100%;
-
-    :deep(.el-calendar) {
-      height: 100%;
-
-      .el-calendar__body {
-        height: calc(100% - 70px);
-      }
-
-      .el-calendar-table {
-        height: 100%;
-
-        .is-selected {
-          // 选中日期的背景颜色
-          background-color: var(--el-color-warning-light-9) !important;
-        }
-
-        .el-calendar-day {
-          height: 100%;
-
-          &:hover {
-            background-color: transparent !important;
-          }
-        }
-      }
-    }
   }
 
-  .calendar-cell {
-    position: relative;
-    display: flex;
-    flex-direction: column;
+  :deep(.el-calendar__body) {
+    height: calc(100% - 70px);
+  }
+
+  :deep(.el-calendar-table) {
     height: 100%;
-    min-height: 120px;
-    max-height: 120px;
-    padding: 4px;
-    overflow: hidden;
-    cursor: pointer;
+  }
 
-    .calendar-date {
-      position: absolute;
-      top: 4px;
-      right: 4px;
-      font-size: 14px;
-    }
+  :deep(.is-selected) {
+    background-color: var(--el-color-warning-light-9) !important;
+  }
 
-    .calendar-events {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      width: 100%;
-      max-height: 85px;
-      padding-right: 4px;
-      margin-top: 24px;
-      overflow-y: auto;
-    }
+  :deep(.el-calendar-day) {
+    height: 100%;
+  }
 
-    .event-tag {
-      min-width: 100px;
-      padding: 6px 12px;
-      overflow: hidden;
-      font-size: 13px;
-      font-weight: 500;
-      line-height: 24px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      border-radius: 4px;
-
-      &:hover {
-        opacity: 0.8;
-      }
-
-      &::before {
-        position: absolute;
-        top: 0;
-        left: 0;
-        display: inline-block;
-        width: 4px;
-        height: 100%;
-        content: '';
-      }
-
-      &.event-continues::after {
-        position: absolute;
-        top: 50%;
-        right: 4px;
-        font-size: 12px;
-        content: '►';
-        transform: translateY(-50%);
-      }
-    }
+  :deep(.el-calendar-day:hover) {
+    background-color: transparent !important;
   }
 
   :deep(.el-dialog__body) {
