@@ -118,6 +118,24 @@ export const examplesRoutes: AppRouteRecord = {
         title: 'menus.examples.tablesTree',
         keepAlive: true
       }
+    },
+    {
+      path: 'vxe-table',
+      name: 'VxeTableDemo',
+      component: '/examples/vxe-table',
+      meta: {
+        title: 'menus.examples.vxeTable',
+        keepAlive: true
+      }
+    },
+    {
+      path: 'vxe-table/advanced',
+      name: 'VxeTableAdvanced',
+      component: '/examples/vxe-table/advanced',
+      meta: {
+        title: 'menus.examples.vxeTableAdvanced',
+        keepAlive: true
+      }
     }
   ]
 }

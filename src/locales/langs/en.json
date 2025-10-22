@@ -107,6 +107,7 @@
       "title": "Dashboard"
     },
     "examples": {
+      "cforms": "Config Forms",
       "forms": "Forms",
       "permission": {
         "buttonAuth": "Button Authority",
@@ -119,7 +120,9 @@
       "tablesBasic": "Basic Tables",
       "tablesTree": "Tree Table Layout",
       "tabs": "Tabs",
-      "title": "Feature Examples"
+      "title": "Feature Examples",
+      "vxeTable": "VXE Table Demo",
+      "vxeTableAdvanced": "VXE Table Advanced"
     },
     "exception": {
       "forbidden": "403",

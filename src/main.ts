@@ -17,6 +17,12 @@ import '@utils/sys/console.ts'                      // 控制台输出内容
 import { setupGlobDirectives } from './directives'
 import { setupErrorHandle } from './utils/sys/error-handle'
 
+// VXE Table
+import 'vxe-table/lib/style.css'
+import 'vxe-pc-ui/lib/style.css'
+import VxeUI from 'vxe-pc-ui'
+import VxeTable from 'vxe-table'
+
 document.addEventListener(
   'touchstart',
   function () {},
@@ -29,5 +35,9 @@ initRouter(app)
 setupGlobDirectives(app)
 setupErrorHandle(app)
 
+app.use(VxeUI)
+app.use(VxeTable)
 app.use(language)
+
+
 app.mount('#app')
