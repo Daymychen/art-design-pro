@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-  import TableSelect from '@/components/core/forms/art-form-item/select-table/index.vue'
+  import TableSelect from '@/components/core/forms/art-form-item/table-select/index.vue'
   import { ElMessage } from 'element-plus'
 
   interface FormData {
