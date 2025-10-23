@@ -1,21 +1,34 @@
 <!-- 授权页右上角组件 -->
 <template>
-  <div class="top-right-wrap">
-    <div class="color-picker-expandable">
-      <div class="color-dots-container">
+  <div
+    class="absolute right-5 top-5 z-10 flex items-center gap-2.5 max-[680px]:[&_.color-picker-expandable]:hidden"
+  >
+    <div class="color-picker-expandable relative flex items-center">
+      <div
+        class="color-dots-container absolute right-0 flex items-center gap-2 rounded-[20px] px-2.5 py-2 pr-9 pl-2.5 opacity-0 shadow-[0_2px_12px_var(--art-gray-300)] backdrop-blur-[10px] [pointer-events:none] [transform:translateX(10px)]"
+      >
         <div
           v-for="(color, index) in mainColors"
           :key="color"
-          class="color-dot"
+          class="color-dot relative flex h-[22px] w-[22px] cursor-pointer items-center justify-center rounded-full opacity-0 shadow-[0_2px_4px_rgba(0,0,0,0.15)] [transform:translateX(20px)_scale(0.8)] hover:scale-110 hover:translate-x-0 hover:shadow-[0_4px_8px_rgba(0,0,0,0.2)]"
           :class="{ active: color === systemThemeColor }"
           :style="{ background: color, '--index': index }"
           @click="changeThemeColor(color)"
         >
-          <i v-if="color === systemThemeColor" class="iconfont-sys check-icon">&#xe616;</i>
+          <i
+            v-if="color === systemThemeColor"
+            class="iconfont-sys check-icon text-xs text-white [filter:drop-shadow(0_1px_2px_rgba(0,0,0,0.3))]"
+            >&#xe616;</i
+          >
         </div>
       </div>
-      <div class="color-trigger-btn btn">
-        <i class="iconfont-sys">&#xe82c;</i>
+      <div
+        class="color-trigger-btn btn relative z-[2] flex h-8 w-8 cursor-pointer items-center justify-center transition-all duration-300"
+      >
+        <i
+          class="iconfont-sys !text-[19px] text-[var(--art-gray-800)] transition-colors duration-300"
+          >&#xe82c;</i
+        >
       </div>
     </div>
     <ElDropdown
@@ -23,8 +36,13 @@
       @command="changeLanguage"
       popper-class="langDropDownStyle"
     >
-      <div class="btn language-btn">
-        <i class="iconfont-sys icon-language">&#xe611;</i>
+      <div
+        class="btn language-btn flex h-8 w-8 cursor-pointer items-center justify-center transition-all duration-300 hover:[&_.iconfont-sys]:text-[var(--main-color)]"
+      >
+        <i
+          class="iconfont-sys icon-language text-lg text-[var(--art-gray-800)] transition-colors duration-300"
+          >&#xe611;</i
+        >
       </div>
       <template #dropdown>
         <ElDropdownMenu>
@@ -37,10 +55,15 @@
         </ElDropdownMenu>
       </template>
     </ElDropdown>
-    <div v-if="shouldShowThemeToggle" class="btn theme-btn" @click="themeAnimation">
-      <i class="iconfont-sys">
-        {{ isDark ? '&#xe6b5;' : '&#xe725;' }}
-      </i>
+    <div
+      v-if="shouldShowThemeToggle"
+      class="btn theme-btn flex h-8 w-8 cursor-pointer items-center justify-center transition-all duration-300 hover:[&_.iconfont-sys]:text-[var(--main-color)]"
+      @click="themeAnimation"
+    >
+      <ArtSvgIcon
+        :icon="isDark ? 'ri:sun-fill' : 'ri:moon-line'"
+        class="text-lg text-[var(--art-gray-800)] transition-colors duration-300"
+      />
     </div>
   </div>
 </template>
@@ -78,132 +101,35 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .top-right-wrap {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    z-index: 10;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-
-    .btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      cursor: pointer;
-      transition: all 0.3s;
-
-      .iconfont-sys {
-        font-size: 18px;
-        color: var(--art-gray-800);
-        transition: color 0.3s;
-      }
-
-      &:hover {
-        .iconfont-sys {
-          color: var(--main-color);
-        }
-      }
-    }
-
-    .color-picker-expandable {
-      position: relative;
-      display: flex;
-      align-items: center;
-
-      .color-trigger-btn {
-        position: relative;
-        z-index: 2;
-
-        i {
-          font-size: 19px !important;
-        }
-      }
-
-      .color-dots-container {
-        position: absolute;
-        right: 0;
-        display: flex;
-        gap: 8px;
-        align-items: center;
-        padding: 8px 36px 8px 10px;
-        pointer-events: none;
-        backdrop-filter: blur(10px);
-        border-radius: 20px;
-        box-shadow: 0 2px 12px var(--art-gray-300);
-        opacity: 0;
-        transition:
-          opacity 0.3s ease,
-          transform 0.3s ease;
-        transform: translateX(10px);
-
-        .color-dot {
-          position: relative;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 22px;
-          height: 22px;
-          cursor: pointer;
-          border-radius: 50%;
-          box-shadow: 0 2px 4px rgb(0 0 0 / 15%);
-          opacity: 0;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          transform: translateX(20px) scale(0.8);
-
-          .check-icon {
-            font-size: 12px;
-            color: #fff;
-            filter: drop-shadow(0 1px 2px rgb(0 0 0 / 30%));
-          }
-
-          &:hover {
-            box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
-            transform: translateX(0) scale(1.1);
-          }
-        }
-      }
-
-      &:hover {
-        .color-dots-container {
-          pointer-events: auto;
-          opacity: 1;
-          transform: translateX(0);
-
-          .color-dot {
-            opacity: 1;
-            transition-delay: calc(var(--index) * 0.05s);
-            transform: translateX(0) scale(1);
-          }
-        }
-
-        .color-trigger-btn .iconfont-sys {
-          color: var(--main-color);
-        }
-      }
-    }
+<style scoped>
+  .color-dots-container {
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
   }
 
-  .dark {
-    .top-right-wrap {
-      .color-picker-expandable {
-        .color-dots-container {
-          background-color: var(--art-gray-200);
-          box-shadow: none;
-        }
-      }
-    }
+  .color-dot {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: calc(var(--index) * 0.05s);
   }
 
-  @media screen and (width <= 680px) {
-    .top-right-wrap {
-      .color-picker-expandable {
-        display: none;
-      }
-    }
+  .color-picker-expandable:hover .color-dots-container {
+    pointer-events: auto;
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .color-picker-expandable:hover .color-dot {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+
+  .color-picker-expandable:hover .color-trigger-btn .iconfont-sys {
+    color: var(--main-color);
+  }
+
+  .dark .color-dots-container {
+    background-color: var(--art-gray-200);
+    box-shadow: none;
   }
 </style>

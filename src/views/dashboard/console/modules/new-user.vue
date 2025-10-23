@@ -3,7 +3,7 @@
     <div class="art-card-header">
       <div class="title">
         <h4>新用户</h4>
-        <p>这个月增长<span class="text-lime-500">+20%</span></p>
+        <p>这个月增长<span class="text-success">+20%</span></p>
       </div>
       <ElRadioGroup v-model="radio2">
         <ElRadioButton value="本月" label="本月"></ElRadioButton>

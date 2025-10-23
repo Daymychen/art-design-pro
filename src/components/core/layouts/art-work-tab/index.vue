@@ -1,9 +1,17 @@
 <!-- 标签页 -->
 <template>
-  <div class="worktab" :class="[tabStyle]" v-if="showWorkTab">
-    <div class="scroll-view" ref="scrollRef">
+  <div
+    class="box-border flex justify-between w-full px-5 mb-3 select-none"
+    :class="[
+      tabStyle === 'tab-card' ? 'py-1 border-b border-[var(--art-border-color)]' : '',
+      tabStyle === 'tab-google' ? 'pt-[5px] pb-0 border-b border-[var(--art-border-color)]' : ''
+    ]"
+    v-if="showWorkTab"
+  >
+    <div class="w-full overflow-hidden" ref="scrollRef">
       <ul
-        class="tabs"
+        class="float-left whitespace-nowrap !bg-transparent"
+        :class="[tabStyle === 'tab-google' ? 'pl-[5px]' : '']"
         ref="tabsRef"
         :style="{
           transform: `translateX(${scrollState.translateX}px)`,
@@ -11,35 +19,55 @@
         }"
       >
         <li
-          class="art-custom-card"
+          class="art-custom-card inline-block h-8 mr-1.5 text-[13px] leading-[30px] text-center cursor-pointer bg-[var(--art-main-bg-color)] border border-transparent transition-colors duration-100 hover:!text-[var(--main-color)] hover:transition-colors hover:duration-200"
+          :class="[
+            item.path === activeTab
+              ? 'activ-tab !text-[var(--main-color)]'
+              : 'text-[var(--art-text-gray-600)]',
+            tabStyle === 'tab-google'
+              ? 'google-tab relative !h-[37px] !leading-[37px] !border-none'
+              : ''
+          ]"
+          :style="{
+            padding: item.fixedTab ? '0 10px' : '0 8px 0 12px',
+            borderRadius:
+              tabStyle === 'tab-google'
+                ? 'calc(var(--custom-radius) / 2.5 + 4px)'
+                : 'calc(var(--custom-radius) / 2.5 + 2px)'
+          }"
           v-for="(item, index) in list"
           :key="item.path"
           :ref="item.path"
-          :class="{ 'activ-tab': item.path === activeTab }"
           :id="`scroll-li-${index}`"
-          :style="{ padding: item.fixedTab ? '0 10px' : '0 8px 0 12px' }"
           @click="clickTab(item)"
           @contextmenu.prevent="(e: MouseEvent) => showMenu(e, item.path)"
         >
           {{ item.customTitle || formatMenuTitle(item.title) }}
-          <ElIcon
+          <span
             v-if="list.length > 1 && !item.fixedTab"
+            class="inline-flex items-center justify-center relative p-1 ml-1.5 rounded-full transition-all duration-200 hover:bg-[rgb(238_238_238)] dark:hover:!bg-[rgb(238_238_238_/_10%)]"
             @click.stop="closeWorktab('current', item.path)"
           >
-            <Close />
-          </ElIcon>
-          <div class="line"></div>
+            <ArtSvgIcon icon="ri:close-large-fill" class="text-[10px] text-[var(--art-gray-600)]" />
+          </span>
+          <div
+            v-if="tabStyle === 'tab-google'"
+            class="line absolute top-0 bottom-0 left-0 w-px h-4 my-auto bg-[var(--art-border-dashed-color)] transition-opacity duration-150"
+          ></div>
         </li>
       </ul>
     </div>
 
-    <div class="right">
-      <ElIcon
-        class="btn console-box art-custom-card"
+    <div class="flex">
+      <div
+        class="btn console-box art-custom-card relative top-0 box-border w-[34px] h-[34px] text-base leading-[34px] text-center cursor-pointer bg-[var(--art-main-bg-color)]"
+        :style="{ borderRadius: 'calc(var(--custom-radius) / 2.5 + 0px)' }"
         @click="(e: MouseEvent) => showMenu(e, activeTab)"
       >
-        <ArrowDown />
-      </ElIcon>
+        <ElIcon>
+          <ArrowDown />
+        </ElIcon>
+      </div>
     </div>
 
     <ArtMenuRight
@@ -56,7 +84,7 @@
   import { computed, onMounted, ref, watch, nextTick, onUnmounted } from 'vue'
   import { LocationQueryRaw, useRoute, useRouter } from 'vue-router'
   import { useI18n } from 'vue-i18n'
-  import { ArrowDown, Close } from '@element-plus/icons-vue'
+  import { ArrowDown } from '@element-plus/icons-vue'
   import { storeToRefs } from 'pinia'
 
   import { useWorktabStore } from '@/store/modules/worktab'
@@ -449,6 +477,104 @@
   )
 </script>
 
-<style lang="scss" scoped>
-  @use './style';
+<style scoped>
+  /* Google tab style specific styles that can't be done with Tailwind */
+  .google-tab.activ-tab {
+    color: var(--main-color) !important;
+    background-color: var(--el-color-primary-light-9) !important;
+    border-bottom: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
+
+  .google-tab.activ-tab::before,
+  .google-tab.activ-tab::after {
+    position: absolute;
+    bottom: 0;
+    width: 20px;
+    height: 20px;
+    content: '';
+    border-radius: 50%;
+    box-shadow: 0 0 0 30px var(--el-color-primary-light-9);
+  }
+
+  .google-tab.activ-tab::before {
+    left: -20px;
+    clip-path: inset(50% -10px 0 50%);
+  }
+
+  .google-tab.activ-tab::after {
+    right: -20px;
+    clip-path: inset(50% 50% 0 -10px);
+  }
+
+  .dark .google-tab.activ-tab {
+    color: var(--art-gray-800) !important;
+    background-color: var(--art-gray-200) !important;
+  }
+
+  .dark .google-tab.activ-tab::before,
+  .dark .google-tab.activ-tab::after {
+    box-shadow: 0 0 0 30px var(--art-gray-200);
+  }
+
+  .google-tab:hover {
+    box-sizing: border-box;
+    color: var(--art-text-gray-600) !important;
+    background-color: var(--art-gray-200) !important;
+    border-bottom: 1px solid var(--art-main-bg-color) !important;
+    border-radius: calc(var(--custom-radius) / 2.5 + 4px) !important;
+  }
+
+  .google-tab:hover .line,
+  .google-tab.activ-tab .line,
+  .google-tab:first-child .line {
+    opacity: 0;
+  }
+
+  .google-tab:hover + .google-tab .line,
+  .google-tab.activ-tab + .google-tab .line {
+    opacity: 0;
+  }
+
+  .google-tab::before,
+  .google-tab::after {
+    position: absolute;
+    bottom: 0;
+    width: 20px;
+    height: 20px;
+    content: '';
+    border-radius: 50%;
+    box-shadow: 0 0 0 30px transparent;
+  }
+
+  .google-tab::before {
+    left: -20px;
+    clip-path: inset(50% -10px 0 50%);
+  }
+
+  .google-tab::after {
+    right: -20px;
+    clip-path: inset(50% 50% 0 -10px);
+  }
+
+  .google-tab i:hover {
+    color: var(--art-text-gray-700);
+    background: var(--art-gray-300);
+  }
+
+  /* Responsive styles */
+  @media only screen and (width <= 768px) {
+    .box-border.flex.justify-between {
+      padding-right: 0.625rem;
+      padding-left: 0.625rem;
+    }
+  }
+
+  @media only screen and (width <= 640px) {
+    .box-border.flex.justify-between {
+      padding-right: 0.9375rem;
+      padding-left: 0.9375rem;
+    }
+  }
 </style>

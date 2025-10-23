@@ -100,8 +100,6 @@
     [url: string]: HTMLImageElement
   }
 
-  // ==================== 配置常量 ====================
-
   /**
    * 烟花效果的全局配置
    * 使用 as const 确保配置的不可变性
@@ -167,14 +165,10 @@
     ]
   } as const
 
-  // ==================== 响应式状态 ====================
-
   /** Canvas DOM 元素引用 */
   const canvasRef = ref<HTMLCanvasElement>()
   /** Canvas 2D 绘制上下文 */
   const ctx = ref<CanvasRenderingContext2D | null>(null)
-
-  // ==================== 烟花系统 ====================
 
   /**
    * 烟花系统核心类
@@ -558,8 +552,6 @@
     }
   }
 
-  // ==================== 组件逻辑 ====================
-
   /** 烟花系统实例 */
   const fireworkSystem = new FireworkSystem()
 
@@ -601,8 +593,6 @@
     const imageUrl = event as string | undefined
     fireworkSystem.createFirework(imageUrl)
   }
-
-  // ==================== 生命周期 ====================
 
   /**
    * 组件挂载时的初始化逻辑

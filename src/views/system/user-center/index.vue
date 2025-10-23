@@ -1,3 +1,4 @@
+<!-- 个人中心 -->
 <template>
   <div class="w-full h-full p-0 bg-transparent border-none shadow-none">
     <div class="relative flex justify-between mt-2.5 max-md:block max-md:mt-[5px]">
@@ -18,19 +19,19 @@
 
           <div class="w-[300px] mx-auto mt-[30px] text-left">
             <div class="mt-2.5">
-              <i class="iconfont-sys">&#xe72e;</i>
+              <ArtSvgIcon icon="ri:mail-line" class="text-g-700" />
               <span class="ml-2 text-sm">jdkjjfnndf@mall.com</span>
             </div>
             <div class="mt-2.5">
-              <i class="iconfont-sys">&#xe608;</i>
+              <ArtSvgIcon icon="ri:user-3-line" class="text-g-700" />
               <span class="ml-2 text-sm">交互专家</span>
             </div>
             <div class="mt-2.5">
-              <i class="iconfont-sys">&#xe736;</i>
+              <ArtSvgIcon icon="ri:map-pin-line" class="text-g-700" />
               <span class="ml-2 text-sm">广东省深圳市</span>
             </div>
             <div class="mt-2.5">
-              <i class="iconfont-sys">&#xe811;</i>
+              <ArtSvgIcon icon="ri:dribbble-fill" class="text-g-700" />
               <span class="ml-2 text-sm">字节跳动－某某平台部－UED</span>
             </div>
           </div>

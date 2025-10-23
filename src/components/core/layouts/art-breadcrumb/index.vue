@@ -1,17 +1,28 @@
 <!-- 面包屑导航 -->
 <template>
-  <nav class="breadcrumb" aria-label="breadcrumb">
-    <ul>
-      <li v-for="(item, index) in breadcrumbItems" :key="item.path">
+  <nav class="ml-2.5 max-lg:hidden" aria-label="breadcrumb">
+    <ul class="flex h-full items-center">
+      <li
+        v-for="(item, index) in breadcrumbItems"
+        :key="item.path"
+        class="box-border flex h-7 items-center text-sm leading-7 !text-[var(--art-text-gray-700)]"
+      >
         <div
-          :class="{ clickable: isClickable(item, index) }"
+          :class="
+            isClickable(item, index)
+              ? 'cursor-pointer rounded transition-all duration-200 ease-in-out hover:bg-[rgba(var(--art-gray-200-rgb),0.85)] hover:[&_span]:text-[var(--art-gray-700)]'
+              : ''
+          "
           @click="handleBreadcrumbClick(item, index)"
         >
-          <span>{{ formatMenuTitle(item.meta?.title as string) }}</span>
+          <span
+            class="block max-w-[200px] overflow-hidden text-ellipsis whitespace-nowrap px-1.5 text-[13px] text-[var(--art-gray-600)] transition-colors duration-200 ease-in-out"
+            >{{ formatMenuTitle(item.meta?.title as string) }}</span
+          >
         </div>
         <div
           v-if="!isLastItem(index) && item.meta?.title"
-          class="breadcrumb-separator"
+          class="mx-1 text-[13px] not-italic text-[var(--art-gray-600)]"
           aria-hidden="true"
         >
           /
@@ -129,56 +140,3 @@
     }
   }
 </script>
-
-<style lang="scss" scoped>
-  @use './style';
-
-  .breadcrumb {
-    ul {
-      display: flex;
-      align-items: center;
-      height: 100%;
-
-      li {
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        height: 28px;
-        font-size: 14px;
-        line-height: 28px;
-
-        .clickable {
-          cursor: pointer;
-          border-radius: 4px;
-          transition: color 0.2s ease;
-          transition: all 0.2s ease;
-
-          &:hover {
-            background-color: rgba(var(--art-gray-200-rgb), 0.85);
-
-            span {
-              color: var(--art-gray-700);
-            }
-          }
-        }
-
-        span {
-          display: block;
-          max-width: 200px;
-          padding: 0 6px;
-          overflow: hidden;
-          color: var(--art-gray-600);
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          transition: color 0.2s ease;
-        }
-
-        .breadcrumb-separator {
-          margin: 0 4px;
-          font-style: normal;
-          color: var(--art-gray-600);
-        }
-      }
-    }
-  }
-</style>

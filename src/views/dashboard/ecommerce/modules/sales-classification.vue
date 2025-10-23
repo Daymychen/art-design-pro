@@ -25,7 +25,7 @@
         <div
           class="flex items-center justify-center w-[42px] h-[42px] mr-2.5 text-primary bg-primary/10 rounded-lg"
         >
-          <i class="iconfont-sys text-xl">&#xe718;</i>
+          <ArtSvgIcon icon="ri:money-cny-circle-line" class="text-[20px]" />
         </div>
         <div>
           <p class="text-lg">¥500,458</p>
@@ -36,7 +36,7 @@
         <div
           class="flex items-center justify-center w-[42px] h-[42px] mr-2.5 text-primary bg-primary/10 rounded-lg"
         >
-          <i class="iconfont-sys text-xl">&#xe70c;</i>
+          <ArtSvgIcon icon="ri:heart-3-line" class="text-[20px]" />
         </div>
         <div>
           <p class="text-lg">¥130,580</p>

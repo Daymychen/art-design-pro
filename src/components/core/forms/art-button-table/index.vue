@@ -1,7 +1,10 @@
 <!-- 表格按钮 -->
 <template>
   <div
-    :class="['btn-text', buttonClass]"
+    :class="[
+      'inline-block min-w-[34px] h-[34px] px-2.5 mr-2.5 text-[13px] leading-[34px] text-[#666] cursor-pointer bg-[rgba(var(--art-gray-200-rgb),0.7)] rounded-md transition-all duration-200 ease-in-out hover:bg-[rgba(var(--art-gray-300-rgb),0.5)]',
+      buttonClass
+    ]"
     :style="{ backgroundColor: buttonBgColor, color: iconColor }"
     @click="handleClick"
   >
@@ -56,24 +59,3 @@
     emit('click')
   }
 </script>
-
-<style scoped lang="scss">
-  .btn-text {
-    display: inline-block;
-    min-width: 34px;
-    height: 34px;
-    padding: 0 10px;
-    margin-right: 10px;
-    font-size: 13px;
-    line-height: 34px;
-    color: #666;
-    cursor: pointer;
-    background-color: rgba(var(--art-gray-200-rgb), 0.7);
-    border-radius: 6px;
-    transition: all 0.2s ease-in-out;
-
-    &:hover {
-      background-color: rgba(var(--art-gray-300-rgb), 0.5);
-    }
-  }
-</style>

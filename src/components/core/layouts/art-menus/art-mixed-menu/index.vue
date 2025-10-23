@@ -1,8 +1,12 @@
 <!-- 混合菜单 -->
 <template>
-  <div class="mixed-top-menu">
+  <div class="relative box-border flex items-center w-full overflow-hidden">
     <!-- 左侧滚动按钮 -->
-    <div v-show="showLeftArrow" class="scroll-btn left" @click="scroll('left')">
+    <div
+      v-show="showLeftArrow"
+      class="scroll-btn-left absolute top-1/2 left-[3px] z-[2] flex items-center justify-center w-[30px] h-[30px] text-[var(--art-text-gray-600)] cursor-pointer rounded transition-all duration-200 ease-in-out -translate-y-1/2 hover:text-[var(--art-text-gray-900)] hover:bg-[rgba(var(--art-gray-200-rgb),0.8)]"
+      @click="scroll('left')"
+    >
       <ElIcon>
         <ArrowLeft />
       </ElIcon>
@@ -16,16 +20,20 @@
       @scroll="handleScroll"
       @wheel="handleWheel"
     >
-      <div class="scroll-bar">
+      <div
+        class="box-border flex flex-shrink-0 flex-nowrap items-center h-[60px] whitespace-nowrap"
+      >
         <template v-for="item in processedMenuList" :key="item.meta.title">
           <div
             v-if="!item.meta.isHide"
-            class="item"
-            :class="{ active: item.isActive }"
+            class="menu-item relative flex-shrink-0 h-10 px-3 text-sm leading-10 cursor-pointer rounded-md hover:text-[var(--main-color)]"
+            :class="{
+              'menu-item-active text-[var(--main-color)] bg-[var(--main-bg-color)]': item.isActive
+            }"
             @click="handleMenuJump(item, true)"
           >
-            <i class="iconfont-sys" v-html="item.meta.icon" />
-            <span>{{ item.formattedTitle }}</span>
+            <i class="mr-[5px] text-[15px] text-g-800 iconfont-sys" v-html="item.meta.icon" />
+            <span class="text-g-800">{{ item.formattedTitle }}</span>
             <div v-if="item.meta.showBadge" class="art-badge art-badge-mixed" />
           </div>
         </template>
@@ -33,7 +41,11 @@
     </ElScrollbar>
 
     <!-- 右侧滚动按钮 -->
-    <div v-show="showRightArrow" class="scroll-btn right" @click="scroll('right')">
+    <div
+      v-show="showRightArrow"
+      class="scroll-btn-right absolute top-1/2 right-[10px] z-[2] flex items-center justify-center w-[30px] h-[30px] text-[var(--art-text-gray-600)] cursor-pointer rounded transition-all duration-200 ease-in-out -translate-y-1/2 hover:text-[var(--art-text-gray-900)] hover:bg-[rgba(var(--art-gray-200-rgb),0.8)]"
+      @click="scroll('right')"
+    >
       <ElIcon>
         <ArrowRight />
       </ElIcon>
@@ -213,109 +225,37 @@
   onMounted(initScrollState)
 </script>
 
-<style lang="scss" scoped>
-  .mixed-top-menu {
-    position: relative;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    overflow: hidden;
-
-    :deep(.el-scrollbar__bar.is-horizontal) {
-      bottom: 5px;
-      display: none;
-      height: 2px;
-    }
-
-    :deep(.scrollbar-wrapper) {
-      flex: 1;
-      min-width: 0;
-      margin: 0 50px 0 30px;
-    }
-
-    .scroll-bar {
-      box-sizing: border-box;
-      display: flex;
-      flex-shrink: 0;
-      flex-wrap: nowrap;
-      align-items: center;
-      height: 60px;
-      white-space: nowrap;
-
-      .item {
-        position: relative;
-        flex-shrink: 0; // 防止菜单项被压缩
-        height: 40px;
-        padding: 0 12px;
-        font-size: 14px;
-        line-height: 40px;
-        cursor: pointer;
-        border-radius: 6px;
-
-        i {
-          margin-right: 5px;
-          font-size: 15px;
-        }
-
-        &:hover {
-          color: var(--main-color);
-        }
-
-        &.active {
-          color: var(--main-color);
-          background-color: var(--main-bg-color);
-
-          &::after {
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            margin: auto;
-            content: '';
-            background-color: var(--main-color);
-          }
-        }
-      }
-    }
-
-    .scroll-btn {
-      position: absolute;
-      top: 50%;
-      z-index: 2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 30px;
-      height: 30px;
-      color: var(--art-text-gray-600);
-      cursor: pointer;
-      border-radius: 4px;
-      transition: all 0.2s ease;
-      transform: translateY(-50%);
-
-      &:hover {
-        color: var(--art-text-gray-900);
-        background-color: rgba(var(--art-gray-200-rgb), 0.8);
-      }
-
-      &.left {
-        left: 3px;
-      }
-
-      &.right {
-        right: 10px;
-      }
-    }
+<style scoped>
+  /* Deep selectors for ElScrollbar */
+  :deep(.el-scrollbar__bar.is-horizontal) {
+    bottom: 5px;
+    display: none;
+    height: 2px;
   }
 
-  @media (max-width: $device-notebook) {
-    .mixed-top-menu {
-      :deep(.scrollbar-wrapper) {
-        margin: 0 45px;
-      }
+  :deep(.scrollbar-wrapper) {
+    flex: 1;
+    min-width: 0;
+    margin: 0 50px 0 30px;
+  }
+
+  /* Active menu item indicator */
+  .menu-item-active::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    margin: auto;
+    content: '';
+    background-color: var(--main-color);
+  }
+
+  /* Responsive adjustments */
+  @media (width <= 1440px) {
+    :deep(.scrollbar-wrapper) {
+      margin: 0 45px;
     }
   }
 </style>

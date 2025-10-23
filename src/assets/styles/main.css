@@ -21,6 +21,14 @@
 } */
 
 :root {
+  /* --g-primary: 93, 135, 255; */
+  --a-secondary: oklch(0.72 0.19 231.6);
+  --a-error: oklch(0.73 0.15 25.3);
+  --a-info: oklch(0.58 0.08 254.1);
+  --a-success: oklch(0.78 0.17 166.1);
+  --a-warning: oklch(0.78 0.14 75.5);
+  --a-danger: oklch(0.68 0.22 25.3);
+
   --a-gray-50: oklch(0.985 0.002 247.839);
   --a-gray-100: oklch(0.967 0.003 264.542);
   --a-gray-200: oklch(0.928 0.006 264.531);
@@ -50,10 +58,18 @@
 
 /* 主题类 */
 @theme {
-  /* 主题色 */
+  /* 系统主题色 */
   --color-primary: var(--main-color);
 
-  /* 颜色反转，自动适配暗黑模式 */
+  /* ElementPlus 主题色 - 使用 oklch 色值 */
+  --color-secondary: var(--a-secondary);
+  --color-error: var(--a-error);
+  --color-info: var(--a-info);
+  --color-success: var(--a-success);
+  --color-warning: var(--a-warning);
+  --color-danger: var(--a-danger);
+
+  /* 灰度颜色，自动适配暗黑模式 */
   --color-g-50: var(--a-gray-50);
   --color-g-100: var(--a-gray-100);
   --color-g-200: var(--a-gray-200);
@@ -91,7 +107,7 @@
         @apply mt-[3px] text-[13px] text-g-600;
 
         span {
-          @apply ml-[10px] text-lime-500 font-medium;
+          @apply ml-[10px] font-medium;
         }
       }
     }

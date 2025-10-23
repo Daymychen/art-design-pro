@@ -1,39 +1,63 @@
 <template>
   <div class="layout-chat">
     <ElDrawer v-model="isDrawerVisible" :size="isMobile ? '100%' : '480px'" :with-header="false">
-      <div class="header">
-        <div class="header-left">
-          <span class="name">Art Bot</span>
-          <div class="status">
-            <div class="dot" :class="{ online: isOnline, offline: !isOnline }"></div>
-            <span class="status-text">{{ isOnline ? '在线' : '离线' }}</span>
+      <div class="mb-5 flex items-center justify-between">
+        <div>
+          <span class="text-base font-medium">Art Bot</span>
+          <div class="mt-1.5 flex items-center gap-1">
+            <div
+              class="h-2 w-2 rounded-full"
+              :class="isOnline ? 'bg-[var(--el-color-success)]' : 'bg-[var(--el-color-danger)]'"
+            ></div>
+            <span class="text-xs text-[var(--art-gray-500)]">{{ isOnline ? '在线' : '离线' }}</span>
           </div>
         </div>
-        <div class="header-right">
-          <ElIcon class="icon-close" :size="20" @click="closeChat">
+        <div>
+          <ElIcon class="cursor-pointer" :size="20" @click="closeChat">
             <Close />
           </ElIcon>
         </div>
       </div>
-      <div class="chat-container">
+      <div class="flex h-[calc(100%-70px)] flex-col">
         <!-- 聊天消息区域 -->
-        <div class="chat-messages" ref="messageContainer">
+        <div
+          class="flex-1 overflow-y-auto border-t border-[var(--el-border-color-lighter)] px-4 py-[30px] [&::-webkit-scrollbar]:!w-[5px]"
+          ref="messageContainer"
+        >
           <template v-for="(message, index) in messages" :key="index">
-            <div :class="['message-item', message.isMe ? 'message-right' : 'message-left']">
-              <ElAvatar :size="32" :src="message.avatar" class="message-avatar" />
-              <div class="message-content">
-                <div class="message-info">
-                  <span class="sender-name">{{ message.sender }}</span>
-                  <span class="message-time">{{ message.time }}</span>
+            <div
+              :class="[
+                'mb-[30px] flex w-full items-start gap-2',
+                message.isMe ? 'flex-row-reverse' : 'flex-row'
+              ]"
+            >
+              <ElAvatar :size="32" :src="message.avatar" class="shrink-0" />
+              <div
+                :class="['flex max-w-[70%] flex-col', message.isMe ? 'items-end' : 'items-start']"
+              >
+                <div
+                  :class="[
+                    'mb-1 flex gap-2 text-xs',
+                    message.isMe ? 'flex-row-reverse' : 'flex-row'
+                  ]"
+                >
+                  <span class="font-medium">{{ message.sender }}</span>
+                  <span class="text-[var(--el-text-color-secondary)]">{{ message.time }}</span>
                 </div>
-                <div class="message-text">{{ message.content }}</div>
+                <div
+                  :class="[
+                    'rounded-md px-3.5 py-2.5 text-sm leading-[1.4] text-[var(--art-gray-900)]',
+                    message.isMe ? 'message-right bg-[#e9f3ff]' : 'message-left bg-[#f8f5ff]'
+                  ]"
+                  >{{ message.content }}</div
+                >
               </div>
             </div>
           </template>
         </div>
 
         <!-- 聊天输入区域 -->
-        <div class="chat-input">
+        <div class="px-4 pt-4">
           <ElInput
             v-model="messageText"
             type="textarea"
@@ -43,19 +67,25 @@
             @keyup.enter.prevent="sendMessage"
           >
             <template #append>
-              <div class="input-actions">
+              <div class="flex gap-2 py-2">
                 <ElButton :icon="Paperclip" circle plain />
                 <ElButton :icon="Picture" circle plain />
                 <ElButton type="primary" @click="sendMessage" v-ripple>发送</ElButton>
               </div>
             </template>
           </ElInput>
-          <div class="chat-input-actions">
-            <div class="left">
-              <i class="iconfont-sys">&#xe634;</i>
-              <i class="iconfont-sys">&#xe809;</i>
+          <div class="mt-3 flex items-center justify-between">
+            <div class="flex items-center">
+              <i class="iconfont-sys mr-5 cursor-pointer text-base text-[var(--art-gray-500)]"
+                >&#xe634;</i
+              >
+              <i class="iconfont-sys mr-5 cursor-pointer text-base text-[var(--art-gray-500)]"
+                >&#xe809;</i
+              >
             </div>
-            <ElButton type="primary" @click="sendMessage" v-ripple>发送</ElButton>
+            <ElButton type="primary" @click="sendMessage" v-ripple class="min-w-[80px]"
+              >发送</ElButton
+            >
           </div>
         </div>
       </div>
@@ -236,14 +266,16 @@
   })
 </script>
 
-<style lang="scss">
-  .layout-chat {
-    .el-overlay {
-      background-color: rgb(0 0 0 / 20%) !important;
-    }
+<style>
+  .layout-chat .el-overlay {
+    background-color: rgb(0 0 0 / 20%) !important;
   }
-</style>
 
-<style lang="scss" scoped>
-  @use './style';
+  .dark .message-left .message-text {
+    background-color: #232323 !important;
+  }
+
+  .dark .message-right .message-text {
+    background-color: #182331 !important;
+  }
 </style>

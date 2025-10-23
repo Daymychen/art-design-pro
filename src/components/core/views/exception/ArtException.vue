@@ -1,10 +1,10 @@
 <template>
-  <div class="page-content state-page">
-    <div class="tips">
-      <ThemeSvg :src="data.imgUrl" size="100%" />
-      <div class="right-wrap">
-        <p>{{ data.desc }}</p>
-        <ElButton type="primary" size="large" @click="backHome" v-ripple>{{
+  <div class="page-content !border-0 !bg-transparent flex min-h-screen items-center justify-center">
+    <div class="flex items-center justify-center max-md:block max-md:text-center">
+      <ThemeSvg :src="data.imgUrl" size="100%" class="w-[300px] max-md:w-[200px]" />
+      <div class="ml-[60px] w-[300px] max-md:mx-auto max-md:mt-10 max-md:w-full max-md:text-center">
+        <p class="text-xl leading-7 text-[var(--art-gray-600)] max-md:text-lg">{{ data.desc }}</p>
+        <ElButton type="primary" size="large" @click="backHome" v-ripple class="mt-5">{{
           data.btnText
         }}</ElButton>
       </div>
@@ -39,63 +39,3 @@
     router.push(useCommon().homePath.value)
   }
 </script>
-
-<style lang="scss" scoped>
-  .state-page {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background-color: transparent !important;
-    border: 0 !important;
-
-    .tips {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      img {
-        width: 300px;
-      }
-
-      .right-wrap {
-        width: 300px;
-        margin-left: 60px;
-
-        p {
-          font-size: 20px;
-          line-height: 28px;
-          color: var(--art-gray-600);
-        }
-
-        .el-button {
-          margin-top: 20px;
-        }
-      }
-    }
-  }
-
-  @media only screen and (max-width: $device-ipad-vertical) {
-    .state-page {
-      .tips {
-        display: block;
-        text-align: center;
-
-        img {
-          width: 200px;
-        }
-
-        .right-wrap {
-          width: 100%;
-          margin: auto;
-          text-align: center;
-
-          p {
-            margin-top: 40px;
-            font-size: 18px;
-          }
-        }
-      }
-    }
-  }
-</style>

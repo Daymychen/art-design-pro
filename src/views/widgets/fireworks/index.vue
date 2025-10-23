@@ -1,6 +1,6 @@
 <template>
   <div class="page-content">
-    <div class="action-buttons">
+    <div class="mb-5">
       <ElButton :disabled="isLaunching" v-ripple @click="handleSingleLaunch"
         >✨ 放个小礼花</ElButton
       >
@@ -112,9 +112,3 @@
     }
   })
 </script>
-
-<style lang="scss" scoped>
-  .action-buttons {
-    margin-bottom: 20px;
-  }
-</style>

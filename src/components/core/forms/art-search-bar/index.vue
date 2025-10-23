@@ -2,14 +2,17 @@
 <!-- 支持常用表单组件、自定义组件、插槽、校验、隐藏表单项 -->
 <!-- 写法同 ElementPlus 官方文档组件，把属性写在 props 里面就可以了 -->
 <template>
-  <section class="art-search-bar art-custom-card" :class="{ 'is-expanded': isExpanded }">
+  <section
+    class="art-custom-card rounded-[calc(var(--custom-radius)/2+2px)] bg-[var(--art-main-bg-color)] px-5 pb-0 pt-[15px] md:px-5 md:pt-[15px]"
+    :class="{ 'is-expanded': isExpanded }"
+  >
     <ElForm
       ref="formRef"
       :model="modelValue"
       :label-position="labelPosition"
       v-bind="{ ...$attrs }"
     >
-      <ElRow class="search-form-row" :gutter="gutter">
+      <ElRow class="flex flex-wrap" :gutter="gutter">
         <ElCol
           v-for="item in visibleFormItems"
           :key="item.key"
@@ -65,9 +68,12 @@
             </slot>
           </ElFormItem>
         </ElCol>
-        <ElCol :xs="24" :sm="24" :md="span" :lg="span" :xl="span" class="action-column">
-          <div class="action-buttons-wrapper" :style="actionButtonsStyle">
-            <div class="form-buttons">
+        <ElCol :xs="24" :sm="24" :md="span" :lg="span" :xl="span" class="max-w-full flex-1">
+          <div
+            class="mb-3 flex flex-wrap items-center justify-end md:flex-row md:items-stretch md:gap-2"
+            :style="actionButtonsStyle"
+          >
+            <div class="flex gap-2 md:justify-center">
               <ElButton v-if="showReset" class="reset-button" @click="handleReset" v-ripple>
                 {{ t('table.searchBar.reset') }}
               </ElButton>
@@ -82,9 +88,15 @@
                 {{ t('table.searchBar.search') }}
               </ElButton>
             </div>
-            <div v-if="shouldShowExpandToggle" class="filter-toggle" @click="toggleExpand">
-              <span>{{ expandToggleText }}</span>
-              <div class="icon-wrapper">
+            <div
+              v-if="shouldShowExpandToggle"
+              class="ml-2.5 flex cursor-pointer items-center leading-8 text-[var(--main-color)] transition-colors duration-200 ease-in-out hover:text-[var(--ElColor-primary)] md:ml-0 md:justify-center"
+              @click="toggleExpand"
+            >
+              <span class="select-none text-sm">{{ expandToggleText }}</span>
+              <div
+                class="ml-1 flex items-center text-sm transition-transform duration-200 ease-in-out"
+              >
                 <ElIcon>
                   <ArrowUpBold v-if="isExpanded" />
                   <ArrowDownBold v-else />
@@ -340,85 +352,3 @@
   // 解构 props 以便在模板中直接使用
   const { span, gutter, labelPosition, labelWidth } = toRefs(props)
 </script>
-
-<style lang="scss" scoped>
-  .art-search-bar {
-    padding: 15px 20px 0;
-    background-color: var(--art-main-bg-color);
-    border-radius: calc(var(--custom-radius) / 2 + 2px);
-
-    .search-form-row {
-      display: flex;
-      flex-wrap: wrap;
-    }
-
-    .action-column {
-      flex: 1;
-      max-width: 100%;
-
-      .action-buttons-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: flex-end;
-        margin-bottom: 12px;
-      }
-
-      .form-buttons {
-        display: flex;
-        gap: 8px;
-      }
-
-      .filter-toggle {
-        display: flex;
-        align-items: center;
-        margin-left: 10px;
-        line-height: 32px;
-        color: var(--main-color);
-        cursor: pointer;
-        transition: color 0.2s ease;
-
-        &:hover {
-          color: var(--ElColor-primary);
-        }
-
-        span {
-          font-size: 14px;
-          user-select: none;
-        }
-
-        .icon-wrapper {
-          display: flex;
-          align-items: center;
-          margin-left: 4px;
-          font-size: 14px;
-          transition: transform 0.2s ease;
-        }
-      }
-    }
-  }
-
-  // 响应式优化
-  @media (width <= 768px) {
-    .art-search-bar {
-      padding: 16px 16px 0;
-
-      .action-column {
-        .action-buttons-wrapper {
-          flex-direction: column;
-          gap: 8px;
-          align-items: stretch;
-
-          .form-buttons {
-            justify-content: center;
-          }
-
-          .filter-toggle {
-            justify-content: center;
-            margin-left: 0;
-          }
-        }
-      }
-    }
-  }
-</style>

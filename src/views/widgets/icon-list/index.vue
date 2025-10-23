@@ -1,6 +1,6 @@
 <template>
-  <div class="page-content">
-    <div class="form">
+  <div class="page-content mb-5">
+    <div class="flex items-center">
       <ElSelect v-model="iconType" placeholder="Select" style="width: 240px">
         <ElOption
           v-for="item in options"
@@ -9,21 +9,36 @@
           :value="item.value"
         />
       </ElSelect>
-      <div class="colors-icon">
+      <div
+        class="box-border h-[var(--el-component-custom-height)] px-[30px] ml-2.5 border border-[var(--art-border-dashed-color)] rounded-[calc(var(--custom-radius)/3+2px)]"
+      >
         <ElCheckbox v-model="isColorsIcon" label="彩色图标" />
       </div>
     </div>
-    <div class="list">
-      <ul class="icon-list">
-        <li v-for="icon in systemIconClasses" :key="icon.className" @click="copyIcon(icon)">
+    <div class="mt-5">
+      <ul
+        class="grid grid-cols-12 w-[calc(100%+16px)] max-lg:grid-cols-8 max-md:grid-cols-5 max-sm:grid-cols-3"
+      >
+        <li
+          v-for="icon in systemIconClasses"
+          :key="icon.className"
+          @click="copyIcon(icon)"
+          class="box-border flex flex-col justify-center aspect-square px-2 mr-4 mb-4 overflow-hidden text-center border border-[rgb(var(--art-gray-300-rgb),0.8)] rounded-xl cursor-pointer hover:bg-[var(--art-gray-100)]"
+        >
           <i
-            class="iconfont-sys"
+            class="iconfont-sys text-[26px] transition-colors duration-300 ease-in-out"
             v-if="iconType === 'unicode'"
             v-html="icon.unicode"
             :style="getIconStyle()"
           ></i>
-          <i :class="`iconfont-sys ${icon.className}`" v-else :style="getIconStyle()"></i>
-          <span>{{ iconType === 'unicode' ? icon.unicode : icon.className }}</span>
+          <i
+            :class="`iconfont-sys ${icon.className} text-[26px] transition-colors duration-300 ease-in-out`"
+            v-else
+            :style="getIconStyle()"
+          ></i>
+          <span class="block mt-2.5 text-xs text-[var(--art-text-gray-600)]">{{
+            iconType === 'unicode' ? icon.unicode : icon.className
+          }}</span>
         </li>
       </ul>
     </div>
@@ -88,98 +103,3 @@
     return isColorsIcon.value ? { color: getRandomColor() } : { color: 'var(--art-text-gray-700)' }
   }
 </script>
-
-<style lang="scss" scoped>
-  .page-content {
-    width: 100%;
-    height: 100%;
-
-    $border-color: #eee;
-
-    .form {
-      display: flex;
-      align-items: center;
-
-      .colors-icon {
-        box-sizing: border-box;
-        height: var(--el-component-custom-height);
-        padding: 0 30px;
-        margin-left: 10px;
-        border: 1px solid var(--art-border-dashed-color);
-        border-radius: calc(var(--custom-radius) / 3 + 2px) !important;
-      }
-    }
-
-    .list {
-      margin-top: 20px;
-
-      .icon-list {
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        width: calc(100% + 16px);
-
-        li {
-          box-sizing: border-box;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          aspect-ratio: 1 / 1;
-          padding: 0 8px;
-          margin: 0 16px 16px 0;
-          overflow: hidden;
-          color: rgba(#fff, 0.8);
-          text-align: center;
-          border: 1px solid rgb(var(--art-gray-300-rgb), 0.8);
-          border-radius: 12px !important;
-
-          &:hover {
-            cursor: pointer;
-            background: var(--art-gray-100);
-          }
-
-          i {
-            font-size: 26px;
-            transition: color 0.3s ease;
-          }
-
-          span {
-            display: block;
-            margin-top: 10px;
-            font-size: 12px;
-            color: var(--art-text-gray-600);
-          }
-        }
-      }
-    }
-  }
-
-  @media screen and (max-width: $device-notebook) {
-    .page-content {
-      .list {
-        .icon-list {
-          grid-template-columns: repeat(8, 1fr);
-        }
-      }
-    }
-  }
-
-  @media screen and (max-width: $device-ipad-vertical) {
-    .page-content {
-      .list {
-        .icon-list {
-          grid-template-columns: repeat(5, 1fr);
-        }
-      }
-    }
-  }
-
-  @media screen and (max-width: $device-phone) {
-    .page-content {
-      .list {
-        .icon-list {
-          grid-template-columns: repeat(3, 1fr);
-        }
-      }
-    }
-  }
-</style>

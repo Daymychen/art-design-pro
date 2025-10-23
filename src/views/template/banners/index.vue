@@ -208,7 +208,7 @@
   } as const
 </script>
 
-<style>
+<style scoped>
   @import 'tailwindcss';
 
   .page-title {

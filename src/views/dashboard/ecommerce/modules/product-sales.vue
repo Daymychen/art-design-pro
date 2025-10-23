@@ -2,7 +2,10 @@
   <div class="art-card p-[20px] pt-[15px] mb-[20px] h-[180px]">
     <div class="art-card-header">
       <div class="title">
-        <h4 class="text-2xl">14.5k<i class="iconfont-sys text-success">&#xe8d5;</i></h4>
+        <h4 class="text-2xl">
+          <span>14.5k</span>
+          <ArtSvgIcon icon="ri:arrow-right-up-line" class="text-success text-[18px] ml-1" />
+        </h4>
         <p>销售量</p>
       </div>
     </div>

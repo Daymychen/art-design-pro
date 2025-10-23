@@ -2,7 +2,7 @@
 <template>
   <div
     ref="chartRef"
-    class="art-scatter-chart"
+    class="relative w-full"
     :style="{ height: props.height }"
     v-loading="props.loading"
   >
@@ -113,10 +113,3 @@
     }
   })
 </script>
-
-<style lang="scss" scoped>
-  .art-scatter-chart {
-    position: relative;
-    width: 100%;
-  }
-</style>

@@ -1,16 +1,16 @@
 <template>
   <div class="page-content">
-    <div class="select">
-      <div class="item">
-        <h3>Unicode</h3>
+    <div>
+      <div class="mb-[30px]">
+        <h3 class="pb-2.5 text-base font-medium">Unicode</h3>
         <ArtIconSelector v-model="icon1" :iconType="IconTypeEnum.UNICODE" />
       </div>
-      <div class="item">
-        <h3>ClassName</h3>
+      <div class="mb-[30px]">
+        <h3 class="pb-2.5 text-base font-medium">ClassName</h3>
         <ArtIconSelector v-model="icon2" :iconType="IconTypeEnum.CLASS_NAME" width="260px" />
       </div>
-      <div class="item">
-        <h3>禁用</h3>
+      <div class="mb-[30px]">
+        <h3 class="pb-2.5 text-base font-medium">禁用</h3>
         <ArtIconSelector
           v-model="icon3"
           :iconType="IconTypeEnum.CLASS_NAME"
@@ -42,17 +42,3 @@
    */
   const icon3 = ref('iconsys-baitianmoshi3')
 </script>
-
-<style scoped lang="scss">
-  .select {
-    .item {
-      margin-bottom: 30px;
-
-      h3 {
-        padding-bottom: 10px;
-        font-size: 16px;
-        font-weight: 500;
-      }
-    }
-  }
-</style>

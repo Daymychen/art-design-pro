@@ -1,18 +1,21 @@
 <!-- 卡片横幅组件 -->
 <template>
-  <div class="card-banner art-custom-card" :style="{ height: props.height }">
-    <div class="banner-content">
-      <div class="banner-icon">
-        <img :src="props.image" :alt="props.title" />
+  <div
+    class="flex flex-col justify-center pb-6 bg-[var(--art-main-bg-color)] art-custom-card !rounded-[calc(var(--custom-radius)+2px)]"
+    :style="{ height: props.height }"
+  >
+    <div class="flex flex-col gap-4 items-center text-center">
+      <div class="w-[180px]">
+        <img :src="props.image" :alt="props.title" class="w-full h-full object-contain" />
       </div>
-      <div class="banner-text">
-        <p class="banner-title">{{ props.title }}</p>
-        <p class="banner-description">{{ props.description }}</p>
+      <div class="box-border px-4">
+        <p class="mb-2 text-lg font-semibold text-[var(--art-text-gray-800)]">{{ props.title }}</p>
+        <p class="m-0 text-sm text-[var(--art-text-gray-600)]">{{ props.description }}</p>
       </div>
-      <div class="banner-buttons">
+      <div class="flex gap-3 items-center">
         <div
           v-if="props.cancelButton?.show"
-          class="banner-button cancel-button"
+          class="inline-block h-[var(--el-component-custom-height)] px-3 text-sm leading-[var(--el-component-custom-height)] cursor-pointer select-none rounded-md transition-opacity duration-300 hover:opacity-90 border border-[#dcdfe6]"
           :style="{
             backgroundColor: props.cancelButton?.color,
             color: props.cancelButton?.textColor
@@ -23,7 +26,7 @@
         </div>
         <div
           v-if="props.button?.show"
-          class="banner-button"
+          class="inline-block h-[var(--el-component-custom-height)] px-3 text-sm leading-[var(--el-component-custom-height)] cursor-pointer select-none rounded-md transition-opacity duration-300 hover:opacity-90"
           :style="{ backgroundColor: props.button?.color, color: props.button?.textColor }"
           @click="handleClick"
         >
@@ -112,76 +115,3 @@
     emit('cancel')
   }
 </script>
-
-<style lang="scss" scoped>
-  .card-banner {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-bottom: 1.5rem;
-    background-color: var(--art-main-bg-color);
-    border-radius: calc(var(--custom-radius) + 2px) !important;
-
-    .banner-content {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      align-items: center;
-      text-align: center;
-    }
-
-    .banner-icon {
-      width: 180px;
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-      }
-    }
-
-    .banner-text {
-      box-sizing: border-box;
-      padding: 0 16px;
-
-      .banner-title {
-        margin-bottom: 8px;
-        font-size: 18px;
-        font-weight: 600;
-        color: var(--art-text-gray-800);
-      }
-
-      .banner-description {
-        margin: 0;
-        font-size: 14px;
-        color: var(--art-text-gray-600);
-      }
-    }
-
-    .banner-buttons {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .banner-button {
-      display: inline-block;
-      height: var(--el-component-custom-height);
-      padding: 0 12px;
-      font-size: 14px;
-      line-height: var(--el-component-custom-height);
-      cursor: pointer;
-      user-select: none;
-      border-radius: 6px;
-      transition: opacity 0.3s;
-
-      &:hover {
-        opacity: 0.9;
-      }
-
-      &.cancel-button {
-        border: 1px solid #dcdfe6;
-      }
-    }
-  }
-</style>

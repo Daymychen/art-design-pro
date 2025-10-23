@@ -2,14 +2,14 @@
   <div class="page-content">
     <ElRow :gutter="20">
       <ElCol :span="6" v-for="preset in qrcodePresets" :key="preset.title">
-        <ElCard class="qrcode-card" shadow="never">
+        <ElCard class="mb-5" shadow="never">
           <template #header>
-            <div class="card-header">
-              <span>{{ preset.title }}</span>
+            <div>
+              <span class="text-base font-bold">{{ preset.title }}</span>
             </div>
           </template>
 
-          <div class="qrcode-preview">
+          <div class="flex items-center justify-center p-5 rounded">
             <QrcodeVue :value="qrValue" v-bind="preset.config" />
           </div>
         </ElCard>
@@ -121,26 +121,3 @@
     }
   })
 </script>
-
-<style lang="scss" scoped>
-  .page-content {
-    padding: 20px;
-
-    .qrcode-card {
-      margin-bottom: 20px;
-
-      .card-header {
-        font-size: 16px;
-        font-weight: bold;
-      }
-
-      .qrcode-preview {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-        border-radius: 4px;
-      }
-    }
-  }
-</style>

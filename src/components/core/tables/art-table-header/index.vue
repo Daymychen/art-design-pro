@@ -1,39 +1,60 @@
 <!-- 表格头部，包含表格大小、刷新、全屏、列设置、其他设置 -->
 <template>
-  <div class="table-header" id="art-table-header">
-    <div class="left">
+  <div class="flex justify-between md:flex-col" id="art-table-header">
+    <div class="flex flex-wrap gap-y-2.5">
       <slot name="left"></slot>
     </div>
 
-    <div class="right">
+    <div class="flex items-center md:mt-2.5 md:justify-end">
       <div
         v-if="showSearchBar != null"
-        class="btn"
+        class="ml-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-[var(--art-gray-700)] transition-all duration-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
         @click="search"
-        :class="{ active: showSearchBar }"
+        :class="
+          showSearchBar
+            ? 'active !bg-[var(--el-color-primary)] hover:!bg-[var(--el-color-primary-light-3)]'
+            : ''
+        "
       >
-        <i class="iconfont-sys">&#xe6cb;</i>
+        <i
+          class="iconfont-sys select-none text-base"
+          :class="showSearchBar ? 'text-white' : 'text-[var(--art-gray-700)]'"
+          >&#xe6cb;</i
+        >
       </div>
       <div
         v-if="shouldShow('refresh')"
-        class="btn"
+        class="ml-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-[var(--art-gray-700)] transition-all duration-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
         @click="refresh"
         :class="{ loading: loading && isManualRefresh }"
       >
-        <i class="iconfont-sys">&#xe615;</i>
+        <i
+          class="iconfont-sys select-none text-base text-[var(--art-gray-700)] hover:text-[var(--art-gray-800)]"
+          :class="loading && isManualRefresh ? 'animate-spin text-[var(--art-gray-600)]' : ''"
+          >&#xe615;</i
+        >
       </div>
 
       <ElDropdown v-if="shouldShow('size')" @command="handleTableSizeChange">
-        <div class="btn">
-          <i class="iconfont-sys">&#xe63d;</i>
+        <div
+          class="ml-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-[var(--art-gray-700)] transition-all duration-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
+        >
+          <i
+            class="iconfont-sys select-none text-base text-[var(--art-gray-700)] hover:text-[var(--art-gray-800)]"
+            >&#xe63d;</i
+          >
         </div>
         <template #dropdown>
           <ElDropdownMenu>
-            <div v-for="item in tableSizeOptions" :key="item.value" class="table-size-btn-item">
+            <div
+              v-for="item in tableSizeOptions"
+              :key="item.value"
+              class="table-size-btn-item [&_.el-dropdown-menu__item]:!mb-[3px] last:[&_.el-dropdown-menu__item]:!mb-0"
+            >
               <ElDropdownItem
                 :key="item.value"
                 :command="item.value"
-                :class="{ 'is-selected': tableSize === item.value }"
+                :class="tableSize === item.value ? '!bg-[rgba(var(--art-gray-200-rgb),0.8)]' : ''"
               >
                 {{ item.label }}
               </ElDropdownItem>
@@ -42,14 +63,27 @@
         </template>
       </ElDropdown>
 
-      <div v-if="shouldShow('fullscreen')" class="btn" @click="toggleFullScreen">
-        <i class="iconfont-sys">{{ isFullScreen ? '&#xe62d;' : '&#xe8ce;' }}</i>
+      <div
+        v-if="shouldShow('fullscreen')"
+        class="ml-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-[var(--art-gray-700)] transition-all duration-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
+        @click="toggleFullScreen"
+      >
+        <i
+          class="iconfont-sys select-none text-base text-[var(--art-gray-700)] hover:text-[var(--art-gray-800)]"
+          >{{ isFullScreen ? '&#xe62d;' : '&#xe8ce;' }}</i
+        >
       </div>
 
       <!-- 列设置 -->
       <ElPopover v-if="shouldShow('columns')" placement="bottom" trigger="click">
         <template #reference>
-          <div class="btn"><i class="iconfont-sys">&#xe6bd;</i> </div>
+          <div
+            class="ml-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-[var(--art-gray-700)] transition-all duration-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
+            ><i
+              class="iconfont-sys select-none text-base text-[var(--art-gray-700)] hover:text-[var(--art-gray-800)]"
+              >&#xe6bd;</i
+            >
+          </div>
         </template>
         <div>
           <VueDraggable
@@ -62,15 +96,23 @@
             <div
               v-for="item in columns"
               :key="item.prop || item.type"
-              class="column-option"
+              class="column-option flex items-center"
               :class="{ 'fixed-column': item.fixed }"
             >
-              <div class="drag-icon" :class="{ disabled: item.fixed }">
-                <i class="iconfont-sys">{{ item.fixed ? '&#xe648;' : '&#xe648;' }}</i>
+              <div
+                class="drag-icon mr-2 flex h-[18px] items-center justify-center text-[var(--art-gray-500)]"
+                :class="item.fixed ? 'cursor-default text-[var(--art-gray-300)]' : 'cursor-move'"
+              >
+                <i class="iconfont-sys text-lg">{{ item.fixed ? '&#xe648;' : '&#xe648;' }}</i>
               </div>
-              <ElCheckbox v-model="item.checked" :disabled="item.disabled">{{
-                item.label || (item.type === 'selection' ? t('table.selection') : '')
-              }}</ElCheckbox>
+              <ElCheckbox
+                v-model="item.checked"
+                :disabled="item.disabled"
+                class="flex-1 min-w-0 [&_.el-checkbox__label]:overflow-hidden [&_.el-checkbox__label]:text-ellipsis [&_.el-checkbox__label]:whitespace-nowrap"
+                >{{
+                  item.label || (item.type === 'selection' ? t('table.selection') : '')
+                }}</ElCheckbox
+              >
             </div>
           </VueDraggable>
         </div>
@@ -78,8 +120,13 @@
       <!-- 其他设置 -->
       <ElPopover v-if="shouldShow('settings')" placement="bottom" trigger="click">
         <template #reference>
-          <div class="btn">
-            <i class="iconfont-sys" style="font-size: 17px">&#xe72b;</i>
+          <div
+            class="ml-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-[var(--art-gray-700)] transition-all duration-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
+          >
+            <i
+              class="iconfont-sys select-none text-[17px] text-[var(--art-gray-700)] hover:text-[var(--art-gray-800)]"
+              >&#xe72b;</i
+            >
           </div>
         </template>
         <div>
@@ -272,151 +319,3 @@
     }
   })
 </script>
-
-<style lang="scss" scoped>
-  :deep(.table-size-btn-item) {
-    .el-dropdown-menu__item {
-      margin-bottom: 3px !important;
-    }
-
-    &:last-child {
-      .el-dropdown-menu__item {
-        margin-bottom: 0 !important;
-      }
-    }
-  }
-
-  :deep(.is-selected) {
-    background-color: rgba(var(--art-gray-200-rgb), 0.8) !important;
-  }
-
-  .table-header {
-    display: flex;
-    justify-content: space-between;
-
-    .left {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px 0;
-    }
-
-    .right {
-      display: flex;
-      align-items: center;
-
-      .btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 32px;
-        margin-left: 8px;
-        color: var(--art-gray-700);
-        cursor: pointer;
-        background-color: rgba(var(--art-gray-200-rgb), 0.8);
-        border-radius: 6px;
-        transition: color 0.3s;
-        transition: all 0.3s;
-
-        i {
-          font-size: 16px;
-          color: var(--art-gray-700);
-          user-select: none;
-        }
-
-        &:hover {
-          background-color: rgba(var(--art-gray-300-rgb), 0.75);
-
-          i {
-            color: var(--art-gray-800);
-          }
-        }
-
-        &.loading {
-          i {
-            color: var(--art-gray-600);
-            animation: loading-spin 1s linear infinite;
-          }
-        }
-
-        &.active {
-          background-color: var(--el-color-primary);
-
-          i {
-            color: #fff;
-          }
-
-          &:hover {
-            background-color: var(--el-color-primary-light-3);
-
-            i {
-              color: #fff;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  :deep(.column-option) {
-    display: flex;
-    align-items: center;
-
-    .drag-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 18px;
-      margin-right: 8px;
-      color: var(--art-gray-500);
-      cursor: move;
-
-      i {
-        font-size: 18px;
-      }
-
-      &.disabled {
-        color: var(--art-gray-300);
-        cursor: default;
-      }
-    }
-
-    .el-checkbox {
-      flex: 1;
-      min-width: 0;
-
-      .el-checkbox__label {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-    }
-  }
-
-  @media (max-width: $device-phone) {
-    .table-header {
-      flex-direction: column;
-
-      .right {
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 10px;
-
-        .btn {
-          margin-right: 10px;
-          margin-left: 0;
-        }
-      }
-    }
-  }
-
-  @keyframes loading-spin {
-    0% {
-      transform: rotate(0deg);
-    }
-
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-</style>

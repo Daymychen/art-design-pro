@@ -1,89 +1,118 @@
 <!-- 通知组件 -->
 <template>
   <div
-    class="notice"
-    v-show="visible"
+    class="absolute top-[60px] right-5 w-[360px] h-[500px] overflow-hidden bg-[var(--art-main-bg-color)] border border-[var(--art-border-color)] shadow-[0_8px_26px_-4px_hsl(0deg_0%_8%_/_15%),0_8px_9px_-5px_hsl(0deg_0%_8%_/_6%)] transition-all duration-200 origin-top will-change-[top,left] max-[640px]:top-[65px] max-[640px]:right-0 max-[640px]:w-full max-[640px]:h-[80vh]"
     :style="{
       transform: show ? 'scaleY(1)' : 'scaleY(0.9)',
-      opacity: show ? 1 : 0
+      opacity: show ? 1 : 0,
+      borderRadius: 'calc(var(--custom-radius) / 2 + 6px)'
     }"
+    v-show="visible"
     @click.stop=""
   >
-    <div class="header">
-      <span class="text">{{ $t('notice.title') }}</span>
-      <span class="btn">{{ $t('notice.btnRead') }}</span>
+    <div class="flex items-center justify-between px-[15px] mt-[15px]">
+      <span class="text-base font-medium text-[var(--art-gray-800)]">{{ $t('notice.title') }}</span>
+      <span
+        class="text-xs px-1.5 py-1 cursor-pointer select-none rounded-md hover:bg-[var(--art-gray-200)]"
+      >
+        {{ $t('notice.btnRead') }}
+      </span>
     </div>
 
-    <ul class="bar">
+    <ul
+      class="box-border flex w-full h-[50px] px-[15px] leading-[50px] border-b border-[var(--art-border-color)]"
+    >
       <li
         v-for="(item, index) in barList"
         :key="index"
-        :class="{ active: barActiveIndex === index }"
+        class="h-12 mr-5 last:mr-0 overflow-hidden text-[13px] text-[var(--art-gray-700)] cursor-pointer select-none transition-colors duration-300 hover:text-[var(--art-gray-900)]"
+        :class="{ 'bar-active': barActiveIndex === index }"
         @click="changeBar(index)"
       >
         {{ item.name }} ({{ item.num }})
       </li>
     </ul>
 
-    <div class="content">
-      <div class="scroll">
+    <div class="w-full h-[calc(100%-95px)]">
+      <div class="h-[calc(100%-60px)] overflow-y-scroll scrollbar-thin">
         <!-- 通知 -->
-        <ul class="notice-list" v-show="barActiveIndex === 0">
-          <li v-for="(item, index) in noticeList" :key="index">
+        <ul v-show="barActiveIndex === 0">
+          <li
+            v-for="(item, index) in noticeList"
+            :key="index"
+            class="box-border flex items-center px-[15px] py-[15px] cursor-pointer last:border-b-0 hover:bg-[var(--art-gray-100)]"
+          >
             <div
-              class="icon"
+              class="w-9 h-9 leading-9 text-center rounded-lg"
               :style="{ background: getNoticeStyle(item.type).backgroundColor + '!important' }"
             >
               <i
-                class="iconfont-sys"
+                class="iconfont-sys text-lg !bg-transparent"
                 :style="{ color: getNoticeStyle(item.type).iconColor + '!important' }"
                 v-html="getNoticeStyle(item.type).icon"
               >
               </i>
             </div>
-            <div class="text">
-              <h4>{{ item.title }}</h4>
-              <p>{{ item.time }}</p>
+            <div class="w-[calc(100%-45px)] ml-[15px]">
+              <h4 class="text-sm font-normal leading-[22px] text-[var(--art-gray-900)]">{{
+                item.title
+              }}</h4>
+              <p class="mt-1.5 text-xs text-[var(--art-gray-500)]">{{ item.time }}</p>
             </div>
           </li>
         </ul>
 
         <!-- 消息 -->
-        <ul class="user-list" v-show="barActiveIndex === 1">
-          <li v-for="(item, index) in msgList" :key="index">
-            <div class="avatar">
-              <img :src="item.avatar" />
+        <ul v-show="barActiveIndex === 1">
+          <li
+            v-for="(item, index) in msgList"
+            :key="index"
+            class="box-border flex items-center px-[15px] py-[15px] cursor-pointer last:border-b-0 hover:bg-[var(--art-gray-100)]"
+          >
+            <div class="w-9 h-9">
+              <img :src="item.avatar" class="w-full h-full rounded-lg" />
             </div>
-            <div class="text">
-              <h4>{{ item.title }}</h4>
-              <p>{{ item.time }}</p>
+            <div class="w-[calc(100%-45px)] ml-[15px]">
+              <h4 class="text-[13px] font-normal leading-[22px] text-[var(--art-gray-900)]">{{
+                item.title
+              }}</h4>
+              <p class="mt-1.5 text-xs text-[var(--art-gray-500)]">{{ item.time }}</p>
             </div>
           </li>
         </ul>
 
         <!-- 待办 -->
-        <ul class="base" v-show="barActiveIndex === 2">
-          <li v-for="(item, index) in pendingList" :key="index">
+        <ul v-show="barActiveIndex === 2">
+          <li
+            v-for="(item, index) in pendingList"
+            :key="index"
+            class="box-border px-5 py-[15px] last:border-b-0"
+          >
             <h4>{{ item.title }}</h4>
-            <p>{{ item.time }}</p>
+            <p class="text-xs text-[var(--art-gray-500)]">{{ item.time }}</p>
           </li>
         </ul>
 
         <!-- 空状态 -->
-        <div class="empty-tips" v-show="currentTabIsEmpty">
-          <i class="iconfont-sys">&#xe8d7;</i>
-          <p>{{ $t('notice.text[0]') }}{{ barList[barActiveIndex].name }}</p>
+        <div
+          v-show="currentTabIsEmpty"
+          class="relative top-[100px] h-full text-[var(--art-gray-500)] text-center !bg-transparent"
+        >
+          <i class="iconfont-sys text-[60px]">&#xe8d7;</i>
+          <p class="mt-[15px] text-xs !bg-transparent"
+            >{{ $t('notice.text[0]') }}{{ barList[barActiveIndex].name }}</p
+          >
         </div>
       </div>
 
-      <div class="btn-wrapper">
-        <ElButton class="view-all" @click="handleViewAll" v-ripple>
+      <div class="relative box-border w-full px-[15px]">
+        <ElButton class="w-full mt-3" @click="handleViewAll" v-ripple>
           {{ $t('notice.viewAll') }}
         </ElButton>
       </div>
     </div>
 
-    <div style="height: 100px"></div>
+    <div class="h-[100px]"></div>
   </div>
 </template>
 
@@ -409,6 +438,21 @@
   )
 </script>
 
-<style lang="scss" scoped>
-  @use './style';
+<style scoped>
+  .bar-active {
+    color: var(--main-color) !important;
+    border-bottom: 2px solid var(--main-color);
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 5px !important;
+  }
+
+  .dark .scrollbar-thin::-webkit-scrollbar-track {
+    background-color: var(--art-main-bg-color);
+  }
+
+  .dark .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: #222 !important;
+  }
 </style>

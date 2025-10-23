@@ -1,8 +1,8 @@
 <template>
-  <ElSubMenu v-if="hasChildren" :index="item.path || item.meta.title">
+  <ElSubMenu v-if="hasChildren" :index="item.path || item.meta.title" class="!p-0">
     <template #title>
       <i
-        class="menu-icon iconfont-sys"
+        class="mr-[5px] text-base iconfont-sys"
         :style="{ color: theme?.iconColor }"
         v-html="item.meta.icon"
       ></i>
@@ -31,7 +31,7 @@
     @click="goPage(item)"
   >
     <i
-      class="menu-icon iconfont-sys"
+      class="mr-[5px] text-base iconfont-sys"
       :style="{ color: theme?.iconColor }"
       v-html="item.meta.icon"
     ></i>
@@ -91,19 +91,9 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .el-sub-menu {
-    padding: 0 !important;
-
-    :deep(.el-sub-menu__title) {
-      .el-sub-menu__icon-arrow {
-        right: 10px !important;
-      }
-    }
-  }
-
-  .menu-icon {
-    margin-right: 5px;
-    font-size: 16px;
+<style scoped>
+  /* Adjust submenu arrow position */
+  :deep(.el-sub-menu__title .el-sub-menu__icon-arrow) {
+    right: 10px !important;
   }
 </style>

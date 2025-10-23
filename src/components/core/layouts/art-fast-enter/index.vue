@@ -14,47 +14,52 @@
     }"
   >
     <template #reference>
-      <div class="fast-enter-trigger">
-        <div class="btn">
-          <i class="iconfont-sys">&#xe81a;</i>
-        </div>
+      <div class="flex items-center gap-2">
+        <slot />
       </div>
     </template>
 
-    <div class="fast-enter">
-      <div class="apps-section">
-        <div class="apps-grid">
+    <div class="grid grid-cols-[2fr_0.8fr]">
+      <div>
+        <div class="grid grid-cols-2 gap-1.5">
           <!-- 应用列表 -->
           <div
             v-for="application in enabledApplications"
             :key="application.name"
-            class="app-item"
+            class="mr-3 flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 hover:bg-[rgba(var(--art-gray-200-rgb),0.7)] hover:[&_.app-icon]:!bg-transparent"
             @click="handleApplicationClick(application)"
           >
-            <div class="app-icon">
+            <div
+              class="app-icon flex h-[46px] w-[46px] items-center justify-center rounded-lg bg-[rgba(var(--art-gray-200-rgb),0.7)]"
+            >
               <i
-                class="iconfont-sys"
+                class="iconfont-sys !text-xl"
                 v-html="application.icon"
                 :style="{ color: application.iconColor }"
               />
             </div>
-            <div class="app-info">
-              <h3>{{ application.name }}</h3>
-              <p>{{ application.description }}</p>
+            <div>
+              <h3 class="m-0 text-sm font-medium text-[var(--art-text-gray-800)]">{{
+                application.name
+              }}</h3>
+              <p class="mt-1 text-xs text-[var(--art-text-gray-500)]">{{
+                application.description
+              }}</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="quick-links">
-        <h3>快速链接</h3>
+      <div class="border-l border-[var(--el-border-color-lighter)] pl-6 pt-2">
+        <h3 class="mb-2.5 text-base font-medium text-[var(--art-text-gray-800)]">快速链接</h3>
         <ul>
           <li
             v-for="quickLink in enabledQuickLinks"
             :key="quickLink.name"
+            class="cursor-pointer py-2 hover:[&_span]:text-[var(--el-color-primary)]"
             @click="handleQuickLinkClick(quickLink)"
           >
-            <span>{{ quickLink.name }}</span>
+            <span class="text-[var(--art-text-gray-600)] no-underline">{{ quickLink.name }}</span>
           </li>
         </ul>
       </div>
@@ -112,7 +117,3 @@
     handleNavigate(quickLink.routeName, quickLink.link)
   }
 </script>
-
-<style lang="scss" scoped>
-  @use './style';
-</style>

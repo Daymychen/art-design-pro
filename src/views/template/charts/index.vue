@@ -17,7 +17,7 @@
 
     <ElRow :gutter="20">
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
-        <div class="card">
+        <div class="art-card">
           <div class="pb-[15px]">
             <span class="text-base font-medium">柱状图（单数据）</span>
           </div>
@@ -30,7 +30,7 @@
         </div>
       </ElCol>
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
-        <div class="card">
+        <div class="art-card">
           <div class="pb-[15px]">
             <span class="text-base font-medium">柱状图（多组数据）</span>
           </div>
@@ -43,7 +43,7 @@
         </div>
       </ElCol>
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
-        <div class="card">
+        <div class="art-card">
           <div class="pb-[15px]">
             <span class="text-base font-medium">柱状图（堆叠）</span>
           </div>
@@ -57,7 +57,7 @@
         </div>
       </ElCol>
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
-        <div class="card">
+        <div class="art-card">
           <div class="pb-[15px]">
             <span class="text-base font-medium">折线图</span>
           </div>
@@ -70,7 +70,7 @@
         </div>
       </ElCol>
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
-        <div class="card">
+        <div class="art-card">
           <div class="pb-[15px]">
             <span class="text-base font-medium">折线图（渐变背景）</span>
           </div>
@@ -82,7 +82,7 @@
         </div>
       </ElCol>
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
-        <div class="card">
+        <div class="art-card">
           <div class="pb-[15px]">
             <span class="text-base font-medium">折线图（多组数据）</span>
           </div>
@@ -95,7 +95,7 @@
       </ElCol>
 
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
-        <div class="card">
+        <div class="art-card">
           <div class="pb-[15px]">
             <span class="text-base font-medium">柱状图（水平）</span>
           </div>
@@ -106,7 +106,7 @@
         </div>
       </ElCol>
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
-        <div class="card">
+        <div class="art-card">
           <div class="pb-[15px]">
             <span class="text-base font-medium">柱状图（水平）</span>
           </div>
@@ -123,7 +123,7 @@
         </div>
       </ElCol>
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
-        <div class="card">
+        <div class="art-card">
           <div class="pb-[15px]">
             <span class="text-base font-medium">柱状图（水平堆叠）</span>
           </div>
@@ -141,7 +141,7 @@
       </ElCol>
 
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
-        <div class="card">
+        <div class="art-card">
           <div class="pb-[15px]">
             <span class="text-base font-medium">环形图</span>
           </div>
@@ -158,7 +158,7 @@
       </ElCol>
 
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
-        <div class="card">
+        <div class="art-card">
           <div class="pb-[15px]">
             <span class="text-base font-medium">环形图</span>
           </div>
@@ -180,7 +180,7 @@
         </div>
       </ElCol>
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
-        <div class="card">
+        <div class="art-card">
           <div class="pb-[15px]">
             <span class="text-base font-medium">饼图</span>
           </div>
@@ -197,7 +197,7 @@
         </div>
       </ElCol>
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
-        <div class="card">
+        <div class="art-card">
           <div class="pb-[15px]">
             <span class="text-base font-medium">散点图</span>
           </div>
@@ -221,7 +221,7 @@
       </ElCol>
 
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
-        <div class="card">
+        <div class="art-card">
           <div class="pb-[15px]">
             <span class="text-base font-medium">雷达图</span>
           </div>
@@ -247,7 +247,7 @@
         </div>
       </ElCol>
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
-        <div class="card">
+        <div class="art-card">
           <div class="pb-[15px]">
             <span class="text-base font-medium">k线图</span>
           </div>
@@ -264,7 +264,7 @@
         </div>
       </ElCol>
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
-        <div class="card">
+        <div class="art-card">
           <div class="pb-[15px]">
             <span class="text-base font-medium">双向堆叠柱状图</span>
           </div>
@@ -349,7 +349,7 @@
     @apply my-5 text-[22px] font-medium first:mt-0;
   }
 
-  .card {
-    @apply p-5 bg-[var(--art-main-bg-color)] rounded-[var(--custom-radius)] border;
+  .art-card {
+    @apply p-5;
   }
 </style>

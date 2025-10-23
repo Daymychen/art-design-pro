@@ -12,7 +12,7 @@
               @click="handleClick(item)"
               class="custom-dropdown-item"
             >
-              <div class="dropdown-item-content">
+              <div class="flex items-center gap-2">
                 <ElIcon
                   v-if="item.icon"
                   :size="15"
@@ -80,11 +80,3 @@
     emit('click', item)
   }
 </script>
-
-<style lang="scss" scoped>
-  .dropdown-item-content {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
-</style>

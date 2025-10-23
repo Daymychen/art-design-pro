@@ -2,7 +2,7 @@
 <template>
   <div
     ref="chartRef"
-    class="art-line-chart"
+    class="relative w-[calc(100%+10px)]"
     :style="{ height: props.height }"
     v-loading="props.loading"
   >
@@ -407,10 +407,3 @@
     }
   })
 </script>
-
-<style lang="scss" scoped>
-  .art-line-chart {
-    position: relative;
-    width: calc(100% + 10px);
-  }
-</style>

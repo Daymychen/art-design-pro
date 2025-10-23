@@ -1,13 +1,16 @@
 <!-- 统计卡片 -->
 <template>
-  <div class="stats-card art-custom-card" :style="{ backgroundColor: backgroundColor }">
+  <div
+    class="art-custom-card flex h-32 cursor-pointer items-center rounded-[calc(var(--custom-radius)+4px)] bg-[var(--art-main-bg-color)] px-5 transition-transform duration-200 ease-in-out hover:-translate-y-0.5"
+    :style="{ backgroundColor: backgroundColor }"
+  >
     <div
       v-if="icon"
-      class="stats-card__icon"
+      class="mr-4 flex h-[46px] w-[46px] items-center justify-center rounded-full"
       :style="{ backgroundColor: iconBgColor, borderRadius: iconBgRadius + 'px' }"
     >
       <i
-        class="iconfont-sys"
+        class="iconfont-sys text-[30px]"
         v-html="icon"
         :style="{
           color: iconColor,
@@ -15,24 +18,31 @@
         }"
       ></i>
     </div>
-    <div class="stats-card__content">
-      <p class="stats-card__title" :style="{ color: textColor }" v-if="title">
+    <div class="flex-1">
+      <p
+        class="m-0 text-lg font-medium text-[var(--art-gray-900)]"
+        :style="{ color: textColor }"
+        v-if="title"
+      >
         {{ title }}
       </p>
       <ArtCountTo
-        class="stats-card__count"
+        class="m-0 text-[28px] font-medium text-[var(--art-gray-900)]"
         v-if="count !== undefined"
         :target="count"
         :duration="2000"
         :decimals="decimals"
         :separator="separator"
       />
-      <p class="stats-card__description" :style="{ color: textColor }" v-if="description">{{
-        description
-      }}</p>
+      <p
+        class="mt-1 text-sm text-[var(--art-gray-600)] opacity-90"
+        :style="{ color: textColor }"
+        v-if="description"
+        >{{ description }}</p
+      >
     </div>
-    <div class="stats-card__arrow" v-if="showArrow">
-      <i class="iconfont-sys">&#xe703;</i>
+    <div v-if="showArrow">
+      <i class="iconfont-sys text-lg text-[var(--art-gray-600)]">&#xe703;</i>
     </div>
   </div>
 </template>
@@ -76,66 +86,3 @@
     separator: ','
   })
 </script>
-
-<style lang="scss" scoped>
-  .stats-card {
-    display: flex;
-    align-items: center;
-    height: 8rem;
-    padding: 0 20px;
-    cursor: pointer;
-    background-color: var(--art-main-bg-color);
-    border-radius: calc(var(--custom-radius) + 4px) !important;
-    transition: transform 0.2s ease;
-
-    &:hover {
-      transform: translateY(-2px);
-    }
-
-    &__icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 46px;
-      height: 46px;
-      margin-right: 16px;
-      border-radius: 50%;
-
-      i {
-        font-size: 30px;
-      }
-    }
-
-    &__content {
-      flex: 1;
-    }
-
-    &__title {
-      margin: 0;
-      font-size: 18px;
-      font-weight: 500;
-      color: var(--art-gray-900);
-    }
-
-    &__count {
-      margin: 0;
-      font-size: 28px;
-      font-weight: 500;
-      color: var(--art-gray-900);
-    }
-
-    &__description {
-      margin: 4px 0 0;
-      font-size: 14px;
-      color: var(--art-gray-600);
-      opacity: 0.9;
-    }
-
-    &__arrow {
-      i {
-        font-size: 18px;
-        color: var(--art-gray-600);
-      }
-    }
-  }
-</style>

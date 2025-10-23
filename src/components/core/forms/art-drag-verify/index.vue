@@ -2,7 +2,7 @@
 <template>
   <div
     ref="dragVerify"
-    class="drag_verify"
+    class="relative box-border overflow-hidden border border-[var(--art-border-dashed-color)] text-center"
     :style="dragVerifyStyle"
     @mousemove="dragMoving"
     @mouseup="dragFinish"
@@ -12,7 +12,7 @@
   >
     <!-- 进度条 -->
     <div
-      class="dv_progress_bar"
+      class="absolute h-[34px] w-0"
       :class="{ goFirst2: isOk }"
       ref="progressBar"
       :style="progressBarStyle"
@@ -20,7 +20,11 @@
     </div>
 
     <!-- 提示文本 -->
-    <div class="dv_text" :style="textStyle" ref="messageRef">
+    <div
+      class="dv_text absolute inset-0 flex select-none items-center justify-center bg-gradient-to-r from-[var(--textColor)] from-0% via-white via-50% to-[var(--textColor)] to-100% bg-clip-text text-transparent [-webkit-background-clip:text] [-webkit-text-fill-color:transparent] [animation:slidetounlock_2s_cubic-bezier(0,0.2,1,1)_infinite] [text-size-adjust:none] [&_*]:[-webkit-text-fill-color:var(--textColor)]"
+      :style="textStyle"
+      ref="messageRef"
+    >
       <slot name="textBefore" v-if="$slots.textBefore"></slot>
       {{ message }}
       <slot name="textAfter" v-if="$slots.textAfter"></slot>
@@ -28,14 +32,17 @@
 
     <!-- 滑块处理器 -->
     <div
-      class="dv_handler dv_handler_bg"
+      class="absolute left-0 top-0 flex cursor-move items-center justify-center"
       :class="{ goFirst: isOk }"
       @mousedown="dragStart"
       @touchstart="dragStart"
       ref="handler"
       :style="handlerStyle"
     >
-      <i class="iconfont-sys" v-html="value ? successIcon : handlerIcon"></i>
+      <i
+        class="iconfont-sys pl-0 text-sm text-[#999]"
+        v-html="value ? successIcon : handlerIcon"
+      ></i>
     </div>
   </div>
 </template>
@@ -334,69 +341,7 @@
   })
 </script>
 
-<style lang="scss" scoped>
-  .drag_verify {
-    position: relative;
-    box-sizing: border-box;
-    overflow: hidden;
-    text-align: center;
-    border: 1px solid var(--art-border-dashed-color);
-
-    .dv_handler {
-      position: absolute;
-      top: 0;
-      left: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: move;
-
-      i {
-        padding-left: 0;
-        font-size: 14px;
-        color: #999;
-      }
-
-      .el-icon-circle-check {
-        margin-top: 9px;
-        color: #6c6;
-      }
-    }
-
-    .dv_progress_bar {
-      position: absolute;
-      width: 0;
-      height: 34px;
-    }
-
-    .dv_text {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: transparent;
-      user-select: none;
-      background: linear-gradient(
-        to right,
-        var(--textColor) 0%,
-        var(--textColor) 40%,
-        #fff 50%,
-        var(--textColor) 60%,
-        var(--textColor) 100%
-      );
-      -webkit-background-clip: text;
-      background-clip: text;
-      animation: slidetounlock 2s cubic-bezier(0, 0.2, 1, 1) infinite;
-      -webkit-text-fill-color: transparent;
-      text-size-adjust: none;
-
-      * {
-        -webkit-text-fill-color: var(--textColor);
-      }
-    }
-  }
-
+<style>
   .goFirst {
     left: 0 !important;
     transition: left 0.5s;
@@ -406,9 +351,7 @@
     width: 0 !important;
     transition: width 0.5s;
   }
-</style>
 
-<style lang="scss">
   @keyframes slidetounlock {
     0% {
       background-position: var(--pwidth) 0;

@@ -1,8 +1,8 @@
 <!-- 文字滚动组件，支持5种样式类型，两种滚动方向，可自定义 HTML 内容 -->
 <template>
   <div ref="containerRef" class="text-scroll-container" :class="[`text-scroll--${props.type}`]">
-    <div class="left-icon">
-      <i class="iconfont-sys">&#xe64a;</i>
+    <div class="left-icon flex items-center">
+      <ArtSvgIcon icon="ri:volume-down-line" class="text-lg ml-1" />
     </div>
     <div class="scroll-wrapper">
       <div
@@ -15,8 +15,8 @@
         <div class="scroll-item" v-html="sanitizedContent"></div>
       </div>
     </div>
-    <div class="right-icon" @click="handleRightIconClick" v-if="showClose">
-      <i class="iconfont-sys">&#xe83a;</i>
+    <div class="right-icon flex items-center" @click="handleRightIconClick" v-if="showClose">
+      <ArtSvgIcon icon="ri:close-fill" class="text-lg" />
     </div>
   </div>
 </template>
@@ -187,7 +187,7 @@
       text-align: center;
       background-color: var(--el-color-primary-light-9);
 
-      i {
+      :deep(svg) {
         color: var(--main-color);
       }
     }
@@ -256,7 +256,8 @@
         .right-icon {
           background-color: var(--el-color-#{$color}-light-9);
 
-          i {
+          i,
+          :deep(svg) {
             color: var(--el-color-#{$color});
           }
         }

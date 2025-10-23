@@ -8,7 +8,7 @@
           <span class="text-[13px] text-g-600">较上周</span>
           <span
             class="ml-[5px] text-[13px] font-semibold"
-            :class="[item.change.indexOf('+') === -1 ? 'text-red-500' : 'text-lime-500']"
+            :class="[item.change.indexOf('+') === -1 ? 'text-danger' : 'text-success']"
           >
             {{ item.change }}
           </span>

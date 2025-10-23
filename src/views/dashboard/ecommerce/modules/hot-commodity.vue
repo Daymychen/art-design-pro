@@ -20,7 +20,7 @@
           class="w-[42px] h-[42px] flex items-center justify-center rounded-lg"
           :class="item.iconBgClass"
         >
-          <i class="iconfont-sys text-xl" v-html="item.icon"></i>
+          <ArtSvgIcon :icon="item.icon" class="text-xl" />
         </div>
         <div class="ml-2.5">
           <p class="text-sm font-medium text-gray-800">{{ item.title }}</p>
@@ -50,7 +50,7 @@
    */
   const weeklyList: WeeklyItem[] = [
     {
-      icon: '&#xe718;',
+      icon: 'ri:money-cny-circle-line',
       title: '智能手表Pro',
       subtitle: '电子产品',
       value: '1,286件',
@@ -58,7 +58,7 @@
       valueBgClass: 'bg-[rgb(var(--art-bg-primary))] text-[rgb(var(--art-primary))]'
     },
     {
-      icon: '&#xe70c;',
+      icon: 'ri:money-cny-circle-line',
       title: '时尚连衣裙',
       subtitle: '女装服饰',
       value: '892件',
@@ -66,7 +66,7 @@
       valueBgClass: 'bg-[rgb(var(--art-bg-success))] text-[rgb(var(--art-success))]'
     },
     {
-      icon: '&#xe813;',
+      icon: 'ri:money-cny-circle-line',
       title: '厨房小家电',
       subtitle: '家居用品',
       value: '756件',

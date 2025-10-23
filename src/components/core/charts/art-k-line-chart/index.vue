@@ -1,6 +1,11 @@
 <!-- k线图表 -->
 <template>
-  <div ref="chartRef" :style="{ height: props.height }" v-loading="props.loading"></div>
+  <div
+    ref="chartRef"
+    class="relative w-full"
+    :style="{ height: props.height }"
+    v-loading="props.loading"
+  ></div>
 </template>
 
 <script setup lang="ts">
@@ -145,10 +150,3 @@
     }
   })
 </script>
-
-<style lang="scss" scoped>
-  .art-k-line-chart {
-    position: relative;
-    width: 100%;
-  }
-</style>

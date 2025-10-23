@@ -1,24 +1,44 @@
 <!-- 环型图卡片 -->
 <template>
-  <div class="donut-chart-card art-custom-card" :style="{ height: `${height}rem` }">
-    <div class="card-body">
-      <div class="card-content">
-        <div class="data-section">
-          <p class="title">{{ title }}</p>
+  <div
+    class="art-custom-card overflow-hidden rounded-[var(--custom-radius)] bg-[var(--art-main-bg-color)] text-[#303133] transition-all duration-300"
+    :style="{ height: `${height}rem` }"
+  >
+    <div class="box-border flex h-full p-5">
+      <div class="flex w-full items-start gap-5">
+        <div class="flex h-full flex-1 flex-col justify-between">
+          <p class="m-0 text-xl font-medium leading-tight text-[var(--art-text-gray-900)]">
+            {{ title }}
+          </p>
           <div>
-            <p class="value">{{ formatNumber(value) }}</p>
-            <div class="percentage" :class="{ 'is-increase': percentage > 0 }">
+            <p class="m-0 mt-2.5 text-xl font-medium leading-tight text-[var(--art-text-gray-900)]">
+              {{ formatNumber(value) }}
+            </p>
+            <div
+              class="mt-1.5 text-xs font-medium text-[#f56c6c]"
+              :class="percentage > 0 ? 'text-[#67c23a]' : ''"
+            >
               {{ percentage > 0 ? '+' : '' }}{{ percentage }}%
               <span v-if="percentageLabel">{{ percentageLabel }}</span>
             </div>
           </div>
-          <div class="chart-legend">
-            <span class="legend-item current" v-if="currentValue">{{ currentValue }}</span>
-            <span class="legend-item previous" v-if="previousValue">{{ previousValue }}</span>
+          <div class="mt-2 flex gap-4 text-xs text-[#909399]">
+            <span
+              v-if="currentValue"
+              class="relative pl-4 before:absolute before:left-0 before:top-1/2 before:h-2 before:w-2 before:-translate-y-1/2 before:rounded-full before:bg-[var(--main-color)] before:content-['']"
+            >
+              {{ currentValue }}
+            </span>
+            <span
+              v-if="previousValue"
+              class="relative pl-4 before:absolute before:left-0 before:top-1/2 before:h-2 before:w-2 before:-translate-y-1/2 before:rounded-full before:bg-[#e6e8f7] before:content-['']"
+            >
+              {{ previousValue }}
+            </span>
           </div>
         </div>
-        <div class="chart-section">
-          <div ref="chartRef" class="chart-container"></div>
+        <div class="flex h-full max-w-[200px] flex-1 items-center">
+          <div ref="chartRef" class="h-[120px] w-full"></div>
         </div>
       </div>
     </div>
@@ -109,108 +129,3 @@
     }
   })
 </script>
-
-<style lang="scss" scoped>
-  .donut-chart-card {
-    overflow: hidden;
-    color: #303133;
-    background-color: var(--art-main-bg-color);
-    border-radius: var(--custom-radius);
-    transition: 0.3s;
-
-    .card-body {
-      box-sizing: border-box;
-      display: flex;
-      height: 100%;
-      padding: 20px;
-    }
-
-    .card-content {
-      display: flex;
-      gap: 20px;
-      align-items: flex-start;
-      width: 100%;
-    }
-
-    .data-section {
-      display: flex;
-      flex: 1;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 100%;
-    }
-
-    .chart-section {
-      display: flex;
-      flex: 1;
-      align-items: center;
-      max-width: 200px;
-      height: 100%;
-    }
-
-    .title {
-      margin: 0;
-      font-size: 20px;
-      font-weight: 500;
-      line-height: 1.2;
-      color: var(--art-text-gray-900);
-    }
-
-    .value {
-      margin: 0;
-      margin-top: 10px;
-      font-size: 20px;
-      font-weight: 500;
-      line-height: 1.2;
-      color: var(--art-text-gray-900);
-    }
-
-    .percentage {
-      margin-top: 5px;
-      font-size: 12px;
-      font-weight: 500;
-      color: #f56c6c;
-
-      &.is-increase {
-        color: #67c23a;
-      }
-    }
-
-    .chart-container {
-      width: 100%;
-      height: 120px;
-    }
-
-    .chart-legend {
-      display: flex;
-      gap: 16px;
-      margin-top: 8px;
-      font-size: 12px;
-      color: #909399;
-
-      .legend-item {
-        position: relative;
-        padding-left: 16px;
-
-        &::before {
-          position: absolute;
-          top: 50%;
-          left: 0;
-          width: 8px;
-          height: 8px;
-          content: '';
-          border-radius: 50%;
-          transform: translateY(-50%);
-        }
-
-        &.current::before {
-          background-color: var(--main-color);
-        }
-
-        &.previous::before {
-          background-color: #e6e8f7;
-        }
-      }
-    }
-  }
-</style>

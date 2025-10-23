@@ -10,7 +10,7 @@
     />
     <div class="ml-[3px]">
       <h3 class="mt-[20px] text-[18px] font-medium">用户概述</h3>
-      <p class="mt-[5px] text-[14px]">比上周 <span class="text-lime-500 font-medium">+23%</span></p>
+      <p class="mt-[5px] text-[14px]">比上周 <span class="text-success font-medium">+23%</span></p>
       <p class="mt-[5px] text-[14px]"
         >我们为您创建了多个选项，可将它们组合在一起并定制为像素完美的页面</p
       >

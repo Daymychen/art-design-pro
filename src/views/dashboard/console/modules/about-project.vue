@@ -3,7 +3,7 @@
     <div>
       <h2 class="text-2xl font-medium">关于项目</h2>
       <p class="text-g-500 mt-[5px]">{{ systemName }} 是一款兼具设计美学与高效开发的后台系统</p>
-      <p>使用了 Vue3、TypeScript、Vite、Element Plus 等前沿技术</p>
+      <p class="text-g-500 mt-[5px]">使用了 Vue3、TypeScript、Vite、Element Plus 等前沿技术</p>
 
       <div class="flex flex-wrap max-w-[600px] mt-[35px]">
         <div
@@ -13,7 +13,7 @@
           @click="goPage(link.url)"
         >
           <span>{{ link.label }}</span>
-          <i class="iconfont-sys">&#xe703;</i>
+          <ArtSvgIcon icon="ri:arrow-right-s-line" class="text-lg text-g-400" />
         </div>
       </div>
     </div>

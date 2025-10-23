@@ -2,39 +2,74 @@
 <template>
   <div class="menu-right">
     <Transition name="context-menu" @before-enter="onBeforeEnter" @after-leave="onAfterLeave">
-      <div v-show="visible" :style="menuStyle" class="context-menu">
-        <ul class="menu-list" :style="menuListStyle">
+      <div
+        v-show="visible"
+        :style="menuStyle"
+        class="context-menu min-w-[var(--menu-width)] w-[var(--menu-width)] rounded-[var(--border-radius)] border border-[var(--el-border-color-light)] bg-[var(--el-bg-color)] shadow-[var(--art-box-shadow-xs)]"
+      >
+        <ul class="menu-list m-0 list-none" :style="menuListStyle">
           <template v-for="item in menuItems" :key="item.key">
             <!-- 普通菜单项 -->
             <li
               v-if="!item.children"
-              class="menu-item"
+              class="menu-item relative flex cursor-pointer select-none items-center rounded text-[13px] text-[var(--el-text-color-primary)] transition-colors duration-150 hover:bg-[rgba(var(--art-gray-200-rgb),0.7)]"
               :class="{ 'is-disabled': item.disabled, 'has-line': item.showLine }"
               :style="menuItemStyle"
               @click="handleMenuClick(item)"
             >
-              <i v-if="item.icon" class="iconfont-sys" v-html="item.icon"></i>
-              <span class="menu-label">{{ item.label }}</span>
+              <i
+                v-if="item.icon"
+                class="iconfont-sys mr-2 shrink-0 text-base text-[var(--art-gray-800)]"
+                v-html="item.icon"
+              ></i>
+              <span
+                class="menu-label flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-[var(--art-gray-800)]"
+                >{{ item.label }}</span
+              >
             </li>
 
             <!-- 子菜单 -->
-            <li v-else class="menu-item submenu" :style="menuItemStyle">
-              <div class="submenu-title">
-                <i v-if="item.icon" class="iconfont-sys" v-html="item.icon"></i>
-                <span class="menu-label">{{ item.label }}</span>
-                <i class="iconfont-sys submenu-arrow">&#xe865;</i>
+            <li
+              v-else
+              class="menu-item submenu relative flex cursor-pointer select-none items-center rounded text-[13px] text-[var(--el-text-color-primary)] transition-colors duration-150 hover:bg-[rgba(var(--art-gray-200-rgb),0.7)]"
+              :style="menuItemStyle"
+            >
+              <div class="submenu-title flex w-full items-center">
+                <i
+                  v-if="item.icon"
+                  class="iconfont-sys mr-2 shrink-0 text-base text-[var(--art-gray-800)]"
+                  v-html="item.icon"
+                ></i>
+                <span
+                  class="menu-label flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-[var(--art-gray-800)]"
+                  >{{ item.label }}</span
+                >
+                <i
+                  class="iconfont-sys submenu-arrow ml-auto mr-0 text-xs text-[var(--art-gray-600)] transition-transform duration-150"
+                  >&#xe865;</i
+                >
               </div>
-              <ul class="submenu-list" :style="submenuListStyle">
+              <ul
+                class="submenu-list absolute left-full top-0 z-[2001] hidden w-max min-w-max list-none rounded-[var(--border-radius)] border border-[var(--el-border-color-light)] bg-[var(--el-bg-color)] shadow-[var(--el-box-shadow-light)]"
+                :style="submenuListStyle"
+              >
                 <li
                   v-for="child in item.children"
                   :key="child.key"
-                  class="menu-item"
+                  class="menu-item relative mx-1.5 flex cursor-pointer select-none items-center rounded text-[13px] text-[var(--el-text-color-primary)] transition-colors duration-150 hover:bg-[rgba(var(--art-gray-200-rgb),0.7)]"
                   :class="{ 'is-disabled': child.disabled, 'has-line': child.showLine }"
                   :style="menuItemStyle"
                   @click="handleMenuClick(child)"
                 >
-                  <i v-if="child.icon" class="iconfont-sys" v-html="child.icon"></i>
-                  <span class="menu-label">{{ child.label }}</span>
+                  <i
+                    v-if="child.icon"
+                    class="iconfont-sys mr-2 shrink-0 text-base text-[var(--art-gray-800)]"
+                    v-html="child.icon"
+                  ></i>
+                  <span
+                    class="menu-label flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-[var(--art-gray-800)]"
+                    >{{ child.label }}</span
+                  >
                 </li>
               </ul>
             </li>
@@ -314,201 +349,66 @@
   })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   .menu-right {
-    .context-menu {
-      width: v-bind('props.menuWidth + "px"');
-      min-width: v-bind('props.menuWidth + "px"');
-      background: var(--el-bg-color);
-      border: 1px solid var(--el-border-color-light);
-      border-radius: v-bind('props.borderRadius + "px"');
-      box-shadow: var(--art-box-shadow-xs);
+    --menu-width: v-bind('props.menuWidth + "px"');
+    --border-radius: v-bind('props.borderRadius + "px"');
+  }
 
-      .menu-list {
-        margin: 0;
-        list-style: none;
+  .menu-item.has-line {
+    margin-bottom: 10px;
+  }
 
-        .menu-item {
-          position: relative;
-          display: flex;
-          align-items: center;
-          font-size: 13px;
-          color: var(--el-text-color-primary);
-          cursor: pointer;
-          user-select: none;
-          transition: background-color 0.15s ease;
+  .menu-item.has-line::after {
+    position: absolute;
+    right: 0;
+    bottom: -5px;
+    left: 0;
+    height: 1px;
+    content: '';
+    background-color: rgba(var(--art-gray-300-rgb), 0.5);
+  }
 
-          &:hover:not(.is-disabled) {
-            background-color: rgba(var(--art-gray-200-rgb), 0.7);
-          }
+  .menu-item.is-disabled {
+    color: var(--el-text-color-disabled);
+    cursor: not-allowed;
+  }
 
-          &.has-line {
-            margin-bottom: 10px;
+  .menu-item.is-disabled:hover {
+    background-color: transparent !important;
+  }
 
-            &::after {
-              position: absolute;
-              right: 0;
-              bottom: -5px;
-              left: 0;
-              height: 1px;
-              content: '';
-              background-color: rgba(var(--art-gray-300-rgb), 0.5);
-            }
-          }
+  .menu-item.is-disabled i:not(.submenu-arrow) {
+    color: var(--el-text-color-disabled) !important;
+  }
 
-          i:not(.submenu-arrow) {
-            flex-shrink: 0;
-            margin-right: 8px;
-            font-size: 16px;
-            color: var(--art-gray-800);
-          }
+  .menu-item.is-disabled .menu-label {
+    color: var(--el-text-color-disabled) !important;
+  }
 
-          .menu-label {
-            flex: 1;
-            overflow: hidden;
-            color: var(--art-gray-800);
-            text-overflow: ellipsis;
-            white-space: nowrap;
-          }
+  .menu-item.submenu:hover .submenu-list {
+    display: block;
+  }
 
-          &.is-disabled {
-            color: var(--el-text-color-disabled);
-            cursor: not-allowed;
+  .menu-item.submenu:hover .submenu-title .submenu-arrow {
+    transform: rotate(90deg);
+  }
 
-            &:hover {
-              background-color: transparent !important;
-            }
+  /* 动画样式 */
+  .context-menu-enter-active,
+  .context-menu-leave-active {
+    transition: all v-bind('props.animationDuration + "ms"') ease-out;
+  }
 
-            i:not(.submenu-arrow) {
-              color: var(--el-text-color-disabled) !important;
-            }
+  .context-menu-enter-from,
+  .context-menu-leave-to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
 
-            .menu-label {
-              color: var(--el-text-color-disabled) !important;
-            }
-          }
-
-          &.submenu {
-            &:hover {
-              .submenu-list {
-                display: block;
-              }
-            }
-
-            .submenu-title {
-              display: flex;
-              align-items: center;
-              width: 100%;
-
-              .submenu-arrow {
-                margin-right: 0;
-                margin-left: auto;
-                font-size: 12px;
-                color: var(--art-gray-600);
-                transition: transform 0.15s ease;
-              }
-            }
-
-            &:hover .submenu-title .submenu-arrow {
-              transform: rotate(90deg);
-            }
-
-            .submenu-list {
-              position: absolute;
-              top: 0;
-              left: 100%;
-              z-index: 2001;
-              display: none;
-              width: max-content;
-              min-width: max-content;
-              list-style: none;
-              background: var(--el-bg-color);
-              border: 1px solid var(--el-border-color-light);
-              box-shadow: var(--el-box-shadow-light);
-
-              .menu-item {
-                position: relative;
-                display: flex;
-                align-items: center;
-                margin: 0 6px;
-                font-size: 13px;
-                color: var(--el-text-color-primary);
-                cursor: pointer;
-                user-select: none;
-                transition: background-color 0.15s ease;
-
-                &:hover:not(.is-disabled) {
-                  background-color: rgba(var(--art-gray-200-rgb), 0.7);
-                }
-
-                &.has-line {
-                  margin-bottom: 10px;
-
-                  &::after {
-                    position: absolute;
-                    right: 0;
-                    bottom: -5px;
-                    left: 0;
-                    height: 1px;
-                    content: '';
-                    background-color: rgba(var(--art-gray-300-rgb), 0.5);
-                  }
-                }
-
-                i:not(.submenu-arrow) {
-                  flex-shrink: 0;
-                  margin-right: 8px;
-                  font-size: 16px;
-                  color: var(--art-gray-800);
-                }
-
-                .menu-label {
-                  flex: 1;
-                  overflow: hidden;
-                  color: var(--art-gray-800);
-                  text-overflow: ellipsis;
-                  white-space: nowrap;
-                }
-
-                &.is-disabled {
-                  color: var(--el-text-color-disabled);
-                  cursor: not-allowed;
-
-                  &:hover {
-                    background-color: transparent !important;
-                  }
-
-                  i:not(.submenu-arrow) {
-                    color: var(--el-text-color-disabled) !important;
-                  }
-
-                  .menu-label {
-                    color: var(--el-text-color-disabled) !important;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-    // 动画样式
-    .context-menu-enter-active,
-    .context-menu-leave-active {
-      transition: all v-bind('props.animationDuration + "ms"') ease-out;
-    }
-
-    .context-menu-enter-from,
-    .context-menu-leave-to {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-
-    .context-menu-enter-to,
-    .context-menu-leave-from {
-      opacity: 1;
-      transform: scale(1);
-    }
+  .context-menu-enter-to,
+  .context-menu-leave-from {
+    opacity: 1;
+    transform: scale(1);
   }
 </style>

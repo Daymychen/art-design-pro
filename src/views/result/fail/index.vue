@@ -1,3 +1,4 @@
+<!-- 结果页 -->
 <template>
   <ArtResultPage
     type="fail"
@@ -7,8 +8,14 @@
   >
     <template #content>
       <p>您提交的内容有如下错误：</p>
-      <p><i class="icon iconfont-sys">&#xe71a;</i>您的账户已被冻结</p>
-      <p><i class="icon iconfont-sys">&#xe71a;</i>您的账户还不具备申请资格</p>
+      <p>
+        <ArtSvgIcon icon="ri:close-circle-line" class="text-red-500 mr-1" />
+        <span>您的账户已被冻结</span>
+      </p>
+      <p>
+        <ArtSvgIcon icon="ri:close-circle-line" class="text-red-500 mr-1" />
+        <span>您的账户还不具备申请资格</span>
+      </p>
     </template>
     <template #buttons>
       <ElButton type="primary" v-ripple>返回修改</ElButton>

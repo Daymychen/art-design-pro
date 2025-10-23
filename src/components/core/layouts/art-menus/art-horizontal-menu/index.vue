@@ -1,6 +1,6 @@
 <!-- 水平菜单 -->
 <template>
-  <div class="top-menu">
+  <div class="flex-1 overflow-hidden">
     <ElMenu
       :ellipsis="true"
       mode="horizontal"
@@ -11,6 +11,7 @@
       :show-timeout="50"
       :hide-timeout="50"
       popper-class="horizontal-menu-popper"
+      class="w-full border-none"
     >
       <HorizontalSubmenu
         v-for="item in filteredMenuItems"
@@ -85,24 +86,19 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .top-menu {
-    flex: 1;
-    overflow: hidden;
-
-    .el-menu {
-      width: 100%;
-      border: none;
-    }
-
-    // 去除 el-menu-item 一级菜单默认样式
-    .el-menu-item[tabindex='0'] {
-      background-color: transparent !important;
-      border: none !important;
-    }
+<style scoped>
+  /* Remove el-menu bottom border */
+  :deep(.el-menu) {
+    border-bottom: none !important;
   }
 
-  // 去除 el-sub-menu 的底部横线
+  /* Remove default styles for first-level menu items */
+  :deep(.el-menu-item[tabindex='0']) {
+    background-color: transparent !important;
+    border: none !important;
+  }
+
+  /* Remove bottom border from submenu titles */
   :deep(.el-menu--horizontal .el-sub-menu__title) {
     padding: 0 30px 0 10px !important;
     border: 0 !important;

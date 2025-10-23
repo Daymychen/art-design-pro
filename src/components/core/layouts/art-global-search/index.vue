@@ -16,62 +16,101 @@
         @blur="searchBlur"
         ref="searchInput"
         :prefix-icon="Search"
+        class="h-12"
       >
         <template #suffix>
-          <div class="search-keydown">
-            <i class="iconfont-sys">&#xe6e6;</i>
+          <div
+            class="search-keydown flex h-[18px] items-center rounded border border-[var(--art-border-color)] bg-[var(--art-bg-color)] px-1.5 text-[var(--art-gray-500)]"
+          >
+            <i class="iconfont-sys text-[13px]">&#xe6e6;</i>
           </div>
         </template>
       </ElInput>
-      <ElScrollbar class="search-scrollbar" max-height="370px" ref="searchResultScrollbar" always>
-        <div class="result" v-show="searchResult.length">
-          <div class="box" v-for="(item, index) in searchResult" :key="index">
+      <ElScrollbar class="mt-5" max-height="370px" ref="searchResultScrollbar" always>
+        <div class="result w-full bg-[var(--rt-main-bg-color)]" v-show="searchResult.length">
+          <div
+            class="box !mt-0 cursor-pointer text-base font-medium leading-none"
+            v-for="(item, index) in searchResult"
+            :key="index"
+          >
             <div
-              :class="{ highlighted: isHighlighted(index) }"
+              class="mt-2 flex h-[50px] items-center justify-between rounded-[calc(var(--custom-radius)/2+2px)] bg-[var(--art-gray-100)] px-4 text-[15px] font-normal text-[var(--art-gray-700)]"
+              :class="
+                isHighlighted(index)
+                  ? 'highlighted !bg-[var(--el-color-primary-light-3)] !text-white'
+                  : ''
+              "
               @click="searchGoPage(item)"
               @mouseenter="highlightOnHover(index)"
             >
               {{ formatMenuTitle(item.meta.title) }}
-              <i class="selected-icon iconfont-sys" v-show="isHighlighted(index)">&#xe6e6;</i>
+              <i class="selected-icon iconfont-sys text-[15px]" v-show="isHighlighted(index)"
+                >&#xe6e6;</i
+              >
             </div>
           </div>
         </div>
 
-        <div
-          class="history-box"
-          v-show="!searchVal && searchResult.length === 0 && historyResult.length > 0"
-        >
-          <p class="title">{{ $t('search.historyTitle') }}</p>
-          <div class="history-result">
+        <div v-show="!searchVal && searchResult.length === 0 && historyResult.length > 0">
+          <p class="text-[13px] text-[var(--art-gray-600)]">{{ $t('search.historyTitle') }}</p>
+          <div class="mt-1.5 w-full bg-[var(--rt-main-bg-color)]">
             <div
-              class="box"
+              class="box mt-2 flex h-[50px] cursor-pointer items-center justify-between rounded-[calc(var(--custom-radius)/2+2px)] bg-[var(--art-gray-100)] px-4 text-[15px] font-normal text-[var(--art-gray-800)]"
               v-for="(item, index) in historyResult"
               :key="index"
-              :class="{ highlighted: historyHIndex === index }"
+              :class="
+                historyHIndex === index
+                  ? 'highlighted !bg-[var(--el-color-primary-light-3)] !text-white [&_.selected-icon]:!text-white'
+                  : ''
+              "
               @click="searchGoPage(item)"
               @mouseenter="highlightOnHoverHistory(index)"
             >
               {{ formatMenuTitle(item.meta.title) }}
-              <i class="selected-icon iconfont-sys" @click.stop="deleteHistory(index)">&#xe83a;</i>
+              <i
+                class="selected-icon iconfont-sys h-5 w-5 select-none rounded-full text-center text-[15px] leading-5 text-[var(--art-gray-500)] transition-colors duration-300 hover:bg-[rgba(0,0,0,0.2)]"
+                @click.stop="deleteHistory(index)"
+                >&#xe83a;</i
+              >
             </div>
           </div>
         </div>
       </ElScrollbar>
 
       <template #footer>
-        <div class="dialog-footer">
-          <div>
-            <i class="iconfont-sys">&#xe6e6;</i>
-            <span>{{ $t('search.selectKeydown') }}</span>
+        <div
+          class="dialog-footer box-border flex items-center border-t border-[rgba(var(--art-gray-300-rgb),0.6)] pb-[7px] pt-1.5"
+        >
+          <div class="flex h-10 items-center">
+            <i
+              class="iconfont-sys left-[117px] top-1.5 mr-2 box-border flex h-5 w-[22px] flex-row items-center justify-center rounded-[3px] border border-[var(--art-border-dashed-color)] bg-[var(--art-bg-color)] px-1.5 text-xs text-[var(--art-gray-500)] shadow-[0_2px_0_var(--art-border-dashed-color)] last-of-type:mr-1.5"
+              >&#xe6e6;</i
+            >
+            <span class="mr-[15px] h-[22px] text-xs leading-[22px]">{{
+              $t('search.selectKeydown')
+            }}</span>
           </div>
-          <div>
-            <i class="iconfont-sys">&#xe864;</i>
-            <i class="iconfont-sys">&#xe867;</i>
-            <span>{{ $t('search.switchKeydown') }}</span>
+          <div class="flex h-10 items-center">
+            <i
+              class="iconfont-sys left-[117px] top-1.5 mr-2 box-border flex h-5 w-[22px] flex-row items-center justify-center rounded-[3px] border border-[var(--art-border-dashed-color)] bg-[var(--art-bg-color)] px-1.5 text-xs text-[var(--art-gray-500)] shadow-[0_2px_0_var(--art-border-dashed-color)] last-of-type:mr-1.5"
+              >&#xe864;</i
+            >
+            <i
+              class="iconfont-sys left-[117px] top-1.5 mr-2 box-border flex h-5 w-[22px] flex-row items-center justify-center rounded-[3px] border border-[var(--art-border-dashed-color)] bg-[var(--art-bg-color)] px-1.5 text-xs text-[var(--art-gray-500)] shadow-[0_2px_0_var(--art-border-dashed-color)] last-of-type:mr-1.5"
+              >&#xe867;</i
+            >
+            <span class="mr-[15px] h-[22px] text-xs leading-[22px]">{{
+              $t('search.switchKeydown')
+            }}</span>
           </div>
-          <div>
-            <i class="iconfont-sys esc"><p>ESC</p></i>
-            <span>{{ $t('search.exitKeydown') }}</span>
+          <div class="flex h-10 items-center">
+            <i
+              class="iconfont-sys esc left-[117px] top-1.5 mr-2 box-border flex h-5 w-7 flex-row items-center justify-center rounded-[3px] border border-[var(--art-border-dashed-color)] bg-[var(--art-bg-color)] px-1.5 text-xs text-[var(--art-gray-500)] shadow-[0_2px_0_var(--art-border-dashed-color)] last-of-type:mr-1.5"
+              ><p class="text-[10px] font-medium">ESC</p></i
+            >
+            <span class="mr-[15px] h-[22px] text-xs leading-[22px]">{{
+              $t('search.exitKeydown')
+            }}</span>
           </div>
         </div>
       </template>
@@ -347,6 +386,63 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  @use './style';
+<style>
+  .layout-search :deep(.search-modal) {
+    background-color: rgb(0 0 0 / 20%);
+  }
+
+  .layout-search :deep(.el-dialog__header) {
+    padding: 5px 0;
+  }
+
+  .layout-search :deep(.el-dialog) {
+    padding: 0 15px;
+    border-radius: calc(var(--custom-radius) / 2 + 8px) !important;
+  }
+
+  .layout-search .el-input :deep(.el-input__wrapper) {
+    background-color: rgba(var(--art-gray-200-rgb), 0.8);
+    border: 1px solid var(--art-border-dashed-color);
+    border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
+    box-shadow: none;
+  }
+
+  .layout-search .el-input :deep(.el-input__inner) {
+    color: var(--art-gray-600) !important;
+  }
+
+  .dark .layout-search .el-input :deep(.el-input__wrapper) {
+    background-color: #252526;
+    border: 1px solid #4c4d50;
+  }
+
+  .dark .layout-search :deep(.search-modal) {
+    background-color: rgb(23 23 26 / 60%);
+    backdrop-filter: none;
+  }
+
+  .dark .layout-search :deep(.el-dialog) {
+    background-color: #252526;
+  }
+
+  .dark .layout-search .result .box div {
+    color: rgb(255 255 255 / 60%) !important;
+  }
+
+  .dark .layout-search .result .box div.highlighted {
+    color: #fff !important;
+  }
+
+  .dark .layout-search .dialog-footer > div {
+    color: var(--art-gray-600) !important;
+  }
+
+  .dark .layout-search .dialog-footer > div i {
+    background-color: var(--art-gray-100);
+  }
+
+  .dark .layout-search .search-keydown {
+    background-color: #252526;
+    border: 1px solid #4c4d50;
+  }
 </style>

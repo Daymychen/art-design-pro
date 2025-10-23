@@ -1,11 +1,16 @@
 <!-- 进度条卡片 -->
 <template>
-  <div class="progress-card art-custom-card">
-    <div class="progress-info" :style="{ justifyContent: icon ? 'space-between' : 'flex-start' }">
-      <div class="left">
+  <div
+    class="art-custom-card flex h-32 flex-col justify-center rounded-[calc(var(--custom-radius)+4px)] bg-[var(--art-main-bg-color)] px-5"
+  >
+    <div
+      class="mb-[15px] flex items-center"
+      :style="{ justifyContent: icon ? 'space-between' : 'flex-start' }"
+    >
+      <div>
         <i
           v-if="icon"
-          class="iconfont-sys"
+          class="iconfont-sys flex h-[46px] w-[46px] items-center justify-center bg-[var(--art-gray-300)]"
           v-html="icon"
           :style="{
             color: iconColor,
@@ -15,15 +20,15 @@
           }"
         ></i>
       </div>
-      <div class="right">
+      <div>
         <ArtCountTo
-          class="percentage"
+          class="mb-1 block text-2xl font-semibold text-[var(--art-gray-900)]"
           :target="percentage"
           :duration="2000"
           suffix="%"
           :style="{ textAlign: icon ? 'right' : 'left' }"
         />
-        <p class="title">{{ title }}</p>
+        <p class="text-sm text-[var(--art-gray-600)]">{{ title }}</p>
       </div>
     </div>
     <ElProgress
@@ -31,6 +36,7 @@
       :stroke-width="strokeWidth"
       :show-text="false"
       :color="color"
+      class="[&_.el-progress-bar__outer]:bg-[rgb(240_240_240)]"
     />
   </div>
 </template>
@@ -100,51 +106,3 @@
     }
   )
 </script>
-
-<style lang="scss" scoped>
-  .progress-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 8rem;
-    padding: 0 20px;
-    background-color: var(--art-main-bg-color);
-    border-radius: calc(var(--custom-radius) + 4px);
-
-    .progress-info {
-      display: flex;
-      align-items: center;
-      margin-block-end: 15px;
-
-      .left {
-        i {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 46px;
-          height: 46px;
-          background-color: var(--art-gray-300);
-        }
-      }
-
-      .right {
-        .percentage {
-          display: block;
-          margin-block-end: 4px;
-          font-size: 1.5rem;
-          font-weight: 600;
-          color: var(--art-gray-900);
-        }
-
-        .title {
-          font-size: 0.875rem;
-          color: var(--art-gray-600);
-        }
-      }
-    }
-
-    :deep(.el-progress-bar__outer) {
-      background-color: rgb(240 240 240);
-    }
-  }
-</style>

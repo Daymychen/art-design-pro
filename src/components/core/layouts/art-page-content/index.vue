@@ -1,12 +1,15 @@
 <!-- 布局内容 -->
 <template>
-  <div class="layout-content" :class="{ 'no-basic-layout': isFullPage }" :style="containerStyle">
+  <div class="layout-content" :class="{ 'overflow-auto': isFullPage }" :style="containerStyle">
     <!-- 节日滚动 -->
     <ArtFestivalTextScroll v-if="!isFullPage" />
 
     <RouterView v-if="isRefresh" v-slot="{ Component, route }" :style="contentStyle">
       <!-- 路由信息调试 -->
-      <div v-if="isOpenRouteInfo === 'true'" class="route-info">
+      <div
+        v-if="isOpenRouteInfo === 'true'"
+        class="px-2 py-1.5 mb-3 text-sm text-[var(--art-gray-600)] bg-[var(--art-gray-200)] border border-[var(--art-border-dashed-color)] rounded-md"
+      >
         router meta：{{ route.meta }}
       </div>
 
@@ -35,7 +38,10 @@
 
     <!-- 全屏页面切换过渡遮罩（用于提升页面切换视觉体验） -->
     <Teleport to="body">
-      <div v-show="showTransitionMask" class="full-page-mask" />
+      <div
+        v-show="showTransitionMask"
+        class="fixed top-0 left-0 z-[2000] w-screen h-screen pointer-events-none bg-[var(--art-main-bg-color)]"
+      />
     </Teleport>
   </div>
 </template>
@@ -114,32 +120,3 @@
 
   watch(refresh, reload, { flush: 'post' })
 </script>
-
-<style lang="scss" scoped>
-  .layout-content {
-    &.no-basic-layout {
-      overflow: auto;
-    }
-  }
-
-  .route-info {
-    padding: 6px 8px;
-    margin-bottom: 12px;
-    font-size: 14px;
-    color: var(--art-gray-600);
-    background: var(--art-gray-200);
-    border: 1px solid var(--art-border-dashed-color);
-    border-radius: 6px;
-  }
-
-  .full-page-mask {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 2000;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    background-color: var(--art-main-bg-color);
-  }
-</style>

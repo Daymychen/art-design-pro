@@ -1,7 +1,7 @@
 <!-- 节日文本滚动 -->
 <template>
   <div
-    class="festival-text-scroll"
+    class="overflow-hidden transition-[height] duration-500 ease-in-out"
     :style="{
       height: showFestivalText ? '48px' : '0'
     }"
@@ -33,10 +33,3 @@
     settingStore.setShowFestivalText(false)
   }
 </script>
-
-<style lang="scss" scoped>
-  .festival-text-scroll {
-    overflow: hidden;
-    transition: height 0.5s ease-in-out;
-  }
-</style>

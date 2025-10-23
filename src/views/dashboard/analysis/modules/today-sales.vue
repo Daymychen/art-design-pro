@@ -32,7 +32,7 @@
               较昨天
               <span
                 class="font-medium"
-                :class="[item.change.indexOf('+') === -1 ? 'text-red-500' : 'text-lime-500']"
+                :class="[item.change.indexOf('+') === -1 ? 'text-danger' : 'text-success']"
                 >{{ item.change }}</span
               >
             </small>

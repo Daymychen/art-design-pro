@@ -31,14 +31,14 @@
             prefix="¥"
             separator=","
           />
-          <i class="iconfont-sys text-success text-base ml-2.5 relative -top-2.5">&#xe8d5;</i>
+          <ArtSvgIcon icon="ri:arrow-right-up-line" class="text-xl text-success relative -top-2" />
         </p>
         <p class="mt-1 text-sm text-gray-700">今日销售额</p>
       </div>
       <div class="mr-[30px]">
         <p class="text-[30px] text-gray-900">
           <ArtCountTo class="number box-title" :target="35" :duration="1500" suffix="%" />
-          <i class="iconfont-sys text-success text-base ml-2.5 relative -top-2.5">&#xe8d5;</i>
+          <ArtSvgIcon icon="ri:arrow-right-up-line" class="text-xl text-success relative -top-2" />
         </p>
         <p class="mt-1 text-sm text-gray-700">较昨日</p>
       </div>

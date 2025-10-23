@@ -3,7 +3,7 @@
     <div class="art-card-header">
       <div class="title">
         <h4>代办事项</h4>
-        <p>待处理<span class="text-red-500">3</span></p>
+        <p>待处理<span class="text-danger">3</span></p>
       </div>
     </div>
 
