@@ -49,7 +49,7 @@
           <div v-for="lang in languageOptions" :key="lang.value" class="lang-btn-item">
             <ElDropdownItem :command="lang.value" :class="{ 'is-selected': locale === lang.value }">
               <span class="menu-txt">{{ lang.label }}</span>
-              <i v-if="locale === lang.value" class="iconfont-sys icon-check">&#xe621;</i>
+              <ArtSvgIcon icon="ri:check-fill" class="text-[16px]" v-if="locale === lang.value" />
             </ElDropdownItem>
           </div>
         </ElDropdownMenu>

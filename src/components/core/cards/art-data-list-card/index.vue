@@ -15,7 +15,7 @@
             class="mr-3 flex h-10 w-10 items-center justify-center rounded-lg"
             :class="item.class"
           >
-            <i class="iconfont-sys text-xl" v-html="item.icon"></i>
+            <ArtSvgIcon :icon="item.icon" class="text-xl text-g-400" />
           </div>
           <div class="flex-1">
             <div class="mb-1 text-[15px] text-[var(--art-gray-900)]">{{ item.title }}</div>

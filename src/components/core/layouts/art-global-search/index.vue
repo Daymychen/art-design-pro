@@ -22,7 +22,7 @@
           <div
             class="search-keydown flex h-[18px] items-center rounded border border-[var(--art-border-color)] bg-[var(--art-bg-color)] px-1.5 text-[var(--art-gray-500)]"
           >
-            <i class="iconfont-sys text-[13px]">&#xe6e6;</i>
+            <ArtSvgIcon icon="fluent:arrow-enter-left-20-filled" />
           </div>
         </template>
       </ElInput>
@@ -44,9 +44,7 @@
               @mouseenter="highlightOnHover(index)"
             >
               {{ formatMenuTitle(item.meta.title) }}
-              <i class="selected-icon iconfont-sys text-[15px]" v-show="isHighlighted(index)"
-                >&#xe6e6;</i
-              >
+              <ArtSvgIcon v-show="isHighlighted(index)" icon="fluent:arrow-enter-left-20-filled" />
             </div>
           </div>
         </div>

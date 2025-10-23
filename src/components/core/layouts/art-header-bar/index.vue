@@ -84,8 +84,8 @@
           <div
             class="flex items-center h-5 px-[6px] text-[var(--art-gray-500)] bg-[var(--art-bg-color)] border border-[var(--art-border-dashed-color)] rounded"
           >
-            <i class="!text-[12px] iconfont-sys" v-if="isWindows">&#xeeac;</i>
-            <i class="!text-[12px] iconfont-sys" v-else>&#xe9ab;</i>
+            <ArtSvgIcon v-if="isWindows" icon="vaadin:ctrl-a" class="text-[14px]" />
+            <ArtSvgIcon v-else icon="ri:command-fill" class="text-xs" />
             <span class="ml-[2px] text-xs">k</span>
           </div>
         </div>
@@ -140,7 +140,7 @@
                   :class="{ 'is-selected': locale === item.value }"
                 >
                   <span class="menu-txt">{{ item.label }}</span>
-                  <i v-if="locale === item.value" class="iconfont-sys">&#xe621;</i>
+                  <ArtSvgIcon icon="ri:check-fill" v-if="locale === item.value" />
                 </ElDropdownItem>
               </div>
             </ElDropdownMenu>

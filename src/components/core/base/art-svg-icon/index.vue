@@ -1,5 +1,5 @@
 <template>
-  <Icon :icon="icon" v-bind="bindAttrs" class="inline-block" />
+  <Icon v-if="icon" :icon="icon" v-bind="bindAttrs" class="inline-block" />
 </template>
 
 <script setup lang="ts">
@@ -9,7 +9,7 @@
 
   interface Props {
     /** Iconify icon name */
-    icon: string
+    icon?: string
   }
 
   defineProps<Props>()

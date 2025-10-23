@@ -6,7 +6,7 @@ export const systemRoutes: AppRouteRecord = {
   component: '/index/index',
   meta: {
     title: 'menus.system.title',
-    icon: '&#xe7b9;',
+    icon: 'ri:account-circle-2-line',
     roles: ['R_SUPER', 'R_ADMIN']
   },
   children: [
@@ -71,7 +71,7 @@ export const systemRoutes: AppRouteRecord = {
           component: '/system/nested/menu1',
           meta: {
             title: 'menus.system.menu1',
-            icon: '&#xe676;',
+            icon: 'ri:account-circle-2-line',
             keepAlive: true
           }
         },
@@ -81,7 +81,7 @@ export const systemRoutes: AppRouteRecord = {
           component: '',
           meta: {
             title: 'menus.system.menu2',
-            icon: '&#xe676;',
+            icon: 'ri:account-circle-2-line',
             keepAlive: true
           },
           children: [
@@ -91,7 +91,7 @@ export const systemRoutes: AppRouteRecord = {
               component: '/system/nested/menu2',
               meta: {
                 title: 'menus.system.menu21',
-                icon: '&#xe676;',
+                icon: 'ri:account-circle-2-line',
                 keepAlive: true
               }
             }
@@ -103,7 +103,7 @@ export const systemRoutes: AppRouteRecord = {
           component: '',
           meta: {
             title: 'menus.system.menu3',
-            icon: '&#xe676;',
+            icon: 'ri:account-circle-2-line',
             keepAlive: true
           },
           children: [
@@ -113,7 +113,7 @@ export const systemRoutes: AppRouteRecord = {
               component: '/system/nested/menu3',
               meta: {
                 title: 'menus.system.menu31',
-                icon: '&#xe676;',
+                icon: 'ri:account-circle-2-line',
                 keepAlive: true
               }
             },
@@ -123,7 +123,7 @@ export const systemRoutes: AppRouteRecord = {
               component: '',
               meta: {
                 title: 'menus.system.menu32',
-                icon: '&#xe676;',
+                icon: 'ri:account-circle-2-line',
                 keepAlive: true
               },
               children: [
@@ -133,7 +133,7 @@ export const systemRoutes: AppRouteRecord = {
                   component: '/system/nested/menu3/menu3-2',
                   meta: {
                     title: 'menus.system.menu321',
-                    icon: '&#xe676;',
+                    icon: 'ri:account-circle-2-line',
                     keepAlive: true
                   }
                 }

@@ -8,7 +8,7 @@
     :style="{ backgroundColor: buttonBgColor, color: iconColor }"
     @click="handleClick"
   >
-    <i v-if="iconContent" class="iconfont-sys" v-html="iconContent"></i>
+    <ArtSvgIcon :icon="iconContent" />
   </div>
 </template>
 
@@ -38,11 +38,11 @@
 
   // 默认按钮配置
   const defaultButtons = {
-    add: { icon: '&#xe602;', color: BgColorEnum.PRIMARY },
-    edit: { icon: '&#xe642;', color: BgColorEnum.SECONDARY },
-    delete: { icon: '&#xe783;', color: BgColorEnum.ERROR },
-    view: { icon: '&#xe689;', color: BgColorEnum.INFO },
-    more: { icon: '&#xe6df;', color: '' }
+    add: { icon: 'ri:add-fill', color: BgColorEnum.PRIMARY },
+    edit: { icon: 'ri:edit-line', color: BgColorEnum.SECONDARY },
+    delete: { icon: 'ri:delete-bin-5-line', color: BgColorEnum.ERROR },
+    view: { icon: 'ri:eye-line', color: BgColorEnum.INFO },
+    more: { icon: 'ri:more-2-fill', color: '' }
   } as const
 
   // 获取图标内容

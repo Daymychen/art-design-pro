@@ -98,7 +98,7 @@
           v-show="currentTabIsEmpty"
           class="relative top-[100px] h-full text-[var(--art-gray-500)] text-center !bg-transparent"
         >
-          <i class="iconfont-sys text-[60px]">&#xe8d7;</i>
+          <ArtSvgIcon icon="material-symbols-light:hourglass-empty" class="text-5xl" />
           <p class="mt-[15px] text-xs !bg-transparent"
             >{{ $t('notice.text[0]') }}{{ barList[barActiveIndex].name }}</p
           >

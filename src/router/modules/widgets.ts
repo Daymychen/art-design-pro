@@ -6,7 +6,7 @@ export const widgetsRoutes: AppRouteRecord = {
   component: '/index/index',
   meta: {
     title: 'menus.widgets.title',
-    icon: '&#xe81a;'
+    icon: 'ri:account-circle-2-line'
   },
   children: [
     {

@@ -1,7 +1,9 @@
 <template>
   <div class="setting-header">
     <div class="close-wrap">
-      <i class="iconfont-sys" @click="$emit('close')">&#xe7dc;</i>
+      <div @click="$emit('close')" class="flex items-center cursor-pointer text-g-500">
+        <ArtSvgIcon icon="ri:close-fill" class="text-lg" />
+      </div>
     </div>
   </div>
 </template>

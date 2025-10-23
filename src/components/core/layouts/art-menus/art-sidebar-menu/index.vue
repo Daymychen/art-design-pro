@@ -32,11 +32,10 @@
                   height: dualMenuShowText ? '60px' : '46px'
                 }"
               >
-                <i
-                  class="iconfont-sys"
-                  v-html="menu.meta.icon"
+                <ArtSvgIcon
+                  :icon="menu.meta.icon"
+                  class="text-g-500 text-xl"
                   :style="{
-                    fontSize: dualMenuShowText ? '18px' : '22px',
                     marginBottom: dualMenuShowText ? '5px' : '0'
                   }"
                 />
@@ -51,7 +50,7 @@
       </ElScrollbar>
 
       <div class="switch-btn" @click="toggleDualMenuMode">
-        <i class="iconfont-sys">&#xe798;</i>
+        <ArtSvgIcon icon="ri:arrow-left-right-fill" class="text-g-500 text-xl" />
       </div>
     </div>
 

@@ -64,12 +64,12 @@ export function useSettingsConfig() {
     {
       value: ContainerWidthEnum.FULL,
       label: t('setting.container.list[0]'),
-      icon: '&#xe694;'
+      icon: 'ri:expand-horizontal-s-line'
     },
     {
       value: ContainerWidthEnum.BOXED,
       label: t('setting.container.list[1]'),
-      icon: '&#xe6de;'
+      icon: 'ri:expand-width-line'
     }
   ])
 

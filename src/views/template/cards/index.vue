@@ -363,35 +363,35 @@
       status: '进行中',
       time: '5分钟',
       class: 'bg-primary',
-      icon: '&#xe6f2;'
+      icon: 'ri:arrow-down-circle-line'
     },
     {
       title: '归档数据',
       status: '进行中',
       time: '10分钟',
       class: 'bg-secondary',
-      icon: '&#xe806;'
+      icon: 'ri:arrow-down-circle-line'
     },
     {
       title: '客户会议',
       status: '待处理',
       time: '15分钟',
       class: 'bg-warning',
-      icon: '&#xe6fb;'
+      icon: 'ri:arrow-down-circle-line'
     },
     {
       title: '筛选任务团队',
       status: '进行中',
       time: '20分钟',
       class: 'bg-danger',
-      icon: '&#xe813;'
+      icon: 'ri:arrow-down-circle-line'
     },
     {
       title: '发送信封给小王',
       status: '已完成',
       time: '20分钟',
       class: 'bg-success',
-      icon: '&#xe70c;'
+      icon: 'ri:arrow-down-circle-line'
     }
   ]
 

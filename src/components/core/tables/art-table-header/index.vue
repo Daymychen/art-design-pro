@@ -16,11 +16,7 @@
             : ''
         "
       >
-        <i
-          class="iconfont-sys select-none text-base"
-          :class="showSearchBar ? 'text-white' : 'text-[var(--art-gray-700)]'"
-          >&#xe6cb;</i
-        >
+        <ArtSvgIcon icon="ri:search-line" :class="showSearchBar ? 'text-white' : 'text-g-700'" />
       </div>
       <div
         v-if="shouldShow('refresh')"
@@ -28,21 +24,17 @@
         @click="refresh"
         :class="{ loading: loading && isManualRefresh }"
       >
-        <i
-          class="iconfont-sys select-none text-base text-[var(--art-gray-700)] hover:text-[var(--art-gray-800)]"
+        <ArtSvgIcon
+          icon="ri:refresh-line"
           :class="loading && isManualRefresh ? 'animate-spin text-[var(--art-gray-600)]' : ''"
-          >&#xe615;</i
-        >
+        />
       </div>
 
       <ElDropdown v-if="shouldShow('size')" @command="handleTableSizeChange">
         <div
           class="ml-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-[var(--art-gray-700)] transition-all duration-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
         >
-          <i
-            class="iconfont-sys select-none text-base text-[var(--art-gray-700)] hover:text-[var(--art-gray-800)]"
-            >&#xe63d;</i
-          >
+          <ArtSvgIcon icon="ri:arrow-up-down-fill" />
         </div>
         <template #dropdown>
           <ElDropdownMenu>
@@ -68,10 +60,7 @@
         class="ml-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-[var(--art-gray-700)] transition-all duration-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
         @click="toggleFullScreen"
       >
-        <i
-          class="iconfont-sys select-none text-base text-[var(--art-gray-700)] hover:text-[var(--art-gray-800)]"
-          >{{ isFullScreen ? '&#xe62d;' : '&#xe8ce;' }}</i
-        >
+        <ArtSvgIcon :icon="isFullScreen ? 'ri:fullscreen-exit-line' : 'ri:fullscreen-line'" />
       </div>
 
       <!-- 列设置 -->
@@ -79,10 +68,8 @@
         <template #reference>
           <div
             class="ml-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-[var(--art-gray-700)] transition-all duration-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
-            ><i
-              class="iconfont-sys select-none text-base text-[var(--art-gray-700)] hover:text-[var(--art-gray-800)]"
-              >&#xe6bd;</i
-            >
+          >
+            <ArtSvgIcon icon="ri:align-right" />
           </div>
         </template>
         <div>
@@ -103,7 +90,10 @@
                 class="drag-icon mr-2 flex h-[18px] items-center justify-center text-[var(--art-gray-500)]"
                 :class="item.fixed ? 'cursor-default text-[var(--art-gray-300)]' : 'cursor-move'"
               >
-                <i class="iconfont-sys text-lg">{{ item.fixed ? '&#xe648;' : '&#xe648;' }}</i>
+                <ArtSvgIcon
+                  :icon="item.fixed ? 'ri:sip-line' : 'ri:drag-move-2-fill'"
+                  class="text-[16px]"
+                />
               </div>
               <ElCheckbox
                 v-model="item.checked"
@@ -123,10 +113,7 @@
           <div
             class="ml-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-[var(--art-gray-700)] transition-all duration-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
           >
-            <i
-              class="iconfont-sys select-none text-[17px] text-[var(--art-gray-700)] hover:text-[var(--art-gray-800)]"
-              >&#xe72b;</i
-            >
+            <ArtSvgIcon icon="ri:settings-line" />
           </div>
         </template>
         <div>

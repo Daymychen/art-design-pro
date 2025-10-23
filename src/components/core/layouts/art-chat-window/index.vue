@@ -76,12 +76,14 @@
           </ElInput>
           <div class="mt-3 flex items-center justify-between">
             <div class="flex items-center">
-              <i class="iconfont-sys mr-5 cursor-pointer text-base text-[var(--art-gray-500)]"
-                >&#xe634;</i
-              >
-              <i class="iconfont-sys mr-5 cursor-pointer text-base text-[var(--art-gray-500)]"
-                >&#xe809;</i
-              >
+              <ArtSvgIcon
+                icon="ri:image-line"
+                class="mr-5 text-base cursor-pointer text-g-400 text-[17px]"
+              />
+              <ArtSvgIcon
+                icon="ri:emotion-happy-line"
+                class="mr-5 text-base cursor-pointer text-g-400 text-[18px]"
+              />
             </div>
             <ElButton type="primary" @click="sendMessage" v-ripple class="min-w-[80px]"
               >发送</ElButton

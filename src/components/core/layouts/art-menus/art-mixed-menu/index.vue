@@ -32,7 +32,8 @@
             }"
             @click="handleMenuJump(item, true)"
           >
-            <i class="mr-[5px] text-[15px] text-g-800 iconfont-sys" v-html="item.meta.icon" />
+            <ArtSvgIcon :icon="item.meta.icon" class="text-g-800 mr-[5px] text-[15px]" />
+
             <span class="text-g-800">{{ item.formattedTitle }}</span>
             <div v-if="item.meta.showBadge" class="art-badge art-badge-mixed" />
           </div>

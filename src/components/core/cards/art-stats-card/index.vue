@@ -42,7 +42,7 @@
       >
     </div>
     <div v-if="showArrow">
-      <i class="iconfont-sys text-lg text-[var(--art-gray-600)]">&#xe703;</i>
+      <ArtSvgIcon icon="ri:arrow-right-s-line" class="text-xl text-g-400" />
     </div>
   </div>
 </template>

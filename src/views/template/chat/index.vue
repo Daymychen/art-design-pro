@@ -168,7 +168,7 @@
             <div class="flex items-center">
               <ArtSvgIcon
                 icon="ri:image-line"
-                class="mr-5 text-base cursor-pointer text-g-400 text-[18px]"
+                class="mr-5 text-base cursor-pointer text-g-400 text-[17px]"
               />
               <ArtSvgIcon
                 icon="ri:emotion-happy-line"

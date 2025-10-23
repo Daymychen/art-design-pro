@@ -3,7 +3,7 @@
     <!-- 包含子菜单的项目 -->
     <ElSubMenu v-if="hasChildren(item)" :index="item.path || item.meta.title" :level="level">
       <template #title>
-        <MenuItemIcon :icon="item.meta.icon" :color="theme?.iconColor" />
+        <ArtSvgIcon :icon="item.meta.icon" :color="theme?.iconColor" class="mr-1 text-lg" />
         <span class="menu-name">
           {{ formatMenuTitle(item.meta.title) }}
         </span>
@@ -26,7 +26,7 @@
       :level-item="level + 1"
       @click="goPage(item)"
     >
-      <MenuItemIcon :icon="item.meta.icon" :color="theme?.iconColor" />
+      <ArtSvgIcon :icon="item.meta.icon" :color="theme?.iconColor" class="mr-1 text-lg" />
       <div
         v-show="item.meta.showBadge && level === 0 && !menuOpen"
         class="art-badge"
@@ -164,34 +164,4 @@
   const isExternalLink = (item: AppRouteRecord): boolean => {
     return !!(item.meta.link && !item.meta.isIframe)
   }
-</script>
-
-<script lang="ts">
-  /**
-   * 菜单图标组件
-   * 用于渲染菜单项的图标
-   */
-  const MenuItemIcon = defineComponent({
-    name: 'MenuItemIcon',
-    props: {
-      /** 图标内容 */
-      icon: {
-        type: String,
-        default: ''
-      },
-      /** 图标颜色 */
-      color: {
-        type: String,
-        default: ''
-      }
-    },
-    setup(props) {
-      return () =>
-        h('i', {
-          class: 'menu-icon iconfont-sys',
-          style: props.color ? { color: props.color } : undefined,
-          innerHTML: props.icon
-        })
-    }
-  })
 </script>

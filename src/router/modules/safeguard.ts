@@ -6,7 +6,7 @@ export const safeguardRoutes: AppRouteRecord = {
   component: '/index/index',
   meta: {
     title: 'menus.safeguard.title',
-    icon: '&#xe816;',
+    icon: 'ri:account-circle-2-line',
     keepAlive: false
   },
   children: [

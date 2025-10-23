@@ -9,7 +9,7 @@
         :class="{ 'is-active': containerWidth === option.value }"
         @click="containerHandlers.setWidth(option.value)"
       >
-        <i class="iconfont-sys" v-html="option.icon"></i>
+        <ArtSvgIcon :icon="option.icon" class="mr-1" />
         <span>{{ option.label }}</span>
       </div>
     </div>
