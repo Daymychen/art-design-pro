@@ -211,10 +211,7 @@
                   class="flex items-center p-2 mb-[10px] cursor-pointer select-none rounded-md hover:bg-[rgb(var(--art-gray-200-rgb),0.7)] last:mb-0"
                   @click="goPage('/system/user-center')"
                 >
-                  <i
-                    class="block w-[25px] text-base text-[var(--art-text-gray-800)] menu-icon iconfont-sys"
-                    >&#xe734;</i
-                  >
+                  <ArtSvgIcon icon="ri:user-3-line" class="mr-1 text-base" />
                   <span class="text-sm text-[var(--art-text-gray-800)] menu-txt">{{
                     $t('topBar.user.userCenter')
                   }}</span>
@@ -223,10 +220,7 @@
                   class="flex items-center p-2 mb-[10px] cursor-pointer select-none rounded-md hover:bg-[rgb(var(--art-gray-200-rgb),0.7)] last:mb-0"
                   @click="toDocs()"
                 >
-                  <i
-                    class="block w-[25px] text-[15px] text-[var(--art-text-gray-800)] menu-icon iconfont-sys"
-                    >&#xe828;</i
-                  >
+                  <ArtSvgIcon icon="ri:book-2-line" class="mr-1 text-base" />
                   <span class="text-sm text-[var(--art-text-gray-800)] menu-txt">{{
                     $t('topBar.user.docs')
                   }}</span>
@@ -235,10 +229,7 @@
                   class="flex items-center p-2 mb-[10px] cursor-pointer select-none rounded-md hover:bg-[rgb(var(--art-gray-200-rgb),0.7)] last:mb-0"
                   @click="toGithub()"
                 >
-                  <i
-                    class="block w-[25px] text-base text-[var(--art-text-gray-800)] menu-icon iconfont-sys"
-                    >&#xe8d6;</i
-                  >
+                  <ArtSvgIcon icon="ri:github-line" class="mr-1 text-base" />
                   <span class="text-sm text-[var(--art-text-gray-800)] menu-txt">{{
                     $t('topBar.user.github')
                   }}</span>
@@ -247,10 +238,7 @@
                   class="flex items-center p-2 mb-[10px] cursor-pointer select-none rounded-md hover:bg-[rgb(var(--art-gray-200-rgb),0.7)] last:mb-0"
                   @click="lockScreen()"
                 >
-                  <i
-                    class="block w-[25px] text-base text-[var(--art-text-gray-800)] menu-icon iconfont-sys"
-                    >&#xe817;</i
-                  >
+                  <ArtSvgIcon icon="ri:lock-line" class="mr-1 text-base" />
                   <span class="text-sm text-[var(--art-text-gray-800)] menu-txt">{{
                     $t('topBar.user.lockScreen')
                   }}</span>

@@ -3,10 +3,10 @@
     class="page-content box-border !px-[100px] !py-[15px] text-center max-md:!px-[25px]"
     :class="type"
   >
-    <i
-      class="iconfont-sys icon mt-[6vh] block !text-[80px] max-md:mt-[4vh] max-md:!text-[60px]"
-      v-html="iconCode"
-    ></i>
+    <ArtSvgIcon
+      class="icon mt-[6vh] block !text-[80px] max-md:mt-[4vh] max-md:!text-[60px]"
+      :icon="iconCode"
+    />
     <h1
       class="title mt-5 text-[30px] font-medium !text-[var(--art-text-gray-900)] max-md:mt-2.5 max-md:text-[25px]"
       >{{ title }}</h1

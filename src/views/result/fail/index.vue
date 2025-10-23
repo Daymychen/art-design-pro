@@ -4,7 +4,7 @@
     type="fail"
     title="提交失败"
     message="请核对并修改以下信息后，再重新提交。"
-    iconCode="&#xe665;"
+    iconCode="ri:close-circle-line"
   >
     <template #content>
       <p>您提交的内容有如下错误：</p>

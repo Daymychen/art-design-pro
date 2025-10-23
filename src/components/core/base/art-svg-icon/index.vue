@@ -1,5 +1,5 @@
 <template>
-  <Icon v-if="icon" :icon="icon" v-bind="bindAttrs" class="inline-block" />
+  <Icon v-if="icon" :icon="icon" v-bind="bindAttrs" class="inline" />
 </template>
 
 <script setup lang="ts">

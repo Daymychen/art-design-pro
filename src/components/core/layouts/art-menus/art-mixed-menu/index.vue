@@ -26,14 +26,13 @@
         <template v-for="item in processedMenuList" :key="item.meta.title">
           <div
             v-if="!item.meta.isHide"
-            class="menu-item relative flex-shrink-0 h-10 px-3 text-sm leading-10 cursor-pointer rounded-md hover:text-[var(--main-color)]"
+            class="menu-item relative flex-shrink-0 h-10 px-3 text-sm flex items-center cursor-pointer hover:text-[var(--main-color)]"
             :class="{
               'menu-item-active text-[var(--main-color)] bg-[var(--main-bg-color)]': item.isActive
             }"
             @click="handleMenuJump(item, true)"
           >
-            <ArtSvgIcon :icon="item.meta.icon" class="text-g-800 mr-[5px] text-[15px]" />
-
+            <ArtSvgIcon :icon="item.meta.icon" class="text-g-800 mr-[5px] text-lg" />
             <span class="text-g-800">{{ item.formattedTitle }}</span>
             <div v-if="item.meta.showBadge" class="art-badge art-badge-mixed" />
           </div>
