@@ -15,9 +15,7 @@
       >
         <p class="text-gray-400 text-[14px]">{{ item.date }}</p>
         <p class="mt-[16px] text-[14px] text-gray-800">{{ item.content }}</p>
-        <div
-          class="absolute bottom-[16px] left-0 px-[16px] flex items-center justify-between w-full"
-        >
+        <div class="absolute bottom-[16px] left-0 px-[16px] flex-between w-full">
           <div class="flex items-center">
             <div class="flex items-center mr-[20px] text-[12px] text-gray-500">
               <ArtSvgIcon icon="ri:heart-line" class="mr-1 text-[16px]" />
@@ -50,9 +48,7 @@
           <div class="relative p-[16px] aspect-16/12" :style="{ background: clickItem.color }">
             <p class="text-gray-400 text-[14px]">{{ clickItem.date }}</p>
             <p class="mt-[16px] text-[14px] text-gray-800">{{ clickItem.content }}</p>
-            <div
-              class="absolute bottom-[16px] left-0 px-[16px] flex items-center justify-between w-full"
-            >
+            <div class="absolute bottom-[16px] left-0 px-[16px] flex-between w-full">
               <div class="flex items-center">
                 <div class="flex items-center mr-[20px] text-[12px] text-gray-500">
                   <ArtSvgIcon icon="ri:heart-line" class="mr-1 text-[16px]" />

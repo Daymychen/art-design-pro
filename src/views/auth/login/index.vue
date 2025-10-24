@@ -48,7 +48,7 @@
             </ElFormItem>
             <div class="relative pb-5 mt-[25px]">
               <div
-                class="relative z-[2] overflow-hidden select-none rounded-[6px] border border-transparent transition-all duration-300"
+                class="relative z-[2] overflow-hidden select-none rounded-[6px] border border-transparent tad-300"
                 :class="{ '!border-[#ff4d4f]': !isPassing && isClickPass }"
               >
                 <ArtDragVerify
@@ -63,14 +63,14 @@
                 />
               </div>
               <p
-                class="absolute top-0 z-[1] px-[1px] mt-[10px] text-[13px] text-[#f56c6c] transition-all duration-300"
+                class="absolute top-0 z-[1] px-[1px] mt-[10px] text-[13px] text-[#f56c6c] tad-300"
                 :class="{ 'translate-y-10': !isPassing && isClickPass }"
               >
                 {{ $t('login.placeholder.slider') }}
               </p>
             </div>
 
-            <div class="flex items-center justify-between mt-[10px] text-[14px]">
+            <div class="flex-between mt-[10px] text-[14px]">
               <ElCheckbox v-model="formData.rememberPassword">{{
                 $t('login.rememberPwd')
               }}</ElCheckbox>

@@ -22,9 +22,7 @@
     <!-- 获取标签页模块 -->
     <ElCard class="mb-[30px]" header="获取标签页信息" shadow="never">
       <div class="mb-4">
-        <p class="m-0 mb-[10px] text-sm text-[var(--art-gray-600)]">
-          当前标签页信息：{{ currentTab }}
-        </p>
+        <p class="m-0 mb-[10px] text-sm text-g-600"> 当前标签页信息：{{ currentTab }} </p>
       </div>
       <ElRow :gutter="20">
         <ElCol :span="24">

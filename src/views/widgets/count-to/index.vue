@@ -13,7 +13,7 @@
     <div class="mb-[60px]">
       <h2 class="m-0 mb-6 text-xl font-medium text-[#333]">基础用法</h2>
       <div
-        class="p-5 mb-5 text-[2rem] font-semibold text-center text-[#495057] bg-[var(--art-gray-100)] border border-[var(--art-border-color)] rounded-lg tabular-nums"
+        class="p-5 mb-5 text-[2rem] font-semibold text-center text-[#495057] bg-[var(--art-gray-100)] border-a rounded-lg tabular-nums"
       >
         <ArtCountTo :target="1000" :duration="2000" />
       </div>
@@ -23,7 +23,7 @@
     <div class="mb-[60px]">
       <h2 class="m-0 mb-6 text-xl font-medium text-[#333]">带前缀后缀</h2>
       <div
-        class="p-5 mb-5 text-[2rem] font-semibold text-center text-[#495057] bg-[var(--art-gray-100)] border border-[var(--art-border-color)] rounded-lg tabular-nums"
+        class="p-5 mb-5 text-[2rem] font-semibold text-center text-[#495057] bg-[var(--art-gray-100)] border-a rounded-lg tabular-nums"
       >
         <ArtCountTo :target="20000" :duration="2500" prefix="¥" suffix="元" :decimals="2" />
       </div>
@@ -33,7 +33,7 @@
     <div class="mb-[60px]">
       <h2 class="m-0 mb-6 text-xl font-medium text-[#333]">小数点和分隔符</h2>
       <div
-        class="p-5 mb-5 text-[2rem] font-semibold text-center text-[#495057] bg-[var(--art-gray-100)] border border-[var(--art-border-color)] rounded-lg tabular-nums"
+        class="p-5 mb-5 text-[2rem] font-semibold text-center text-[#495057] bg-[var(--art-gray-100)] border-a rounded-lg tabular-nums"
       >
         <ArtCountTo :target="2023.45" :duration="3000" :decimals="2" separator="," />
       </div>
@@ -46,7 +46,7 @@
         <div class="text-center" v-for="easing in easingTypes" :key="easing.type">
           <div class="mb-3 text-sm font-medium text-[#666]">{{ easing.name }}</div>
           <div
-            class="p-4 mb-0 text-2xl font-semibold text-center text-[#495057] bg-[var(--art-gray-100)] border border-[var(--art-border-color)] rounded-lg tabular-nums"
+            class="p-4 mb-0 text-2xl font-semibold text-center text-[#495057] bg-[var(--art-gray-100)] border-a rounded-lg tabular-nums"
           >
             <ArtCountTo :target="easingTarget" :duration="3000" :easing="easing.type" />
           </div>
@@ -61,7 +61,7 @@
     <div class="mb-[60px]">
       <h2 class="m-0 mb-6 text-xl font-medium text-[#333]">控制按钮</h2>
       <div
-        class="p-5 mb-5 text-[2rem] font-semibold text-center text-[#495057] bg-[var(--art-gray-100)] border border-[var(--art-border-color)] rounded-lg tabular-nums"
+        class="p-5 mb-5 text-[2rem] font-semibold text-center text-[#495057] bg-[var(--art-gray-100)] border-a rounded-lg tabular-nums"
       >
         <ArtCountTo
           ref="countToRef"

@@ -1,13 +1,17 @@
 <!-- 返回顶部 -->
 <template>
-  <div>
-    <div class="back-to-top" v-show="showButton" @click="scrollToTop">
-      <div class="back-to-top-btn">
-        <ArtSvgIcon icon="ri:arrow-up-wide-line" />
-        <p>顶部</p>
-      </div>
+  <Transition
+    enter-active-class="tad-300 ease-out"
+    leave-active-class="tad-200 ease-in"
+    enter-from-class="opacity-0 translate-y-2"
+    enter-to-class="opacity-100 translate-y-0"
+    leave-from-class="opacity-100 translate-y-0"
+    leave-to-class="opacity-0 translate-y-2"
+  >
+    <div v-show="showButton" class="button" @click="scrollToTop">
+      <ArtSvgIcon icon="ri:arrow-up-wide-line" class="text-g-400 text-lg" />
     </div>
-  </div>
+  </Transition>
 </template>
 
 <script setup lang="ts">
@@ -17,47 +21,37 @@
 
   const { scrollToTop } = useCommon()
 
-  const { y } = useWindowScroll()
   const showButton = ref(false)
-  const scrollThreshold = 2000 // 设置阈值
+  const scrollThreshold = 300
 
-  // 监听滚动位置
-  watch(y, (newY: number) => {
-    showButton.value = newY > scrollThreshold
+  onMounted(() => {
+    const scrollContainer = document.getElementById('app-main')
+    if (scrollContainer) {
+      const { y } = useScroll(scrollContainer)
+      watch(y, (newY: number) => {
+        showButton.value = newY > scrollThreshold
+      })
+    }
   })
 </script>
 
-<style lang="scss" scoped>
-  .back-to-top {
-    position: fixed;
-    right: 40px;
-    bottom: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 38px;
-    height: 38px;
-    color: var(--art-gray-700);
-    text-align: center;
-    cursor: pointer;
-    border: 1px solid var(--art-border-color);
-    border-radius: 6px;
-    transition: all 0.3s;
+<style scoped>
+  @import 'tailwindcss';
 
-    i {
-      display: block;
-      line-height: 1;
-    }
-
-    p {
-      margin-top: 2px;
-      font-size: 10px;
-      line-height: 1;
-    }
-
-    &:hover {
-      background-color: var(--art-text-gray-200);
-      border-color: var(--art-border-dashed-color);
-    }
+  .button {
+    @apply fixed 
+    right-10 
+    bottom-15 
+    size-9.5
+    flex 
+    items-center 
+    justify-center 
+    text-center 
+    cursor-pointer 
+    border 
+    border-[var(--art-border-dashed-color)] 
+    rounded-md 
+    transition-all 
+    hover:bg-[var(--art-text-gray-200)];
   }
 </style>

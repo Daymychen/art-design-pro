@@ -1,6 +1,6 @@
 <!-- 系统logo -->
 <template>
-  <div class="flex items-center justify-center">
+  <div class="flex-center">
     <img :style="logoStyle" src="@imgs/common/logo.webp" alt="logo" class="w-full h-full" />
   </div>
 </template>

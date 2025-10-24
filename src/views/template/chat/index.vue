@@ -16,12 +16,8 @@
         <div class="flex gap-3 items-center">
           <ElAvatar :size="50" :src="selectedPerson?.avatar" />
           <div>
-            <div class="text-base font-medium text-[var(--art-gray-900)]">{{
-              selectedPerson?.name
-            }}</div>
-            <div class="mt-1 text-[13px] text-[var(--art-gray-500)]">{{
-              selectedPerson?.email
-            }}</div>
+            <div class="text-base font-medium">{{ selectedPerson?.name }}</div>
+            <div class="mt-1 text-[13px] text-g-500">{{ selectedPerson?.email }}</div>
           </div>
         </div>
         <div class="mt-3">
@@ -47,7 +43,7 @@
         <div
           v-for="item in personList"
           :key="item.id"
-          class="flex items-center p-3 cursor-pointer rounded-lg transition-all duration-300 ease-in-out hover:bg-[var(--el-fill-color-light)]"
+          class="flex items-center p-3 cursor-pointer rounded-lg tad-300 ease-in-out hover:bg-[var(--el-fill-color-light)]"
           :class="{ 'bg-[var(--el-fill-color-light)]': selectedPerson?.id === item.id }"
           @click="selectPerson(item)"
         >
@@ -61,13 +57,13 @@
             ></div>
           </div>
           <div class="flex-1 min-w-0">
-            <div class="flex items-center justify-between mb-1">
+            <div class="flex-between mb-1">
               <span class="text-sm font-medium text-[var(--el-text-color-primary)]">{{
                 item.name
               }}</span>
               <span class="text-xs text-[var(--el-text-color-secondary)]">{{ item.lastTime }}</span>
             </div>
-            <div class="flex items-center justify-between">
+            <div class="flex-between">
               <span
                 class="overflow-hidden text-xs text-[var(--el-text-color-secondary)] text-ellipsis whitespace-nowrap"
                 >{{ item.email }}</span
@@ -78,7 +74,7 @@
       </ElScrollbar>
     </div>
     <div class="box-border flex-1 h-full max-md:h-[calc(70%-30px)]">
-      <div class="flex items-center justify-between pt-4 px-4 pb-0 mb-5">
+      <div class="flex-between pt-4 px-4 pb-0 mb-5">
         <div>
           <span class="text-base font-medium">Art Bot</span>
           <div class="flex gap-1 items-center mt-1.5">
@@ -86,22 +82,22 @@
               class="w-2 h-2 rounded-full"
               :class="isOnline ? 'bg-[var(--el-color-success)]' : 'bg-[var(--el-color-danger)]'"
             ></div>
-            <span class="text-xs text-[var(--art-gray-600)]">{{ isOnline ? '在线' : '离线' }}</span>
+            <span class="text-xs text-g-600">{{ isOnline ? '在线' : '离线' }}</span>
           </div>
         </div>
         <div class="flex gap-2 items-center">
           <div
-            class="size-[42px] flex items-center justify-center leading-[42px] text-center cursor-pointer rounded-full transition-colors duration-200 ease-in-out hover:bg-[var(--art-gray-200)]"
+            class="size-[42px] flex-center leading-[42px] text-center cursor-pointer rounded-full transition-colors duration-200 ease-in-out hover:bg-[var(--art-gray-200)]"
           >
             <ArtSvgIcon icon="ri:phone-line" class="text-g-600 text-[18px]" />
           </div>
           <div
-            class="size-[42px] flex items-center justify-center leading-[42px] text-center cursor-pointer rounded-full transition-colors duration-200 ease-in-out hover:bg-[var(--art-gray-200)]"
+            class="size-[42px] flex-center leading-[42px] text-center cursor-pointer rounded-full transition-colors duration-200 ease-in-out hover:bg-[var(--art-gray-200)]"
           >
             <ArtSvgIcon icon="ri:video-on-line" class="text-g-600 text-[18px]" />
           </div>
           <div
-            class="size-[42px] flex items-center justify-center leading-[42px] text-center cursor-pointer rounded-full transition-colors duration-200 ease-in-out hover:bg-[var(--art-gray-200)]"
+            class="size-[42px] flex-center leading-[42px] text-center cursor-pointer rounded-full transition-colors duration-200 ease-in-out hover:bg-[var(--art-gray-200)]"
           >
             <ArtSvgIcon icon="ri:more-2-fill" class="text-g-600 text-[18px]" />
           </div>
@@ -135,9 +131,7 @@
                 <div
                   class="py-2.5 px-3.5 text-sm leading-[1.4] rounded-md"
                   :class="
-                    message.isMe
-                      ? 'bg-[rgb(var(--art-bg-secondary))]'
-                      : 'bg-[var(--art-gray-200)] text-[var(--art-gray-900)]'
+                    message.isMe ? 'bg-[rgb(var(--art-bg-secondary))]' : 'bg-[var(--art-gray-200)] '
                   "
                   >{{ message.content }}</div
                 >
@@ -164,7 +158,7 @@
               </div>
             </template>
           </ElInput>
-          <div class="flex items-center justify-between mt-3">
+          <div class="flex-between mt-3">
             <div class="flex items-center">
               <ArtSvgIcon
                 icon="ri:image-line"

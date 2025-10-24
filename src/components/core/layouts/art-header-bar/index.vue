@@ -1,12 +1,8 @@
 <!-- 顶部栏 -->
 <template>
   <div
-    class="w-full bg-[var(--art-bg-color)] transition-all duration-300 ease-in-out"
-    :class="[
-      tabStyle === 'tab-card' || tabStyle === 'tab-google'
-        ? 'mb-5 !bg-[var(--art-main-bg-color)]'
-        : ''
-    ]"
+    class="w-full bg-[var(--art-bg-color)]"
+    :class="[tabStyle === 'tab-card' || tabStyle === 'tab-google' ? 'mb-5 !art-card-bg' : '']"
   >
     <div
       class="relative box-border flex justify-between h-[60px] leading-[60px] select-none"
@@ -72,17 +68,17 @@
         <!-- 搜索 -->
         <div
           v-if="shouldShowGlobalSearch"
-          class="box-border flex items-center justify-between w-[160px] h-9 px-[10px] cursor-pointer border border-[var(--art-border-dashed-color)] rounded-[calc(var(--custom-radius)/2+2px)]"
+          class="flex-between w-[160px] h-9 px-2.5 cursor-pointer border border-g-300/70 rounded-custom-sm"
           @click="openSearchDialog"
         >
           <div class="flex items-center">
             <ArtSvgIcon icon="ri:search-line" class="text-[13px] text-g-500" />
-            <span class="ml-[10px] text-[13px] font-normal text-[var(--art-gray-500)]">{{
+            <span class="ml-[10px] text-[13px] font-normal text-g-400">{{
               $t('topBar.search.title')
             }}</span>
           </div>
           <div
-            class="flex items-center h-5 px-[6px] text-[var(--art-gray-500)] bg-[var(--art-bg-color)] border border-[var(--art-border-dashed-color)] rounded"
+            class="flex items-center h-5 px-[6px] text-g-400 bg-[var(--art-bg-color)] border border-g-200 rounded"
           >
             <ArtSvgIcon v-if="isWindows" icon="vaadin:ctrl-a" class="text-[14px]" />
             <ArtSvgIcon v-else icon="ri:command-fill" class="text-xs" />
@@ -181,11 +177,11 @@
           trigger="hover"
           :show-arrow="false"
           popper-class="user-menu-popover"
-          popper-style="border: 1px solid var(--art-border-dashed-color); border-radius: calc(var(--custom-radius) / 2 + 4px); padding: 5px 16px; 5px 16px;"
+          popper-style="padding: 5px 16px; 5px 16px;"
         >
           <template #reference>
             <img
-              class="w-[34px] h-[34px] mr-[20px] ml-0 overflow-hidden cursor-pointer bg-[#eee] rounded-full max-sm:w-[26px] max-sm:h-[26px]"
+              class="size-8.5 mr-5 cursor-pointer rounded-full max-sm:w-[26px] max-sm:h-[26px]"
               src="@imgs/user/avatar.webp"
               alt="avatar"
             />
@@ -194,21 +190,21 @@
             <div class="pt-[10px]">
               <div class="flex items-center pb-1 px-0">
                 <img
-                  class="w-10 h-10 mr-[10px] ml-0 overflow-hidden bg-[#eee] rounded-full float-left"
+                  class="w-10 h-10 mr-[10px] ml-0 overflow-hidden rounded-full float-left"
                   src="@imgs/user/avatar.webp"
                 />
                 <div class="w-[calc(100%-60px)] h-full">
-                  <span class="block text-sm font-medium text-[var(--art-gray-800)] truncate">{{
+                  <span class="block text-sm font-medium text-g-800 truncate">{{
                     userInfo.userName
                   }}</span>
-                  <span class="block mt-[3px] text-xs text-[var(--art-gray-500)] truncate">{{
+                  <span class="block mt-[3px] text-xs text-g-500 truncate">{{
                     userInfo.email
                   }}</span>
                 </div>
               </div>
               <ul class="py-4 mt-[10px] border-t border-[var(--art-border-color)]">
                 <li
-                  class="flex items-center p-2 mb-[10px] cursor-pointer select-none rounded-md hover:bg-[rgb(var(--art-gray-200-rgb),0.7)] last:mb-0"
+                  class="flex items-center p-2 mb-[10px] cursor-pointer select-none rounded-md hover:bg-g-100/60 last:mb-0"
                   @click="goPage('/system/user-center')"
                 >
                   <ArtSvgIcon icon="ri:user-3-line" class="mr-1 text-base" />
@@ -217,7 +213,7 @@
                   }}</span>
                 </li>
                 <li
-                  class="flex items-center p-2 mb-[10px] cursor-pointer select-none rounded-md hover:bg-[rgb(var(--art-gray-200-rgb),0.7)] last:mb-0"
+                  class="flex items-center p-2 mb-[10px] cursor-pointer select-none rounded-md hover:bg-g-100/60 last:mb-0"
                   @click="toDocs()"
                 >
                   <ArtSvgIcon icon="ri:book-2-line" class="mr-1 text-base" />
@@ -226,7 +222,7 @@
                   }}</span>
                 </li>
                 <li
-                  class="flex items-center p-2 mb-[10px] cursor-pointer select-none rounded-md hover:bg-[rgb(var(--art-gray-200-rgb),0.7)] last:mb-0"
+                  class="flex items-center p-2 mb-[10px] cursor-pointer select-none rounded-md hover:bg-g-100/60 last:mb-0"
                   @click="toGithub()"
                 >
                   <ArtSvgIcon icon="ri:github-line" class="mr-1 text-base" />
@@ -235,7 +231,7 @@
                   }}</span>
                 </li>
                 <li
-                  class="flex items-center p-2 mb-[10px] cursor-pointer select-none rounded-md hover:bg-[rgb(var(--art-gray-200-rgb),0.7)] last:mb-0"
+                  class="flex items-center p-2 mb-[10px] cursor-pointer select-none rounded-md hover:bg-g-100/60 last:mb-0"
                   @click="lockScreen()"
                 >
                   <ArtSvgIcon icon="ri:lock-line" class="mr-1 text-base" />
@@ -244,10 +240,7 @@
                   }}</span>
                 </li>
                 <div class="w-full h-px my-[10px] bg-[var(--art-border-color)]"></div>
-                <div
-                  class="box-border w-full py-[7px] px-0 mt-5 text-[13px] text-[var(--art-text-gray-800)] text-center cursor-pointer border border-[var(--art-border-dashed-color)] rounded-[7px] transition-all duration-200 hover:shadow-[0_0_10px_rgb(var(--art-gray-300-rgb),0.7)]"
-                  @click="loginOut"
-                >
+                <div class="log-out" @click="loginOut">
                   {{ $t('topBar.user.logout') }}
                 </div>
               </ul>
@@ -509,6 +502,20 @@
     duration-200 
     hover:text-[var(--main-color)] 
     hover:bg-[rgba(var(--art-gray-200-rgb),0.7)];
+  }
+
+  .log-out {
+    @apply py-1.5 
+    mt-5 
+    text-[13px] 
+    text-center 
+    cursor-pointer 
+    border 
+    border-[var(--art-border-dashed-color)] 
+    rounded-md 
+    transition-all 
+    duration-200 
+    hover:shadow-[0_0_10px_rgb(var(--art-gray-300-rgb),0.7)];
   }
 
   .header-icon {

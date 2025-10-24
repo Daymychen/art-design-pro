@@ -4,11 +4,11 @@
       <h1 class="mb-2 text-[2.5rem] font-medium max-phone:text-[2rem]"
         >超过 53,476 位信赖的开发者</h1
       >
-      <h2 class="mb-2.5 text-[1.4rem] font-normal text-[var(--art-gray-600)] max-phone:text-2xl">
+      <h2 class="mb-2.5 text-[1.4rem] font-normal text-g-600 max-phone:text-2xl">
         以及众多科技巨头的选择
       </h2>
-      <div class="flex gap-2 items-center justify-center mt-2.5 max-phone:mt-[15px]">
-        <p class="text-sm italic text-[var(--art-gray-600)] max-phone:text-[13px]">
+      <div class="gap-2 flex-center mt-2.5 max-phone:mt-[15px]">
+        <p class="text-sm italic text-g-600 max-phone:text-[13px]">
           本项目基于 MIT 协议开源免费，当前页面为定价模板，仅作演示用途
         </p>
         <ElTag type="success" size="large" round>免费商用</ElTag>

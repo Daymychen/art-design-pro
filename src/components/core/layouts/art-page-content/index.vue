@@ -8,7 +8,7 @@
       <!-- 路由信息调试 -->
       <div
         v-if="isOpenRouteInfo === 'true'"
-        class="px-2 py-1.5 mb-3 text-sm text-[var(--art-gray-600)] bg-[var(--art-gray-200)] border border-[var(--art-border-dashed-color)] rounded-md"
+        class="px-2 py-1.5 mb-3 text-sm text-g-500 bg-[var(--art-gray-200)] border-b rounded-md"
       >
         router meta：{{ route.meta }}
       </div>
@@ -40,7 +40,7 @@
     <Teleport to="body">
       <div
         v-show="showTransitionMask"
-        class="fixed top-0 left-0 z-[2000] w-screen h-screen pointer-events-none bg-[var(--art-main-bg-color)]"
+        class="fixed top-0 left-0 z-[2000] w-screen h-screen pointer-events-none art-card-bg"
       />
     </Teleport>
   </div>

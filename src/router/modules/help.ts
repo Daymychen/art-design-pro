@@ -8,7 +8,7 @@ export const helpRoutes: AppRouteRecord[] = [
     component: '',
     meta: {
       title: 'menus.help.document',
-      icon: 'ri:account-circle-2-line',
+      icon: 'ri:bill-line',
       link: WEB_LINKS.DOCS,
       isIframe: false,
       keepAlive: false
@@ -20,7 +20,7 @@ export const helpRoutes: AppRouteRecord[] = [
     component: '',
     meta: {
       title: 'menus.help.liteVersion',
-      icon: 'ri:account-circle-2-line',
+      icon: 'ri:bus-2-line',
       link: WEB_LINKS.LiteVersion,
       isIframe: false,
       keepAlive: false
@@ -33,7 +33,7 @@ export const helpRoutes: AppRouteRecord[] = [
     meta: {
       title: 'menus.plan.log',
       showTextBadge: `v${__APP_VERSION__}`,
-      icon: 'ri:account-circle-2-line',
+      icon: 'ri:gamepad-line',
       keepAlive: false
     }
   }

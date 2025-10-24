@@ -1,7 +1,7 @@
 <!-- 数字滚动 -->
 <template>
   <span
-    class="text-[var(--art-gray-800)] tabular-nums"
+    class="text-g-800 tabular-nums"
     :class="isRunning ? 'transition-opacity duration-300 ease-in-out' : ''"
   >
     {{ formattedValue }}

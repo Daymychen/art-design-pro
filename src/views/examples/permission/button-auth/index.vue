@@ -13,9 +13,7 @@
     <div class="mb-6">
       <ElCard shadow="never">
         <template #header>
-          <div
-            class="flex items-center justify-between font-semibold text-[var(--el-text-color-primary)]"
-          >
+          <div class="flex-between font-semibold text-[var(--el-text-color-primary)]">
             <span class="flex-1">当前用户权限信息</span>
           </div>
         </template>
@@ -57,9 +55,7 @@
     <div class="mb-6 last:mb-0">
       <ElCard shadow="never">
         <template #header>
-          <div
-            class="flex items-center justify-between font-semibold text-[var(--el-text-color-primary)]"
-          >
+          <div class="flex-between font-semibold text-[var(--el-text-color-primary)]">
             <span class="flex-1">基于角色的权限控制（v-roles 指令）</span>
           </div>
         </template>
@@ -123,9 +119,7 @@
     <div class="mb-6 last:mb-0">
       <ElCard shadow="never">
         <template #header>
-          <div
-            class="flex items-center justify-between font-semibold text-[var(--el-text-color-primary)]"
-          >
+          <div class="flex-between font-semibold text-[var(--el-text-color-primary)]">
             <span class="flex-1">后端模式权限控制（v-auth 指令）</span>
             <ElTag v-if="!isFrontendMode" type="success" size="small">当前模式</ElTag>
             <ElTag v-else type="info" size="small">非当前模式</ElTag>
@@ -236,9 +230,7 @@
     <div class="mb-6 last:mb-0">
       <ElCard shadow="never">
         <template #header>
-          <div
-            class="flex items-center justify-between font-semibold text-[var(--el-text-color-primary)]"
-          >
+          <div class="flex-between font-semibold text-[var(--el-text-color-primary)]">
             <span class="flex-1">前端模式权限控制（hasAuth 方法）</span>
             <ElTag v-if="isFrontendMode" type="success" size="small">当前模式</ElTag>
             <ElTag v-else type="info" size="small">非当前模式</ElTag>
@@ -349,9 +341,7 @@
     <div class="mb-6 last:mb-0">
       <ElCard shadow="never">
         <template #header>
-          <div
-            class="flex items-center justify-between font-semibold text-[var(--el-text-color-primary)]"
-          >
+          <div class="flex-between font-semibold text-[var(--el-text-color-primary)]">
             <span class="flex-1">后端模式权限控制（hasAuth 方法）</span>
             <ElTag v-if="!isFrontendMode" type="success" size="small">当前模式</ElTag>
             <ElTag v-else type="info" size="small">非当前模式</ElTag>
@@ -455,9 +445,7 @@
     <div class="mb-6 last:mb-0">
       <ElCard shadow="never">
         <template #header>
-          <div
-            class="flex items-center justify-between font-semibold text-[var(--el-text-color-primary)]"
-          >
+          <div class="flex-between font-semibold text-[var(--el-text-color-primary)]">
             <span class="flex-1">权限控制模式对比</span>
           </div>
         </template>

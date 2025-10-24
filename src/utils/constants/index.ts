@@ -3,4 +3,3 @@
  */
 
 export * from './links'
-export * from './iconfont'

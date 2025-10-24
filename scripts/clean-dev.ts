@@ -511,7 +511,7 @@ const fastEnterConfig: FastEnterConfig = {
     {
       name: '工作台',
       description: '系统概览与数据统计',
-      icon: '&#xe721;',
+      icon: 'ri:pie-chart-line',
       iconColor: '#377dff',
       enabled: true,
       order: 1,
@@ -520,7 +520,7 @@ const fastEnterConfig: FastEnterConfig = {
     {
       name: '官方文档',
       description: '使用指南与开发文档',
-      icon: '&#xe788;',
+      icon: 'ri:bill-line',
       iconColor: '#ffb100',
       enabled: true,
       order: 2,
@@ -529,7 +529,7 @@ const fastEnterConfig: FastEnterConfig = {
     {
       name: '技术支持',
       description: '技术支持与问题反馈',
-      icon: '&#xe86e;',
+      icon: 'ri:user-location-line',
       iconColor: '#ff6b6b',
       enabled: true,
       order: 3,
@@ -538,7 +538,7 @@ const fastEnterConfig: FastEnterConfig = {
     {
       name: '哔哩哔哩',
       description: '技术分享与交流',
-      icon: '&#xe6b4;',
+      icon: 'ri:bilibili-line',
       iconColor: '#FB7299',
       enabled: true,
       order: 4,

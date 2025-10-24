@@ -12,10 +12,6 @@ $box-radius: calc(var(--custom-radius) / 3 + 2px);
   border: 1px solid rgba(var(--art-gray-300-rgb), 0.8);
   border-radius: $box-radius !important;
 
-  .iconfont-sys {
-    font-size: 20px !important;
-  }
-
   .w-e-bar {
     border-radius: $box-radius $box-radius 0 0 !important;
   }

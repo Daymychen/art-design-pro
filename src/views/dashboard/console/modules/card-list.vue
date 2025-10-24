@@ -14,9 +14,9 @@
           </span>
         </div>
         <div
-          class="absolute top-0 bottom-0 right-5 m-auto size-[50px] rounded-[12px] flex items-center justify-center bg-primary/10"
+          class="absolute top-0 bottom-0 right-5 m-auto size-[50px] rounded-[12px] flex-center bg-primary/10"
         >
-          <ArtSvgIcon icon="ri:emotion-line" class="text-[26px] text-primary" />
+          <ArtSvgIcon :icon="item.icon" class="text-xl text-primary" />
         </div>
       </div>
     </ElCol>
@@ -40,7 +40,7 @@
   const dataList = reactive<CardDataItem[]>([
     {
       des: '总访问次数',
-      icon: '&#xe721;',
+      icon: 'ri:pie-chart-line',
       startVal: 0,
       duration: 1000,
       num: 9120,
@@ -48,7 +48,7 @@
     },
     {
       des: '在线访客数',
-      icon: '&#xe724;',
+      icon: 'ri:group-line',
       startVal: 0,
       duration: 1000,
       num: 182,
@@ -56,7 +56,7 @@
     },
     {
       des: '点击量',
-      icon: '&#xe7aa;',
+      icon: 'ri:fire-line',
       startVal: 0,
       duration: 1000,
       num: 9520,
@@ -64,7 +64,7 @@
     },
     {
       des: '新用户',
-      icon: '&#xe82a;',
+      icon: 'ri:progress-2-line',
       startVal: 0,
       duration: 1000,
       num: 156,

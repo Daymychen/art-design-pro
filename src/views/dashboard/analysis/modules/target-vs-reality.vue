@@ -19,7 +19,7 @@
       <div v-for="item in totalItems" :key="item.label" class="flex items-center mb-5 last:mb-0">
         <div class="flex items-center justify-start w-3/5 text-sm text-gray-600">
           <div
-            class="w-10 h-10 mr-3 text-lg leading-10 text-center rounded-md flex items-center justify-center"
+            class="w-10 h-10 mr-3 text-lg leading-10 text-center rounded-md flex-center"
             :class="item.iconClass"
           >
             <ArtSvgIcon icon="ri:message-3-line" />

@@ -1,7 +1,7 @@
 <!-- 地图图表 -->
 <template>
   <div class="relative w-full" :style="{ height: 'calc(100vh - 120px)' }">
-    <div v-if="isEmpty" class="flex h-full items-center justify-center">
+    <div v-if="isEmpty" class="h-full flex-center">
       <ElEmpty description="暂无地图数据" />
     </div>
 

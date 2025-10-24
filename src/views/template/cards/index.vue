@@ -63,9 +63,9 @@
           :title="card.title"
           :color="card.color"
           :icon="card.icon"
+          :iconSize="card.iconSize"
           :iconColor="card.iconColor"
           :iconBgColor="card.iconBgColor"
-          :iconSize="card.iconSize"
           :iconBgRadius="8"
         />
       </ElCol>
@@ -222,7 +222,7 @@
       title: '销售产品',
       count: 1235,
       description: '鞋子、牛仔裤、派对服装、手表',
-      icon: '&#xe812;',
+      icon: 'ri:account-box-2-line',
       iconColor: 'rgb(var(--art-primary))',
       iconSize: 20,
       iconBgColor: 'rgb(var(--art-info))',
@@ -235,7 +235,7 @@
       title: '活跃用户',
       count: 5000,
       description: '日活跃用户超过5,000+',
-      icon: '&#xe724;',
+      icon: 'ri:account-box-2-line',
       iconColor: 'rgb(var(--art-warning))',
       iconSize: 20,
       iconBgColor: 'rgb(var(--art-success))',
@@ -248,7 +248,7 @@
       title: '总收入',
       count: 35000,
       description: '月收入超过¥350,000+',
-      icon: '&#xe70e;',
+      icon: 'ri:account-box-2-line',
       iconColor: 'rgb(var(--art-secondary))',
       iconSize: 20,
       iconBgColor: 'rgb(var(--art-secondary))',
@@ -261,7 +261,7 @@
       title: '客户评价',
       count: 4800,
       description: '平均评分4.8/5',
-      icon: '&#xe82d;',
+      icon: 'ri:account-box-2-line',
       iconColor: 'rgb(var(--art-error))',
       iconSize: 20,
       iconBgColor: 'rgb(var(--art-error))',
@@ -277,40 +277,40 @@
       title: '完成进度',
       percentage: 75,
       color: 'rgb(var(--art-success))',
-      icon: '&#xe812;',
+      icon: 'ri:account-box-2-line',
       iconColor: 'rgb(var(--art-success))',
       iconBgColor: 'rgb(var(--art-bg-success))',
-      iconSize: 20
+      iconSize: 26
     },
     {
       id: 2,
       title: '项目进度',
       percentage: 65,
       color: 'rgb(var(--art-primary))',
-      icon: '&#xe724;',
+      icon: 'ri:account-box-2-line',
       iconColor: 'rgb(var(--art-primary))',
       iconBgColor: 'rgb(var(--art-bg-primary))',
-      iconSize: 20
+      iconSize: 26
     },
     {
       id: 3,
       title: '学习进度',
       percentage: 45,
       color: 'rgb(var(--art-error))',
-      icon: '&#xe724;',
+      icon: 'ri:account-box-2-line',
       iconColor: 'rgb(var(--art-error))',
       iconBgColor: 'rgb(var(--art-bg-error))',
-      iconSize: 20
+      iconSize: 26
     },
     {
       id: 4,
       title: '任务进度',
       percentage: 90,
       color: 'rgb(var(--art-secondary))',
-      icon: '&#xe724;',
+      icon: 'ri:account-box-2-line',
       iconColor: 'rgb(var(--art-secondary))',
       iconBgColor: 'rgb(var(--art-bg-secondary))',
-      iconSize: 20
+      iconSize: 26
     }
   ]
 

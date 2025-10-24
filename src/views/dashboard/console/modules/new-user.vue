@@ -159,14 +159,9 @@
   })
 </script>
 
-<style lang="scss">
-  .card {
-    // 进度动画
-    .el-progress-bar__inner {
-      transition: all 1s !important;
-    }
-
-    .el-radio-button__original-radio:checked + .el-radio-button__inner {
+<style lang="scss" scoped>
+  .art-card {
+    :deep(.el-radio-button__original-radio:checked + .el-radio-button__inner) {
       color: var(--el-color-primary) !important;
       background: transparent !important;
     }

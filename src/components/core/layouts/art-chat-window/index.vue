@@ -1,7 +1,7 @@
 <template>
   <div class="layout-chat">
     <ElDrawer v-model="isDrawerVisible" :size="isMobile ? '100%' : '480px'" :with-header="false">
-      <div class="mb-5 flex items-center justify-between">
+      <div class="mb-5 flex-between">
         <div>
           <span class="text-base font-medium">Art Bot</span>
           <div class="mt-1.5 flex items-center gap-1">
@@ -9,7 +9,7 @@
               class="h-2 w-2 rounded-full"
               :class="isOnline ? 'bg-[var(--el-color-success)]' : 'bg-[var(--el-color-danger)]'"
             ></div>
-            <span class="text-xs text-[var(--art-gray-500)]">{{ isOnline ? '在线' : '离线' }}</span>
+            <span class="text-xs text-g-500">{{ isOnline ? '在线' : '离线' }}</span>
           </div>
         </div>
         <div>
@@ -74,7 +74,7 @@
               </div>
             </template>
           </ElInput>
-          <div class="mt-3 flex items-center justify-between">
+          <div class="mt-3 flex-between">
             <div class="flex items-center">
               <ArtSvgIcon
                 icon="ri:image-line"

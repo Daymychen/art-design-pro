@@ -26,15 +26,15 @@
           <div
             v-for="application in enabledApplications"
             :key="application.name"
-            class="mr-3 flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 hover:bg-[rgba(var(--art-gray-200-rgb),0.7)] hover:[&_.app-icon]:!bg-transparent"
+            class="mr-3 cursor-pointer flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-[rgba(var(--art-gray-200-rgb),0.7)] hover:[&_.app-icon]:!bg-transparent"
             @click="handleApplicationClick(application)"
           >
             <div
-              class="app-icon flex h-[46px] w-[46px] items-center justify-center rounded-lg bg-[rgba(var(--art-gray-200-rgb),0.7)]"
+              class="app-icon h-[46px] w-[46px] flex-center rounded-lg bg-[rgba(var(--art-gray-200-rgb),0.7)]"
             >
-              <i
-                class="iconfont-sys !text-xl"
-                v-html="application.icon"
+              <ArtSvgIcon
+                class="text-[22px]"
+                :icon="application.icon"
                 :style="{ color: application.iconColor }"
               />
             </div>

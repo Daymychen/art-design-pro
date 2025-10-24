@@ -222,7 +222,6 @@
     },
     "widgets": {
       "title": "Components",
-      "iconList": "Icon List",
       "iconSelector": "Icon Selector",
       "imageCrop": "Image Crop",
       "excel": "Excel Import Export",

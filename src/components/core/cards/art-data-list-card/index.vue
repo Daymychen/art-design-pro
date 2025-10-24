@@ -1,27 +1,21 @@
 <!-- 数据列表卡片 -->
 <template>
   <div>
-    <div
-      class="art-custom-card rounded-[var(--custom-radius)] bg-[var(--art-main-bg-color)] p-[30px]"
-    >
+    <div class="art-custom-card rounded-[var(--custom-radius)] art-card-bg p-[30px]">
       <div class="pb-[15px]">
-        <p class="text-lg font-medium text-[var(--art-gray-900)]">{{ title }}</p>
-        <p class="text-sm text-[var(--art-gray-500)]">{{ subtitle }}</p>
+        <p class="text-lg font-medium">{{ title }}</p>
+        <p class="text-sm text-g-500">{{ subtitle }}</p>
       </div>
       <ElScrollbar :style="{ height: maxHeight }">
         <div v-for="(item, index) in list" :key="index" class="flex items-center py-3">
-          <div
-            v-if="item.icon"
-            class="mr-3 flex h-10 w-10 items-center justify-center rounded-lg"
-            :class="item.class"
-          >
+          <div v-if="item.icon" class="mr-3 size-10 flex-center rounded-lg" :class="item.class">
             <ArtSvgIcon :icon="item.icon" class="text-xl text-g-400" />
           </div>
           <div class="flex-1">
-            <div class="mb-1 text-[15px] text-[var(--art-gray-900)]">{{ item.title }}</div>
-            <div class="text-xs text-[var(--art-gray-600)]">{{ item.status }}</div>
+            <div class="mb-1 text-[15px]">{{ item.title }}</div>
+            <div class="text-xs text-g-500">{{ item.status }}</div>
           </div>
-          <div class="ml-3 text-xs text-[var(--art-gray-500)]">{{ item.time }}</div>
+          <div class="ml-3 text-xs text-g-500]">{{ item.time }}</div>
         </div>
       </ElScrollbar>
       <ElButton

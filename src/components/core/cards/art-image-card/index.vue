@@ -4,7 +4,7 @@
     <ElCard
       :body-style="{ padding: '0px' }"
       shadow="hover"
-      class="art-custom-card !rounded-[calc(var(--custom-radius)+2px)]"
+      class="art-custom-card !rounded-custom-sm"
     >
       <div class="relative w-full aspect-[16/10] overflow-hidden">
         <ElImage
@@ -14,7 +14,7 @@
           class="w-full h-full transition-transform duration-300 ease-in-out hover:scale-105"
         >
           <template #placeholder>
-            <div class="flex items-center justify-center w-full h-full bg-[#f5f7fa]">
+            <div class="flex-center w-full h-full bg-[#f5f7fa]">
               <ElIcon><Picture /></ElIcon>
             </div>
           </template>

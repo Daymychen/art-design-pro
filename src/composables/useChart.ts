@@ -357,12 +357,8 @@ export function useChart(options: UseChartOptions = {}) {
         color: ${isDark.value ? '#666' : '#999'};
         background: transparent;
         z-index: 10;
-        gap: 8px;
       `
-      emptyStateDiv.innerHTML = `
-        <i class="iconfont-sys" style="font-size: 48px; color: ${isDark.value ? '#555' : '#ccc'};">&#xe6da;</i>
-        <span>暂无数据</span>
-      `
+      emptyStateDiv.innerHTML = `<span>暂无数据</span>`
 
       // 确保父容器有相对定位
       if (
@@ -385,10 +381,6 @@ export function useChart(options: UseChartOptions = {}) {
     updateStyle: () => {
       if (emptyStateDiv) {
         emptyStateDiv.style.color = isDark.value ? '#666' : '#999'
-        const iconElement = emptyStateDiv.querySelector('i.iconfont-sys')
-        if (iconElement) {
-          ;(iconElement as HTMLElement).style.color = isDark.value ? '#555' : '#ccc'
-        }
       }
     }
   }

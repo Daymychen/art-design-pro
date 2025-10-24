@@ -20,7 +20,7 @@
       >
         <template #suffix>
           <div
-            class="search-keydown flex h-[18px] items-center rounded border border-[var(--art-border-color)] bg-[var(--art-bg-color)] px-1.5 text-[var(--art-gray-500)]"
+            class="search-keydown h-4.5 flex-center rounded border-a bg-[var(--art-bg-color)] px-1.5 text-g-400"
           >
             <ArtSvgIcon icon="fluent:arrow-enter-left-20-filled" />
           </div>
@@ -34,7 +34,7 @@
             :key="index"
           >
             <div
-              class="mt-2 flex h-[50px] items-center justify-between rounded-[calc(var(--custom-radius)/2+2px)] bg-[var(--art-gray-100)] px-4 text-[15px] font-normal text-[var(--art-gray-700)]"
+              class="mt-2 h-[50px] flex-between rounded-custom-sm bg-[var(--art-gray-100)] px-4 text-[15px] font-normal text-g-700"
               :class="
                 isHighlighted(index)
                   ? 'highlighted !bg-[var(--el-color-primary-light-3)] !text-white'
@@ -50,10 +50,10 @@
         </div>
 
         <div v-show="!searchVal && searchResult.length === 0 && historyResult.length > 0">
-          <p class="text-[13px] text-[var(--art-gray-600)]">{{ $t('search.historyTitle') }}</p>
+          <p class="text-[13px] text-g-500">{{ $t('search.historyTitle') }}</p>
           <div class="mt-1.5 w-full bg-[var(--rt-main-bg-color)]">
             <div
-              class="box mt-2 flex h-[50px] cursor-pointer items-center justify-between rounded-[calc(var(--custom-radius)/2+2px)] bg-[var(--art-gray-100)] px-4 text-[15px] font-normal text-[var(--art-gray-800)]"
+              class="box mt-2 h-[50px] cursor-pointer flex-between rounded-custom-sm bg-[var(--art-gray-100)] px-4 text-[15px] font-normal text-g-800"
               v-for="(item, index) in historyResult"
               :key="index"
               :class="
@@ -65,11 +65,12 @@
               @mouseenter="highlightOnHoverHistory(index)"
             >
               {{ formatMenuTitle(item.meta.title) }}
-              <i
-                class="selected-icon iconfont-sys h-5 w-5 select-none rounded-full text-center text-[15px] leading-5 text-[var(--art-gray-500)] transition-colors duration-300 hover:bg-[rgba(0,0,0,0.2)]"
+              <div
+                class="size-5 selected-icon select-none rounded-full text-g-400 flex-center cursor-pointer"
                 @click.stop="deleteHistory(index)"
-                >&#xe83a;</i
               >
+                <ArtSvgIcon icon="ri:close-large-fill" class="text-sm" />
+              </div>
             </div>
           </div>
         </div>
@@ -80,32 +81,21 @@
           class="dialog-footer box-border flex items-center border-t border-[rgba(var(--art-gray-300-rgb),0.6)] pb-[7px] pt-1.5"
         >
           <div class="flex h-10 items-center">
-            <i
-              class="iconfont-sys left-[117px] top-1.5 mr-2 box-border flex h-5 w-[22px] flex-row items-center justify-center rounded-[3px] border border-[var(--art-border-dashed-color)] bg-[var(--art-bg-color)] px-1.5 text-xs text-[var(--art-gray-500)] shadow-[0_2px_0_var(--art-border-dashed-color)] last-of-type:mr-1.5"
-              >&#xe6e6;</i
-            >
+            <ArtSvgIcon icon="fluent:arrow-enter-left-20-filled" class="keyboard" />
             <span class="mr-[15px] h-[22px] text-xs leading-[22px]">{{
               $t('search.selectKeydown')
             }}</span>
           </div>
           <div class="flex h-10 items-center">
-            <i
-              class="iconfont-sys left-[117px] top-1.5 mr-2 box-border flex h-5 w-[22px] flex-row items-center justify-center rounded-[3px] border border-[var(--art-border-dashed-color)] bg-[var(--art-bg-color)] px-1.5 text-xs text-[var(--art-gray-500)] shadow-[0_2px_0_var(--art-border-dashed-color)] last-of-type:mr-1.5"
-              >&#xe864;</i
-            >
-            <i
-              class="iconfont-sys left-[117px] top-1.5 mr-2 box-border flex h-5 w-[22px] flex-row items-center justify-center rounded-[3px] border border-[var(--art-border-dashed-color)] bg-[var(--art-bg-color)] px-1.5 text-xs text-[var(--art-gray-500)] shadow-[0_2px_0_var(--art-border-dashed-color)] last-of-type:mr-1.5"
-              >&#xe867;</i
-            >
+            <ArtSvgIcon icon="ri:arrow-up-wide-fill" class="keyboard" />
+
+            <ArtSvgIcon icon="ri:arrow-down-wide-fill" class="keyboard" />
             <span class="mr-[15px] h-[22px] text-xs leading-[22px]">{{
               $t('search.switchKeydown')
             }}</span>
           </div>
           <div class="flex h-10 items-center">
-            <i
-              class="iconfont-sys esc left-[117px] top-1.5 mr-2 box-border flex h-5 w-7 flex-row items-center justify-center rounded-[3px] border border-[var(--art-border-dashed-color)] bg-[var(--art-bg-color)] px-1.5 text-xs text-[var(--art-gray-500)] shadow-[0_2px_0_var(--art-border-dashed-color)] last-of-type:mr-1.5"
-              ><p class="text-[10px] font-medium">ESC</p></i
-            >
+            <i class="keyboard !w-8 flex-center"><p class="text-[10px] font-medium">ESC</p></i>
             <span class="mr-[15px] h-[22px] text-xs leading-[22px]">{{
               $t('search.exitKeydown')
             }}</span>
@@ -384,7 +374,26 @@
   }
 </script>
 
-<style>
+<style scoped>
+  @import 'tailwindcss';
+
+  .keyboard {
+    @apply left-[117px] 
+    top-1.5 
+    mr-2 
+    box-border
+    h-5 
+    w-[22px] 
+    rounded-[3px] 
+    border 
+    border-[var(--art-border-dashed-color)] 
+    bg-[var(--art-bg-color)] 
+    px-1 
+    text-[var(--art-gray-500)] 
+    shadow-[0_2px_0_var(--art-border-dashed-color)] 
+    last-of-type:mr-1.5;
+  }
+
   .layout-search :deep(.search-modal) {
     background-color: rgb(0 0 0 / 20%);
   }

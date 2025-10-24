@@ -1,7 +1,7 @@
 <!-- 折线图卡片 -->
 <template>
   <div
-    class="art-custom-card relative overflow-hidden rounded-[var(--custom-radius)] bg-[var(--art-main-bg-color)]"
+    class="art-custom-card relative overflow-hidden rounded-[var(--custom-radius)] art-card-bg"
     :style="{ height: `${height}rem` }"
   >
     <div class="mb-2.5 flex items-start justify-between px-5 pt-5">

@@ -1,7 +1,7 @@
 <!-- 卡片横幅组件 -->
 <template>
   <div
-    class="flex flex-col justify-center pb-6 bg-[var(--art-main-bg-color)] art-custom-card !rounded-[calc(var(--custom-radius)+2px)]"
+    class="flex flex-col justify-center pb-6 art-card-bg art-custom-card rounded-custom-sm"
     :style="{ height: props.height }"
   >
     <div class="flex flex-col gap-4 items-center text-center">

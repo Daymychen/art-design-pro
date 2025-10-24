@@ -222,7 +222,6 @@
     },
     "widgets": {
       "title": "组件中心",
-      "iconList": "Icon 图标",
       "iconSelector": "图标选择器",
       "imageCrop": "图像裁剪",
       "excel": "Excel 导入导出",

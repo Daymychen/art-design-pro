@@ -2,7 +2,7 @@
 <template>
   <div
     ref="dragVerify"
-    class="relative box-border overflow-hidden border border-[var(--art-border-dashed-color)] text-center"
+    class="relative box-border overflow-hidden border-b text-center"
     :style="dragVerifyStyle"
     @mousemove="dragMoving"
     @mouseup="dragFinish"
@@ -21,7 +21,7 @@
 
     <!-- 提示文本 -->
     <div
-      class="dv_text absolute inset-0 flex select-none items-center justify-center bg-gradient-to-r from-[var(--textColor)] from-0% via-white via-50% to-[var(--textColor)] to-100% bg-clip-text text-transparent [-webkit-background-clip:text] [-webkit-text-fill-color:transparent] [animation:slidetounlock_2s_cubic-bezier(0,0.2,1,1)_infinite] [text-size-adjust:none] [&_*]:[-webkit-text-fill-color:var(--textColor)]"
+      class="absolute inset-0 select-none flex-center bg-gradient-to-r from-[var(--textColor)] from-0% via-white via-50% to-[var(--textColor)] to-100% bg-clip-text text-transparent [-webkit-background-clip:text] [-webkit-text-fill-color:transparent] [animation:slidetounlock_2s_cubic-bezier(0,0.2,1,1)_infinite] [text-size-adjust:none] [&_*]:[-webkit-text-fill-color:var(--textColor)]"
       :style="textStyle"
       ref="messageRef"
     >
@@ -32,17 +32,17 @@
 
     <!-- 滑块处理器 -->
     <div
-      class="absolute left-0 top-0 flex cursor-move items-center justify-center"
+      class="absolute left-0 top-0 cursor-move flex-center"
       :class="{ goFirst: isOk }"
       @mousedown="dragStart"
       @touchstart="dragStart"
       ref="handler"
       :style="handlerStyle"
     >
-      <i
-        class="iconfont-sys pl-0 text-sm text-[#999]"
-        v-html="value ? successIcon : handlerIcon"
-      ></i>
+      <ArtSvgIcon
+        class="pl-0 text-lg text-[#999]"
+        :icon="value ? successIcon : handlerIcon"
+      ></ArtSvgIcon>
     </div>
   </div>
 </template>
@@ -99,8 +99,8 @@
     completedBg: '#57D187',
     circle: false,
     radius: 'calc(var(--custom-radius) / 3 + 2px)',
-    handlerIcon: '&#xea50;',
-    successIcon: '&#xe621;',
+    handlerIcon: 'ri:arrow-right-double-line',
+    successIcon: 'ri:check-fill',
     handlerBg: '#fff',
     textSize: '13px',
     textColor: '#333'

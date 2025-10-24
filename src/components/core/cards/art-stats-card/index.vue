@@ -1,33 +1,29 @@
 <!-- 统计卡片 -->
 <template>
   <div
-    class="art-custom-card flex h-32 cursor-pointer items-center rounded-[calc(var(--custom-radius)+4px)] bg-[var(--art-main-bg-color)] px-5 transition-transform duration-200 ease-in-out hover:-translate-y-0.5"
+    class="art-custom-card h-32 cursor-pointer flex items-center rounded-custom-sm art-card-bg px-5 transition-transform duration-200 ease-in-out hover:-translate-y-0.5"
     :style="{ backgroundColor: backgroundColor }"
   >
     <div
       v-if="icon"
-      class="mr-4 flex h-[46px] w-[46px] items-center justify-center rounded-full"
+      class="mr-4 size-[46px] flex-center rounded-full"
       :style="{ backgroundColor: iconBgColor, borderRadius: iconBgRadius + 'px' }"
     >
-      <i
-        class="iconfont-sys text-[30px]"
-        v-html="icon"
+      <ArtSvgIcon
+        class="text-[30px]"
+        :icon="icon"
         :style="{
           color: iconColor,
           fontSize: iconSize + 'px'
         }"
-      ></i>
+      ></ArtSvgIcon>
     </div>
     <div class="flex-1">
-      <p
-        class="m-0 text-lg font-medium text-[var(--art-gray-900)]"
-        :style="{ color: textColor }"
-        v-if="title"
-      >
+      <p class="m-0 text-lg font-medium" :style="{ color: textColor }" v-if="title">
         {{ title }}
       </p>
       <ArtCountTo
-        class="m-0 text-[28px] font-medium text-[var(--art-gray-900)]"
+        class="m-0 text-[28px] font-medium"
         v-if="count !== undefined"
         :target="count"
         :duration="2000"
@@ -35,7 +31,7 @@
         :separator="separator"
       />
       <p
-        class="mt-1 text-sm text-[var(--art-gray-600)] opacity-90"
+        class="mt-1 text-sm text-g-500 opacity-90"
         :style="{ color: textColor }"
         v-if="description"
         >{{ description }}</p

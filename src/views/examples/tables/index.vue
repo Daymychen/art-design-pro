@@ -5,7 +5,7 @@
     <!-- 功能介绍卡片 -->
     <ElCard shadow="never">
       <template #header>
-        <div class="flex flex-wrap gap-3 items-center justify-between">
+        <div class="flex-wrap gap-3 flex-between">
           <h3 class="m-0">高级表格完整能力展示</h3>
           <div class="flex flex-wrap gap-2">
             <ElTag type="success" effect="light">智能缓存</ElTag>
@@ -27,23 +27,23 @@
           <ElCollapse v-model="debugActiveNames">
             <ElCollapseItem name="cache" title="缓存统计与演示">
               <div class="flex flex-col gap-2">
-                <div class="flex items-center justify-between">
+                <div class="flex-between">
                   <span class="font-medium text-[var(--el-text-color-regular)]">缓存状态：</span>
                   <ElTag type="success">已启用</ElTag>
                 </div>
-                <div class="flex items-center justify-between">
+                <div class="flex-between">
                   <span class="font-medium text-[var(--el-text-color-regular)]">缓存条数：</span>
                   <span class="font-semibold text-[var(--el-color-primary)]">{{
                     cacheInfo.total
                   }}</span>
                 </div>
-                <div class="flex items-center justify-between">
+                <div class="flex-between">
                   <span class="font-medium text-[var(--el-text-color-regular)]">缓存大小：</span>
                   <span class="font-semibold text-[var(--el-color-primary)]">{{
                     cacheInfo.size
                   }}</span>
                 </div>
-                <div class="flex items-center justify-between">
+                <div class="flex-between">
                   <span class="font-medium text-[var(--el-text-color-regular)]">命中信息：</span>
                   <span class="font-semibold text-[var(--el-color-primary)]">{{
                     cacheInfo.hitRate
@@ -89,19 +89,19 @@
             </ElCollapseItem>
             <ElCollapseItem name="request" title="请求状态">
               <div class="flex flex-col gap-2">
-                <div class="flex items-center justify-between">
+                <div class="flex-between">
                   <span class="font-medium text-[var(--el-text-color-regular)]">加载状态：</span>
                   <ElTag :type="loading ? 'warning' : 'success'">
                     {{ loading ? '加载中' : '空闲' }}
                   </ElTag>
                 </div>
-                <div class="flex items-center justify-between">
+                <div class="flex-between">
                   <span class="font-medium text-[var(--el-text-color-regular)]">数据状态：</span>
                   <ElTag :type="hasData ? 'success' : 'info'">
                     {{ hasData ? `${data.length} 条数据` : '无数据' }}
                   </ElTag>
                 </div>
-                <div class="flex items-center justify-between">
+                <div class="flex-between">
                   <span class="font-medium text-[var(--el-text-color-regular)]">错误状态：</span>
                   <ElTag :type="error ? 'danger' : 'success'">
                     {{ error ? '有错误' : '正常' }}
@@ -152,7 +152,7 @@
     <!-- 表格区域 -->
     <ElCard class="flex-1 art-table-card" shadow="never" style="margin-top: 0">
       <template #header>
-        <div class="flex items-center justify-between">
+        <div class="flex-between">
           <h4 class="m-0">用户数据表格</h4>
           <div class="flex gap-2">
             <ElTag v-if="error" type="danger">{{ error.message }}</ElTag>
@@ -344,9 +344,7 @@
             v-if="eventDemoEnabled && eventLogs.length > 0"
             class="p-3 mt-3 bg-[var(--el-bg-color-page)] border border-[var(--el-border-color-light)] rounded-md"
           >
-            <div
-              class="flex items-center justify-between mb-2 font-medium text-[var(--el-text-color-regular)]"
-            >
+            <div class="flex-between mb-2 font-medium text-[var(--el-text-color-regular)]">
               <span>最近事件日志：</span>
               <ElTag size="small">{{ eventLogs.length }} 条</ElTag>
             </div>

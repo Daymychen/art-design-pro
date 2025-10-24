@@ -19,8 +19,8 @@
           <div
             class="flex px-[20px] flex-col justify-center h-[220px] border border-g-200 rounded-[12px] max-lg:mb-4"
           >
-            <div class="size-[50px] rounded-[12px] flex items-center justify-center bg-primary/10">
-              <ArtSvgIcon icon="ri:account-box-2-line" class="text-[26px] text-primary" />
+            <div class="size-[50px] rounded-[12px] flex-center bg-primary/10">
+              <ArtSvgIcon :icon="item.icon" class="text-xl text-primary" />
             </div>
             <ArtCountTo
               class="text-2xl font-medium mt-[15px]"
@@ -48,7 +48,7 @@
     label: string
     value: number
     change: string
-    iconfont: string
+    icon: string
     class: string
   }
 
@@ -61,28 +61,28 @@
       label: '总销售额',
       value: 999,
       change: '+10%',
-      iconfont: '&#xe7d9',
+      icon: 'ri:bar-chart-box-ai-line',
       class: 'bg-primary'
     },
     {
       label: '总订单量',
       value: 300,
       change: '+15%',
-      iconfont: '&#xe70f',
+      icon: 'ri:bar-chart-grouped-line',
       class: 'bg-warning'
     },
     {
       label: '产品销售量',
       value: 56,
       change: '-5%',
-      iconfont: '&#xe712',
+      icon: 'ri:bar-chart-2-line',
       class: 'bg-error'
     },
     {
       label: '新客户数',
       value: 68,
       change: '+8%',
-      iconfont: '&#xe77f',
+      icon: 'ri:user-add-line',
       class: 'bg-success'
     }
   ])

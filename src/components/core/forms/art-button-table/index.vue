@@ -2,7 +2,7 @@
 <template>
   <div
     :class="[
-      'inline-block min-w-[34px] h-[34px] px-2.5 mr-2.5 text-[13px] leading-[34px] text-[#666] cursor-pointer bg-[rgba(var(--art-gray-200-rgb),0.7)] rounded-md transition-all duration-200 ease-in-out hover:bg-[rgba(var(--art-gray-300-rgb),0.5)]',
+      'inline-block min-w-[34px] h-[34px] px-2.5 mr-2.5 text-[13px] leading-[34px] cursor-pointer bg-[rgba(var(--art-gray-200-rgb),0.7)] rounded-md tad-200 ease-in-out hover:bg-[rgba(var(--art-gray-300-rgb),0.5)]',
       buttonClass
     ]"
     :style="{ backgroundColor: buttonBgColor, color: iconColor }"
@@ -39,7 +39,7 @@
   // 默认按钮配置
   const defaultButtons = {
     add: { icon: 'ri:add-fill', color: BgColorEnum.PRIMARY },
-    edit: { icon: 'ri:edit-line', color: BgColorEnum.SECONDARY },
+    edit: { icon: 'ri:pencil-line', color: BgColorEnum.SECONDARY },
     delete: { icon: 'ri:delete-bin-5-line', color: BgColorEnum.ERROR },
     view: { icon: 'ri:eye-line', color: BgColorEnum.INFO },
     more: { icon: 'ri:more-2-fill', color: '' }

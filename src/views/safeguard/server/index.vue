@@ -8,7 +8,7 @@
           :key="item.name"
         >
           <div
-            class="flex items-center justify-between p-5 border-b border-g-200 max-lg:p-2.5 max-lg:px-5 max-md:p-2.5 max-md:px-5"
+            class="flex-between p-5 border-b border-g-200 max-lg:p-2.5 max-lg:px-5 max-md:p-2.5 max-md:px-5"
           >
             <span class="text-[15px] font-medium">{{ item.name }}</span>
             <span class="text-sm text-[var(--el-text-color-secondary)]">{{ item.ip }}</span>

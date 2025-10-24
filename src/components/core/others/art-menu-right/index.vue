@@ -17,13 +17,13 @@
               :style="menuItemStyle"
               @click="handleMenuClick(item)"
             >
-              <i
+              <ArtSvgIcon
                 v-if="item.icon"
-                class="iconfont-sys mr-2 shrink-0 text-base text-[var(--art-gray-800)]"
-                v-html="item.icon"
-              ></i>
+                class="mr-2 shrink-0 text-base text-g-800"
+                :icon="item.icon"
+              />
               <span
-                class="menu-label flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-[var(--art-gray-800)]"
+                class="menu-label flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-g-800"
                 >{{ item.label }}</span
               >
             </li>
@@ -35,19 +35,19 @@
               :style="menuItemStyle"
             >
               <div class="submenu-title flex w-full items-center">
-                <i
+                <ArtSvgIcon
                   v-if="item.icon"
-                  class="iconfont-sys mr-2 shrink-0 text-base text-[var(--art-gray-800)]"
-                  v-html="item.icon"
-                ></i>
+                  class="mr-2 shrink-0 text-base text-g-800"
+                  :icon="item.icon"
+                />
                 <span
-                  class="menu-label flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-[var(--art-gray-800)]"
+                  class="menu-label flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-g-800"
                   >{{ item.label }}</span
                 >
-                <i
-                  class="iconfont-sys submenu-arrow ml-auto mr-0 text-xs text-[var(--art-gray-600)] transition-transform duration-150"
-                  >&#xe865;</i
-                >
+                <ArtSvgIcon
+                  icon="ri:arrow-right-s-line"
+                  class="ubmenu-arrow ml-auto mr-0 text-lg text-g-400 transition-transform duration-150"
+                />
               </div>
               <ul
                 class="submenu-list absolute left-full top-0 z-[2001] hidden w-max min-w-max list-none rounded-[var(--border-radius)] border border-[var(--el-border-color-light)] bg-[var(--el-bg-color)] shadow-[var(--el-box-shadow-light)]"
@@ -61,13 +61,13 @@
                   :style="menuItemStyle"
                   @click="handleMenuClick(child)"
                 >
-                  <i
+                  <ArtSvgIcon
                     v-if="child.icon"
-                    class="iconfont-sys mr-2 shrink-0 text-base text-[var(--art-gray-800)]"
-                    v-html="child.icon"
-                  ></i>
+                    class="r-2 shrink-0 text-base text-g-800 mr-1"
+                    :icon="child.icon"
+                  />
                   <span
-                    class="menu-label flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-[var(--art-gray-800)]"
+                    class="menu-label flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-g-800"
                     >{{ child.label }}</span
                   >
                 </li>
@@ -378,7 +378,8 @@
     background-color: transparent !important;
   }
 
-  .menu-item.is-disabled i:not(.submenu-arrow) {
+  .menu-item.is-disabled i:not(.submenu-arrow),
+  .menu-item.is-disabled :deep(svg) {
     color: var(--el-text-color-disabled) !important;
   }
 

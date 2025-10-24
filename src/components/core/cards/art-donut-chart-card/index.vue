@@ -1,7 +1,7 @@
 <!-- 环型图卡片 -->
 <template>
   <div
-    class="art-custom-card overflow-hidden rounded-[var(--custom-radius)] bg-[var(--art-main-bg-color)] text-[#303133] transition-all duration-300"
+    class="art-custom-card overflow-hidden rounded-[var(--custom-radius)] art-card-bg text-[#303133] tad-300"
     :style="{ height: `${height}rem` }"
   >
     <div class="box-border flex h-full p-5">

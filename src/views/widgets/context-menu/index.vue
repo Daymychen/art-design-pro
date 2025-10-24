@@ -33,68 +33,66 @@
     {
       key: 'copy',
       label: '复制',
-      icon: '&#xe7b2;'
+      icon: 'ri:file-copy-line'
     },
     {
       key: 'paste',
       label: '粘贴',
-      icon: '&#xe70b;'
+      icon: 'ri:capsule-line'
     },
     {
       key: 'cut',
       label: '剪切',
-      icon: '&#xe7b8;',
+      icon: 'ri:clipboard-line',
       showLine: true
     },
     {
       key: 'export',
       label: '导出选项',
-      icon: '&#xe78b;',
+      icon: 'ri:export-line',
       children: [
         {
           key: 'exportExcel',
           label: '导出 Excel',
-          icon: '&#xe604;'
+          icon: 'ri:file-excel-2-line'
         },
         {
           key: 'exportPdf',
           label: '导出 PDF',
-          icon: '&#xe89e;'
+          icon: 'ri:file-pdf-2-line'
         }
       ]
     },
     {
       key: 'edit',
       label: '编辑选项',
-      icon: '&#xe706;',
+      icon: 'ri:edit-2-line',
       children: [
         {
           key: 'rename',
-          label: '重命名',
-          icon: '&#xe607;'
+          label: '重命名'
         },
         {
           key: 'duplicate',
-          label: '复制副本',
-          icon: '&#xe608;'
+          label: '复制副本'
         }
       ]
     },
     {
       key: 'share',
       label: '分享',
-      icon: '&#xe73b;',
+      icon: 'ri:share-forward-line',
       showLine: true
     },
     {
       key: 'delete',
       label: '删除',
-      icon: '&#xe850;'
+      icon: 'ri:delete-bin-line'
     },
     {
       key: 'disabled',
       label: '禁用选项',
-      icon: '&#xe619;',
+      icon: 'ri:close-circle-line',
       disabled: true
     }
   ])

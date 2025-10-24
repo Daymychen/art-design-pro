@@ -4,7 +4,7 @@
     <!-- 开发者工具警告覆盖层 -->
     <div
       v-if="showDevToolsWarning"
-      class="fixed top-0 left-0 z-[999999] flex items-center justify-center w-full h-full text-white bg-gradient-to-br from-[#1e1e1e] to-black animate-fade-in"
+      class="fixed top-0 left-0 z-[999999] flex-center w-full h-full text-white bg-gradient-to-br from-[#1e1e1e] to-black animate-fade-in"
     >
       <div class="p-5 text-center select-none">
         <div class="mb-[30px] text-5xl">🔒</div>

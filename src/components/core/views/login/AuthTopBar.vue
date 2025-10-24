@@ -10,25 +10,23 @@
         <div
           v-for="(color, index) in mainColors"
           :key="color"
-          class="color-dot relative flex h-[22px] w-[22px] cursor-pointer items-center justify-center rounded-full opacity-0 shadow-[0_2px_4px_rgba(0,0,0,0.15)] [transform:translateX(20px)_scale(0.8)] hover:scale-110 hover:translate-x-0 hover:shadow-[0_4px_8px_rgba(0,0,0,0.2)]"
+          class="color-dot relative h-[22px] w-[22px] cursor-pointer flex-center rounded-full opacity-0 shadow-[0_2px_4px_rgba(0,0,0,0.15)] [transform:translateX(20px)_scale(0.8)] hover:scale-110 hover:translate-x-0 hover:shadow-[0_4px_8px_rgba(0,0,0,0.2)]"
           :class="{ active: color === systemThemeColor }"
           :style="{ background: color, '--index': index }"
           @click="changeThemeColor(color)"
         >
-          <i
+          <ArtSvgIcon
             v-if="color === systemThemeColor"
-            class="iconfont-sys check-icon text-xs text-white [filter:drop-shadow(0_1px_2px_rgba(0,0,0,0.3))]"
-            >&#xe616;</i
-          >
+            icon="ri:check-fill"
+            class="check-icon text-base text-white [filter:drop-shadow(0_1px_2px_rgba(0,0,0,0.3))]"
+          />
         </div>
       </div>
-      <div
-        class="color-trigger-btn btn relative z-[2] flex h-8 w-8 cursor-pointer items-center justify-center transition-all duration-300"
-      >
-        <i
-          class="iconfont-sys !text-[19px] text-[var(--art-gray-800)] transition-colors duration-300"
-          >&#xe82c;</i
-        >
+      <div class="color-trigger-btn btn relative z-[2] h-8 w-8 cursor-pointer flex-center tad-300">
+        <ArtSvgIcon
+          icon="ri:palette-line"
+          class="!text-[19px] text-g-800 transition-colors duration-300"
+        />
       </div>
     </div>
     <ElDropdown
@@ -36,13 +34,11 @@
       @command="changeLanguage"
       popper-class="langDropDownStyle"
     >
-      <div
-        class="btn language-btn flex h-8 w-8 cursor-pointer items-center justify-center transition-all duration-300 hover:[&_.iconfont-sys]:text-[var(--main-color)]"
-      >
-        <i
-          class="iconfont-sys icon-language text-lg text-[var(--art-gray-800)] transition-colors duration-300"
-          >&#xe611;</i
-        >
+      <div class="btn language-btn h-8 w-8 cursor-pointer flex-center tad-300">
+        <ArtSvgIcon
+          icon="ri:global-line"
+          class="icon-language text-lg text-g-800 transition-colors duration-300"
+        />
       </div>
       <template #dropdown>
         <ElDropdownMenu>
@@ -57,12 +53,12 @@
     </ElDropdown>
     <div
       v-if="shouldShowThemeToggle"
-      class="btn theme-btn flex h-8 w-8 cursor-pointer items-center justify-center transition-all duration-300 hover:[&_.iconfont-sys]:text-[var(--main-color)]"
+      class="btn theme-btn h-8 w-8 cursor-pointer flex-center tad-300"
       @click="themeAnimation"
     >
       <ArtSvgIcon
         :icon="isDark ? 'ri:sun-fill' : 'ri:moon-line'"
-        class="text-lg text-[var(--art-gray-800)] transition-colors duration-300"
+        class="text-lg text-g-800 transition-colors duration-300"
       />
     </div>
   </div>
@@ -122,10 +118,6 @@
   .color-picker-expandable:hover .color-dot {
     opacity: 1;
     transform: translateX(0) scale(1);
-  }
-
-  .color-picker-expandable:hover .color-trigger-btn .iconfont-sys {
-    color: var(--main-color);
   }
 
   .dark .color-dots-container {

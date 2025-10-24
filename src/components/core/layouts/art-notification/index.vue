@@ -1,7 +1,7 @@
 <!-- 通知组件 -->
 <template>
   <div
-    class="absolute top-[60px] right-5 w-[360px] h-[500px] overflow-hidden bg-[var(--art-main-bg-color)] border border-[var(--art-border-color)] shadow-[0_8px_26px_-4px_hsl(0deg_0%_8%_/_15%),0_8px_9px_-5px_hsl(0deg_0%_8%_/_6%)] transition-all duration-200 origin-top will-change-[top,left] max-[640px]:top-[65px] max-[640px]:right-0 max-[640px]:w-full max-[640px]:h-[80vh]"
+    class="absolute top-[60px] right-5 w-[360px] h-[500px] overflow-hidden art-card-bg border-a shadow-[0_8px_26px_-4px_hsl(0deg_0%_8%_/_15%),0_8px_9px_-5px_hsl(0deg_0%_8%_/_6%)] tad-200 origin-top will-change-[top,left] max-[640px]:top-[65px] max-[640px]:right-0 max-[640px]:w-full max-[640px]:h-[80vh]"
     :style="{
       transform: show ? 'scaleY(1)' : 'scaleY(0.9)',
       opacity: show ? 1 : 0,
@@ -10,8 +10,8 @@
     v-show="visible"
     @click.stop=""
   >
-    <div class="flex items-center justify-between px-[15px] mt-[15px]">
-      <span class="text-base font-medium text-[var(--art-gray-800)]">{{ $t('notice.title') }}</span>
+    <div class="flex-between px-[15px] mt-[15px]">
+      <span class="text-base font-medium text-g-800">{{ $t('notice.title') }}</span>
       <span
         class="text-xs px-1.5 py-1 cursor-pointer select-none rounded-md hover:bg-[var(--art-gray-200)]"
       >
@@ -25,7 +25,7 @@
       <li
         v-for="(item, index) in barList"
         :key="index"
-        class="h-12 mr-5 last:mr-0 overflow-hidden text-[13px] text-[var(--art-gray-700)] cursor-pointer select-none transition-colors duration-300 hover:text-[var(--art-gray-900)]"
+        class="h-12 mr-5 last:mr-0 overflow-hidden text-[13px] text-g-700 cursor-pointer select-none transition-colors duration-300 hover:text-g-900"
         :class="{ 'bar-active': barActiveIndex === index }"
         @click="changeBar(index)"
       >
@@ -43,21 +43,18 @@
             class="box-border flex items-center px-[15px] py-[15px] cursor-pointer last:border-b-0 hover:bg-[var(--art-gray-100)]"
           >
             <div
-              class="w-9 h-9 leading-9 text-center rounded-lg"
+              class="size-9 leading-9 text-center rounded-lg flex-center"
               :style="{ background: getNoticeStyle(item.type).backgroundColor + '!important' }"
             >
-              <i
-                class="iconfont-sys text-lg !bg-transparent"
+              <ArtSvgIcon
+                class="text-lg !bg-transparent"
                 :style="{ color: getNoticeStyle(item.type).iconColor + '!important' }"
-                v-html="getNoticeStyle(item.type).icon"
-              >
-              </i>
+                :icon="getNoticeStyle(item.type).icon"
+              />
             </div>
             <div class="w-[calc(100%-45px)] ml-[15px]">
-              <h4 class="text-sm font-normal leading-[22px] text-[var(--art-gray-900)]">{{
-                item.title
-              }}</h4>
-              <p class="mt-1.5 text-xs text-[var(--art-gray-500)]">{{ item.time }}</p>
+              <h4 class="text-sm font-normal leading-[22px] text-g-900">{{ item.title }}</h4>
+              <p class="mt-1.5 text-xs text-g-500">{{ item.time }}</p>
             </div>
           </li>
         </ul>
@@ -73,10 +70,8 @@
               <img :src="item.avatar" class="w-full h-full rounded-lg" />
             </div>
             <div class="w-[calc(100%-45px)] ml-[15px]">
-              <h4 class="text-[13px] font-normal leading-[22px] text-[var(--art-gray-900)]">{{
-                item.title
-              }}</h4>
-              <p class="mt-1.5 text-xs text-[var(--art-gray-500)]">{{ item.time }}</p>
+              <h4 class="text-[13px] font-normal leading-[22px]">{{ item.title }}</h4>
+              <p class="mt-1.5 text-xs text-g-500">{{ item.time }}</p>
             </div>
           </li>
         </ul>
@@ -89,14 +84,14 @@
             class="box-border px-5 py-[15px] last:border-b-0"
           >
             <h4>{{ item.title }}</h4>
-            <p class="text-xs text-[var(--art-gray-500)]">{{ item.time }}</p>
+            <p class="text-xs text-g-500">{{ item.time }}</p>
           </li>
         </ul>
 
         <!-- 空状态 -->
         <div
           v-show="currentTabIsEmpty"
-          class="relative top-[100px] h-full text-[var(--art-gray-500)] text-center !bg-transparent"
+          class="relative top-[100px] h-full text-g-500 text-center !bg-transparent"
         >
           <ArtSvgIcon icon="material-symbols-light:hourglass-empty" class="text-5xl" />
           <p class="mt-[15px] text-xs !bg-transparent"
@@ -284,27 +279,27 @@
   const useNotificationStyles = () => {
     const noticeStyleMap: Record<NoticeType, NoticeStyle> = {
       email: {
-        icon: '&#xe72e;',
+        icon: 'ri:arrow-right-circle-line',
         iconColor: 'rgb(var(--art-warning))',
         backgroundColor: 'rgb(var(--art-bg-warning))'
       },
       message: {
-        icon: '&#xe747;',
+        icon: 'ri:arrow-right-circle-line',
         iconColor: 'rgb(var(--art-success))',
         backgroundColor: 'rgb(var(--art-bg-success))'
       },
       collection: {
-        icon: '&#xe714;',
+        icon: 'ri:arrow-right-circle-line',
         iconColor: 'rgb(var(--art-danger))',
         backgroundColor: 'rgb(var(--art-bg-danger))'
       },
       user: {
-        icon: '&#xe608;',
+        icon: 'ri:arrow-right-circle-line',
         iconColor: 'rgb(var(--art-info))',
         backgroundColor: 'rgb(var(--art-bg-info))'
       },
       notice: {
-        icon: '&#xe6c2;',
+        icon: 'ri:arrow-right-circle-line',
         iconColor: 'rgb(var(--art-primary))',
         backgroundColor: 'rgb(var(--art-bg-primary))'
       }
@@ -317,7 +312,7 @@
 
     const getNoticeStyle = (type: NoticeType): NoticeStyle => {
       const defaultStyle: NoticeStyle = {
-        icon: '&#xe747;',
+        icon: 'ri:arrow-right-circle-line',
         iconColor: '#FFFFFF',
         backgroundColor: getRandomColor()
       }

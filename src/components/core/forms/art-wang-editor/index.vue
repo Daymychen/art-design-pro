@@ -70,32 +70,6 @@
     allowedFileTypes: ['image/*']
   } as const
 
-  // 图标映射配置
-  const ICON_MAP = {
-    bold: '&#xe630;',
-    blockquote: '&#xe61c;',
-    underline: '&#xe65a;',
-    italic: '&#xe638;',
-    'group-more-style': '&#xe648;',
-    color: '&#xe68c;',
-    bgColor: '&#xe691;',
-    bulletedList: '&#xe64e;',
-    numberedList: '&#xe66c;',
-    todo: '&#xe641;',
-    'group-justify': '&#xe67e;',
-    'group-indent': '&#xe63e;',
-    emotion: '&#xe690;',
-    insertLink: '&#xe63a;',
-    'group-image': '&#xe634;',
-    insertTable: '&#xe67b;',
-    codeBlock: '&#xe68b;',
-    divider: '&#xe66d;',
-    undo: '&#xe65e;',
-    redo: '&#xe659;',
-    fullScreen: '&#xe633;',
-    tableFullWidth: '&#xe67b;'
-  } as const
-
   // 计算属性：上传服务器地址
   const uploadServer = computed(
     () =>
@@ -167,23 +141,6 @@
     applyCustomIcons()
   }
 
-  // 优化的图标替换函数 - 针对特定编辑器实例
-  const overrideIcons = (editorInstance: IDomEditor) => {
-    // 获取当前编辑器的工具栏容器
-    const editorContainer = editorInstance.getEditableContainer().closest('.editor-wrapper')
-    if (!editorContainer) return
-
-    const toolbar = editorContainer.querySelector('.w-e-toolbar')
-    if (!toolbar) return
-
-    Object.entries(ICON_MAP).forEach(([menuKey, iconCode]) => {
-      const button = toolbar.querySelector(`button[data-menu-key="${menuKey}"]`)
-      if (button) {
-        button.innerHTML = `<i class='iconfont-sys'>${iconCode}</i>`
-      }
-    })
-  }
-
   // 应用自定义图标（带重试机制）
   const applyCustomIcons = () => {
     let retryCount = 0
@@ -214,7 +171,6 @@
       const toolbarButtons = editorContainer.querySelectorAll('.w-e-bar-item button[data-menu-key]')
 
       if (toolbar && toolbarButtons.length > 0) {
-        overrideIcons(editor)
         return
       }
 

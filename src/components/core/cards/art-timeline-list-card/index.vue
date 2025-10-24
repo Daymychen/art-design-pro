@@ -1,12 +1,10 @@
 <!-- 时间轴列表卡片 -->
 <template>
   <div class="[&_.el-timeline-item__tail]:left-[5px] [&_.el-timeline-item__node--normal]:left-0">
-    <div
-      class="art-custom-card rounded-[var(--custom-radius)] bg-[var(--art-main-bg-color)] p-[30px]"
-    >
+    <div class="art-custom-card rounded-[var(--custom-radius)] art-card-bg p-[30px]">
       <div class="pb-[15px]">
-        <p class="text-lg font-medium text-[var(--art-gray-900)]">{{ title }}</p>
-        <p class="text-sm text-[var(--art-gray-500)]">{{ subtitle }}</p>
+        <p class="text-lg font-medium">{{ title }}</p>
+        <p class="text-sm text-g-500">{{ subtitle }}</p>
       </div>
       <ElScrollbar :style="{ height: maxHeight }">
         <ElTimeline>

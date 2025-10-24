@@ -120,3 +120,35 @@
 @utility rounded-custom-sm {
   border-radius: calc(var(--custom-radius) / 2 + 2px);
 }
+
+@layer utilities {
+  .art-card-bg {
+    background-color: var(--art-main-bg-color);
+  }
+
+  /* 通用：flex + 居中对齐 */
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+
+  /* 通用：flex + 居中对齐 + 两端对齐 */
+  .flex-between {
+    @apply flex items-center justify-between;
+  }
+
+  .tad-200 {
+    @apply transition-all duration-200;
+  }
+
+  .tad-300 {
+    @apply transition-all duration-300;
+  }
+
+  .border-a {
+    @apply border border-[var(--art-border-color)];
+  }
+
+  .border-b {
+    @apply border border-[var(--art-border-dashed-color)];
+  }
+}

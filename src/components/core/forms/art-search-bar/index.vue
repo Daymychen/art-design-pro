@@ -3,7 +3,7 @@
 <!-- 写法同 ElementPlus 官方文档组件，把属性写在 props 里面就可以了 -->
 <template>
   <section
-    class="art-custom-card rounded-[calc(var(--custom-radius)/2+2px)] bg-[var(--art-main-bg-color)] px-5 pb-0 pt-[15px] md:px-5 md:pt-[15px]"
+    class="art-custom-card rounded-custom-sm art-card-bg px-5 pb-0 pt-[15px] md:px-5 md:pt-[15px]"
     :class="{ 'is-expanded': isExpanded }"
   >
     <ElForm

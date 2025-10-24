@@ -19,7 +19,7 @@
         }"
       >
         <li
-          class="art-custom-card inline-block h-8 mr-1.5 text-[13px] leading-[30px] text-center cursor-pointer bg-[var(--art-main-bg-color)] border border-transparent transition-colors duration-100 hover:!text-[var(--main-color)] hover:transition-colors hover:duration-200"
+          class="art-custom-card inline-block h-8 mr-1.5 text-[13px] leading-[30px] text-center cursor-pointer art-card-bg border border-transparent transition-colors duration-100 hover:!text-[var(--main-color)] hover:transition-colors hover:duration-200"
           :class="[
             item.path === activeTab
               ? 'activ-tab !text-[var(--main-color)]'
@@ -45,10 +45,10 @@
           {{ item.customTitle || formatMenuTitle(item.title) }}
           <span
             v-if="list.length > 1 && !item.fixedTab"
-            class="inline-flex items-center justify-center relative p-1 ml-1.5 rounded-full transition-all duration-200 hover:bg-[rgb(238_238_238)] dark:hover:!bg-[rgb(238_238_238_/_10%)]"
+            class="inline-flex flex-center relative ml-0.5 p-1 rounded-full tad-200 hover:bg-[rgb(238_238_238)] dark:hover:!bg-[rgb(238_238_238_/_10%)]"
             @click.stop="closeWorktab('current', item.path)"
           >
-            <ArtSvgIcon icon="ri:close-large-fill" class="text-[10px] text-[var(--art-gray-600)]" />
+            <ArtSvgIcon icon="ri:close-large-fill" class="text-[10px] text-g-600" />
           </span>
           <div
             v-if="tabStyle === 'tab-google'"
@@ -60,7 +60,7 @@
 
     <div class="flex">
       <div
-        class="btn console-box art-custom-card relative top-0 box-border w-[34px] h-[34px] text-base leading-[34px] text-center cursor-pointer bg-[var(--art-main-bg-color)]"
+        class="btn console-box art-custom-card relative top-0 box-border w-[34px] h-[34px] text-base leading-[34px] text-center cursor-pointer art-card-bg"
         :style="{ borderRadius: 'calc(var(--custom-radius) / 2.5 + 0px)' }"
         @click="(e: MouseEvent) => showMenu(e, activeTab)"
       >

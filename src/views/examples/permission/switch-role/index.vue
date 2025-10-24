@@ -58,7 +58,7 @@
           <div
             v-for="account in accounts"
             :key="account.key"
-            class="p-5 border-[1.5px] border-[var(--el-border-color-light)] rounded-lg transition-all duration-300 hover:border-[var(--el-color-primary)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.1)]"
+            class="p-5 border-[1.5px] border-[var(--el-border-color-light)] rounded-lg tad-300 hover:border-[var(--el-color-primary)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.1)]"
             :class="{
               'bg-[var(--el-color-success-light-9)] border-[var(--el-color-success)]':
                 currentUser.userName === account.userName

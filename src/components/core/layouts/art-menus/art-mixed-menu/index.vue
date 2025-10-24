@@ -4,7 +4,7 @@
     <!-- 左侧滚动按钮 -->
     <div
       v-show="showLeftArrow"
-      class="scroll-btn-left absolute top-1/2 left-[3px] z-[2] flex items-center justify-center w-[30px] h-[30px] text-[var(--art-text-gray-600)] cursor-pointer rounded transition-all duration-200 ease-in-out -translate-y-1/2 hover:text-[var(--art-text-gray-900)] hover:bg-[rgba(var(--art-gray-200-rgb),0.8)]"
+      class="scroll-btn-left absolute top-1/2 left-[3px] z-[2] flex-center w-[30px] h-[30px] text-[var(--art-text-gray-600)] cursor-pointer rounded tad-200 ease-in-out -translate-y-1/2 hover:text-[var(--art-text-gray-900)] hover:bg-[rgba(var(--art-gray-200-rgb),0.8)]"
       @click="scroll('left')"
     >
       <ElIcon>
@@ -43,7 +43,7 @@
     <!-- 右侧滚动按钮 -->
     <div
       v-show="showRightArrow"
-      class="scroll-btn-right absolute top-1/2 right-[10px] z-[2] flex items-center justify-center w-[30px] h-[30px] text-[var(--art-text-gray-600)] cursor-pointer rounded transition-all duration-200 ease-in-out -translate-y-1/2 hover:text-[var(--art-text-gray-900)] hover:bg-[rgba(var(--art-gray-200-rgb),0.8)]"
+      class="scroll-btn-right absolute top-1/2 right-[10px] z-[2] flex-center w-[30px] h-[30px] text-[var(--art-text-gray-600)] cursor-pointer rounded tad-200 ease-in-out -translate-y-1/2 hover:text-[var(--art-text-gray-900)] hover:bg-[rgba(var(--art-gray-200-rgb),0.8)]"
       @click="scroll('right')"
     >
       <ElIcon>

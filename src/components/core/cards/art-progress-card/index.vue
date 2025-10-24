@@ -1,34 +1,36 @@
 <!-- 进度条卡片 -->
 <template>
-  <div
-    class="art-custom-card flex h-32 flex-col justify-center rounded-[calc(var(--custom-radius)+4px)] bg-[var(--art-main-bg-color)] px-5"
-  >
+  <div class="art-custom-card h-32 flex flex-col justify-center rounded-custom-sm art-card-bg px-5">
     <div
       class="mb-[15px] flex items-center"
       :style="{ justifyContent: icon ? 'space-between' : 'flex-start' }"
     >
-      <div>
-        <i
-          v-if="icon"
-          class="iconfont-sys flex h-[46px] w-[46px] items-center justify-center bg-[var(--art-gray-300)]"
-          v-html="icon"
+      <div
+        v-if="icon"
+        class="size-[46px] flex-center bg-[var(--art-gray-300)] text-xl"
+        :style="{
+          backgroundColor: iconBgColor,
+          borderRadius: iconBgRadius + 'px'
+        }"
+      >
+        <ArtSvgIcon
+          :icon="icon"
+          class="text-2xl"
           :style="{
             color: iconColor,
-            backgroundColor: iconBgColor,
-            fontSize: iconSize + 'px',
-            borderRadius: iconBgRadius + 'px'
+            fontSize: iconSize + 'px'
           }"
-        ></i>
+        ></ArtSvgIcon>
       </div>
       <div>
         <ArtCountTo
-          class="mb-1 block text-2xl font-semibold text-[var(--art-gray-900)]"
+          class="mb-1 block text-2xl font-semibold"
           :target="percentage"
           :duration="2000"
           suffix="%"
           :style="{ textAlign: icon ? 'right' : 'left' }"
         />
-        <p class="text-sm text-[var(--art-gray-600)]">{{ title }}</p>
+        <p class="text-sm text-g-500">{{ title }}</p>
       </div>
     </div>
     <ElProgress
@@ -59,10 +61,10 @@
     iconBgColor?: string
     /** icon 背景圆角大小 */
     iconBgRadius?: number
-    /** 图标大小 */
-    iconSize?: number
     /** 进度条宽度 */
     strokeWidth?: number
+    /** 图标大小 */
+    iconSize?: number
   }
 
   const props = withDefaults(defineProps<Props>(), {

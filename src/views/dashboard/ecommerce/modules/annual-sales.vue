@@ -17,9 +17,7 @@
     />
     <div class="flex justify-around mt-10">
       <div class="flex items-center">
-        <div
-          class="flex items-center justify-center w-[42px] h-[42px] mr-2.5 text-primary bg-primary/10 rounded-lg"
-        >
+        <div class="flex-center w-[42px] h-[42px] mr-2.5 text-primary bg-primary/10 rounded-lg">
           <ArtSvgIcon icon="ri:money-cny-circle-line" class="text-xl" />
         </div>
         <div>
@@ -28,9 +26,7 @@
         </div>
       </div>
       <div class="flex items-center">
-        <div
-          class="flex items-center justify-center w-[42px] h-[42px] mr-2.5 text-primary bg-primary/10 rounded-lg"
-        >
+        <div class="flex-center w-[42px] h-[42px] mr-2.5 text-primary bg-primary/10 rounded-lg">
           <ArtSvgIcon icon="ri:heart-3-line" class="text-xl" />
         </div>
         <div>

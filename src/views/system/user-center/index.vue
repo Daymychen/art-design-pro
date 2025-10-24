@@ -4,7 +4,7 @@
     <div class="relative flex justify-between mt-2.5 max-md:block max-md:mt-[5px]">
       <div class="w-[450px] mr-[25px] max-md:w-full max-md:mr-0">
         <div
-          class="relative p-[35px_40px] pb-6 overflow-hidden text-center bg-[var(--art-main-bg-color)] border border-[var(--art-border-color)] rounded-[calc(var(--custom-radius)+4px)]"
+          class="relative p-[35px_40px] pb-6 overflow-hidden text-center art-card-bg border-a rounded-custom-sm"
         >
           <img
             class="absolute top-0 left-0 w-full h-[200px] object-cover"
@@ -42,7 +42,7 @@
               <div
                 v-for="item in lableList"
                 :key="item"
-                class="py-[3px] px-[6px] mr-2.5 mb-2.5 text-xs bg-[var(--art-main-bg-color)] border border-[var(--art-border-color)] rounded-[2px]"
+                class="py-[3px] px-[6px] mr-2.5 mb-2.5 text-xs art-card-bg border-a rounded-[2px]"
               >
                 {{ item }}
               </div>
@@ -51,9 +51,7 @@
         </div>
       </div>
       <div class="flex-1 overflow-hidden max-md:w-full max-md:mt-[15px]">
-        <div
-          class="bg-[var(--art-main-bg-color)] border border-[var(--art-border-color)] rounded-[calc(var(--custom-radius)+4px)]"
-        >
+        <div class="art-card-bg border-a rounded-custom-sm">
           <h1
             class="p-[15px_25px] text-xl font-normal text-[var(--art-text-gray-800)] border-b border-[var(--art-border-color)]"
             >基本设置</h1
@@ -113,9 +111,7 @@
           </ElForm>
         </div>
 
-        <div
-          class="mt-5 bg-[var(--art-main-bg-color)] border border-[var(--art-border-color)] rounded-[calc(var(--custom-radius)+4px)]"
-        >
+        <div class="mt-5 art-card-bg border-a rounded-custom-sm">
           <h1
             class="p-[15px_25px] text-xl font-normal text-[var(--art-text-gray-800)] border-b border-[var(--art-border-color)]"
             >更改密码</h1

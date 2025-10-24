@@ -8,7 +8,7 @@
     <div class="flex items-center md:mt-2.5 md:justify-end">
       <div
         v-if="showSearchBar != null"
-        class="ml-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-[var(--art-gray-700)] transition-all duration-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
+        class="ml-2 h-8 w-8 cursor-pointer flex-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-g-700 tad-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
         @click="search"
         :class="
           showSearchBar
@@ -20,19 +20,19 @@
       </div>
       <div
         v-if="shouldShow('refresh')"
-        class="ml-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-[var(--art-gray-700)] transition-all duration-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
+        class="ml-2 h-8 w-8 cursor-pointer flex-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-g-700 tad-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
         @click="refresh"
         :class="{ loading: loading && isManualRefresh }"
       >
         <ArtSvgIcon
           icon="ri:refresh-line"
-          :class="loading && isManualRefresh ? 'animate-spin text-[var(--art-gray-600)]' : ''"
+          :class="loading && isManualRefresh ? 'animate-spin text-g-600' : ''"
         />
       </div>
 
       <ElDropdown v-if="shouldShow('size')" @command="handleTableSizeChange">
         <div
-          class="ml-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-[var(--art-gray-700)] transition-all duration-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
+          class="ml-2 h-8 w-8 cursor-pointer flex-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-g-700 tad-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
         >
           <ArtSvgIcon icon="ri:arrow-up-down-fill" />
         </div>
@@ -57,7 +57,7 @@
 
       <div
         v-if="shouldShow('fullscreen')"
-        class="ml-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-[var(--art-gray-700)] transition-all duration-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
+        class="ml-2 h-8 w-8 cursor-pointer flex-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-g-700 tad-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
         @click="toggleFullScreen"
       >
         <ArtSvgIcon :icon="isFullScreen ? 'ri:fullscreen-exit-line' : 'ri:fullscreen-line'" />
@@ -67,7 +67,7 @@
       <ElPopover v-if="shouldShow('columns')" placement="bottom" trigger="click">
         <template #reference>
           <div
-            class="ml-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-[var(--art-gray-700)] transition-all duration-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
+            class="ml-2 h-8 w-8 cursor-pointer flex-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-g-700 tad-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
           >
             <ArtSvgIcon icon="ri:align-right" />
           </div>
@@ -87,8 +87,8 @@
               :class="{ 'fixed-column': item.fixed }"
             >
               <div
-                class="drag-icon mr-2 flex h-[18px] items-center justify-center text-[var(--art-gray-500)]"
-                :class="item.fixed ? 'cursor-default text-[var(--art-gray-300)]' : 'cursor-move'"
+                class="drag-icon mr-2 h-[18px] flex-center text-g-500"
+                :class="item.fixed ? 'cursor-default text-g-300' : 'cursor-move'"
               >
                 <ArtSvgIcon
                   :icon="item.fixed ? 'ri:sip-line' : 'ri:drag-move-2-fill'"
@@ -111,7 +111,7 @@
       <ElPopover v-if="shouldShow('settings')" placement="bottom" trigger="click">
         <template #reference>
           <div
-            class="ml-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-[var(--art-gray-700)] transition-all duration-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
+            class="ml-2 h-8 w-8 cursor-pointer flex-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-g-700 tad-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
           >
             <ArtSvgIcon icon="ri:settings-line" />
           </div>

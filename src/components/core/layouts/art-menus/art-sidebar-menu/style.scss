@@ -41,8 +41,9 @@
           cursor: pointer;
           border-radius: 5px;
 
-          i {
+          .art-svg-icon {
             display: block;
+            margin: 0 auto;
             font-size: 20px;
           }
 
@@ -55,7 +56,7 @@
           &.is-active {
             background: var(--main-color);
 
-            i,
+            .art-svg-icon,
             span {
               color: #fff !important;
             }

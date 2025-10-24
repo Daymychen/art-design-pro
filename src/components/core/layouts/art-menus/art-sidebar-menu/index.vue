@@ -33,8 +33,8 @@
                 }"
               >
                 <ArtSvgIcon
+                  class="menu-icon text-g-600"
                   :icon="menu.meta.icon"
-                  class="text-g-500 text-xl"
                   :style="{
                     marginBottom: dualMenuShowText ? '5px' : '0'
                   }"

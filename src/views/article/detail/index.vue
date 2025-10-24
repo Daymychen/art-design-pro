@@ -112,6 +112,9 @@
         top: 6px;
         right: 6px;
         z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: 40px;
         height: 40px;
         font-size: 20px;

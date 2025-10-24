@@ -7,7 +7,7 @@
 
       <div class="flex flex-wrap max-w-[600px] mt-[35px]">
         <div
-          class="w-[240px] flex items-center justify-between h-[50px] px-[15px] border border-g-200 cursor-pointer rounded-[8px] mr-[15px] mb-[15px] text-[14px] bg-g-100/50 duration-300 hover:-translate-y-[3px]"
+          class="w-[240px] flex-between h-[50px] px-[15px] border border-g-200 cursor-pointer rounded-[8px] mr-[15px] mb-[15px] text-[14px] bg-g-100/50 duration-300 hover:-translate-y-[3px]"
           v-for="link in linkList"
           :key="link.label"
           @click="goPage(link.url)"

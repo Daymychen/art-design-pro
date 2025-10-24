@@ -26,9 +26,7 @@
         <!-- 富文本编辑器 -->
         <ArtWangEditor class="mt-2.5" v-model="editorHtml" />
 
-        <div
-          class="p-5 mt-5 bg-[var(--art-main-bg-color)] border border-[var(--art-border-color)] rounded-custom-sm"
-        >
+        <div class="p-5 mt-5 art-card-bg border-a rounded-custom-sm">
           <h2 class="mb-5 text-xl font-medium">发布设置</h2>
           <!-- 图片上传 -->
           <ElForm>
@@ -45,7 +43,7 @@
                 >
                   <div
                     v-if="!cover"
-                    class="flex flex-col items-center justify-center w-[260px] h-[160px] border border-dashed border-[#d9d9d9] rounded-md"
+                    class="flex items-center justify-center flex-col w-[260px] h-[160px] border border-dashed border-[#d9d9d9] rounded-md"
                   >
                     <ElIcon class="text-[28px] text-[#8c939d]"><Plus /></ElIcon>
                     <div class="mt-2 text-sm text-[#8c939d]">点击上传封面</div>

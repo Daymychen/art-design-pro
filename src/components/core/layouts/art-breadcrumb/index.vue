@@ -5,24 +5,24 @@
       <li
         v-for="(item, index) in breadcrumbItems"
         :key="item.path"
-        class="box-border flex h-7 items-center text-sm leading-7 !text-[var(--art-text-gray-700)]"
+        class="box-border flex h-7 items-center text-sm leading-7"
       >
         <div
           :class="
             isClickable(item, index)
-              ? 'cursor-pointer rounded transition-all duration-200 ease-in-out hover:bg-[rgba(var(--art-gray-200-rgb),0.85)] hover:[&_span]:text-[var(--art-gray-700)]'
+              ? 'cursor-pointer rounded transition-all duration-200 ease-in-out hover:bg-[rgba(var(--art-gray-200-rgb),0.85)] hover:[&_span]:text-g-600'
               : ''
           "
           @click="handleBreadcrumbClick(item, index)"
         >
           <span
-            class="block max-w-[200px] overflow-hidden text-ellipsis whitespace-nowrap px-1.5 text-[13px] text-[var(--art-gray-600)] transition-colors duration-200 ease-in-out"
+            class="block max-w-[200px] overflow-hidden text-ellipsis whitespace-nowrap px-1.5 text-[13px] text-g-500 transition-colors duration-200 ease-in-out"
             >{{ formatMenuTitle(item.meta?.title as string) }}</span
           >
         </div>
         <div
           v-if="!isLastItem(index) && item.meta?.title"
-          class="mx-1 text-[13px] not-italic text-[var(--art-gray-600)]"
+          class="mx-1 text-[13px] not-italic text-g-500"
           aria-hidden="true"
         >
           /

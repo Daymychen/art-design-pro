@@ -9,7 +9,7 @@
             </div>
           </template>
 
-          <div class="flex items-center justify-center p-5 rounded">
+          <div class="flex-center p-5 rounded">
             <QrcodeVue :value="qrValue" v-bind="preset.config" />
           </div>
         </ElCard>
