@@ -2,7 +2,7 @@
 <template>
   <div
     :class="[
-      'inline-block min-w-[34px] h-[34px] px-2.5 mr-2.5 text-[13px] leading-[34px] cursor-pointer bg-[rgba(var(--art-gray-200-rgb),0.7)] rounded-md tad-200 ease-in-out hover:bg-[rgba(var(--art-gray-300-rgb),0.5)]',
+      'inline-flex items-center justify-center min-w-8 h-8 px-2.5 mr-2.5 text-sm c-p rounded-md',
       buttonClass
     ]"
     :style="{ backgroundColor: buttonBgColor, color: iconColor }"

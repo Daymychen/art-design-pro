@@ -1,5 +1,5 @@
 <template>
-  <div class="art-card h-[330px] p-[20px] mb-[20px]">
+  <div class="art-card h-[330px] p-5 mb-5">
     <div class="art-card-header">
       <div class="title">
         <h4>业务量与服务水平</h4>

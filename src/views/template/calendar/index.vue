@@ -4,7 +4,7 @@
     <ElCalendar v-model="currentDate">
       <template #date-cell="{ data }">
         <div
-          class="relative flex flex-col h-full min-h-[120px] max-h-[120px] p-1 overflow-hidden cursor-pointer"
+          class="relative flex flex-col h-full min-h-[120px] max-h-[120px] p-1 overflow-hidden c-p"
           :class="{ 'is-selected': data.isSelected }"
           @click="handleCellClick(data.day)"
         >
@@ -19,7 +19,7 @@
               @click.stop="handleEventClick(event)"
             >
               <div
-                class="min-w-[100px] px-3 py-1.5 overflow-hidden text-[13px] font-medium leading-6 text-ellipsis whitespace-nowrap rounded hover:opacity-80"
+                class="min-w-[100px] px-3 py-1.5 overflow-hidden text-xs font-medium leading-6 text-ellipsis whitespace-nowrap rounded hover:opacity-80"
                 :class="[`${event.type || 'bg-primary'}`]"
               >
                 {{ event.content }}

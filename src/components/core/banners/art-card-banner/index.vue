@@ -1,21 +1,18 @@
 <!-- 卡片横幅组件 -->
 <template>
-  <div
-    class="flex flex-col justify-center pb-6 art-card-bg art-custom-card rounded-custom-sm"
-    :style="{ height: props.height }"
-  >
-    <div class="flex flex-col gap-4 items-center text-center">
+  <div class="flex flex-col justify-center pb-6 art-card-sm" :style="{ height: props.height }">
+    <div class="flex flex-col items-center gap-4 text-center">
       <div class="w-[180px]">
         <img :src="props.image" :alt="props.title" class="w-full h-full object-contain" />
       </div>
       <div class="box-border px-4">
-        <p class="mb-2 text-lg font-semibold text-[var(--art-text-gray-800)]">{{ props.title }}</p>
-        <p class="m-0 text-sm text-[var(--art-text-gray-600)]">{{ props.description }}</p>
+        <p class="mb-2 text-lg font-semibold text-g-800">{{ props.title }}</p>
+        <p class="m-0 text-sm text-g-600">{{ props.description }}</p>
       </div>
       <div class="flex gap-3 items-center">
         <div
           v-if="props.cancelButton?.show"
-          class="inline-block h-[var(--el-component-custom-height)] px-3 text-sm leading-[var(--el-component-custom-height)] cursor-pointer select-none rounded-md transition-opacity duration-300 hover:opacity-90 border border-[#dcdfe6]"
+          class="inline-block h-9 px-3 text-sm leading-9 c-p select-none rounded-md border border-g-300"
           :style="{
             backgroundColor: props.cancelButton?.color,
             color: props.cancelButton?.textColor
@@ -26,7 +23,7 @@
         </div>
         <div
           v-if="props.button?.show"
-          class="inline-block h-[var(--el-component-custom-height)] px-3 text-sm leading-[var(--el-component-custom-height)] cursor-pointer select-none rounded-md transition-opacity duration-300 hover:opacity-90"
+          class="inline-block h-9 px-3 text-sm leading-9 c-p select-none rounded-md"
           :style="{ backgroundColor: props.button?.color, color: props.button?.textColor }"
           @click="handleClick"
         >

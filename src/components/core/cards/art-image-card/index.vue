@@ -1,11 +1,7 @@
 <!-- 图片卡片 -->
 <template>
-  <div class="w-full cursor-pointer" @click="handleClick">
-    <ElCard
-      :body-style="{ padding: '0px' }"
-      shadow="hover"
-      class="art-custom-card !rounded-custom-sm"
-    >
+  <div class="w-full c-p" @click="handleClick">
+    <ElCard :body-style="{ padding: '0px' }" shadow="hover" class="art-card">
       <div class="relative w-full aspect-[16/10] overflow-hidden">
         <ElImage
           :src="props.imageUrl"
@@ -20,7 +16,7 @@
           </template>
         </ElImage>
         <div
-          class="absolute right-[15px] bottom-[15px] py-1 px-2 text-xs bg-[var(--art-gray-200)] rounded"
+          class="absolute right-3.5 bottom-3.5 py-1 px-2 text-xs bg-g-200 rounded"
           v-if="props.readTime"
         >
           {{ props.readTime }} 阅读
@@ -29,15 +25,13 @@
 
       <div class="p-4">
         <div
-          class="inline-block py-[2px] px-2 mb-2 text-xs bg-[var(--art-gray-200)] rounded"
+          class="inline-block py-[2px] px-2 mb-2 text-xs bg-g-300/70 rounded"
           v-if="props.category"
         >
           {{ props.category }}
         </div>
-        <p class="m-0 mb-3 text-base font-medium leading-[1.4] text-[var(--art-text-gray-900)]">{{
-          props.title
-        }}</p>
-        <div class="flex gap-4 items-center text-[13px] text-[var(--art-text-gray-600)]">
+        <p class="m-0 mb-3 text-base font-medium leading-[1.4]">{{ props.title }}</p>
+        <div class="flex gap-4 items-center text-xs text-g-600">
           <span class="flex gap-1 items-center" v-if="props.views">
             <ElIcon class="text-base"><View /></ElIcon>
             {{ props.views }}

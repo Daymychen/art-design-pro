@@ -87,6 +87,13 @@
   border: 1px solid var(--art-card-border) !important;
 }
 
+@mixin art-card-base($border-color, $shadow: none, $radius-diff: 4px) {
+  background: var(--art-main-bg-color);
+  border: 1px solid #{$border-color} !important;
+  border-radius: calc(var(--custom-radius) + #{$radius-diff}) !important;
+  box-shadow: #{$shadow} !important;
+}
+
 // 盒子边框
 [data-box-mode='border-mode'] {
   .page-content,
@@ -96,9 +103,15 @@
   }
 
   .art-card {
-    border: 1px solid var(--art-card-border) !important;
-    background: var(--art-main-bg-color);
-    border-radius: calc(var(--custom-radius) + 4px) !important;
+    @include art-card-base(var(--art-card-border), none, 4px);
+  }
+
+  .art-card-sm {
+    @include art-card-base(var(--art-card-border), none, 0px);
+  }
+
+  .art-card-xs {
+    @include art-card-base(var(--art-card-border), none, -4px);
   }
 }
 
@@ -116,10 +129,15 @@
   }
 
   .art-card {
-    background: var(--art-main-bg-color);
-    border-radius: calc(var(--custom-radius) + 4px) !important;
-    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.04) !important;
-    border: 1px solid rgba(var(--art-gray-300-rgb), 0.3) !important;
+    @include art-card-base(rgba(var(--art-gray-300-rgb), 0.3), 0 0 4px 0 rgba(0, 0, 0, 0.04), 4px);
+  }
+
+  .art-card-sm {
+    @include art-card-base(rgba(var(--art-gray-300-rgb), 0.3), 0 0 4px 0 rgba(0, 0, 0, 0.04), 2px);
+  }
+
+  .art-card-xs {
+    @include art-card-base(rgba(var(--art-gray-300-rgb), 0.3), 0 0 4px 0 rgba(0, 0, 0, 0.04), -4px);
   }
 }
 

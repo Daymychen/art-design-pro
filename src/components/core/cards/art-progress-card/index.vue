@@ -1,13 +1,10 @@
 <!-- 进度条卡片 -->
 <template>
-  <div class="art-custom-card h-32 flex flex-col justify-center rounded-custom-sm art-card-bg px-5">
-    <div
-      class="mb-[15px] flex items-center"
-      :style="{ justifyContent: icon ? 'space-between' : 'flex-start' }"
-    >
+  <div class="art-card h-32 flex flex-col justify-center px-5">
+    <div class="mb-3.5 flex-c" :style="{ justifyContent: icon ? 'space-between' : 'flex-start' }">
       <div
         v-if="icon"
-        class="size-[46px] flex-center bg-[var(--art-gray-300)] text-xl"
+        class="size-[46px] flex-center bg-g-300 text-xl"
         :style="{
           backgroundColor: iconBgColor,
           borderRadius: iconBgRadius + 'px'

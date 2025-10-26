@@ -12,7 +12,7 @@
             <!-- 普通菜单项 -->
             <li
               v-if="!item.children"
-              class="menu-item relative flex cursor-pointer select-none items-center rounded text-[13px] text-[var(--el-text-color-primary)] transition-colors duration-150 hover:bg-[rgba(var(--art-gray-200-rgb),0.7)]"
+              class="menu-item relative flex c-p select-none items-center rounded text-xs transition-colors duration-150 hover:bg-[rgba(var(--art-gray-200-rgb),0.7)]"
               :class="{ 'is-disabled': item.disabled, 'has-line': item.showLine }"
               :style="menuItemStyle"
               @click="handleMenuClick(item)"
@@ -31,7 +31,7 @@
             <!-- 子菜单 -->
             <li
               v-else
-              class="menu-item submenu relative flex cursor-pointer select-none items-center rounded text-[13px] text-[var(--el-text-color-primary)] transition-colors duration-150 hover:bg-[rgba(var(--art-gray-200-rgb),0.7)]"
+              class="menu-item submenu relative flex c-p select-none items-center rounded text-xs transition-colors duration-150 hover:bg-[rgba(var(--art-gray-200-rgb),0.7)]"
               :style="menuItemStyle"
             >
               <div class="submenu-title flex w-full items-center">
@@ -46,7 +46,7 @@
                 >
                 <ArtSvgIcon
                   icon="ri:arrow-right-s-line"
-                  class="ubmenu-arrow ml-auto mr-0 text-lg text-g-400 transition-transform duration-150"
+                  class="ubmenu-arrow ml-auto mr-0 text-base text-g-500 transition-transform duration-150"
                 />
               </div>
               <ul
@@ -56,7 +56,7 @@
                 <li
                   v-for="child in item.children"
                   :key="child.key"
-                  class="menu-item relative mx-1.5 flex cursor-pointer select-none items-center rounded text-[13px] text-[var(--el-text-color-primary)] transition-colors duration-150 hover:bg-[rgba(var(--art-gray-200-rgb),0.7)]"
+                  class="menu-item relative mx-1.5 flex c-p select-none items-center rounded text-xs transition-colors duration-150 hover:bg-[rgba(var(--art-gray-200-rgb),0.7)]"
                   :class="{ 'is-disabled': child.disabled, 'has-line': child.showLine }"
                   :style="menuItemStyle"
                   @click="handleMenuClick(child)"

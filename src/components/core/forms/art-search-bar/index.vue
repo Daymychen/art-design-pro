@@ -3,7 +3,7 @@
 <!-- 写法同 ElementPlus 官方文档组件，把属性写在 props 里面就可以了 -->
 <template>
   <section
-    class="art-custom-card rounded-custom-sm art-card-bg px-5 pb-0 pt-[15px] md:px-5 md:pt-[15px]"
+    class="art-card-xs px-5 pb-0 pt-3.5 md:px-5 md:pt-3.5"
     :class="{ 'is-expanded': isExpanded }"
   >
     <ElForm
@@ -90,13 +90,11 @@
             </div>
             <div
               v-if="shouldShowExpandToggle"
-              class="ml-2.5 flex cursor-pointer items-center leading-8 text-[var(--main-color)] transition-colors duration-200 ease-in-out hover:text-[var(--ElColor-primary)] md:ml-0 md:justify-center"
+              class="ml-2.5 c-p flex-c leading-8 text-primary tad-200 hover:text-black md:ml-0 md:justify-center"
               @click="toggleExpand"
             >
               <span class="select-none text-sm">{{ expandToggleText }}</span>
-              <div
-                class="ml-1 flex items-center text-sm transition-transform duration-200 ease-in-out"
-              >
+              <div class="ml-1 flex-c text-sm transition-transform duration-200 ease-in-out">
                 <ElIcon>
                   <ArrowUpBold v-if="isExpanded" />
                   <ArrowDownBold v-else />

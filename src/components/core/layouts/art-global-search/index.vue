@@ -20,7 +20,7 @@
       >
         <template #suffix>
           <div
-            class="search-keydown h-4.5 flex-center rounded border-a bg-[var(--art-bg-color)] px-1.5 text-g-400"
+            class="search-keydown h-4.5 flex-center rounded border-b bg-[var(--art-bg-color)] px-1.5 text-g-400"
           >
             <ArtSvgIcon icon="fluent:arrow-enter-left-20-filled" />
           </div>
@@ -29,12 +29,12 @@
       <ElScrollbar class="mt-5" max-height="370px" ref="searchResultScrollbar" always>
         <div class="result w-full bg-[var(--rt-main-bg-color)]" v-show="searchResult.length">
           <div
-            class="box !mt-0 cursor-pointer text-base font-medium leading-none"
+            class="box !mt-0 c-p text-base font-medium leading-none"
             v-for="(item, index) in searchResult"
             :key="index"
           >
             <div
-              class="mt-2 h-[50px] flex-between rounded-custom-sm bg-[var(--art-gray-100)] px-4 text-[15px] font-normal text-g-700"
+              class="mt-2 h-12 flex-between rounded-custom-sm bg-g-200/80 px-4 text-sm text-g-700"
               :class="
                 isHighlighted(index)
                   ? 'highlighted !bg-[var(--el-color-primary-light-3)] !text-white'
@@ -50,10 +50,10 @@
         </div>
 
         <div v-show="!searchVal && searchResult.length === 0 && historyResult.length > 0">
-          <p class="text-[13px] text-g-500">{{ $t('search.historyTitle') }}</p>
+          <p class="text-xs text-g-500">{{ $t('search.historyTitle') }}</p>
           <div class="mt-1.5 w-full bg-[var(--rt-main-bg-color)]">
             <div
-              class="box mt-2 h-[50px] cursor-pointer flex-between rounded-custom-sm bg-[var(--art-gray-100)] px-4 text-[15px] font-normal text-g-800"
+              class="box mt-2 h-12 c-p flex-between rounded-custom-sm bg-g-200/80 px-4 text-sm text-g-800"
               v-for="(item, index) in historyResult"
               :key="index"
               :class="
@@ -66,10 +66,10 @@
             >
               {{ formatMenuTitle(item.meta.title) }}
               <div
-                class="size-5 selected-icon select-none rounded-full text-g-400 flex-center cursor-pointer"
+                class="size-5 selected-icon select-none rounded-full text-g-400 flex-center c-p"
                 @click.stop="deleteHistory(index)"
               >
-                <ArtSvgIcon icon="ri:close-large-fill" class="text-sm" />
+                <ArtSvgIcon icon="ri:close-large-fill" class="text-xs" />
               </div>
             </div>
           </div>
@@ -77,28 +77,19 @@
       </ElScrollbar>
 
       <template #footer>
-        <div
-          class="dialog-footer box-border flex items-center border-t border-[rgba(var(--art-gray-300-rgb),0.6)] pb-[7px] pt-1.5"
-        >
-          <div class="flex h-10 items-center">
+        <div class="dialog-footer box-border flex-c border-t border-g-100 py-4">
+          <div class="flex-center">
             <ArtSvgIcon icon="fluent:arrow-enter-left-20-filled" class="keyboard" />
-            <span class="mr-[15px] h-[22px] text-xs leading-[22px]">{{
-              $t('search.selectKeydown')
-            }}</span>
+            <span class="mr-3.5 text-xs text-g-700">{{ $t('search.selectKeydown') }}</span>
           </div>
-          <div class="flex h-10 items-center">
+          <div class="flex-c">
             <ArtSvgIcon icon="ri:arrow-up-wide-fill" class="keyboard" />
-
             <ArtSvgIcon icon="ri:arrow-down-wide-fill" class="keyboard" />
-            <span class="mr-[15px] h-[22px] text-xs leading-[22px]">{{
-              $t('search.switchKeydown')
-            }}</span>
+            <span class="mr-3.5 text-xs text-g-700">{{ $t('search.switchKeydown') }}</span>
           </div>
-          <div class="flex h-10 items-center">
+          <div class="flex-c">
             <i class="keyboard !w-8 flex-center"><p class="text-[10px] font-medium">ESC</p></i>
-            <span class="mr-[15px] h-[22px] text-xs leading-[22px]">{{
-              $t('search.exitKeydown')
-            }}</span>
+            <span class="mr-3.5 text-xs text-g-700">{{ $t('search.exitKeydown') }}</span>
           </div>
         </div>
       </template>
@@ -375,7 +366,7 @@
 </script>
 
 <style scoped>
-  @import 'tailwindcss';
+  @reference '@styles/main.css';
 
   .keyboard {
     @apply left-[117px] 
@@ -386,10 +377,10 @@
     w-[22px] 
     rounded-[3px] 
     border 
-    border-[var(--art-border-dashed-color)] 
-    bg-[var(--art-bg-color)] 
+    text-g-900
+    border-g-400 
     px-1 
-    text-[var(--art-gray-500)] 
+    !text-g-500
     shadow-[0_2px_0_var(--art-border-dashed-color)] 
     last-of-type:mr-1.5;
   }

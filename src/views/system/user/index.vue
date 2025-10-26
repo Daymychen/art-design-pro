@@ -1,4 +1,4 @@
-<!-- 用户管理 -->
+<!-- 用户管理页面 -->
 <!-- art-full-height 自动计算出页面剩余高度 -->
 <!-- art-table-card 一个符合系统样式的 class，同时自动撑满剩余高度 -->
 <!-- 更多 useTable 使用示例请移步至 功能示例 下面的 高级表格示例或者查看官方文档 -->
@@ -125,7 +125,7 @@
           label: '用户名',
           width: 280,
           formatter: (row) => {
-            return h('div', { class: 'user flex items-center' }, [
+            return h('div', { class: 'user flex-c' }, [
               h(ElImage, {
                 class: 'avatar',
                 src: row.avatar,

@@ -1,16 +1,16 @@
 <!-- 授权页右上角组件 -->
 <template>
   <div
-    class="absolute right-5 top-5 z-10 flex items-center gap-2.5 max-[680px]:[&_.color-picker-expandable]:hidden"
+    class="absolute right-5 top-5 z-10 flex-c gap-2.5 max-[680px]:[&_.color-picker-expandable]:hidden"
   >
-    <div class="color-picker-expandable relative flex items-center">
+    <div class="color-picker-expandable relative flex-c">
       <div
-        class="color-dots-container absolute right-0 flex items-center gap-2 rounded-[20px] px-2.5 py-2 pr-9 pl-2.5 opacity-0 shadow-[0_2px_12px_var(--art-gray-300)] backdrop-blur-[10px] [pointer-events:none] [transform:translateX(10px)]"
+        class="color-dots-container absolute right-0 rounded-full flex-c gap-2 rounded-5 px-2.5 py-2 pr-9 pl-2.5 opacity-0 shadow-[0_2px_12px_var(--art-gray-300)] backdrop-blur-[10px] [pointer-events:none] [transform:translateX(10px)]"
       >
         <div
           v-for="(color, index) in mainColors"
           :key="color"
-          class="color-dot relative h-[22px] w-[22px] cursor-pointer flex-center rounded-full opacity-0 shadow-[0_2px_4px_rgba(0,0,0,0.15)] [transform:translateX(20px)_scale(0.8)] hover:scale-110 hover:translate-x-0 hover:shadow-[0_4px_8px_rgba(0,0,0,0.2)]"
+          class="color-dot relative size-5 c-p flex-center rounded-full opacity-0 shadow-[0_2px_4px_rgba(0,0,0,0.15)] [transform:translateX(20px)_scale(0.8)] hover:scale-110 hover:translate-x-0 hover:shadow-[0_4px_8px_rgba(0,0,0,0.2)]"
           :class="{ active: color === systemThemeColor }"
           :style="{ background: color, '--index': index }"
           @click="changeThemeColor(color)"
@@ -22,10 +22,10 @@
           />
         </div>
       </div>
-      <div class="color-trigger-btn btn relative z-[2] h-8 w-8 cursor-pointer flex-center tad-300">
+      <div class="color-trigger-btn btn relative z-[2] h-8 w-8 c-p flex-center tad-300">
         <ArtSvgIcon
           icon="ri:palette-line"
-          class="!text-[19px] text-g-800 transition-colors duration-300"
+          class="!text-lg text-g-800 transition-colors duration-300"
         />
       </div>
     </div>
@@ -34,7 +34,7 @@
       @command="changeLanguage"
       popper-class="langDropDownStyle"
     >
-      <div class="btn language-btn h-8 w-8 cursor-pointer flex-center tad-300">
+      <div class="btn language-btn h-8 w-8 c-p flex-center tad-300">
         <ArtSvgIcon
           icon="ri:global-line"
           class="icon-language text-lg text-g-800 transition-colors duration-300"
@@ -45,7 +45,7 @@
           <div v-for="lang in languageOptions" :key="lang.value" class="lang-btn-item">
             <ElDropdownItem :command="lang.value" :class="{ 'is-selected': locale === lang.value }">
               <span class="menu-txt">{{ lang.label }}</span>
-              <ArtSvgIcon icon="ri:check-fill" class="text-[16px]" v-if="locale === lang.value" />
+              <ArtSvgIcon icon="ri:check-fill" class="text-base" v-if="locale === lang.value" />
             </ElDropdownItem>
           </div>
         </ElDropdownMenu>
@@ -53,7 +53,7 @@
     </ElDropdown>
     <div
       v-if="shouldShowThemeToggle"
-      class="btn theme-btn h-8 w-8 cursor-pointer flex-center tad-300"
+      class="btn theme-btn h-8 w-8 c-p flex-center tad-300"
       @click="themeAnimation"
     >
       <ArtSvgIcon

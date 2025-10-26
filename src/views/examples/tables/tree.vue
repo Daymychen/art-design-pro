@@ -1,3 +1,4 @@
+<!-- 左树右表示例页面 -->
 <template>
   <div class="art-full-height">
     <div class="box-border flex gap-4 h-full max-md:block max-md:gap-0 max-md:h-auto">

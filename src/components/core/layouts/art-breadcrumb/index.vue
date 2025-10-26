@@ -10,19 +10,19 @@
         <div
           :class="
             isClickable(item, index)
-              ? 'cursor-pointer rounded transition-all duration-200 ease-in-out hover:bg-[rgba(var(--art-gray-200-rgb),0.85)] hover:[&_span]:text-g-600'
+              ? 'c-p rounded tad-200 hover:bg-g-200 hover:[&_span]:text-g-600'
               : ''
           "
           @click="handleBreadcrumbClick(item, index)"
         >
           <span
-            class="block max-w-[200px] overflow-hidden text-ellipsis whitespace-nowrap px-1.5 text-[13px] text-g-500 transition-colors duration-200 ease-in-out"
+            class="block max-w-46 overflow-hidden text-ellipsis whitespace-nowrap px-1.5 text-sm text-g-600"
             >{{ formatMenuTitle(item.meta?.title as string) }}</span
           >
         </div>
         <div
           v-if="!isLastItem(index) && item.meta?.title"
-          class="mx-1 text-[13px] not-italic text-g-500"
+          class="mx-1 text-sm not-italic text-g-500"
           aria-hidden="true"
         >
           /

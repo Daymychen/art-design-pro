@@ -1,4 +1,3 @@
-<!-- 结果页 -->
 <template>
   <ArtResultPage
     type="fail"

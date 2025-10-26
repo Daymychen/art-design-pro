@@ -1,31 +1,26 @@
 <!-- 通知组件 -->
 <template>
   <div
-    class="absolute top-[60px] right-5 w-[360px] h-[500px] overflow-hidden art-card-bg border-a shadow-[0_8px_26px_-4px_hsl(0deg_0%_8%_/_15%),0_8px_9px_-5px_hsl(0deg_0%_8%_/_6%)] tad-200 origin-top will-change-[top,left] max-[640px]:top-[65px] max-[640px]:right-0 max-[640px]:w-full max-[640px]:h-[80vh]"
+    class="art-notification-panel art-card-sm"
     :style="{
       transform: show ? 'scaleY(1)' : 'scaleY(0.9)',
-      opacity: show ? 1 : 0,
-      borderRadius: 'calc(var(--custom-radius) / 2 + 6px)'
+      opacity: show ? 1 : 0
     }"
     v-show="visible"
-    @click.stop=""
+    @click.stop
   >
-    <div class="flex-between px-[15px] mt-[15px]">
+    <div class="flex-between px-3.5 mt-3.5">
       <span class="text-base font-medium text-g-800">{{ $t('notice.title') }}</span>
-      <span
-        class="text-xs px-1.5 py-1 cursor-pointer select-none rounded-md hover:bg-[var(--art-gray-200)]"
-      >
+      <span class="text-xs text-g-800 px-1.5 py-1 c-p select-none rounded hover:bg-g-200">
         {{ $t('notice.btnRead') }}
       </span>
     </div>
 
-    <ul
-      class="box-border flex w-full h-[50px] px-[15px] leading-[50px] border-b border-[var(--art-border-color)]"
-    >
+    <ul class="box-border flex w-full h-[50px] px-3.5 leading-[50px] border-b border-g-300/80">
       <li
         v-for="(item, index) in barList"
         :key="index"
-        class="h-12 mr-5 last:mr-0 overflow-hidden text-[13px] text-g-700 cursor-pointer select-none transition-colors duration-300 hover:text-g-900"
+        class="h-12 mr-5 last:mr-0 overflow-hidden text-xs text-g-700 c-p select-none transition-colors duration-300 hover:text-g-900"
         :class="{ 'bar-active': barActiveIndex === index }"
         @click="changeBar(index)"
       >
@@ -40,7 +35,7 @@
           <li
             v-for="(item, index) in noticeList"
             :key="index"
-            class="box-border flex items-center px-[15px] py-[15px] cursor-pointer last:border-b-0 hover:bg-[var(--art-gray-100)]"
+            class="box-border flex-c px-3.5 py-3.5 c-p last:border-b-0 hover:bg-g-200/60"
           >
             <div
               class="size-9 leading-9 text-center rounded-lg flex-center"
@@ -52,7 +47,7 @@
                 :icon="getNoticeStyle(item.type).icon"
               />
             </div>
-            <div class="w-[calc(100%-45px)] ml-[15px]">
+            <div class="w-[calc(100%-45px)] ml-3.5">
               <h4 class="text-sm font-normal leading-[22px] text-g-900">{{ item.title }}</h4>
               <p class="mt-1.5 text-xs text-g-500">{{ item.time }}</p>
             </div>
@@ -64,13 +59,13 @@
           <li
             v-for="(item, index) in msgList"
             :key="index"
-            class="box-border flex items-center px-[15px] py-[15px] cursor-pointer last:border-b-0 hover:bg-[var(--art-gray-100)]"
+            class="box-border flex-c px-3.5 py-3.5 c-p last:border-b-0 hover:bg-g-200/60"
           >
             <div class="w-9 h-9">
               <img :src="item.avatar" class="w-full h-full rounded-lg" />
             </div>
-            <div class="w-[calc(100%-45px)] ml-[15px]">
-              <h4 class="text-[13px] font-normal leading-[22px]">{{ item.title }}</h4>
+            <div class="w-[calc(100%-45px)] ml-3.5">
+              <h4 class="text-xs font-normal leading-[22px]">{{ item.title }}</h4>
               <p class="mt-1.5 text-xs text-g-500">{{ item.time }}</p>
             </div>
           </li>
@@ -81,7 +76,7 @@
           <li
             v-for="(item, index) in pendingList"
             :key="index"
-            class="box-border px-5 py-[15px] last:border-b-0"
+            class="box-border px-5 py-3.5 last:border-b-0"
           >
             <h4>{{ item.title }}</h4>
             <p class="text-xs text-g-500">{{ item.time }}</p>
@@ -94,13 +89,13 @@
           class="relative top-[100px] h-full text-g-500 text-center !bg-transparent"
         >
           <ArtSvgIcon icon="material-symbols-light:hourglass-empty" class="text-5xl" />
-          <p class="mt-[15px] text-xs !bg-transparent"
+          <p class="mt-3.5 text-xs !bg-transparent"
             >{{ $t('notice.text[0]') }}{{ barList[barActiveIndex].name }}</p
           >
         </div>
       </div>
 
-      <div class="relative box-border w-full px-[15px]">
+      <div class="relative box-border w-full px-3.5">
         <ElButton class="w-full mt-3" @click="handleViewAll" v-ripple>
           {{ $t('notice.viewAll') }}
         </ElButton>
@@ -173,6 +168,10 @@
 
   const props = defineProps<{
     value: boolean
+  }>()
+
+  const emit = defineEmits<{
+    'update:value': [value: boolean]
   }>()
 
   const show = ref(false)
@@ -329,14 +328,14 @@
   const useNotificationAnimation = () => {
     const showNotice = (open: boolean) => {
       if (open) {
-        visible.value = open
+        visible.value = true
         setTimeout(() => {
-          show.value = open
+          show.value = true
         }, 5)
       } else {
-        show.value = open
+        show.value = false
         setTimeout(() => {
-          visible.value = open
+          visible.value = false
         }, 350)
       }
     }
@@ -379,6 +378,9 @@
 
       const handler = viewAllHandlers[barActiveIndex.value]
       handler?.()
+
+      // 关闭通知面板
+      emit('update:value', false)
     }
 
     return {
@@ -434,6 +436,26 @@
 </script>
 
 <style scoped>
+  @reference '@styles/main.css';
+
+  .art-notification-panel {
+    @apply absolute 
+    top-14.5 
+    right-5 
+    w-90 
+    h-125 
+    overflow-hidden 
+    shadow-[0_8px_26px_-4px_hsl(0deg_0%_8%_/_15%),0_8px_9px_-5px_hsl(0deg_0%_8%_/_6%)] 
+    transition-all 
+    duration-300
+    origin-top 
+    will-change-[top,left] 
+    max-[640px]:top-[65px]
+    max-[640px]:right-0
+    max-[640px]:w-full 
+    max-[640px]:h-[80vh];
+  }
+
   .bar-active {
     color: var(--main-color) !important;
     border-bottom: 2px solid var(--main-color);

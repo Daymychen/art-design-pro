@@ -4,7 +4,7 @@
       <ArtSvgIcon
         :icon="item.meta.icon"
         :color="theme?.iconColor"
-        class="mr-[5px] text-lg"
+        class="mr-1 text-lg"
         :style="{ color: theme.iconColor }"
       />
       <span>{{ formatMenuTitle(item.meta.title) }}</span>
@@ -34,7 +34,7 @@
     <ArtSvgIcon
       :icon="item.meta.icon"
       :color="theme?.iconColor"
-      class="mr-[5px] text-lg"
+      class="mr-1 text-lg"
       :style="{ color: theme.iconColor }"
     />
     <span>{{ formatMenuTitle(item.meta.title) }}</span>

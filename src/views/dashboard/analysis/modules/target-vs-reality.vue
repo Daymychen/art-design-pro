@@ -1,5 +1,5 @@
 <template>
-  <div class="art-card h-[400px] p-[20px] mb-[20px]">
+  <div class="art-card h-[400px] p-5 mb-5">
     <div class="art-card-header">
       <div class="title">
         <h4>目标与实际</h4>
@@ -7,7 +7,7 @@
     </div>
 
     <ArtBarChart
-      class="p-[20px]"
+      class="p-5"
       height="12rem"
       :data="revenueData"
       :xAxisData="weekDays"
@@ -16,8 +16,8 @@
     />
 
     <div class="px-5 mt-4">
-      <div v-for="item in totalItems" :key="item.label" class="flex items-center mb-5 last:mb-0">
-        <div class="flex items-center justify-start w-3/5 text-sm text-gray-600">
+      <div v-for="item in totalItems" :key="item.label" class="flex-c mb-5 last:mb-0">
+        <div class="flex-c justify-start w-3/5 text-sm">
           <div
             class="w-10 h-10 mr-3 text-lg leading-10 text-center rounded-md flex-center"
             :class="item.iconClass"
@@ -26,8 +26,8 @@
           </div>
 
           <div class="flex flex-col items-start">
-            <span class="text-base text-gray-800">{{ item.label }}</span>
-            <span class="mt-1 text-xs text-gray-500">{{ item.subLabel }}</span>
+            <span class="text-base text-g-800">{{ item.label }}</span>
+            <span class="mt-1 text-xs text-g-500">{{ item.subLabel }}</span>
           </div>
         </div>
         <div class="text-lg font-normal" :class="item.valueClass">{{ item.value }}</div>

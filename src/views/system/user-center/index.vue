@@ -1,11 +1,9 @@
-<!-- 个人中心 -->
+<!-- 个人中心页面 -->
 <template>
   <div class="w-full h-full p-0 bg-transparent border-none shadow-none">
-    <div class="relative flex justify-between mt-2.5 max-md:block max-md:mt-[5px]">
+    <div class="relative flex justify-between mt-2.5 max-md:block max-md:mt-1">
       <div class="w-[450px] mr-[25px] max-md:w-full max-md:mr-0">
-        <div
-          class="relative p-[35px_40px] pb-6 overflow-hidden text-center art-card-bg border-a rounded-custom-sm"
-        >
+        <div class="art-card-sm relative p-[35px_40px] pb-6 overflow-hidden text-center">
           <img
             class="absolute top-0 left-0 w-full h-[200px] object-cover"
             src="@imgs/user/bg.webp"
@@ -14,10 +12,10 @@
             class="relative z-10 w-20 h-20 mt-[120px] mx-auto object-cover border-2 border-white rounded-full"
             src="@imgs/user/avatar.webp"
           />
-          <h2 class="mt-5 text-[22px] font-normal">{{ userInfo.userName }}</h2>
+          <h2 class="mt-5 text-xl font-normal">{{ userInfo.userName }}</h2>
           <p class="mt-5 text-sm">专注于用户体验跟视觉设计</p>
 
-          <div class="w-[300px] mx-auto mt-[30px] text-left">
+          <div class="w-[300px] mx-auto mt-7.5 text-left">
             <div class="mt-2.5">
               <ArtSvgIcon icon="ri:mail-line" class="text-g-700" />
               <span class="ml-2 text-sm">jdkjjfnndf@mall.com</span>
@@ -37,12 +35,12 @@
           </div>
 
           <div class="mt-10">
-            <h3 class="text-[15px] font-medium">标签</h3>
-            <div class="flex flex-wrap justify-center mt-[15px]">
+            <h3 class="text-sm font-medium">标签</h3>
+            <div class="flex flex-wrap justify-center mt-3.5">
               <div
                 v-for="item in lableList"
                 :key="item"
-                class="py-[3px] px-[6px] mr-2.5 mb-2.5 text-xs art-card-bg border-a rounded-[2px]"
+                class="py-[3px] px-[6px] mr-2.5 mb-2.5 text-xs art-card-bg border border-g-300 rounded-[2px]"
               >
                 {{ item }}
               </div>
@@ -50,12 +48,9 @@
           </div>
         </div>
       </div>
-      <div class="flex-1 overflow-hidden max-md:w-full max-md:mt-[15px]">
-        <div class="art-card-bg border-a rounded-custom-sm">
-          <h1
-            class="p-[15px_25px] text-xl font-normal text-[var(--art-text-gray-800)] border-b border-[var(--art-border-color)]"
-            >基本设置</h1
-          >
+      <div class="flex-1 overflow-hidden max-md:w-full max-md:mt-3.5">
+        <div class="art-card-sm">
+          <h1 class="p-[15px_25px] text-xl font-normal border-b border-g-300">基本设置</h1>
 
           <ElForm
             :model="form"
@@ -103,7 +98,7 @@
               <ElInput type="textarea" :rows="4" v-model="form.des" :disabled="!isEdit" />
             </ElFormItem>
 
-            <div class="flex items-center justify-end [&_.el-button]:!w-[110px]">
+            <div class="flex-c justify-end [&_.el-button]:!w-[110px]">
               <ElButton type="primary" class="w-[90px]" v-ripple @click="edit">
                 {{ isEdit ? '保存' : '编辑' }}
               </ElButton>
@@ -111,11 +106,8 @@
           </ElForm>
         </div>
 
-        <div class="mt-5 art-card-bg border-a rounded-custom-sm">
-          <h1
-            class="p-[15px_25px] text-xl font-normal text-[var(--art-text-gray-800)] border-b border-[var(--art-border-color)]"
-            >更改密码</h1
-          >
+        <div class="art-card-sm my-5">
+          <h1 class="p-[15px_25px] text-xl font-normal border-b border-g-300">更改密码</h1>
 
           <ElForm
             :model="pwdForm"
@@ -150,7 +142,7 @@
               />
             </ElFormItem>
 
-            <div class="flex items-center justify-end [&_.el-button]:!w-[110px]">
+            <div class="flex-c justify-end [&_.el-button]:!w-[110px]">
               <ElButton type="primary" class="w-[90px]" v-ripple @click="editPwd">
                 {{ isEditPwd ? '保存' : '编辑' }}
               </ElButton>

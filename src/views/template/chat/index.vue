@@ -10,21 +10,21 @@
       </ElCol>
     </ElRow>
     <div
-      class="box-border w-[360px] h-full p-5 border-r border-[var(--art-border-color)] max-md:w-full max-md:h-[170px] max-md:border-r-0"
+      class="box-border w-90 h-full p-5 border-r border-g-300 max-md:w-full max-md:h-[170px] max-md:border-r-0"
     >
       <div class="pb-5 max-md:hidden">
         <div class="flex gap-3 items-center">
           <ElAvatar :size="50" :src="selectedPerson?.avatar" />
           <div>
             <div class="text-base font-medium">{{ selectedPerson?.name }}</div>
-            <div class="mt-1 text-[13px] text-g-500">{{ selectedPerson?.email }}</div>
+            <div class="mt-1 text-xs text-g-500">{{ selectedPerson?.email }}</div>
           </div>
         </div>
         <div class="mt-3">
           <ElInput v-model="searchQuery" placeholder="搜索联系人" prefix-icon="Search" clearable />
         </div>
         <ElDropdown trigger="click" placement="bottom-start">
-          <span class="mt-5 cursor-pointer">
+          <span class="mt-5 c-p">
             排序方式
             <ElIcon class="el-icon--right">
               <arrow-down />
@@ -43,7 +43,7 @@
         <div
           v-for="item in personList"
           :key="item.id"
-          class="flex items-center p-3 cursor-pointer rounded-lg tad-300 ease-in-out hover:bg-[var(--el-fill-color-light)]"
+          class="flex-c p-3 c-p rounded-lg tad-300 ease-in-out hover:bg-[var(--el-fill-color-light)]"
           :class="{ 'bg-[var(--el-fill-color-light)]': selectedPerson?.id === item.id }"
           @click="selectPerson(item)"
         >
@@ -58,16 +58,13 @@
           </div>
           <div class="flex-1 min-w-0">
             <div class="flex-between mb-1">
-              <span class="text-sm font-medium text-[var(--el-text-color-primary)]">{{
-                item.name
-              }}</span>
-              <span class="text-xs text-[var(--el-text-color-secondary)]">{{ item.lastTime }}</span>
+              <span class="text-sm font-medium">{{ item.name }}</span>
+              <span class="text-xs text-g-600">{{ item.lastTime }}</span>
             </div>
             <div class="flex-between">
-              <span
-                class="overflow-hidden text-xs text-[var(--el-text-color-secondary)] text-ellipsis whitespace-nowrap"
-                >{{ item.email }}</span
-              >
+              <span class="overflow-hidden text-xs text-g-600 text-ellipsis whitespace-nowrap">{{
+                item.email
+              }}</span>
             </div>
           </div>
         </div>
@@ -86,33 +83,21 @@
           </div>
         </div>
         <div class="flex gap-2 items-center">
-          <div
-            class="size-[42px] flex-center leading-[42px] text-center cursor-pointer rounded-full transition-colors duration-200 ease-in-out hover:bg-[var(--art-gray-200)]"
-          >
-            <ArtSvgIcon icon="ri:phone-line" class="text-g-600 text-[18px]" />
-          </div>
-          <div
-            class="size-[42px] flex-center leading-[42px] text-center cursor-pointer rounded-full transition-colors duration-200 ease-in-out hover:bg-[var(--art-gray-200)]"
-          >
-            <ArtSvgIcon icon="ri:video-on-line" class="text-g-600 text-[18px]" />
-          </div>
-          <div
-            class="size-[42px] flex-center leading-[42px] text-center cursor-pointer rounded-full transition-colors duration-200 ease-in-out hover:bg-[var(--art-gray-200)]"
-          >
-            <ArtSvgIcon icon="ri:more-2-fill" class="text-g-600 text-[18px]" />
-          </div>
+          <ArtIconButton icon="ri:phone-line" circle class="size-11 text-g-600" />
+          <ArtIconButton icon="ri:video-on-line" circle class="size-11 text-g-600" />
+          <ArtIconButton icon="ri:more-2-fill" circle class="size-11 text-g-600" />
         </div>
       </div>
       <div class="flex flex-col h-[calc(100%-85px)]">
         <!-- 聊天消息区域 -->
         <div
-          class="flex-1 py-[30px] px-4 overflow-y-auto border-t border-[var(--el-border-color-lighter)] [&::-webkit-scrollbar]:!w-[5px]"
+          class="flex-1 py-7.5 px-4 overflow-y-auto border-t border-[var(--el-border-color-lighter)] [&::-webkit-scrollbar]:!w-1"
           ref="messageContainer"
         >
           <template v-for="message in messages" :key="message.id">
             <div
               :class="[
-                'flex gap-2 items-start w-full mb-[30px]',
+                'flex gap-2 items-start w-full mb-7.5',
                 message.isMe ? 'flex-row-reverse' : 'flex-row justify-start'
               ]"
             >
@@ -130,9 +115,7 @@
                 </div>
                 <div
                   class="py-2.5 px-3.5 text-sm leading-[1.4] rounded-md"
-                  :class="
-                    message.isMe ? 'bg-[rgb(var(--art-bg-secondary))]' : 'bg-[var(--art-gray-200)] '
-                  "
+                  :class="message.isMe ? 'bg-[rgb(var(--art-bg-secondary))]' : 'bg-g-300/60'"
                   >{{ message.content }}</div
                 >
               </div>
@@ -159,15 +142,9 @@
             </template>
           </ElInput>
           <div class="flex-between mt-3">
-            <div class="flex items-center">
-              <ArtSvgIcon
-                icon="ri:image-line"
-                class="mr-5 text-base cursor-pointer text-g-400 text-[17px]"
-              />
-              <ArtSvgIcon
-                icon="ri:emotion-happy-line"
-                class="mr-5 text-base cursor-pointer text-g-400 text-[18px]"
-              />
+            <div class="flex-c">
+              <ArtSvgIcon icon="ri:image-line" class="mr-5 c-p text-g-400 text-lg" />
+              <ArtSvgIcon icon="ri:emotion-happy-line" class="mr-5 c-p text-g-400 text-lg" />
             </div>
             <ElButton type="primary" @click="sendMessage" v-ripple class="min-w-[80px]"
               >发送</ElButton

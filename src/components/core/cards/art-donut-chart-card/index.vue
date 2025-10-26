@@ -1,40 +1,33 @@
 <!-- 环型图卡片 -->
 <template>
-  <div
-    class="art-custom-card overflow-hidden rounded-[var(--custom-radius)] art-card-bg text-[#303133] tad-300"
-    :style="{ height: `${height}rem` }"
-  >
+  <div class="art-card overflow-hidden" :style="{ height: `${height}rem` }">
     <div class="box-border flex h-full p-5">
       <div class="flex w-full items-start gap-5">
         <div class="flex h-full flex-1 flex-col justify-between">
-          <p class="m-0 text-xl font-medium leading-tight text-[var(--art-text-gray-900)]">
+          <p class="m-0 text-xl font-medium leading-tight text-g-900">
             {{ title }}
           </p>
           <div>
-            <p class="m-0 mt-2.5 text-xl font-medium leading-tight text-[var(--art-text-gray-900)]">
+            <p class="m-0 mt-2.5 text-xl font-medium leading-tight text-g-900">
               {{ formatNumber(value) }}
             </p>
             <div
-              class="mt-1.5 text-xs font-medium text-[#f56c6c]"
-              :class="percentage > 0 ? 'text-[#67c23a]' : ''"
+              class="mt-1.5 text-xs font-medium"
+              :class="percentage > 0 ? 'text-success' : 'text-danger'"
             >
               {{ percentage > 0 ? '+' : '' }}{{ percentage }}%
               <span v-if="percentageLabel">{{ percentageLabel }}</span>
             </div>
           </div>
-          <div class="mt-2 flex gap-4 text-xs text-[#909399]">
-            <span
-              v-if="currentValue"
-              class="relative pl-4 before:absolute before:left-0 before:top-1/2 before:h-2 before:w-2 before:-translate-y-1/2 before:rounded-full before:bg-[var(--main-color)] before:content-['']"
-            >
+          <div class="mt-2 flex gap-4 text-xs text-g-600">
+            <div v-if="currentValue" class="flex-center">
+              <div class="size-2 bg-[var(--main-color)] rounded mr-2"></div>
               {{ currentValue }}
-            </span>
-            <span
-              v-if="previousValue"
-              class="relative pl-4 before:absolute before:left-0 before:top-1/2 before:h-2 before:w-2 before:-translate-y-1/2 before:rounded-full before:bg-[#e6e8f7] before:content-['']"
-            >
+            </div>
+            <div v-if="previousValue" class="flex-center">
+              <div class="size-2 bg-g-400 rounded mr-2"></div>
               {{ previousValue }}
-            </span>
+            </div>
           </div>
         </div>
         <div class="flex h-full max-w-[200px] flex-1 items-center">

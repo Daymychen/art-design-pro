@@ -1,7 +1,7 @@
 <template>
   <div>
     <ElForm @submit.prevent="addComment" class="w-full mx-auto mb-10">
-      <ElFormItem prop="author" class="mt-[20px]">
+      <ElFormItem prop="author" class="mt-5">
         <ElInput
           v-model="newComment.author"
           placeholder="你的名称"
@@ -26,9 +26,7 @@
     </ElForm>
 
     <ul>
-      <div class="pb-5 text-lg font-medium text-gray-900 dark:text-gray-100">
-        评论 {{ comments.length }}
-      </div>
+      <div class="pb-5 text-lg font-medium"> 评论 {{ comments.length }} </div>
       <CommentItem
         v-for="comment in comments.slice().reverse()"
         :key="comment.id"
@@ -36,7 +34,7 @@
         :show-reply-form="showReplyForm"
         @toggle-reply="toggleReply"
         @add-reply="addReply"
-        class="pb-2.5 mb-5 border-b border-[var(--art-border-dashed-color)]"
+        class="pb-2.5 mb-5 border-b border-g-400"
       />
     </ul>
   </div>

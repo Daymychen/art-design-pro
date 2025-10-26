@@ -8,7 +8,7 @@
       <!-- 路由信息调试 -->
       <div
         v-if="isOpenRouteInfo === 'true'"
-        class="px-2 py-1.5 mb-3 text-sm text-g-500 bg-[var(--art-gray-200)] border-b rounded-md"
+        class="px-2 py-1.5 mb-3 text-sm text-g-500 bg-g-200 border-b rounded-md"
       >
         router meta：{{ route.meta }}
       </div>

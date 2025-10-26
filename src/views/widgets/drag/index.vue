@@ -2,7 +2,7 @@
 <template>
   <div class="page-content mb-5">
     <ElRow>
-      <ElCard shadow="never" class="w-[300px] mr-5 mb-[30px]">
+      <ElCard shadow="never" class="w-[300px] mr-5 mb-7.5">
         <template #header>
           <span class="text-base font-bold">基础示例</span>
         </template>
@@ -19,7 +19,7 @@
         </template>
       </ElCard>
 
-      <ElCard shadow="never" class="w-[300px] mb-[30px]">
+      <ElCard shadow="never" class="w-[300px] mb-7.5">
         <template #header>
           <span class="text-base font-bold">过渡动画</span>
         </template>
@@ -39,7 +39,7 @@
       </ElCard>
     </ElRow>
 
-    <ElCard shadow="never" class="mb-[30px]">
+    <ElCard shadow="never" class="mb-7.5">
       <template #header>
         <span class="text-base font-bold">表格拖拽排序</span>
       </template>
@@ -53,7 +53,7 @@
       </template>
     </ElCard>
 
-    <ElCard shadow="never" class="mb-[30px]">
+    <ElCard shadow="never" class="mb-7.5">
       <template #header>
         <span class="text-base font-bold">指定元素拖拽排序</span>
       </template>

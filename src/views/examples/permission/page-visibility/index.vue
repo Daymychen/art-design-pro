@@ -1,12 +1,13 @@
+<!-- 权限页面可见页面 -->
 <template>
-  <div class="w-full py-[10px]">
+  <div class="w-full py-2">
     <!-- 页面头部 -->
     <div class="mb-6">
-      <h2 class="m-0 mb-2 text-[22px] font-medium text-[var(--el-text-color-primary)]">{{
+      <h2 class="m-0 mb-2 text-xl font-medium">{{
         $t('menus.examples.permission.pageVisibility')
       }}</h2>
-      <p class="m-0 text-sm leading-[1.6] text-[var(--el-text-color-regular)]">
-        此页面仅对<strong class="font-semibold text-[var(--el-color-warning)]">超级管理员</strong
+      <p class="m-0 text-sm leading-[1.6] text-g-700">
+        此页面仅对<strong class="font-semibold text-warning">超级管理员</strong
         >用户可见，演示页面级别的权限控制。 如果您能看到此页面，说明您拥有相应的访问权限。
       </p>
     </div>
@@ -14,22 +15,18 @@
     <div class="mb-6">
       <ElCard shadow="never">
         <template #header>
-          <div class="flex gap-2 items-center font-semibold text-[var(--el-text-color-primary)]">
+          <div class="flex gap-2 items-center font-semibold">
             <span>权限验证成功</span>
           </div>
         </template>
         <div>
           <div class="flex gap-5 items-center">
             <div>
-              <h3 class="m-0 mb-2 text-lg font-semibold text-[var(--el-text-color-primary)]"
-                >您拥有访问此页面的权限</h3
-              >
-              <p class="my-1 text-sm text-[var(--el-text-color-regular)]">
-                当前用户：<strong class="font-semibold text-[var(--el-text-color-primary)]">{{
-                  currentUser.userName
-                }}</strong>
+              <h3 class="m-0 mb-2 text-lg font-semibold">您拥有访问此页面的权限</h3>
+              <p class="my-1 text-sm text-g-700">
+                当前用户：<strong class="font-semibold">{{ currentUser.userName }}</strong>
               </p>
-              <p class="my-1 text-sm text-[var(--el-text-color-regular)]">
+              <p class="my-1 text-sm text-g-700">
                 用户角色：
                 <ElTag type="warning">{{ getRoleDisplayName(currentUser.roles?.[0] || '') }}</ElTag>
               </p>
@@ -43,7 +40,7 @@
     <div class="mb-6 last:mb-0">
       <ElCard shadow="never">
         <template #header>
-          <div class="flex items-center font-semibold text-[var(--el-text-color-primary)]">
+          <div class="flex-c font-semibold">
             <span>页面级权限控制说明</span>
           </div>
         </template>
@@ -51,20 +48,17 @@
           <ElTimeline>
             <ElTimelineItem timestamp="前端控制模式" type="primary" size="large">
               <ElCard shadow="never">
-                <h4 class="m-0 mb-2 text-base font-semibold text-[var(--el-text-color-primary)]"
-                  >基于角色的权限控制</h4
-                >
-                <p class="m-0 mb-2 leading-[1.6] text-[var(--el-text-color-regular)]">
+                <h4 class="m-0 mb-2 text-base font-semibold">基于角色的权限控制</h4>
+                <p class="m-0 mb-2 leading-[1.6] text-g-700">
                   在前端控制模式下，页面访问权限由路由配置文件中的
-                  <code
-                    class="px-[6px] py-[2px] font-mono text-[13px] text-[var(--el-color-primary)] bg-[var(--el-color-primary-light-9)] rounded"
+                  <code class="px-[6px] py-[2px] font-mono text-xs text-primary bg-primary rounded"
                     >meta.roles</code
                   >
                   字段定义，前端会根据用户接口所拥有的角色对路由和菜单进行过滤与控制
                 </p>
                 <pre
-                  class="p-4 mt-3 mb-0 overflow-x-auto font-mono text-[13px] leading-[1.5] bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded-md"
-                ><code class="text-[var(--el-text-color-primary)]">{
+                  class="p-4 mt-3 mb-0 overflow-x-auto font-mono text-xs leading-[1.5] bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded-md"
+                ><code class="">{
   path: 'page-visibility',
   name: 'PermissionPageVisibility',
   component: '/examples/permission/page-visibility',
@@ -74,50 +68,44 @@
     keepAlive: true
   }
 }</code></pre>
-                <p class="m-0 mb-2 leading-[1.6] text-[var(--el-text-color-regular)]"
-                  ><strong>权限验证流程：</strong></p
-                >
+                <p class="m-0 mb-2 leading-[1.6] text-g-700"><strong>权限验证流程：</strong></p>
                 <ul class="pl-5 my-2">
-                  <li class="my-1 leading-[1.5] text-[var(--el-text-color-regular)]"
+                  <li class="my-1 leading-[1.5] text-g-700"
                     >用户登录后，接口返回用户角色信息（如 R_SUPER、R_ADMIN、R_USER）</li
                   >
-                  <li class="my-1 leading-[1.5] text-[var(--el-text-color-regular)]">
+                  <li class="my-1 leading-[1.5] text-g-700">
                     在
                     <code
-                      class="px-[6px] py-[2px] font-mono text-[13px] text-[var(--el-color-primary)] bg-[var(--el-color-primary-light-9)] rounded"
+                      class="px-[6px] py-[2px] font-mono text-xs text-primary bg-primary rounded"
                       >beforeEach</code
                     >
                     路由守卫中检查目标路由的
                     <code
-                      class="px-[6px] py-[2px] font-mono text-[13px] text-[var(--el-color-primary)] bg-[var(--el-color-primary-light-9)] rounded"
+                      class="px-[6px] py-[2px] font-mono text-xs text-primary bg-primary rounded"
                       >roles</code
                     >
                     配置
                   </li>
-                  <li class="my-1 leading-[1.5] text-[var(--el-text-color-regular)]"
+                  <li class="my-1 leading-[1.5] text-g-700"
                     >比较用户角色是否包含在允许访问的角色列表中</li
                   >
-                  <li class="my-1 leading-[1.5] text-[var(--el-text-color-regular)]"
-                    >权限不足时跳转到 403 页面</li
-                  >
+                  <li class="my-1 leading-[1.5] text-g-700">权限不足时跳转到 403 页面</li>
                 </ul>
               </ElCard>
             </ElTimelineItem>
 
             <ElTimelineItem timestamp="后端控制模式" type="warning" size="large">
               <ElCard shadow="never">
-                <h4 class="m-0 mb-2 text-base font-semibold text-[var(--el-text-color-primary)]"
-                  >基于菜单接口的权限控制</h4
-                >
-                <p class="m-0 mb-2 leading-[1.6] text-[var(--el-text-color-regular)]"
+                <h4 class="m-0 mb-2 text-base font-semibold">基于菜单接口的权限控制</h4>
+                <p class="m-0 mb-2 leading-[1.6] text-g-700"
                   >在后端控制模式下，页面访问权限由后端统一管理，前端通过解析后端接口返回的菜单列表来生成可访问的路由，从而实现权限控制</p
                 >
-                <p class="m-0 mb-2 leading-[1.6] text-[var(--el-text-color-regular)]"
+                <p class="m-0 mb-2 leading-[1.6] text-g-700"
                   >接口地址：src/api/menuApi.ts getMenuList</p
                 >
                 <pre
-                  class="p-4 mt-3 mb-0 overflow-x-auto font-mono text-[13px] leading-[1.5] bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded-md"
-                ><code class="text-[var(--el-text-color-primary)]">
+                  class="p-4 mt-3 mb-0 overflow-x-auto font-mono text-xs leading-[1.5] bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded-md"
+                ><code class="">
 {
   "code": 200,
   "data": [

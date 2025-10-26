@@ -7,13 +7,13 @@
       class="fixed top-0 left-0 z-[999999] flex-center w-full h-full text-white bg-gradient-to-br from-[#1e1e1e] to-black animate-fade-in"
     >
       <div class="p-5 text-center select-none">
-        <div class="mb-[30px] text-5xl">🔒</div>
-        <h1 class="m-0 mb-5 text-[28px] font-semibold text-[#ff6b6b]">系统已锁定</h1>
-        <p class="max-w-[500px] m-0 text-lg leading-relaxed text-[#ccc]">
+        <div class="mb-7.5 text-5xl">🔒</div>
+        <h1 class="m-0 mb-5 text-3xl font-semibold text-danger">系统已锁定</h1>
+        <p class="max-w-[500px] m-0 text-lg leading-relaxed text-white">
           检测到开发者工具已打开<br />
           为了系统安全，请关闭开发者工具后继续使用
         </p>
-        <div class="mt-[30px] text-sm text-[#888]">Security Lock Activated</div>
+        <div class="mt-7.5 text-sm text-gray-400">Security Lock Activated</div>
       </div>
     </div>
 
@@ -22,7 +22,7 @@
       <ElDialog v-model="visible" :width="370" :show-close="false" @open="handleDialogOpen">
         <div class="flex flex-col items-center">
           <img class="w-16 h-16 rounded-full" src="@imgs/user/avatar.webp" alt="用户头像" />
-          <div class="mt-[30px] mb-[15px] text-base font-medium">{{ userInfo.userName }}</div>
+          <div class="mt-7.5 mb-3.5 text-base font-medium">{{ userInfo.userName }}</div>
           <ElForm
             ref="formRef"
             :model="formData"
@@ -41,7 +41,7 @@
                 @keyup.enter="handleLock"
               >
                 <template #suffix>
-                  <ElIcon class="cursor-pointer" @click="handleLock">
+                  <ElIcon class="c-p" @click="handleLock">
                     <Lock />
                   </ElIcon>
                 </template>
@@ -57,9 +57,9 @@
 
     <!-- 解锁界面 -->
     <div v-else class="unlock-content">
-      <div class="flex flex-col items-center w-90 p-[30px] bg-white/90 rounded-[10px]">
+      <div class="flex flex-col items-center w-90 p-7.5 bg-white/90 rounded-xl">
         <img class="w-16 h-16 mt-5 rounded-full" src="@imgs/user/avatar.webp" alt="用户头像" />
-        <div class="mt-[30px] mb-[15px] text-base font-medium !text-[#333]">
+        <div class="mt-7.5 mb-3.5 text-base font-medium">
           {{ userInfo.userName }}
         </div>
         <ElForm
@@ -76,10 +76,10 @@
               :placeholder="$t('lockScreen.unlock.inputPlaceholder')"
               :show-password="true"
               ref="unlockInputRef"
-              class="mt-5 text-[#333]"
+              class="mt-5"
             >
               <template #suffix>
-                <ElIcon class="cursor-pointer" @click="handleUnlock">
+                <ElIcon class="c-p" @click="handleUnlock">
                   <Unlock />
                 </ElIcon>
               </template>
@@ -92,7 +92,7 @@
           <div class="w-full text-center">
             <ElButton
               text
-              class="mt-2.5 !text-[#333] hover:!text-[var(--main-color)] hover:!bg-transparent"
+              class="mt-2.5 !text-g-600 hover:!text-primary hover:!bg-transparent"
               @click="toLogin"
             >
               {{ $t('lockScreen.unlock.backBtnText') }}

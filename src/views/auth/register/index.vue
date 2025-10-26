@@ -1,3 +1,4 @@
+<!-- 注册页面 -->
 <template>
   <div class="flex w-full h-screen">
     <LoginLeftView />
@@ -10,7 +11,7 @@
           <h3 class="title">{{ $t('register.title') }}</h3>
           <p class="sub-title">{{ $t('register.subTitle') }}</p>
           <ElForm
-            class="mt-[30px]"
+            class="mt-7.5"
             ref="formRef"
             :model="formData"
             :rules="rules"
@@ -71,7 +72,7 @@
               </ElButton>
             </div>
 
-            <div class="mt-[20px] text-[14px] text-gray-600">
+            <div class="mt-5 text-sm text-g-600">
               <span>{{ $t('register.hasAccount') }}</span>
               <RouterLink class="text-primary" :to="{ name: 'Login' }">{{
                 $t('register.toLogin')

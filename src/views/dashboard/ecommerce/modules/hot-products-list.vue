@@ -1,5 +1,5 @@
 <template>
-  <div class="art-card p-[20px] h-[27.8rem] mb-[20px]">
+  <div class="art-card p-5 h-[27.8rem] mb-5 overflow-hidden">
     <div class="art-card-header">
       <div class="title">
         <h4>热销产品</h4>
@@ -18,7 +18,7 @@
         <template #default>
           <ElTableColumn label="产品" prop="product" width="220px">
             <template #default="scope">
-              <div class="flex items-center">
+              <div class="flex-c">
                 <img class="w-[50px] h-[50px] object-cover rounded-md" :src="scope.row.image" />
                 <div class="flex flex-col ml-3">
                   <div class="font-medium">{{ scope.row.name }}</div>

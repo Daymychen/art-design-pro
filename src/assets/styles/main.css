@@ -40,6 +40,19 @@
   --a-gray-800: oklch(0.278 0.033 256.848);
   --a-gray-900: oklch(0.21 0.034 264.665);
   --a-gray-950: oklch(0.13 0.028 261.692);
+
+  --b-gray-100: #f9fafb;
+  --b-gray-200: #f2f4f5;
+  --b-gray-300: #e6eaeb;
+  --b-gray-400: #dbdfe1;
+  --b-gray-500: #949eb7;
+  --b-gray-600: #7987a1;
+  --b-gray-700: #4d5875;
+  --b-gray-800: #383853;
+  --b-gray-900: #323251;
+
+  /* 边框颜色 */
+  --default-border: #e2e8ee;
 }
 
 .dark {
@@ -54,6 +67,18 @@
   --a-gray-800: oklch(0.928 0.006 264.531);
   --a-gray-900: oklch(0.967 0.003 264.542);
   --a-gray-950: oklch(0.985 0.002 247.839);
+
+  --b-gray-100: #110f0f;
+  --b-gray-200: #17171c;
+  --b-gray-300: #393946;
+  --b-gray-400: #505062;
+  --b-gray-500: #73738c;
+  --b-gray-600: #8f8fa3;
+  --b-gray-700: #ababba;
+  --b-gray-800: #c7c7d1;
+  --b-gray-900: #e3e3e8;
+
+  --default-border: rgba(255, 255, 255, 0.1);
 }
 
 /* 主题类 */
@@ -70,17 +95,17 @@
   --color-danger: var(--a-danger);
 
   /* 灰度颜色，自动适配暗黑模式 */
-  --color-g-50: var(--a-gray-50);
-  --color-g-100: var(--a-gray-100);
-  --color-g-200: var(--a-gray-200);
-  --color-g-300: var(--a-gray-300);
-  --color-g-400: var(--a-gray-400);
-  --color-g-500: var(--a-gray-500);
-  --color-g-600: var(--a-gray-600);
-  --color-g-700: var(--a-gray-700);
-  --color-g-800: var(--a-gray-800);
-  --color-g-900: var(--a-gray-900);
-  --color-g-950: var(--a-gray-950);
+  /* --color-g-50: var(--a-gray-50); */
+  --color-g-100: var(--b-gray-100);
+  --color-g-200: var(--b-gray-200);
+  --color-g-300: var(--b-gray-300);
+  --color-g-400: var(--b-gray-400);
+  --color-g-500: var(--b-gray-500);
+  --color-g-600: var(--b-gray-600);
+  --color-g-700: var(--b-gray-700);
+  --color-g-800: var(--b-gray-800);
+  --color-g-900: var(--b-gray-900);
+  /* --color-g-950: var(--a-gray-950); */
 }
 
 /* 添加组件类 */
@@ -96,18 +121,18 @@
 
   /* art-card header style */
   .art-card-header {
-    @apply flex justify-between pr-[25px] pb-[5px];
+    @apply flex justify-between pr-[25px] pb-1;
 
     .title {
       h4 {
-        @apply text-[18px] font-medium text-g-900;
+        @apply text-lg font-medium text-g-900;
       }
 
       p {
-        @apply mt-[3px] text-[13px] text-g-600;
+        @apply mt-[3px] text-xs text-g-600;
 
         span {
-          @apply ml-[10px] font-medium;
+          @apply ml-2 font-medium;
         }
       }
     }
@@ -121,17 +146,46 @@
   border-radius: calc(var(--custom-radius) / 2 + 2px);
 }
 
+/* 在 Tailwind 的 utilities layer 明确定义 text-g-200 / text-g-500 */
+
 @layer utilities {
+  /* 边框颜色 */
+  .border-full-d {
+    @apply border border-[var(--default-border)];
+  }
+
+  .border-b-d {
+    @apply border-b border-[var(--default-border)];
+  }
+
+  .border-t-d {
+    @apply border-t border-[var(--default-border)];
+  }
+
   .art-card-bg {
     background-color: var(--art-main-bg-color);
   }
 
   /* 通用：flex + 居中对齐 */
+  .flex-c {
+    @apply flex items-center;
+  }
+
+  .flex-cc {
+    @apply flex items-center justify-center;
+  }
+
+  /* Todo：这个需要替换后删除 */
   .flex-center {
     @apply flex items-center justify-center;
   }
 
   /* 通用：flex + 居中对齐 + 两端对齐 */
+  .flex-cb {
+    @apply flex items-center justify-between;
+  }
+
+  /* Todo：这个需要替换后删除 */
   .flex-between {
     @apply flex items-center justify-between;
   }
@@ -144,11 +198,15 @@
     @apply transition-all duration-300;
   }
 
-  .border-a {
+  /* .border-a {
     @apply border border-[var(--art-border-color)];
-  }
+  } */
 
-  .border-b {
+  /* .border-xx {
     @apply border border-[var(--art-border-dashed-color)];
+  } */
+
+  .c-p {
+    @apply cursor-pointer;
   }
 }

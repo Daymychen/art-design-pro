@@ -209,9 +209,9 @@
 </script>
 
 <style scoped>
-  @import 'tailwindcss';
+  @reference '@styles/main.css';
 
   .page-title {
-    @apply my-5 text-[22px] font-medium first:mt-0;
+    @apply my-5 text-xl font-medium first:mt-0;
   }
 </style>

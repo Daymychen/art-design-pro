@@ -1,5 +1,5 @@
 <template>
-  <div class="art-card p-[20px] mb-[20px] h-[420px]">
+  <div class="art-card p-5 mb-5 h-[420px]">
     <div class="art-card-header">
       <div class="title">
         <h4>销售分类</h4>
@@ -21,18 +21,18 @@
       centerText="¥300,458"
     />
     <div class="flex justify-around">
-      <div class="flex items-center">
+      <div class="flex-c">
         <div class="flex-center w-[42px] h-[42px] mr-2.5 text-primary bg-primary/10 rounded-lg">
-          <ArtSvgIcon icon="ri:money-cny-circle-line" class="text-[20px]" />
+          <ArtSvgIcon icon="ri:money-cny-circle-line" class="text-xl" />
         </div>
         <div>
           <p class="text-lg">¥500,458</p>
           <span class="text-sm">总收入</span>
         </div>
       </div>
-      <div class="flex items-center">
+      <div class="flex-c">
         <div class="flex-center w-[42px] h-[42px] mr-2.5 text-primary bg-primary/10 rounded-lg">
-          <ArtSvgIcon icon="ri:heart-3-line" class="text-[20px]" />
+          <ArtSvgIcon icon="ri:heart-3-line" class="text-xl" />
         </div>
         <div>
           <p class="text-lg">¥130,580</p>

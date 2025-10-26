@@ -1,3 +1,4 @@
+<!-- 菜单管理页面 -->
 <template>
   <div class="menu-page art-full-height">
     <!-- 搜索栏 -->

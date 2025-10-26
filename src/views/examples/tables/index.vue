@@ -16,7 +16,7 @@
         </div>
       </template>
       <div>
-        <p class="m-0 mb-4 leading-[1.6] text-[var(--el-text-color-regular)]">
+        <p class="m-0 mb-4 leading-[1.6] text-g-700">
           集成搜索、刷新、全屏、大小控制、列显示隐藏、拖拽排序、表格样式控制、并内置 useTable
           组合式函数，提供强大的组合式 API，集成数据获取、智能缓存（LRU算法）、
           多种刷新策略等核心功能，全面提升表格开发效率。
@@ -28,26 +28,20 @@
             <ElCollapseItem name="cache" title="缓存统计与演示">
               <div class="flex flex-col gap-2">
                 <div class="flex-between">
-                  <span class="font-medium text-[var(--el-text-color-regular)]">缓存状态：</span>
+                  <span class="font-medium text-g-700">缓存状态：</span>
                   <ElTag type="success">已启用</ElTag>
                 </div>
                 <div class="flex-between">
-                  <span class="font-medium text-[var(--el-text-color-regular)]">缓存条数：</span>
-                  <span class="font-semibold text-[var(--el-color-primary)]">{{
-                    cacheInfo.total
-                  }}</span>
+                  <span class="font-medium text-g-700">缓存条数：</span>
+                  <span class="font-semibold text-primary">{{ cacheInfo.total }}</span>
                 </div>
                 <div class="flex-between">
-                  <span class="font-medium text-[var(--el-text-color-regular)]">缓存大小：</span>
-                  <span class="font-semibold text-[var(--el-color-primary)]">{{
-                    cacheInfo.size
-                  }}</span>
+                  <span class="font-medium text-g-700">缓存大小：</span>
+                  <span class="font-semibold text-primary">{{ cacheInfo.size }}</span>
                 </div>
                 <div class="flex-between">
-                  <span class="font-medium text-[var(--el-text-color-regular)]">命中信息：</span>
-                  <span class="font-semibold text-[var(--el-color-primary)]">{{
-                    cacheInfo.hitRate
-                  }}</span>
+                  <span class="font-medium text-g-700">命中信息：</span>
+                  <span class="font-semibold text-primary">{{ cacheInfo.hitRate }}</span>
                 </div>
 
                 <div class="flex gap-2 mt-2">
@@ -90,27 +84,25 @@
             <ElCollapseItem name="request" title="请求状态">
               <div class="flex flex-col gap-2">
                 <div class="flex-between">
-                  <span class="font-medium text-[var(--el-text-color-regular)]">加载状态：</span>
+                  <span class="font-medium text-g-700">加载状态：</span>
                   <ElTag :type="loading ? 'warning' : 'success'">
                     {{ loading ? '加载中' : '空闲' }}
                   </ElTag>
                 </div>
                 <div class="flex-between">
-                  <span class="font-medium text-[var(--el-text-color-regular)]">数据状态：</span>
+                  <span class="font-medium text-g-700">数据状态：</span>
                   <ElTag :type="hasData ? 'success' : 'info'">
                     {{ hasData ? `${data.length} 条数据` : '无数据' }}
                   </ElTag>
                 </div>
                 <div class="flex-between">
-                  <span class="font-medium text-[var(--el-text-color-regular)]">错误状态：</span>
+                  <span class="font-medium text-g-700">错误状态：</span>
                   <ElTag :type="error ? 'danger' : 'success'">
                     {{ error ? '有错误' : '正常' }}
                   </ElTag>
                 </div>
                 <div class="flex flex-col gap-2">
-                  <span class="font-medium text-[var(--el-text-color-regular)]"
-                    >当前请求参数：</span
-                  >
+                  <span class="font-medium text-g-700">当前请求参数：</span>
                   <ElText
                     tag="pre"
                     class="max-h-[200px] p-2 overflow-y-auto text-xs bg-[var(--el-bg-color-page)] border border-[var(--el-border-color-light)] rounded-md"
@@ -245,12 +237,11 @@
           <div class="flex gap-3 items-center user-info">
             <ElAvatar :src="row.avatar" :size="40" />
             <div class="flex-1 min-w-0">
+              <p class="m-0 overflow-hidden font-medium text-ellipsis whitespace-nowrap">{{
+                row.userName
+              }}</p>
               <p
-                class="m-0 overflow-hidden font-medium text-[var(--el-text-color-primary)] text-ellipsis whitespace-nowrap"
-                >{{ row.userName }}</p
-              >
-              <p
-                class="m-0 mt-1 overflow-hidden text-xs text-[var(--el-text-color-regular)] text-ellipsis whitespace-nowrap"
+                class="m-0 mt-1 overflow-hidden text-xs text-g-700 text-ellipsis whitespace-nowrap"
                 >{{ row.userEmail }}</p
               >
             </div>
@@ -259,7 +250,7 @@
 
         <!-- 自定义用户信息表头 -->
         <template #avatar-header="{ column }">
-          <div class="flex gap-[5px] items-center">
+          <div class="flex-c gap-1">
             <span>{{ column.label }}</span>
             <ElTooltip content="包含头像、姓名和邮箱" placement="top">
               <ElIcon>
@@ -295,9 +286,7 @@
         <template #userPhone-header="{ column }">
           <ElPopover placement="bottom" :width="200" trigger="hover">
             <template #reference>
-              <div
-                class="inline-block gap-1 items-center text-[var(--el-color-primary)] cursor-pointer custom-header"
-              >
+              <div class="inline-block gap-1 items-center text-primary c-p custom-header">
                 <span>{{ column.label }}</span>
                 <ElIcon>
                   <Search />
@@ -331,9 +320,7 @@
         <div
           class="p-4 bg-[var(--el-bg-color-page)] border border-[var(--el-border-color-lighter)] rounded-lg"
         >
-          <h5 class="m-0 mb-4 text-sm font-semibold text-[var(--el-text-color-primary)]"
-            >事件监听演示</h5
-          >
+          <h5 class="m-0 mb-4 text-sm font-semibold">事件监听演示</h5>
           <div class="flex flex-wrap gap-2 mb-3 last:mb-0">
             <ElButton @click="toggleEventDemo" :type="eventDemoEnabled ? 'success' : 'primary'">
               {{ eventDemoEnabled ? '关闭' : '开启' }}事件监听
@@ -344,7 +331,7 @@
             v-if="eventDemoEnabled && eventLogs.length > 0"
             class="p-3 mt-3 bg-[var(--el-bg-color-page)] border border-[var(--el-border-color-light)] rounded-md"
           >
-            <div class="flex-between mb-2 font-medium text-[var(--el-text-color-regular)]">
+            <div class="flex-between mb-2 font-medium text-g-700">
               <span>最近事件日志：</span>
               <ElTag size="small">{{ eventLogs.length }} 条</ElTag>
             </div>
@@ -355,10 +342,8 @@
                 class="flex gap-2 items-center p-1.5 px-2 text-xs bg-[var(--el-bg-color)] border-l-[3px] border-[var(--el-border-color)] rounded"
               >
                 <ElTag :type="getEventType(log.type)" size="small">{{ log.type }}</ElTag>
-                <span class="flex-1 text-[var(--el-text-color-regular)]">{{ log.message }}</span>
-                <span class="text-[11px] text-[var(--el-text-color-placeholder)]">{{
-                  log.time
-                }}</span>
+                <span class="flex-1 text-g-700">{{ log.message }}</span>
+                <span class="text-xs text-g-600">{{ log.time }}</span>
               </div>
             </div>
           </div>
@@ -368,15 +353,13 @@
         <div
           class="p-4 bg-[var(--el-bg-color-page)] border border-[var(--el-border-color-lighter)] rounded-lg"
         >
-          <h5 class="m-0 mb-4 text-sm font-semibold text-[var(--el-text-color-primary)]"
-            >表格配置演示</h5
-          >
+          <h5 class="m-0 mb-4 text-sm font-semibold">表格配置演示</h5>
           <div class="flex flex-wrap gap-2 mb-3 last:mb-0">
             <ElSwitch
               v-model="tableConfig.fixedHeight"
               active-text="固定高度 (500px)"
               inactive-text="自适应高度"
-              class="ml-[10px]"
+              class="ml-2"
             />
           </div>
         </div>
@@ -385,9 +368,7 @@
         <div
           class="p-4 bg-[var(--el-bg-color-page)] border border-[var(--el-border-color-lighter)] rounded-lg"
         >
-          <h5 class="m-0 mb-4 text-sm font-semibold text-[var(--el-text-color-primary)]"
-            >自定义功能</h5
-          >
+          <h5 class="m-0 mb-4 text-sm font-semibold">自定义功能</h5>
           <div class="flex flex-wrap gap-2 mb-3 last:mb-0">
             <ElButton @click="handleScrollToTop">滚动到顶部</ElButton>
             <ElButton @click="handleScrollToPosition">滚动到指定位置</ElButton>

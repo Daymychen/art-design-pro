@@ -1,7 +1,7 @@
 <!-- 表单示例 -->
 <template>
   <div class="pb-5">
-    <h2 class="mb-[5px] text-lg font-medium">表单组件示例</h2>
+    <h2 class="mb-1 text-lg font-medium">表单组件示例</h2>
 
     <ElCard class="art-custom-card" shadow="never">
       <ArtForm
@@ -23,11 +23,11 @@
       </ArtForm>
     </ElCard>
 
-    <div class="art-card p-[20px] !rounded-[6px] mt-[20px]">
+    <div class="art-card p-5 !rounded-[6px] mt-5">
       <pre><code>{{ formData }}</code></pre>
     </div>
 
-    <div class="mt-[15px]">
+    <div class="mt-3.5">
       <ElSpace wrap>
         <ElButton @click="getLevelOptions"> 获取用户等级数据 </ElButton>
         <ElButton @click="validateForm"> 校验表单 </ElButton>

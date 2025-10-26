@@ -1,19 +1,20 @@
+<!-- 服务器管理页面 -->
 <template>
   <div class="page-content">
     <div class="w-full">
       <div class="flex flex-wrap w-[calc(100%+20px)]">
         <div
-          class="box-border w-[calc(50%-20px)] mr-5 mb-5 border border-g-200 rounded max-lg:w-full max-md:w-full"
+          class="box-border w-[calc(50%-20px)] mr-5 mb-5 border border-g-300 rounded max-lg:w-full max-md:w-full"
           v-for="item in serverList"
           :key="item.name"
         >
           <div
-            class="flex-between p-5 border-b border-g-200 max-lg:p-2.5 max-lg:px-5 max-md:p-2.5 max-md:px-5"
+            class="flex-between p-5 border-b border-g-300/80 max-lg:p-2.5 max-lg:px-5 max-md:p-2.5 max-md:px-5"
           >
-            <span class="text-[15px] font-medium">{{ item.name }}</span>
-            <span class="text-sm text-[var(--el-text-color-secondary)]">{{ item.ip }}</span>
+            <span class="text-sm font-medium">{{ item.name }}</span>
+            <span class="text-sm text-g-600">{{ item.ip }}</span>
           </div>
-          <div class="flex items-center p-9 scale-[0.8] max-lg:p-5 max-md:block max-md:p-5">
+          <div class="flex-c p-9 scale-[0.8] max-lg:p-5 max-md:block max-md:p-5">
             <div class="mx-10 max-lg:m-0 max-lg:mr-5 max-md:m-0">
               <img
                 src="@imgs/safeguard/server.png"
@@ -28,12 +29,12 @@
                 </ElButtonGroup>
               </div>
             </div>
-            <div class="flex-1 mt-[5px] max-lg:mt-0 max-md:mt-[30px]">
-              <div class="my-[15px]">
+            <div class="flex-1 mt-1 max-lg:mt-0 max-md:mt-7.5">
+              <div class="my-3.5">
                 <p class="mb-1 text-sm">CPU</p>
                 <ElProgress :percentage="item.cup" :text-inside="true" :stroke-width="17" />
               </div>
-              <div class="my-[15px]">
+              <div class="my-3.5">
                 <p class="mb-1 text-sm">RAM</p>
                 <ElProgress
                   :percentage="item.memory"
@@ -42,7 +43,7 @@
                   :stroke-width="17"
                 />
               </div>
-              <div class="my-[15px]">
+              <div class="my-3.5">
                 <p class="mb-1 text-sm">SWAP</p>
                 <ElProgress
                   :percentage="item.swap"
@@ -51,7 +52,7 @@
                   :stroke-width="17"
                 />
               </div>
-              <div class="my-[15px]">
+              <div class="my-3.5">
                 <p class="mb-1 text-sm">DISK</p>
                 <ElProgress
                   :percentage="item.disk"

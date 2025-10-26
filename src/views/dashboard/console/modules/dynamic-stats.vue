@@ -1,5 +1,5 @@
 <template>
-  <div class="art-card h-[510px] p-[20px] mb-[20px]">
+  <div class="art-card h-[510px] p-5 mb-5">
     <div class="art-card-header">
       <div class="title">
         <h4>动态</h4>
@@ -7,9 +7,9 @@
       </div>
     </div>
 
-    <div class="h-9/10 mt-[10px] overflow-hidden">
+    <div class="h-9/10 mt-2 overflow-hidden">
       <div
-        class="h-[70px] leading-[70px] border-b border-g-200/80 text-[14px]"
+        class="h-[70px] leading-[70px] border-b border-g-300 text-sm overflow-hidden last:border-b-0"
         v-for="(item, index) in list"
         :key="index"
       >

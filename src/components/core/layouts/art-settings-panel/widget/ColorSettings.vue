@@ -11,7 +11,7 @@
         >
           <ArtSvgIcon
             icon="ri:check-fill"
-            class="text-[16px] text-white"
+            class="text-base text-white"
             v-show="color === systemThemeColor"
           />
         </div>

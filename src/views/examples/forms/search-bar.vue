@@ -1,7 +1,7 @@
 <!-- 表格搜索栏示例 -->
 <template>
   <div class="pb-5">
-    <h2 class="mb-[5px] text-lg font-medium">基础示例（默认收起）</h2>
+    <h2 class="mb-1 text-lg font-medium">基础示例（默认收起）</h2>
     <ArtSearchBar
       ref="searchBarBasicRef"
       v-model="formDataBasic"
@@ -11,7 +11,7 @@
     >
     </ArtSearchBar>
 
-    <h2 class="mb-[5px] mt-[15px] text-lg font-medium">完整示例（默认展开）</h2>
+    <h2 class="mb-1 mt-3.5 text-lg font-medium">完整示例（默认展开）</h2>
     <ArtSearchBar
       ref="searchBarAdvancedRef"
       v-model="formDataAdvanced"
@@ -30,11 +30,11 @@
       </template>
     </ArtSearchBar>
 
-    <div class="art-card p-[20px] !rounded-[6px] mt-[20px]">
+    <div class="art-card p-5 !rounded-[6px] mt-5">
       <pre><code>{{ formDataAdvanced }}</code></pre>
     </div>
 
-    <div class="mt-[15px]">
+    <div class="mt-3.5">
       <ElSpace wrap>
         <ElButton @click="getLevelOptions"> 获取用户等级数据 </ElButton>
         <ElButton @click="advancedValidate"> 校验表单 </ElButton>

@@ -9,7 +9,7 @@
         <div class="form">
           <h3 class="title">{{ $t('forgetPassword.title') }}</h3>
           <p class="sub-title">{{ $t('forgetPassword.subTitle') }}</p>
-          <div class="mt-[20px]">
+          <div class="mt-5">
             <span class="input-label" v-if="showInputLabel">账号</span>
             <ElInput
               class="custom-height"

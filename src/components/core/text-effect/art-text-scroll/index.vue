@@ -1,7 +1,7 @@
 <!-- 文字滚动组件，支持5种样式类型，两种滚动方向，可自定义 HTML 内容 -->
 <template>
   <div ref="containerRef" class="text-scroll-container" :class="[`text-scroll--${props.type}`]">
-    <div class="left-icon flex items-center">
+    <div class="left-icon flex-c">
       <ArtSvgIcon icon="ri:volume-down-line" class="text-lg ml-1" />
     </div>
     <div class="scroll-wrapper">
@@ -15,7 +15,7 @@
         <div class="scroll-item" v-html="sanitizedContent"></div>
       </div>
     </div>
-    <div class="right-icon flex items-center" @click="handleRightIconClick" v-if="showClose">
+    <div class="right-icon flex-c" @click="handleRightIconClick" v-if="showClose">
       <ArtSvgIcon icon="ri:close-fill" class="text-lg" />
     </div>
   </div>

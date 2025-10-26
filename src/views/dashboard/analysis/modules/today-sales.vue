@@ -1,34 +1,29 @@
 <template>
-  <div class="art-card h-[330px] p-[20px] mb-[20px] overflow-hidden max-lg:h-auto">
-    <div class="art-card-header">
+  <div class="art-card h-[330px] p-5 mb-5 overflow-hidden max-lg:h-auto">
+    <div class="art-card-header pr-0">
       <div class="title">
         <h4>今日销售</h4>
         <p>销售总结</p>
       </div>
-      <div
-        class="flex items-center h-[30px] min-w-[66px] justify-center text-[12px] border border-g-300 rounded-[6px] text-g-500 cursor-pointer"
-      >
-        <ArtSvgIcon icon="ri:account-box-2-line" class="text-[16px] mr-[6px]" />
-        <span>导出</span>
+      <div class="flex-center h-7.5 min-w-[66px] border border-g-300 rounded-[6px] text-g-500 c-p">
+        <ArtSvgIcon icon="ri:arrow-up-line" class="text-base mr-[6px]" />
+        <span class="text-xs">导出</span>
       </div>
     </div>
 
-    <div class="mt-[10px]">
+    <div class="mt-2">
       <ElRow :gutter="20">
         <ElCol :span="6" :xs="24" v-for="(item, index) in salesData" :key="index">
           <div
-            class="flex px-[20px] flex-col justify-center h-[220px] border border-g-200 rounded-[12px] max-lg:mb-4"
+            class="flex px-5 flex-col justify-center h-[220px] border border-g-300 rounded-xl max-lg:mb-4"
           >
-            <div class="size-[50px] rounded-[12px] flex-center bg-primary/10">
+            <div class="size-12 rounded-lg flex-center bg-primary/10">
               <ArtSvgIcon :icon="item.icon" class="text-xl text-primary" />
             </div>
-            <ArtCountTo
-              class="text-2xl font-medium mt-[15px]"
-              :target="item.value"
-              :duration="1500"
-            />
-            <p class="mt-[10px] text-[16px] text-g-600">{{ item.label }}</p>
-            <small class="text-g-500 mt-[5px]">
+
+            <ArtCountTo class="text-2xl font-medium mt-3.5" :target="item.value" :duration="1500" />
+            <p class="mt-2 text-base text-g-600">{{ item.label }}</p>
+            <small class="text-g-500 mt-1">
               较昨天
               <span
                 class="font-medium"

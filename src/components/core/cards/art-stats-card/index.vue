@@ -1,7 +1,7 @@
 <!-- 统计卡片 -->
 <template>
   <div
-    class="art-custom-card h-32 cursor-pointer flex items-center rounded-custom-sm art-card-bg px-5 transition-transform duration-200 ease-in-out hover:-translate-y-0.5"
+    class="art-card h-32 flex-c px-5 transition-transform duration-200 hover:-translate-y-0.5"
     :style="{ backgroundColor: backgroundColor }"
   >
     <div
@@ -10,7 +10,6 @@
       :style="{ backgroundColor: iconBgColor, borderRadius: iconBgRadius + 'px' }"
     >
       <ArtSvgIcon
-        class="text-[30px]"
         :icon="icon"
         :style="{
           color: iconColor,
@@ -23,7 +22,7 @@
         {{ title }}
       </p>
       <ArtCountTo
-        class="m-0 text-[28px] font-medium"
+        class="m-0 text-2xl font-medium"
         v-if="count !== undefined"
         :target="count"
         :duration="2000"

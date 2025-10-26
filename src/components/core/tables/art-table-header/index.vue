@@ -1,14 +1,14 @@
 <!-- 表格头部，包含表格大小、刷新、全屏、列设置、其他设置 -->
 <template>
-  <div class="flex justify-between md:flex-col" id="art-table-header">
-    <div class="flex flex-wrap gap-y-2.5">
+  <div class="flex-between" id="art-table-header">
+    <div class="flex-wrap">
       <slot name="left"></slot>
     </div>
 
-    <div class="flex items-center md:mt-2.5 md:justify-end">
+    <div class="flex-c md:justify-end">
       <div
         v-if="showSearchBar != null"
-        class="ml-2 h-8 w-8 cursor-pointer flex-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-g-700 tad-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
+        class="ml-2 h-8 w-8 c-p flex-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-g-700 tad-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
         @click="search"
         :class="
           showSearchBar
@@ -20,7 +20,7 @@
       </div>
       <div
         v-if="shouldShow('refresh')"
-        class="ml-2 h-8 w-8 cursor-pointer flex-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-g-700 tad-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
+        class="ml-2 h-8 w-8 c-p flex-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-g-700 tad-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
         @click="refresh"
         :class="{ loading: loading && isManualRefresh }"
       >
@@ -32,7 +32,7 @@
 
       <ElDropdown v-if="shouldShow('size')" @command="handleTableSizeChange">
         <div
-          class="ml-2 h-8 w-8 cursor-pointer flex-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-g-700 tad-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
+          class="ml-2 h-8 w-8 c-p flex-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-g-700 tad-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
         >
           <ArtSvgIcon icon="ri:arrow-up-down-fill" />
         </div>
@@ -57,7 +57,7 @@
 
       <div
         v-if="shouldShow('fullscreen')"
-        class="ml-2 h-8 w-8 cursor-pointer flex-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-g-700 tad-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
+        class="ml-2 h-8 w-8 c-p flex-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-g-700 tad-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
         @click="toggleFullScreen"
       >
         <ArtSvgIcon :icon="isFullScreen ? 'ri:fullscreen-exit-line' : 'ri:fullscreen-line'" />
@@ -67,7 +67,7 @@
       <ElPopover v-if="shouldShow('columns')" placement="bottom" trigger="click">
         <template #reference>
           <div
-            class="ml-2 h-8 w-8 cursor-pointer flex-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-g-700 tad-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
+            class="ml-2 h-8 w-8 c-p flex-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-g-700 tad-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
           >
             <ArtSvgIcon icon="ri:align-right" />
           </div>
@@ -83,7 +83,7 @@
             <div
               v-for="item in columns"
               :key="item.prop || item.type"
-              class="column-option flex items-center"
+              class="column-option flex-c"
               :class="{ 'fixed-column': item.fixed }"
             >
               <div
@@ -92,7 +92,7 @@
               >
                 <ArtSvgIcon
                   :icon="item.fixed ? 'ri:sip-line' : 'ri:drag-move-2-fill'"
-                  class="text-[16px]"
+                  class="text-base"
                 />
               </div>
               <ElCheckbox
@@ -111,7 +111,7 @@
       <ElPopover v-if="shouldShow('settings')" placement="bottom" trigger="click">
         <template #reference>
           <div
-            class="ml-2 h-8 w-8 cursor-pointer flex-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-g-700 tad-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
+            class="ml-2 size-8 c-p flex-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-g-700 tad-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
           >
             <ArtSvgIcon icon="ri:settings-line" />
           </div>

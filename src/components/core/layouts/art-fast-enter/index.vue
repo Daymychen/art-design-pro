@@ -14,7 +14,7 @@
     }"
   >
     <template #reference>
-      <div class="flex items-center gap-2">
+      <div class="flex-c gap-2">
         <slot />
       </div>
     </template>
@@ -26,40 +26,34 @@
           <div
             v-for="application in enabledApplications"
             :key="application.name"
-            class="mr-3 cursor-pointer flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-[rgba(var(--art-gray-200-rgb),0.7)] hover:[&_.app-icon]:!bg-transparent"
+            class="mr-3 c-p flex-c gap-3 rounded-lg p-2 hover:bg-g-100 hover:[&_.app-icon]:!bg-transparent"
             @click="handleApplicationClick(application)"
           >
-            <div
-              class="app-icon h-[46px] w-[46px] flex-center rounded-lg bg-[rgba(var(--art-gray-200-rgb),0.7)]"
-            >
+            <div class="app-icon h-[46px] w-[46px] flex-center rounded-lg bg-g-100">
               <ArtSvgIcon
-                class="text-[22px]"
+                class="text-xl"
                 :icon="application.icon"
                 :style="{ color: application.iconColor }"
               />
             </div>
             <div>
-              <h3 class="m-0 text-sm font-medium text-[var(--art-text-gray-800)]">{{
-                application.name
-              }}</h3>
-              <p class="mt-1 text-xs text-[var(--art-text-gray-500)]">{{
-                application.description
-              }}</p>
+              <h3 class="m-0 text-sm font-medium text-g-800">{{ application.name }}</h3>
+              <p class="mt-1 text-xs text-g-600">{{ application.description }}</p>
             </div>
           </div>
         </div>
       </div>
 
       <div class="border-l border-[var(--el-border-color-lighter)] pl-6 pt-2">
-        <h3 class="mb-2.5 text-base font-medium text-[var(--art-text-gray-800)]">快速链接</h3>
+        <h3 class="mb-2.5 text-base font-medium text-g-800">快速链接</h3>
         <ul>
           <li
             v-for="quickLink in enabledQuickLinks"
             :key="quickLink.name"
-            class="cursor-pointer py-2 hover:[&_span]:text-[var(--el-color-primary)]"
+            class="c-p py-2 hover:[&_span]:text-primary"
             @click="handleQuickLinkClick(quickLink)"
           >
-            <span class="text-[var(--art-text-gray-600)] no-underline">{{ quickLink.name }}</span>
+            <span class="text-g-600 no-underline">{{ quickLink.name }}</span>
           </li>
         </ul>
       </div>

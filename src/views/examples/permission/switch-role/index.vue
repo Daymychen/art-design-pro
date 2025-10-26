@@ -1,9 +1,10 @@
+<!-- 切换权限页面 -->
 <template>
-  <div class="py-[10px]">
+  <div class="py-2">
     <!-- 页面头部 -->
     <div class="mb-6">
-      <h2 class="m-0 mb-2 text-[22px] font-medium">权限切换演示</h2>
-      <p class="m-0 leading-[1.6] text-[var(--el-text-color-regular)]">
+      <h2 class="m-0 mb-2 text-xl font-medium">权限切换演示</h2>
+      <p class="m-0 leading-[1.6] text-g-700">
         点击下方按钮切换不同用户身份，模拟不同用户登录系统的效果。切换后会影响整个系统的菜单显示和按钮权限。
       </p>
     </div>
@@ -34,11 +35,7 @@
                 <ElTag v-for="button in currentUser.buttons" :key="button" size="small" type="info">
                   {{ button }}
                 </ElTag>
-                <span
-                  v-if="!currentUser.buttons?.length"
-                  class="italic text-[var(--el-text-color-placeholder)]"
-                  >无权限码</span
-                >
+                <span v-if="!currentUser.buttons?.length" class="italic text-g-500">无权限码</span>
               </div>
             </div>
           </div>
@@ -67,16 +64,10 @@
             <div class="mb-4">
               <div>
                 <h4 class="m-0 mb-2 text-base font-semibold">{{ account.label }}</h4>
-                <p class="m-0 mb-2 leading-[1.5] text-[var(--el-text-color-regular)]">{{
-                  account.description
-                }}</p>
+                <p class="m-0 mb-2 leading-[1.5] text-g-700">{{ account.description }}</p>
                 <div class="flex flex-col gap-1">
-                  <span class="text-xs text-[var(--el-text-color-secondary)]"
-                    >用户名: {{ account.userName }}</span
-                  >
-                  <span class="text-xs text-[var(--el-text-color-secondary)]"
-                    >角色: {{ account.roles.join(', ') }}</span
-                  >
+                  <span class="text-xs text-g-600">用户名: {{ account.userName }}</span>
+                  <span class="text-xs text-g-600">角色: {{ account.roles.join(', ') }}</span>
                 </div>
               </div>
             </div>

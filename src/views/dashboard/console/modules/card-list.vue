@@ -1,20 +1,20 @@
 <template>
   <ElRow :gutter="20" class="flex">
     <ElCol v-for="(item, index) in dataList" :key="index" :sm="12" :md="6" :lg="6">
-      <div class="art-card relative flex flex-col justify-center h-[140px] px-[18px] mb-[20px]">
-        <span class="text-g-700 text-[14px]">{{ item.des }}</span>
-        <ArtCountTo class="text-[28px]" :target="item.num" :duration="1300" />
-        <div class="flex items-center">
-          <span class="text-[13px] text-g-600">较上周</span>
+      <div class="art-card relative flex flex-col justify-center h-[140px] px-[18px] mb-5">
+        <span class="text-g-700 text-sm">{{ item.des }}</span>
+        <ArtCountTo class="text-3xl" :target="item.num" :duration="1300" />
+        <div class="flex-c">
+          <span class="text-xs text-g-600">较上周</span>
           <span
-            class="ml-[5px] text-[13px] font-semibold"
+            class="ml-1 text-xs font-semibold"
             :class="[item.change.indexOf('+') === -1 ? 'text-danger' : 'text-success']"
           >
             {{ item.change }}
           </span>
         </div>
         <div
-          class="absolute top-0 bottom-0 right-5 m-auto size-[50px] rounded-[12px] flex-center bg-primary/10"
+          class="absolute top-0 bottom-0 right-5 m-auto size-[50px] rounded-xl flex-center bg-primary/10"
         >
           <ArtSvgIcon :icon="item.icon" class="text-xl text-primary" />
         </div>

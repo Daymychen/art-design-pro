@@ -1,10 +1,10 @@
 <!-- 混合菜单 -->
 <template>
-  <div class="relative box-border flex items-center w-full overflow-hidden">
+  <div class="relative box-border flex-c w-full overflow-hidden">
     <!-- 左侧滚动按钮 -->
     <div
       v-show="showLeftArrow"
-      class="scroll-btn-left absolute top-1/2 left-[3px] z-[2] flex-center w-[30px] h-[30px] text-[var(--art-text-gray-600)] cursor-pointer rounded tad-200 ease-in-out -translate-y-1/2 hover:text-[var(--art-text-gray-900)] hover:bg-[rgba(var(--art-gray-200-rgb),0.8)]"
+      class="scroll-btn-left absolute top-1/2 left-[3px] z-[2] flex-center w-7.5 h-7.5 text-g-600 c-p rounded tad-200 ease-in-out -translate-y-1/2 hover:text-g-900 hover:bg-[rgba(var(--art-gray-200-rgb),0.8)]"
       @click="scroll('left')"
     >
       <ElIcon>
@@ -26,13 +26,13 @@
         <template v-for="item in processedMenuList" :key="item.meta.title">
           <div
             v-if="!item.meta.isHide"
-            class="menu-item relative flex-shrink-0 h-10 px-3 text-sm flex items-center cursor-pointer hover:text-[var(--main-color)]"
+            class="menu-item relative flex-shrink-0 h-10 px-3 text-sm flex-c c-p hover:text-primary"
             :class="{
-              'menu-item-active text-[var(--main-color)] bg-[var(--main-bg-color)]': item.isActive
+              'menu-item-active text-primary bg-[var(--main-bg-color)]': item.isActive
             }"
             @click="handleMenuJump(item, true)"
           >
-            <ArtSvgIcon :icon="item.meta.icon" class="text-g-800 mr-[5px] text-lg" />
+            <ArtSvgIcon :icon="item.meta.icon" class="text-g-800 mr-1 text-lg" />
             <span class="text-g-800">{{ item.formattedTitle }}</span>
             <div v-if="item.meta.showBadge" class="art-badge art-badge-mixed" />
           </div>
@@ -43,7 +43,7 @@
     <!-- 右侧滚动按钮 -->
     <div
       v-show="showRightArrow"
-      class="scroll-btn-right absolute top-1/2 right-[10px] z-[2] flex-center w-[30px] h-[30px] text-[var(--art-text-gray-600)] cursor-pointer rounded tad-200 ease-in-out -translate-y-1/2 hover:text-[var(--art-text-gray-900)] hover:bg-[rgba(var(--art-gray-200-rgb),0.8)]"
+      class="scroll-btn-right absolute top-1/2 right-2 z-[2] flex-center size-7.5 text-g-600 c-p rounded tad-200 ease-in-out -translate-y-1/2 hover:text-g-900 hover:bg-[rgba(var(--art-gray-200-rgb),0.8)]"
       @click="scroll('right')"
     >
       <ElIcon>

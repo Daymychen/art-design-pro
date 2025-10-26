@@ -1,5 +1,5 @@
 <template>
-  <div class="art-card p-[20px] h-[510px] overflow-hidden mb-[20px]">
+  <div class="art-card p-5 h-[510px] overflow-hidden mb-5">
     <div class="art-card-header">
       <div class="title">
         <h4>新用户</h4>
@@ -25,7 +25,7 @@
           <template #default="scope">
             <div style="display: flex; align-items: center">
               <img class="size-[36px] rounded-[6px]" :src="scope.row.avatar" alt="avatar" />
-              <span class="ml-[10px]">{{ scope.row.username }}</span>
+              <span class="ml-2">{{ scope.row.username }}</span>
             </div>
           </template>
         </ElTableColumn>

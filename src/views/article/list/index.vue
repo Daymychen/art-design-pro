@@ -1,3 +1,4 @@
+<!-- 文章列表页面 -->
 <template>
   <div class="page-content">
     <ElRow justify="space-between" :gutter="10">
@@ -20,12 +21,12 @@
       </ElCol>
     </ElRow>
 
-    <div class="mt-[20px]">
+    <div class="mt-5">
       <div
-        class="grid grid-cols-5 gap-[20px] max-2xl:grid-cols-4 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1"
+        class="grid grid-cols-5 gap-5 max-2xl:grid-cols-4 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1"
       >
         <div
-          class="group cursor-pointer overflow-hidden border border-g-300/60 rounded-custom-sm"
+          class="group c-p overflow-hidden border border-g-300/60 rounded-custom-sm"
           v-for="item in articleList"
           :key="item.id"
           @click="toDetail(item)"
@@ -40,19 +41,19 @@
             </ElImage>
 
             <span
-              class="absolute top-[5px] right-[5px] bg-black/50 rounded-[4px] text-[12px] px-[6px] py-[2px] text-gray-200"
+              class="absolute top-1 right-1 bg-black/50 rounded-[4px] text-xs px-[6px] py-[2px] text-g-200"
               >{{ item.type_name }}</span
             >
           </div>
-          <div class="px-[10px] py-[5px]">
-            <h2 class="text-[16px] text-g-800 font-medium">{{ item.title }}</h2>
+          <div class="px-2 py-1">
+            <h2 class="text-base text-g-800 font-medium">{{ item.title }}</h2>
             <div class="flex justify-between w-full h-[25px] mt-[6px]">
-              <div class="flex items-center text-g-500">
-                <ArtSvgIcon icon="ri:time-line" class="mr-[5px] text-[14px]" />
-                <span class="text-[14px]">{{ useDateFormat(item.create_time, 'YYYY-MM-DD') }}</span>
-                <div class="w-[1px] h-[12px] bg-g-400 mx-[15px]"></div>
-                <ArtSvgIcon icon="ri:eye-line" class="mr-[5px] text-[14px]" />
-                <span class="text-[14px]">{{ item.count }}</span>
+              <div class="flex-c text-g-500">
+                <ArtSvgIcon icon="ri:time-line" class="mr-1 text-sm" />
+                <span class="text-sm">{{ useDateFormat(item.create_time, 'YYYY-MM-DD') }}</span>
+                <div class="w-[1px] h-[12px] bg-g-400 mx-3.5"></div>
+                <ArtSvgIcon icon="ri:eye-line" class="mr-1 text-sm" />
+                <span class="text-sm">{{ item.count }}</span>
               </div>
               <ElButton
                 class="opacity-0 group-hover:opacity-100"

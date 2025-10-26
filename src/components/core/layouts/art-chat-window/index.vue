@@ -4,7 +4,7 @@
       <div class="mb-5 flex-between">
         <div>
           <span class="text-base font-medium">Art Bot</span>
-          <div class="mt-1.5 flex items-center gap-1">
+          <div class="mt-1.5 flex-c gap-1">
             <div
               class="h-2 w-2 rounded-full"
               :class="isOnline ? 'bg-[var(--el-color-success)]' : 'bg-[var(--el-color-danger)]'"
@@ -13,7 +13,7 @@
           </div>
         </div>
         <div>
-          <ElIcon class="cursor-pointer" :size="20" @click="closeChat">
+          <ElIcon class="c-p" :size="20" @click="closeChat">
             <Close />
           </ElIcon>
         </div>
@@ -21,13 +21,13 @@
       <div class="flex h-[calc(100%-70px)] flex-col">
         <!-- 聊天消息区域 -->
         <div
-          class="flex-1 overflow-y-auto border-t border-[var(--el-border-color-lighter)] px-4 py-[30px] [&::-webkit-scrollbar]:!w-[5px]"
+          class="flex-1 overflow-y-auto border-t border-[var(--el-border-color-lighter)] px-4 py-7.5 [&::-webkit-scrollbar]:!w-1"
           ref="messageContainer"
         >
           <template v-for="(message, index) in messages" :key="index">
             <div
               :class="[
-                'mb-[30px] flex w-full items-start gap-2',
+                'mb-7.5 flex w-full items-start gap-2',
                 message.isMe ? 'flex-row-reverse' : 'flex-row'
               ]"
             >
@@ -42,12 +42,12 @@
                   ]"
                 >
                   <span class="font-medium">{{ message.sender }}</span>
-                  <span class="text-[var(--el-text-color-secondary)]">{{ message.time }}</span>
+                  <span class="text-g-600">{{ message.time }}</span>
                 </div>
                 <div
                   :class="[
-                    'rounded-md px-3.5 py-2.5 text-sm leading-[1.4] text-[var(--art-gray-900)]',
-                    message.isMe ? 'message-right bg-[#e9f3ff]' : 'message-left bg-[#f8f5ff]'
+                    'rounded-md px-3.5 py-2.5 text-sm leading-[1.4] text-g-900',
+                    message.isMe ? 'message-right bg-primary/15' : 'message-left bg-g-200'
                   ]"
                   >{{ message.content }}</div
                 >
@@ -75,15 +75,9 @@
             </template>
           </ElInput>
           <div class="mt-3 flex-between">
-            <div class="flex items-center">
-              <ArtSvgIcon
-                icon="ri:image-line"
-                class="mr-5 text-base cursor-pointer text-g-400 text-[17px]"
-              />
-              <ArtSvgIcon
-                icon="ri:emotion-happy-line"
-                class="mr-5 text-base cursor-pointer text-g-400 text-[18px]"
-              />
+            <div class="flex-c">
+              <ArtSvgIcon icon="ri:image-line" class="mr-5 c-p text-g-400 text-lg" />
+              <ArtSvgIcon icon="ri:emotion-happy-line" class="mr-5 c-p text-g-400 text-lg" />
             </div>
             <ElButton type="primary" @click="sendMessage" v-ripple class="min-w-[80px]"
               >发送</ElButton

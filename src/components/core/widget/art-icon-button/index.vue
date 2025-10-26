@@ -1,0 +1,23 @@
+<!-- 按钮组件 -->
+<template>
+  <div
+    class="size-8.5 inline-flex flex-center cursor-pointer text-g-600 text-xl rounded transition-all duration-300 hover:bg-g-200"
+    :class="{ 'rounded-full': circle }"
+  >
+    <ArtSvgIcon :icon="icon"></ArtSvgIcon>
+    <slot></slot>
+  </div>
+</template>
+
+<script lang="ts" setup>
+  defineOptions({ name: 'ArtIconButton' })
+
+  interface Props {
+    /** 图标名称 */
+    icon: string
+    /** 圆角按钮 */
+    circle?: boolean
+  }
+
+  withDefaults(defineProps<Props>(), {})
+</script>

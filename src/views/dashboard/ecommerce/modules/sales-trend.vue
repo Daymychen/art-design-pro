@@ -1,5 +1,5 @@
 <template>
-  <div class="art-card p-[20px] mb-[20px] h-[420px]">
+  <div class="art-card p-5 mb-5 h-[420px]">
     <div class="art-card-header">
       <div class="title">
         <h4>销售趋势</h4>

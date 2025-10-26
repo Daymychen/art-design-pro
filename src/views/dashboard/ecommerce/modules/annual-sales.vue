@@ -1,5 +1,5 @@
 <template>
-  <div class="art-card p-[20px] h-[28.2rem] mb-[20px]">
+  <div class="art-card p-5 h-[28.2rem] mb-5">
     <div class="art-card-header">
       <div class="title">
         <h4>年度销售额</h4>
@@ -16,7 +16,7 @@
       height="calc(100% - 155px)"
     />
     <div class="flex justify-around mt-10">
-      <div class="flex items-center">
+      <div class="flex-c">
         <div class="flex-center w-[42px] h-[42px] mr-2.5 text-primary bg-primary/10 rounded-lg">
           <ArtSvgIcon icon="ri:money-cny-circle-line" class="text-xl" />
         </div>
@@ -25,7 +25,7 @@
           <span class="text-sm">线上销售</span>
         </div>
       </div>
-      <div class="flex items-center">
+      <div class="flex-c">
         <div class="flex-center w-[42px] h-[42px] mr-2.5 text-primary bg-primary/10 rounded-lg">
           <ArtSvgIcon icon="ri:heart-3-line" class="text-xl" />
         </div>

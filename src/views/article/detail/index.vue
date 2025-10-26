@@ -1,3 +1,4 @@
+<!-- 文章详情页面 -->
 <template>
   <div class="article-detail page-content">
     <div class="max-w-[800px] m-auto mt-[60px]">

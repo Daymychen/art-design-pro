@@ -1,11 +1,10 @@
+<!-- 按钮权限示例页面 -->
 <template>
-  <div class="w-full py-[10px]">
+  <div class="w-full py-2">
     <!-- 页面头部 -->
     <div class="mb-6">
-      <h2 class="m-0 mb-2 text-[22px] font-medium text-[var(--el-text-color-primary)]">{{
-        $t('menus.examples.permission.buttonAuth')
-      }}</h2>
-      <p class="m-0 text-sm leading-[1.6] text-[var(--el-text-color-regular)]">
+      <h2 class="m-0 mb-2 text-xl font-medium">{{ $t('menus.examples.permission.buttonAuth') }}</h2>
+      <p class="m-0 text-sm leading-[1.6] text-g-700">
         此页面演示按钮级别的权限控制，不同用户身份下可见的按钮会有所不同。权限控制基于用户角色和权限码实现。
       </p>
     </div>
@@ -13,23 +12,19 @@
     <div class="mb-6">
       <ElCard shadow="never">
         <template #header>
-          <div class="flex-between font-semibold text-[var(--el-text-color-primary)]">
+          <div class="flex-between font-semibold">
             <span class="flex-1">当前用户权限信息</span>
           </div>
         </template>
         <div>
           <div class="flex items-start mb-4 last:mb-0">
-            <span class="min-w-[80px] font-semibold text-[var(--el-text-color-primary)]"
-              >用户角色：</span
-            >
+            <span class="min-w-[80px] font-semibold">用户角色：</span>
             <ElTag :type="getRoleTagType(currentUserRole)">
               {{ getRoleDisplayName(currentUserRole) }}
             </ElTag>
           </div>
           <div class="flex items-start mb-4 last:mb-0">
-            <span class="min-w-[80px] font-semibold text-[var(--el-text-color-primary)]"
-              >权限码：</span
-            >
+            <span class="min-w-[80px] font-semibold">权限码：</span>
             <div class="flex flex-wrap gap-2">
               <ElTag
                 v-for="permission in currentUserPermissions"
@@ -40,9 +35,7 @@
               >
                 {{ permission }}
               </ElTag>
-              <span
-                v-if="!currentUserPermissions.length"
-                class="italic text-[var(--el-text-color-placeholder)]"
+              <span v-if="!currentUserPermissions.length" class="italic text-red-500"
                 >无权限码</span
               >
             </div>
@@ -55,17 +48,17 @@
     <div class="mb-6 last:mb-0">
       <ElCard shadow="never">
         <template #header>
-          <div class="flex-between font-semibold text-[var(--el-text-color-primary)]">
+          <div class="flex-between font-semibold">
             <span class="flex-1">基于角色的权限控制（v-roles 指令）</span>
           </div>
         </template>
         <div>
           <p
-            class="p-3 m-0 mb-5 text-sm leading-[1.6] text-[var(--el-text-color-regular)] bg-[var(--el-bg-color-page)] rounded"
+            class="p-3 m-0 mb-5 text-sm leading-[1.6] text-g-700 bg-[var(--el-bg-color-page)] rounded"
           >
             使用
             <code
-              class="px-[6px] py-[2px] font-mono text-[13px] text-[var(--el-color-primary)] bg-[var(--el-color-primary-light-9)] rounded"
+              class="px-[6px] py-[2px] font-mono text-xs text-primary bg-[var(--el-color-primary-light-9)] rounded"
               >v-roles</code
             >
             指令控制按钮显示，只有拥有指定角色的用户才能看到对应按钮。
@@ -74,12 +67,12 @@
           <div class="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-5">
             <div class="flex flex-col gap-2">
               <ElButton type="primary" plain v-roles="'R_SUPER'"> 超级管理员可见 </ElButton>
-              <div class="text-xs text-[var(--el-text-color-secondary)]">
+              <div class="text-xs">
                 <code
-                  class="block p-1 px-2 mb-1 font-mono text-[var(--el-text-color-primary)] bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
+                  class="block p-1 px-2 mb-1 font-mono bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
                   >v-roles="'R_SUPER'"</code
                 >
-                <span class="text-[var(--el-text-color-regular)]">只有超级管理员可见</span>
+                <span class="text-g-700">只有超级管理员可见</span>
               </div>
             </div>
 
@@ -88,12 +81,12 @@
               <ElButton type="warning" plain v-roles="['R_SUPER', 'R_ADMIN']">
                 管理员可见
               </ElButton>
-              <div class="text-xs text-[var(--el-text-color-secondary)]">
+              <div class="text-xs">
                 <code
-                  class="block p-1 px-2 mb-1 font-mono text-[var(--el-text-color-primary)] bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
+                  class="block p-1 px-2 mb-1 font-mono bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
                   >v-roles="['R_SUPER', 'R_ADMIN']"</code
                 >
-                <span class="text-[var(--el-text-color-regular)]">超级管理员和管理员可见</span>
+                <span class="text-g-700">超级管理员和管理员可见</span>
               </div>
             </div>
 
@@ -102,12 +95,12 @@
               <ElButton type="success" plain v-roles="['R_SUPER', 'R_ADMIN', 'R_USER']">
                 所有用户可见
               </ElButton>
-              <div class="text-xs text-[var(--el-text-color-secondary)]">
+              <div class="text-xs">
                 <code
-                  class="block p-1 px-2 mb-1 font-mono text-[var(--el-text-color-primary)] bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
+                  class="block p-1 px-2 mb-1 font-mono bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
                   >v-roles="['R_SUPER', 'R_ADMIN', 'R_USER']"</code
                 >
-                <span class="text-[var(--el-text-color-regular)]">所有已登录用户可见</span>
+                <span class="text-g-700">所有已登录用户可见</span>
               </div>
             </div>
           </div>
@@ -119,7 +112,7 @@
     <div class="mb-6 last:mb-0">
       <ElCard shadow="never">
         <template #header>
-          <div class="flex-between font-semibold text-[var(--el-text-color-primary)]">
+          <div class="flex-between font-semibold">
             <span class="flex-1">后端模式权限控制（v-auth 指令）</span>
             <ElTag v-if="!isFrontendMode" type="success" size="small">当前模式</ElTag>
             <ElTag v-else type="info" size="small">非当前模式</ElTag>
@@ -127,26 +120,24 @@
         </template>
         <div>
           <p
-            class="p-3 m-0 mb-5 text-sm leading-[1.6] text-[var(--el-text-color-regular)] bg-[var(--el-bg-color-page)] rounded"
+            class="p-3 m-0 mb-5 text-sm leading-[1.6] text-g-700 bg-[var(--el-bg-color-page)] rounded"
           >
             <code
-              class="px-[6px] py-[2px] font-mono text-[13px] text-[var(--el-color-primary)] bg-[var(--el-color-primary-light-9)] rounded"
+              class="px-[6px] py-[2px] font-mono text-xs text-primary bg-[var(--el-color-primary-light-9)] rounded"
               >v-auth</code
             >
             指令在后端模式下根据当前路由的
             <code
-              class="px-[6px] py-[2px] font-mono text-[13px] text-[var(--el-color-primary)] bg-[var(--el-color-primary-light-9)] rounded"
+              class="px-[6px] py-[2px] font-mono text-xs text-primary bg-[var(--el-color-primary-light-9)] rounded"
               >meta.authList</code
             >
             配置检查权限。 权限列表来源于路由元数据，适用于权限配置由后端统一管理的场景。
           </p>
 
           <div class="mb-5">
-            <h4 class="m-0 mb-2 text-sm font-semibold text-[var(--el-text-color-primary)]">
-              当前路由权限配置：
-            </h4>
+            <h4 class="m-0 mb-2 text-sm font-semibold"> 当前路由权限配置： </h4>
             <div
-              class="max-h-[120px] p-3 overflow-y-auto font-mono text-xs text-[var(--el-text-color-primary)] break-all whitespace-pre-wrap bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
+              class="max-h-[120px] p-3 overflow-y-auto font-mono text-xs break-all whitespace-pre-wrap bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
             >
               <code>{{ JSON.stringify(backendAuthList, null, 2) }}</code>
             </div>
@@ -156,56 +147,48 @@
             <!-- 新增权限 -->
             <div class="flex flex-col gap-2">
               <ElButton type="primary" plain v-auth="'add'"> 新增 </ElButton>
-              <div class="text-xs text-[var(--el-text-color-secondary)]">
+              <div class="text-xs">
                 <code
-                  class="block p-1 px-2 mb-1 font-mono text-[var(--el-text-color-primary)] bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
+                  class="block p-1 px-2 mb-1 font-mono bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
                   >v-auth="'add'"</code
                 >
-                <span class="text-[var(--el-text-color-regular)]"
-                  >检查路由 meta.authList 中是否存在 authMark: 'add'</span
-                >
+                <span class="text-g-700">检查路由 meta.authList 中是否存在 authMark: 'add'</span>
               </div>
             </div>
 
             <!-- 编辑权限 -->
             <div class="flex flex-col gap-2">
               <ElButton type="warning" plain v-auth="'edit'"> 编辑 </ElButton>
-              <div class="text-xs text-[var(--el-text-color-secondary)]">
+              <div class="text-xs">
                 <code
-                  class="block p-1 px-2 mb-1 font-mono text-[var(--el-text-color-primary)] bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
+                  class="block p-1 px-2 mb-1 font-mono bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
                   >v-auth="'edit'"</code
                 >
-                <span class="text-[var(--el-text-color-regular)]"
-                  >检查路由 meta.authList 中是否存在 authMark: 'edit'</span
-                >
+                <span class="text-g-700">检查路由 meta.authList 中是否存在 authMark: 'edit'</span>
               </div>
             </div>
 
             <!-- 删除权限 -->
             <div class="flex flex-col gap-2">
               <ElButton type="danger" plain v-auth="'delete'"> 删除 </ElButton>
-              <div class="text-xs text-[var(--el-text-color-secondary)]">
+              <div class="text-xs">
                 <code
-                  class="block p-1 px-2 mb-1 font-mono text-[var(--el-text-color-primary)] bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
+                  class="block p-1 px-2 mb-1 font-mono bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
                   >v-auth="'delete'"</code
                 >
-                <span class="text-[var(--el-text-color-regular)]"
-                  >检查路由 meta.authList 中是否存在 authMark: 'delete'</span
-                >
+                <span class="text-g-700">检查路由 meta.authList 中是否存在 authMark: 'delete'</span>
               </div>
             </div>
 
             <!-- 导出权限 -->
             <div class="flex flex-col gap-2">
               <ElButton type="info" plain v-auth="'export'"> 导出 </ElButton>
-              <div class="text-xs text-[var(--el-text-color-secondary)]">
+              <div class="text-xs">
                 <code
-                  class="block p-1 px-2 mb-1 font-mono text-[var(--el-text-color-primary)] bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
+                  class="block p-1 px-2 mb-1 font-mono bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
                   >v-auth="'export'"</code
                 >
-                <span class="text-[var(--el-text-color-regular)]"
-                  >检查路由 meta.authList 中是否存在 authMark: 'export'</span
-                >
+                <span class="text-g-700">检查路由 meta.authList 中是否存在 authMark: 'export'</span>
               </div>
             </div>
           </div>
@@ -230,7 +213,7 @@
     <div class="mb-6 last:mb-0">
       <ElCard shadow="never">
         <template #header>
-          <div class="flex-between font-semibold text-[var(--el-text-color-primary)]">
+          <div class="flex-between font-semibold">
             <span class="flex-1">前端模式权限控制（hasAuth 方法）</span>
             <ElTag v-if="isFrontendMode" type="success" size="small">当前模式</ElTag>
             <ElTag v-else type="info" size="small">非当前模式</ElTag>
@@ -238,26 +221,24 @@
         </template>
         <div>
           <p
-            class="p-3 m-0 mb-5 text-sm leading-[1.6] text-[var(--el-text-color-regular)] bg-[var(--el-bg-color-page)] rounded"
+            class="p-3 m-0 mb-5 text-sm leading-[1.6] text-g-700 bg-[var(--el-bg-color-page)] rounded"
           >
             <code
-              class="px-[6px] py-[2px] font-mono text-[13px] text-[var(--el-color-primary)] bg-[var(--el-color-primary-light-9)] rounded"
+              class="px-[6px] py-[2px] font-mono text-xs text-primary bg-[var(--el-color-primary-light-9)] rounded"
               >hasAuth</code
             >
             方法在前端模式下根据用户信息中的
             <code
-              class="px-[6px] py-[2px] font-mono text-[13px] text-[var(--el-color-primary)] bg-[var(--el-color-primary-light-9)] rounded"
+              class="px-[6px] py-[2px] font-mono text-xs text-primary bg-[var(--el-color-primary-light-9)] rounded"
               >buttons</code
             >
             字段检查权限。 权限列表存储在用户状态中，适用于权限完全由前端管理的场景。
           </p>
 
           <div class="mb-5">
-            <h4 class="m-0 mb-2 text-sm font-semibold text-[var(--el-text-color-primary)]"
-              >当前用户权限列表（buttons 字段）：</h4
-            >
+            <h4 class="m-0 mb-2 text-sm font-semibold">当前用户权限列表（buttons 字段）：</h4>
             <div
-              class="max-h-[120px] p-3 overflow-y-auto font-mono text-xs text-[var(--el-text-color-primary)] break-all whitespace-pre-wrap bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
+              class="max-h-[120px] p-3 overflow-y-auto font-mono text-xs break-all whitespace-pre-wrap bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
             >
               <code>{{ JSON.stringify(frontendAuthList, null, 2) }}</code>
             </div>
@@ -268,14 +249,12 @@
             <div class="flex flex-col gap-2">
               <ElButton v-if="hasAuth('view')" type="primary"> 查看详情 </ElButton>
               <ElButton v-else type="info" disabled> 无查看权限 </ElButton>
-              <div class="text-xs text-[var(--el-text-color-secondary)]">
+              <div class="text-xs">
                 <code
-                  class="block p-1 px-2 mb-1 font-mono text-[var(--el-text-color-primary)] bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
+                  class="block p-1 px-2 mb-1 font-mono bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
                   >v-if="hasAuth('view')"</code
                 >
-                <span class="text-[var(--el-text-color-regular)]"
-                  >检查用户 buttons 数组是否包含 'view'</span
-                >
+                <span class="text-g-700">检查用户 buttons 数组是否包含 'view'</span>
               </div>
             </div>
 
@@ -288,14 +267,12 @@
               >
                 {{ hasAuth('publish') ? '发布' : '无发布权限' }}
               </ElButton>
-              <div class="text-xs text-[var(--el-text-color-secondary)]">
+              <div class="text-xs">
                 <code
-                  class="block p-1 px-2 mb-1 font-mono text-[var(--el-text-color-primary)] bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
+                  class="block p-1 px-2 mb-1 font-mono bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
                   >:disabled="!hasAuth('publish')"</code
                 >
-                <span class="text-[var(--el-text-color-regular)]"
-                  >检查用户 buttons 数组是否包含 'publish'</span
-                >
+                <span class="text-g-700">检查用户 buttons 数组是否包含 'publish'</span>
               </div>
             </div>
 
@@ -322,14 +299,12 @@
                   </ElDropdownMenu>
                 </template>
               </ElDropdown>
-              <div class="text-xs text-[var(--el-text-color-secondary)]">
+              <div class="text-xs">
                 <code
-                  class="block p-1 px-2 mb-1 font-mono text-[var(--el-text-color-primary)] bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
+                  class="block p-1 px-2 mb-1 font-mono bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
                   >computed(() => hasAuth('edit') || hasAuth('delete'))</code
                 >
-                <span class="text-[var(--el-text-color-regular)]"
-                  >复合权限检查，检查多个权限的并集</span
-                >
+                <span class="text-g-700">复合权限检查，检查多个权限的并集</span>
               </div>
             </div>
           </div>
@@ -341,7 +316,7 @@
     <div class="mb-6 last:mb-0">
       <ElCard shadow="never">
         <template #header>
-          <div class="flex-between font-semibold text-[var(--el-text-color-primary)]">
+          <div class="flex-between font-semibold">
             <span class="flex-1">后端模式权限控制（hasAuth 方法）</span>
             <ElTag v-if="!isFrontendMode" type="success" size="small">当前模式</ElTag>
             <ElTag v-else type="info" size="small">非当前模式</ElTag>
@@ -349,15 +324,15 @@
         </template>
         <div>
           <p
-            class="p-3 m-0 mb-5 text-sm leading-[1.6] text-[var(--el-text-color-regular)] bg-[var(--el-bg-color-page)] rounded"
+            class="p-3 m-0 mb-5 text-sm leading-[1.6] text-g-700 bg-[var(--el-bg-color-page)] rounded"
           >
             <code
-              class="px-[6px] py-[2px] font-mono text-[13px] text-[var(--el-color-primary)] bg-[var(--el-color-primary-light-9)] rounded"
+              class="px-[6px] py-[2px] font-mono text-xs text-primary bg-[var(--el-color-primary-light-9)] rounded"
               >hasAuth</code
             >
             方法在后端模式下根据当前路由的
             <code
-              class="px-[6px] py-[2px] font-mono text-[13px] text-[var(--el-color-primary)] bg-[var(--el-color-primary-light-9)] rounded"
+              class="px-[6px] py-[2px] font-mono text-xs text-primary bg-[var(--el-color-primary-light-9)] rounded"
               >meta.authList</code
             >
             配置检查权限。与 v-auth 指令使用相同的权限来源，但提供编程式的权限检查能力。
@@ -372,12 +347,12 @@
                 active-text="功能开启"
                 inactive-text="功能关闭"
               />
-              <div class="text-xs text-[var(--el-text-color-secondary)]">
+              <div class="text-xs">
                 <code
-                  class="block p-1 px-2 mb-1 font-mono text-[var(--el-text-color-primary)] bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
+                  class="block p-1 px-2 mb-1 font-mono bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
                   >:disabled="!hasAuth('config')"</code
                 >
-                <span class="text-[var(--el-text-color-regular)]">检查路由权限控制功能开关</span>
+                <span class="text-g-700">检查路由权限控制功能开关</span>
               </div>
             </div>
 
@@ -392,17 +367,17 @@
               </div>
               <div
                 v-else
-                class="flex gap-2 items-center p-3 text-[var(--el-text-color-placeholder)] bg-[var(--el-fill-color-light)] border border-dashed border-[var(--el-border-color)] rounded"
+                class="flex gap-2 items-center p-3 text-g-500 bg-[var(--el-fill-color-light)] border border-dashed border-[var(--el-border-color)] rounded"
               >
                 <ElIcon><Lock /></ElIcon>
-                <span>需要管理权限才能查看此区域</span>
+                <span class="text-sm">需要管理权限才能查看此区域</span>
               </div>
-              <div class="text-xs text-[var(--el-text-color-secondary)]">
+              <div class="text-xs">
                 <code
-                  class="block p-1 px-2 mb-1 font-mono text-[var(--el-text-color-primary)] bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
+                  class="block p-1 px-2 mb-1 font-mono bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
                   >v-if="hasAuth('manage')"</code
                 >
-                <span class="text-[var(--el-text-color-regular)]">基于后端路由权限的条件渲染</span>
+                <span class="text-g-700">基于后端路由权限的条件渲染</span>
               </div>
             </div>
 
@@ -428,12 +403,12 @@
                   <ElButton size="small">删除权限</ElButton>
                 </ElBadge>
               </div>
-              <div class="text-xs text-[var(--el-text-color-secondary)]">
+              <div class="text-xs">
                 <code
-                  class="block p-1 px-2 mb-1 font-mono text-[var(--el-text-color-primary)] bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
+                  class="block p-1 px-2 mb-1 font-mono bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded"
                   >hasAuth('permission')</code
                 >
-                <span class="text-[var(--el-text-color-regular)]">实时权限状态指示器</span>
+                <span class="text-g-700">实时权限状态指示器</span>
               </div>
             </div>
           </div>
@@ -445,7 +420,7 @@
     <div class="mb-6 last:mb-0">
       <ElCard shadow="never">
         <template #header>
-          <div class="flex-between font-semibold text-[var(--el-text-color-primary)]">
+          <div class="flex-between font-semibold">
             <span class="flex-1">权限控制模式对比</span>
           </div>
         </template>

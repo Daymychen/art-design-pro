@@ -1,18 +1,18 @@
 <!-- 数据列表卡片 -->
 <template>
   <div>
-    <div class="art-custom-card rounded-[var(--custom-radius)] art-card-bg p-[30px]">
-      <div class="pb-[15px]">
+    <div class="art-card p-5">
+      <div class="pb-3.5">
         <p class="text-lg font-medium">{{ title }}</p>
         <p class="text-sm text-g-500">{{ subtitle }}</p>
       </div>
       <ElScrollbar :style="{ height: maxHeight }">
-        <div v-for="(item, index) in list" :key="index" class="flex items-center py-3">
+        <div v-for="(item, index) in list" :key="index" class="flex-c py-3">
           <div v-if="item.icon" class="mr-3 size-10 flex-center rounded-lg" :class="item.class">
             <ArtSvgIcon :icon="item.icon" class="text-xl text-g-400" />
           </div>
           <div class="flex-1">
-            <div class="mb-1 text-[15px]">{{ item.title }}</div>
+            <div class="mb-1 text-sm">{{ item.title }}</div>
             <div class="text-xs text-g-500">{{ item.status }}</div>
           </div>
           <div class="ml-3 text-xs text-g-500]">{{ item.time }}</div>

@@ -12,7 +12,7 @@
               @click="handleClick(item)"
               class="custom-dropdown-item"
             >
-              <div class="flex items-center gap-2">
+              <div class="flex-c gap-2">
                 <ElIcon
                   v-if="item.icon"
                   :size="15"

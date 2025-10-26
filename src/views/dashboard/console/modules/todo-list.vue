@@ -1,5 +1,5 @@
 <template>
-  <div class="art-card h-[510px] p-[20px] mb-[20px]">
+  <div class="art-card h-[510px] p-5 mb-5">
     <div class="art-card-header">
       <div class="title">
         <h4>代办事项</h4>
@@ -9,12 +9,12 @@
 
     <div class="h-[calc(100%-40px)] overflow-auto">
       <div
-        class="flex justify-between items-center h-[70px] border-b border-g-200/80 text-[14px]"
+        class="flex justify-between items-center h-[70px] border-b border-g-300 text-sm last:border-b-0"
         v-for="(item, index) in list"
         :key="index"
       >
         <div>
-          <p class="text-[14px]">{{ item.username }}</p>
+          <p class="text-sm">{{ item.username }}</p>
           <p class="text-g-500 mt-[4px]">{{ item.date }}</p>
         </div>
         <ElCheckbox v-model="item.complate" />

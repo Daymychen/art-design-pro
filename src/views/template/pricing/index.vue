@@ -1,14 +1,12 @@
 <template>
   <div class="pt-24 px-20 max-notebook:!pt-20 max-notebook:!px-8 bg-transparent !border-none">
     <div class="mb-10 text-center">
-      <h1 class="mb-2 text-[2.5rem] font-medium max-phone:text-[2rem]"
-        >超过 53,476 位信赖的开发者</h1
-      >
-      <h2 class="mb-2.5 text-[1.4rem] font-normal text-g-600 max-phone:text-2xl">
+      <h1 class="mb-2 text-4xl font-medium max-phone:text-3xl">超过 53,476 位信赖的开发者</h1>
+      <h2 class="mb-2.5 text-2xl font-normal text-g-600 max-phone:text-2xl">
         以及众多科技巨头的选择
       </h2>
-      <div class="gap-2 flex-center mt-2.5 max-phone:mt-[15px]">
-        <p class="text-sm italic text-g-600 max-phone:text-[13px]">
+      <div class="gap-2 flex-center mt-2.5 max-phone:mt-3.5">
+        <p class="text-sm italic text-g-600 max-phone:text-sm">
           本项目基于 MIT 协议开源免费，当前页面为定价模板，仅作演示用途
         </p>
         <ElTag type="success" size="large" round>免费商用</ElTag>
@@ -19,23 +17,23 @@
       <ElRow :gutter="20" justify="center">
         <ElCol v-for="plan in pricingPlans" :key="plan.type" :xs="24" :sm="12" :md="6" class="mb-5">
           <ElCard
-            class="flex flex-col h-full rounded-[10px]"
+            class="flex flex-col h-full rounded-xl"
             :class="{
-              'relative border-2 border-[var(--el-color-primary)] after:content-[\'热门\'] after:absolute after:top-2.5 after:right-2.5 after:px-2 after:py-0.5 after:text-xs after:text-[var(--el-color-primary)] after:bg-[var(--el-color-primary-light-9)] after:rounded-xl':
+              'relative border-2 border-[var(--el-color-primary)] after:content-[\'热门\'] after:absolute after:top-2.5 after:right-2.5 after:px-2 after:py-0.5 after:text-xs after:text-primary after:bg-[var(--el-color-primary-light-9)] after:rounded-xl':
                 plan.isPopular
             }"
             shadow="never"
           >
             <div class="mb-5">
-              <h3 class="mb-2.5 text-[1.3rem] text-[var(--art-text-gray-900)]">{{ plan.title }}</h3>
+              <h3 class="mb-2.5 text-xl font-medium">{{ plan.title }}</h3>
               <p
-                class="h-10 pb-5 mb-5 overflow-hidden text-sm text-[var(--art-text-gray-600)] text-ellipsis border-b border-[var(--art-border-color)] line-clamp-2"
+                class="h-10 pb-5 mb-5 overflow-hidden text-sm text-g-600 text-ellipsis border-b border-g-300/80 line-clamp-2"
               >
                 {{ plan.description }}
               </p>
-              <div class="mt-[30px]">
-                <span class="text-[1.8rem] font-semibold">¥{{ plan.price }}</span>
-                <span class="ml-2.5 text-sm text-[var(--art-text-gray-600)]">/一次性付款</span>
+              <div class="mt-7.5">
+                <span class="text-3xl font-medium">¥{{ plan.price }}</span>
+                <span class="ml-2.5 text-sm text-g-600">/一次性付款</span>
               </div>
             </div>
 
@@ -43,15 +41,11 @@
               <div
                 v-for="(feature, index) in plan.features"
                 :key="index"
-                class="flex items-center mb-2.5 text-sm"
+                class="flex-c mb-2.5 text-sm"
               >
                 <ElIcon
                   class="mr-2.5"
-                  :class="
-                    feature.available
-                      ? 'text-[var(--el-color-primary)]'
-                      : 'text-[var(--el-color-danger)]'
-                  "
+                  :class="feature.available ? '!text-primary' : '!text-danger'"
                 >
                   <Check v-if="feature.available" />
                   <Close v-else />

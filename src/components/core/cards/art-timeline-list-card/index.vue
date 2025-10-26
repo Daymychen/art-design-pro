@@ -1,33 +1,29 @@
 <!-- 时间轴列表卡片 -->
 <template>
-  <div class="[&_.el-timeline-item__tail]:left-[5px] [&_.el-timeline-item__node--normal]:left-0">
-    <div class="art-custom-card rounded-[var(--custom-radius)] art-card-bg p-[30px]">
-      <div class="pb-[15px]">
-        <p class="text-lg font-medium">{{ title }}</p>
-        <p class="text-sm text-g-500">{{ subtitle }}</p>
-      </div>
-      <ElScrollbar :style="{ height: maxHeight }">
-        <ElTimeline>
-          <ElTimelineItem
-            v-for="item in list"
-            :key="item.time"
-            :timestamp="item.time"
-            :placement="TIMELINE_PLACEMENT"
-            :color="item.status"
-            :center="true"
-          >
-            <div class="flex items-center gap-3">
-              <div class="flex items-center gap-2">
-                <span class="text-sm">{{ item.content }}</span>
-                <span v-if="item.code" class="text-[0.9em] text-[var(--el-color-primary)]">
-                  #{{ item.code }}
-                </span>
-              </div>
-            </div>
-          </ElTimelineItem>
-        </ElTimeline>
-      </ElScrollbar>
+  <div class="art-card p-5">
+    <div class="pb-3.5">
+      <p class="text-lg font-medium">{{ title }}</p>
+      <p class="text-sm text-g-500">{{ subtitle }}</p>
     </div>
+    <ElScrollbar :style="{ height: maxHeight }">
+      <ElTimeline>
+        <ElTimelineItem
+          v-for="item in list"
+          :key="item.time"
+          :timestamp="item.time"
+          :placement="TIMELINE_PLACEMENT"
+          :color="item.status"
+          :center="true"
+        >
+          <div class="flex-c gap-3">
+            <div class="flex-c gap-2">
+              <span class="text-sm">{{ item.content }}</span>
+              <span v-if="item.code" class="text-sm text-primary"> #{{ item.code }} </span>
+            </div>
+          </div>
+        </ElTimelineItem>
+      </ElTimeline>
+    </ElScrollbar>
   </div>
 </template>
 <script setup lang="ts">

@@ -1,24 +1,20 @@
 <template>
   <li>
     <div>
-      <div class="flex items-center">
+      <div class="flex-c">
         <div
-          class="w-[30px] h-[30px] mr-2.5 text-xs font-medium leading-[30px] text-white text-center rounded-full"
+          class="size-5 mr-2.5 text-xs font-medium text-white rounded-full flex-center"
           :style="{ background: randomColor() }"
         >
           {{ comment.author.substring(0, 1) }}
         </div>
-        <strong class="block text-sm font-medium text-black dark:text-gray-100">{{
-          comment.author
-        }}</strong>
+        <strong class="block text-sm font-medium">{{ comment.author }}</strong>
       </div>
-      <span class="block mt-2.5 text-sm text-gray-800 dark:text-gray-200">{{
-        comment.content
-      }}</span>
-      <div class="flex items-center mt-2.5">
-        <span class="text-xs text-gray-500">{{ formatDate(comment.timestamp) }}</span>
+      <span class="block mt-2.5 text-sm text-g-700">{{ comment.content }}</span>
+      <div class="flex-c mt-2.5">
+        <span class="text-xs text-g-700">{{ formatDate(comment.timestamp) }}</span>
         <div
-          class="ml-5 text-xs text-gray-800 dark:text-gray-200 cursor-pointer select-none hover:text-primary"
+          class="ml-5 text-xs text-g-700 c-p select-none hover:text-primary"
           @click="toggleReply(comment.id)"
         >
           回复

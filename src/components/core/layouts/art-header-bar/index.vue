@@ -6,50 +6,42 @@
   >
     <div
       class="relative box-border flex justify-between h-[60px] leading-[60px] select-none"
-      :class="[
-        tabStyle === 'tab-card' || tabStyle === 'tab-google'
-          ? 'border-b border-[var(--art-border-color)]'
-          : ''
-      ]"
+      :class="[tabStyle === 'tab-card' || tabStyle === 'tab-google' ? 'border-b border-g-300' : '']"
     >
       <div class="flex flex-1 items-center min-w-0 leading-[60px]" style="display: flex">
         <!-- 系统信息  -->
-        <div class="flex items-center cursor-pointer" @click="toHome" v-if="isTopMenu">
+        <div class="flex-c c-p" @click="toHome" v-if="isTopMenu">
           <ArtLogo class="pl-[18px]" />
-          <p v-if="width >= 1400" class="my-0 mx-[10px] ml-[9px] text-lg">{{
+          <p v-if="width >= 1400" class="my-0 mx-2 ml-[9px] text-lg">{{
             AppConfig.systemInfo.name
           }}</p>
         </div>
 
         <ArtLogo
-          class="hidden pl-[15px] overflow-hidden align-[-0.15em] fill-current logo2"
+          class="hidden pl-3.5 overflow-hidden align-[-0.15em] fill-current logo2"
           @click="toHome"
         />
 
         <!-- 菜单按钮 -->
-        <div
+        <ArtIconButton
           v-if="isLeftMenu && shouldShowMenuButton"
-          class="header-icon-btn ml-[10px]"
+          icon="ri:menu-2-fill"
+          class="ml-3"
           @click="visibleMenu"
-        >
-          <ArtSvgIcon icon="ri:menu-2-fill" class="header-icon" />
-        </div>
+        />
 
         <!-- 刷新按钮 -->
-        <div
+        <ArtIconButton
           v-if="shouldShowRefreshButton"
-          class="refresh-btn header-icon-btn max-sm:hidden"
+          icon="ri:refresh-line"
+          class="!ml-3 refresh-btn max-sm:hidden"
           :style="{ marginLeft: !isLeftMenu ? '10px' : '0' }"
-          @click="reload()"
-        >
-          <ArtSvgIcon icon="ri:refresh-line" class="header-icon" />
-        </div>
+          @click="reload"
+        />
 
         <!-- 快速入口 -->
         <ArtFastEnter v-if="shouldShowFastEnter && width >= headerBarFastEnterMinWidth">
-          <div class="header-icon-btn">
-            <ArtSvgIcon icon="ri:function-line" class="header-icon" />
-          </div>
+          <ArtIconButton icon="ri:function-line" class="ml-3" />
         </ArtFastEnter>
 
         <!-- 面包屑 -->
@@ -64,60 +56,54 @@
         <ArtMixedMenu v-if="isTopLeftMenu" :list="menuList" />
       </div>
 
-      <div class="flex items-center gap-2.5">
+      <div class="flex-c gap-2.5">
         <!-- 搜索 -->
         <div
           v-if="shouldShowGlobalSearch"
-          class="flex-between w-[160px] h-9 px-2.5 cursor-pointer border border-g-300/70 rounded-custom-sm"
+          class="flex-between w-[160px] h-9 px-2.5 c-p border border-g-400 rounded-custom-sm max-md:hidden"
           @click="openSearchDialog"
         >
-          <div class="flex items-center">
-            <ArtSvgIcon icon="ri:search-line" class="text-[13px] text-g-500" />
-            <span class="ml-[10px] text-[13px] font-normal text-g-400">{{
-              $t('topBar.search.title')
-            }}</span>
+          <div class="flex-c">
+            <ArtSvgIcon icon="ri:search-line" class="text-xs text-g-500" />
+            <span class="ml-2 text-xs font-normal text-g-500">{{ $t('topBar.search.title') }}</span>
           </div>
           <div
-            class="flex items-center h-5 px-[6px] text-g-400 bg-[var(--art-bg-color)] border border-g-200 rounded"
+            class="flex-c h-5 px-1.5 text-g-500/80 bg-[var(--art-bg-color)] border border-g-400 rounded"
           >
-            <ArtSvgIcon v-if="isWindows" icon="vaadin:ctrl-a" class="text-[14px]" />
+            <ArtSvgIcon v-if="isWindows" icon="vaadin:ctrl-a" class="text-sm" />
             <ArtSvgIcon v-else icon="ri:command-fill" class="text-xs" />
             <span class="ml-[2px] text-xs">k</span>
           </div>
         </div>
 
         <!-- 全屏按钮 -->
-        <div
+        <ArtIconButton
           v-if="shouldShowFullscreen"
+          :icon="isFullscreen ? 'ri:fullscreen-exit-line' : 'ri:fullscreen-fill'"
+          :class="[!isFullscreen ? 'full-screen-btn' : 'exit-full-screen-btn', 'ml-3']"
+          class="max-md:hidden"
           @click="toggleFullScreen"
-          class="header-icon-btn"
-          :class="[!isFullscreen ? 'full-screen-btn' : 'exit-full-screen-btn']"
-        >
-          <ArtSvgIcon
-            :icon="isFullscreen ? 'ri:fullscreen-exit-line' : 'ri:fullscreen-fill'"
-            class="header-icon"
-          />
-        </div>
+        />
 
         <!-- 通知按钮 -->
-        <div
+        <ArtIconButton
           v-if="shouldShowNotification"
-          class="notice-button notice-btn header-icon-btn relative"
+          icon="ri:notification-2-line"
+          class="notice-button relative"
           @click="visibleNotice"
         >
-          <ArtSvgIcon icon="ri:notification-2-line" class="header-icon" />
-          <span
-            class="absolute top-[9px] right-[12px] block size-[6px] bg-[var(--el-color-danger)] rounded-full notice-btn pointer-events-none"
-          ></span>
-        </div>
+          <div class="absolute top-[8px] right-2 size-1.5 !bg-danger rounded-full"></div>
+        </ArtIconButton>
 
         <!-- 聊天按钮 -->
-        <div v-if="shouldShowChat" class="chat-button relative header-icon-btn" @click="openChat">
-          <ArtSvgIcon icon="ri:message-3-line" class="header-icon" />
-          <span
-            class="breathing-dot absolute top-2 right-2 block w-[6px] h-[6px] bg-[var(--el-color-success)] rounded-full"
-          ></span>
-        </div>
+        <ArtIconButton
+          v-if="shouldShowChat"
+          icon="ri:message-3-line"
+          class="chat-button relative"
+          @click="openChat"
+        >
+          <div class="breathing-dot absolute top-2 right-2 size-1.5 !bg-success rounded-full"></div>
+        </ArtIconButton>
 
         <!-- 国际化按钮 -->
         <ElDropdown
@@ -125,9 +111,7 @@
           popper-class="langDropDownStyle"
           v-if="shouldShowLanguage"
         >
-          <div class="language-btn header-icon-btn">
-            <ArtSvgIcon icon="ri:global-line" class="header-icon" />
-          </div>
+          <ArtIconButton icon="ri:global-line" class="language-btn" />
           <template #dropdown>
             <ElDropdownMenu>
               <div v-for="item in languageOptions" :key="item.value" class="lang-btn-item">
@@ -147,8 +131,8 @@
         <div v-if="shouldShowSettings">
           <ElPopover :visible="showSettingGuide" placement="bottom-start" :width="190" :offset="0">
             <template #reference>
-              <div class="setting-btn header-icon-btn" @click="openSetting">
-                <ArtSvgIcon icon="ri:settings-line" class="header-icon" />
+              <div class="flex-center">
+                <ArtIconButton icon="ri:settings-line" class="setting-btn" @click="openSetting" />
               </div>
             </template>
             <template #default>
@@ -163,90 +147,14 @@
         </div>
 
         <!-- 主题切换按钮 -->
-        <div v-if="shouldShowThemeToggle" @click="themeAnimation" class="header-icon-btn">
-          <ArtSvgIcon :icon="isDark ? 'ri:sun-fill' : 'ri:moon-line'" class="header-icon" />
-        </div>
+        <ArtIconButton
+          v-if="shouldShowThemeToggle"
+          @click="themeAnimation"
+          :icon="isDark ? 'ri:sun-fill' : 'ri:moon-line'"
+        />
 
         <!-- 用户头像、菜单 -->
-        <ElPopover
-          ref="userMenuPopover"
-          placement="bottom-end"
-          :width="240"
-          :hide-after="0"
-          :offset="10"
-          trigger="hover"
-          :show-arrow="false"
-          popper-class="user-menu-popover"
-          popper-style="padding: 5px 16px; 5px 16px;"
-        >
-          <template #reference>
-            <img
-              class="size-8.5 mr-5 cursor-pointer rounded-full max-sm:w-[26px] max-sm:h-[26px]"
-              src="@imgs/user/avatar.webp"
-              alt="avatar"
-            />
-          </template>
-          <template #default>
-            <div class="pt-[10px]">
-              <div class="flex items-center pb-1 px-0">
-                <img
-                  class="w-10 h-10 mr-[10px] ml-0 overflow-hidden rounded-full float-left"
-                  src="@imgs/user/avatar.webp"
-                />
-                <div class="w-[calc(100%-60px)] h-full">
-                  <span class="block text-sm font-medium text-g-800 truncate">{{
-                    userInfo.userName
-                  }}</span>
-                  <span class="block mt-[3px] text-xs text-g-500 truncate">{{
-                    userInfo.email
-                  }}</span>
-                </div>
-              </div>
-              <ul class="py-4 mt-[10px] border-t border-[var(--art-border-color)]">
-                <li
-                  class="flex items-center p-2 mb-[10px] cursor-pointer select-none rounded-md hover:bg-g-100/60 last:mb-0"
-                  @click="goPage('/system/user-center')"
-                >
-                  <ArtSvgIcon icon="ri:user-3-line" class="mr-1 text-base" />
-                  <span class="text-sm text-[var(--art-text-gray-800)] menu-txt">{{
-                    $t('topBar.user.userCenter')
-                  }}</span>
-                </li>
-                <li
-                  class="flex items-center p-2 mb-[10px] cursor-pointer select-none rounded-md hover:bg-g-100/60 last:mb-0"
-                  @click="toDocs()"
-                >
-                  <ArtSvgIcon icon="ri:book-2-line" class="mr-1 text-base" />
-                  <span class="text-sm text-[var(--art-text-gray-800)] menu-txt">{{
-                    $t('topBar.user.docs')
-                  }}</span>
-                </li>
-                <li
-                  class="flex items-center p-2 mb-[10px] cursor-pointer select-none rounded-md hover:bg-g-100/60 last:mb-0"
-                  @click="toGithub()"
-                >
-                  <ArtSvgIcon icon="ri:github-line" class="mr-1 text-base" />
-                  <span class="text-sm text-[var(--art-text-gray-800)] menu-txt">{{
-                    $t('topBar.user.github')
-                  }}</span>
-                </li>
-                <li
-                  class="flex items-center p-2 mb-[10px] cursor-pointer select-none rounded-md hover:bg-g-100/60 last:mb-0"
-                  @click="lockScreen()"
-                >
-                  <ArtSvgIcon icon="ri:lock-line" class="mr-1 text-base" />
-                  <span class="text-sm text-[var(--art-text-gray-800)] menu-txt">{{
-                    $t('topBar.user.lockScreen')
-                  }}</span>
-                </li>
-                <div class="w-full h-px my-[10px] bg-[var(--art-border-color)]"></div>
-                <div class="log-out" @click="loginOut">
-                  {{ $t('topBar.user.logout') }}
-                </div>
-              </ul>
-            </div>
-          </template>
-        </ElPopover>
+        <ArtUserMenu />
       </div>
     </div>
 
@@ -261,7 +169,6 @@
 <script setup lang="ts">
   import { useI18n } from 'vue-i18n'
   import { useRouter } from 'vue-router'
-  import { ElMessageBox } from 'element-plus'
   import { useFullscreen, useWindowSize } from '@vueuse/core'
   import { LanguageEnum, MenuTypeEnum } from '@/enums/appEnum'
   import { useSettingStore } from '@/store/modules/setting'
@@ -269,11 +176,11 @@
   import { useMenuStore } from '@/store/modules/menu'
   import AppConfig from '@/config'
   import { languageOptions } from '@/locales'
-  import { WEB_LINKS } from '@/utils/constants'
   import { mittBus } from '@/utils/sys'
   import { themeAnimation } from '@/utils/theme/animation'
   import { useCommon } from '@/composables/useCommon'
   import { useHeaderBar } from '@/composables/useHeaderBar'
+  import ArtUserMenu from './widget/ArtUserMenu.vue'
 
   defineOptions({ name: 'ArtHeaderBar' })
 
@@ -281,7 +188,7 @@
   const isWindows = navigator.userAgent.includes('Windows')
 
   const router = useRouter()
-  const { locale, t } = useI18n()
+  const { locale } = useI18n()
   const { width } = useWindowSize()
 
   const settingStore = useSettingStore()
@@ -307,12 +214,11 @@
   const { menuOpen, systemThemeColor, showSettingGuide, menuType, isDark, tabStyle } =
     storeToRefs(settingStore)
 
-  const { language, getUserInfo: userInfo } = storeToRefs(userStore)
+  const { language } = storeToRefs(userStore)
   const { menuList } = storeToRefs(menuStore)
 
   const showNotice = ref(false)
   const notice = ref(null)
-  const userMenuPopover = ref()
 
   // 菜单类型判断
   const isLeftMenu = computed(() => menuType.value === MenuTypeEnum.LEFT)
@@ -346,48 +252,10 @@
   }
 
   /**
-   * 页面跳转
-   * @param {string} path - 目标路径
-   */
-  const goPage = (path: string): void => {
-    router.push(path)
-  }
-
-  /**
-   * 打开文档页面
-   */
-  const toDocs = (): void => {
-    window.open(WEB_LINKS.DOCS)
-  }
-
-  /**
-   * 打开 GitHub 页面
-   */
-  const toGithub = (): void => {
-    window.open(WEB_LINKS.GITHUB)
-  }
-
-  /**
    * 跳转到首页
    */
   const toHome = (): void => {
     router.push(useCommon().homePath.value)
-  }
-
-  /**
-   * 用户登出确认
-   */
-  const loginOut = (): void => {
-    closeUserMenu()
-    setTimeout(() => {
-      ElMessageBox.confirm(t('common.logOutTips'), t('common.tips'), {
-        confirmButtonText: t('common.confirm'),
-        cancelButtonText: t('common.cancel'),
-        customClass: 'login-out-dialog'
-      }).then(() => {
-        userStore.logOut()
-      })
-    }, 200)
   }
 
   /**
@@ -442,16 +310,16 @@
    * @param {Event} e - 点击事件对象
    */
   const bodyCloseNotice = (e: any): void => {
-    let { className } = e.target
+    if (!showNotice.value) return
 
-    if (showNotice.value) {
-      if (typeof className === 'object') {
-        showNotice.value = false
-        return
-      }
-      if (className.indexOf('notice-btn') === -1) {
-        showNotice.value = false
-      }
+    const target = e.target as HTMLElement
+
+    // 检查是否点击了通知按钮或通知面板内部
+    const isNoticeButton = target.closest('.notice-button')
+    const isNoticePanel = target.closest('.art-notification-panel')
+
+    if (!isNoticeButton && !isNoticePanel) {
+      showNotice.value = false
     }
   }
 
@@ -468,60 +336,9 @@
   const openChat = (): void => {
     mittBus.emit('openChat')
   }
-
-  /**
-   * 打开锁屏功能
-   */
-  const lockScreen = (): void => {
-    mittBus.emit('openLockScreen')
-  }
-
-  /**
-   * 关闭用户菜单弹出层
-   */
-  const closeUserMenu = (): void => {
-    setTimeout(() => {
-      userMenuPopover.value.hide()
-    }, 100)
-  }
 </script>
 
 <style scoped>
-  @import 'tailwindcss';
-
-  /* Reusable button styles */
-  .header-icon-btn {
-    @apply size-[38px]
-    flex 
-    items-center 
-    justify-center 
-    flex-shrink-0 
-    cursor-pointer 
-    rounded-md 
-    transition-all 
-    duration-200 
-    hover:text-[var(--main-color)] 
-    hover:bg-[rgba(var(--art-gray-200-rgb),0.7)];
-  }
-
-  .log-out {
-    @apply py-1.5 
-    mt-5 
-    text-[13px] 
-    text-center 
-    cursor-pointer 
-    border 
-    border-[var(--art-border-dashed-color)] 
-    rounded-md 
-    transition-all 
-    duration-200 
-    hover:shadow-[0_0_10px_rgb(var(--art-gray-300-rgb),0.7)];
-  }
-
-  .header-icon {
-    @apply text-[20px] text-[var(--art-gray-600)];
-  }
-
   /* Custom animations */
   @keyframes rotate180 {
     0% {

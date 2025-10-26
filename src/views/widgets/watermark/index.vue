@@ -1,7 +1,7 @@
 <template>
   <div class="page-content mb-5">
     <!-- 基础文字水印 -->
-    <ElCard class="mb-[30px]" shadow="never">
+    <ElCard class="mb-7.5" shadow="never">
       <template #header>基础文字水印</template>
       <ElWatermark content="Art Design Pro" :font="{ color: 'rgba(128, 128, 128, 0.2)' }">
         <div style="height: 200px"></div>
@@ -9,7 +9,7 @@
     </ElCard>
 
     <!-- 多行文字水印 -->
-    <ElCard class="mb-[30px]" shadow="never">
+    <ElCard class="mb-7.5" shadow="never">
       <template #header>多行文字水印</template>
       <ElWatermark
         :content="['Art Design Pro', '专注用户体验，视觉设计']"
@@ -20,7 +20,7 @@
     </ElCard>
 
     <!-- 图片水印 -->
-    <ElCard class="mb-[30px]" shadow="never">
+    <ElCard class="mb-7.5" shadow="never">
       <template #header>图片水印</template>
       <ElWatermark :image="watermarkImage" :opacity="0.2" :width="80" :height="20">
         <div style="height: 200px"></div>
@@ -28,7 +28,7 @@
     </ElCard>
 
     <!-- 自定义样式水印 -->
-    <ElCard class="mb-[30px]" shadow="never">
+    <ElCard class="mb-7.5" shadow="never">
       <template #header>自定义样式水印</template>
       <ElWatermark
         content="Art Design Pro"

@@ -3,15 +3,15 @@
   <div
     class="box-border flex justify-between w-full px-5 mb-3 select-none"
     :class="[
-      tabStyle === 'tab-card' ? 'py-1 border-b border-[var(--art-border-color)]' : '',
-      tabStyle === 'tab-google' ? 'pt-[5px] pb-0 border-b border-[var(--art-border-color)]' : ''
+      tabStyle === 'tab-card' ? 'py-1 border-b border-g-300' : '',
+      tabStyle === 'tab-google' ? 'pt-1 pb-0 border-b border-g-300' : ''
     ]"
     v-if="showWorkTab"
   >
     <div class="w-full overflow-hidden" ref="scrollRef">
       <ul
         class="float-left whitespace-nowrap !bg-transparent"
-        :class="[tabStyle === 'tab-google' ? 'pl-[5px]' : '']"
+        :class="[tabStyle === 'tab-google' ? 'pl-1' : '']"
         ref="tabsRef"
         :style="{
           transform: `translateX(${scrollState.translateX}px)`,
@@ -19,11 +19,9 @@
         }"
       >
         <li
-          class="art-custom-card inline-block h-8 mr-1.5 text-[13px] leading-[30px] text-center cursor-pointer art-card-bg border border-transparent transition-colors duration-100 hover:!text-[var(--main-color)] hover:transition-colors hover:duration-200"
+          class="art-custom-card inline-block h-8 mr-1.5 text-xs leading-7.5 text-center c-p art-card-bg border border-transparent transition-colors duration-100 hover:!text-primary hover:transition-colors hover:duration-200"
           :class="[
-            item.path === activeTab
-              ? 'activ-tab !text-[var(--main-color)]'
-              : 'text-[var(--art-text-gray-600)]',
+            item.path === activeTab ? 'activ-tab !text-primary' : 'text-g-600',
             tabStyle === 'tab-google'
               ? 'google-tab relative !h-[37px] !leading-[37px] !border-none'
               : ''
@@ -60,7 +58,7 @@
 
     <div class="flex">
       <div
-        class="btn console-box art-custom-card relative top-0 box-border w-[34px] h-[34px] text-base leading-[34px] text-center cursor-pointer art-card-bg"
+        class="btn console-box art-custom-card relative top-0 box-border w-[34px] h-[34px] text-base leading-[34px] text-center c-p art-card-bg"
         :style="{ borderRadius: 'calc(var(--custom-radius) / 2.5 + 0px)' }"
         @click="(e: MouseEvent) => showMenu(e, activeTab)"
       >

@@ -9,7 +9,7 @@
     leave-to-class="opacity-0 translate-y-2"
   >
     <div v-show="showButton" class="button" @click="scrollToTop">
-      <ArtSvgIcon icon="ri:arrow-up-wide-line" class="text-g-400 text-lg" />
+      <ArtSvgIcon icon="ri:arrow-up-wide-line" class="text-g-500 text-lg" />
     </div>
   </Transition>
 </template>
@@ -36,7 +36,7 @@
 </script>
 
 <style scoped>
-  @import 'tailwindcss';
+  @reference '@styles/main.css';
 
   .button {
     @apply fixed 
@@ -49,9 +49,9 @@
     text-center 
     cursor-pointer 
     border 
-    border-[var(--art-border-dashed-color)] 
+    border-g-300
     rounded-md 
     transition-all 
-    hover:bg-[var(--art-text-gray-200)];
+    hover:bg-g-200;
   }
 </style>

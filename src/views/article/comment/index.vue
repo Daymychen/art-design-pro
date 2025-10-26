@@ -1,33 +1,34 @@
+<!-- 留言管理页面 -->
 <template>
   <div>
-    <h1 class="text-4xl font-medium mt-[20px]">留言墙</h1>
-    <p class="mt-[15px] text-gray-500">每一份留言都记录了您的想法，也为我们提供了珍贵的回忆</p>
+    <h1 class="text-4xl font-medium mt-5">留言墙</h1>
+    <p class="mt-3.5 text-g-600">每一份留言都记录了您的想法，也为我们提供了珍贵的回忆</p>
 
     <ul
-      class="mt-[40px] grid grid-cols-5 gap-[20px] max-2xl:grid-cols-4 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 mb-[20px]"
+      class="mt-[40px] grid grid-cols-5 gap-5 max-2xl:grid-cols-4 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 mb-5"
     >
       <li
-        class="relative p-[16px] cursor-pointer aspect-16/12 duration-300 hover:-translate-y-1.5"
+        class="relative p-4 c-p aspect-16/12 duration-300 hover:-translate-y-1.5"
         :style="{ background: item.color }"
         v-for="item in commentsWithColors"
         :key="item.id"
         @click="openDrawer(item)"
       >
-        <p class="text-gray-400 text-[14px]">{{ item.date }}</p>
-        <p class="mt-[16px] text-[14px] text-gray-800">{{ item.content }}</p>
-        <div class="absolute bottom-[16px] left-0 px-[16px] flex-between w-full">
-          <div class="flex items-center">
-            <div class="flex items-center mr-[20px] text-[12px] text-gray-500">
-              <ArtSvgIcon icon="ri:heart-line" class="mr-1 text-[16px]" />
+        <p class="text-g-600 text-sm">{{ item.date }}</p>
+        <p class="mt-4 text-sm text-gray-800">{{ item.content }}</p>
+        <div class="absolute bottom-4 left-0 px-4 flex-between w-full">
+          <div class="flex-c">
+            <div class="flex-c mr-5 text-xs text-g-600">
+              <ArtSvgIcon icon="ri:heart-line" class="mr-1 text-base" />
               <span>{{ item.collection }}</span>
             </div>
-            <div class="flex items-center mr-[20px] text-[12px] text-gray-500">
-              <ArtSvgIcon icon="ri:message-3-line" class="mr-1 text-[16px]" />
+            <div class="flex-c mr-5 text-xs text-g-600">
+              <ArtSvgIcon icon="ri:message-3-line" class="mr-1 text-base" />
               <span>{{ item.comment }}</span>
             </div>
           </div>
           <div>
-            <span class="text-[14px] text-gray-700">{{ item.userName }}</span>
+            <span class="text-sm text-gray-700">{{ item.userName }}</span>
           </div>
         </div>
       </li>
@@ -45,21 +46,21 @@
       </template>
       <template #default>
         <div class="drawer-default">
-          <div class="relative p-[16px] aspect-16/12" :style="{ background: clickItem.color }">
-            <p class="text-gray-400 text-[14px]">{{ clickItem.date }}</p>
-            <p class="mt-[16px] text-[14px] text-gray-800">{{ clickItem.content }}</p>
-            <div class="absolute bottom-[16px] left-0 px-[16px] flex-between w-full">
-              <div class="flex items-center">
-                <div class="flex items-center mr-[20px] text-[12px] text-gray-500">
-                  <ArtSvgIcon icon="ri:heart-line" class="mr-1 text-[16px]" />
+          <div class="relative p-4 aspect-16/12" :style="{ background: clickItem.color }">
+            <p class="text-g-500 text-sm">{{ clickItem.date }}</p>
+            <p class="mt-4 text-sm text-gray-800">{{ clickItem.content }}</p>
+            <div class="absolute bottom-4 left-0 px-4 flex-between w-full">
+              <div class="flex-c">
+                <div class="flex-c mr-5 text-xs text-g-600">
+                  <ArtSvgIcon icon="ri:heart-line" class="mr-1 text-base" />
                   <span>{{ clickItem.collection }}</span>
                 </div>
-                <div class="flex items-center mr-[20px] text-[12px] text-gray-500">
-                  <ArtSvgIcon icon="ri:message-3-line" class="mr-1 text-[16px]" />
+                <div class="flex-c mr-5 text-xs text-g-600">
+                  <ArtSvgIcon icon="ri:message-3-line" class="mr-1 text-base" />
                   <span>{{ clickItem.comment }}</span>
                 </div>
               </div>
-              <span class="text-[14px] text-gray-700">{{ clickItem.userName }}</span>
+              <span class="text-sm text-gray-700">{{ clickItem.userName }}</span>
             </div>
           </div>
 

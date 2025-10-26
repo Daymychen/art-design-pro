@@ -18,7 +18,7 @@
     <ElRow :gutter="20">
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
         <div class="art-card">
-          <div class="pb-[15px]">
+          <div class="pb-3.5">
             <span class="text-base font-medium">柱状图（单数据）</span>
           </div>
           <ArtBarChart
@@ -31,7 +31,7 @@
       </ElCol>
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
         <div class="art-card">
-          <div class="pb-[15px]">
+          <div class="pb-3.5">
             <span class="text-base font-medium">柱状图（多组数据）</span>
           </div>
           <ArtBarChart
@@ -44,7 +44,7 @@
       </ElCol>
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
         <div class="art-card">
-          <div class="pb-[15px]">
+          <div class="pb-3.5">
             <span class="text-base font-medium">柱状图（堆叠）</span>
           </div>
           <ArtBarChart
@@ -58,7 +58,7 @@
       </ElCol>
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
         <div class="art-card">
-          <div class="pb-[15px]">
+          <div class="pb-3.5">
             <span class="text-base font-medium">折线图</span>
           </div>
           <ArtLineChart
@@ -71,7 +71,7 @@
       </ElCol>
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
         <div class="art-card">
-          <div class="pb-[15px]">
+          <div class="pb-3.5">
             <span class="text-base font-medium">折线图（渐变背景）</span>
           </div>
           <ArtLineChart
@@ -83,7 +83,7 @@
       </ElCol>
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
         <div class="art-card">
-          <div class="pb-[15px]">
+          <div class="pb-3.5">
             <span class="text-base font-medium">折线图（多组数据）</span>
           </div>
           <ArtLineChart
@@ -96,7 +96,7 @@
 
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
         <div class="art-card">
-          <div class="pb-[15px]">
+          <div class="pb-3.5">
             <span class="text-base font-medium">柱状图（水平）</span>
           </div>
           <ArtHBarChart
@@ -107,7 +107,7 @@
       </ElCol>
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
         <div class="art-card">
-          <div class="pb-[15px]">
+          <div class="pb-3.5">
             <span class="text-base font-medium">柱状图（水平）</span>
           </div>
 
@@ -124,7 +124,7 @@
       </ElCol>
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
         <div class="art-card">
-          <div class="pb-[15px]">
+          <div class="pb-3.5">
             <span class="text-base font-medium">柱状图（水平堆叠）</span>
           </div>
           <ArtHBarChart
@@ -142,7 +142,7 @@
 
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
         <div class="art-card">
-          <div class="pb-[15px]">
+          <div class="pb-3.5">
             <span class="text-base font-medium">环形图</span>
           </div>
           <ArtRingChart
@@ -159,7 +159,7 @@
 
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
         <div class="art-card">
-          <div class="pb-[15px]">
+          <div class="pb-3.5">
             <span class="text-base font-medium">环形图</span>
           </div>
           <ArtRingChart
@@ -181,7 +181,7 @@
       </ElCol>
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
         <div class="art-card">
-          <div class="pb-[15px]">
+          <div class="pb-3.5">
             <span class="text-base font-medium">饼图</span>
           </div>
           <ArtRingChart
@@ -198,7 +198,7 @@
       </ElCol>
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
         <div class="art-card">
-          <div class="pb-[15px]">
+          <div class="pb-3.5">
             <span class="text-base font-medium">散点图</span>
           </div>
           <ArtScatterChart
@@ -222,7 +222,7 @@
 
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
         <div class="art-card">
-          <div class="pb-[15px]">
+          <div class="pb-3.5">
             <span class="text-base font-medium">雷达图</span>
           </div>
           <ArtRadarChart
@@ -248,7 +248,7 @@
       </ElCol>
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
         <div class="art-card">
-          <div class="pb-[15px]">
+          <div class="pb-3.5">
             <span class="text-base font-medium">k线图</span>
           </div>
           <ArtKLineChart
@@ -265,7 +265,7 @@
       </ElCol>
       <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
         <div class="art-card">
-          <div class="pb-[15px]">
+          <div class="pb-3.5">
             <span class="text-base font-medium">双向堆叠柱状图</span>
           </div>
           <ArtDualBarCompareChart
@@ -343,10 +343,10 @@
 </script>
 
 <style scoped>
-  @import 'tailwindcss';
+  @reference '@styles/main.css';
 
   .page-title {
-    @apply my-5 text-[22px] font-medium first:mt-0;
+    @apply my-5 text-xl font-medium first:mt-0;
   }
 
   .art-card {

@@ -2,7 +2,7 @@
 <template>
   <div
     ref="dragVerify"
-    class="relative box-border overflow-hidden border-b text-center"
+    class="relative box-border overflow-hidden border border-g-400 text-center"
     :style="dragVerifyStyle"
     @mousemove="dragMoving"
     @mouseup="dragFinish"
@@ -20,11 +20,7 @@
     </div>
 
     <!-- 提示文本 -->
-    <div
-      class="absolute inset-0 select-none flex-center bg-gradient-to-r from-[var(--textColor)] from-0% via-white via-50% to-[var(--textColor)] to-100% bg-clip-text text-transparent [-webkit-background-clip:text] [-webkit-text-fill-color:transparent] [animation:slidetounlock_2s_cubic-bezier(0,0.2,1,1)_infinite] [text-size-adjust:none] [&_*]:[-webkit-text-fill-color:var(--textColor)]"
-      :style="textStyle"
-      ref="messageRef"
-    >
+    <div class="v-text" :style="textStyle" ref="messageRef">
       <slot name="textBefore" v-if="$slots.textBefore"></slot>
       {{ message }}
       <slot name="textAfter" v-if="$slots.textAfter"></slot>
@@ -40,7 +36,7 @@
       :style="handlerStyle"
     >
       <ArtSvgIcon
-        class="pl-0 text-lg text-[#999]"
+        class="pl-0 text-lg text-g-600"
         :icon="value ? successIcon : handlerIcon"
       ></ArtSvgIcon>
     </div>
@@ -340,6 +336,21 @@
     reset
   })
 </script>
+
+<style scoped>
+  @reference '@styles/main.css';
+
+  .v-text {
+    @apply absolute inset-0 select-none 
+      bg-gradient-to-r from-[var(--textColor)] 
+      from-0% via-white via-50% to-[var(--textColor)] to-100% 
+      bg-clip-text text-transparent 
+      [-webkit-background-clip:text] [-webkit-text-fill-color:transparent] 
+      [animation:slidetounlock_2s_cubic-bezier(0,0.2,1,1)_infinite] 
+      [text-size-adjust:none] 
+      [&_*]:[-webkit-text-fill-color:var(--textColor)];
+  }
+</style>
 
 <style>
   .goFirst {

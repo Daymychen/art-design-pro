@@ -1,23 +1,20 @@
 <!-- 柱状图卡片 -->
 <template>
-  <div
-    class="art-custom-card relative overflow-hidden rounded-[var(--custom-radius)] art-card-bg text-[#303133] tad-300"
-    :style="{ height: `${height}rem` }"
-  >
+  <div class="art-card relative overflow-hidden" :style="{ height: `${height}rem` }">
     <div class="mb-5 flex items-start justify-between px-5 pt-5">
       <div>
-        <p class="m-0 text-2xl font-medium leading-tight text-[var(--art-text-gray-900)]">
+        <p class="m-0 text-2xl font-medium leading-tight text-g-900">
           {{ value }}
         </p>
-        <p class="mt-1 text-sm text-[var(--art-text-gray-600)]">{{ label }}</p>
+        <p class="mt-1 text-sm text-g-600">{{ label }}</p>
       </div>
       <div
-        class="text-sm font-medium text-[#f56c6c]"
-        :class="[percentage > 0 ? 'text-[#67c23a]' : '', isMiniChart ? 'absolute bottom-5' : '']"
+        class="text-sm font-medium text-danger"
+        :class="[percentage > 0 ? 'text-success' : '', isMiniChart ? 'absolute bottom-5' : '']"
       >
         {{ percentage > 0 ? '+' : '' }}{{ percentage }}%
       </div>
-      <div v-if="date" class="absolute bottom-5 right-5 text-xs text-[var(--art-text-gray-600)]">
+      <div v-if="date" class="absolute bottom-5 right-5 text-xs text-g-600">
         {{ date }}
       </div>
     </div>

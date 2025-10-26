@@ -1,3 +1,4 @@
+<!-- 登录页面 -->
 <template>
   <div class="flex w-full h-screen">
     <LoginLeftView />
@@ -63,14 +64,14 @@
                 />
               </div>
               <p
-                class="absolute top-0 z-[1] px-[1px] mt-[10px] text-[13px] text-[#f56c6c] tad-300"
+                class="absolute top-0 z-[1] px-[1px] mt-2 text-xs text-[#f56c6c] tad-300"
                 :class="{ 'translate-y-10': !isPassing && isClickPass }"
               >
                 {{ $t('login.placeholder.slider') }}
               </p>
             </div>
 
-            <div class="flex-between mt-[10px] text-[14px]">
+            <div class="flex-between mt-2 text-sm">
               <ElCheckbox v-model="formData.rememberPassword">{{
                 $t('login.rememberPwd')
               }}</ElCheckbox>
@@ -91,7 +92,7 @@
               </ElButton>
             </div>
 
-            <div class="mt-[20px] text-[14px] text-gray-600">
+            <div class="mt-5 text-sm text-gray-600">
               <span>{{ $t('login.noAccount') }}</span>
               <RouterLink class="text-primary" :to="{ name: 'Register' }">{{
                 $t('login.register')

@@ -1,7 +1,7 @@
 <template>
   <div class="setting-header">
     <div class="close-wrap">
-      <div @click="$emit('close')" class="flex items-center cursor-pointer text-g-500">
+      <div @click="$emit('close')" class="flex-c c-p text-g-500">
         <ArtSvgIcon icon="ri:close-fill" class="text-lg" />
       </div>
     </div>

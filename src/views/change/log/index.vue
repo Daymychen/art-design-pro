@@ -1,3 +1,4 @@
+<!-- 更新日志页面 -->
 <template>
   <div class="p-6 mx-auto max-sm:p-0">
     <!-- 标题 -->
@@ -8,7 +9,7 @@
       <div
         v-for="item in upgradeLogList"
         :key="item.version"
-        class="border border-g-200 rounded-lg p-6 hover:shadow-md transition-shadow max-md:p-4"
+        class="border border-g-300 rounded-lg p-6 hover:shadow-md transition-shadow max-md:p-4"
       >
         <!-- 版本和日期 -->
         <div class="flex-between gap-3 mb-4 flex-wrap">
@@ -26,7 +27,7 @@
           <li
             v-for="(detail, index) in item.detail"
             :key="index"
-            class="flex items-center gap-2 text-sm text-g-600"
+            class="flex-c gap-2 text-sm text-g-600"
           >
             <span class="mt-0.5">•</span>
             <span class="text-g-700">{{ detail }}</span>
@@ -34,7 +35,7 @@
         </ul>
 
         <!-- 备注 -->
-        <div v-if="item.remark" class="text-sm text-g-800 bg-g-200 rounded p-3 mb-3">
+        <div v-if="item.remark" class="text-sm text-g-800 bg-g-300/60 rounded p-3 mb-3">
           {{ item.remark }}
         </div>
 

@@ -1,3 +1,4 @@
+<!-- 文章发布页面 -->
 <template>
   <div>
     <div>
@@ -26,14 +27,14 @@
         <!-- 富文本编辑器 -->
         <ArtWangEditor class="mt-2.5" v-model="editorHtml" />
 
-        <div class="p-5 mt-5 art-card-bg border-a rounded-custom-sm">
+        <div class="p-5 mt-5 art-card-xs">
           <h2 class="mb-5 text-xl font-medium">发布设置</h2>
           <!-- 图片上传 -->
           <ElForm>
             <ElFormItem label="封面">
               <div class="mt-2.5">
                 <ElUpload
-                  class="relative overflow-hidden cursor-pointer rounded-md transition-[var(--el-transition-duration)] hover:border-[var(--el-color-primary)]"
+                  class="relative overflow-hidden c-p rounded-md transition-[var(--el-transition-duration)] hover:border-[var(--el-color-primary)]"
                   :action="uploadImageUrl"
                   :headers="uploadHeaders"
                   :show-file-list="false"
@@ -43,14 +44,14 @@
                 >
                   <div
                     v-if="!cover"
-                    class="flex items-center justify-center flex-col w-[260px] h-[160px] border border-dashed border-[#d9d9d9] rounded-md"
+                    class="flex-cc flex-col w-[260px] h-[160px] border border-dashed border-[#d9d9d9] rounded-md"
                   >
-                    <ElIcon class="text-[28px] text-[#8c939d]"><Plus /></ElIcon>
-                    <div class="mt-2 text-sm text-[#8c939d]">点击上传封面</div>
+                    <ElIcon class="!text-xl !text-g-600"><Plus /></ElIcon>
+                    <div class="mt-2 text-sm text-g-600">点击上传封面</div>
                   </div>
                   <img v-else :src="cover" class="block w-[260px] h-[160px] object-cover" />
                 </ElUpload>
-                <div class="mt-2 text-xs text-[#666]">建议尺寸 16:9，jpg/png 格式</div>
+                <div class="mt-2 text-xs text-g-700">建议尺寸 16:9，jpg/png 格式</div>
               </div>
             </ElFormItem>
             <ElFormItem label="可见">
@@ -69,7 +70,7 @@
 
     <!-- <div class="box-border w-[280px] p-5 border border-[#e3e3e3] rounded-lg">
         <div v-for="(item, index) in outlineList" :key="index">
-          <p :class="['h-[30px] text-[13px] leading-[30px] cursor-pointer', item.level === 3 && 'pl-2.5']">{{ item.text }}</p>
+          <p :class="['h-7.5 text-xs leading-7.5 c-p', item.level === 3 && 'pl-2.5']">{{ item.text }}</p>
         </div>
       </div> -->
   </div>

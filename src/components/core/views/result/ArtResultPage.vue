@@ -1,19 +1,15 @@
 <template>
-  <div
-    class="page-content box-border !px-[100px] !py-[15px] text-center max-md:!px-[25px]"
-    :class="type"
-  >
+  <div class="page-content box-border !px-20 py-3.5 text-center max-md:px-5" :class="type">
     <ArtSvgIcon
-      class="icon mt-[6vh] block !text-[80px] max-md:mt-[4vh] max-md:!text-[60px]"
+      class="icon mt-[6vh] block !text-8xl max-md:mt-[4vh] max-md:!text-6xl"
       :icon="iconCode"
     />
-    <h1
-      class="title mt-5 text-[30px] font-medium !text-[var(--art-text-gray-900)] max-md:mt-2.5 max-md:text-[25px]"
-      >{{ title }}</h1
-    >
-    <p class="msg mt-5 text-base text-[#808695]">{{ message }}</p>
+    <h1 class="title mt-5 text-3xl font-medium !text-g-900 max-md:mt-2.5 max-md:text-2xl">{{
+      title
+    }}</h1>
+    <p class="msg mt-5 text-base text-g-600">{{ message }}</p>
     <div
-      class="res mt-[30px] rounded-[5px] bg-[#f8f8f9] px-[30px] py-[22px] text-left max-md:px-[30px] max-md:py-2.5 [&_p]:flex [&_p]:items-center [&_p]:py-2 [&_p]:text-[15px] [&_p]:text-[#808695] [&_p_i]:mr-1.5"
+      class="res mt-7.5 rounded bg-g-100 px-7.5 py-[22px] text-left max-md:px-7.5 max-md:py-2.5 [&_p]:flex [&_p]:items-center [&_p]:py-2 [&_p]:text-sm [&_p]:text-[#808695] [&_p_i]:mr-1.5"
     >
       <slot name="content"></slot>
     </div>
