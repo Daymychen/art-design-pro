@@ -68,7 +68,7 @@
 
       img {
         width: 100%;
-        border: 1px solid var(--art-gray-200);
+        border: 1px solid var(--a-gray-100);
       }
 
       pre {

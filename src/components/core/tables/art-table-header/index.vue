@@ -79,7 +79,7 @@
                 :class="item.fixed ? 'cursor-default text-g-300' : 'cursor-move'"
               >
                 <ArtSvgIcon
-                  :icon="item.fixed ? 'ri:sip-line' : 'ri:drag-move-2-fill'"
+                  :icon="item.fixed ? 'ri:unpin-line' : 'ri:drag-move-2-fill'"
                   class="text-base"
                 />
               </div>

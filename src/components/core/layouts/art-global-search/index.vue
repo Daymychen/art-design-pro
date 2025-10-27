@@ -376,7 +376,7 @@
   }
 
   .layout-search .el-input :deep(.el-input__wrapper) {
-    background-color: rgba(var(--art-gray-200-rgb), 0.8);
+    background-color: var(--a-gray-100);
     border: 1px solid var(--art-border-dashed-color);
     border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
     box-shadow: none;
@@ -413,7 +413,7 @@
   }
 
   .dark .layout-search .dialog-footer > div i {
-    background-color: var(--art-gray-100);
+    background-color: var(--a-gray-50);
   }
 
   .dark .layout-search .search-keydown {

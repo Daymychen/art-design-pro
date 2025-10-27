@@ -34,7 +34,7 @@
 
 // 日期选择器
 .el-date-range-picker {
-  --el-datepicker-inrange-bg-color: rgba(var(--art-gray-200-rgb), 0.6) !important;
+  --el-datepicker-inrange-bg-color: var(--a-gray-100) !important;
 }
 
 // el-card 背景色跟系统背景色保持一致
@@ -184,12 +184,12 @@ html.dark .el-card {
 
     &:hover:not(.is-disabled) {
       color: var(--art-gray-900) !important;
-      background-color: var(--art-gray-200) !important;
+      background-color: var(--a-gray-100) !important;
     }
 
     &:focus:not(.is-disabled) {
       color: var(--art-gray-900) !important;
-      background-color: var(--art-gray-200) !important;
+      background-color: var(--a-gray-100) !important;
     }
   }
 }
@@ -343,7 +343,7 @@ html.dark .el-card {
   transition: all 0.3s !important;
 
   &:hover {
-    background-color: var(--art-gray-200) !important;
+    background-color: var(--a-gray-100) !important;
     color: var(--art-gray-800) !important;
   }
 }
@@ -450,12 +450,12 @@ html.dark .el-card {
       &.is-selected {
         color: var(--art-gray-900) !important;
         font-weight: 400 !important;
-        background-color: rgba(var(--art-gray-200-rgb), 0.8) !important;
+        background-color: var(--a-gray-100) !important;
         margin-bottom: 4px !important;
       }
 
       &:hover {
-        background-color: rgba(var(--art-gray-200-rgb), 0.8) !important;
+        background-color: var(--a-gray-100) !important;
       }
     }
 
@@ -477,7 +477,7 @@ html.dark .el-card {
         border-radius: 6px !important;
 
         &:hover {
-          background-color: var(--art-gray-200) !important;
+          background-color: var(--a-gray-100) !important;
         }
       }
     }
@@ -509,7 +509,7 @@ html.dark .el-card {
   padding: 1px 0;
 
   &:hover {
-    background-color: rgba(var(--art-gray-200-rgb), 0.6) !important;
+    background-color: var(--a-gray-100) !important;
   }
 }
 

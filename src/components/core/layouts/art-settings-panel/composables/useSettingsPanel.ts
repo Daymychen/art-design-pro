@@ -151,9 +151,7 @@ export function useSettingsPanel() {
 
       // 设置盒子模式
       const boxMode = settingStore.boxBorderMode ? 'border-mode' : 'shadow-mode'
-      setTimeout(() => {
-        domOperations.setRootAttribute('data-box-mode', boxMode)
-      }, 50)
+      domOperations.setRootAttribute('data-box-mode', boxMode)
 
       themeHandlers.initSystemTheme()
       openFestival()

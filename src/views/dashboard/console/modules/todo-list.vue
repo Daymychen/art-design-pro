@@ -9,7 +9,7 @@
 
     <div class="h-[calc(100%-40px)] overflow-auto">
       <div
-        class="flex-c justify-between h-17.5 border-b border-g-300 text-sm last:border-b-0"
+        class="flex-cb h-17.5 border-b border-g-300 text-sm last:border-b-0"
         v-for="(item, index) in list"
         :key="index"
       >

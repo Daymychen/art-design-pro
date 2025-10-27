@@ -160,6 +160,10 @@
     @apply flex items-center;
   }
 
+  .flex-b {
+    @apply flex justify-between;
+  }
+
   .flex-cc {
     @apply flex items-center justify-center;
   }

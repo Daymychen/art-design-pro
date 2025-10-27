@@ -121,7 +121,7 @@
   }
 
   .dark .color-dots {
-    background-color: var(--art-gray-200);
+    background-color: var(--a-gray-100);
     box-shadow: none;
   }
 </style>

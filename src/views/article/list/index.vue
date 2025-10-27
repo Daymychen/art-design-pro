@@ -47,7 +47,7 @@
           </div>
           <div class="px-2 py-1">
             <h2 class="text-base text-g-800 font-medium">{{ item.title }}</h2>
-            <div class="flex justify-between w-full h-6 mt-1">
+            <div class="flex-b w-full h-6 mt-1">
               <div class="flex-c text-g-500">
                 <ArtSvgIcon icon="ri:time-line" class="mr-1 text-sm" />
                 <span class="text-sm">{{ useDateFormat(item.create_time, 'YYYY-MM-DD') }}</span>

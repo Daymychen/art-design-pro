@@ -42,7 +42,7 @@
       justify-content: space-between;
       padding: 4px;
       margin-top: 20px;
-      background-color: var(--art-gray-200);
+      background-color: var(--a-gray-100);
       border-radius: 7px;
 
       .button {

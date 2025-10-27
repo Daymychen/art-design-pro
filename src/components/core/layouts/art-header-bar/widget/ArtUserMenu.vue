@@ -147,7 +147,7 @@
       }
 
       &:hover {
-        background-color: rgb(var(--art-gray-200-rgb), 0.7);
+        background-color: var(--a-gray-100);
       }
     }
   }

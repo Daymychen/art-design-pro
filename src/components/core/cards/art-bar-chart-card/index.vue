@@ -1,7 +1,7 @@
 <!-- 柱状图卡片 -->
 <template>
   <div class="art-card relative overflow-hidden" :style="{ height: `${height}rem` }">
-    <div class="mb-5 flex items-start justify-between px-5 pt-5">
+    <div class="mb-5 flex-b items-start px-5 pt-5">
       <div>
         <p class="m-0 text-2xl font-medium leading-tight text-g-900">
           {{ value }}

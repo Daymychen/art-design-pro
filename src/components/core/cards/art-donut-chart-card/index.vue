@@ -3,7 +3,7 @@
   <div class="art-card overflow-hidden" :style="{ height: `${height}rem` }">
     <div class="flex box-border h-full p-5 pr-2">
       <div class="flex w-full items-start gap-5">
-        <div class="flex h-full flex-1 flex-col justify-between">
+        <div class="flex-b h-full flex-1 flex-col">
           <p class="m-0 text-xl font-medium leading-tight text-g-900">
             {{ title }}
           </p>

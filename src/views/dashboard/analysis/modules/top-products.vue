@@ -1,5 +1,5 @@
 <template>
-  <div class="art-card h-82mb-5 overflow-hidden">
+  <div class="art-card h-82 p-5 mb-5 overflow-hidden">
     <div class="art-card-header">
       <div class="title">
         <h4>热门产品</h4>

@@ -5,7 +5,7 @@
     :class="[tabStyle === 'tab-card' || tabStyle === 'tab-google' ? 'mb-5 !bg-box' : '']"
   >
     <div
-      class="relative box-border flex justify-between h-15 leading-15 select-none"
+      class="relative box-border flex-b h-15 leading-15 select-none"
       :class="[tabStyle === 'tab-card' || tabStyle === 'tab-google' ? 'border-b border-g-300' : '']"
     >
       <div class="flex-c flex-1 min-w-0 leading-15" style="display: flex">

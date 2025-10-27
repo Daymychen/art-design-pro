@@ -59,7 +59,7 @@
                   textColor="var(--art-gray-800)"
                   :successText="$t('login.sliderSuccessText')"
                   :progressBarBg="getCssVar('--el-color-primary')"
-                  background="var(--art-gray-200)"
+                  background="var(--a-gray-100)"
                   handlerBg="var(--art-main-bg-color)"
                 />
               </div>

@@ -2,7 +2,7 @@
 <template>
   <div
     v-if="showWorkTab"
-    class="box-border flex justify-between w-full px-5 mb-3 select-none"
+    class="box-border flex-b w-full px-5 mb-3 select-none"
     :class="[
       tabStyle === 'tab-card' ? 'py-1 border-b border-g-300' : '',
       tabStyle === 'tab-google' ? 'pt-1 pb-0 border-b border-g-300' : ''
@@ -505,12 +505,12 @@
 
   .dark .google-tab.activ-tab {
     color: var(--art-gray-800) !important;
-    background-color: var(--art-gray-200) !important;
+    background-color: var(--a-gray-100) !important;
   }
 
   .dark .google-tab.activ-tab::before,
   .dark .google-tab.activ-tab::after {
-    box-shadow: 0 0 0 30px var(--art-gray-200);
+    box-shadow: 0 0 0 30px var(--a-gray-100);
   }
 
   .google-tab:hover {
@@ -522,7 +522,7 @@
   }
 
   .dark .google-tab:hover {
-    background-color: var(--art-gray-200) !important;
+    background-color: var(--a-gray-100) !important;
   }
 
   .google-tab:hover .line,

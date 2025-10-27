@@ -52,7 +52,7 @@
 .langDropDownStyle {
   // 选中项背景颜色
   .is-selected {
-    background-color: rgba(var(--art-gray-200-rgb), 0.8) !important;
+    background-color: var(--a-gray-100) !important;
   }
 
   // 语言切换按钮菜单样式优化
@@ -92,6 +92,12 @@
   border: 1px solid #{$border-color} !important;
   border-radius: calc(var(--custom-radius) + #{$radius-diff}) !important;
   box-shadow: #{$shadow} !important;
+}
+
+.art-card,
+.art-card-sm,
+.art-card-xs {
+  border: 1px solid var(--art-card-border);
 }
 
 // 盒子边框
