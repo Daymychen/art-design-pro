@@ -6,7 +6,7 @@
       <p class="text-sm text-g-500">{{ subtitle }}</p>
     </div>
     <ElScrollbar :style="{ height: maxHeight }">
-      <ElTimeline>
+      <ElTimeline class="!pl-0.5">
         <ElTimelineItem
           v-for="item in list"
           :key="item.time"
@@ -26,6 +26,7 @@
     </ElScrollbar>
   </div>
 </template>
+
 <script setup lang="ts">
   defineOptions({ name: 'ArtTimelineListCard' })
 

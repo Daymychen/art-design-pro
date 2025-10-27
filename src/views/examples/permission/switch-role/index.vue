@@ -20,17 +20,17 @@
         <div>
           <div>
             <div class="flex items-start mb-3 last:mb-0">
-              <span class="min-w-[80px] font-semibold">用户名：</span>
+              <span class="min-w-30 font-semibold">用户名：</span>
               <span>{{ currentUser.userName || '未登录' }}</span>
             </div>
             <div class="flex items-start mb-3 last:mb-0">
-              <span class="min-w-[80px] font-semibold">角色：</span>
+              <span class="min-w-30 font-semibold">角色：</span>
               <ElTag :type="getRoleTagType(currentUser.roles?.[0])">
                 {{ getRoleDisplayName(currentUser.roles?.[0]) }}
               </ElTag>
             </div>
             <div class="flex items-start mb-3 last:mb-0">
-              <span class="min-w-[80px] font-semibold">权限码：</span>
+              <span class="min-w-30 font-semibold">权限码：</span>
               <div class="flex flex-wrap gap-2">
                 <ElTag v-for="button in currentUser.buttons" :key="button" size="small" type="info">
                   {{ button }}
@@ -55,10 +55,9 @@
           <div
             v-for="account in accounts"
             :key="account.key"
-            class="p-5 border-[1.5px] border-[var(--el-border-color-light)] rounded-lg tad-300 hover:border-[var(--el-color-primary)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.1)]"
+            class="p-5 border border-g-400 rounded-lg tad-300"
             :class="{
-              'bg-[var(--el-color-success-light-9)] border-[var(--el-color-success)]':
-                currentUser.userName === account.userName
+              'bg-success !border-success': currentUser.userName === account.userName
             }"
           >
             <div class="mb-4">

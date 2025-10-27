@@ -1,16 +1,16 @@
 <!-- 授权页右上角组件 -->
 <template>
   <div
-    class="absolute right-5 top-5 z-10 flex-c gap-2.5 max-[680px]:[&_.color-picker-expandable]:hidden"
+    class="absolute right-5 top-5 z-10 flex-c gap-2.5 max-170:[&_.color-picker-expandable]:hidden"
   >
     <div class="color-picker-expandable relative flex-c">
       <div
-        class="color-dots-container absolute right-0 rounded-full flex-c gap-2 rounded-5 px-2.5 py-2 pr-9 pl-2.5 opacity-0 shadow-[0_2px_12px_var(--art-gray-300)] backdrop-blur-[10px] [pointer-events:none] [transform:translateX(10px)]"
+        class="color-dots absolute right-0 rounded-full flex-c gap-2 rounded-5 px-2.5 py-2 pr-9 pl-2.5 opacity-0 shadow-[0_2px_12px_var(--art-gray-300)] backdrop-blur-[10px] [pointer-events:none] [transform:translateX(10px)]"
       >
         <div
           v-for="(color, index) in mainColors"
           :key="color"
-          class="color-dot relative size-5 c-p flex-center rounded-full opacity-0 shadow-[0_2px_4px_rgba(0,0,0,0.15)] [transform:translateX(20px)_scale(0.8)] hover:scale-110 hover:translate-x-0 hover:shadow-[0_4px_8px_rgba(0,0,0,0.2)]"
+          class="color-dot relative size-5 c-p flex-cc rounded-full opacity-0 shadow-[0_2px_4px_rgba(0,0,0,0.15)] [transform:translateX(20px)_scale(0.8)] hover:scale-110 hover:translate-x-0 hover:shadow-[0_4px_8px_rgba(0,0,0,0.2)]"
           :class="{ active: color === systemThemeColor }"
           :style="{ background: color, '--index': index }"
           @click="changeThemeColor(color)"
@@ -22,7 +22,7 @@
           />
         </div>
       </div>
-      <div class="color-trigger-btn btn relative z-[2] h-8 w-8 c-p flex-center tad-300">
+      <div class="color-trigger-btn btn relative z-[2] h-8 w-8 c-p flex-cc tad-300">
         <ArtSvgIcon
           icon="ri:palette-line"
           class="!text-lg text-g-800 transition-colors duration-300"
@@ -34,7 +34,7 @@
       @command="changeLanguage"
       popper-class="langDropDownStyle"
     >
-      <div class="btn language-btn h-8 w-8 c-p flex-center tad-300">
+      <div class="btn language-btn h-8 w-8 c-p flex-cc tad-300">
         <ArtSvgIcon
           icon="ri:global-line"
           class="icon-language text-lg text-g-800 transition-colors duration-300"
@@ -53,7 +53,7 @@
     </ElDropdown>
     <div
       v-if="shouldShowThemeToggle"
-      class="btn theme-btn h-8 w-8 c-p flex-center tad-300"
+      class="btn theme-btn h-8 w-8 c-p flex-cc tad-300"
       @click="themeAnimation"
     >
       <ArtSvgIcon
@@ -98,7 +98,7 @@
 </script>
 
 <style scoped>
-  .color-dots-container {
+  .color-dots {
     transition:
       opacity 0.3s ease,
       transform 0.3s ease;
@@ -109,7 +109,7 @@
     transition-delay: calc(var(--index) * 0.05s);
   }
 
-  .color-picker-expandable:hover .color-dots-container {
+  .color-picker-expandable:hover .color-dots {
     pointer-events: auto;
     opacity: 1;
     transform: translateX(0);
@@ -120,7 +120,7 @@
     transform: translateX(0) scale(1);
   }
 
-  .dark .color-dots-container {
+  .dark .color-dots {
     background-color: var(--art-gray-200);
     box-shadow: none;
   }

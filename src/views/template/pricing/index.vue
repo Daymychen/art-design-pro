@@ -5,7 +5,7 @@
       <h2 class="mb-2.5 text-2xl font-normal text-g-600 max-phone:text-2xl">
         以及众多科技巨头的选择
       </h2>
-      <div class="gap-2 flex-center mt-2.5 max-phone:mt-3.5">
+      <div class="gap-2 flex-cc mt-2.5 max-phone:mt-3.5">
         <p class="text-sm italic text-g-600 max-phone:text-sm">
           本项目基于 MIT 协议开源免费，当前页面为定价模板，仅作演示用途
         </p>
@@ -16,14 +16,7 @@
     <div class="mt-20 max-notebook:mt-0">
       <ElRow :gutter="20" justify="center">
         <ElCol v-for="plan in pricingPlans" :key="plan.type" :xs="24" :sm="12" :md="6" class="mb-5">
-          <ElCard
-            class="flex flex-col h-full rounded-xl"
-            :class="{
-              'relative border-2 border-[var(--el-color-primary)] after:content-[\'热门\'] after:absolute after:top-2.5 after:right-2.5 after:px-2 after:py-0.5 after:text-xs after:text-primary after:bg-[var(--el-color-primary-light-9)] after:rounded-xl':
-                plan.isPopular
-            }"
-            shadow="never"
-          >
+          <ElCard class="flex flex-col h-full rounded-xl" shadow="never">
             <div class="mb-5">
               <h3 class="mb-2.5 text-xl font-medium">{{ plan.title }}</h3>
               <p
@@ -80,7 +73,6 @@
     title: string
     description: string
     price: number
-    isPopular: boolean
     features: Feature[]
   }
 
@@ -90,7 +82,6 @@
       title: '单次使用版',
       description: '适用于单个最终产品，最终用户无需付费。',
       price: 349,
-      isPopular: false,
       features: [
         { text: '完整源代码', available: true },
         { text: '技术文档', available: true },
@@ -105,7 +96,6 @@
       title: '多次使用版',
       description: '适用于无限个最终产品，最终用户无需付费。',
       price: 629,
-      isPopular: false,
       features: [
         { text: '完整源代码', available: true },
         { text: '技术文档', available: true },
@@ -120,7 +110,6 @@
       title: '扩展授权版',
       description: '适用于单个最终产品，最终用户需要付费。',
       price: 2099,
-      isPopular: false,
       features: [
         { text: '完整源代码', available: true },
         { text: '技术文档', available: true },
@@ -135,7 +124,6 @@
       title: '无限授权版',
       description: '适用于无限个最终产品，最终用户需要付费。',
       price: 3499,
-      isPopular: false,
       features: [
         { text: '完整源代码', available: true },
         { text: '技术文档', available: true },

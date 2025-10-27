@@ -15,12 +15,12 @@
     <div class="mb-6">
       <ElCard shadow="never">
         <template #header>
-          <div class="flex gap-2 items-center font-semibold">
+          <div class="flex-c gap-2 font-semibold">
             <span>权限验证成功</span>
           </div>
         </template>
         <div>
-          <div class="flex gap-5 items-center">
+          <div class="flex-c gap-5">
             <div>
               <h3 class="m-0 mb-2 text-lg font-semibold">您拥有访问此页面的权限</h3>
               <p class="my-1 text-sm text-g-700">
@@ -51,13 +51,13 @@
                 <h4 class="m-0 mb-2 text-base font-semibold">基于角色的权限控制</h4>
                 <p class="m-0 mb-2 leading-[1.6] text-g-700">
                   在前端控制模式下，页面访问权限由路由配置文件中的
-                  <code class="px-[6px] py-[2px] font-mono text-xs text-primary bg-primary rounded"
+                  <code class="px-1.5 py-0.5 font-mono text-xs text-primary bg-primary rounded"
                     >meta.roles</code
                   >
                   字段定义，前端会根据用户接口所拥有的角色对路由和菜单进行过滤与控制
                 </p>
                 <pre
-                  class="p-4 mt-3 mb-0 overflow-x-auto font-mono text-xs leading-[1.5] bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded-md"
+                  class="p-4 mt-3 mb-0 overflow-x-auto font-mono text-xs leading-[1.5] bg-g-200 border-full-d rounded-md"
                 ><code class="">{
   path: 'page-visibility',
   name: 'PermissionPageVisibility',
@@ -75,13 +75,11 @@
                   >
                   <li class="my-1 leading-[1.5] text-g-700">
                     在
-                    <code
-                      class="px-[6px] py-[2px] font-mono text-xs text-primary bg-primary rounded"
+                    <code class="px-1.5 py-0.5 font-mono text-xs text-primary bg-primary rounded"
                       >beforeEach</code
                     >
                     路由守卫中检查目标路由的
-                    <code
-                      class="px-[6px] py-[2px] font-mono text-xs text-primary bg-primary rounded"
+                    <code class="px-1.5 py-0.5 font-mono text-xs text-primary bg-primary rounded"
                       >roles</code
                     >
                     配置
@@ -104,7 +102,7 @@
                   >接口地址：src/api/menuApi.ts getMenuList</p
                 >
                 <pre
-                  class="p-4 mt-3 mb-0 overflow-x-auto font-mono text-xs leading-[1.5] bg-[var(--el-fill-color-light)] border border-[var(--el-border-color-lighter)] rounded-md"
+                  class="p-4 mt-3 mb-0 overflow-x-auto font-mono text-xs leading-[1.5] bg-g-200 border-full-d rounded-md"
                 ><code class="">
 {
   "code": 200,

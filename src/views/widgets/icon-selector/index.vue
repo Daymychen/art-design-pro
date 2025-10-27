@@ -30,7 +30,7 @@
   /**
    * Unicode 类型图标值
    */
-  const icon1 = ref('&#xe6b5;')
+  const icon1 = ref('')
 
   /**
    * ClassName 类型图标值

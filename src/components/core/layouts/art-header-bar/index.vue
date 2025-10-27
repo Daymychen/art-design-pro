@@ -2,19 +2,17 @@
 <template>
   <div
     class="w-full bg-[var(--art-bg-color)]"
-    :class="[tabStyle === 'tab-card' || tabStyle === 'tab-google' ? 'mb-5 !art-card-bg' : '']"
+    :class="[tabStyle === 'tab-card' || tabStyle === 'tab-google' ? 'mb-5 !bg-box' : '']"
   >
     <div
-      class="relative box-border flex justify-between h-[60px] leading-[60px] select-none"
+      class="relative box-border flex justify-between h-15 leading-15 select-none"
       :class="[tabStyle === 'tab-card' || tabStyle === 'tab-google' ? 'border-b border-g-300' : '']"
     >
-      <div class="flex flex-1 items-center min-w-0 leading-[60px]" style="display: flex">
+      <div class="flex-c flex-1 min-w-0 leading-15" style="display: flex">
         <!-- 系统信息  -->
         <div class="flex-c c-p" @click="toHome" v-if="isTopMenu">
-          <ArtLogo class="pl-[18px]" />
-          <p v-if="width >= 1400" class="my-0 mx-2 ml-[9px] text-lg">{{
-            AppConfig.systemInfo.name
-          }}</p>
+          <ArtLogo class="pl-4.5" />
+          <p v-if="width >= 1400" class="my-0 mx-2 ml-2 text-lg">{{ AppConfig.systemInfo.name }}</p>
         </div>
 
         <ArtLogo
@@ -60,19 +58,17 @@
         <!-- 搜索 -->
         <div
           v-if="shouldShowGlobalSearch"
-          class="flex-between w-[160px] h-9 px-2.5 c-p border border-g-400 rounded-custom-sm max-md:hidden"
+          class="flex-cb w-40 h-9 px-2.5 c-p border border-g-400 rounded-custom-sm max-md:hidden"
           @click="openSearchDialog"
         >
           <div class="flex-c">
             <ArtSvgIcon icon="ri:search-line" class="text-xs text-g-500" />
             <span class="ml-2 text-xs font-normal text-g-500">{{ $t('topBar.search.title') }}</span>
           </div>
-          <div
-            class="flex-c h-5 px-1.5 text-g-500/80 bg-[var(--art-bg-color)] border border-g-400 rounded"
-          >
+          <div class="flex-c h-5 px-1.5 text-g-500/80 border border-g-400 rounded">
             <ArtSvgIcon v-if="isWindows" icon="vaadin:ctrl-a" class="text-sm" />
             <ArtSvgIcon v-else icon="ri:command-fill" class="text-xs" />
-            <span class="ml-[2px] text-xs">k</span>
+            <span class="ml-0.5 text-xs">k</span>
           </div>
         </div>
 
@@ -92,7 +88,7 @@
           class="notice-button relative"
           @click="visibleNotice"
         >
-          <div class="absolute top-[8px] right-2 size-1.5 !bg-danger rounded-full"></div>
+          <div class="absolute top-2 right-2 size-1.5 !bg-danger rounded-full"></div>
         </ArtIconButton>
 
         <!-- 聊天按钮 -->
@@ -131,7 +127,7 @@
         <div v-if="shouldShowSettings">
           <ElPopover :visible="showSettingGuide" placement="bottom-start" :width="190" :offset="0">
             <template #reference>
-              <div class="flex-center">
+              <div class="flex-cc">
                 <ArtIconButton icon="ri:settings-line" class="setting-btn" @click="openSetting" />
               </div>
             </template>

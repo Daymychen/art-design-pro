@@ -1,7 +1,7 @@
 <template>
   <ElRow :gutter="20" class="flex">
     <ElCol v-for="(item, index) in dataList" :key="index" :sm="12" :md="6" :lg="6">
-      <div class="art-card relative flex flex-col justify-center h-[140px] px-[18px] mb-5">
+      <div class="art-card relative flex flex-col justify-center h-35 px-5 mb-5">
         <span class="text-g-700 text-sm">{{ item.des }}</span>
         <ArtCountTo class="text-3xl" :target="item.num" :duration="1300" />
         <div class="flex-c">
@@ -14,7 +14,7 @@
           </span>
         </div>
         <div
-          class="absolute top-0 bottom-0 right-5 m-auto size-[50px] rounded-xl flex-center bg-primary/10"
+          class="absolute top-0 bottom-0 right-5 m-auto size-12.5 rounded-xl flex-cc bg-primary/10"
         >
           <ArtSvgIcon :icon="item.icon" class="text-xl text-primary" />
         </div>

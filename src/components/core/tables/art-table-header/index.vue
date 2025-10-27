@@ -1,6 +1,6 @@
 <!-- 表格头部，包含表格大小、刷新、全屏、列设置、其他设置 -->
 <template>
-  <div class="flex-between" id="art-table-header">
+  <div class="flex-cb" id="art-table-header">
     <div class="flex-wrap">
       <slot name="left"></slot>
     </div>
@@ -8,19 +8,15 @@
     <div class="flex-c md:justify-end">
       <div
         v-if="showSearchBar != null"
-        class="ml-2 h-8 w-8 c-p flex-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-g-700 tad-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
+        class="button"
         @click="search"
-        :class="
-          showSearchBar
-            ? 'active !bg-[var(--el-color-primary)] hover:!bg-[var(--el-color-primary-light-3)]'
-            : ''
-        "
+        :class="showSearchBar ? 'active !bg-primary hover:!bg-primary/80' : ''"
       >
         <ArtSvgIcon icon="ri:search-line" :class="showSearchBar ? 'text-white' : 'text-g-700'" />
       </div>
       <div
         v-if="shouldShow('refresh')"
-        class="ml-2 h-8 w-8 c-p flex-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-g-700 tad-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
+        class="button"
         @click="refresh"
         :class="{ loading: loading && isManualRefresh }"
       >
@@ -31,9 +27,7 @@
       </div>
 
       <ElDropdown v-if="shouldShow('size')" @command="handleTableSizeChange">
-        <div
-          class="ml-2 h-8 w-8 c-p flex-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-g-700 tad-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
-        >
+        <div class="button">
           <ArtSvgIcon icon="ri:arrow-up-down-fill" />
         </div>
         <template #dropdown>
@@ -46,7 +40,7 @@
               <ElDropdownItem
                 :key="item.value"
                 :command="item.value"
-                :class="tableSize === item.value ? '!bg-[rgba(var(--art-gray-200-rgb),0.8)]' : ''"
+                :class="tableSize === item.value ? '!bg-g-300/55' : ''"
               >
                 {{ item.label }}
               </ElDropdownItem>
@@ -55,20 +49,14 @@
         </template>
       </ElDropdown>
 
-      <div
-        v-if="shouldShow('fullscreen')"
-        class="ml-2 h-8 w-8 c-p flex-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-g-700 tad-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
-        @click="toggleFullScreen"
-      >
+      <div v-if="shouldShow('fullscreen')" class="button" @click="toggleFullScreen">
         <ArtSvgIcon :icon="isFullScreen ? 'ri:fullscreen-exit-line' : 'ri:fullscreen-line'" />
       </div>
 
       <!-- 列设置 -->
       <ElPopover v-if="shouldShow('columns')" placement="bottom" trigger="click">
         <template #reference>
-          <div
-            class="ml-2 h-8 w-8 c-p flex-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-g-700 tad-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
-          >
+          <div class="button">
             <ArtSvgIcon icon="ri:align-right" />
           </div>
         </template>
@@ -87,7 +75,7 @@
               :class="{ 'fixed-column': item.fixed }"
             >
               <div
-                class="drag-icon mr-2 h-[18px] flex-center text-g-500"
+                class="drag-icon mr-2 h-4.5 flex-cc text-g-500"
                 :class="item.fixed ? 'cursor-default text-g-300' : 'cursor-move'"
               >
                 <ArtSvgIcon
@@ -110,9 +98,7 @@
       <!-- 其他设置 -->
       <ElPopover v-if="shouldShow('settings')" placement="bottom" trigger="click">
         <template #reference>
-          <div
-            class="ml-2 size-8 c-p flex-center rounded-md bg-[rgba(var(--art-gray-200-rgb),0.8)] text-g-700 tad-300 hover:bg-[rgba(var(--art-gray-300-rgb),0.75)] md:ml-0 md:mr-2.5"
-          >
+          <div class="button">
             <ArtSvgIcon icon="ri:settings-line" />
           </div>
         </template>
@@ -306,3 +292,22 @@
     }
   })
 </script>
+
+<style>
+  @reference '@styles/main.css';
+
+  .button {
+    @apply ml-2 
+    size-8 
+    flex 
+    items-center 
+    justify-center 
+    cursor-pointer 
+    rounded-md 
+    bg-g-300/55 
+    text-g-700  
+    hover:bg-g-300 
+    md:ml-0 
+    md:mr-2.5;
+  }
+</style>

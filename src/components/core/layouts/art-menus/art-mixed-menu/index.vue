@@ -2,11 +2,7 @@
 <template>
   <div class="relative box-border flex-c w-full overflow-hidden">
     <!-- 左侧滚动按钮 -->
-    <div
-      v-show="showLeftArrow"
-      class="scroll-btn-left absolute top-1/2 left-[3px] z-[2] flex-center w-7.5 h-7.5 text-g-600 c-p rounded tad-200 ease-in-out -translate-y-1/2 hover:text-g-900 hover:bg-[rgba(var(--art-gray-200-rgb),0.8)]"
-      @click="scroll('left')"
-    >
+    <div v-show="showLeftArrow" class="button-arrow" @click="scroll('left')">
       <ElIcon>
         <ArrowLeft />
       </ElIcon>
@@ -20,15 +16,13 @@
       @scroll="handleScroll"
       @wheel="handleWheel"
     >
-      <div
-        class="box-border flex flex-shrink-0 flex-nowrap items-center h-[60px] whitespace-nowrap"
-      >
+      <div class="box-border flex-c flex-shrink-0 flex-nowrap h-15 whitespace-nowrap">
         <template v-for="item in processedMenuList" :key="item.meta.title">
           <div
             v-if="!item.meta.isHide"
             class="menu-item relative flex-shrink-0 h-10 px-3 text-sm flex-c c-p hover:text-primary"
             :class="{
-              'menu-item-active text-primary bg-[var(--main-bg-color)]': item.isActive
+              'menu-item-active text-primary': item.isActive
             }"
             @click="handleMenuJump(item, true)"
           >
@@ -41,11 +35,7 @@
     </ElScrollbar>
 
     <!-- 右侧滚动按钮 -->
-    <div
-      v-show="showRightArrow"
-      class="scroll-btn-right absolute top-1/2 right-2 z-[2] flex-center size-7.5 text-g-600 c-p rounded tad-200 ease-in-out -translate-y-1/2 hover:text-g-900 hover:bg-[rgba(var(--art-gray-200-rgb),0.8)]"
-      @click="scroll('right')"
-    >
+    <div v-show="showRightArrow" class="button-arrow right-2" @click="scroll('right')">
       <ElIcon>
         <ArrowRight />
       </ElIcon>
@@ -225,8 +215,29 @@
   onMounted(initScrollState)
 </script>
 
+<style>
+  @reference '@styles/main.css';
+
+  .button-arrow {
+    @apply absolute 
+    top-1/2
+    z-2 
+    flex
+    items-center
+    justify-center
+    size-7.5
+    text-g-600 
+    cursor-pointer
+    rounded 
+    transition-all
+    duration-300
+    -translate-y-1/2 
+    hover:text-g-900 
+    hover:bg-g-200;
+  }
+</style>
+
 <style scoped>
-  /* Deep selectors for ElScrollbar */
   :deep(.el-scrollbar__bar.is-horizontal) {
     bottom: 5px;
     display: none;
@@ -239,7 +250,6 @@
     margin: 0 50px 0 30px;
   }
 
-  /* Active menu item indicator */
   .menu-item-active::after {
     position: absolute;
     right: 0;
@@ -252,7 +262,6 @@
     background-color: var(--main-color);
   }
 
-  /* Responsive adjustments */
   @media (width <= 1440px) {
     :deep(.scrollbar-wrapper) {
       margin: 0 45px;

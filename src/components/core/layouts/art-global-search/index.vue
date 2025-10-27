@@ -20,26 +20,22 @@
       >
         <template #suffix>
           <div
-            class="search-keydown h-4.5 flex-center rounded border-b bg-[var(--art-bg-color)] px-1.5 text-g-400"
+            class="search-keydown h-4.5 flex-cc rounded border border-g-400 !bg-box px-1.5 text-g-500"
           >
             <ArtSvgIcon icon="fluent:arrow-enter-left-20-filled" />
           </div>
         </template>
       </ElInput>
       <ElScrollbar class="mt-5" max-height="370px" ref="searchResultScrollbar" always>
-        <div class="result w-full bg-[var(--rt-main-bg-color)]" v-show="searchResult.length">
+        <div class="result w-full" v-show="searchResult.length">
           <div
-            class="box !mt-0 c-p text-base font-medium leading-none"
+            class="box !mt-0 c-p text-base leading-none"
             v-for="(item, index) in searchResult"
             :key="index"
           >
             <div
-              class="mt-2 h-12 flex-between rounded-custom-sm bg-g-200/80 px-4 text-sm text-g-700"
-              :class="
-                isHighlighted(index)
-                  ? 'highlighted !bg-[var(--el-color-primary-light-3)] !text-white'
-                  : ''
-              "
+              class="mt-2 h-12 flex-cb rounded-custom-sm bg-g-200/80 px-4 text-sm text-g-700"
+              :class="isHighlighted(index) ? 'highlighted !bg-primary/70 !text-white' : ''"
               @click="searchGoPage(item)"
               @mouseenter="highlightOnHover(index)"
             >
@@ -51,14 +47,14 @@
 
         <div v-show="!searchVal && searchResult.length === 0 && historyResult.length > 0">
           <p class="text-xs text-g-500">{{ $t('search.historyTitle') }}</p>
-          <div class="mt-1.5 w-full bg-[var(--rt-main-bg-color)]">
+          <div class="mt-1.5 w-full">
             <div
-              class="box mt-2 h-12 c-p flex-between rounded-custom-sm bg-g-200/80 px-4 text-sm text-g-800"
+              class="box mt-2 h-12 c-p flex-cb rounded-custom-sm bg-g-200/80 px-4 text-sm text-g-800"
               v-for="(item, index) in historyResult"
               :key="index"
               :class="
                 historyHIndex === index
-                  ? 'highlighted !bg-[var(--el-color-primary-light-3)] !text-white [&_.selected-icon]:!text-white'
+                  ? 'highlighted !bg-primary/70 !text-white [&_.selected-icon]:!text-white'
                   : ''
               "
               @click="searchGoPage(item)"
@@ -66,7 +62,7 @@
             >
               {{ formatMenuTitle(item.meta.title) }}
               <div
-                class="size-5 selected-icon select-none rounded-full text-g-400 flex-center c-p"
+                class="size-5 selected-icon select-none rounded-full text-g-400 flex-cc c-p"
                 @click.stop="deleteHistory(index)"
               >
                 <ArtSvgIcon icon="ri:close-large-fill" class="text-xs" />
@@ -78,7 +74,7 @@
 
       <template #footer>
         <div class="dialog-footer box-border flex-c border-t border-g-100 py-4">
-          <div class="flex-center">
+          <div class="flex-cc">
             <ArtSvgIcon icon="fluent:arrow-enter-left-20-filled" class="keyboard" />
             <span class="mr-3.5 text-xs text-g-700">{{ $t('search.selectKeydown') }}</span>
           </div>
@@ -88,7 +84,7 @@
             <span class="mr-3.5 text-xs text-g-700">{{ $t('search.switchKeydown') }}</span>
           </div>
           <div class="flex-c">
-            <i class="keyboard !w-8 flex-center"><p class="text-[10px] font-medium">ESC</p></i>
+            <i class="keyboard !w-8 flex-cc"><p class="text-[10px] font-medium">ESC</p></i>
             <span class="mr-3.5 text-xs text-g-700">{{ $t('search.exitKeydown') }}</span>
           </div>
         </div>
@@ -365,26 +361,7 @@
   }
 </script>
 
-<style scoped>
-  @reference '@styles/main.css';
-
-  .keyboard {
-    @apply left-[117px] 
-    top-1.5 
-    mr-2 
-    box-border
-    h-5 
-    w-[22px] 
-    rounded-[3px] 
-    border 
-    text-g-900
-    border-g-400 
-    px-1 
-    !text-g-500
-    shadow-[0_2px_0_var(--art-border-dashed-color)] 
-    last-of-type:mr-1.5;
-  }
-
+<style lang="scss" scoped>
   .layout-search :deep(.search-modal) {
     background-color: rgb(0 0 0 / 20%);
   }
@@ -442,5 +419,24 @@
   .dark .layout-search .search-keydown {
     background-color: #252526;
     border: 1px solid #4c4d50;
+  }
+</style>
+
+<style scoped>
+  @reference '@styles/main.css';
+
+  .keyboard {
+    @apply mr-2 
+    box-border
+    h-5 
+    w-5.5
+    rounded
+    border 
+    text-g-900
+    border-g-400 
+    px-1 
+    !text-g-500
+    shadow-[0_2px_0_var(--art-border-dashed-color)] 
+    last-of-type:mr-1.5;
   }
 </style>

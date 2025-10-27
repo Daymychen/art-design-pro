@@ -29,35 +29,35 @@
       status: '待处理',
       time: '5分钟',
       class: 'bg-primary',
-      icon: '&#xe6f2;'
+      icon: 'ri:shopping-bag-4-line'
     },
     {
       title: '退款申请 #12845',
       status: '处理中',
       time: '10分钟',
       class: 'bg-secondary',
-      icon: '&#xe806;'
+      icon: 'ri:profile-line'
     },
     {
       title: '客户投诉处理',
       status: '待处理',
       time: '15分钟',
       class: 'bg-warning',
-      icon: '&#xe6fb;'
+      icon: 'ri:customer-service-2-line'
     },
     {
       title: '库存不足提醒',
       status: '紧急',
       time: '20分钟',
       class: 'bg-danger',
-      icon: '&#xe813;'
+      icon: 'ri:box-1-line'
     },
     {
       title: '订单 #29384 已发货',
       status: '已完成',
       time: '20分钟',
       class: 'bg-success',
-      icon: '&#xe70c;'
+      icon: 'ri:shopping-bag-3-line'
     }
   ]
 

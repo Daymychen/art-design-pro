@@ -1,12 +1,12 @@
 <template>
-  <div class="art-card h-[330px] p-5 mb-5 overflow-hidden max-lg:h-auto">
+  <div class="art-card h-82 p-5 mb-5 overflow-hidden max-lg:h-auto">
     <div class="art-card-header pr-0">
       <div class="title">
         <h4>今日销售</h4>
         <p>销售总结</p>
       </div>
-      <div class="flex-center h-7.5 min-w-[66px] border border-g-300 rounded-[6px] text-g-500 c-p">
-        <ArtSvgIcon icon="ri:arrow-up-line" class="text-base mr-[6px]" />
+      <div class="flex-cc h-7.5 min-w-17 border border-g-300 rounded-lg text-g-500 c-p">
+        <ArtSvgIcon icon="ri:arrow-up-line" class="text-base mr-1.5" />
         <span class="text-xs">导出</span>
       </div>
     </div>
@@ -15,9 +15,9 @@
       <ElRow :gutter="20">
         <ElCol :span="6" :xs="24" v-for="(item, index) in salesData" :key="index">
           <div
-            class="flex px-5 flex-col justify-center h-[220px] border border-g-300 rounded-xl max-lg:mb-4"
+            class="flex px-5 flex-col justify-center h-55 border border-g-300 rounded-xl max-lg:mb-4"
           >
-            <div class="size-12 rounded-lg flex-center bg-primary/10">
+            <div class="size-12 rounded-lg flex-cc bg-primary/10">
               <ArtSvgIcon :icon="item.icon" class="text-xl text-primary" />
             </div>
 

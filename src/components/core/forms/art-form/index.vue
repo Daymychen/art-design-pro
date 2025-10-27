@@ -67,7 +67,7 @@
         </ElCol>
         <ElCol :xs="24" :sm="24" :md="span" :lg="span" :xl="span" class="max-w-full flex-1">
           <div
-            class="mb-3 flex flex-wrap items-center justify-end md:flex-row md:items-stretch md:gap-2"
+            class="mb-3 flex-c flex-wrap justify-end md:flex-row md:items-stretch md:gap-2"
             :style="actionButtonsStyle"
           >
             <div class="flex gap-2 md:justify-center">

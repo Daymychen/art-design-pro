@@ -1,11 +1,11 @@
 <!-- 面包屑导航 -->
 <template>
   <nav class="ml-2.5 max-lg:hidden" aria-label="breadcrumb">
-    <ul class="flex h-full items-center">
+    <ul class="flex-c h-full">
       <li
         v-for="(item, index) in breadcrumbItems"
         :key="item.path"
-        class="box-border flex h-7 items-center text-sm leading-7"
+        class="box-border flex-c h-7 text-sm leading-7"
       >
         <div
           :class="

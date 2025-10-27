@@ -1,7 +1,7 @@
 <!-- 图片卡片 -->
 <template>
   <div class="w-full c-p" @click="handleClick">
-    <ElCard :body-style="{ padding: '0px' }" shadow="hover" class="art-card">
+    <div class="art-card overflow-hidden">
       <div class="relative w-full aspect-[16/10] overflow-hidden">
         <ElImage
           :src="props.imageUrl"
@@ -10,7 +10,7 @@
           class="w-full h-full transition-transform duration-300 ease-in-out hover:scale-105"
         >
           <template #placeholder>
-            <div class="flex-center w-full h-full bg-[#f5f7fa]">
+            <div class="flex-cc w-full h-full bg-[#f5f7fa]">
               <ElIcon><Picture /></ElIcon>
             </div>
           </template>
@@ -25,25 +25,25 @@
 
       <div class="p-4">
         <div
-          class="inline-block py-[2px] px-2 mb-2 text-xs bg-g-300/70 rounded"
+          class="inline-block py-0.5 px-2 mb-2 text-xs bg-g-300/70 rounded"
           v-if="props.category"
         >
           {{ props.category }}
         </div>
-        <p class="m-0 mb-3 text-base font-medium leading-[1.4]">{{ props.title }}</p>
-        <div class="flex gap-4 items-center text-xs text-g-600">
-          <span class="flex gap-1 items-center" v-if="props.views">
+        <p class="m-0 mb-3 text-base font-medium">{{ props.title }}</p>
+        <div class="flex-c gap-4 text-xs text-g-600">
+          <span class="flex-c gap-1" v-if="props.views">
             <ElIcon class="text-base"><View /></ElIcon>
             {{ props.views }}
           </span>
-          <span class="flex gap-1 items-center" v-if="props.comments">
+          <span class="flex-c gap-1" v-if="props.comments">
             <ElIcon class="text-base"><ChatLineRound /></ElIcon>
             {{ props.comments }}
           </span>
           <span>{{ props.date }}</span>
         </div>
       </div>
-    </ElCard>
+    </div>
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="page-content">
-    <div class="max-w-[600px]">
+    <div class="max-w-150">
       <ArtVideoPlayer
         playerId="my-video-1"
         :videoUrl="videoUrl"

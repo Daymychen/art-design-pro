@@ -1,6 +1,6 @@
 <template>
   <div class="page-content">
-    <div class="mb-[60px] text-center">
+    <div class="mb-15 text-center">
       <h1 class="my-4 text-2xl font-semibold leading-tight"
         >基于 VueUse useTransition 的 Count-To 组件</h1
       >
@@ -10,7 +10,7 @@
     </div>
 
     <!-- 基础用法 -->
-    <div class="mb-[60px]">
+    <div class="mb-15">
       <h2 class="m-0 mb-6 text-xl font-medium">基础用法</h2>
       <div class="count">
         <ArtCountTo :target="1000" :duration="2000" />
@@ -18,7 +18,7 @@
     </div>
 
     <!-- 带前缀后缀 -->
-    <div class="mb-[60px]">
+    <div class="mb-15">
       <h2 class="m-0 mb-6 text-xl font-medium">带前缀后缀</h2>
       <div class="count">
         <ArtCountTo :target="20000" :duration="2500" prefix="¥" suffix="元" :decimals="2" />
@@ -26,7 +26,7 @@
     </div>
 
     <!-- 小数点和分隔符 -->
-    <div class="mb-[60px]">
+    <div class="mb-15">
       <h2 class="m-0 mb-6 text-xl font-medium">小数点和分隔符</h2>
       <div class="count">
         <ArtCountTo :target="2023.45" :duration="3000" :decimals="2" separator="," />
@@ -34,7 +34,7 @@
     </div>
 
     <!-- 动画效果对比 -->
-    <div class="mb-[60px]">
+    <div class="mb-15">
       <h2 class="m-0 mb-6 text-xl font-medium">动画效果对比</h2>
       <div class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-6 mb-8">
         <div class="text-center" v-for="easing in easingTypes" :key="easing.type">
@@ -50,7 +50,7 @@
     </div>
 
     <!-- 控制按钮 -->
-    <div class="mb-[60px]">
+    <div class="mb-15">
       <h2 class="m-0 mb-6 text-xl font-medium">控制按钮</h2>
       <div class="count">
         <ArtCountTo

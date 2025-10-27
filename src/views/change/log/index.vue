@@ -12,7 +12,7 @@
         class="border border-g-300 rounded-lg p-6 hover:shadow-md transition-shadow max-md:p-4"
       >
         <!-- 版本和日期 -->
-        <div class="flex-between gap-3 mb-4 flex-wrap">
+        <div class="flex-cb gap-3 mb-4 flex-wrap">
           <span class="px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full">
             {{ item.version }}
           </span>

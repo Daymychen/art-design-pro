@@ -53,6 +53,9 @@
 
   /* 边框颜色 */
   --default-border: #e2e8ee;
+
+  /* 盒子颜色 */
+  --default-box-color: #ffffff;
 }
 
 .dark {
@@ -79,6 +82,8 @@
   --b-gray-900: #e3e3e8;
 
   --default-border: rgba(255, 255, 255, 0.1);
+
+  --default-box-color: #161618;
 }
 
 /* 主题类 */
@@ -106,18 +111,21 @@
   --color-g-800: var(--b-gray-800);
   --color-g-900: var(--b-gray-900);
   /* --color-g-950: var(--a-gray-950); */
+
+  /* 盒子颜色（light 白色/ dark 黑色） */
+  --color-box: var(--default-box-color);
 }
 
 /* 添加组件类 */
 @layer components {
-  .art-card {
-    /* border: 1px solid var(--art-card-border) !important;
+  /* .art-card {
+    border: 1px solid var(--art-card-border) !important;
     background: var(--art-main-bg-color);
-    border-radius: calc(var(--custom-radius) + 4px) !important; */
-    /* border-radius: calc(var(--custom-radius) / 2 + 2px) !important; */
-    /* @apply rounded-[calc(var(--custom-radius) + 4px)] */
-    /* @apply bg-gray-200 p-5 rounded-2xl */
-  }
+    border-radius: calc(var(--custom-radius) + 4px) !important;
+    border-radius: calc(var(--custom-radius) / 2 + 2px) !important; 
+    @apply rounded-[calc(var(--custom-radius) + 4px)] 
+    @apply bg-gray-200 p-5 rounded-2xl
+  } */
 
   /* art-card header style */
   .art-card-header {
@@ -146,9 +154,28 @@
   border-radius: calc(var(--custom-radius) / 2 + 2px);
 }
 
-/* 在 Tailwind 的 utilities layer 明确定义 text-g-200 / text-g-500 */
-
 @layer utilities {
+  /* flex 布局 */
+  .flex-c {
+    @apply flex items-center;
+  }
+
+  .flex-cc {
+    @apply flex items-center justify-center;
+  }
+
+  .flex-cb {
+    @apply flex items-center justify-between;
+  }
+
+  .tad-200 {
+    @apply transition-all duration-200;
+  }
+
+  .tad-300 {
+    @apply transition-all duration-300;
+  }
+
   /* 边框颜色 */
   .border-full-d {
     @apply border border-[var(--default-border)];
@@ -162,49 +189,17 @@
     @apply border-t border-[var(--default-border)];
   }
 
+  .border-l-d {
+    @apply border-l border-[var(--default-border)];
+  }
+
+  .border-r-d {
+    @apply border-r border-[var(--default-border)];
+  }
+
   .art-card-bg {
     background-color: var(--art-main-bg-color);
   }
-
-  /* 通用：flex + 居中对齐 */
-  .flex-c {
-    @apply flex items-center;
-  }
-
-  .flex-cc {
-    @apply flex items-center justify-center;
-  }
-
-  /* Todo：这个需要替换后删除 */
-  .flex-center {
-    @apply flex items-center justify-center;
-  }
-
-  /* 通用：flex + 居中对齐 + 两端对齐 */
-  .flex-cb {
-    @apply flex items-center justify-between;
-  }
-
-  /* Todo：这个需要替换后删除 */
-  .flex-between {
-    @apply flex items-center justify-between;
-  }
-
-  .tad-200 {
-    @apply transition-all duration-200;
-  }
-
-  .tad-300 {
-    @apply transition-all duration-300;
-  }
-
-  /* .border-a {
-    @apply border border-[var(--art-border-color)];
-  } */
-
-  /* .border-xx {
-    @apply border border-[var(--art-border-dashed-color)];
-  } */
 
   .c-p {
     @apply cursor-pointer;

@@ -1,12 +1,12 @@
 <!-- 标签页 -->
 <template>
   <div
+    v-if="showWorkTab"
     class="box-border flex justify-between w-full px-5 mb-3 select-none"
     :class="[
       tabStyle === 'tab-card' ? 'py-1 border-b border-g-300' : '',
       tabStyle === 'tab-google' ? 'pt-1 pb-0 border-b border-g-300' : ''
     ]"
-    v-if="showWorkTab"
   >
     <div class="w-full overflow-hidden" ref="scrollRef">
       <ul
@@ -19,12 +19,10 @@
         }"
       >
         <li
-          class="art-custom-card inline-block h-8 mr-1.5 text-xs leading-7.5 text-center c-p art-card-bg border border-transparent transition-colors duration-100 hover:!text-primary hover:transition-colors hover:duration-200"
+          class="art-card-xs inline-flex flex-cc h-8.5 mr-1.5 text-xs c-p hover:text-primary"
           :class="[
             item.path === activeTab ? 'activ-tab !text-primary' : 'text-g-600',
-            tabStyle === 'tab-google'
-              ? 'google-tab relative !h-[37px] !leading-[37px] !border-none'
-              : ''
+            tabStyle === 'tab-google' ? 'google-tab relative !h-9 !leading-9 !border-none' : ''
           ]"
           :style="{
             padding: item.fixedTab ? '0 10px' : '0 8px 0 12px',
@@ -43,22 +41,22 @@
           {{ item.customTitle || formatMenuTitle(item.title) }}
           <span
             v-if="list.length > 1 && !item.fixedTab"
-            class="inline-flex flex-center relative ml-0.5 p-1 rounded-full tad-200 hover:bg-[rgb(238_238_238)] dark:hover:!bg-[rgb(238_238_238_/_10%)]"
+            class="inline-flex flex-cc relative ml-0.5 p-1 rounded-full tad-200 hover:bg-g-200"
             @click.stop="closeWorktab('current', item.path)"
           >
             <ArtSvgIcon icon="ri:close-large-fill" class="text-[10px] text-g-600" />
           </span>
           <div
             v-if="tabStyle === 'tab-google'"
-            class="line absolute top-0 bottom-0 left-0 w-px h-4 my-auto bg-[var(--art-border-dashed-color)] transition-opacity duration-150"
-          ></div>
+            class="line absolute top-0 bottom-0 left-0 w-px h-4 my-auto bg-g-400 transition-opacity duration-150"
+          />
         </li>
       </ul>
     </div>
 
     <div class="flex">
       <div
-        class="btn console-box art-custom-card relative top-0 box-border w-[34px] h-[34px] text-base leading-[34px] text-center c-p art-card-bg"
+        class="btn art-card-xs console-box relative top-0 size-8.5 text-base leading-8.5 text-center c-p"
         :style="{ borderRadius: 'calc(var(--custom-radius) / 2.5 + 0px)' }"
         @click="(e: MouseEvent) => showMenu(e, activeTab)"
       >
@@ -179,38 +177,38 @@
         {
           key: 'refresh',
           label: t('worktab.btn.refresh'),
-          icon: '&#xe6b3;',
+          icon: 'ri:refresh-line',
           disabled: !isCurrentTab
         },
         {
           key: 'fixed',
           label: currentTab?.fixedTab ? t('worktab.btn.unfixed') : t('worktab.btn.fixed'),
-          icon: '&#xe644;',
+          icon: 'ri:pushpin-2-line',
           disabled: false,
           showLine: true
         },
         {
           key: 'left',
           label: t('worktab.btn.closeLeft'),
-          icon: '&#xe866;',
+          icon: 'ri:arrow-left-s-line',
           disabled: clickedIndex === 0 || fixedStatus.areAllLeftTabsFixed
         },
         {
           key: 'right',
           label: t('worktab.btn.closeRight'),
-          icon: '&#xe865;',
+          icon: 'ri:arrow-right-s-line',
           disabled: isLastTab || fixedStatus.areAllRightTabsFixed
         },
         {
           key: 'other',
           label: t('worktab.btn.closeOther'),
-          icon: '&#xe83a;',
+          icon: 'ri:close-fill',
           disabled: isOneTab || fixedStatus.areAllOtherTabsFixed
         },
         {
           key: 'all',
           label: t('worktab.btn.closeAll'),
-          icon: '&#xe71a;',
+          icon: 'ri:close-circle-line',
           disabled: isOneTab || fixedStatus.areAllTabsFixed
         }
       ]
@@ -476,7 +474,6 @@
 </script>
 
 <style scoped>
-  /* Google tab style specific styles that can't be done with Tailwind */
   .google-tab.activ-tab {
     color: var(--main-color) !important;
     background-color: var(--el-color-primary-light-9) !important;
@@ -519,9 +516,13 @@
   .google-tab:hover {
     box-sizing: border-box;
     color: var(--art-text-gray-600) !important;
-    background-color: var(--art-gray-200) !important;
+    background-color: var(--el-color-primary-light-9) !important;
     border-bottom: 1px solid var(--art-main-bg-color) !important;
     border-radius: calc(var(--custom-radius) / 2.5 + 4px) !important;
+  }
+
+  .dark .google-tab:hover {
+    background-color: var(--art-gray-200) !important;
   }
 
   .google-tab:hover .line,
@@ -561,7 +562,6 @@
     background: var(--art-gray-300);
   }
 
-  /* Responsive styles */
   @media only screen and (width <= 768px) {
     .box-border.flex.justify-between {
       padding-right: 0.625rem;

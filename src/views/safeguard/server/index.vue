@@ -9,7 +9,7 @@
           :key="item.name"
         >
           <div
-            class="flex-between p-5 border-b border-g-300/80 max-lg:p-2.5 max-lg:px-5 max-md:p-2.5 max-md:px-5"
+            class="flex-cb p-5 border-b border-g-300/80 max-lg:p-2.5 max-lg:px-5 max-md:p-2.5 max-md:px-5"
           >
             <span class="text-sm font-medium">{{ item.name }}</span>
             <span class="text-sm text-g-600">{{ item.ip }}</span>
@@ -19,7 +19,7 @@
               <img
                 src="@imgs/safeguard/server.png"
                 alt="服务器"
-                class="block w-[190px] max-md:w-[150px] max-md:mx-auto"
+                class="block w-47 max-md:w-37 max-md:mx-auto"
               />
               <div class="flex justify-center -mt-2.5 max-md:mt-2.5">
                 <ElButtonGroup>

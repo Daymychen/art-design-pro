@@ -1,15 +1,16 @@
+<!-- 系统聊天窗口 -->
 <template>
   <div class="layout-chat">
     <ElDrawer v-model="isDrawerVisible" :size="isMobile ? '100%' : '480px'" :with-header="false">
-      <div class="mb-5 flex-between">
+      <div class="mb-5 flex-cb">
         <div>
           <span class="text-base font-medium">Art Bot</span>
           <div class="mt-1.5 flex-c gap-1">
             <div
               class="h-2 w-2 rounded-full"
-              :class="isOnline ? 'bg-[var(--el-color-success)]' : 'bg-[var(--el-color-danger)]'"
+              :class="isOnline ? 'bg-success/100' : 'bg-danger/100'"
             ></div>
-            <span class="text-xs text-g-500">{{ isOnline ? '在线' : '离线' }}</span>
+            <span class="text-xs text-g-600">{{ isOnline ? '在线' : '离线' }}</span>
           </div>
         </div>
         <div>
@@ -21,7 +22,7 @@
       <div class="flex h-[calc(100%-70px)] flex-col">
         <!-- 聊天消息区域 -->
         <div
-          class="flex-1 overflow-y-auto border-t border-[var(--el-border-color-lighter)] px-4 py-7.5 [&::-webkit-scrollbar]:!w-1"
+          class="flex-1 overflow-y-auto border-t-d px-4 py-7.5 [&::-webkit-scrollbar]:!w-1"
           ref="messageContainer"
         >
           <template v-for="(message, index) in messages" :key="index">
@@ -74,14 +75,12 @@
               </div>
             </template>
           </ElInput>
-          <div class="mt-3 flex-between">
+          <div class="mt-3 flex-cb">
             <div class="flex-c">
               <ArtSvgIcon icon="ri:image-line" class="mr-5 c-p text-g-400 text-lg" />
               <ArtSvgIcon icon="ri:emotion-happy-line" class="mr-5 c-p text-g-400 text-lg" />
             </div>
-            <ElButton type="primary" @click="sendMessage" v-ripple class="min-w-[80px]"
-              >发送</ElButton
-            >
+            <ElButton type="primary" @click="sendMessage" v-ripple class="min-w-20">发送</ElButton>
           </div>
         </div>
       </div>

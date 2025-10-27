@@ -1,4 +1,4 @@
-<!-- 返回顶部 -->
+<!-- 返回顶部按钮 -->
 <template>
   <Transition
     enter-active-class="tad-300 ease-out"

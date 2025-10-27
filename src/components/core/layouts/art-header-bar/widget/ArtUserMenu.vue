@@ -13,7 +13,7 @@
   >
     <template #reference>
       <img
-        class="size-8.5 mr-5 c-p rounded-full max-sm:w-[26px] max-sm:h-[26px]"
+        class="size-8.5 mr-5 c-p rounded-full max-sm:w-6.5 max-sm:h-6.5"
         src="@imgs/user/avatar.webp"
         alt="avatar"
       />
@@ -29,7 +29,7 @@
             <span class="block text-sm font-medium text-g-800 truncate">{{
               userInfo.userName
             }}</span>
-            <span class="block mt-[3px] text-xs text-g-500 truncate">{{ userInfo.email }}</span>
+            <span class="block mt-0.5 text-xs text-g-500 truncate">{{ userInfo.email }}</span>
           </div>
         </div>
         <ul class="py-4 mt-3 border-t border-g-300/80">

@@ -2,7 +2,7 @@
 <template>
   <div>
     <div>
-      <div class="max-w-[1000px] mx-auto my-5">
+      <div class="max-w-250 mx-auto my-5">
         <!-- 文章标题、类型 -->
         <ElRow :gutter="10">
           <ElCol :span="18">
@@ -34,7 +34,6 @@
             <ElFormItem label="封面">
               <div class="mt-2.5">
                 <ElUpload
-                  class="relative overflow-hidden c-p rounded-md transition-[var(--el-transition-duration)] hover:border-[var(--el-color-primary)]"
                   :action="uploadImageUrl"
                   :headers="uploadHeaders"
                   :show-file-list="false"
@@ -44,12 +43,12 @@
                 >
                   <div
                     v-if="!cover"
-                    class="flex-cc flex-col w-[260px] h-[160px] border border-dashed border-[#d9d9d9] rounded-md"
+                    class="flex-cc flex-col w-65 h-40 border border-dashed border-[#d9d9d9] rounded-md"
                   >
                     <ElIcon class="!text-xl !text-g-600"><Plus /></ElIcon>
                     <div class="mt-2 text-sm text-g-600">点击上传封面</div>
                   </div>
-                  <img v-else :src="cover" class="block w-[260px] h-[160px] object-cover" />
+                  <img v-else :src="cover" class="block w-65 h-40 object-cover" />
                 </ElUpload>
                 <div class="mt-2 text-xs text-g-700">建议尺寸 16:9，jpg/png 格式</div>
               </div>
@@ -60,7 +59,7 @@
           </ElForm>
 
           <div class="flex justify-end">
-            <ElButton type="primary" @click="submit" class="w-[100px]">
+            <ElButton type="primary" @click="submit" class="w-25">
               {{ pageMode === PageModeEnum.Edit ? '保存' : '发布' }}
             </ElButton>
           </div>
@@ -68,7 +67,7 @@
       </div>
     </div>
 
-    <!-- <div class="box-border w-[280px] p-5 border border-[#e3e3e3] rounded-lg">
+    <!-- <div class="box-border w-70 p-5 border border-[#e3e3e3] rounded-lg">
         <div v-for="(item, index) in outlineList" :key="index">
           <p :class="['h-7.5 text-xs leading-7.5 c-p', item.level === 3 && 'pl-2.5']">{{ item.text }}</p>
         </div>

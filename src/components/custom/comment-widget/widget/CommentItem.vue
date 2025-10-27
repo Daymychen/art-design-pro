@@ -3,7 +3,7 @@
     <div>
       <div class="flex-c">
         <div
-          class="size-5 mr-2.5 text-xs font-medium text-white rounded-full flex-center"
+          class="size-5 mr-2.5 text-xs font-medium text-white rounded-full flex-cc"
           :style="{ background: randomColor() }"
         >
           {{ comment.author.substring(0, 1) }}

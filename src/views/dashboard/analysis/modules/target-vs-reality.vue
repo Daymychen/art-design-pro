@@ -1,5 +1,5 @@
 <template>
-  <div class="art-card h-[400px] p-5 mb-5">
+  <div class="art-card h-100 p-5 mb-5">
     <div class="art-card-header">
       <div class="title">
         <h4>目标与实际</h4>
@@ -18,11 +18,8 @@
     <div class="px-5 mt-4">
       <div v-for="item in totalItems" :key="item.label" class="flex-c mb-5 last:mb-0">
         <div class="flex-c justify-start w-3/5 text-sm">
-          <div
-            class="w-10 h-10 mr-3 text-lg leading-10 text-center rounded-md flex-center"
-            :class="item.iconClass"
-          >
-            <ArtSvgIcon icon="ri:message-3-line" />
+          <div class="w-10 h-10 mr-3 text-lg rounded-md flex-cc" :class="item.iconClass">
+            <ArtSvgIcon :icon="item.icon" />
           </div>
 
           <div class="flex flex-col items-start">
@@ -63,7 +60,7 @@
    */
   const totalItems = [
     {
-      icon: '&#xe77f;',
+      icon: 'ri:shopping-bag-line',
       iconClass: 'text-[#2b8dfa] bg-[#e6f7ff]',
       label: '实际销售额',
       subLabel: '全球',
@@ -71,7 +68,7 @@
       valueClass: 'text-[#2b8dfa]'
     },
     {
-      icon: '&#xe77c;',
+      icon: 'ri:money-dollar-circle-line',
       iconClass: 'text-[#1cb8fc] bg-[#e6f7ff]',
       label: '目标销售额',
       subLabel: '商业',

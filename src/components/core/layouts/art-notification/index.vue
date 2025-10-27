@@ -1,7 +1,7 @@
 <!-- 通知组件 -->
 <template>
   <div
-    class="art-notification-panel art-card-sm"
+    class="art-notification-panel art-card-sm !shadow-[var(--el-box-shadow-light)]"
     :style="{
       transform: show ? 'scaleY(1)' : 'scaleY(0.9)',
       opacity: show ? 1 : 0
@@ -9,18 +9,18 @@
     v-show="visible"
     @click.stop
   >
-    <div class="flex-between px-3.5 mt-3.5">
+    <div class="flex-cb px-3.5 mt-3.5">
       <span class="text-base font-medium text-g-800">{{ $t('notice.title') }}</span>
       <span class="text-xs text-g-800 px-1.5 py-1 c-p select-none rounded hover:bg-g-200">
         {{ $t('notice.btnRead') }}
       </span>
     </div>
 
-    <ul class="box-border flex w-full h-[50px] px-3.5 leading-[50px] border-b border-g-300/80">
+    <ul class="box-border flex items-end w-full h-12.5 px-3.5 border-b-d">
       <li
         v-for="(item, index) in barList"
         :key="index"
-        class="h-12 mr-5 last:mr-0 overflow-hidden text-xs text-g-700 c-p select-none transition-colors duration-300 hover:text-g-900"
+        class="h-12 leading-12 mr-5 overflow-hidden text-[13px] text-g-700 c-p select-none"
         :class="{ 'bar-active': barActiveIndex === index }"
         @click="changeBar(index)"
       >
@@ -38,7 +38,7 @@
             class="box-border flex-c px-3.5 py-3.5 c-p last:border-b-0 hover:bg-g-200/60"
           >
             <div
-              class="size-9 leading-9 text-center rounded-lg flex-center"
+              class="size-9 leading-9 text-center rounded-lg flex-cc"
               :style="{ background: getNoticeStyle(item.type).backgroundColor + '!important' }"
             >
               <ArtSvgIcon
@@ -48,7 +48,7 @@
               />
             </div>
             <div class="w-[calc(100%-45px)] ml-3.5">
-              <h4 class="text-sm font-normal leading-[22px] text-g-900">{{ item.title }}</h4>
+              <h4 class="text-sm font-normal leading-5.5 text-g-900">{{ item.title }}</h4>
               <p class="mt-1.5 text-xs text-g-500">{{ item.time }}</p>
             </div>
           </li>
@@ -65,7 +65,7 @@
               <img :src="item.avatar" class="w-full h-full rounded-lg" />
             </div>
             <div class="w-[calc(100%-45px)] ml-3.5">
-              <h4 class="text-xs font-normal leading-[22px]">{{ item.title }}</h4>
+              <h4 class="text-xs font-normal leading-5.5">{{ item.title }}</h4>
               <p class="mt-1.5 text-xs text-g-500">{{ item.time }}</p>
             </div>
           </li>
@@ -86,7 +86,7 @@
         <!-- 空状态 -->
         <div
           v-show="currentTabIsEmpty"
-          class="relative top-[100px] h-full text-g-500 text-center !bg-transparent"
+          class="relative top-25 h-full text-g-500 text-center !bg-transparent"
         >
           <ArtSvgIcon icon="material-symbols-light:hourglass-empty" class="text-5xl" />
           <p class="mt-3.5 text-xs !bg-transparent"
@@ -102,7 +102,7 @@
       </div>
     </div>
 
-    <div class="h-[100px]"></div>
+    <div class="h-25"></div>
   </div>
 </template>
 
@@ -445,7 +445,6 @@
     w-90 
     h-125 
     overflow-hidden 
-    shadow-[0_8px_26px_-4px_hsl(0deg_0%_8%_/_15%),0_8px_9px_-5px_hsl(0deg_0%_8%_/_6%)] 
     transition-all 
     duration-300
     origin-top 

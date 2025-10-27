@@ -10,10 +10,10 @@
       </ElCol>
     </ElRow>
     <div
-      class="box-border w-90 h-full p-5 border-r border-g-300 max-md:w-full max-md:h-[170px] max-md:border-r-0"
+      class="box-border w-90 h-full p-5 border-r border-g-300 max-md:w-full max-md:h-42 max-md:border-r-0"
     >
       <div class="pb-5 max-md:hidden">
-        <div class="flex gap-3 items-center">
+        <div class="flex-c gap-3">
           <ElAvatar :size="50" :src="selectedPerson?.avatar" />
           <div>
             <div class="text-base font-medium">{{ selectedPerson?.name }}</div>
@@ -43,8 +43,8 @@
         <div
           v-for="item in personList"
           :key="item.id"
-          class="flex-c p-3 c-p rounded-lg tad-300 ease-in-out hover:bg-[var(--el-fill-color-light)]"
-          :class="{ 'bg-[var(--el-fill-color-light)]': selectedPerson?.id === item.id }"
+          class="flex-c p-3 c-p rounded-lg tad-300 ease-in-out hover:bg-g-200"
+          :class="{ 'bg-g-200': selectedPerson?.id === item.id }"
           @click="selectPerson(item)"
         >
           <div class="relative mr-3">
@@ -52,16 +52,16 @@
               {{ item.name.charAt(0) }}
             </ElAvatar>
             <div
-              class="absolute right-[1px] bottom-[1px] w-[9px] h-[9px] rounded-full"
-              :class="item.online ? 'bg-[var(--el-color-success)]' : 'bg-[var(--el-color-error)]'"
+              class="absolute right-1 bottom-1 size-2 rounded-full"
+              :class="item.online ? 'bg-success/100' : 'bg-error/100'"
             ></div>
           </div>
           <div class="flex-1 min-w-0">
-            <div class="flex-between mb-1">
+            <div class="flex-cb mb-1">
               <span class="text-sm font-medium">{{ item.name }}</span>
               <span class="text-xs text-g-600">{{ item.lastTime }}</span>
             </div>
-            <div class="flex-between">
+            <div class="flex-cb">
               <span class="overflow-hidden text-xs text-g-600 text-ellipsis whitespace-nowrap">{{
                 item.email
               }}</span>
@@ -71,18 +71,18 @@
       </ElScrollbar>
     </div>
     <div class="box-border flex-1 h-full max-md:h-[calc(70%-30px)]">
-      <div class="flex-between pt-4 px-4 pb-0 mb-5">
+      <div class="flex-cb pt-4 px-4 pb-0 mb-5">
         <div>
           <span class="text-base font-medium">Art Bot</span>
-          <div class="flex gap-1 items-center mt-1.5">
+          <div class="flex-c gap-1 mt-1.5">
             <div
               class="w-2 h-2 rounded-full"
-              :class="isOnline ? 'bg-[var(--el-color-success)]' : 'bg-[var(--el-color-danger)]'"
+              :class="isOnline ? 'bg-success/100' : 'bg-danger/100'"
             ></div>
             <span class="text-xs text-g-600">{{ isOnline ? '在线' : '离线' }}</span>
           </div>
         </div>
-        <div class="flex gap-2 items-center">
+        <div class="flex-c gap-2">
           <ArtIconButton icon="ri:phone-line" circle class="size-11 text-g-600" />
           <ArtIconButton icon="ri:video-on-line" circle class="size-11 text-g-600" />
           <ArtIconButton icon="ri:more-2-fill" circle class="size-11 text-g-600" />
@@ -91,7 +91,7 @@
       <div class="flex flex-col h-[calc(100%-85px)]">
         <!-- 聊天消息区域 -->
         <div
-          class="flex-1 py-7.5 px-4 overflow-y-auto border-t border-[var(--el-border-color-lighter)] [&::-webkit-scrollbar]:!w-1"
+          class="flex-1 py-7.5 px-4 overflow-y-auto border-t-d [&::-webkit-scrollbar]:!w-1"
           ref="messageContainer"
         >
           <template v-for="message in messages" :key="message.id">
@@ -111,7 +111,7 @@
                   :class="message.isMe ? 'flex-row-reverse' : 'flex-row'"
                 >
                   <span class="font-medium">{{ message.sender }}</span>
-                  <span class="text-[var(--el-text-color-secondary)]">{{ message.time }}</span>
+                  <span class="text-g-600">{{ message.time }}</span>
                 </div>
                 <div
                   class="py-2.5 px-3.5 text-sm leading-[1.4] rounded-md"
@@ -141,14 +141,12 @@
               </div>
             </template>
           </ElInput>
-          <div class="flex-between mt-3">
+          <div class="flex-cb mt-3">
             <div class="flex-c">
               <ArtSvgIcon icon="ri:image-line" class="mr-5 c-p text-g-400 text-lg" />
               <ArtSvgIcon icon="ri:emotion-happy-line" class="mr-5 c-p text-g-400 text-lg" />
             </div>
-            <ElButton type="primary" @click="sendMessage" v-ripple class="min-w-[80px]"
-              >发送</ElButton
-            >
+            <ElButton type="primary" @click="sendMessage" v-ripple class="min-w-20">发送</ElButton>
           </div>
         </div>
       </div>

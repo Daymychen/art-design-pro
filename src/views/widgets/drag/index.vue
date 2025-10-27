@@ -2,14 +2,14 @@
 <template>
   <div class="page-content mb-5">
     <ElRow>
-      <ElCard shadow="never" class="w-[300px] mr-5 mb-7.5">
+      <ElCard shadow="never" class="w-75 mr-5 mb-7.5">
         <template #header>
           <span class="text-base font-bold">基础示例</span>
         </template>
         <template #default>
           <VueDraggable ref="el" v-model="userList">
             <div
-              class="p-2.5 mb-2.5 cursor-move bg-[rgba(var(--art-gray-200-rgb),0.8)] rounded"
+              class="p-2.5 mb-2.5 cursor-move bg-g-200 rounded"
               v-for="item in userList"
               :key="item.name"
             >
@@ -19,7 +19,7 @@
         </template>
       </ElCard>
 
-      <ElCard shadow="never" class="w-[300px] mb-7.5">
+      <ElCard shadow="never" class="w-75 mb-7.5">
         <template #header>
           <span class="text-base font-bold">过渡动画</span>
         </template>
@@ -29,7 +29,7 @@
               <li
                 v-for="item in userList"
                 :key="item.name"
-                class="p-2.5 mb-2.5 cursor-move bg-[rgba(var(--art-gray-200-rgb),0.8)] rounded"
+                class="p-2.5 mb-2.5 cursor-move bg-g-200 rounded"
               >
                 {{ item.name }}
               </li>

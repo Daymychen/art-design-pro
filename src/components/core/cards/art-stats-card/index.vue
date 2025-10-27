@@ -6,7 +6,7 @@
   >
     <div
       v-if="icon"
-      class="mr-4 size-[46px] flex-center rounded-full"
+      class="mr-4 size-12 flex-cc rounded-full"
       :style="{ backgroundColor: iconBgColor, borderRadius: iconBgRadius + 'px' }"
     >
       <ArtSvgIcon

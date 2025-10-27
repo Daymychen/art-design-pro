@@ -153,6 +153,7 @@
   $text-scroll-height: 34px;
   $icon-width: 40px;
   $border-radius: calc(var(--custom-radius) / 2 + 2px);
+
   $types: (
     default: primary,
     success: success,

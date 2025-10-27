@@ -10,7 +10,7 @@
           v-model="newTabTitle"
           placeholder="请输入新的标签页标题"
           clearable
-          class="!max-w-[300px]"
+          class="!max-w-75"
         />
 
         <ElButton type="primary" @click="handleUpdateTabTitle" :disabled="!newTabTitle.trim()">

@@ -4,7 +4,7 @@
     <ElCalendar v-model="currentDate">
       <template #date-cell="{ data }">
         <div
-          class="relative flex flex-col h-full min-h-[120px] max-h-[120px] p-1 overflow-hidden c-p"
+          class="relative flex flex-col h-full min-h-30 max-h-30 p-1 overflow-hidden c-p"
           :class="{ 'is-selected': data.isSelected }"
           @click="handleCellClick(data.day)"
         >
@@ -12,14 +12,14 @@
           <p class="absolute top-1 right-1 text-sm">{{ formatDate(data.day) }}</p>
 
           <!-- 事件列表 -->
-          <div class="flex flex-col gap-1 w-full max-h-[85px] pr-1 mt-6 overflow-y-auto">
+          <div class="flex flex-col gap-1 w-full max-h-21 pr-1 mt-6 overflow-y-auto">
             <div
               v-for="event in getEvents(data.day)"
               :key="`${event.date}-${event.content}`"
               @click.stop="handleEventClick(event)"
             >
               <div
-                class="min-w-[100px] px-3 py-1.5 overflow-hidden text-xs font-medium leading-6 text-ellipsis whitespace-nowrap rounded hover:opacity-80"
+                class="min-w-25 px-3 py-1.5 overflow-hidden text-xs/6 font-medium text-ellipsis whitespace-nowrap rounded hover:opacity-80"
                 :class="[`${event.type || 'bg-primary'}`]"
               >
                 {{ event.content }}

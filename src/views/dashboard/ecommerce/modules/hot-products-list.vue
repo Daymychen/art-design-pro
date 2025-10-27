@@ -19,7 +19,7 @@
           <ElTableColumn label="产品" prop="product" width="220px">
             <template #default="scope">
               <div class="flex-c">
-                <img class="w-[50px] h-[50px] object-cover rounded-md" :src="scope.row.image" />
+                <img class="size-12.5 object-cover rounded-md" :src="scope.row.image" />
                 <div class="flex flex-col ml-3">
                   <div class="font-medium">{{ scope.row.name }}</div>
                   <div class="text-xs text-slate-500">{{ scope.row.category }}</div>
@@ -171,12 +171,10 @@
    * @returns CSS 类名
    */
   const getStockClass = (stock: number): string => {
-    if (stock === 0) return 'text-[rgb(var(--art-error))] bg-[rgba(var(--art-error),0.1)]'
-    if (stock < STOCK_THRESHOLD.LOW)
-      return 'text-[rgb(var(--art-warning))] bg-[rgba(var(--art-warning),0.1)]'
-    if (stock < STOCK_THRESHOLD.MEDIUM)
-      return 'text-[rgb(var(--art-info))] bg-[rgba(var(--art-info),0.1)]'
-    return 'text-[rgb(var(--art-success))] bg-[rgba(var(--art-success),0.1)]'
+    if (stock === 0) return 'text-danger bg-danger'
+    if (stock < STOCK_THRESHOLD.LOW) return 'text-warning bg-warning'
+    if (stock < STOCK_THRESHOLD.MEDIUM) return 'text-info bg-info'
+    return 'text-success bg-success'
   }
 
   /**

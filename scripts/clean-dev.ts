@@ -265,7 +265,7 @@ export const dashboardRoutes: AppRouteRecord = {
   component: '/index/index',
   meta: {
     title: 'menus.dashboard.title',
-    icon: '&#xe721;',
+    icon: 'ri:shopping-bag-4-line',
     roles: ['R_SUPER', 'R_ADMIN']
   },
   children: [
@@ -293,7 +293,7 @@ export const systemRoutes: AppRouteRecord = {
   component: '/index/index',
   meta: {
     title: 'menus.system.title',
-    icon: '&#xe7b9;',
+    icon: 'ri:shopping-bag-4-line',
     roles: ['R_SUPER', 'R_ADMIN']
   },
   children: [

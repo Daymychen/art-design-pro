@@ -5,14 +5,14 @@
       <div
         v-show="visible"
         :style="menuStyle"
-        class="context-menu min-w-[var(--menu-width)] w-[var(--menu-width)] rounded-[var(--border-radius)] border border-[var(--el-border-color-light)] bg-[var(--el-bg-color)] shadow-[var(--art-box-shadow-xs)]"
+        class="context-menu art-card-xs !shadow-xl min-w-[var(--menu-width)] w-[var(--menu-width)]"
       >
         <ul class="menu-list m-0 list-none" :style="menuListStyle">
           <template v-for="item in menuItems" :key="item.key">
             <!-- 普通菜单项 -->
             <li
               v-if="!item.children"
-              class="menu-item relative flex c-p select-none items-center rounded text-xs transition-colors duration-150 hover:bg-[rgba(var(--art-gray-200-rgb),0.7)]"
+              class="menu-item relative flex-c c-p select-none rounded text-xs transition-colors duration-150 hover:bg-g-200"
               :class="{ 'is-disabled': item.disabled, 'has-line': item.showLine }"
               :style="menuItemStyle"
               @click="handleMenuClick(item)"
@@ -31,10 +31,10 @@
             <!-- 子菜单 -->
             <li
               v-else
-              class="menu-item submenu relative flex c-p select-none items-center rounded text-xs transition-colors duration-150 hover:bg-[rgba(var(--art-gray-200-rgb),0.7)]"
+              class="menu-item submenu relative flex-c c-p select-none rounded text-xs transition-colors duration-150 hover:bg-g-200"
               :style="menuItemStyle"
             >
-              <div class="submenu-title flex w-full items-center">
+              <div class="submenu-title flex-c w-full">
                 <ArtSvgIcon
                   v-if="item.icon"
                   class="mr-2 shrink-0 text-base text-g-800"
@@ -50,13 +50,13 @@
                 />
               </div>
               <ul
-                class="submenu-list absolute left-full top-0 z-[2001] hidden w-max min-w-max list-none rounded-[var(--border-radius)] border border-[var(--el-border-color-light)] bg-[var(--el-bg-color)] shadow-[var(--el-box-shadow-light)]"
+                class="submenu-list art-card-xs absolute left-full top-0 z-[2001] hidden w-max min-w-max list-none !shadow-[var(--el-box-shadow-light)]"
                 :style="submenuListStyle"
               >
                 <li
                   v-for="child in item.children"
                   :key="child.key"
-                  class="menu-item relative mx-1.5 flex c-p select-none items-center rounded text-xs transition-colors duration-150 hover:bg-[rgba(var(--art-gray-200-rgb),0.7)]"
+                  class="menu-item relative mx-1.5 flex-c c-p select-none rounded text-xs transition-colors duration-150 hover:bg-g-200"
                   :class="{ 'is-disabled': child.disabled, 'has-line': child.showLine }"
                   :style="menuItemStyle"
                   @click="handleMenuClick(child)"

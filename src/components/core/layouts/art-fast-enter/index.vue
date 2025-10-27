@@ -3,13 +3,13 @@
   <ElPopover
     ref="popoverRef"
     :width="700"
-    trigger="hover"
-    popper-class="fast-enter-popover"
-    :show-arrow="false"
-    placement="bottom-start"
     :offset="0"
+    :show-arrow="false"
+    trigger="hover"
+    placement="bottom-start"
+    popper-class="fast-enter-popover"
     :popper-style="{
-      border: '1px solid var(--art-border-dashed-color)',
+      border: '1px solid var(--default-border)',
       borderRadius: 'calc(var(--custom-radius) / 2 + 4px)'
     }"
   >
@@ -29,7 +29,7 @@
             class="mr-3 c-p flex-c gap-3 rounded-lg p-2 hover:bg-g-100 hover:[&_.app-icon]:!bg-transparent"
             @click="handleApplicationClick(application)"
           >
-            <div class="app-icon h-[46px] w-[46px] flex-center rounded-lg bg-g-100">
+            <div class="app-icon size-12 flex-cc rounded-lg bg-g-100">
               <ArtSvgIcon
                 class="text-xl"
                 :icon="application.icon"
@@ -44,7 +44,7 @@
         </div>
       </div>
 
-      <div class="border-l border-[var(--el-border-color-lighter)] pl-6 pt-2">
+      <div class="border-l-d pl-6 pt-2">
         <h3 class="mb-2.5 text-base font-medium text-g-800">快速链接</h3>
         <ul>
           <li

@@ -2,20 +2,17 @@
 <template>
   <div class="w-full h-full p-0 bg-transparent border-none shadow-none">
     <div class="relative flex justify-between mt-2.5 max-md:block max-md:mt-1">
-      <div class="w-[450px] mr-[25px] max-md:w-full max-md:mr-0">
-        <div class="art-card-sm relative p-[35px_40px] pb-6 overflow-hidden text-center">
+      <div class="w-112 mr-5 max-md:w-full max-md:mr-0">
+        <div class="art-card-sm relative p-9 pb-6 overflow-hidden text-center">
+          <img class="absolute top-0 left-0 w-full h-50 object-cover" src="@imgs/user/bg.webp" />
           <img
-            class="absolute top-0 left-0 w-full h-[200px] object-cover"
-            src="@imgs/user/bg.webp"
-          />
-          <img
-            class="relative z-10 w-20 h-20 mt-[120px] mx-auto object-cover border-2 border-white rounded-full"
+            class="relative z-10 w-20 h-20 mt-30 mx-auto object-cover border-2 border-white rounded-full"
             src="@imgs/user/avatar.webp"
           />
           <h2 class="mt-5 text-xl font-normal">{{ userInfo.userName }}</h2>
           <p class="mt-5 text-sm">专注于用户体验跟视觉设计</p>
 
-          <div class="w-[300px] mx-auto mt-7.5 text-left">
+          <div class="w-75 mx-auto mt-7.5 text-left">
             <div class="mt-2.5">
               <ArtSvgIcon icon="ri:mail-line" class="text-g-700" />
               <span class="ml-2 text-sm">jdkjjfnndf@mall.com</span>
@@ -40,7 +37,7 @@
               <div
                 v-for="item in lableList"
                 :key="item"
-                class="py-[3px] px-[6px] mr-2.5 mb-2.5 text-xs art-card-bg border border-g-300 rounded-[2px]"
+                class="py-1 px-1.5 mr-2.5 mb-2.5 text-xs art-card-bg border border-g-300 rounded"
               >
                 {{ item }}
               </div>
@@ -50,11 +47,11 @@
       </div>
       <div class="flex-1 overflow-hidden max-md:w-full max-md:mt-3.5">
         <div class="art-card-sm">
-          <h1 class="p-[15px_25px] text-xl font-normal border-b border-g-300">基本设置</h1>
+          <h1 class="p-4 text-xl font-normal border-b border-g-300">基本设置</h1>
 
           <ElForm
             :model="form"
-            class="box-border p-[30px_25px] [&>.el-row_.el-form-item]:w-[calc(50%-10px)] [&>.el-row_.el-input]:w-full [&>.el-row_.el-select]:w-full"
+            class="box-border p-5 [&>.el-row_.el-form-item]:w-[calc(50%-10px)] [&>.el-row_.el-input]:w-full [&>.el-row_.el-select]:w-full"
             ref="ruleFormRef"
             :rules="rules"
             label-width="86px"
@@ -94,12 +91,12 @@
               </ElFormItem>
             </ElRow>
 
-            <ElFormItem label="个人介绍" prop="des" class="h-[130px]">
+            <ElFormItem label="个人介绍" prop="des" class="h-32">
               <ElInput type="textarea" :rows="4" v-model="form.des" :disabled="!isEdit" />
             </ElFormItem>
 
-            <div class="flex-c justify-end [&_.el-button]:!w-[110px]">
-              <ElButton type="primary" class="w-[90px]" v-ripple @click="edit">
+            <div class="flex-c justify-end [&_.el-button]:!w-27.5">
+              <ElButton type="primary" class="w-22.5" v-ripple @click="edit">
                 {{ isEdit ? '保存' : '编辑' }}
               </ElButton>
             </div>
@@ -107,14 +104,9 @@
         </div>
 
         <div class="art-card-sm my-5">
-          <h1 class="p-[15px_25px] text-xl font-normal border-b border-g-300">更改密码</h1>
+          <h1 class="p-4 text-xl font-normal border-b border-g-300">更改密码</h1>
 
-          <ElForm
-            :model="pwdForm"
-            class="box-border p-[30px_25px]"
-            label-width="86px"
-            label-position="top"
-          >
+          <ElForm :model="pwdForm" class="box-border p-5" label-width="86px" label-position="top">
             <ElFormItem label="当前密码" prop="password">
               <ElInput
                 v-model="pwdForm.password"
@@ -142,8 +134,8 @@
               />
             </ElFormItem>
 
-            <div class="flex-c justify-end [&_.el-button]:!w-[110px]">
-              <ElButton type="primary" class="w-[90px]" v-ripple @click="editPwd">
+            <div class="flex-c justify-end [&_.el-button]:!w-27.5">
+              <ElButton type="primary" class="w-22.5" v-ripple @click="editPwd">
                 {{ isEditPwd ? '保存' : '编辑' }}
               </ElButton>
             </div>

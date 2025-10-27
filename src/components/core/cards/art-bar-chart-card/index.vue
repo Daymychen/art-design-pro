@@ -20,12 +20,8 @@
     </div>
     <div
       ref="chartRef"
-      class="absolute bottom-0 left-0 right-0 mx-auto h-[100px] w-[calc(100%-22px)]"
-      :class="
-        isMiniChart
-          ? '!absolute !top-[25px] !right-5 !bottom-auto !left-auto !h-[60px] !w-[40%]'
-          : ''
-      "
+      class="absolute bottom-0 left-0 right-0 mx-auto"
+      :class="isMiniChart ? '!absolute !top-5 !right-5 !bottom-auto !left-auto !h-15 !w-4/10' : ''"
       :style="{ height: isMiniChart ? '60px' : `calc(${height}rem - 5rem)` }"
     ></div>
   </div>

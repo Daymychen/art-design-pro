@@ -4,7 +4,7 @@
     <div class="mb-3.5 flex-c" :style="{ justifyContent: icon ? 'space-between' : 'flex-start' }">
       <div
         v-if="icon"
-        class="size-[46px] flex-center bg-g-300 text-xl"
+        class="size-12 flex-cc bg-g-300 text-xl"
         :style="{
           backgroundColor: iconBgColor,
           borderRadius: iconBgRadius + 'px'

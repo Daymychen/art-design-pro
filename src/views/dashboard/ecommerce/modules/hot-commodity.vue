@@ -16,7 +16,7 @@
     />
     <div class="mt-10 space-y-5">
       <div v-for="item in weeklyList" :key="item.title" class="flex-c">
-        <div class="w-[42px] h-[42px] flex-center rounded-lg" :class="item.iconBgClass">
+        <div class="size-10.5 flex-cc rounded-lg" :class="item.iconBgClass">
           <ArtSvgIcon :icon="item.icon" class="text-xl" />
         </div>
         <div class="ml-2.5">

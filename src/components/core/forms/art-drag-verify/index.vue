@@ -12,7 +12,7 @@
   >
     <!-- 进度条 -->
     <div
-      class="absolute h-[34px] w-0"
+      class="absolute h-8.5 w-0"
       :class="{ goFirst2: isOk }"
       ref="progressBar"
       :style="progressBarStyle"
@@ -28,7 +28,7 @@
 
     <!-- 滑块处理器 -->
     <div
-      class="absolute left-0 top-0 cursor-move flex-center"
+      class="absolute left-0 top-0 cursor-move flex-cc"
       :class="{ goFirst: isOk }"
       @mousedown="dragStart"
       @touchstart="dragStart"

@@ -30,7 +30,7 @@
       </template>
     </ArtSearchBar>
 
-    <div class="art-card p-5 !rounded-[6px] mt-5">
+    <div class="art-card p-5 !rounded-lg mt-5">
       <pre><code>{{ formDataAdvanced }}</code></pre>
     </div>
 

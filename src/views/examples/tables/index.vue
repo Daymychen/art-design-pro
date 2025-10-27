@@ -5,7 +5,7 @@
     <!-- 功能介绍卡片 -->
     <ElCard shadow="never">
       <template #header>
-        <div class="flex-wrap gap-3 flex-between">
+        <div class="flex-wrap gap-3 flex-cb">
           <h3 class="m-0">高级表格完整能力展示</h3>
           <div class="flex flex-wrap gap-2">
             <ElTag type="success" effect="light">智能缓存</ElTag>
@@ -27,19 +27,19 @@
           <ElCollapse v-model="debugActiveNames">
             <ElCollapseItem name="cache" title="缓存统计与演示">
               <div class="flex flex-col gap-2">
-                <div class="flex-between">
+                <div class="flex-cb">
                   <span class="font-medium text-g-700">缓存状态：</span>
                   <ElTag type="success">已启用</ElTag>
                 </div>
-                <div class="flex-between">
+                <div class="flex-cb">
                   <span class="font-medium text-g-700">缓存条数：</span>
                   <span class="font-semibold text-primary">{{ cacheInfo.total }}</span>
                 </div>
-                <div class="flex-between">
+                <div class="flex-cb">
                   <span class="font-medium text-g-700">缓存大小：</span>
                   <span class="font-semibold text-primary">{{ cacheInfo.size }}</span>
                 </div>
-                <div class="flex-between">
+                <div class="flex-cb">
                   <span class="font-medium text-g-700">命中信息：</span>
                   <span class="font-semibold text-primary">{{ cacheInfo.hitRate }}</span>
                 </div>
@@ -54,7 +54,7 @@
             </ElCollapseItem>
             <ElCollapseItem name="logs" title="缓存日志">
               <div class="flex flex-col gap-2">
-                <div class="max-h-[200px] overflow-y-auto">
+                <div class="max-h-50 overflow-y-auto">
                   <div v-if="cacheDebugLogs.length === 0" class="p-5 text-center">
                     <ElEmpty description="暂无缓存日志" :image-size="60" />
                   </div>
@@ -62,14 +62,11 @@
                     <div
                       v-for="(log, index) in cacheDebugLogs"
                       :key="index"
-                      class="p-1.5 px-2 text-xs leading-[1.4] bg-[var(--el-bg-color-page)] border-l-[3px] border-[var(--el-border-color)] rounded"
+                      class="p-1.5 px-2 text-xs leading-[1.4] bg-g-200 border-l-1 border-g-400 rounded"
                       :class="{
-                        'bg-[rgba(103,194,58,0.1)] !border-l-[var(--el-color-success)]':
-                          log.includes('✅'),
-                        'bg-[rgba(64,158,255,0.1)] !border-l-[var(--el-color-primary)]':
-                          log.includes('🎯'),
-                        'bg-[rgba(245,108,108,0.1)] !border-l-[var(--el-color-danger)]':
-                          log.includes('❌')
+                        'bg-[rgba(103,194,58,0.1)] !border-l-success': log.includes('✅'),
+                        'bg-[rgba(64,158,255,0.1)] !border-l-primary': log.includes('🎯'),
+                        'bg-[rgba(245,108,108,0.1)] !border-l-danger': log.includes('❌')
                       }"
                     >
                       {{ log }}
@@ -83,19 +80,19 @@
             </ElCollapseItem>
             <ElCollapseItem name="request" title="请求状态">
               <div class="flex flex-col gap-2">
-                <div class="flex-between">
+                <div class="flex-cb">
                   <span class="font-medium text-g-700">加载状态：</span>
                   <ElTag :type="loading ? 'warning' : 'success'">
                     {{ loading ? '加载中' : '空闲' }}
                   </ElTag>
                 </div>
-                <div class="flex-between">
+                <div class="flex-cb">
                   <span class="font-medium text-g-700">数据状态：</span>
                   <ElTag :type="hasData ? 'success' : 'info'">
                     {{ hasData ? `${data.length} 条数据` : '无数据' }}
                   </ElTag>
                 </div>
-                <div class="flex-between">
+                <div class="flex-cb">
                   <span class="font-medium text-g-700">错误状态：</span>
                   <ElTag :type="error ? 'danger' : 'success'">
                     {{ error ? '有错误' : '正常' }}
@@ -105,7 +102,7 @@
                   <span class="font-medium text-g-700">当前请求参数：</span>
                   <ElText
                     tag="pre"
-                    class="max-h-[200px] p-2 overflow-y-auto text-xs bg-[var(--el-bg-color-page)] border border-[var(--el-border-color-light)] rounded-md"
+                    class="max-h-50 p-2 overflow-y-auto text-xs bg-g-200 border border-g-400 rounded-md"
                     >{{ JSON.stringify(requestParams, null, 2) }}</ElText
                   >
                 </div>
@@ -144,7 +141,7 @@
     <!-- 表格区域 -->
     <ElCard class="flex-1 art-table-card" shadow="never" style="margin-top: 0">
       <template #header>
-        <div class="flex-between">
+        <div class="flex-cb">
           <h4 class="m-0">用户数据表格</h4>
           <div class="flex gap-2">
             <ElTag v-if="error" type="danger">{{ error.message }}</ElTag>
@@ -234,7 +231,7 @@
       >
         <!-- 用户信息列 -->
         <template #avatar="{ row }">
-          <div class="flex gap-3 items-center user-info">
+          <div class="flex gap-3 user-info">
             <ElAvatar :src="row.avatar" :size="40" />
             <div class="flex-1 min-w-0">
               <p class="m-0 overflow-hidden font-medium text-ellipsis whitespace-nowrap">{{
@@ -286,7 +283,7 @@
         <template #userPhone-header="{ column }">
           <ElPopover placement="bottom" :width="200" trigger="hover">
             <template #reference>
-              <div class="inline-block gap-1 items-center text-primary c-p custom-header">
+              <div class="inline-block gap-1 text-primary c-p custom-header">
                 <span>{{ column.label }}</span>
                 <ElIcon>
                   <Search />
@@ -317,9 +314,7 @@
       </template>
       <div class="flex flex-col gap-6">
         <!-- 事件监听演示 -->
-        <div
-          class="p-4 bg-[var(--el-bg-color-page)] border border-[var(--el-border-color-lighter)] rounded-lg"
-        >
+        <div class="p-4 bg-g-200 border-full-d rounded-lg">
           <h5 class="m-0 mb-4 text-sm font-semibold">事件监听演示</h5>
           <div class="flex flex-wrap gap-2 mb-3 last:mb-0">
             <ElButton @click="toggleEventDemo" :type="eventDemoEnabled ? 'success' : 'primary'">
@@ -329,17 +324,17 @@
           </div>
           <div
             v-if="eventDemoEnabled && eventLogs.length > 0"
-            class="p-3 mt-3 bg-[var(--el-bg-color-page)] border border-[var(--el-border-color-light)] rounded-md"
+            class="p-3 mt-3 bg-g-200 border border-g-400 rounded-md"
           >
-            <div class="flex-between mb-2 font-medium text-g-700">
+            <div class="flex-cb mb-2 font-medium text-g-700">
               <span>最近事件日志：</span>
               <ElTag size="small">{{ eventLogs.length }} 条</ElTag>
             </div>
-            <div class="flex flex-col gap-1 max-h-[200px] overflow-y-auto">
+            <div class="flex flex-col gap-1 max-h-50 overflow-y-auto">
               <div
                 v-for="(log, index) in eventLogs.slice(0, 20)"
                 :key="index"
-                class="flex gap-2 items-center p-1.5 px-2 text-xs bg-[var(--el-bg-color)] border-l-[3px] border-[var(--el-border-color)] rounded"
+                class="flex-c gap-2 p-1.5 px-2 text-xs bg-g-300 border-l-1 border-g-400 rounded"
               >
                 <ElTag :type="getEventType(log.type)" size="small">{{ log.type }}</ElTag>
                 <span class="flex-1 text-g-700">{{ log.message }}</span>
@@ -350,9 +345,7 @@
         </div>
 
         <!-- 表格配置演示 -->
-        <div
-          class="p-4 bg-[var(--el-bg-color-page)] border border-[var(--el-border-color-lighter)] rounded-lg"
-        >
+        <div class="p-4 bg-g-200 border-full-d rounded-lg">
           <h5 class="m-0 mb-4 text-sm font-semibold">表格配置演示</h5>
           <div class="flex flex-wrap gap-2 mb-3 last:mb-0">
             <ElSwitch
@@ -365,9 +358,7 @@
         </div>
 
         <!-- 自定义功能演示 -->
-        <div
-          class="p-4 bg-[var(--el-bg-color-page)] border border-[var(--el-border-color-lighter)] rounded-lg"
-        >
+        <div class="p-4 bg-g-200 border-full-d rounded-lg">
           <h5 class="m-0 mb-4 text-sm font-semibold">自定义功能</h5>
           <div class="flex flex-wrap gap-2 mb-3 last:mb-0">
             <ElButton @click="handleScrollToTop">滚动到顶部</ElButton>

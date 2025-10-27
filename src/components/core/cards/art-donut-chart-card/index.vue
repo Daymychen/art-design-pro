@@ -1,7 +1,7 @@
 <!-- 环型图卡片 -->
 <template>
   <div class="art-card overflow-hidden" :style="{ height: `${height}rem` }">
-    <div class="box-border flex h-full p-5">
+    <div class="flex box-border h-full p-5 pr-2">
       <div class="flex w-full items-start gap-5">
         <div class="flex h-full flex-1 flex-col justify-between">
           <p class="m-0 text-xl font-medium leading-tight text-g-900">
@@ -20,18 +20,18 @@
             </div>
           </div>
           <div class="mt-2 flex gap-4 text-xs text-g-600">
-            <div v-if="currentValue" class="flex-center">
-              <div class="size-2 bg-[var(--main-color)] rounded mr-2"></div>
+            <div v-if="currentValue" class="flex-cc">
+              <div class="size-2 bg-primary/100 rounded mr-2"></div>
               {{ currentValue }}
             </div>
-            <div v-if="previousValue" class="flex-center">
+            <div v-if="previousValue" class="flex-cc">
               <div class="size-2 bg-g-400 rounded mr-2"></div>
               {{ previousValue }}
             </div>
           </div>
         </div>
-        <div class="flex h-full max-w-[200px] flex-1 items-center">
-          <div ref="chartRef" class="h-[120px] w-full"></div>
+        <div class="flex-c h-full max-w-40 flex-1">
+          <div ref="chartRef" class="h-30 w-full"></div>
         </div>
       </div>
     </div>

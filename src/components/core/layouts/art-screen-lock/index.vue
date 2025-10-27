@@ -4,12 +4,12 @@
     <!-- 开发者工具警告覆盖层 -->
     <div
       v-if="showDevToolsWarning"
-      class="fixed top-0 left-0 z-[999999] flex-center w-full h-full text-white bg-gradient-to-br from-[#1e1e1e] to-black animate-fade-in"
+      class="fixed top-0 left-0 z-[999999] flex-cc w-full h-full text-white bg-gradient-to-br from-[#1e1e1e] to-black animate-fade-in"
     >
       <div class="p-5 text-center select-none">
         <div class="mb-7.5 text-5xl">🔒</div>
         <h1 class="m-0 mb-5 text-3xl font-semibold text-danger">系统已锁定</h1>
-        <p class="max-w-[500px] m-0 text-lg leading-relaxed text-white">
+        <p class="max-w-125 m-0 text-lg leading-relaxed text-white">
           检测到开发者工具已打开<br />
           为了系统安全，请关闭开发者工具后继续使用
         </p>
@@ -20,7 +20,7 @@
     <!-- 锁屏弹窗 -->
     <div v-if="!isLock">
       <ElDialog v-model="visible" :width="370" :show-close="false" @open="handleDialogOpen">
-        <div class="flex flex-col items-center">
+        <div class="flex-c flex-col">
           <img class="w-16 h-16 rounded-full" src="@imgs/user/avatar.webp" alt="用户头像" />
           <div class="mt-7.5 mb-3.5 text-base font-medium">{{ userInfo.userName }}</div>
           <ElForm
@@ -37,7 +37,7 @@
                 :placeholder="$t('lockScreen.lock.inputPlaceholder')"
                 :show-password="true"
                 ref="lockInputRef"
-                class="w-full mt-[35px]"
+                class="w-full mt-9"
                 @keyup.enter="handleLock"
               >
                 <template #suffix>
@@ -57,7 +57,7 @@
 
     <!-- 解锁界面 -->
     <div v-else class="unlock-content">
-      <div class="flex flex-col items-center w-90 p-7.5 bg-white/90 rounded-xl">
+      <div class="flex-c flex-col w-90 p-7.5 bg-white/90 rounded-xl">
         <img class="w-16 h-16 mt-5 rounded-full" src="@imgs/user/avatar.webp" alt="用户头像" />
         <div class="mt-7.5 mb-3.5 text-base font-medium">
           {{ userInfo.userName }}

@@ -1,5 +1,5 @@
 <template>
-  <div class="art-card h-[400px] p-5 mb-5">
+  <div class="art-card h-100 p-5 mb-5">
     <div class="art-card-header">
       <div class="title">
         <h4>客户满意度</h4>

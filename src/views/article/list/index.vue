@@ -41,17 +41,17 @@
             </ElImage>
 
             <span
-              class="absolute top-1 right-1 bg-black/50 rounded-[4px] text-xs px-[6px] py-[2px] text-g-200"
+              class="absolute top-1 right-1 bg-black/50 rounded text-xs px-1 py-0.5 text-g-200"
               >{{ item.type_name }}</span
             >
           </div>
           <div class="px-2 py-1">
             <h2 class="text-base text-g-800 font-medium">{{ item.title }}</h2>
-            <div class="flex justify-between w-full h-[25px] mt-[6px]">
+            <div class="flex justify-between w-full h-6 mt-1">
               <div class="flex-c text-g-500">
                 <ArtSvgIcon icon="ri:time-line" class="mr-1 text-sm" />
                 <span class="text-sm">{{ useDateFormat(item.create_time, 'YYYY-MM-DD') }}</span>
-                <div class="w-[1px] h-[12px] bg-g-400 mx-3.5"></div>
+                <div class="w-px h-3 bg-g-400 mx-3.5"></div>
                 <ArtSvgIcon icon="ri:eye-line" class="mr-1 text-sm" />
                 <span class="text-sm">{{ item.count }}</span>
               </div>

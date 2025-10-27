@@ -5,9 +5,9 @@
       <p class="text-g-700 mt-1">{{ systemName }} 是一款兼具设计美学与高效开发的后台系统</p>
       <p class="text-g-700 mt-1">使用了 Vue3、TypeScript、Vite、Element Plus 等前沿技术</p>
 
-      <div class="flex flex-wrap gap-3.5 max-w-[600px] mt-[35px]">
+      <div class="flex flex-wrap gap-3.5 max-w-150 mt-9">
         <div
-          class="w-[240px] flex-between h-[50px] px-3.5 border border-g-300 c-p rounded-[8px] text-sm bg-g-100 duration-300 hover:-translate-y-[3px] max-[500px]:w-full"
+          class="w-60 flex-cb h-12.5 px-3.5 border border-g-300 c-p rounded-lg text-sm bg-g-100 duration-300 hover:-translate-y-1 max-125:w-full"
           v-for="link in linkList"
           :key="link.label"
           @click="goPage(link.url)"
@@ -17,7 +17,7 @@
         </div>
       </div>
     </div>
-    <img class="w-[300px] max-md:hidden" src="@imgs/draw/draw1.png" alt="draw1" />
+    <img class="w-75 max-md:hidden" src="@imgs/draw/draw1.png" alt="draw1" />
   </div>
 </template>
 

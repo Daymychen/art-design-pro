@@ -5,7 +5,7 @@
     <p class="mt-3.5 text-g-600">每一份留言都记录了您的想法，也为我们提供了珍贵的回忆</p>
 
     <ul
-      class="mt-[40px] grid grid-cols-5 gap-5 max-2xl:grid-cols-4 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 mb-5"
+      class="mt-10 grid grid-cols-5 gap-5 max-2xl:grid-cols-4 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 mb-5"
     >
       <li
         class="relative p-4 c-p aspect-16/12 duration-300 hover:-translate-y-1.5"
@@ -16,7 +16,7 @@
       >
         <p class="text-g-600 text-sm">{{ item.date }}</p>
         <p class="mt-4 text-sm text-gray-800">{{ item.content }}</p>
-        <div class="absolute bottom-4 left-0 px-4 flex-between w-full">
+        <div class="absolute bottom-4 left-0 px-4 flex-cb w-full">
           <div class="flex-c">
             <div class="flex-c mr-5 text-xs text-g-600">
               <ArtSvgIcon icon="ri:heart-line" class="mr-1 text-base" />
@@ -49,7 +49,7 @@
           <div class="relative p-4 aspect-16/12" :style="{ background: clickItem.color }">
             <p class="text-g-500 text-sm">{{ clickItem.date }}</p>
             <p class="mt-4 text-sm text-gray-800">{{ clickItem.content }}</p>
-            <div class="absolute bottom-4 left-0 px-4 flex-between w-full">
+            <div class="absolute bottom-4 left-0 px-4 flex-cb w-full">
               <div class="flex-c">
                 <div class="flex-c mr-5 text-xs text-g-600">
                   <ArtSvgIcon icon="ri:heart-line" class="mr-1 text-base" />
