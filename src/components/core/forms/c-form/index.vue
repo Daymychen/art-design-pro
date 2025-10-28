@@ -48,6 +48,8 @@
                   @add-array-item="addArrayItem"
                   @remove-array-item="removeArrayItem"
                   @update:field="updateField"
+                  @register-instance="registerFieldInstance"
+                  @unregister-instance="unregisterFieldInstance"
                 >
                   <!-- 透传表单项插槽 -->
                   <template v-if="$slots[childItem.key]" #[childItem.key]="slotProps">
@@ -74,6 +76,8 @@
               @add-array-item="addArrayItem"
               @remove-array-item="removeArrayItem"
               @update:field="updateField"
+              @register-instance="registerFieldInstance"
+              @unregister-instance="unregisterFieldInstance"
             >
               <!-- 透传表单项插槽 -->
               <template v-if="$slots[item.key]" #[item.key]="slotProps">
@@ -90,7 +94,13 @@
 <script setup lang="ts">
   import type { Component, VNode } from 'vue'
   import type { FormInstance } from 'element-plus'
-  import type { FormRule, FormProps, FormItem } from '@/types/component/form'
+  import type {
+    FormRule,
+    FormProps,
+    FormItem,
+    FormApi,
+    DepChangeParams
+  } from '@/types/component/form'
   import { componentMap } from './componentMap'
   import FormItemRender from './FormItemRender.vue'
   import { useFormGroup } from './useFormGroup'
@@ -111,6 +121,11 @@
   })
 
   const modelValue = defineModel<Record<string, any>>({ default: {} })
+
+  /**
+   * 字段实例存储（用于获取组件实例，如 api-select 的 refresh 方法）
+   */
+  const fieldInstancesMap = ref<Map<string, any>>(new Map())
 
   /**
    * 分组展开状态管理（使用 composable）
@@ -224,6 +239,26 @@
       itemProps.placeholder = item.placeholder
     }
 
+    // 如果是 ApiSelect 组件且有依赖配置，注入 formData 和依赖处理
+    // 通过 type 判断或者 props.api 存在判断
+    const isApiSelect = item.type === 'api-select' || itemProps.api
+    if (isApiSelect && item.dependencies && item.dependencies.length > 0) {
+      // 注入表单数据，供 paramsMapping 使用
+      itemProps._formData = computed(() => modelValue.value)
+
+      // 如果有 paramsMapping，将其与 dependencies 结合使用
+      if (itemProps.paramsMapping && typeof itemProps.paramsMapping === 'function') {
+        // 包装 params，让它变成 computed，当依赖字段变化时自动更新
+        const originalParams = itemProps.params || {}
+        itemProps.params = computed(() => {
+          const baseParams =
+            typeof originalParams === 'function' ? originalParams() : originalParams
+          const mappedParams = itemProps.paramsMapping(modelValue.value)
+          return { ...baseParams, ...mappedParams }
+        })
+      }
+    }
+
     return itemProps
   }
 
@@ -298,10 +333,56 @@
   })
 
   /**
-   * 处理字段依赖验证
-   * 当指定字段变化时，重新验证所有依赖该字段的表单项
+   * 创建 FormApi 实例
+   * 提供给 onDepChange 回调使用
    */
-  const handleFieldDependencies = (changedKey: string) => {
+  const createFormApi = (): FormApi => {
+    return {
+      setFieldValue: (key: string, value: any) => {
+        modelValue.value[key] = value
+      },
+      getFieldValue: (key: string) => {
+        return modelValue.value[key]
+      },
+      getFormData: () => {
+        return { ...modelValue.value }
+      },
+      validateField: async (key: string | string[]) => {
+        await formInstance.value?.validateField(key)
+      },
+      clearValidate: (key?: string | string[]) => {
+        formInstance.value?.clearValidate(key)
+      },
+      resetFields: (key?: string | string[]) => {
+        if (key) {
+          // 重置指定字段
+          const keys = Array.isArray(key) ? key : [key]
+          keys.forEach((k) => {
+            const item = findFormItem(k)
+            if (item?.defaultValue !== undefined) {
+              modelValue.value[k] = item.defaultValue
+            } else {
+              modelValue.value[k] = undefined
+            }
+          })
+        } else {
+          // 重置所有字段
+          formInstance.value?.resetFields()
+        }
+      },
+      getFieldInstance: (key: string) => {
+        return fieldInstancesMap.value.get(key)
+      }
+    }
+  }
+
+  /**
+   * 处理字段依赖
+   * 当指定字段变化时：
+   * 1. 重新验证所有依赖该字段的表单项
+   * 2. 调用依赖项的 onDepChange 回调
+   */
+  const handleFieldDependencies = (changedKey: string, changedValue: any) => {
     // 收集所有依赖当前字段的表单项
     const dependentItems: FormItem[] = []
 
@@ -311,13 +392,27 @@
       }
     })
 
-    // 异步验证依赖项
+    // 处理依赖项
     if (dependentItems.length > 0) {
+      const formApi = createFormApi()
+
       nextTick(() => {
         dependentItems.forEach((item) => {
+          // 1. 重新验证
           formInstance.value?.validateField(item.key).catch(() => {
             // 忽略验证错误，避免控制台警告
           })
+
+          // 2. 调用 onDepChange 回调
+          if (item.onDepChange) {
+            const params: DepChangeParams = {
+              formApi,
+              changedKey,
+              changedValue,
+              formData: { ...modelValue.value }
+            }
+            item.onDepChange(params)
+          }
         })
       })
     }
@@ -401,8 +496,24 @@
       props.onChange(key, value, { ...modelValue.value })
     }
 
-    // 处理字段依赖验证
-    handleFieldDependencies(key)
+    // 处理字段依赖（验证 + onDepChange 回调）
+    handleFieldDependencies(key, value)
+  }
+
+  /**
+   * 注册字段实例
+   */
+  const registerFieldInstance = (key: string, instance: any) => {
+    if (instance) {
+      fieldInstancesMap.value.set(key, instance)
+    }
+  }
+
+  /**
+   * 注销字段实例
+   */
+  const unregisterFieldInstance = (key: string) => {
+    fieldInstancesMap.value.delete(key)
   }
 
   /**

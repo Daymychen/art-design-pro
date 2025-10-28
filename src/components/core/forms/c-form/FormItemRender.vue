@@ -61,6 +61,7 @@
       <!-- 普通表单组件 -->
       <component
         v-else
+        ref="fieldComponentRef"
         :is="getComponent(item)"
         :modelValue="modelValue[item.key]"
         @update:modelValue="(value: any) => $emit('update:field', item.key, value)"
@@ -117,14 +118,48 @@
     getSlots: (item: FormItem) => Record<string, () => VNode>
   }
 
-  // props 和 emit 在模板中通过 $emit 等语法使用
-  defineProps<Props>()
+  const props = defineProps<Props>()
 
-  defineEmits<{
+  const emit = defineEmits<{
     'add-array-item': [key: string]
     'remove-array-item': [key: string, index: number]
     'update:field': [key: string, value: any]
+    'register-instance': [key: string, instance: any]
+    'unregister-instance': [key: string]
   }>()
+
+  /**
+   * 字段组件实例引用
+   */
+  const fieldComponentRef = ref<any>(null)
+
+  /**
+   * 组件挂载时注册实例
+   */
+  onMounted(() => {
+    if (fieldComponentRef.value) {
+      emit('register-instance', props.item.key, fieldComponentRef.value)
+    }
+  })
+
+  /**
+   * 组件卸载时注销实例
+   */
+  onUnmounted(() => {
+    emit('unregister-instance', props.item.key)
+  })
+
+  /**
+   * 监听实例变化（处理动态组件情况）
+   */
+  watch(
+    () => fieldComponentRef.value,
+    (newInstance) => {
+      if (newInstance) {
+        emit('register-instance', props.item.key, newInstance)
+      }
+    }
+  )
 </script>
 
 <style lang="scss" scoped>

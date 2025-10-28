@@ -38,6 +38,8 @@
   - [14. 动态数组字段](#14-动态数组字段)
   - [15. 表单分组/折叠](#15-表单分组折叠)
   - [16. 表单重置与清空](#16-表单重置与清空)
+  - [17. 依赖联动（onDepChange）](#17-依赖联动ondependencychange)
+  - [18. API Select 依赖联动](#18-api-select-依赖联动)
 - [完整示例](#完整示例)
 - [API 参考](#api-参考)
   - [Props（组件属性）](#props组件属性)
@@ -1874,6 +1876,187 @@ interface FormItem {
 
 ---
 
+### 17. ✅ 依赖联动（onDepChange）
+
+当依赖字段变化时，触发自定义回调函数，可以执行任意表单操作。
+
+**用法示例：**
+
+```vue
+<script setup lang="ts">
+  import type { FormItem, DepChangeParams } from '@/types/component/form'
+
+  const formData = ref({
+    age: 0,
+    ageCategory: ''
+  })
+
+  const formItems: FormItem[] = [
+    {
+      key: 'age',
+      label: '年龄',
+      type: 'number'
+    },
+    {
+      key: 'ageCategory',
+      label: '年龄段',
+      type: 'input',
+      readonly: true,
+      dependencies: ['age'], // 依赖 age 字段
+      onDepChange: ({ formApi, changedKey, changedValue }: DepChangeParams) => {
+        // 当 age 变化时，自动设置 ageCategory
+        if (changedKey === 'age') {
+          if (changedValue < 18) {
+            formApi.setFieldValue('ageCategory', '未成年')
+          } else if (changedValue < 60) {
+            formApi.setFieldValue('ageCategory', '成年人')
+          } else {
+            formApi.setFieldValue('ageCategory', '老年人')
+          }
+        }
+      }
+    }
+  ]
+</script>
+```
+
+**回调参数类型：**
+
+```typescript
+interface DepChangeParams {
+  /** 表单 API 实例 */
+  formApi: FormApi
+  /** 变化的字段 key */
+  changedKey: string
+  /** 变化的字段值 */
+  changedValue: any
+  /** 整个表单数据（只读副本） */
+  formData: Record<string, any>
+}
+
+interface FormApi {
+  /** 设置字段值 */
+  setFieldValue: (key: string, value: any) => void
+  /** 获取字段值 */
+  getFieldValue: (key: string) => any
+  /** 获取整个表单数据 */
+  getFormData: () => Record<string, any>
+  /** 验证指定字段 */
+  validateField: (key: string | string[]) => Promise<void>
+  /** 清空字段验证 */
+  clearValidate: (key?: string | string[]) => void
+  /** 重置字段 */
+  resetFields: (key?: string | string[]) => void
+  /** 获取字段实例（用于调用组件方法） */
+  getFieldInstance: (key: string) => any
+}
+```
+
+**应用场景：**
+
+- 自动计算字段（总价 = 数量 × 单价）
+- 条件清空字段（切换用户类型时清空相关字段）
+- 自动分类/标记
+- 复杂的表单联动逻辑
+
+---
+
+### 18. ✅ API Select 依赖联动
+
+结合 `api-select` 组件实现级联选择，当依赖字段变化时自动重新请求数据。
+
+**用法示例：**
+
+```vue
+<template>
+  <ArtForm v-model="formData" :items="formItems" />
+</template>
+
+<script setup lang="ts">
+  import type { FormItem } from '@/types/component/form'
+  import { getProvinceList, getCityList } from '@/api/region'
+
+  const formData = ref({
+    province: '',
+    city: ''
+  })
+
+  const formItems: FormItem[] = [
+    {
+      key: 'province',
+      label: '省份',
+      type: 'api-select',
+      props: {
+        api: getProvinceList,
+        labelField: 'name',
+        valueField: 'code'
+      }
+    },
+    {
+      key: 'city',
+      label: '城市',
+      type: 'api-select',
+      dependencies: ['province'], // 依赖省份字段
+      props: {
+        api: getCityList,
+        labelField: 'name',
+        valueField: 'code',
+        // 将省份代码映射到请求参数
+        paramsMapping: (formData: Record<string, any>) => ({
+          provinceCode: formData.province
+        })
+      },
+      onDepChange: ({ formApi, changedKey }) => {
+        if (changedKey === 'province') {
+          // 省份变化时，清空城市选择
+          formApi.setFieldValue('city', '')
+          // 触发城市选择器重新加载
+          const cityInstance = formApi.getFieldInstance('city')
+          if (cityInstance?.refresh) {
+            cityInstance.refresh()
+          }
+        }
+      }
+    }
+  ]
+</script>
+```
+
+**paramsMapping 详解：**
+
+`paramsMapping` 函数接收整个表单数据，返回要传递给 API 的参数：
+
+```typescript
+{
+  key: 'district',
+  label: '区县',
+  type: 'api-select',
+  dependencies: ['province', 'city'], // 可依赖多个字段
+  props: {
+    api: getDistrictList,
+    paramsMapping: (formData) => ({
+      provinceCode: formData.province,
+      cityCode: formData.city
+    })
+  },
+  onDepChange: ({ formApi, changedKey }) => {
+    formApi.setFieldValue('district', '')
+    formApi.getFieldInstance('district')?.refresh()
+  }
+}
+```
+
+**应用场景：**
+
+- 省市区三级联动
+- 分类-品牌-产品级联
+- 部门-岗位-人员级联
+- 任何需要根据上级选项动态加载的场景
+
+**完整示例：** 请查看 [依赖联动功能指南](./DEPENDENCY_GUIDE.md)
+
+---
+
 ## 完整示例
 
 结合所有新功能的综合示例：
@@ -2003,7 +2186,8 @@ interface FormItem {
 | `tooltip` | `string` | ❌ | Label 旁的提示信息（问号图标） |
 | `help` | `string` | ❌ | 表单项下方的帮助文本 |
 | `transform` | `FormTransform` | ❌ | 数据转换配置（input/output） |
-| `dependencies` | `string[]` | ❌ | 依赖的字段列表 |
+| `dependencies` | `string[]` | ❌ | 依赖的字段列表（当这些字段变化时触发验证和回调） |
+| `onDepChange` | `(params: DepChangeParams) => void` | ❌ | 依赖字段变化时的回调函数 |
 | `arrayConfig` | `FormArrayConfig` | ❌ | 动态数组字段配置（type='array' 时） |
 | `groupConfig` | `FormGroupConfig` | ❌ | 表单分组配置（type='group' 时） |
 
@@ -2136,6 +2320,24 @@ export interface FormGroupConfig {
   children: FormItem[]
 }
 
+// 表单 API 接口（传递给 onDepChange 回调）
+export interface FormApi {
+  /** 设置字段值 */
+  setFieldValue: (key: string, value: any) => void
+  /** 获取字段值 */
+  getFieldValue: (key: string) => any
+  /** 获取整个表单数据 */
+  getFormData: () => Record<string, any>
+  /** 验证指定字段 */
+  validateField: (key: string | string[]) => Promise<void>
+  /** 清空字段验证 */
+  clearValidate: (key?: string | string[]) => void
+  /** 重置字段 */
+  resetFields: (key?: string | string[]) => void
+  /** 获取字段实例（用于调用组件的方法，如 api-select 的 refresh） */
+  getFieldInstance: (key: string) => any
+}
+
 // 表单项配置
 export interface FormItem {
   key: string
@@ -2158,6 +2360,7 @@ export interface FormItem {
   help?: string
   transform?: FormTransform
   dependencies?: string[]
+  onDepChange?: (params: DepChangeParams) => void
   arrayConfig?: FormArrayConfig
   groupConfig?: FormGroupConfig
   [key: string]: any // 允许其他自定义属性
@@ -2433,6 +2636,8 @@ export interface FormProps {
 | **新增** | 动态数组         | type='array' 动态增删         | ⭐⭐⭐⭐⭐ |
 | **新增** | 表单分组         | type='group' 折叠/展开        | ⭐⭐⭐⭐⭐ |
 | **新增** | 表单重置/清空    | clear/reset 方法              | ⭐⭐⭐⭐   |
+| **新增** | 依赖联动         | onDepChange 回调              | ⭐⭐⭐⭐⭐ |
+| **新增** | API Select 联动  | paramsMapping + formApi       | ⭐⭐⭐⭐⭐ |
 
 ---
 
@@ -2499,7 +2704,9 @@ ArtForm 是一个**功能完善、易于使用、高度灵活**的表单组件�
 - ✅ **关联验证**：依赖字段联动验证
 - ✅ **用户提示**：tooltip 和 help 文本
 - ✅ **智能重置**：清空（clear）和重置（reset）双重保障
+- ✅ **依赖联动**：onDepChange 回调实现复杂联动
+- ✅ **API Select 联动**：paramsMapping 实现级联选择
 
-**v2.0 新增 6 大核心功能，让表单开发更简单、更强大！** 🎉
+**v2.1 新增依赖联动功能，让表单开发更简单、更强大！** 🎉
 
 **开始使用 ArtForm，让表单开发更简单！** 🚀

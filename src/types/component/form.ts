@@ -60,6 +60,36 @@ export interface FormGroupConfig {
   children: FormItem[]
 }
 
+// 表单 API 接口（传递给 onDepChange 回调）
+export interface FormApi {
+  /** 设置字段值 */
+  setFieldValue: (key: string, value: any) => void
+  /** 获取字段值 */
+  getFieldValue: (key: string) => any
+  /** 获取整个表单数据 */
+  getFormData: () => Record<string, any>
+  /** 验证指定字段 */
+  validateField: (key: string | string[]) => Promise<void>
+  /** 清空字段验证 */
+  clearValidate: (key?: string | string[]) => void
+  /** 重置字段 */
+  resetFields: (key?: string | string[]) => void
+  /** 获取字段实例（用于调用组件的方法，如 api-select 的 refresh） */
+  getFieldInstance: (key: string) => any
+}
+
+// onDepChange 回调参数
+export interface DepChangeParams {
+  /** 表单 API 实例 */
+  formApi: FormApi
+  /** 变化的字段 key */
+  changedKey: string
+  /** 变化的字段值 */
+  changedValue: any
+  /** 整个表单数据（只读副本） */
+  formData: Record<string, any>
+}
+
 // 表单项配置
 export interface FormItem {
   /** 表单项的唯一标识 */
@@ -102,6 +132,8 @@ export interface FormItem {
   transform?: FormTransform
   /** 依赖的字段（当这些字段变化时，重新验证当前字段） */
   dependencies?: string[]
+  /** 依赖字段变化时的回调 */
+  onDepChange?: (params: DepChangeParams) => void
   /** 动态数组字段配置 */
   arrayConfig?: FormArrayConfig
   /** 表单分组配置 */
