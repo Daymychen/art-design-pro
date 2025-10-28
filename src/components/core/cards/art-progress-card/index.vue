@@ -2,22 +2,8 @@
 <template>
   <div class="art-card h-32 flex flex-col justify-center px-5">
     <div class="mb-3.5 flex-c" :style="{ justifyContent: icon ? 'space-between' : 'flex-start' }">
-      <div
-        v-if="icon"
-        class="size-12 flex-cc bg-g-300 text-xl"
-        :style="{
-          backgroundColor: iconBgColor,
-          borderRadius: iconBgRadius + 'px'
-        }"
-      >
-        <ArtSvgIcon
-          :icon="icon"
-          class="text-2xl"
-          :style="{
-            color: iconColor,
-            fontSize: iconSize + 'px'
-          }"
-        ></ArtSvgIcon>
+      <div v-if="icon" class="size-11 flex-cc bg-g-300 text-xl rounded-lg" :class="iconStyle">
+        <ArtSvgIcon :icon="icon" class="text-2xl"></ArtSvgIcon>
       </div>
       <div>
         <ArtCountTo
@@ -52,21 +38,14 @@
     color?: string
     /** 图标 */
     icon?: string
-    /** 图标颜色 */
-    iconColor?: string
-    /** 图标背景颜色 */
-    iconBgColor?: string
-    /** icon 背景圆角大小 */
-    iconBgRadius?: number
+    /** 图标样式 */
+    iconStyle?: string
     /** 进度条宽度 */
     strokeWidth?: number
-    /** 图标大小 */
-    iconSize?: number
   }
 
   const props = withDefaults(defineProps<Props>(), {
     strokeWidth: 5,
-    iconBgRadius: 8,
     color: '#67C23A'
   })
 

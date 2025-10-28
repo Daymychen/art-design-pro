@@ -1,18 +1,11 @@
 <!-- 统计卡片 -->
 <template>
-  <div class="art-card h-32 flex-c px-5 transition-transform duration-200 hover:-translate-y-0.5">
-    <div
-      v-if="icon"
-      class="mr-4 size-12 flex-cc rounded-full"
-      :style="{ backgroundColor: iconBgColor, borderRadius: iconBgRadius + 'px' }"
-    >
-      <ArtSvgIcon
-        :icon="icon"
-        :style="{
-          color: iconColor,
-          fontSize: iconSize + 'px'
-        }"
-      ></ArtSvgIcon>
+  <div
+    class="art-card h-32 flex-c px-5 transition-transform duration-200 hover:-translate-y-0.5"
+    :class="boxStyle"
+  >
+    <div v-if="icon" class="mr-4 size-11 flex-cc rounded-lg text-xl text-white" :class="iconStyle">
+      <ArtSvgIcon :icon="icon"></ArtSvgIcon>
     </div>
     <div class="flex-1">
       <p class="m-0 text-lg font-medium" :style="{ color: textColor }" v-if="title">
@@ -43,8 +36,12 @@
   defineOptions({ name: 'ArtStatsCard' })
 
   interface StatsCardProps {
+    /** 盒子样式 */
+    boxStyle?: string
     /** 图标 */
     icon?: string
+    /** 图标样式 */
+    iconStyle?: string
     /** 标题 */
     title?: string
     /** 数值 */
@@ -55,14 +52,6 @@
     separator?: string
     /** 描述 */
     description: string
-    /** 图标颜色 */
-    iconColor?: string
-    /** 图标背景颜色 */
-    iconBgColor?: string
-    /** 图标圆角大小 */
-    iconBgRadius?: number
-    /** 图标大小 */
-    iconSize?: number
     /** 文本颜色 */
     textColor?: string
     /** 是否显示箭头 */

@@ -5,12 +5,9 @@
       <ElCol :xs="24" :sm="12" :md="6" v-for="card in statsCards" :key="card.id" class="mb-5">
         <ArtStatsCard
           :icon="card.icon"
+          :iconStyle="card.iconStyle"
           :title="card.title"
           :description="card.description"
-          :iconSize="card.iconSize"
-          :iconBgRadius="8"
-          iconColor="#fff"
-          :iconBgColor="card.iconBgColor"
           :showArrow="card.showArrow"
         />
       </ElCol>
@@ -21,14 +18,12 @@
       <ElCol :xs="24" :sm="12" :md="6" v-for="card in statsCards" :key="card.id" class="mb-5">
         <ArtStatsCard
           :icon="card.icon"
+          :iconStyle="card.iconStyle"
           :count="card.count"
           :description="card.description"
-          :iconSize="card.iconSize"
           :decimals="0"
-          :iconBgColor="card.iconBgColor"
           :showArrow="card.showArrow"
           separator=","
-          iconColor="#fff"
         />
       </ElCol>
     </ElRow>
@@ -38,9 +33,10 @@
       <ElCol :xs="24" :sm="12" :md="6" v-for="card in statsCards" :key="card.id" class="mb-5">
         <ArtStatsCard
           :icon="card.icon"
+          :iconStyle="card.customIconStyle"
+          :boxStyle="card.boxStyle"
           :title="card.title"
           :description="card.description"
-          :iconColor="card.iconColor"
           :textColor="card.textColor"
           :showArrow="card.showArrow"
         />
@@ -62,10 +58,7 @@
           :title="card.title"
           :color="card.color"
           :icon="card.icon"
-          :iconSize="card.iconSize"
-          :iconColor="card.iconColor"
-          :iconBgColor="card.iconBgColor"
-          :iconBgRadius="8"
+          :iconStyle="card.iconStyle"
         />
       </ElCol>
     </ElRow>
@@ -222,9 +215,9 @@
       count: 1235,
       description: '鞋子、牛仔裤、派对服装、手表',
       icon: 'ri:account-box-2-line',
-      iconColor: 'var(--a-primary)',
-      iconSize: 20,
-      iconBgColor: 'var(--a-info)',
+      boxStyle: '!bg-primary/10',
+      customIconStyle: '!text-primary !text-3xl',
+      iconStyle: 'bg-info',
       textColor: 'var(--a-primary)',
       showArrow: false
     },
@@ -234,9 +227,9 @@
       count: 5000,
       description: '日活跃用户超过5,000+',
       icon: 'ri:account-box-2-line',
-      iconColor: 'var(--a-warning)',
-      iconSize: 20,
-      iconBgColor: 'var(--a-success)',
+      boxStyle: '!bg-warning/10',
+      customIconStyle: '!text-warning !text-3xl',
+      iconStyle: 'bg-warning',
       textColor: 'var(--a-warning)',
       showArrow: false
     },
@@ -246,9 +239,9 @@
       count: 35000,
       description: '月收入超过¥350,000+',
       icon: 'ri:account-box-2-line',
-      iconColor: 'var(--a-secondary)',
-      iconSize: 20,
-      iconBgColor: 'var(--a-secondary)',
+      boxStyle: '!bg-secondary/10',
+      customIconStyle: '!text-secondary !text-3xl',
+      iconStyle: 'bg-secondary',
       textColor: 'var(--a-secondary)',
       showArrow: false
     },
@@ -258,9 +251,9 @@
       count: 4800,
       description: '平均评分4.8/5',
       icon: 'ri:account-box-2-line',
-      iconColor: 'var(--a-error)',
-      iconSize: 20,
-      iconBgColor: 'var(--a-error)',
+      boxStyle: '!bg-error/10',
+      customIconStyle: '!text-error !text-3xl',
+      iconStyle: 'bg-error',
       textColor: 'var(--a-error)',
       showArrow: false
     }
@@ -273,9 +266,7 @@
       percentage: 75,
       color: 'var(--a-success)',
       icon: 'ri:account-box-2-line',
-      iconColor: 'var(--a-success)',
-      iconBgColor: 'var(--a-success)',
-      iconSize: 26
+      iconStyle: 'bg-success/12 text-success'
     },
     {
       id: 2,
@@ -283,9 +274,7 @@
       percentage: 65,
       color: 'var(--a-primary)',
       icon: 'ri:account-box-2-line',
-      iconColor: 'var(--a-primary)',
-      iconBgColor: 'var(--a-primary)',
-      iconSize: 26
+      iconStyle: 'bg-primary/12 text-primary'
     },
     {
       id: 3,
@@ -293,9 +282,7 @@
       percentage: 45,
       color: 'var(--a-error)',
       icon: 'ri:account-box-2-line',
-      iconColor: 'var(--a-error)',
-      iconBgColor: 'var(--a-error)',
-      iconSize: 26
+      iconStyle: '!bg-error/12 text-error'
     },
     {
       id: 4,
@@ -303,9 +290,7 @@
       percentage: 90,
       color: 'var(--a-secondary)',
       icon: 'ri:account-box-2-line',
-      iconColor: 'var(--a-secondary)',
-      iconBgColor: 'var(--a-secondary)',
-      iconSize: 26
+      iconStyle: 'bg-secondary/12 text-secondary'
     }
   ]
 
