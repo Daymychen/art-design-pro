@@ -231,7 +231,7 @@
   const headerCellStyle = computed(() => ({
     background: isHeaderBackground.value
       ? 'var(--el-fill-color-lighter)'
-      : 'var(--art-main-bg-color)',
+      : 'var(--default-box-color)',
     ...(props.headerCellStyle || {}) // 合并用户传入的样式
   }))
 

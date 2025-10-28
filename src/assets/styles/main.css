@@ -1,17 +1,7 @@
 @import 'tailwindcss';
-
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* 为 html 元素添加默认样式 */
-/* @layer base {
-   h1 {
-    font-size: var(--text-2xl);
-  }
-  h2 {
-    font-size: var(--text-xl);
-  }
-} */
-
 /* @layer base {
   [data-theme='light'] {
   }
@@ -21,7 +11,13 @@
 } */
 
 :root {
-  /* --g-primary: 93, 135, 255; */
+  /* 卡片边框颜色 */
+  --art-card-border: var(--a-gray-200);
+
+  --art-color: #ffffff;
+
+  /* --a-primary: var(--main-color); */
+  --a-primary: oklch(0.7 0.23 260);
   --a-secondary: oklch(0.72 0.19 231.6);
   --a-error: oklch(0.73 0.15 25.3);
   --a-info: oklch(0.58 0.08 254.1);
@@ -53,12 +49,24 @@
 
   /* 边框颜色 */
   --default-border: #e2e8ee;
+  --default-border-dashed: #dbdfe9;
+
+  /* 页面底部背景色 */
+  --default-bg-color: #fafbfc;
 
   /* 盒子颜色 */
   --default-box-color: #ffffff;
+
+  /* 阴影，看 tailwindcss 有没有自带的 */
+  --art-box-shadow-xs: 0 0.1rem 0.75rem 0.25rem rgba(0, 0, 0, 0.05);
+  --art-box-shadow-sm: 0 0.1rem 1rem 0.25rem rgba(0, 0, 0, 0.05);
+  --art-box-shadow: 0 0.5rem 1.5rem 0.5rem rgba(0, 0, 0, 0.075);
+  --art-box-shadow-lg: 0 1rem 2rem 1rem rgba(0, 0, 0, 0.1);
 }
 
 .dark {
+  --art-color: #000000;
+
   --a-gray-50: oklch(0.13 0.028 261.692);
   --a-gray-100: oklch(0.21 0.034 264.665);
   --a-gray-200: oklch(0.278 0.033 256.848);
@@ -82,8 +90,16 @@
   --b-gray-900: #e3e3e8;
 
   --default-border: rgba(255, 255, 255, 0.1);
+  --default-border-dashed: #363843;
+
+  --default-bg-color: #070707;
 
   --default-box-color: #161618;
+
+  --art-box-shadow-xs: 0 0.1rem 0.75rem 0.25rem rgba(0, 0, 0, 0.05);
+  --art-box-shadow-sm: 0 0.1rem 1rem 0.25rem rgba(0, 0, 0, 0.05);
+  --art-box-shadow: 0 0.5rem 1.5rem 0.5rem rgba(0, 0, 0, 0.075);
+  --art-box-shadow-lg: 0 1rem 2rem 1rem rgba(0, 0, 0, 0.1);
 }
 
 /* 主题类 */
@@ -114,37 +130,6 @@
 
   /* 盒子颜色（light 白色/ dark 黑色） */
   --color-box: var(--default-box-color);
-}
-
-/* 添加组件类 */
-@layer components {
-  /* .art-card {
-    border: 1px solid var(--art-card-border) !important;
-    background: var(--art-main-bg-color);
-    border-radius: calc(var(--custom-radius) + 4px) !important;
-    border-radius: calc(var(--custom-radius) / 2 + 2px) !important; 
-    @apply rounded-[calc(var(--custom-radius) + 4px)] 
-    @apply bg-gray-200 p-5 rounded-2xl
-  } */
-
-  /* art-card header style */
-  .art-card-header {
-    @apply flex justify-between pr-[25px] pb-1;
-
-    .title {
-      h4 {
-        @apply text-lg font-medium text-g-900;
-      }
-
-      p {
-        @apply mt-[3px] text-xs text-g-600;
-
-        span {
-          @apply ml-2 font-medium;
-        }
-      }
-    }
-  }
 }
 
 /* 添加自定义工具类 */
@@ -202,10 +187,45 @@
   }
 
   .art-card-bg {
-    background-color: var(--art-main-bg-color);
+    background-color: var(--default-box-color);
   }
 
   .c-p {
     @apply cursor-pointer;
+  }
+
+  /* 滑入动画 */
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
+/* 添加组件类 */
+@layer components {
+  /* art-card header style */
+  .art-card-header {
+    @apply flex justify-between pr-[25px] pb-1;
+
+    .title {
+      h4 {
+        @apply text-lg font-medium text-g-900;
+      }
+
+      p {
+        @apply mt-[3px] text-xs text-g-600;
+
+        span {
+          @apply ml-2 font-medium;
+        }
+      }
+    }
   }
 }

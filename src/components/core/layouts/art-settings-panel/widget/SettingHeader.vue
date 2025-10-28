@@ -25,13 +25,13 @@
         padding: 8px;
         font-size: 15px;
         font-weight: bold;
-        color: var(--art-gray-600);
+        color: var(--a-gray-600);
         cursor: pointer;
         border-radius: 5px;
 
         &:hover {
-          color: var(--art-gray-700);
-          background-color: rgb(var(--art-gray-300-rgb), 0.5);
+          color: var(--a-gray-700);
+          background-color: var(--a-gray-300);
         }
       }
     }

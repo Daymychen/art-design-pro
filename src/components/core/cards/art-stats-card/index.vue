@@ -1,9 +1,6 @@
 <!-- 统计卡片 -->
 <template>
-  <div
-    class="art-card h-32 flex-c px-5 transition-transform duration-200 hover:-translate-y-0.5"
-    :style="{ backgroundColor: backgroundColor }"
-  >
+  <div class="art-card h-32 flex-c px-5 transition-transform duration-200 hover:-translate-y-0.5">
     <div
       v-if="icon"
       class="mr-4 size-12 flex-cc rounded-full"
@@ -68,8 +65,6 @@
     iconSize?: number
     /** 文本颜色 */
     textColor?: string
-    /** 背景颜色 */
-    backgroundColor?: string
     /** 是否显示箭头 */
     showArrow?: boolean
   }

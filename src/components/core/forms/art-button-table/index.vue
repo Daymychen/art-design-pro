@@ -13,8 +13,6 @@
 </template>
 
 <script setup lang="ts">
-  import { BgColorEnum } from '@/enums/appEnum'
-
   defineOptions({ name: 'ArtButtonTable' })
 
   interface Props {
@@ -23,7 +21,7 @@
     /** 按钮图标 */
     icon?: string
     /** 按钮样式类 */
-    iconClass?: BgColorEnum
+    iconClass?: string
     /** icon 颜色 */
     iconColor?: string
     /** 按钮背景色 */
@@ -38,11 +36,11 @@
 
   // 默认按钮配置
   const defaultButtons = {
-    add: { icon: 'ri:add-fill', color: BgColorEnum.PRIMARY },
-    edit: { icon: 'ri:pencil-line', color: BgColorEnum.SECONDARY },
-    delete: { icon: 'ri:delete-bin-5-line', color: BgColorEnum.ERROR },
-    view: { icon: 'ri:eye-line', color: BgColorEnum.INFO },
-    more: { icon: 'ri:more-2-fill', color: '' }
+    add: { icon: 'ri:add-fill', class: 'bg-primary/12 text-primary' },
+    edit: { icon: 'ri:pencil-line', class: 'bg-secondary/12 text-secondary' },
+    delete: { icon: 'ri:delete-bin-5-line', class: 'bg-error/12 text-error' },
+    view: { icon: 'ri:eye-line', class: 'bg-info/12 text-info' },
+    more: { icon: 'ri:more-2-fill', class: '' }
   } as const
 
   // 获取图标内容
@@ -52,7 +50,7 @@
 
   // 获取按钮样式类
   const buttonClass = computed(() => {
-    return props.iconClass || (props.type ? defaultButtons[props.type]?.color : '') || ''
+    return props.iconClass || (props.type ? defaultButtons[props.type]?.class : '') || ''
   })
 
   const handleClick = () => {

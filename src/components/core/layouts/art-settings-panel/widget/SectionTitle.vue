@@ -18,7 +18,7 @@
     position: relative;
     margin: 30px 0 20px;
     font-size: 14px;
-    color: var(--art-text-gray-800);
+    color: var(--a-gray-800);
     text-align: center;
 
     &::before,
@@ -28,7 +28,7 @@
       width: 50px;
       margin: auto;
       content: '';
-      border-bottom: 1px solid rgba(var(--art-gray-300-rgb), 0.8);
+      border-bottom: 1px solid var(--a-gray-300);
     }
 
     &::before {

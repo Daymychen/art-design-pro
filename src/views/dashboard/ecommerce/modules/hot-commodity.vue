@@ -51,24 +51,24 @@
       title: '智能手表Pro',
       subtitle: '电子产品',
       value: '1,286件',
-      iconBgClass: 'bg-primary text-primary',
-      valueBgClass: 'bg-primary text-primary'
+      iconBgClass: 'bg-primary/12 text-primary',
+      valueBgClass: 'bg-primary/12 text-primary'
     },
     {
       icon: 'ri:money-cny-circle-line',
       title: '时尚连衣裙',
       subtitle: '女装服饰',
       value: '892件',
-      iconBgClass: 'bg-success text-primary',
-      valueBgClass: 'bg-success text-primary'
+      iconBgClass: 'bg-success/12 text-success',
+      valueBgClass: 'bg-success/12 text-success'
     },
     {
       icon: 'ri:money-cny-circle-line',
       title: '厨房小家电',
       subtitle: '家居用品',
       value: '756件',
-      iconBgClass: 'bg-error text-error',
-      valueBgClass: 'bg-error text-error'
+      iconBgClass: 'bg-error/12 text-error',
+      valueBgClass: 'bg-error/12 text-error'
     }
   ]
 </script>

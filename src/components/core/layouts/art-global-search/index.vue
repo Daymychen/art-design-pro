@@ -377,13 +377,13 @@
 
   .layout-search .el-input :deep(.el-input__wrapper) {
     background-color: var(--a-gray-100);
-    border: 1px solid var(--art-border-dashed-color);
+    border: 1px solid var(--default-border-dashed);
     border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
     box-shadow: none;
   }
 
   .layout-search .el-input :deep(.el-input__inner) {
-    color: var(--art-gray-600) !important;
+    color: var(--a-gray-600) !important;
   }
 
   .dark .layout-search .el-input :deep(.el-input__wrapper) {
@@ -409,7 +409,7 @@
   }
 
   .dark .layout-search .dialog-footer > div {
-    color: var(--art-gray-600) !important;
+    color: var(--a-gray-600) !important;
   }
 
   .dark .layout-search .dialog-footer > div i {
@@ -436,7 +436,7 @@
     border-g-400 
     px-1 
     !text-g-500
-    shadow-[0_2px_0_var(--art-border-dashed-color)] 
+    shadow-[0_2px_0_var(--default-border-dashed)] 
     last-of-type:mr-1.5;
   }
 </style>

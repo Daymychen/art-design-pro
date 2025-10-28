@@ -42,7 +42,6 @@
           :description="card.description"
           :iconColor="card.iconColor"
           :textColor="card.textColor"
-          :backgroundColor="card.backgroundColor"
           :showArrow="card.showArrow"
         />
       </ElCol>
@@ -223,11 +222,10 @@
       count: 1235,
       description: '鞋子、牛仔裤、派对服装、手表',
       icon: 'ri:account-box-2-line',
-      iconColor: 'rgb(var(--art-primary))',
+      iconColor: 'var(--a-primary)',
       iconSize: 20,
-      iconBgColor: 'rgb(var(--art-info))',
-      textColor: 'rgb(var(--art-primary))',
-      backgroundColor: 'rgb(var(--art-bg-primary))',
+      iconBgColor: 'var(--a-info)',
+      textColor: 'var(--a-primary)',
       showArrow: false
     },
     {
@@ -236,11 +234,10 @@
       count: 5000,
       description: '日活跃用户超过5,000+',
       icon: 'ri:account-box-2-line',
-      iconColor: 'rgb(var(--art-warning))',
+      iconColor: 'var(--a-warning)',
       iconSize: 20,
-      iconBgColor: 'rgb(var(--art-success))',
-      textColor: 'rgb(var(--art-warning))',
-      backgroundColor: 'rgb(var(--art-bg-warning))',
+      iconBgColor: 'var(--a-success)',
+      textColor: 'var(--a-warning)',
       showArrow: false
     },
     {
@@ -249,11 +246,10 @@
       count: 35000,
       description: '月收入超过¥350,000+',
       icon: 'ri:account-box-2-line',
-      iconColor: 'rgb(var(--art-secondary))',
+      iconColor: 'var(--a-secondary)',
       iconSize: 20,
-      iconBgColor: 'rgb(var(--art-secondary))',
-      textColor: 'rgb(var(--art-secondary))',
-      backgroundColor: 'rgb(var(--art-bg-secondary))',
+      iconBgColor: 'var(--a-secondary)',
+      textColor: 'var(--a-secondary)',
       showArrow: false
     },
     {
@@ -262,11 +258,10 @@
       count: 4800,
       description: '平均评分4.8/5',
       icon: 'ri:account-box-2-line',
-      iconColor: 'rgb(var(--art-error))',
+      iconColor: 'var(--a-error)',
       iconSize: 20,
-      iconBgColor: 'rgb(var(--art-error))',
-      textColor: 'rgb(var(--art-error))',
-      backgroundColor: 'rgb(var(--art-bg-error))',
+      iconBgColor: 'var(--a-error)',
+      textColor: 'var(--a-error)',
       showArrow: false
     }
   ]
@@ -276,40 +271,40 @@
       id: 1,
       title: '完成进度',
       percentage: 75,
-      color: 'rgb(var(--art-success))',
+      color: 'var(--a-success)',
       icon: 'ri:account-box-2-line',
-      iconColor: 'rgb(var(--art-success))',
-      iconBgColor: 'rgb(var(--art-bg-success))',
+      iconColor: 'var(--a-success)',
+      iconBgColor: 'var(--a-success)',
       iconSize: 26
     },
     {
       id: 2,
       title: '项目进度',
       percentage: 65,
-      color: 'rgb(var(--art-primary))',
+      color: 'var(--a-primary)',
       icon: 'ri:account-box-2-line',
-      iconColor: 'rgb(var(--art-primary))',
-      iconBgColor: 'rgb(var(--art-bg-primary))',
+      iconColor: 'var(--a-primary)',
+      iconBgColor: 'var(--a-primary)',
       iconSize: 26
     },
     {
       id: 3,
       title: '学习进度',
       percentage: 45,
-      color: 'rgb(var(--art-error))',
+      color: 'var(--a-error)',
       icon: 'ri:account-box-2-line',
-      iconColor: 'rgb(var(--art-error))',
-      iconBgColor: 'rgb(var(--art-bg-error))',
+      iconColor: 'var(--a-error)',
+      iconBgColor: 'var(--a-error)',
       iconSize: 26
     },
     {
       id: 4,
       title: '任务进度',
       percentage: 90,
-      color: 'rgb(var(--art-secondary))',
+      color: 'var(--a-secondary)',
       icon: 'ri:account-box-2-line',
-      iconColor: 'rgb(var(--art-secondary))',
-      iconBgColor: 'rgb(var(--art-bg-secondary))',
+      iconColor: 'var(--a-secondary)',
+      iconBgColor: 'var(--a-secondary)',
       iconSize: 26
     }
   ]
@@ -362,35 +357,35 @@
       title: '新加坡之行',
       status: '进行中',
       time: '5分钟',
-      class: 'bg-primary',
+      class: 'bg-primary/12 text-primary',
       icon: 'ri:arrow-down-circle-line'
     },
     {
       title: '归档数据',
       status: '进行中',
       time: '10分钟',
-      class: 'bg-secondary',
+      class: 'bg-secondary/12 text-secondary',
       icon: 'ri:arrow-down-circle-line'
     },
     {
       title: '客户会议',
       status: '待处理',
       time: '15分钟',
-      class: 'bg-warning',
+      class: 'bg-warning/12 text-warning',
       icon: 'ri:arrow-down-circle-line'
     },
     {
       title: '筛选任务团队',
       status: '进行中',
       time: '20分钟',
-      class: 'bg-danger',
+      class: 'bg-danger/12 text-danger',
       icon: 'ri:arrow-down-circle-line'
     },
     {
       title: '发送信封给小王',
       status: '已完成',
       time: '20分钟',
-      class: 'bg-success',
+      class: 'bg-success/12 text-success',
       icon: 'ri:arrow-down-circle-line'
     }
   ]

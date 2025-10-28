@@ -93,7 +93,7 @@
       sales: 423,
       percentage: 75,
       pro: 0,
-      color: 'rgb(var(--art-primary)) !important',
+      color: 'var(--a-primary)',
       image: product1
     },
     {
@@ -104,7 +104,7 @@
       sales: 652,
       percentage: 85,
       pro: 0,
-      color: 'rgb(var(--art-success)) !important',
+      color: 'var(--a-success)',
       image: product2
     },
     {
@@ -115,7 +115,7 @@
       sales: 238,
       percentage: 45,
       pro: 0,
-      color: 'rgb(var(--art-warning)) !important',
+      color: 'var(--a-warning)',
       image: product3
     },
     {
@@ -126,7 +126,7 @@
       sales: 126,
       percentage: 30,
       pro: 0,
-      color: 'rgb(var(--art-error)) !important',
+      color: 'var(--a-error)',
       image: product4
     },
     {
@@ -137,7 +137,7 @@
       sales: 321,
       percentage: 60,
       pro: 0,
-      color: 'rgb(var(--art-info)) !important',
+      color: 'var(--a-info)',
       image: product5
     },
     {
@@ -148,7 +148,7 @@
       sales: 489,
       percentage: 70,
       pro: 0,
-      color: 'rgb(var(--art-secondary)) !important',
+      color: 'var(--a-secondary)',
       image: product6
     }
   ])
@@ -171,10 +171,10 @@
    * @returns CSS 类名
    */
   const getStockClass = (stock: number): string => {
-    if (stock === 0) return 'text-danger bg-danger'
-    if (stock < STOCK_THRESHOLD.LOW) return 'text-warning bg-warning'
-    if (stock < STOCK_THRESHOLD.MEDIUM) return 'text-info bg-info'
-    return 'text-success bg-success'
+    if (stock === 0) return 'text-danger bg-danger/12'
+    if (stock < STOCK_THRESHOLD.LOW) return 'text-warning bg-warning/12'
+    if (stock < STOCK_THRESHOLD.MEDIUM) return 'text-info bg-info/12'
+    return 'text-success bg-success/12'
   }
 
   /**

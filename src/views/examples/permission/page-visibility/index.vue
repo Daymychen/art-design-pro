@@ -51,7 +51,7 @@
                 <h4 class="m-0 mb-2 text-base font-semibold">基于角色的权限控制</h4>
                 <p class="m-0 mb-2 leading-[1.6] text-g-700">
                   在前端控制模式下，页面访问权限由路由配置文件中的
-                  <code class="px-1.5 py-0.5 font-mono text-xs text-primary bg-primary rounded"
+                  <code class="px-1.5 py-0.5 font-mono text-xs text-primary bg-primary/12 rounded"
                     >meta.roles</code
                   >
                   字段定义，前端会根据用户接口所拥有的角色对路由和菜单进行过滤与控制
@@ -75,11 +75,11 @@
                   >
                   <li class="my-1 leading-[1.5] text-g-700">
                     在
-                    <code class="px-1.5 py-0.5 font-mono text-xs text-primary bg-primary rounded"
+                    <code class="px-1.5 py-0.5 font-mono text-xs text-primary bg-primary/12 rounded"
                       >beforeEach</code
                     >
                     路由守卫中检查目标路由的
-                    <code class="px-1.5 py-0.5 font-mono text-xs text-primary bg-primary rounded"
+                    <code class="px-1.5 py-0.5 font-mono text-xs text-primary bg-primary/12 rounded"
                       >roles</code
                     >
                     配置

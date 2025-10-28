@@ -20,7 +20,7 @@
             >
               <div
                 class="min-w-25 px-3 py-1.5 overflow-hidden text-xs/6 font-medium text-ellipsis whitespace-nowrap rounded hover:opacity-80"
-                :class="[`${event.type || 'bg-primary'}`]"
+                :class="[event.bgClass, event.textClass]"
               >
                 {{ event.content }}
               </div>
@@ -87,17 +87,19 @@
     date: string
     endDate?: string
     content: string
-    type?: 'bg-primary' | 'bg-success' | 'bg-warning' | 'bg-danger'
+    type?: 'primary' | 'success' | 'warning' | 'danger'
+    bgClass?: string
+    textClass?: string
   }
 
   /**
    * 事件类型选项
    */
   const eventTypes = [
-    { label: '基本', value: 'bg-primary' },
-    { label: '成功', value: 'bg-success' },
-    { label: '警告', value: 'bg-warning' },
-    { label: '危险', value: 'bg-danger' }
+    { label: '基本', value: 'primary' },
+    { label: '成功', value: 'success' },
+    { label: '警告', value: 'warning' },
+    { label: '危险', value: 'danger' }
   ] as const
 
   const currentDate = ref(new Date('2025-02-07'))
@@ -109,20 +111,20 @@
    * 事件列表数据
    */
   const events = ref<CalendarEvent[]>([
-    { date: '2025-02-01', content: '产品需求评审', type: 'bg-primary' },
+    { date: '2025-02-01', content: '产品需求评审', type: 'primary' },
     {
       date: '2025-02-03',
       endDate: '2025-02-05',
       content: '项目周报会议（跨日期）',
-      type: 'bg-primary'
+      type: 'primary'
     },
-    { date: '2025-02-10', content: '瑜伽课程', type: 'bg-success' },
-    { date: '2025-02-15', content: '团队建设活动', type: 'bg-primary' },
-    { date: '2025-02-20', content: '健身训练', type: 'bg-success' },
-    { date: '2025-02-20', content: '代码评审', type: 'bg-danger' },
-    { date: '2025-02-20', content: '团队午餐', type: 'bg-primary' },
-    { date: '2025-02-20', content: '项目进度汇报', type: 'bg-warning' },
-    { date: '2025-02-28', content: '月度总结会', type: 'bg-warning' }
+    { date: '2025-02-10', content: '瑜伽课程', type: 'success' },
+    { date: '2025-02-15', content: '团队建设活动', type: 'primary' },
+    { date: '2025-02-20', content: '健身训练', type: 'success' },
+    { date: '2025-02-20', content: '代码评审', type: 'danger' },
+    { date: '2025-02-20', content: '团队午餐', type: 'primary' },
+    { date: '2025-02-20', content: '项目进度汇报', type: 'warning' },
+    { date: '2025-02-28', content: '月度总结会', type: 'warning' }
   ])
 
   /**
@@ -132,7 +134,7 @@
     date: '',
     endDate: '',
     content: '',
-    type: 'bg-primary'
+    type: 'primary'
   })
 
   /**
@@ -148,19 +150,39 @@
   const formatDate = (date: string) => date.split('-')[2]
 
   /**
+   * 获取事件类型对应的样式类名
+   * @param type 事件类型
+   * @returns 包含背景和文字颜色的类名对象
+   */
+  const getEventClasses = (type: CalendarEvent['type'] = 'primary') => {
+    const classMap = {
+      primary: { bgClass: 'bg-primary/12', textClass: 'text-primary' },
+      success: { bgClass: 'bg-success/12', textClass: 'text-success' },
+      warning: { bgClass: 'bg-warning/12', textClass: 'text-warning' },
+      danger: { bgClass: 'bg-danger/12', textClass: 'text-danger' }
+    }
+    return classMap[type]
+  }
+
+  /**
    * 获取指定日期的所有事件
    * 支持跨日期事件的显示
    * @param day 日期字符串
    * @returns 该日期的事件列表
    */
   const getEvents = (day: string) => {
-    return events.value.filter((event) => {
-      const eventDate = new Date(event.date)
-      const currentDate = new Date(day)
-      const endDate = event.endDate ? new Date(event.endDate) : new Date(event.date)
+    return events.value
+      .filter((event) => {
+        const eventDate = new Date(event.date)
+        const currentDate = new Date(day)
+        const endDate = event.endDate ? new Date(event.endDate) : new Date(event.date)
 
-      return currentDate >= eventDate && currentDate <= endDate
-    })
+        return currentDate >= eventDate && currentDate <= endDate
+      })
+      .map((event) => {
+        const { bgClass, textClass } = getEventClasses(event.type)
+        return { ...event, bgClass, textClass }
+      })
   }
 
   /**
@@ -171,7 +193,7 @@
       date: '',
       endDate: '',
       content: '',
-      type: 'bg-primary'
+      type: 'primary'
     }
     editingEventIndex.value = -1
   }
@@ -186,7 +208,7 @@
     eventForm.value = {
       date: day,
       content: '',
-      type: 'bg-primary'
+      type: 'primary'
     }
     editingEventIndex.value = -1
     dialogVisible.value = true

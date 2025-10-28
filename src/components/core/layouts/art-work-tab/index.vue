@@ -10,7 +10,7 @@
   >
     <div class="w-full overflow-hidden" ref="scrollRef">
       <ul
-        class="float-left whitespace-nowrap !bg-transparent"
+        class="float-left whitespace-nowrap !bg-transparent flex"
         :class="[tabStyle === 'tab-google' ? 'pl-1' : '']"
         ref="tabsRef"
         :style="{
@@ -504,7 +504,7 @@
   }
 
   .dark .google-tab.activ-tab {
-    color: var(--art-gray-800) !important;
+    color: var(--a-gray-800) !important;
     background-color: var(--a-gray-100) !important;
   }
 
@@ -515,9 +515,9 @@
 
   .google-tab:hover {
     box-sizing: border-box;
-    color: var(--art-text-gray-600) !important;
+    color: var(--a-gray-600) !important;
     background-color: var(--el-color-primary-light-9) !important;
-    border-bottom: 1px solid var(--art-main-bg-color) !important;
+    border-bottom: 1px solid var(--default-box-color) !important;
     border-radius: calc(var(--custom-radius) / 2.5 + 4px) !important;
   }
 
@@ -558,8 +558,8 @@
   }
 
   .google-tab i:hover {
-    color: var(--art-text-gray-700);
-    background: var(--art-gray-300);
+    color: var(--a-gray-700);
+    background: var(--a-gray-300);
   }
 
   @media only screen and (width <= 768px) {

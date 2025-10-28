@@ -1,4 +1,3 @@
-@use '@styles/variables.scss' as *;
 @use '@styles/mixin.scss' as *;
 
 // 菜单样式变量
@@ -163,7 +162,7 @@ $popup-menu-radius: 6px;
     @include menu-hover($hover-bg-color);
 
     .el-sub-menu__icon-arrow {
-      color: var(--art-gray-600);
+      color: var(--a-gray-600);
     }
   }
 
@@ -174,7 +173,7 @@ $popup-menu-radius: 6px;
     @include menu-hover(#0f1015);
 
     .el-sub-menu__icon-arrow {
-      color: var(--art-gray-400);
+      color: var(--a-gray-400);
     }
   }
 
@@ -205,7 +204,7 @@ $popup-menu-radius: 6px;
     @include menu-hover($hover-bg-color);
 
     .el-sub-menu__icon-arrow {
-      color: var(--art-gray-600);
+      color: var(--a-gray-600);
     }
   }
 }
@@ -225,7 +224,7 @@ $popup-menu-radius: 6px;
   }
 }
 
-@media only screen and (max-width: $device-phone) {
+@media only screen and (width <= 500px) {
   .layout-sidebar {
     .el-menu-design {
       > .el-sub-menu {
@@ -242,7 +241,7 @@ $popup-menu-radius: 6px;
 // 菜单折叠 hover 弹窗样式（浅色主题）
 .el-menu--vertical,
 .el-menu--popup-container {
-  @include popup-menu-base(var(--a-gray-100), var(--art-gray-900), var(--a-gray-100));
+  @include popup-menu-base(var(--a-gray-100), var(--a-gray-900), var(--a-gray-100));
 }
 
 // 菜单折叠 hover 弹窗样式（深色主题）

@@ -5,7 +5,7 @@
       :ellipsis="true"
       mode="horizontal"
       :default-active="routerPath"
-      text-color="var(--art-text-gray-700)"
+      text-color="var(--a-gray-700)"
       :popper-offset="-6"
       background-color="transparent"
       :show-timeout="50"

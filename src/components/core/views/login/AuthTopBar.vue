@@ -1,11 +1,11 @@
 <!-- 授权页右上角组件 -->
 <template>
   <div
-    class="absolute right-5 top-5 z-10 flex-c gap-2.5 max-170:[&_.color-picker-expandable]:hidden"
+    class="absolute right-5 top-5 z-10 flex-c gap-2.5 max-170:[&_.color-picker-expandable]:!hidden"
   >
     <div class="color-picker-expandable relative flex-c">
       <div
-        class="color-dots absolute right-0 rounded-full flex-c gap-2 rounded-5 px-2.5 py-2 pr-9 pl-2.5 opacity-0 shadow-[0_2px_12px_var(--art-gray-300)] backdrop-blur-[10px] [pointer-events:none] [transform:translateX(10px)]"
+        class="color-dots absolute right-0 rounded-full flex-c gap-2 rounded-5 px-2.5 py-2 pr-9 pl-2.5 opacity-0 shadow-[0_2px_12px_var(--a-gray-300)] backdrop-blur-[10px] [pointer-events:none] [transform:translateX(10px)]"
       >
         <div
           v-for="(color, index) in mainColors"
@@ -36,7 +36,7 @@
     >
       <div class="btn language-btn h-8 w-8 c-p flex-cc tad-300">
         <ArtSvgIcon
-          icon="ri:global-line"
+          icon="hugeicons:global"
           class="icon-language text-lg text-g-800 transition-colors duration-300"
         />
       </div>

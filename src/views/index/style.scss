@@ -1,10 +1,8 @@
-@use '@/assets/styles/variables' as *;
-
 .app-layout {
   display: flex;
   width: 100%;
   min-height: 100vh;
-  background: var(--art-bg-color);
+  background: var(--default-bg-color);
 
   .app-sidebar {
     flex-shrink: 0;
@@ -40,7 +38,7 @@
           box-sizing: border-box;
           padding: 20px;
           overflow: hidden;
-          background: var(--art-main-bg-color);
+          background: var(--default-box-color);
           border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
         }
       }
@@ -48,7 +46,7 @@
   }
 }
 
-@media only screen and (max-width: $device-ipad-pro) {
+@media only screen and (width <= 1180px) {
   .app-layout {
     #app-main {
       height: 100dvh;
@@ -56,7 +54,7 @@
   }
 }
 
-@media only screen and (max-width: $device-ipad) {
+@media only screen and (width <= 800px) {
   .app-layout {
     position: relative;
 
@@ -82,7 +80,7 @@
   }
 }
 
-@media only screen and (max-width: $device-phone) {
+@media only screen and (width <= 500px) {
   .app-layout {
     #app-main {
       .app-content {

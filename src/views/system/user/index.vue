@@ -273,6 +273,6 @@
 
   .user-page :deep(.user > div .user-name) {
     font-weight: 500;
-    color: var(--art-text-gray-800);
+    color: var(--a-gray-800);
   }
 </style>

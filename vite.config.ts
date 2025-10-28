@@ -136,7 +136,6 @@ export default ({ mode }: { mode: string }) => {
         scss: {
           additionalData: `
             @use "@styles/el-light.scss" as *; 
-            @use "@styles/variables.scss" as *; 
             @use "@styles/mixin.scss" as *;
           `
         }

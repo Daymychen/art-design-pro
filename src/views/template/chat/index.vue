@@ -12,7 +12,7 @@
     <div
       class="box-border w-90 h-full p-5 border-r border-g-300 max-md:w-full max-md:h-42 max-md:border-r-0"
     >
-      <div class="pb-5 max-md:hidden">
+      <div class="pb-5 max-md:!hidden">
         <div class="flex-c gap-3">
           <ElAvatar :size="50" :src="selectedPerson?.avatar" />
           <div>
@@ -115,7 +115,7 @@
                 </div>
                 <div
                   class="py-2.5 px-3.5 text-sm leading-[1.4] rounded-md"
-                  :class="message.isMe ? 'bg-[rgb(var(--art-bg-secondary))]' : 'bg-g-300/60'"
+                  :class="message.isMe ? '!bg-primary/15' : '!bg-g-300/60'"
                   >{{ message.content }}</div
                 >
               </div>

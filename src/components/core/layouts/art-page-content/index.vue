@@ -98,7 +98,7 @@
             width: '100%',
             height: '100vh',
             zIndex: 2500,
-            background: 'var(--art-bg-color)'
+            background: 'var(--default-bg-color)'
           }
         : {
             maxWidth: containerWidth.value

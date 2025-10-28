@@ -234,3 +234,7 @@
     }, REDIRECT_DELAY)
   }
 </script>
+
+<style scoped>
+  @import '../login/style.css';
+</style>

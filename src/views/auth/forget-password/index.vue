@@ -56,3 +56,7 @@
     router.push({ name: 'Login' })
   }
 </script>
+
+<style scoped>
+  @import '../login/style.css';
+</style>

@@ -56,11 +56,11 @@
                   ref="dragVerify"
                   v-model:value="isPassing"
                   :text="$t('login.sliderText')"
-                  textColor="var(--art-gray-800)"
+                  textColor="var(--a-gray-800)"
                   :successText="$t('login.sliderSuccessText')"
                   :progressBarBg="getCssVar('--el-color-primary')"
                   background="var(--a-gray-100)"
-                  handlerBg="var(--art-main-bg-color)"
+                  handlerBg="var(--default-box-color)"
                 />
               </div>
               <p
@@ -268,6 +268,8 @@
 </script>
 
 <style scoped>
+  @import './style.css';
+
   :deep(.el-select__wrapper) {
     height: 40px !important;
   }

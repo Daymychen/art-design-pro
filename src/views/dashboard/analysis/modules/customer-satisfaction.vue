@@ -59,7 +59,7 @@
     }
   }
 
-  @media screen and (max-width: $device-phone) {
+  @media screen and (width <= 500px) {
     .customer-satisfaction {
       height: 300px;
 

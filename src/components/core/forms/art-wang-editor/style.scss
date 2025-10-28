@@ -9,7 +9,7 @@ $box-radius: calc(var(--custom-radius) / 3 + 2px);
 .editor-wrapper {
   width: 100%;
   height: 100%;
-  border: 1px solid rgba(var(--art-gray-300-rgb), 0.8);
+  border: 1px solid var(--a-gray-300);
   border-radius: $box-radius !important;
 
   .w-e-bar {
@@ -28,7 +28,7 @@ $box-radius: calc(var(--custom-radius) / 3 + 2px);
 
   /* 工具栏 */
   .editor-toolbar {
-    border-bottom: 1px solid var(--art-border-color);
+    border-bottom: 1px solid var(--default-border);
   }
 
   /* 下拉选择框配置 */
@@ -142,8 +142,8 @@ $box-radius: calc(var(--custom-radius) / 3 + 2px);
 
   /* 引用 */
   .w-e-text-container [data-slate-editor] blockquote {
-    background-color: rgba(var(--art-gray-300-rgb), 0.25);
-    border-left: 4px solid var(--art-gray-300);
+    background-color: var(--a-gray-200);
+    border-left: 4px solid var(--a-gray-300);
   }
 
   /* 输入区域弹出 bar  */

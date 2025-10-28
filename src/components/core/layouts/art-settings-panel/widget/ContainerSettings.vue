@@ -44,7 +44,7 @@
         margin-right: 15px;
         margin-bottom: 15px;
         cursor: pointer;
-        border: 2px solid var(--art-border-color);
+        border: 2px solid var(--default-border);
         border-radius: 10px;
 
         &:last-of-type {

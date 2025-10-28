@@ -1,7 +1,7 @@
 <!-- 顶部栏 -->
 <template>
   <div
-    class="w-full bg-[var(--art-bg-color)]"
+    class="w-full bg-[var(--default-bg-color)]"
     :class="[tabStyle === 'tab-card' || tabStyle === 'tab-google' ? 'mb-5 !bg-box' : '']"
   >
     <div
@@ -16,7 +16,7 @@
         </div>
 
         <ArtLogo
-          class="hidden pl-3.5 overflow-hidden align-[-0.15em] fill-current logo2"
+          class="!hidden pl-3.5 overflow-hidden align-[-0.15em] fill-current"
           @click="toHome"
         />
 
@@ -32,7 +32,7 @@
         <ArtIconButton
           v-if="shouldShowRefreshButton"
           icon="ri:refresh-line"
-          class="!ml-3 refresh-btn max-sm:hidden"
+          class="!ml-3 refresh-btn max-sm:!hidden"
           :style="{ marginLeft: !isLeftMenu ? '10px' : '0' }"
           @click="reload"
         />
@@ -58,7 +58,7 @@
         <!-- 搜索 -->
         <div
           v-if="shouldShowGlobalSearch"
-          class="flex-cb w-40 h-9 px-2.5 c-p border border-g-400 rounded-custom-sm max-md:hidden"
+          class="flex-cb w-40 h-9 px-2.5 c-p border border-g-400 rounded-custom-sm max-md:!hidden"
           @click="openSearchDialog"
         >
           <div class="flex-c">
@@ -77,7 +77,7 @@
           v-if="shouldShowFullscreen"
           :icon="isFullscreen ? 'ri:fullscreen-exit-line' : 'ri:fullscreen-fill'"
           :class="[!isFullscreen ? 'full-screen-btn' : 'exit-full-screen-btn', 'ml-3']"
-          class="max-md:hidden"
+          class="max-md:!hidden"
           @click="toggleFullScreen"
         />
 
@@ -107,7 +107,7 @@
           popper-class="langDropDownStyle"
           v-if="shouldShowLanguage"
         >
-          <ArtIconButton icon="ri:global-line" class="language-btn" />
+          <ArtIconButton icon="hugeicons:global" class="language-btn" />
           <template #dropdown>
             <ElDropdownMenu>
               <div v-for="item in languageOptions" :key="item.value" class="lang-btn-item">

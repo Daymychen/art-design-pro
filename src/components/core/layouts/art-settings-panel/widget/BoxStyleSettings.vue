@@ -57,12 +57,12 @@
         transition: all 0.2s !important;
 
         &.is-active {
-          color: var(--art-gray-800);
-          background-color: var(--art-main-bg-color);
+          color: var(--a-gray-800);
+          background-color: var(--default-box-color);
         }
 
         &:hover:not(.is-active) {
-          color: var(--art-gray-800);
+          color: var(--a-gray-800);
           background-color: rgba($color: #000, $alpha: 4%);
         }
       }
@@ -75,7 +75,7 @@
         .button {
           &.is-active {
             color: #fff !important;
-            background-color: rgba(var(--art-gray-400-rgb), 0.7);
+            background-color: var(--a-gray-400);
           }
 
           &:hover:not(.is-active) {

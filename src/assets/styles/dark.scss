@@ -14,11 +14,11 @@ $background-color: #070707;
 
 //   // 富文本编辑器
 //   // 工具栏背景颜色
-//   --w-e-toolbar-bg-color: var(--art-main-bg-color);
+//   --w-e-toolbar-bg-color: var(--default-box-color);
 //   // 输入区域背景颜色
-//   --w-e-textarea-bg-color: var(--art-main-bg-color);
+//   --w-e-textarea-bg-color: var(--default-box-color);
 //   // 工具栏文字颜色
-//   --w-e-toolbar-color: var(--art-text-gray-600);
+//   --w-e-toolbar-color: var(--a-gray-600);
 //   // 选中菜单颜色
 //   --w-e-toolbar-active-bg-color: var(--a-gray-50);
 //   // 弹窗边框颜色
@@ -82,7 +82,7 @@ $background-color: #070707;
 
       .el-sub-menu__title {
         .el-icon {
-          color: var(--art-gray-800) !important;
+          color: var(--a-gray-800) !important;
         }
       }
 
@@ -128,12 +128,12 @@ $background-color: #070707;
   //   // 富文本编辑器
   //   // 分隔线
   //   .w-e-bar-divider {
-  //     background-color: var(--art-gray-300) !important;
+  //     background-color: var(--a-gray-300) !important;
   //   }
 
   //   // 下拉选择框
   //   .w-e-select-list {
-  //     background-color: var(--art-main-bg-color) !important;
+  //     background-color: var(--default-box-color) !important;
   //     border: 1px solid var(--art-border-dashed-color) !important;
   //   }
 
@@ -144,7 +144,7 @@ $background-color: #070707;
 
   //   /* 工具栏菜单 */
   //   .w-e-bar-item-group .w-e-bar-item-menus-container {
-  //     background-color: var(--art-main-bg-color) !important;
+  //     background-color: var(--default-box-color) !important;
   //     border: 1px solid var(--art-border-dashed-color) !important;
   //   }
 
@@ -180,18 +180,18 @@ $background-color: #070707;
 
   // 工作台标签文字颜色
   //   .worktab .scroll-view .tabs li {
-  //     color: var(--art-text-gray-800) !important;
+  //     color: var(--a-gray-800) !important;
   //   }
 
   // 顶部按钮文字颜色
   //   .layout-top-bar .btn-box .btn i,
   //   .fast-enter-trigger .btn i {
-  //     color: var(--art-text-gray-700) !important;
+  //     color: var(--a-gray-700) !important;
   //   }
 }
 
 // 移动端文字颜色
-// @media screen and (max-width: $device-phone) {
+// @media screen and (max-width: 500px) {
 //   .dark {
 //     $font-color: rgba(#ffffff, 0.8);
 //     --el-text-color-regular: $font-color !important;

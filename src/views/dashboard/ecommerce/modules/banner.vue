@@ -3,8 +3,8 @@
     class="justify-center mb-5"
     height="13.3rem"
     :title="`欢迎回来 ${userInfo.userName}`"
-    backgroundColor="var(--el-color-primary-light-9)"
-    titleColor="var(--art-gray-900)"
+    boxStyle="bg-primary/10"
+    titleColor="var(--a-gray-900)"
     :decoration="false"
     :meteorConfig="{
       enabled: true,

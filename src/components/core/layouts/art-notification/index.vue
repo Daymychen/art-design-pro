@@ -39,13 +39,9 @@
           >
             <div
               class="size-9 leading-9 text-center rounded-lg flex-cc"
-              :style="{ background: getNoticeStyle(item.type).backgroundColor + '!important' }"
+              :class="[getNoticeStyle(item.type).iconClass]"
             >
-              <ArtSvgIcon
-                class="text-lg !bg-transparent"
-                :style="{ color: getNoticeStyle(item.type).iconColor + '!important' }"
-                :icon="getNoticeStyle(item.type).icon"
-              />
+              <ArtSvgIcon class="text-lg !bg-transparent" :icon="getNoticeStyle(item.type).icon" />
             </div>
             <div class="w-[calc(100%-45px)] ml-3.5">
               <h4 class="text-sm font-normal leading-5.5 text-g-900">{{ item.title }}</h4>
@@ -109,7 +105,6 @@
 <script setup lang="ts">
   import { computed, ref, watch, type Ref, type ComputedRef } from 'vue'
   import { useI18n } from 'vue-i18n'
-  import AppConfig from '@/config'
 
   // 导入头像图片
   import avatar1 from '@/assets/img/avatar/avatar1.webp'
@@ -156,10 +151,8 @@
   interface NoticeStyle {
     /** 图标 */
     icon: string
-    /** 图标颜色 */
-    iconColor: string
-    /** 背景颜色 */
-    backgroundColor: string
+    /** icon 样式 */
+    iconClass: string
   }
 
   type NoticeType = 'email' | 'message' | 'collection' | 'user' | 'notice'
@@ -279,41 +272,30 @@
     const noticeStyleMap: Record<NoticeType, NoticeStyle> = {
       email: {
         icon: 'ri:arrow-right-circle-line',
-        iconColor: 'rgb(var(--art-warning))',
-        backgroundColor: 'rgb(var(--art-bg-warning))'
+        iconClass: 'bg-warning/12 text-warning'
       },
       message: {
         icon: 'ri:arrow-right-circle-line',
-        iconColor: 'rgb(var(--art-success))',
-        backgroundColor: 'rgb(var(--art-bg-success))'
+        iconClass: 'bg-success/12 text-success'
       },
       collection: {
         icon: 'ri:arrow-right-circle-line',
-        iconColor: 'rgb(var(--art-danger))',
-        backgroundColor: 'rgb(var(--art-bg-danger))'
+        iconClass: 'bg-danger/12 text-danger'
       },
       user: {
         icon: 'ri:arrow-right-circle-line',
-        iconColor: 'rgb(var(--art-info))',
-        backgroundColor: 'rgb(var(--art-bg-info))'
+        iconClass: 'bg-info/12 text-info'
       },
       notice: {
         icon: 'ri:arrow-right-circle-line',
-        iconColor: 'rgb(var(--art-primary))',
-        backgroundColor: 'rgb(var(--art-bg-primary))'
+        iconClass: 'bg-primary/12 text-primary'
       }
-    }
-
-    const getRandomColor = (): string => {
-      const index = Math.floor(Math.random() * AppConfig.systemMainColor.length)
-      return AppConfig.systemMainColor[index]
     }
 
     const getNoticeStyle = (type: NoticeType): NoticeStyle => {
       const defaultStyle: NoticeStyle = {
         icon: 'ri:arrow-right-circle-line',
-        iconColor: '#FFFFFF',
-        backgroundColor: getRandomColor()
+        iconClass: 'bg-primary/12 text-primary'
       }
 
       return noticeStyleMap[type] || defaultStyle
@@ -465,7 +447,7 @@
   }
 
   .dark .scrollbar-thin::-webkit-scrollbar-track {
-    background-color: var(--art-main-bg-color);
+    background-color: var(--default-box-color);
   }
 
   .dark .scrollbar-thin::-webkit-scrollbar-thumb {

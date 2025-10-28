@@ -87,7 +87,7 @@
       age: 22,
       percentage: 60,
       pro: 0,
-      color: 'rgb(var(--art-primary)) !important',
+      color: 'var(--a-primary)',
       avatar: avatar1
     },
     {
@@ -97,7 +97,7 @@
       age: 21,
       percentage: 20,
       pro: 0,
-      color: 'rgb(var(--art-secondary)) !important',
+      color: 'var(--a-secondary)',
       avatar: avatar2
     },
     {
@@ -107,7 +107,7 @@
       age: 23,
       percentage: 60,
       pro: 0,
-      color: 'rgb(var(--art-warning)) !important',
+      color: 'var(--a-warning)',
       avatar: avatar3
     },
     {
@@ -117,7 +117,7 @@
       age: 28,
       percentage: 50,
       pro: 0,
-      color: 'rgb(var(--art-info)) !important',
+      color: 'var(--a-info)',
       avatar: avatar4
     },
     {
@@ -127,7 +127,7 @@
       age: 26,
       percentage: 70,
       pro: 0,
-      color: 'rgb(var(--art-error)) !important',
+      color: 'var(--a-error)',
       avatar: avatar5
     },
     {
@@ -137,7 +137,7 @@
       age: 25,
       percentage: 90,
       pro: 0,
-      color: 'rgb(var(--art-success)) !important',
+      color: 'var(--a-success)',
       avatar: avatar6
     }
   ])

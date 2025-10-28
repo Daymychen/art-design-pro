@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 // body {
-//   color: var(--art-text-gray-700);
+//   color: var(--a-gray-700);
 //   text-align: left;
 //   font-family:
 //     Inter, 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
@@ -17,7 +17,7 @@
 
 /*滚动条的轨道*/
 ::-webkit-scrollbar-track {
-  background-color: var(--art-text-gray-100);
+  background-color: var(--a-gray-100);
 }
 
 /*滚动条的滑块按钮*/
@@ -40,10 +40,10 @@
 
 .dark {
   ::-webkit-scrollbar-track {
-    background-color: var(--art-bg-color);
+    background-color: var(--default-bg-color);
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: rgba(var(--art-gray-300-rgb), 0.8) !important;
+    background-color: var(--a-gray-300) !important;
   }
 }

@@ -1,10 +1,11 @@
 <template>
   <div class="page-content box-border !px-20 py-3.5 text-center max-md:px-5" :class="type">
     <ArtSvgIcon
-      class="icon mt-[6vh] block !text-8xl max-md:mt-[4vh] max-md:!text-6xl"
+      class="icon size-22 p-2 mt-16 block rounded-full !text-white"
       :icon="iconCode"
+      :class="type === 'success' ? 'bg-[#19BE6B]' : 'bg-[#ED4014]'"
     />
-    <h1 class="title mt-5 text-3xl font-medium !text-g-900 max-md:mt-2.5 max-md:text-2xl">{{
+    <h1 class="title mt-8 text-3xl font-medium !text-g-900 max-md:mt-2.5 max-md:text-2xl">{{
       title
     }}</h1>
     <p class="msg mt-5 text-base text-g-600">{{ message }}</p>
@@ -40,21 +41,3 @@
     iconCode: ''
   })
 </script>
-
-<style scoped>
-  .success .icon {
-    color: #19be6b !important;
-  }
-
-  .fail .icon {
-    color: #ed4014 !important;
-  }
-
-  .fail .res :deep(p i) {
-    color: #ed4014;
-  }
-
-  .dark .res {
-    background: #28282a;
-  }
-</style>

@@ -366,7 +366,7 @@
     left: 0;
     height: 1px;
     content: '';
-    background-color: rgba(var(--art-gray-300-rgb), 0.5);
+    background-color: var(--a-gray-300);
   }
 
   .menu-item.is-disabled {

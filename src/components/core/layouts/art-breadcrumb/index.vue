@@ -1,6 +1,6 @@
 <!-- 面包屑导航 -->
 <template>
-  <nav class="ml-2.5 max-lg:hidden" aria-label="breadcrumb">
+  <nav class="ml-2.5 max-lg:!hidden" aria-label="breadcrumb">
     <ul class="flex-c h-full">
       <li
         v-for="(item, index) in breadcrumbItems"

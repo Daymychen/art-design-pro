@@ -17,7 +17,7 @@
         </div>
       </div>
     </div>
-    <img class="w-75 max-md:hidden" src="@imgs/draw/draw1.png" alt="draw1" />
+    <img class="w-75 max-md:!hidden" src="@imgs/draw/draw1.png" alt="draw1" />
   </div>
 </template>
 

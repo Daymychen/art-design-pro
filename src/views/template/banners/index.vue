@@ -14,11 +14,11 @@
           subtitle="基于 Vue 3 + TypeScript + Element Plus 构建的现代化管理系统。"
           titleColor="#333"
           subtitleColor="#666"
-          backgroundColor="#D4F1F7"
+          boxStyle="bg-[#D4F1F7]"
           :buttonConfig="{
             show: true,
             text: '开始探索',
-            color: 'rgb(var(--art-success))',
+            color: 'var(--a-success)',
             textColor: '#fff',
             radius: '6px'
           }"
@@ -34,7 +34,7 @@
         <ArtBasicBanner
           title="探索星空计划"
           subtitle="加入我们的天文观测活动，发现宇宙的奥秘"
-          backgroundColor="#FF8AAB"
+          boxStyle="bg-[#FF8AAB]"
           :buttonConfig="{
             show: true,
             text: '立即参与',
@@ -48,7 +48,7 @@
       </ElCol>
       <ElCol :xs="24" :sm="12" :md="12" class="mb-5">
         <ArtBasicBanner
-          backgroundColor="#70B1FF"
+          boxStyle="bg-[#70B1FF]"
           :imageConfig="{
             src: icon5
           }"
@@ -100,7 +100,7 @@
           :button="{
             show: true,
             text: '查看详情',
-            color: 'rgb(var(--art-warning))',
+            color: 'var(--a-warning)',
             textColor: '#fff'
           }"
         />
@@ -113,7 +113,7 @@
           :button="{
             show: true,
             text: '下载报告',
-            color: 'rgb(var(--art-error))',
+            color: 'var(--a-error)',
             textColor: '#fff'
           }"
         />
@@ -126,7 +126,7 @@
           :button="{
             show: true,
             text: '立即更新',
-            color: 'rgb(var(--art-primary))',
+            color: 'var(--a-primary)',
             textColor: '#fff'
           }"
           :cancelButton="{
@@ -180,28 +180,28 @@
     marketing: {
       title: '限时优惠活动',
       subtitle: '精选商品 48 小时闪购，最高享受 7 折优惠，数量有限！',
-      titleColor: 'var(--art-gray-900)',
-      subtitleColor: 'var(--art-gray-900)',
-      backgroundColor: 'rgb(var(--art-success), 0.1)',
+      titleColor: 'var(--a-gray-900)',
+      subtitleColor: 'var(--a-gray-900)',
+      boxStyle: 'bg-success/15',
       meteorConfig: { enabled: true, count: 15 },
       buttonConfig: {
         show: true,
         text: '立即抢购',
-        color: 'rgb(var(--art-success), 0.9)',
+        color: 'var(--a-success)',
         textColor: '#fff'
       }
     },
     info: {
       title: '服务到期提醒',
       subtitle: '您的高级服务将在 7 天后到期，请及时续费以继续享受完整功能。',
-      titleColor: 'var(--art-gray-900)',
-      subtitleColor: 'var(--art-gray-900)',
-      backgroundColor: 'rgb(var(--art-primary), 0.1)',
+      titleColor: 'var(--a-gray-900)',
+      subtitleColor: 'var(--a-gray-900)',
+      boxStyle: 'bg-primary/15',
       meteorConfig: { enabled: true, count: 15 },
       buttonConfig: {
         show: true,
         text: '立即续费',
-        color: 'rgb(var(--art-secondary), 0.9)',
+        color: 'var(--a-secondary)',
         textColor: '#fff'
       }
     }

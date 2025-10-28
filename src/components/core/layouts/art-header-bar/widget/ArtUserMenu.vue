@@ -153,15 +153,15 @@
   }
 
   .log-out {
-    @apply py-1.5 
-    mt-5 
-    text-xs 
-    text-center 
-    border 
+    @apply py-1.5
+    mt-5
+    text-xs
+    text-center
+    border
     border-g-400
-    rounded-md 
-    transition-all 
-    duration-200 
-    hover:shadow-[0_0_10px_rgb(var(--art-gray-300-rgb),0.7)];
+    rounded-md
+    transition-all
+    duration-200
+    hover:shadow-[0_0_10px_rgb(var(--a-gray-300))];
   }
 </style>
