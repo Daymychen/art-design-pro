@@ -28,8 +28,8 @@
             padding: item.fixedTab ? '0 10px' : '0 8px 0 12px',
             borderRadius:
               tabStyle === 'tab-google'
-                ? 'calc(var(--custom-radius) / 2.5 + 4px)'
-                : 'calc(var(--custom-radius) / 2.5 + 2px)'
+                ? 'calc(var(--custom-radius) / 2.5 + 4px) !important'
+                : 'calc(var(--custom-radius) / 2.5 + 2px) !important'
           }"
           v-for="(item, index) in list"
           :key="item.path"

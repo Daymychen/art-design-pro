@@ -5,20 +5,20 @@
   >
     <div class="color-picker-expandable relative flex-c">
       <div
-        class="color-dots absolute right-0 rounded-full flex-c gap-2 rounded-5 px-2.5 py-2 pr-9 pl-2.5 opacity-0 shadow-[0_2px_12px_var(--art-gray-300)] backdrop-blur-[10px] [pointer-events:none] [transform:translateX(10px)]"
+        class="color-dots absolute right-0 rounded-full flex-c gap-2 rounded-5 px-2.5 py-2 pr-9 pl-2.5 opacity-0"
       >
         <div
           v-for="(color, index) in mainColors"
           :key="color"
-          class="color-dot relative size-5 c-p flex-cc rounded-full opacity-0 shadow-[0_2px_4px_rgba(0,0,0,0.15)] [transform:translateX(20px)_scale(0.8)] hover:scale-110 hover:translate-x-0 hover:shadow-[0_4px_8px_rgba(0,0,0,0.2)]"
+          class="color-dot relative size-5 c-p flex-cc rounded-full opacity-0"
           :class="{ active: color === systemThemeColor }"
           :style="{ background: color, '--index': index }"
           @click="changeThemeColor(color)"
         >
-          <ArtSvgIcon v-if="color === systemThemeColor" icon="ri:check-fill" />
+          <ArtSvgIcon v-if="color === systemThemeColor" icon="ri:check-fill" class="text-white" />
         </div>
       </div>
-      <div class="color-trigger-btn btn relative z-[2] h-8 w-8 c-p flex-cc tad-300">
+      <div class="btn palette-btn relative z-[2] h-8 w-8 c-p flex-cc tad-300">
         <ArtSvgIcon
           icon="ri:palette-line"
           class="text-lg text-g-800 transition-colors duration-300"
@@ -95,14 +95,25 @@
 
 <style scoped>
   .color-dots {
+    pointer-events: none;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 12px var(--art-gray-300);
     transition:
       opacity 0.3s ease,
       transform 0.3s ease;
+    transform: translateX(10px);
   }
 
   .color-dot {
+    box-shadow: 0 2px 4px rgb(0 0 0 / 15%);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     transition-delay: calc(var(--index) * 0.05s);
+    transform: translateX(20px) scale(0.8);
+  }
+
+  .color-dot:hover {
+    box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
+    transform: translateX(0) scale(1.1);
   }
 
   .color-picker-expandable:hover .color-dots {
@@ -119,5 +130,9 @@
   .dark .color-dots {
     background-color: var(--art-gray-200);
     box-shadow: none;
+  }
+
+  .color-picker-expandable:hover .palette-btn :deep(svg) {
+    color: v-bind(systemthemecolor);
   }
 </style>
