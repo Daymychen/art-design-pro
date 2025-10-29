@@ -1,7 +1,7 @@
 <!-- 通知组件 -->
 <template>
   <div
-    class="art-notification-panel art-card-sm !shadow-[var(--art-box-shadow)]"
+    class="art-notification-panel art-card-sm !shadow-xl"
     :style="{
       transform: show ? 'scaleY(1)' : 'scaleY(0.9)',
       opacity: show ? 1 : 0

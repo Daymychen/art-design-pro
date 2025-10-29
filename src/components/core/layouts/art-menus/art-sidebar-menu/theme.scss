@@ -4,7 +4,7 @@
 $menu-height: 42px;
 $menu-icon-size: 20px;
 $menu-font-size: 14px;
-$hover-bg-color: var(--a-gray-100);
+$hover-bg-color: var(--art-gray-200);
 $popup-menu-height: 40px;
 $popup-menu-padding: 8px;
 $popup-menu-margin: 5px;
@@ -17,7 +17,7 @@ $popup-menu-radius: 6px;
   border-radius: 6px;
 
   .menu-icon {
-    margin-left: -4px;
+    margin-left: -7px;
   }
 }
 
@@ -37,7 +37,9 @@ $popup-menu-radius: 6px;
 
     @if $icon-color {
       .menu-icon {
-        color: $icon-color !important;
+        .art-svg-icon {
+          color: $icon-color !important;
+        }
       }
     }
   }
@@ -142,16 +144,12 @@ $popup-menu-radius: 6px;
     .el-sub-menu.is-active {
       .el-sub-menu__title {
         .menu-icon {
-          // 选中菜单图标颜色
-          color: var(--main-color) !important;
+          .art-svg-icon {
+            // 选中菜单图标颜色
+            color: var(--main-color) !important;
+          }
         }
       }
-    }
-
-    // 折叠时保持图标大小
-    .menu-icon {
-      margin-right: 0 !important;
-      font-size: $menu-icon-size !important;
     }
   }
 
@@ -162,7 +160,7 @@ $popup-menu-radius: 6px;
     @include menu-hover($hover-bg-color);
 
     .el-sub-menu__icon-arrow {
-      color: var(--a-gray-600);
+      color: var(--art-gray-600);
     }
   }
 
@@ -173,7 +171,7 @@ $popup-menu-radius: 6px;
     @include menu-hover(#0f1015);
 
     .el-sub-menu__icon-arrow {
-      color: var(--a-gray-400);
+      color: var(--art-gray-400);
     }
   }
 
@@ -182,7 +180,7 @@ $popup-menu-radius: 6px;
     .el-sub-menu__title,
     .el-menu-item {
       .menu-icon {
-        margin-left: 4px;
+        margin-left: 1px;
       }
     }
 
@@ -204,7 +202,7 @@ $popup-menu-radius: 6px;
     @include menu-hover($hover-bg-color);
 
     .el-sub-menu__icon-arrow {
-      color: var(--a-gray-600);
+      color: var(--art-gray-600);
     }
   }
 }
@@ -241,7 +239,7 @@ $popup-menu-radius: 6px;
 // 菜单折叠 hover 弹窗样式（浅色主题）
 .el-menu--vertical,
 .el-menu--popup-container {
-  @include popup-menu-base(var(--a-gray-100), var(--a-gray-900), var(--a-gray-100));
+  @include popup-menu-base(var(--art-gray-200), var(--art-gray-900), var(--art-gray-200));
 }
 
 // 菜单折叠 hover 弹窗样式（深色主题）

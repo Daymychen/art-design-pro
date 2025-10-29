@@ -3,7 +3,7 @@
   <div class="pb-5">
     <h2 class="mb-1 text-lg font-medium">表单组件示例</h2>
 
-    <ElCard class="art-custom-card" shadow="never">
+    <ElCard shadow="never">
       <ArtForm
         ref="formRef"
         v-model="formData"
@@ -456,7 +456,7 @@
           'div',
           {
             style:
-              'color: var(--a-gray-600); border: 1px solid var(--default-border-dashed); padding: 0px 15px; border-radius: 6px'
+              'color: var(--art-gray-600); border: 1px solid var(--default-border-dashed); padding: 0px 15px; border-radius: 6px'
           },
           '我是一个自定义组件'
         ),

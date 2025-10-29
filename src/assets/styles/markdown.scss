@@ -8,7 +8,7 @@ $font-color: #24292e;
 .markdown-body h4,
 .markdown-body h5,
 .markdown-body h6 {
-  color: var(--a-gray-800) !important;
+  color: var(--art-gray-800) !important;
   margin: 30px 0 10px 0;
   font-weight: 600;
 }
@@ -51,17 +51,17 @@ $font-color: #24292e;
 
 .markdown-body li,
 .markdown-body p {
-  color: var(--a-gray-800) !important;
+  color: var(--art-gray-800) !important;
   font-size: 16px !important;
 }
 
 .dark .markdown-body li span {
-  color: var(--a-gray-800) !important;
+  color: var(--art-gray-800) !important;
   background-color: transparent !important;
 }
 
 .dark .markdown-body p span {
-  color: var(--a-gray-800) !important;
+  color: var(--art-gray-800) !important;
   background-color: transparent !important;
 }
 

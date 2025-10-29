@@ -24,7 +24,7 @@ export enum MenuThemeEnum {
 
 // Menu close width
 export enum MenuWidth {
-  CLOSE = '70px'
+  CLOSE = '64px'
 }
 
 // Language

@@ -12,7 +12,7 @@
 
 :root {
   /* 卡片边框颜色 */
-  --art-card-border: var(--a-gray-200);
+  --art-card-border: var(--art-gray-300);
 
   --art-color: #ffffff;
 
@@ -25,27 +25,15 @@
   --a-warning: oklch(0.78 0.14 75.5);
   --a-danger: oklch(0.68 0.22 25.3);
 
-  --a-gray-50: oklch(0.985 0.002 247.839);
-  --a-gray-100: oklch(0.967 0.003 264.542);
-  --a-gray-200: oklch(0.928 0.006 264.531);
-  --a-gray-300: oklch(0.872 0.01 258.338);
-  --a-gray-400: oklch(0.707 0.022 261.325);
-  --a-gray-500: oklch(0.551 0.027 264.364);
-  --a-gray-600: oklch(0.446 0.03 256.802);
-  --a-gray-700: oklch(0.373 0.034 259.733);
-  --a-gray-800: oklch(0.278 0.033 256.848);
-  --a-gray-900: oklch(0.21 0.034 264.665);
-  --a-gray-950: oklch(0.13 0.028 261.692);
-
-  --b-gray-100: #f9fafb;
-  --b-gray-200: #f2f4f5;
-  --b-gray-300: #e6eaeb;
-  --b-gray-400: #dbdfe1;
-  --b-gray-500: #949eb7;
-  --b-gray-600: #7987a1;
-  --b-gray-700: #4d5875;
-  --b-gray-800: #383853;
-  --b-gray-900: #323251;
+  --art-gray-100: #f9fafb;
+  --art-gray-200: #f2f4f5;
+  --art-gray-300: #e6eaeb;
+  --art-gray-400: #dbdfe1;
+  --art-gray-500: #949eb7;
+  --art-gray-600: #7987a1;
+  --art-gray-700: #4d5875;
+  --art-gray-800: #383853;
+  --art-gray-900: #323251;
 
   /* 边框颜色 */
   --default-border: #e2e8ee;
@@ -56,38 +44,20 @@
 
   /* 盒子颜色 */
   --default-box-color: #ffffff;
-
-  /* 阴影，看 tailwindcss 有没有自带的 */
-  --art-box-shadow-xs: 0 0.1rem 0.75rem 0.25rem rgba(0, 0, 0, 0.05);
-  --art-box-shadow-sm: 0 0.1rem 1rem 0.25rem rgba(0, 0, 0, 0.05);
-  --art-box-shadow: 0 0.5rem 1.5rem 0.5rem rgba(0, 0, 0, 0.075);
-  --art-box-shadow-lg: 0 1rem 2rem 1rem rgba(0, 0, 0, 0.1);
 }
 
 .dark {
   --art-color: #000000;
 
-  --a-gray-50: oklch(0.13 0.028 261.692);
-  --a-gray-100: oklch(0.21 0.034 264.665);
-  --a-gray-200: oklch(0.278 0.033 256.848);
-  --a-gray-300: oklch(0.373 0.034 259.733);
-  --a-gray-400: oklch(0.446 0.03 256.802);
-  --a-gray-500: oklch(0.551 0.027 264.364);
-  --a-gray-600: oklch(0.707 0.022 261.325);
-  --a-gray-700: oklch(0.872 0.01 258.338);
-  --a-gray-800: oklch(0.928 0.006 264.531);
-  --a-gray-900: oklch(0.967 0.003 264.542);
-  --a-gray-950: oklch(0.985 0.002 247.839);
-
-  --b-gray-100: #110f0f;
-  --b-gray-200: #17171c;
-  --b-gray-300: #393946;
-  --b-gray-400: #505062;
-  --b-gray-500: #73738c;
-  --b-gray-600: #8f8fa3;
-  --b-gray-700: #ababba;
-  --b-gray-800: #c7c7d1;
-  --b-gray-900: #e3e3e8;
+  --art-gray-100: #110f0f;
+  --art-gray-200: #17171c;
+  --art-gray-300: #393946;
+  --art-gray-400: #505062;
+  --art-gray-500: #73738c;
+  --art-gray-600: #8f8fa3;
+  --art-gray-700: #ababba;
+  --art-gray-800: #c7c7d1;
+  --art-gray-900: #e3e3e8;
 
   --default-border: rgba(255, 255, 255, 0.1);
   --default-border-dashed: #363843;
@@ -95,11 +65,6 @@
   --default-bg-color: #070707;
 
   --default-box-color: #161618;
-
-  --art-box-shadow-xs: 0 0.1rem 0.75rem 0.25rem rgba(0, 0, 0, 0.05);
-  --art-box-shadow-sm: 0 0.1rem 1rem 0.25rem rgba(0, 0, 0, 0.05);
-  --art-box-shadow: 0 0.5rem 1.5rem 0.5rem rgba(0, 0, 0, 0.075);
-  --art-box-shadow-lg: 0 1rem 2rem 1rem rgba(0, 0, 0, 0.1);
 }
 
 /* 主题类 */
@@ -116,17 +81,17 @@
   --color-danger: var(--a-danger);
 
   /* 灰度颜色，自动适配暗黑模式 */
-  /* --color-g-50: var(--a-gray-50); */
-  --color-g-100: var(--b-gray-100);
-  --color-g-200: var(--b-gray-200);
-  --color-g-300: var(--b-gray-300);
-  --color-g-400: var(--b-gray-400);
-  --color-g-500: var(--b-gray-500);
-  --color-g-600: var(--b-gray-600);
-  --color-g-700: var(--b-gray-700);
-  --color-g-800: var(--b-gray-800);
-  --color-g-900: var(--b-gray-900);
-  /* --color-g-950: var(--a-gray-950); */
+  /* --color-g-50: var(--art-gray-50); */
+  --color-g-100: var(--art-gray-100);
+  --color-g-200: var(--art-gray-200);
+  --color-g-300: var(--art-gray-300);
+  --color-g-400: var(--art-gray-400);
+  --color-g-500: var(--art-gray-500);
+  --color-g-600: var(--art-gray-600);
+  --color-g-700: var(--art-gray-700);
+  --color-g-800: var(--art-gray-800);
+  --color-g-900: var(--art-gray-900);
+  /* --color-g-950: var(--art-gray-950); */
 
   /* 盒子颜色（light 白色/ dark 黑色） */
   --color-box: var(--default-box-color);
@@ -186,10 +151,6 @@
     @apply border-r border-[var(--default-border)];
   }
 
-  .art-card-bg {
-    background-color: var(--default-box-color);
-  }
-
   .c-p {
     @apply cursor-pointer;
   }
@@ -220,7 +181,7 @@
       }
 
       p {
-        @apply mt-[3px] text-xs text-g-600;
+        @apply mt-[3px] text-sm text-g-600;
 
         span {
           @apply ml-2 font-medium;

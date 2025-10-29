@@ -52,7 +52,7 @@
 .langDropDownStyle {
   // 选中项背景颜色
   .is-selected {
-    background-color: var(--a-gray-100) !important;
+    background-color: var(--art-gray-200) !important;
   }
 
   // 语言切换按钮菜单样式优化
@@ -82,8 +82,7 @@
 }
 
 // 盒子默认边框
-.page-content,
-.art-custom-card {
+.page-content {
   border: 1px solid var(--art-card-border) !important;
 }
 
@@ -103,7 +102,6 @@
 // 盒子边框
 [data-box-mode='border-mode'] {
   .page-content,
-  .art-custom-card,
   .art-table-card {
     border: 1px solid var(--art-card-border) !important;
   }
@@ -124,10 +122,9 @@
 // 盒子阴影
 [data-box-mode='shadow-mode'] {
   .page-content,
-  .art-custom-card,
   .art-table-card {
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.04) !important;
-    border: 1px solid var(--a-gray-100) !important;
+    border: 1px solid var(--art-gray-200) !important;
   }
 
   .layout-sidebar {
@@ -135,15 +132,15 @@
   }
 
   .art-card {
-    @include art-card-base(var(--a-gray-100), 0 0 4px 0 rgba(0, 0, 0, 0.04), 4px);
+    @include art-card-base(var(--art-gray-200), 0 0 4px 0 rgba(0, 0, 0, 0.04), 4px);
   }
 
   .art-card-sm {
-    @include art-card-base(var(--a-gray-100), 0 0 4px 0 rgba(0, 0, 0, 0.04), 2px);
+    @include art-card-base(var(--art-gray-200), 0 0 4px 0 rgba(0, 0, 0, 0.04), 2px);
   }
 
   .art-card-xs {
-    @include art-card-base(var(--a-gray-100), 0 0 4px 0 rgba(0, 0, 0, 0.04), -4px);
+    @include art-card-base(var(--art-gray-200), 0 0 4px 0 rgba(0, 0, 0, 0.04), -4px);
   }
 }
 

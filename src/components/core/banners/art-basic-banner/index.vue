@@ -1,7 +1,7 @@
 <!-- 基础横幅组件 -->
 <template>
   <div
-    class="basic-banner art-custom-card"
+    class="art-card basic-banner"
     :class="[{ 'has-decoration': decoration }, boxStyle]"
     :style="{ height }"
     @click="emit('click')"
@@ -147,7 +147,7 @@
     height: '11rem',
     titleColor: 'white',
     subtitleColor: 'white',
-    boxStyle: 'bg-primary/60',
+    boxStyle: '!bg-primary/60',
     decoration: true,
     buttonConfig: () => ({
       show: true,

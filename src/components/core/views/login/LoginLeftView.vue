@@ -135,13 +135,13 @@
       h1 {
         font-size: 24px;
         font-weight: 400;
-        color: var(--a-gray-900) !important;
+        color: var(--art-gray-900) !important;
       }
 
       p {
         margin-top: 10px;
         font-size: 14px;
-        color: var(--a-gray-600) !important;
+        color: var(--art-gray-600) !important;
       }
     }
 

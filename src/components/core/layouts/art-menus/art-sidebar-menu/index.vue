@@ -6,7 +6,11 @@
     :class="{ 'no-border': menuList.length === 0 }"
   >
     <!-- 双列菜单（左侧） -->
-    <div v-if="isDualMenu" class="dual-menu-left" :style="{ background: getMenuTheme.background }">
+    <div
+      v-if="isDualMenu"
+      class="dual-menu-left"
+      :style="{ width: dualMenuShowText ? '80px' : '64px', background: getMenuTheme.background }"
+    >
       <ArtLogo class="logo" @click="navigateToHome" />
 
       <ElScrollbar style="height: calc(100% - 135px)">
@@ -17,7 +21,7 @@
               effect="dark"
               :content="$t(menu.meta.title)"
               placement="right"
-              :offset="25"
+              :offset="15"
               :hide-after="0"
               :disabled="dualMenuShowText"
             >
@@ -28,18 +32,17 @@
                     : menu.path === firstLevelMenuPath
                 }"
                 :style="{
-                  margin: dualMenuShowText ? '5px' : '15px',
                   height: dualMenuShowText ? '60px' : '46px'
                 }"
               >
                 <ArtSvgIcon
-                  class="menu-icon text-g-600"
+                  class="menu-icon text-g-700"
                   :icon="menu.meta.icon"
                   :style="{
                     marginBottom: dualMenuShowText ? '5px' : '0'
                   }"
                 />
-                <span v-if="dualMenuShowText">
+                <span v-if="dualMenuShowText" class="text-md text-g-700">
                   {{ $t(menu.meta.title) }}
                 </span>
                 <div v-if="menu.meta.showBadge" class="art-badge art-badge-dual" />
@@ -49,9 +52,11 @@
         </ul>
       </ElScrollbar>
 
-      <div class="switch-btn" @click="toggleDualMenuMode">
-        <ArtSvgIcon icon="ri:arrow-left-right-fill" class="text-g-500 text-xl" />
-      </div>
+      <ArtIconButton
+        class="switch-btn size-10"
+        icon="ri:arrow-left-right-fill"
+        @click="toggleDualMenuMode"
+      />
     </div>
 
     <!-- 左侧菜单 || 双列菜单（右侧） -->

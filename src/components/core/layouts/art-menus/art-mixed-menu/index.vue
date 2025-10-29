@@ -26,8 +26,8 @@
             }"
             @click="handleMenuJump(item, true)"
           >
-            <ArtSvgIcon :icon="item.meta.icon" class="text-g-800 mr-1 text-lg" />
-            <span class="text-g-800">{{ item.formattedTitle }}</span>
+            <ArtSvgIcon :icon="item.meta.icon" class="text-lg text-g-700 mr-1" />
+            <span class="text-md text-g-700">{{ item.formattedTitle }}</span>
             <div v-if="item.meta.showBadge" class="art-badge art-badge-mixed" />
           </div>
         </template>
@@ -215,7 +215,7 @@
   onMounted(initScrollState)
 </script>
 
-<style>
+<style scoped>
   @reference '@styles/main.css';
 
   .button-arrow {

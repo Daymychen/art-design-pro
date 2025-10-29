@@ -1,13 +1,5 @@
 @charset "UTF-8";
 
-// body {
-//   color: var(--a-gray-700);
-//   text-align: left;
-//   font-family:
-//     Inter, 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
-//     '微软雅黑', Arial, sans-serif;
-// }
-
 /*滚动条*/
 /*滚动条整体部分,必须要设置*/
 ::-webkit-scrollbar {
@@ -17,7 +9,7 @@
 
 /*滚动条的轨道*/
 ::-webkit-scrollbar-track {
-  background-color: var(--a-gray-100);
+  background-color: var(--art-gray-200);
 }
 
 /*滚动条的滑块按钮*/
@@ -44,6 +36,6 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: var(--a-gray-300) !important;
+    background-color: var(--art-gray-300) !important;
   }
 }

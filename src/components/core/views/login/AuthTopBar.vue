@@ -5,7 +5,7 @@
   >
     <div class="color-picker-expandable relative flex-c">
       <div
-        class="color-dots absolute right-0 rounded-full flex-c gap-2 rounded-5 px-2.5 py-2 pr-9 pl-2.5 opacity-0 shadow-[0_2px_12px_var(--a-gray-300)] backdrop-blur-[10px] [pointer-events:none] [transform:translateX(10px)]"
+        class="color-dots absolute right-0 rounded-full flex-c gap-2 rounded-5 px-2.5 py-2 pr-9 pl-2.5 opacity-0 shadow-[0_2px_12px_var(--art-gray-300)] backdrop-blur-[10px] [pointer-events:none] [transform:translateX(10px)]"
       >
         <div
           v-for="(color, index) in mainColors"
@@ -15,17 +15,13 @@
           :style="{ background: color, '--index': index }"
           @click="changeThemeColor(color)"
         >
-          <ArtSvgIcon
-            v-if="color === systemThemeColor"
-            icon="ri:check-fill"
-            class="check-icon text-base text-white [filter:drop-shadow(0_1px_2px_rgba(0,0,0,0.3))]"
-          />
+          <ArtSvgIcon v-if="color === systemThemeColor" icon="ri:check-fill" />
         </div>
       </div>
       <div class="color-trigger-btn btn relative z-[2] h-8 w-8 c-p flex-cc tad-300">
         <ArtSvgIcon
           icon="ri:palette-line"
-          class="!text-lg text-g-800 transition-colors duration-300"
+          class="text-lg text-g-800 transition-colors duration-300"
         />
       </div>
     </div>
@@ -37,7 +33,7 @@
       <div class="btn language-btn h-8 w-8 c-p flex-cc tad-300">
         <ArtSvgIcon
           icon="hugeicons:global"
-          class="icon-language text-lg text-g-800 transition-colors duration-300"
+          class="text-lg text-g-800 transition-colors duration-300"
         />
       </div>
       <template #dropdown>
@@ -121,7 +117,7 @@
   }
 
   .dark .color-dots {
-    background-color: var(--a-gray-100);
+    background-color: var(--art-gray-200);
     box-shadow: none;
   }
 </style>

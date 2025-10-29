@@ -55,7 +55,7 @@
         .btn-prev,
         .btn-next {
           background-color: transparent;
-          border: 1px solid var(--a-gray-300);
+          border: 1px solid var(--art-gray-300);
           transition: border-color 0.15s;
 
           &:hover:not(.is-disabled) {
@@ -68,7 +68,7 @@
           box-sizing: border-box;
           font-weight: 400 !important;
           background-color: transparent;
-          border: 1px solid var(--a-gray-300);
+          border: 1px solid var(--art-gray-300);
           transition: border-color 0.15s;
 
           &.is-active {

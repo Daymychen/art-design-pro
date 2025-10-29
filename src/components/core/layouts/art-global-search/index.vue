@@ -376,14 +376,14 @@
   }
 
   .layout-search .el-input :deep(.el-input__wrapper) {
-    background-color: var(--a-gray-100);
+    background-color: var(--art-gray-200);
     border: 1px solid var(--default-border-dashed);
     border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
     box-shadow: none;
   }
 
   .layout-search .el-input :deep(.el-input__inner) {
-    color: var(--a-gray-600) !important;
+    color: var(--art-gray-600) !important;
   }
 
   .dark .layout-search .el-input :deep(.el-input__wrapper) {
@@ -409,11 +409,11 @@
   }
 
   .dark .layout-search .dialog-footer > div {
-    color: var(--a-gray-600) !important;
+    color: var(--art-gray-600) !important;
   }
 
   .dark .layout-search .dialog-footer > div i {
-    background-color: var(--a-gray-50);
+    background-color: var(--art-gray-50);
   }
 
   .dark .layout-search .search-keydown {
@@ -432,10 +432,9 @@
     w-5.5
     rounded
     border 
-    text-g-900
     border-g-400 
     px-1 
-    !text-g-500
+    text-g-500
     shadow-[0_2px_0_var(--default-border-dashed)] 
     last-of-type:mr-1.5;
   }

@@ -3,12 +3,13 @@
     <!-- 包含子菜单的项目 -->
     <ElSubMenu v-if="hasChildren(item)" :index="item.path || item.meta.title" :level="level">
       <template #title>
-        <ArtSvgIcon
-          class="menu-icon"
-          :icon="item.meta.icon"
-          :color="theme?.iconColor"
-          :style="{ color: theme.iconColor }"
-        />
+        <div class="menu-icon flex-cc">
+          <ArtSvgIcon
+            :icon="item.meta.icon"
+            :color="theme?.iconColor"
+            :style="{ color: theme.iconColor }"
+          />
+        </div>
         <span class="menu-name">
           {{ formatMenuTitle(item.meta.title) }}
         </span>
@@ -31,12 +32,13 @@
       :level-item="level + 1"
       @click="goPage(item)"
     >
-      <ArtSvgIcon
-        class="menu-icon"
-        :icon="item.meta.icon"
-        :color="theme?.iconColor"
-        :style="{ color: theme.iconColor }"
-      />
+      <div class="menu-icon flex-cc">
+        <ArtSvgIcon
+          :icon="item.meta.icon"
+          :color="theme?.iconColor"
+          :style="{ color: theme.iconColor }"
+        />
+      </div>
       <div
         v-show="item.meta.showBadge && level === 0 && !menuOpen"
         class="art-badge"

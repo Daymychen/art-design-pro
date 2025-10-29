@@ -18,9 +18,9 @@ $background-color: #070707;
 //   // 输入区域背景颜色
 //   --w-e-textarea-bg-color: var(--default-box-color);
 //   // 工具栏文字颜色
-//   --w-e-toolbar-color: var(--a-gray-600);
+//   --w-e-toolbar-color: var(--art-gray-600);
 //   // 选中菜单颜色
-//   --w-e-toolbar-active-bg-color: var(--a-gray-50);
+//   --w-e-toolbar-active-bg-color: var(--art-gray-50);
 //   // 弹窗边框颜色
 //   --w-e-toolbar-border-color: var(--art-border-dashed-color);
 //   // 分割线颜色
@@ -82,14 +82,14 @@ $background-color: #070707;
 
       .el-sub-menu__title {
         .el-icon {
-          color: var(--a-gray-800) !important;
+          color: var(--art-gray-800) !important;
         }
       }
 
       // 鼠标移入背景色
       .el-sub-menu__title:hover,
       .el-menu-item:not(.is-active):hover {
-        background: var(--a-gray-100) !important;
+        background: var(--art-gray-200) !important;
       }
 
       [level-item='2'].is-active:not(.el-menu--collapse) {
@@ -128,7 +128,7 @@ $background-color: #070707;
   //   // 富文本编辑器
   //   // 分隔线
   //   .w-e-bar-divider {
-  //     background-color: var(--a-gray-300) !important;
+  //     background-color: var(--art-gray-300) !important;
   //   }
 
   //   // 下拉选择框
@@ -157,20 +157,20 @@ $background-color: #070707;
 
   //   /* 代码块 */
   //   .w-e-text-container [data-slate-editor] pre > code {
-  //     background-color: var(--a-gray-50) !important;
+  //     background-color: var(--art-gray-50) !important;
   //     border: 1px solid var(--art-border-dashed-color) !important;
   //     text-shadow: none !important;
   //   }
 
   //   /* 引用 */
   //   .w-e-text-container [data-slate-editor] blockquote {
-  //     border-left: 4px solid var(--a-gray-100) !important;
+  //     border-left: 4px solid var(--art-gray-200) !important;
   //     background-color: var(--art-color);
   //   }
 
   //   .editor-wrapper {
   //     .w-e-text-container [data-slate-editor] .table-container th:last-of-type {
-  //       border-right: 1px solid var(--a-gray-100) !important;
+  //       border-right: 1px solid var(--art-gray-200) !important;
   //     }
 
   //     .w-e-modal {
@@ -180,13 +180,13 @@ $background-color: #070707;
 
   // 工作台标签文字颜色
   //   .worktab .scroll-view .tabs li {
-  //     color: var(--a-gray-800) !important;
+  //     color: var(--art-gray-800) !important;
   //   }
 
   // 顶部按钮文字颜色
   //   .layout-top-bar .btn-box .btn i,
   //   .fast-enter-trigger .btn i {
-  //     color: var(--a-gray-700) !important;
+  //     color: var(--art-gray-700) !important;
   //   }
 }
 

@@ -261,7 +261,7 @@
   })
 </script>
 
-<style>
+<style scoped>
   .layout-chat .el-overlay {
     background-color: rgb(0 0 0 / 20%) !important;
   }

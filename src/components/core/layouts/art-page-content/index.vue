@@ -40,7 +40,7 @@
     <Teleport to="body">
       <div
         v-show="showTransitionMask"
-        class="fixed top-0 left-0 z-[2000] w-screen h-screen pointer-events-none art-card-bg"
+        class="fixed top-0 left-0 z-[2000] w-screen h-screen pointer-events-none bg-box"
       />
     </Teleport>
   </div>

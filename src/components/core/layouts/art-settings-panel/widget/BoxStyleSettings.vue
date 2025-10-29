@@ -42,7 +42,7 @@
       justify-content: space-between;
       padding: 4px;
       margin-top: 20px;
-      background-color: var(--a-gray-100);
+      background-color: var(--art-gray-200);
       border-radius: 7px;
 
       .button {
@@ -57,12 +57,12 @@
         transition: all 0.2s !important;
 
         &.is-active {
-          color: var(--a-gray-800);
+          color: var(--art-gray-800);
           background-color: var(--default-box-color);
         }
 
         &:hover:not(.is-active) {
-          color: var(--a-gray-800);
+          color: var(--art-gray-800);
           background-color: rgba($color: #000, $alpha: 4%);
         }
       }
@@ -75,7 +75,7 @@
         .button {
           &.is-active {
             color: #fff !important;
-            background-color: var(--a-gray-400);
+            background-color: var(--art-gray-400);
           }
 
           &:hover:not(.is-active) {

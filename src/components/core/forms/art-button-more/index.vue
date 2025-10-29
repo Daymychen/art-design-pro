@@ -12,13 +12,14 @@
               @click="handleClick(item)"
             >
               <div class="flex-c gap-2">
-                <ElIcon
+                <!-- <ElIcon
                   v-if="item.icon"
                   :size="15"
                   :style="{ color: item.iconColor || item.color, margin: 0 }"
                 >
                   <component :is="item.icon" />
-                </ElIcon>
+                </ElIcon> -->
+                <ArtSvgIcon v-if="item.icon" :icon="item.icon" />
                 <span :style="{ color: item.color }">{{ item.label }}</span>
               </div>
             </ElDropdownItem>
@@ -46,7 +47,7 @@
     /** 权限标识 */
     auth?: string
     /** 图标组件 */
-    icon?: any
+    icon?: string
     /** 文本颜色 */
     color?: string
     /** 图标颜色（优先级高于 color） */

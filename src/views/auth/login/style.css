@@ -12,11 +12,11 @@
   }
 
   .title {
-    @apply text-gray-900 text-3xl font-semibold max-md:text-2xl;
+    @apply text-g-900 text-4xl font-semibold max-md:text-2xl;
   }
 
   .sub-title {
-    @apply mt-[10px] text-gray-400 text-sm;
+    @apply mt-[10px] text-g-600 text-sm;
   }
 
   .custom-height {

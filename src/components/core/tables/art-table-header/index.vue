@@ -293,7 +293,7 @@
   })
 </script>
 
-<style>
+<style scoped>
   @reference '@styles/main.css';
 
   .button {

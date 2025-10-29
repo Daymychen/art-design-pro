@@ -50,7 +50,7 @@
                 />
               </div>
               <ul
-                class="submenu-list art-card-xs absolute left-full top-0 z-[2001] hidden w-max min-w-max list-none !shadow-[var(--el-box-shadow-light)]"
+                class="submenu-list art-card-xs absolute left-full top-0 z-[2001] hidden w-max min-w-max list-none !shadow-xl"
                 :style="submenuListStyle"
               >
                 <li
@@ -366,7 +366,7 @@
     left: 0;
     height: 1px;
     content: '';
-    background-color: var(--a-gray-300);
+    background-color: var(--art-gray-300);
   }
 
   .menu-item.is-disabled {

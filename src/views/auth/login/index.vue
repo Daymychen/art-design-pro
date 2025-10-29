@@ -47,6 +47,8 @@
                 show-password
               />
             </ElFormItem>
+
+            <!-- 推拽验证 -->
             <div class="relative pb-5 mt-6">
               <div
                 class="relative z-[2] overflow-hidden select-none rounded-lg border border-transparent tad-300"
@@ -56,10 +58,10 @@
                   ref="dragVerify"
                   v-model:value="isPassing"
                   :text="$t('login.sliderText')"
-                  textColor="var(--a-gray-800)"
+                  textColor="var(--art-gray-700)"
                   :successText="$t('login.sliderSuccessText')"
                   :progressBarBg="getCssVar('--el-color-primary')"
-                  background="var(--a-gray-100)"
+                  :background="isDark ? '#26272F' : '#F1F1F4'"
                   handlerBg="var(--default-box-color)"
                 />
               </div>
@@ -113,9 +115,12 @@
   import { HttpError } from '@/utils/http/error'
   import { fetchLogin, fetchGetUserInfo } from '@/api/auth'
   import { ElNotification, type FormInstance, type FormRules } from 'element-plus'
+  import { useSettingStore } from '@/store/modules/setting'
 
   defineOptions({ name: 'Login' })
 
+  const settingStore = useSettingStore()
+  const { isDark } = storeToRefs(settingStore)
   const { t, locale } = useI18n()
   const formKey = ref(0)
 

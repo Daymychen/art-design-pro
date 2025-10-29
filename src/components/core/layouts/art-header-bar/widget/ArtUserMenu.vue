@@ -147,7 +147,7 @@
       }
 
       &:hover {
-        background-color: var(--a-gray-100);
+        background-color: var(--art-gray-200);
       }
     }
   }
@@ -162,6 +162,6 @@
     rounded-md
     transition-all
     duration-200
-    hover:shadow-[var(--art-box-shadow-sm)];
+    hover:shadow-xl;
   }
 </style>

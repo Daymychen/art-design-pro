@@ -9,7 +9,7 @@ $box-radius: calc(var(--custom-radius) / 3 + 2px);
 .editor-wrapper {
   width: 100%;
   height: 100%;
-  border: 1px solid var(--a-gray-300);
+  border: 1px solid var(--art-gray-300);
   border-radius: $box-radius !important;
 
   .w-e-bar {
@@ -53,12 +53,12 @@ $box-radius: calc(var(--custom-radius) / 3 + 2px);
 
   /* 下拉选择框 hover 样式调整 */
   .w-e-select-list ul li:hover {
-    background-color: var(--a-gray-100);
+    background-color: var(--art-gray-200);
   }
 
   :root {
     /* 激活颜色 */
-    --w-e-toolbar-active-bg-color: var(--a-gray-100);
+    --w-e-toolbar-active-bg-color: var(--art-gray-200);
 
     /* toolbar 图标和文字颜色 */
     --w-e-toolbar-color: #000;
@@ -67,7 +67,7 @@ $box-radius: calc(var(--custom-radius) / 3 + 2px);
     --w-e-textarea-selected-border-color: #ddd;
 
     /* 表格头背景颜色 */
-    --w-e-textarea-slight-bg-color: var(--a-gray-100);
+    --w-e-textarea-slight-bg-color: var(--art-gray-200);
   }
 
   /* 工具栏按钮样式 */
@@ -77,7 +77,7 @@ $box-radius: calc(var(--custom-radius) / 3 + 2px);
 
   /* 工具栏 hover 按钮背景颜色 */
   .w-e-bar-item button:hover {
-    background-color: var(--a-gray-100);
+    background-color: var(--art-gray-200);
   }
 
   /* 工具栏分割线 */
@@ -105,7 +105,7 @@ $box-radius: calc(var(--custom-radius) / 3 + 2px);
   /* 代码块 */
   .w-e-text-container [data-slate-editor] pre > code {
     padding: 0.6rem 1rem;
-    background-color: var(--a-gray-50);
+    background-color: var(--art-gray-50);
     border-radius: $box-radius;
   }
 
@@ -142,8 +142,8 @@ $box-radius: calc(var(--custom-radius) / 3 + 2px);
 
   /* 引用 */
   .w-e-text-container [data-slate-editor] blockquote {
-    background-color: var(--a-gray-200);
-    border-left: 4px solid var(--a-gray-300);
+    background-color: var(--art-gray-200);
+    border-left: 4px solid var(--art-gray-300);
   }
 
   /* 输入区域弹出 bar  */

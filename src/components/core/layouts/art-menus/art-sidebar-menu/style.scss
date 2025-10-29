@@ -14,6 +14,7 @@
     width: 80px;
     height: 100%;
     border-right: 1px solid var(--default-border) !important;
+    transition: width 0.25s;
 
     // 隐藏滚动条
     :deep(.el-scrollbar__bar.is-vertical) {
@@ -22,7 +23,8 @@
 
     .logo {
       margin: auto;
-      margin-top: 15px;
+      margin-top: 12px;
+      margin-bottom: 3px;
       cursor: pointer;
     }
 
@@ -34,6 +36,7 @@
           flex-direction: column;
           align-items: center;
           justify-content: center;
+          margin: 8px;
           overflow: hidden;
           text-align: center;
           cursor: pointer;
@@ -46,17 +49,22 @@
           }
 
           span {
-            display: block;
+            display: -webkit-box;
             width: 100%;
+            overflow: hidden;
             font-size: 12px;
+            text-overflow: ellipsis;
+            -webkit-line-clamp: 1;
+            line-clamp: 1;
+            -webkit-box-orient: vertical;
           }
 
           &.is-active {
-            background: var(--main-color);
+            background: var(--el-color-primary-light-9);
 
             .art-svg-icon,
             span {
-              color: #fff !important;
+              color: var(--main-color) !important;
             }
           }
         }
@@ -68,26 +76,7 @@
       right: 0;
       bottom: 15px;
       left: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      i {
-        display: block;
-        align-items: center;
-        width: 40px;
-        height: 40px;
-        font-size: 20px;
-        line-height: 40px;
-        text-align: center;
-        cursor: pointer;
-        border-radius: 5px;
-        transition: all 0.1s;
-
-        &:hover {
-          background-color: var(--a-gray-100);
-        }
-      }
+      margin: auto;
     }
   }
 
@@ -129,10 +118,8 @@
       font-size: 18px;
 
       &.is-dual-menu-name {
-        right: 0;
-        left: 0;
+        left: 25px;
         margin: auto;
-        text-align: center;
       }
     }
   }

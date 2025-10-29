@@ -489,7 +489,7 @@
           'div',
           {
             style:
-              'color: var(--a-gray-600); border: 1px solid var(--default-border-dashed); padding: 0px 15px; border-radius: 6px'
+              'color: var(--art-gray-600); border: 1px solid var(--default-border-dashed); padding: 0px 15px; border-radius: 6px'
           },
           '我是一个自定义组件'
         ),

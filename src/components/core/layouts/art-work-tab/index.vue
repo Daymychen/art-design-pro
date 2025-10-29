@@ -504,25 +504,25 @@
   }
 
   .dark .google-tab.activ-tab {
-    color: var(--a-gray-800) !important;
-    background-color: var(--a-gray-100) !important;
+    color: var(--art-gray-800) !important;
+    background-color: var(--art-gray-200) !important;
   }
 
   .dark .google-tab.activ-tab::before,
   .dark .google-tab.activ-tab::after {
-    box-shadow: 0 0 0 30px var(--a-gray-100);
+    box-shadow: 0 0 0 30px var(--art-gray-200);
   }
 
   .google-tab:hover {
     box-sizing: border-box;
-    color: var(--a-gray-600) !important;
+    color: var(--art-gray-600) !important;
     background-color: var(--el-color-primary-light-9) !important;
     border-bottom: 1px solid var(--default-box-color) !important;
     border-radius: calc(var(--custom-radius) / 2.5 + 4px) !important;
   }
 
   .dark .google-tab:hover {
-    background-color: var(--a-gray-100) !important;
+    background-color: var(--art-gray-200) !important;
   }
 
   .google-tab:hover .line,
@@ -558,8 +558,8 @@
   }
 
   .google-tab i:hover {
-    color: var(--a-gray-700);
-    background: var(--a-gray-300);
+    color: var(--art-gray-700);
+    background: var(--art-gray-300);
   }
 
   @media only screen and (width <= 768px) {

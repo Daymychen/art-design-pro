@@ -3,7 +3,7 @@
   <div class="art-card p-5">
     <div class="pb-3.5">
       <p class="text-lg font-medium">{{ title }}</p>
-      <p class="text-sm text-g-500">{{ subtitle }}</p>
+      <p class="text-sm text-g-600">{{ subtitle }}</p>
     </div>
     <ElScrollbar :style="{ height: maxHeight }">
       <ElTimeline class="!pl-0.5">

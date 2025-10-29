@@ -37,7 +37,7 @@
               <div
                 v-for="item in lableList"
                 :key="item"
-                class="py-1 px-1.5 mr-2.5 mb-2.5 text-xs art-card-bg border border-g-300 rounded"
+                class="py-1 px-1.5 mr-2.5 mb-2.5 text-xs border border-g-300 rounded"
               >
                 {{ item }}
               </div>
