@@ -71,7 +71,7 @@ export const systemRoutes: AppRouteRecord = {
           component: '/system/nested/menu1',
           meta: {
             title: 'menus.system.menu1',
-            icon: 'ri:account-circle-2-line',
+            icon: 'ri:align-justify',
             keepAlive: true
           }
         },
@@ -81,7 +81,7 @@ export const systemRoutes: AppRouteRecord = {
           component: '',
           meta: {
             title: 'menus.system.menu2',
-            icon: 'ri:account-circle-2-line',
+            icon: 'ri:align-justify',
             keepAlive: true
           },
           children: [
@@ -91,7 +91,7 @@ export const systemRoutes: AppRouteRecord = {
               component: '/system/nested/menu2',
               meta: {
                 title: 'menus.system.menu21',
-                icon: 'ri:account-circle-2-line',
+                icon: 'ri:align-justify',
                 keepAlive: true
               }
             }
@@ -103,7 +103,7 @@ export const systemRoutes: AppRouteRecord = {
           component: '',
           meta: {
             title: 'menus.system.menu3',
-            icon: 'ri:account-circle-2-line',
+            icon: 'ri:align-justify',
             keepAlive: true
           },
           children: [
@@ -113,7 +113,6 @@ export const systemRoutes: AppRouteRecord = {
               component: '/system/nested/menu3',
               meta: {
                 title: 'menus.system.menu31',
-                icon: 'ri:account-circle-2-line',
                 keepAlive: true
               }
             },
@@ -123,7 +122,6 @@ export const systemRoutes: AppRouteRecord = {
               component: '',
               meta: {
                 title: 'menus.system.menu32',
-                icon: 'ri:account-circle-2-line',
                 keepAlive: true
               },
               children: [
@@ -133,7 +131,6 @@ export const systemRoutes: AppRouteRecord = {
                   component: '/system/nested/menu3/menu3-2',
                   meta: {
                     title: 'menus.system.menu321',
-                    icon: 'ri:account-circle-2-line',
                     keepAlive: true
                   }
                 }

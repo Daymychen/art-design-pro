@@ -10,7 +10,7 @@
         v-if="showSearchBar != null"
         class="button"
         @click="search"
-        :class="showSearchBar ? 'active !bg-primary hover:!bg-primary/80' : ''"
+        :class="showSearchBar ? 'active !bg-theme hover:!bg-theme/80' : ''"
       >
         <ArtSvgIcon icon="ri:search-line" :class="showSearchBar ? 'text-white' : 'text-g-700'" />
       </div>
@@ -294,7 +294,7 @@
 </script>
 
 <style scoped>
-  @reference '@styles/main.css';
+  @reference '@styles/tailwind.css';
 
   .button {
     @apply ml-2 

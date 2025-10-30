@@ -288,14 +288,14 @@
       },
       notice: {
         icon: 'ri:arrow-right-circle-line',
-        iconClass: 'bg-primary/12 text-primary'
+        iconClass: 'bg-theme/12 text-theme'
       }
     }
 
     const getNoticeStyle = (type: NoticeType): NoticeStyle => {
       const defaultStyle: NoticeStyle = {
         icon: 'ri:arrow-right-circle-line',
-        iconClass: 'bg-primary/12 text-primary'
+        iconClass: 'bg-theme/12 text-theme'
       }
 
       return noticeStyleMap[type] || defaultStyle
@@ -418,7 +418,7 @@
 </script>
 
 <style scoped>
-  @reference '@styles/main.css';
+  @reference '@styles/tailwind.css';
 
   .art-notification-panel {
     @apply absolute 

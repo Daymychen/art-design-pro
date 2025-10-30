@@ -47,10 +47,11 @@
         <ElRow :gutter="20">
           <ElCol :span="12">
             <ElFormItem label="图标" prop="icon">
-              <ArtIconSelector v-model="form.icon" :iconType="iconType" width="100%" />
+              <ElInput v-model="form.icon" placeholder="图标名称" />
             </ElFormItem>
           </ElCol>
           <ElCol :span="12">
+            <!-- 注意：角色权限仅用于前端权限模式，结合获取用户信息接口通过角色控制菜单 -->
             <ElFormItem label="角色权限" prop="roles">
               <ElInputTag
                 v-model="form.roles"
@@ -176,7 +177,6 @@
 
 <script setup lang="ts">
   import type { FormInstance, FormRules } from 'element-plus'
-  import { IconTypeEnum } from '@/enums/appEnum'
   import { formatMenuTitle } from '@/router/utils/utils'
   import type { AppRouteRecord } from '@/types/router'
 
@@ -230,7 +230,6 @@
   const formRef = ref<FormInstance>()
   const menuType = ref<'menu' | 'button'>('menu')
   const isEdit = ref(false)
-  const iconType = ref(IconTypeEnum.UNICODE)
 
   const form = reactive<MenuFormData>({
     id: 0,

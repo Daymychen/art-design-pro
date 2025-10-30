@@ -79,6 +79,7 @@
   const { locale } = useI18n()
 
   const mainColors = AppConfig.systemMainColor
+  const color = systemThemeColor // css v-bind 使用
 
   const changeLanguage = (lang: LanguageEnum) => {
     if (locale.value === lang) return
@@ -133,6 +134,6 @@
   }
 
   .color-picker-expandable:hover .palette-btn :deep(svg) {
-    color: v-bind(systemthemecolor);
+    color: v-bind(color);
   }
 </style>

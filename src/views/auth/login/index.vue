@@ -77,7 +77,7 @@
               <ElCheckbox v-model="formData.rememberPassword">{{
                 $t('login.rememberPwd')
               }}</ElCheckbox>
-              <RouterLink class="text-primary" :to="{ name: 'ForgetPassword' }">{{
+              <RouterLink class="text-theme" :to="{ name: 'ForgetPassword' }">{{
                 $t('login.forgetPwd')
               }}</RouterLink>
             </div>
@@ -96,7 +96,7 @@
 
             <div class="mt-5 text-sm text-gray-600">
               <span>{{ $t('login.noAccount') }}</span>
-              <RouterLink class="text-primary" :to="{ name: 'Register' }">{{
+              <RouterLink class="text-theme" :to="{ name: 'Register' }">{{
                 $t('login.register')
               }}</RouterLink>
             </div>
@@ -274,7 +274,9 @@
 
 <style scoped>
   @import './style.css';
+</style>
 
+<style lang="scss" scoped>
   :deep(.el-select__wrapper) {
     height: 40px !important;
   }

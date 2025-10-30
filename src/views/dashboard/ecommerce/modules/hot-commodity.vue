@@ -51,8 +51,8 @@
       title: '智能手表Pro',
       subtitle: '电子产品',
       value: '1,286件',
-      iconBgClass: 'bg-primary/12 text-primary',
-      valueBgClass: 'bg-primary/12 text-primary'
+      iconBgClass: 'bg-theme/12 text-theme',
+      valueBgClass: 'bg-theme/12 text-theme'
     },
     {
       icon: 'ri:money-cny-circle-line',

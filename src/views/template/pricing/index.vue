@@ -36,10 +36,7 @@
                 :key="index"
                 class="flex-c mb-2.5 text-sm"
               >
-                <ElIcon
-                  class="mr-2.5"
-                  :class="feature.available ? '!text-primary' : '!text-danger'"
-                >
+                <ElIcon class="mr-2.5" :class="feature.available ? '!text-theme' : '!text-danger'">
                   <Check v-if="feature.available" />
                   <Close v-else />
                 </ElIcon>

@@ -17,8 +17,8 @@
           <div
             class="flex px-5 flex-col justify-center h-55 border border-g-300 rounded-xl max-lg:mb-4"
           >
-            <div class="size-12 rounded-lg flex-cc bg-primary/10">
-              <ArtSvgIcon :icon="item.icon" class="text-xl text-primary" />
+            <div class="size-12 rounded-lg flex-cc bg-theme/10">
+              <ArtSvgIcon :icon="item.icon" class="text-xl text-theme" />
             </div>
 
             <ArtCountTo class="text-2xl font-medium mt-3.5" :target="item.value" :duration="1500" />
@@ -57,7 +57,7 @@
       value: 999,
       change: '+10%',
       icon: 'ri:bar-chart-box-ai-line',
-      class: 'bg-primary'
+      class: 'bg-theme'
     },
     {
       label: '总订单量',

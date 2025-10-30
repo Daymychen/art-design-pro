@@ -215,10 +215,10 @@
       count: 1235,
       description: '鞋子、牛仔裤、派对服装、手表',
       icon: 'ri:account-box-2-line',
-      boxStyle: '!bg-primary/10',
-      customIconStyle: '!text-primary !text-3xl',
+      boxStyle: '!bg-theme/10',
+      customIconStyle: '!text-theme !text-3xl',
       iconStyle: 'bg-info',
-      textColor: 'var(--a-primary)',
+      textColor: 'var(--a-theme)',
       showArrow: false
     },
     {
@@ -272,9 +272,9 @@
       id: 2,
       title: '项目进度',
       percentage: 65,
-      color: 'var(--a-primary)',
+      color: 'var(--a-theme)',
       icon: 'ri:account-box-2-line',
-      iconStyle: 'bg-primary/12 text-primary'
+      iconStyle: 'bg-theme/12 text-theme'
     },
     {
       id: 3,
@@ -342,7 +342,7 @@
       title: '新加坡之行',
       status: '进行中',
       time: '5分钟',
-      class: 'bg-primary/12 text-primary',
+      class: 'bg-theme/12 text-theme',
       icon: 'ri:arrow-down-circle-line'
     },
     {
@@ -442,7 +442,7 @@
 </script>
 
 <style scoped>
-  @reference '@styles/main.css';
+  @reference '@styles/tailwind.css';
 
   .page-title {
     @apply my-5 text-xl font-medium first:mt-0;

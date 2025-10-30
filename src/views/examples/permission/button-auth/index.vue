@@ -55,7 +55,7 @@
         <div>
           <p class="p-3 m-0 mb-5 text-sm leading-[1.6] text-g-700 bg-g-200 rounded">
             使用
-            <code class="px- 1.5 py-0.5 font-mono text-xs text-primary bg-primary/10 rounded"
+            <code class="px- 1.5 py-0.5 font-mono text-xs text-theme bg-theme/10 rounded"
               >v-roles</code
             >
             指令控制按钮显示，只有拥有指定角色的用户才能看到对应按钮。
@@ -114,11 +114,11 @@
         </template>
         <div>
           <p class="p-3 m-0 mb-5 text-sm leading-[1.6] text-g-700 bg-g-200 rounded">
-            <code class="px- 1.5 py-0.5 font-mono text-xs text-primary bg-primary/10 rounded"
+            <code class="px- 1.5 py-0.5 font-mono text-xs text-theme bg-theme/10 rounded"
               >v-auth</code
             >
             指令在后端模式下根据当前路由的
-            <code class="px- 1.5 py-0.5 font-mono text-xs text-primary bg-primary/10 rounded"
+            <code class="px- 1.5 py-0.5 font-mono text-xs text-theme bg-theme/10 rounded"
               >meta.authList</code
             >
             配置检查权限。 权限列表来源于路由元数据，适用于权限配置由后端统一管理的场景。
@@ -207,11 +207,11 @@
         </template>
         <div>
           <p class="p-3 m-0 mb-5 text-sm leading-[1.6] text-g-700 bg-g-200 rounded">
-            <code class="px- 1.5 py-0.5 font-mono text-xs text-primary bg-primary/10 rounded"
+            <code class="px- 1.5 py-0.5 font-mono text-xs text-theme bg-theme/10 rounded"
               >hasAuth</code
             >
             方法在前端模式下根据用户信息中的
-            <code class="px- 1.5 py-0.5 font-mono text-xs text-primary bg-primary/10 rounded"
+            <code class="px- 1.5 py-0.5 font-mono text-xs text-theme bg-theme/10 rounded"
               >buttons</code
             >
             字段检查权限。 权限列表存储在用户状态中，适用于权限完全由前端管理的场景。
@@ -303,11 +303,11 @@
         </template>
         <div>
           <p class="p-3 m-0 mb-5 text-sm leading-[1.6] text-g-700 bg-g-200 rounded">
-            <code class="px- 1.5 py-0.5 font-mono text-xs text-primary bg-primary/10 rounded"
+            <code class="px- 1.5 py-0.5 font-mono text-xs text-theme bg-theme/10 rounded"
               >hasAuth</code
             >
             方法在后端模式下根据当前路由的
-            <code class="px- 1.5 py-0.5 font-mono text-xs text-primary bg-primary/10 rounded"
+            <code class="px- 1.5 py-0.5 font-mono text-xs text-theme bg-theme/10 rounded"
               >meta.authList</code
             >
             配置检查权限。与 v-auth 指令使用相同的权限来源，但提供编程式的权限检查能力。

@@ -92,7 +92,7 @@
           <div class="w-full text-center">
             <ElButton
               text
-              class="mt-2.5 !text-g-600 hover:!text-primary hover:!bg-transparent"
+              class="mt-2.5 !text-g-600 hover:!text-theme hover:!bg-transparent"
               @click="toLogin"
             >
               {{ $t('lockScreen.unlock.backBtnText') }}

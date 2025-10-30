@@ -3,7 +3,7 @@
     class="justify-center mb-5"
     height="13.3rem"
     :title="`欢迎回来 ${userInfo.userName}`"
-    boxStyle="!bg-primary/10"
+    boxStyle="!bg-theme/10"
     titleColor="var(--art-gray-900)"
     :decoration="false"
     :meteorConfig="{

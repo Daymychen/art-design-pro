@@ -33,15 +33,15 @@
                 </div>
                 <div class="flex-cb">
                   <span class="font-medium text-g-700">缓存条数：</span>
-                  <span class="font-semibold text-primary">{{ cacheInfo.total }}</span>
+                  <span class="font-semibold text-theme">{{ cacheInfo.total }}</span>
                 </div>
                 <div class="flex-cb">
                   <span class="font-medium text-g-700">缓存大小：</span>
-                  <span class="font-semibold text-primary">{{ cacheInfo.size }}</span>
+                  <span class="font-semibold text-theme">{{ cacheInfo.size }}</span>
                 </div>
                 <div class="flex-cb">
                   <span class="font-medium text-g-700">命中信息：</span>
-                  <span class="font-semibold text-primary">{{ cacheInfo.hitRate }}</span>
+                  <span class="font-semibold text-theme">{{ cacheInfo.hitRate }}</span>
                 </div>
 
                 <div class="flex gap-2 mt-2">
@@ -65,7 +65,7 @@
                       class="p-1.5 px-2 text-xs leading-[1.4] bg-g-200 border-l-1 border-g-400 rounded"
                       :class="{
                         'bg-[rgba(103,194,58,0.1)] !border-l-success': log.includes('✅'),
-                        'bg-[rgba(64,158,255,0.1)] !border-l-primary': log.includes('🎯'),
+                        'bg-[rgba(64,158,255,0.1)] !border-l-theme': log.includes('🎯'),
                         'bg-[rgba(245,108,108,0.1)] !border-l-danger': log.includes('❌')
                       }"
                     >
@@ -283,7 +283,7 @@
         <template #userPhone-header="{ column }">
           <ElPopover placement="bottom" :width="200" trigger="hover">
             <template #reference>
-              <div class="inline-block gap-1 text-primary c-p custom-header">
+              <div class="inline-block gap-1 text-theme c-p custom-header">
                 <span>{{ column.label }}</span>
                 <ElIcon>
                   <Search />

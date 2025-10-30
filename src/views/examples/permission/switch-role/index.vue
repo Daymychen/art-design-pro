@@ -57,7 +57,7 @@
             :key="account.key"
             class="p-5 border border-g-400 rounded-lg tad-300"
             :class="{
-              'bg-success/12 !border-success': currentUser.userName === account.userName
+              'bg-theme/12 !border-theme': currentUser.userName === account.userName
             }"
           >
             <div class="mb-4">

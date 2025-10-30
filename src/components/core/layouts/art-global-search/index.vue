@@ -35,7 +35,7 @@
           >
             <div
               class="mt-2 h-12 flex-cb rounded-custom-sm bg-g-200/80 px-4 text-sm text-g-700"
-              :class="isHighlighted(index) ? 'highlighted !bg-primary/70 !text-white' : ''"
+              :class="isHighlighted(index) ? 'highlighted !bg-theme/70 !text-white' : ''"
               @click="searchGoPage(item)"
               @mouseenter="highlightOnHover(index)"
             >
@@ -54,7 +54,7 @@
               :key="index"
               :class="
                 historyHIndex === index
-                  ? 'highlighted !bg-primary/70 !text-white [&_.selected-icon]:!text-white'
+                  ? 'highlighted !bg-theme/70 !text-white [&_.selected-icon]:!text-white'
                   : ''
               "
               @click="searchGoPage(item)"
@@ -423,7 +423,7 @@
 </style>
 
 <style scoped>
-  @reference '@styles/main.css';
+  @reference '@styles/tailwind.css';
 
   .keyboard {
     @apply mr-2 

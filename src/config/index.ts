@@ -65,7 +65,7 @@ const appConfig: SystemConfig = {
     {
       theme: MenuThemeEnum.DARK,
       background: '#191A23',
-      systemNameColor: '#BABBBD',
+      systemNameColor: '#D9DADB',
       iconColor: '#BABBBD',
       textColor: '#BABBBD',
       img: configImages.menuStyles.dark
@@ -73,7 +73,7 @@ const appConfig: SystemConfig = {
     {
       theme: MenuThemeEnum.LIGHT,
       background: '#ffffff',
-      systemNameColor: '#68758E',
+      systemNameColor: 'var(--art-gray-800)',
       iconColor: '#6B6B6B',
       textColor: '#29343D',
       img: configImages.menuStyles.light

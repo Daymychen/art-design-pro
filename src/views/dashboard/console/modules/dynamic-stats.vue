@@ -15,7 +15,7 @@
       >
         <span class="text-g-800 font-medium">{{ item.username }}</span>
         <span class="mx-2 text-g-600">{{ item.type }}</span>
-        <span class="text-primary">{{ item.target }}</span>
+        <span class="text-theme">{{ item.target }}</span>
       </div>
     </div>
   </div>

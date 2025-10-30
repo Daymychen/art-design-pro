@@ -48,7 +48,7 @@
                 <div
                   :class="[
                     'rounded-md px-3.5 py-2.5 text-sm leading-[1.4] text-g-900',
-                    message.isMe ? 'message-right bg-primary/15' : 'message-left bg-g-200'
+                    message.isMe ? 'message-right bg-theme/15' : 'message-left bg-g-200'
                   ]"
                   >{{ message.content }}</div
                 >

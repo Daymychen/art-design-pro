@@ -51,7 +51,7 @@
                 <h4 class="m-0 mb-2 text-base font-semibold">基于角色的权限控制</h4>
                 <p class="m-0 mb-2 leading-[1.6] text-g-700">
                   在前端控制模式下，页面访问权限由路由配置文件中的
-                  <code class="px-1.5 py-0.5 font-mono text-xs text-primary bg-primary/12 rounded"
+                  <code class="px-1.5 py-0.5 font-mono text-xs text-theme bg-theme/12 rounded"
                     >meta.roles</code
                   >
                   字段定义，前端会根据用户接口所拥有的角色对路由和菜单进行过滤与控制
@@ -75,11 +75,11 @@
                   >
                   <li class="my-1 leading-[1.5] text-g-700">
                     在
-                    <code class="px-1.5 py-0.5 font-mono text-xs text-primary bg-primary/12 rounded"
+                    <code class="px-1.5 py-0.5 font-mono text-xs text-theme bg-theme/12 rounded"
                       >beforeEach</code
                     >
                     路由守卫中检查目标路由的
-                    <code class="px-1.5 py-0.5 font-mono text-xs text-primary bg-primary/12 rounded"
+                    <code class="px-1.5 py-0.5 font-mono text-xs text-theme bg-theme/12 rounded"
                       >roles</code
                     >
                     配置
@@ -173,47 +173,53 @@
         </template>
         <div class="practices-content">
           <ElRow :gutter="24">
-            <ElCol :span="12">
-              <div class="practice-item">
-                <div class="practice-icon">
+            <ElCol :span="12" class="!mb-5">
+              <div class="flex-c">
+                <div class="size-10 bg-g-200 flex-cc rounded mr-2">
                   <ElIcon size="20" color="#409EFF"><Lock /></ElIcon>
                 </div>
-                <div class="practice-content">
+                <div>
                   <h4>多层权限验证</h4>
-                  <p>在前端路由、后端接口、UI组件等多个层面实施权限控制，确保安全性。</p>
+                  <p class="text-g-700 text-sm"
+                    >在前端路由、后端接口、UI组件等多个层面实施权限控制，确保安全性。</p
+                  >
                 </div>
               </div>
             </ElCol>
             <ElCol :span="12">
-              <div class="practice-item">
-                <div class="practice-icon">
+              <div class="flex-c">
+                <div class="size-10 bg-g-200 flex-cc rounded mr-2">
                   <ElIcon size="20" color="#67C23A"><User /></ElIcon>
                 </div>
-                <div class="practice-content">
+                <div>
                   <h4>基于角色的访问控制</h4>
-                  <p>采用RBAC模型，通过角色分配权限，简化权限管理复杂度。</p>
+                  <p class="text-g-700 text-sm"
+                    >采用RBAC模型，通过角色分配权限，简化权限管理复杂度。</p
+                  >
                 </div>
               </div>
             </ElCol>
             <ElCol :span="12">
-              <div class="practice-item">
-                <div class="practice-icon">
+              <div class="flex-c">
+                <div class="size-10 bg-g-200 flex-cc rounded mr-2">
                   <ElIcon size="20" color="#E6A23C"><Key /></ElIcon>
                 </div>
-                <div class="practice-content">
+                <div>
                   <h4>细粒度权限控制</h4>
-                  <p>支持页面级、按钮级、数据级等多种粒度的权限控制。</p>
+                  <p class="text-g-700 text-sm">支持页面级、按钮级、数据级等多种粒度的权限控制。</p>
                 </div>
               </div>
             </ElCol>
             <ElCol :span="12">
-              <div class="practice-item">
-                <div class="practice-icon">
+              <div class="flex-c">
+                <div class="size-10 bg-g-200 flex-cc rounded mr-2">
                   <ElIcon size="20" color="#F56C6C"><View /></ElIcon>
                 </div>
-                <div class="practice-content">
+                <div>
                   <h4>安全性优先原则</h4>
-                  <p>始终遵循最小权限原则，确保用户只能访问必要的功能和数据。</p>
+                  <p class="text-g-700 text-sm"
+                    >始终遵循最小权限原则，确保用户只能访问必要的功能和数据。</p
+                  >
                 </div>
               </div>
             </ElCol>

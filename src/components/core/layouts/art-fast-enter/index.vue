@@ -50,7 +50,7 @@
           <li
             v-for="quickLink in enabledQuickLinks"
             :key="quickLink.name"
-            class="c-p py-2 hover:[&_span]:text-primary"
+            class="c-p py-2 hover:[&_span]:text-theme"
             @click="handleQuickLinkClick(quickLink)"
           >
             <span class="text-g-600 no-underline">{{ quickLink.name }}</span>

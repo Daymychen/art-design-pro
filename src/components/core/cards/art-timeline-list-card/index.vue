@@ -18,7 +18,7 @@
           <div class="flex-c gap-3">
             <div class="flex-c gap-2">
               <span class="text-sm">{{ item.content }}</span>
-              <span v-if="item.code" class="text-sm text-primary"> #{{ item.code }} </span>
+              <span v-if="item.code" class="text-sm text-theme"> #{{ item.code }} </span>
             </div>
           </div>
         </ElTimelineItem>

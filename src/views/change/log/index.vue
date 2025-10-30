@@ -1,6 +1,6 @@
 <!-- 更新日志页面 -->
 <template>
-  <div class="p-6 mx-auto max-sm:p-0">
+  <div class="mx-auto pt-5">
     <!-- 标题 -->
     <h3 class="text-2xl font-medium text-g-900 mb-8">更新日志</h3>
 
@@ -9,11 +9,11 @@
       <div
         v-for="item in upgradeLogList"
         :key="item.version"
-        class="border border-g-300 rounded-lg p-6 hover:shadow-md transition-shadow max-md:p-4"
+        class="border border-g-300 bg-box rounded-lg p-6 hover:shadow-md transition-shadow max-md:p-4"
       >
         <!-- 版本和日期 -->
         <div class="flex-cb gap-3 mb-4 flex-wrap">
-          <span class="px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full">
+          <span class="px-3 py-1 bg-theme/10 text-theme text-sm font-medium rounded-full">
             {{ item.version }}
           </span>
           <span class="text-sm text-g-500">{{ item.date }}</span>

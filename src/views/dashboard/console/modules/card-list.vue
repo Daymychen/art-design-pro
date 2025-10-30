@@ -14,9 +14,9 @@
           </span>
         </div>
         <div
-          class="absolute top-0 bottom-0 right-5 m-auto size-12.5 rounded-xl flex-cc bg-primary/10"
+          class="absolute top-0 bottom-0 right-5 m-auto size-12.5 rounded-xl flex-cc bg-theme/10"
         >
-          <ArtSvgIcon :icon="item.icon" class="text-xl text-primary" />
+          <ArtSvgIcon :icon="item.icon" class="text-xl text-theme" />
         </div>
       </div>
     </ElCol>

@@ -20,14 +20,20 @@
         <template v-for="item in processedMenuList" :key="item.meta.title">
           <div
             v-if="!item.meta.isHide"
-            class="menu-item relative flex-shrink-0 h-10 px-3 text-sm flex-c c-p hover:text-primary"
+            class="menu-item relative flex-shrink-0 h-10 px-3 text-sm flex-c c-p hover:text-theme"
             :class="{
-              'menu-item-active text-primary': item.isActive
+              'menu-item-active text-theme': item.isActive
             }"
             @click="handleMenuJump(item, true)"
           >
-            <ArtSvgIcon :icon="item.meta.icon" class="text-lg text-g-700 mr-1" />
-            <span class="text-md text-g-700">{{ item.formattedTitle }}</span>
+            <ArtSvgIcon
+              :icon="item.meta.icon"
+              class="text-lg text-g-700 mr-1"
+              :class="item.isActive && 'text-theme'"
+            />
+            <span class="text-md text-g-700" :class="item.isActive && 'text-theme'">
+              {{ item.formattedTitle }}
+            </span>
             <div v-if="item.meta.showBadge" class="art-badge art-badge-mixed" />
           </div>
         </template>
@@ -216,7 +222,7 @@
 </script>
 
 <style scoped>
-  @reference '@styles/main.css';
+  @reference '@styles/tailwind.css';
 
   .button-arrow {
     @apply absolute 

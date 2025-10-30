@@ -1,6 +1,6 @@
 <!-- 文章列表页面 -->
 <template>
-  <div class="page-content">
+  <div class="page-content !mb-5">
     <ElRow justify="space-between" :gutter="10">
       <ElCol :lg="6" :md="6" :sm="14" :xs="16">
         <ElInput
@@ -41,7 +41,7 @@
             </ElImage>
 
             <span
-              class="absolute top-1 right-1 bg-black/50 rounded text-xs px-1 py-0.5 text-g-200"
+              class="absolute top-1 right-1 bg-black/50 rounded text-xs px-1 py-0.5 text-white"
               >{{ item.type_name }}</span
             >
           </div>

@@ -147,7 +147,7 @@
     height: '11rem',
     titleColor: 'white',
     subtitleColor: 'white',
-    boxStyle: '!bg-primary/60',
+    boxStyle: '!bg-theme/60',
     decoration: true,
     buttonConfig: () => ({
       show: true,

@@ -28,7 +28,7 @@
       title: '新订单 #38291',
       status: '待处理',
       time: '5分钟',
-      class: 'bg-primary/12 text-primary',
+      class: 'bg-theme/12 text-theme',
       icon: 'ri:shopping-bag-4-line'
     },
     {

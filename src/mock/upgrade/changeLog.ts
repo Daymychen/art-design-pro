@@ -9,6 +9,20 @@ interface UpgradeLog {
 
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
+    version: 'v3.0',
+    title: 'Sass 重构为 Tailwind CSS，Iconfont 替换为 Iconify',
+    date: '待定',
+    detail: [
+      'Sass 样式全面重构为 Tailwind CSS',
+      'Iconfont 图标库替换为 Iconify',
+      '完整包体积减少 1.3 MB',
+      'CSS 开发效率实现质的飞跃',
+      '主题变量全新设计，显著提升系统 UI 一致性'
+    ],
+    remark:
+      '⚠️ 本次升级涉及底层样式系统与图标库的彻底替换，迁移成本较高。建议新项目直接采用，老项目请充分评估后再决定升级。'
+  },
+  {
     version: 'v2.6.1',
     title: 'bug修复、授权页增加主题色切换功能',
     date: '2025-10-19',

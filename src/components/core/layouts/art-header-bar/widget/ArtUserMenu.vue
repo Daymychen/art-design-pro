@@ -132,7 +132,7 @@
 </script>
 
 <style scoped>
-  @reference '@styles/main.css';
+  @reference '@styles/tailwind.css';
 
   @layer components {
     .btn-item {

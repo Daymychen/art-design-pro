@@ -90,7 +90,7 @@
             </div>
             <div
               v-if="shouldShowExpandToggle"
-              class="ml-2.5 c-p flex-c leading-8 text-primary tad-200 hover:text-black md:ml-0 md:justify-center"
+              class="ml-2.5 c-p flex-c leading-8 text-theme tad-200 hover:text-black md:ml-0 md:justify-center"
               @click="toggleExpand"
             >
               <span class="select-none text-sm">{{ expandToggleText }}</span>

@@ -115,7 +115,7 @@
                 </div>
                 <div
                   class="py-2.5 px-3.5 text-sm leading-[1.4] rounded-md"
-                  :class="message.isMe ? '!bg-primary/15' : '!bg-g-300/60'"
+                  :class="message.isMe ? '!bg-theme/15' : '!bg-g-300/60'"
                   >{{ message.content }}</div
                 >
               </div>

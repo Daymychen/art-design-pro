@@ -14,7 +14,7 @@
       <div class="flex-c mt-2.5">
         <span class="text-xs text-g-700">{{ formatDate(comment.timestamp) }}</span>
         <div
-          class="ml-5 text-xs text-g-700 c-p select-none hover:text-primary"
+          class="ml-5 text-xs text-g-700 c-p select-none hover:text-theme"
           @click="toggleReply(comment.id)"
         >
           回复

@@ -19,9 +19,9 @@
         }"
       >
         <li
-          class="art-card-xs inline-flex flex-cc h-8.5 mr-1.5 text-xs c-p hover:text-primary"
+          class="art-card-xs inline-flex flex-cc h-8.5 mr-1.5 text-xs c-p hover:text-theme"
           :class="[
-            item.path === activeTab ? 'activ-tab !text-primary' : 'text-g-600',
+            item.path === activeTab ? 'activ-tab !text-theme' : 'text-g-600',
             tabStyle === 'tab-google' ? 'google-tab relative !h-9 !leading-9 !border-none' : ''
           ]"
           :style="{
@@ -516,7 +516,7 @@
   .google-tab:hover {
     box-sizing: border-box;
     color: var(--art-gray-600) !important;
-    background-color: var(--el-color-primary-light-9) !important;
+    background-color: var(--art-gray-200) !important;
     border-bottom: 1px solid var(--default-box-color) !important;
     border-radius: calc(var(--custom-radius) / 2.5 + 4px) !important;
   }

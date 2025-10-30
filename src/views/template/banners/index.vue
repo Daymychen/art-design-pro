@@ -126,7 +126,7 @@
           :button="{
             show: true,
             text: '立即更新',
-            color: 'var(--a-primary)',
+            color: 'var(--a-theme)',
             textColor: '#fff'
           }"
           :cancelButton="{
@@ -196,7 +196,7 @@
       subtitle: '您的高级服务将在 7 天后到期，请及时续费以继续享受完整功能。',
       titleColor: 'var(--art-gray-900)',
       subtitleColor: 'var(--art-gray-900)',
-      boxStyle: '!bg-primary/15',
+      boxStyle: '!bg-theme/15',
       meteorConfig: { enabled: true, count: 15 },
       buttonConfig: {
         show: true,
@@ -209,7 +209,7 @@
 </script>
 
 <style scoped>
-  @reference '@styles/main.css';
+  @reference '@styles/tailwind.css';
 
   .page-title {
     @apply my-5 text-xl font-medium first:mt-0;

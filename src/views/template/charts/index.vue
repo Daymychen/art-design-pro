@@ -343,7 +343,7 @@
 </script>
 
 <style scoped>
-  @reference '@styles/main.css';
+  @reference '@styles/tailwind.css';
 
   .page-title {
     @apply my-5 text-xl font-medium first:mt-0;

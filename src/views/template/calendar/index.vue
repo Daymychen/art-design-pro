@@ -156,7 +156,7 @@
    */
   const getEventClasses = (type: CalendarEvent['type'] = 'primary') => {
     const classMap = {
-      primary: { bgClass: 'bg-primary/12', textClass: 'text-primary' },
+      primary: { bgClass: 'bg-theme/12', textClass: 'text-theme' },
       success: { bgClass: 'bg-success/12', textClass: 'text-success' },
       warning: { bgClass: 'bg-warning/12', textClass: 'text-warning' },
       danger: { bgClass: 'bg-danger/12', textClass: 'text-danger' }

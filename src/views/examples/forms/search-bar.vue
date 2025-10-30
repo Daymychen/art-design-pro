@@ -53,9 +53,8 @@
 </template>
 
 <script setup lang="ts">
-  import ArtIconSelector from '@/components/core/base/art-icon-selector/index.vue'
+  import { ElInput } from 'element-plus'
   import { SearchFormItem } from '@/components/core/forms/art-search-bar/index.vue'
-  import { IconTypeEnum } from '@/enums/appEnum'
 
   interface Emits {
     (e: 'update:modelValue', value: Record<string, any>): void
@@ -478,8 +477,7 @@
     {
       label: '渲染组件',
       key: 'iconSelector',
-      type: () => h(ArtIconSelector, { iconType: IconTypeEnum.UNICODE, width: '100%' }),
-      props: { placeholder: '请输入备注', type: 'textarea', rows: 4 }
+      type: () => h(ElInput, { placeholder: '渲染自定义 input' })
     },
     {
       label: '自定义组件',

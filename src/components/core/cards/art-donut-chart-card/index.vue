@@ -21,7 +21,7 @@
           </div>
           <div class="mt-2 flex gap-4 text-xs text-g-600">
             <div v-if="currentValue" class="flex-cc">
-              <div class="size-2 bg-primary/100 rounded mr-2"></div>
+              <div class="size-2 bg-theme/100 rounded mr-2"></div>
               {{ currentValue }}
             </div>
             <div v-if="previousValue" class="flex-cc">

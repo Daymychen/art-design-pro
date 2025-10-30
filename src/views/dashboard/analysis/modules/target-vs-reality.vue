@@ -61,19 +61,19 @@
   const totalItems = [
     {
       icon: 'ri:shopping-bag-line',
-      iconClass: 'text-[#2b8dfa] bg-[#e6f7ff]',
+      iconClass: 'text-theme bg-theme/12',
       label: '实际销售额',
       subLabel: '全球',
       value: '8,823',
-      valueClass: 'text-[#2b8dfa]'
+      valueClass: 'text-theme'
     },
     {
       icon: 'ri:money-dollar-circle-line',
-      iconClass: 'text-[#1cb8fc] bg-[#e6f7ff]',
+      iconClass: 'text-theme bg-theme/12',
       label: '目标销售额',
       subLabel: '商业',
       value: '12,122',
-      valueClass: 'text-[#1cb8fc]'
+      valueClass: 'text-theme'
     }
   ]
 </script>

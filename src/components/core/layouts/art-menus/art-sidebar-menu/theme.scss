@@ -30,16 +30,14 @@ $popup-menu-radius: 6px;
 }
 
 // 通用选中样式
-@mixin menu-active($color, $bg-color, $icon-color: null) {
+@mixin menu-active($color, $bg-color, $icon-color: var(--main-color)) {
   .el-menu-item.is-active {
     color: $color !important;
     background-color: $bg-color;
 
-    @if $icon-color {
-      .menu-icon {
-        .art-svg-icon {
-          color: $icon-color !important;
-        }
+    .menu-icon {
+      .art-svg-icon {
+        color: $icon-color !important;
       }
     }
   }
@@ -167,7 +165,7 @@ $popup-menu-radius: 6px;
   // ---------------------- Dark theme menu ----------------------
   .el-menu-dark {
     @include theme-menu-base;
-    @include menu-active(#fff, var(--el-color-primary-light-1), #fff);
+    @include menu-active(#fff, #27282d, #fff);
     @include menu-hover(#0f1015);
 
     .el-sub-menu__icon-arrow {
@@ -185,8 +183,11 @@ $popup-menu-radius: 6px;
     }
 
     .el-menu-item.is-active {
-      color: var(--main-color) !important;
       background-color: var(--el-color-primary-light-9);
+
+      .art-svg-icon {
+        color: var(--main-color) !important;
+      }
 
       &::before {
         position: absolute;
@@ -203,21 +204,6 @@ $popup-menu-radius: 6px;
 
     .el-sub-menu__icon-arrow {
       color: var(--art-gray-600);
-    }
-  }
-}
-
-.dark {
-  .layout-sidebar {
-    .el-menu-item.is-active {
-      span {
-        // 暗黑主题模式，选中菜单文字颜色
-        color: var(--main-color) !important;
-      }
-
-      .menu-icon {
-        color: var(--main-color) !important;
-      }
     }
   }
 }
@@ -252,5 +238,29 @@ $popup-menu-radius: 6px;
   .el-menu--vertical,
   .el-menu--popup-container {
     @include popup-menu-base(rgb(255 255 255 / 8%), #eee, rgb(255 255 255 / 8%));
+  }
+}
+
+// 暗黑模式菜单样式
+.dark {
+  .layout-sidebar {
+    // 图标颜色、文字颜色
+    .menu-icon .art-svg-icon,
+    .menu-name {
+      color: rgb(255 255 255 / 80%) !important;
+    }
+
+    // 选中的文字颜色跟图标颜色
+    .el-menu-item.is-active {
+      span,
+      .menu-icon .art-svg-icon {
+        color: var(--main-color) !important;
+      }
+    }
+
+    // 右侧箭头颜色
+    .el-sub-menu__icon-arrow {
+      color: #fff;
+    }
   }
 }

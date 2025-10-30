@@ -69,10 +69,16 @@
 
 /* 主题类 */
 @theme {
-  /* 系统主题色 */
-  --color-primary: var(--main-color);
+  /* 盒子颜色（light 白色/ dark 黑色） */
+  --color-box: var(--default-box-color);
 
-  /* ElementPlus 主题色 - 使用 oklch 色值 */
+  /* 系统主题色 */
+  --color-theme: var(--main-color);
+
+  /* --color-primary: var(--main-color); */
+
+  /* ElementPlus 主题色 */
+  --color-primary: var(--a-primary);
   --color-secondary: var(--a-secondary);
   --color-error: var(--a-error);
   --color-info: var(--a-info);
@@ -92,9 +98,6 @@
   --color-g-800: var(--art-gray-800);
   --color-g-900: var(--art-gray-900);
   /* --color-g-950: var(--art-gray-950); */
-
-  /* 盒子颜色（light 白色/ dark 黑色） */
-  --color-box: var(--default-box-color);
 }
 
 /* 添加自定义工具类 */
