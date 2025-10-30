@@ -84,7 +84,7 @@
     box-sizing: border-box;
     height: 100vh;
 
-    @media only screen and (width <= 500px) {
+    @media only screen and (width <= 640px) {
       height: 100dvh;
     }
 
@@ -188,7 +188,7 @@
   }
 }
 
-@media only screen and (width <= 500px) {
+@media only screen and (width <= 640px) {
   .layout-sidebar {
     border-right: 0 !important;
   }

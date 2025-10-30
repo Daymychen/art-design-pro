@@ -3,7 +3,7 @@
     :list="timelineData"
     title="最近交易"
     subtitle="今日订单动态"
-    class="h-[27.8rem]"
+    class="h-[27.8rem] mb-5"
   />
 </template>
 

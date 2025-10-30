@@ -107,7 +107,7 @@
   }
 
   // 常量定义
-  const MOBILE_BREAKPOINT = 500
+  const MOBILE_BREAKPOINT = 640
   const SCROLL_DELAY = 100
   const BOT_NAME = 'Art Bot'
   const USER_NAME = 'Ricky'

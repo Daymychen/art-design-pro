@@ -172,7 +172,7 @@
     padding-right: 16px;
     overflow: hidden;
     background-color: var(--el-color-primary-light-9);
-    border: 1px solid var(--main-color);
+    border: 1px solid var(--el-color-primary-light-5);
     border-radius: $border-radius;
 
     // 左右图标公共样式
@@ -182,13 +182,16 @@
       top: 0;
       bottom: 0;
       z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: $icon-width;
       height: $text-scroll-height;
       line-height: $text-scroll-height;
       text-align: center;
       background-color: var(--el-color-primary-light-9);
 
-      :deep(svg) {
+      .art-svg-icon {
         color: var(--main-color);
       }
     }
@@ -251,14 +254,13 @@
     @each $type, $color in $types {
       &.text-scroll--#{$type} {
         background-color: var(--el-color-#{$color}-light-9);
-        border-color: var(--el-color-#{$color});
+        border-color: var(--el-color-#{$color}-light-5);
 
         .left-icon,
         .right-icon {
           background-color: var(--el-color-#{$color}-light-9);
 
-          i,
-          :deep(svg) {
+          .art-svg-icon {
             color: var(--el-color-#{$color});
           }
         }

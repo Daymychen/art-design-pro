@@ -59,7 +59,7 @@
     }
   }
 
-  @media screen and (width <= 500px) {
+  @media screen and (width <= 640px) {
     .customer-satisfaction {
       height: 300px;
 

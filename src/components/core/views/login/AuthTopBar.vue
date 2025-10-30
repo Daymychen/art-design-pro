@@ -1,9 +1,7 @@
 <!-- 授权页右上角组件 -->
 <template>
-  <div
-    class="absolute right-5 top-5 z-10 flex-c gap-2.5 max-170:[&_.color-picker-expandable]:!hidden"
-  >
-    <div class="color-picker-expandable relative flex-c">
+  <div class="absolute right-5 top-5 z-10 flex-c gap-2.5">
+    <div class="color-picker-expandable relative flex-c max-sm:!hidden">
       <div
         class="color-dots absolute right-0 rounded-full flex-c gap-2 rounded-5 px-2.5 py-2 pr-9 pl-2.5 opacity-0"
       >

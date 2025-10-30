@@ -321,7 +321,7 @@
     }
   }
 
-  @media (width <= 500px) {
+  @media (width <= 640px) {
     .basic-banner {
       box-sizing: border-box;
       justify-content: flex-start;

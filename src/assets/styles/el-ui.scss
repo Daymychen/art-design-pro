@@ -209,7 +209,7 @@ html.dark .el-card {
 }
 
 // 处理移动端组件兼容性
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 640px) {
   .el-message-box,
   .el-message,
   .el-dialog {

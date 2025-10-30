@@ -9,11 +9,32 @@ import { FestivalConfig } from '@/types/config'
 
 export const festivalConfigList: FestivalConfig[] = [
   {
-    date: '2025-10-28',
-    name: 'v3.0 sass 升级到 tailwindcss ',
+    date: '2025-11-02',
+    name: 'v3.0 Sass 升级至 TailwindCSS',
     image: '',
     scrollText:
-      '🎉 v3.0 版本即将进入测试阶段！本次重点升级：以 TailwindCSS 替代 Sass 提升开发效率，使用 Iconify 统一图标方案。正式发布，敬请期待！'
+      '🚀 v3.0 即将开启测试！全面采用 TailwindCSS 重构样式体系，统一 Iconify 图标方案，带来更高效、更现代的开发体验。敬请期待正式发布！'
+  },
+  {
+    date: '2025-11-01',
+    name: 'v3.0 Sass 升级至 TailwindCSS',
+    image: '',
+    scrollText:
+      '🚀 v3.0 即将开启测试！全面采用 TailwindCSS 重构样式体系，统一 Iconify 图标方案，带来更高效、更现代的开发体验。敬请期待正式发布！'
+  },
+  {
+    date: '2025-10-31',
+    name: 'v3.0 Sass 升级至 TailwindCSS',
+    image: '',
+    scrollText:
+      '🚀 v3.0 即将开启测试！全面采用 TailwindCSS 重构样式体系，统一 Iconify 图标方案，带来更高效、更现代的开发体验。敬请期待正式发布！'
+  },
+  {
+    date: '2025-10-30',
+    name: 'v3.0 Sass 升级至 TailwindCSS',
+    image: '',
+    scrollText:
+      '🚀 v3.0 即将开启测试！全面采用 TailwindCSS 重构样式体系，统一 Iconify 图标方案，带来更高效、更现代的开发体验。敬请期待正式发布！'
   }
   // {
   //   date: '2024-12-25',

@@ -5,7 +5,7 @@
       :ellipsis="true"
       mode="horizontal"
       :default-active="routerPath"
-      text-color="var(--art-gray-700)"
+      :text-color="isDark ? 'var(--art-gray-800)' : 'var(--art-gray-700)'"
       :popper-offset="-6"
       background-color="transparent"
       :show-timeout="50"
@@ -27,8 +27,12 @@
 <script setup lang="ts">
   import type { AppRouteRecord } from '@/types/router'
   import HorizontalSubmenu from './widget/HorizontalSubmenu.vue'
+  import { useSettingStore } from '@/store/modules/setting'
 
   defineOptions({ name: 'ArtHorizontalMenu' })
+
+  const settingStore = useSettingStore()
+  const { isDark } = storeToRefs(settingStore)
 
   interface Props {
     /** 菜单列表数据 */

@@ -17,7 +17,7 @@
 }
 
 // 处理移动端组件兼容性
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 640px) {
   * {
     cursor: default !important;
   }
@@ -181,7 +181,7 @@
   display: flex;
   flex-direction: column;
 
-  @media (max-width: 500px) {
+  @media (max-width: 640px) {
     height: auto;
   }
 }

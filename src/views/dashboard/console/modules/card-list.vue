@@ -3,8 +3,8 @@
     <ElCol v-for="(item, index) in dataList" :key="index" :sm="12" :md="6" :lg="6">
       <div class="art-card relative flex flex-col justify-center h-35 px-5 mb-5">
         <span class="text-g-700 text-sm">{{ item.des }}</span>
-        <ArtCountTo class="text-3xl" :target="item.num" :duration="1300" />
-        <div class="flex-c">
+        <ArtCountTo class="text-3xl mt-2" :target="item.num" :duration="1300" />
+        <div class="flex-c mt-1">
           <span class="text-xs text-g-600">较上周</span>
           <span
             class="ml-1 text-xs font-semibold"

@@ -3,7 +3,7 @@
 /* 授权页右侧区域 */
 .auth-right-wrap {
   @apply absolute inset-0 w-[440px] h-[650px] py-[5px] m-auto overflow-hidden
-    max-sm:px-3.5 max-sm:w-full
+    max-sm:px-7 max-sm:w-full
     animate-[slideInRight_0.6s_cubic-bezier(0.25,0.46,0.45,0.94)_forwards]
     max-md:animate-none;
 
@@ -12,7 +12,7 @@
   }
 
   .title {
-    @apply text-g-900 text-4xl font-semibold max-md:text-2xl;
+    @apply text-g-900 text-4xl font-semibold max-md:text-3xl;
   }
 
   .sub-title {

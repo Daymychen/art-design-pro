@@ -28,10 +28,10 @@
           >
             <ArtSvgIcon
               :icon="item.meta.icon"
-              class="text-lg text-g-700 mr-1"
+              class="text-lg text-g-700 dark:text-g-800 mr-1"
               :class="item.isActive && 'text-theme'"
             />
-            <span class="text-md text-g-700" :class="item.isActive && 'text-theme'">
+            <span class="text-md text-g-700 dark:text-g-800" :class="item.isActive && 'text-theme'">
               {{ item.formattedTitle }}
             </span>
             <div v-if="item.meta.showBadge" class="art-badge art-badge-mixed" />

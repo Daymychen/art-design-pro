@@ -208,7 +208,7 @@ $popup-menu-radius: 6px;
   }
 }
 
-@media only screen and (width <= 500px) {
+@media only screen and (width <= 640px) {
   .layout-sidebar {
     .el-menu-design {
       > .el-sub-menu {
@@ -247,7 +247,7 @@ $popup-menu-radius: 6px;
     // 图标颜色、文字颜色
     .menu-icon .art-svg-icon,
     .menu-name {
-      color: rgb(255 255 255 / 80%) !important;
+      color: var(--art-gray-800) !important;
     }
 
     // 选中的文字颜色跟图标颜色

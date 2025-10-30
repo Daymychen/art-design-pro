@@ -24,7 +24,7 @@
         <ArtIconButton
           v-if="isLeftMenu && shouldShowMenuButton"
           icon="ri:menu-2-fill"
-          class="ml-3"
+          class="ml-3 max-sm:ml-[7px]"
           @click="visibleMenu"
         />
 
@@ -58,7 +58,7 @@
         <!-- 搜索 -->
         <div
           v-if="shouldShowGlobalSearch"
-          class="flex-cb w-40 h-9 px-2.5 c-p border border-g-400 rounded-custom-sm max-md:!hidden"
+          class="flex-cb w-40 h-9 px-2.5 c-p border border-g-400 rounded-custom-sm max-md:!hidden bg-g-100"
           @click="openSearchDialog"
         >
           <div class="flex-c">

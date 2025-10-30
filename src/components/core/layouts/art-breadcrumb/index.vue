@@ -16,7 +16,7 @@
           @click="handleBreadcrumbClick(item, index)"
         >
           <span
-            class="block max-w-46 overflow-hidden text-ellipsis whitespace-nowrap px-1.5 text-sm text-g-600"
+            class="block max-w-46 overflow-hidden text-ellipsis whitespace-nowrap px-1.5 text-sm text-g-600 dark:text-g-800"
             >{{ formatMenuTitle(item.meta?.title as string) }}</span
           >
         </div>

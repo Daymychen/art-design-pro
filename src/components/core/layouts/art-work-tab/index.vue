@@ -2,7 +2,7 @@
 <template>
   <div
     v-if="showWorkTab"
-    class="box-border flex-b w-full px-5 mb-3 select-none"
+    class="box-border flex-b w-full px-5 mb-3 select-none max-sm:px-[15px]"
     :class="[
       tabStyle === 'tab-card' ? 'py-1 border-b border-g-300' : '',
       tabStyle === 'tab-google' ? 'pt-1 pb-0 border-b border-g-300' : ''
@@ -21,7 +21,7 @@
         <li
           class="art-card-xs inline-flex flex-cc h-8.5 mr-1.5 text-xs c-p hover:text-theme"
           :class="[
-            item.path === activeTab ? 'activ-tab !text-theme' : 'text-g-600',
+            item.path === activeTab ? 'activ-tab !text-theme' : 'text-g-600 dark:text-g-800',
             tabStyle === 'tab-google' ? 'google-tab relative !h-9 !leading-9 !border-none' : ''
           ]"
           :style="{
