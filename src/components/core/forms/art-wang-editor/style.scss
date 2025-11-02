@@ -71,7 +71,12 @@ $box-radius: calc(var(--custom-radius) / 3 + 2px);
   }
 
   /* 工具栏按钮样式 */
+  .w-e-bar-item svg {
+    fill: var(--art-gray-800);
+  }
+
   .w-e-bar-item button {
+    color: var(--art-gray-800);
     border-radius: $box-radius;
   }
 

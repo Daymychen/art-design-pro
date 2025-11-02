@@ -131,7 +131,7 @@
     box-shadow: none;
   }
 
-  .color-picker-expandable:hover .palette-btn :deep(svg) {
+  .color-picker-expandable:hover .palette-btn :deep(.art-svg-icon) {
     color: v-bind(color);
   }
 </style>

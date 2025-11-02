@@ -19,10 +19,10 @@
         }"
       >
         <li
-          class="art-card-xs inline-flex flex-cc h-8.5 mr-1.5 text-xs c-p hover:text-theme"
+          class="art-card-xs inline-flex flex-cc h-8 mr-1.5 text-xs c-p hover:text-theme"
           :class="[
             item.path === activeTab ? 'activ-tab !text-theme' : 'text-g-600 dark:text-g-800',
-            tabStyle === 'tab-google' ? 'google-tab relative !h-9 !leading-9 !border-none' : ''
+            tabStyle === 'tab-google' ? 'google-tab relative !h-8 !leading-8 !border-none' : ''
           ]"
           :style="{
             padding: item.fixedTab ? '0 10px' : '0 8px 0 12px',
@@ -56,13 +56,14 @@
 
     <div class="flex">
       <div
-        class="btn art-card-xs console-box relative top-0 size-8.5 text-base leading-8.5 text-center c-p"
-        :style="{ borderRadius: 'calc(var(--custom-radius) / 2.5 + 0px)' }"
+        class="flex-cc art-card-xs relative top-0 size-8 leading-8 text-center c-p tad-200 hover:!bg-hover-color"
+        :style="{
+          borderRadius: 'calc(var(--custom-radius) / 2.5 + 0px)',
+          marginTop: tabStyle === 'tab-google' ? '-2px' : ''
+        }"
         @click="(e: MouseEvent) => showMenu(e, activeTab)"
       >
-        <ElIcon>
-          <ArrowDown />
-        </ElIcon>
+        <ArtSvgIcon icon="iconamoon:arrow-down-2-thin" class="text-2xl text-g-700" />
       </div>
     </div>
 
@@ -80,7 +81,6 @@
   import { computed, onMounted, ref, watch, nextTick, onUnmounted } from 'vue'
   import { LocationQueryRaw, useRoute, useRouter } from 'vue-router'
   import { useI18n } from 'vue-i18n'
-  import { ArrowDown } from '@element-plus/icons-vue'
   import { storeToRefs } from 'pinia'
 
   import { useWorktabStore } from '@/store/modules/worktab'
@@ -475,7 +475,7 @@
 
 <style scoped>
   .google-tab.activ-tab {
-    color: var(--main-color) !important;
+    color: var(--theme-color) !important;
     background-color: var(--el-color-primary-light-9) !important;
     border-bottom: 0 !important;
     border-bottom-right-radius: 0 !important;
@@ -505,15 +505,15 @@
 
   .dark .google-tab.activ-tab {
     color: var(--art-gray-800) !important;
-    background-color: var(--art-gray-200) !important;
+    background-color: var(--art-hover-color) !important;
   }
 
   .dark .google-tab.activ-tab::before,
   .dark .google-tab.activ-tab::after {
-    box-shadow: 0 0 0 30px var(--art-gray-200);
+    box-shadow: 0 0 0 30px var(--art-hover-color);
   }
 
-  .google-tab:hover {
+  .google-tab:not(.activ-tab):hover {
     box-sizing: border-box;
     color: var(--art-gray-600) !important;
     background-color: var(--art-gray-200) !important;
@@ -521,8 +521,8 @@
     border-radius: calc(var(--custom-radius) / 2.5 + 4px) !important;
   }
 
-  .dark .google-tab:hover {
-    background-color: var(--art-gray-200) !important;
+  .dark .google-tab:not(.activ-tab):hover {
+    background-color: var(--art-hover-color) !important;
   }
 
   .google-tab:hover .line,

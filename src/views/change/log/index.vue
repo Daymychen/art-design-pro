@@ -9,7 +9,7 @@
       <div
         v-for="item in upgradeLogList"
         :key="item.version"
-        class="border border-g-300 bg-box rounded-lg p-6 hover:shadow-md transition-shadow max-md:p-4"
+        class="art-card-sm rounded-lg p-6 transition-shadow max-md:p-4"
       >
         <!-- 版本和日期 -->
         <div class="flex-cb gap-3 mb-4 flex-wrap">

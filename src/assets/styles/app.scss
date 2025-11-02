@@ -2,18 +2,18 @@
 // 顶部进度条颜色
 #nprogress .bar {
   z-index: 2400;
-  background-color: color-mix(in srgb, var(--main-color) 65%, white);
+  background-color: color-mix(in srgb, var(--theme-color) 65%, white);
 }
 
 #nprogress .peg {
   box-shadow:
-    0 0 10px var(--main-color),
-    0 0 5px var(--main-color) !important;
+    0 0 10px var(--theme-color),
+    0 0 5px var(--theme-color) !important;
 }
 
 #nprogress .spinner-icon {
-  border-top-color: var(--main-color) !important;
-  border-left-color: var(--main-color) !important;
+  border-top-color: var(--theme-color) !important;
+  border-left-color: var(--theme-color) !important;
 }
 
 // 处理移动端组件兼容性
@@ -83,7 +83,7 @@
 
 // 盒子默认边框
 .page-content {
-  border: 1px solid var(--art-card-border) !important;
+  border: 1px solid var(--default-border) !important;
 }
 
 @mixin art-card-base($border-color, $shadow: none, $radius-diff: 4px) {
@@ -96,26 +96,26 @@
 .art-card,
 .art-card-sm,
 .art-card-xs {
-  border: 1px solid var(--art-card-border);
+  border: 1px solid var(--default-border);
 }
 
 // 盒子边框
 [data-box-mode='border-mode'] {
   .page-content,
   .art-table-card {
-    border: 1px solid var(--art-card-border) !important;
+    border: 1px solid var(--default-border) !important;
   }
 
   .art-card {
-    @include art-card-base(var(--art-card-border), none, 4px);
+    @include art-card-base(var(--default-border), none, 4px);
   }
 
   .art-card-sm {
-    @include art-card-base(var(--art-card-border), none, 0px);
+    @include art-card-base(var(--default-border), none, 0px);
   }
 
   .art-card-xs {
-    @include art-card-base(var(--art-card-border), none, -4px);
+    @include art-card-base(var(--default-border), none, -4px);
   }
 }
 
@@ -132,15 +132,27 @@
   }
 
   .art-card {
-    @include art-card-base(var(--art-gray-200), 0 0 4px 0 rgba(0, 0, 0, 0.04), 4px);
+    @include art-card-base(
+      var(--art-gray-200),
+      (0 1px 3px 0 rgba(0, 0, 0, 0.03), 0 1px 2px -1px rgba(0, 0, 0, 0.08)),
+      4px
+    );
   }
 
   .art-card-sm {
-    @include art-card-base(var(--art-gray-200), 0 0 4px 0 rgba(0, 0, 0, 0.04), 2px);
+    @include art-card-base(
+      var(--art-gray-200),
+      (0 1px 3px 0 rgba(0, 0, 0, 0.03), 0 1px 2px -1px rgba(0, 0, 0, 0.08)),
+      2px
+    );
   }
 
   .art-card-xs {
-    @include art-card-base(var(--art-gray-200), 0 0 4px 0 rgba(0, 0, 0, 0.04), -4px);
+    @include art-card-base(
+      var(--art-gray-200),
+      (0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 1px -1px rgba(0, 0, 0, 0.08)),
+      -4px
+    );
   }
 }
 

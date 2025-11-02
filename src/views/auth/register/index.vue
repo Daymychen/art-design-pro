@@ -53,7 +53,7 @@
               <ElCheckbox v-model="formData.agreement">
                 {{ $t('register.agreeText') }}
                 <RouterLink
-                  style="color: var(--main-color); text-decoration: none"
+                  style="color: var(--theme-color); text-decoration: none"
                   to="/privacy-policy"
                   >{{ $t('register.privacyPolicy') }}</RouterLink
                 >

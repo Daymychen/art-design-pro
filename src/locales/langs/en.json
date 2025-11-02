@@ -222,7 +222,7 @@
     },
     "widgets": {
       "title": "Components",
-      "iconSelector": "Icon Selector",
+      "icon": "Icon",
       "imageCrop": "Image Crop",
       "excel": "Excel Import Export",
       "video": "Video Player",

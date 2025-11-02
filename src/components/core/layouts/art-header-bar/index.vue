@@ -58,12 +58,12 @@
         <!-- 搜索 -->
         <div
           v-if="shouldShowGlobalSearch"
-          class="flex-cb w-40 h-9 px-2.5 c-p border border-g-400 rounded-custom-sm max-md:!hidden bg-g-100"
+          class="flex-cb w-40 h-9 px-2.5 c-p border border-g-400 rounded-custom-sm max-md:!hidden"
           @click="openSearchDialog"
         >
           <div class="flex-c">
-            <ArtSvgIcon icon="ri:search-line" class="text-xs text-g-500" />
-            <span class="ml-2 text-xs font-normal text-g-500">{{ $t('topBar.search.title') }}</span>
+            <ArtSvgIcon icon="ri:search-line" class="text-sm text-g-500" />
+            <span class="ml-1 text-xs font-normal text-g-500">{{ $t('topBar.search.title') }}</span>
           </div>
           <div class="flex-c h-5 px-1.5 text-g-500/80 border border-g-400 rounded">
             <ArtSvgIcon v-if="isWindows" icon="vaadin:ctrl-a" class="text-sm" />
@@ -334,7 +334,7 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   /* Custom animations */
   @keyframes rotate180 {
     0% {
@@ -428,31 +428,31 @@
   }
 
   /* Hover animation classes */
-  .refresh-btn:hover :deep(svg) {
+  .refresh-btn:hover :deep(.art-svg-icon) {
     animation: rotate180 0.5s;
   }
 
-  .language-btn:hover :deep(svg) {
+  .language-btn:hover :deep(.art-svg-icon) {
     animation: moveUp 0.4s;
   }
 
-  .setting-btn:hover :deep(svg) {
+  .setting-btn:hover :deep(.art-svg-icon) {
     animation: rotate180 0.5s;
   }
 
-  .full-screen-btn:hover :deep(svg) {
+  .full-screen-btn:hover :deep(.art-svg-icon) {
     animation: expand 0.6s forwards;
   }
 
-  .exit-full-screen-btn:hover :deep(svg) {
+  .exit-full-screen-btn:hover :deep(.art-svg-icon) {
     animation: shrink 0.6s forwards;
   }
 
-  .notice-button:hover :deep(svg) {
+  .notice-button:hover :deep(.art-svg-icon) {
     animation: shake 0.5s ease-in-out;
   }
 
-  .chat-button:hover :deep(svg) {
+  .chat-button:hover :deep(.art-svg-icon) {
     animation: shake 0.5s ease-in-out;
   }
 

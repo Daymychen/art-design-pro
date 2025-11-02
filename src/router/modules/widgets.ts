@@ -10,6 +10,15 @@ export const widgetsRoutes: AppRouteRecord = {
   },
   children: [
     {
+      path: 'icon',
+      name: 'Icon',
+      component: '/widgets/icon',
+      meta: {
+        title: 'menus.widgets.icon',
+        keepAlive: true
+      }
+    },
+    {
       path: 'image-crop',
       name: 'ImageCrop',
       component: '/widgets/image-crop',

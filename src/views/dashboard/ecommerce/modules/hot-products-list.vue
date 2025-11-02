@@ -93,7 +93,7 @@
       sales: 423,
       percentage: 75,
       pro: 0,
-      color: 'var(--a-primary)',
+      color: 'var(--art-primary)',
       image: product1
     },
     {
@@ -104,7 +104,7 @@
       sales: 652,
       percentage: 85,
       pro: 0,
-      color: 'var(--a-success)',
+      color: 'var(--art-success)',
       image: product2
     },
     {
@@ -115,7 +115,7 @@
       sales: 238,
       percentage: 45,
       pro: 0,
-      color: 'var(--a-warning)',
+      color: 'var(--art-warning)',
       image: product3
     },
     {
@@ -126,7 +126,7 @@
       sales: 126,
       percentage: 30,
       pro: 0,
-      color: 'var(--a-error)',
+      color: 'var(--art-error)',
       image: product4
     },
     {
@@ -137,7 +137,7 @@
       sales: 321,
       percentage: 60,
       pro: 0,
-      color: 'var(--a-info)',
+      color: 'var(--art-info)',
       image: product5
     },
     {
@@ -148,7 +148,7 @@
       sales: 489,
       percentage: 70,
       pro: 0,
-      color: 'var(--a-secondary)',
+      color: 'var(--art-secondary)',
       image: product6
     }
   ])

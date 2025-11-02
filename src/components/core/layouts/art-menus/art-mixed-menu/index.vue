@@ -265,7 +265,7 @@
     height: 2px;
     margin: auto;
     content: '';
-    background-color: var(--main-color);
+    background-color: var(--theme-color);
   }
 
   @media (width <= 1440px) {

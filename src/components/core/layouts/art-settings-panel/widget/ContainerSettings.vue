@@ -52,10 +52,10 @@
         }
 
         &.is-active {
-          border-color: var(--main-color);
+          border-color: var(--theme-color);
 
           i {
-            color: var(--main-color) !important;
+            color: var(--theme-color) !important;
           }
         }
 

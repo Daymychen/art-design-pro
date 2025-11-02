@@ -26,7 +26,7 @@
           <div
             v-for="application in enabledApplications"
             :key="application.name"
-            class="mr-3 c-p flex-c gap-3 rounded-lg p-2 hover:bg-g-100 hover:[&_.app-icon]:!bg-transparent"
+            class="mr-3 c-p flex-c gap-3 rounded-lg p-2 hover:bg-g-200/70 dark:hover:bg-g-200/90 hover:[&_.app-icon]:!bg-transparent"
             @click="handleApplicationClick(application)"
           >
             <div class="app-icon size-12 flex-cc rounded-lg bg-g-100">

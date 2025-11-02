@@ -1,5 +1,5 @@
 <template>
-  <div class="page-content">
+  <div class="page-content mb-5">
     <div class="mb-15 text-center">
       <h1 class="my-4 text-2xl font-semibold leading-tight"
         >基于 VueUse useTransition 的 Count-To 组件</h1

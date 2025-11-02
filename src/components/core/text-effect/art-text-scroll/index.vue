@@ -1,297 +1,295 @@
-<!-- 文字滚动组件，支持5种样式类型，两种滚动方向，可自定义 HTML 内容 -->
 <template>
-  <div ref="containerRef" class="text-scroll-container" :class="[`text-scroll--${props.type}`]">
-    <div class="left-icon flex-c">
-      <ArtSvgIcon icon="ri:volume-down-line" class="text-lg ml-1" />
+  <div
+    ref="containerRef"
+    class="relative overflow-hidden rounded-custom-sm border flex-c box-border text-sm"
+    :class="themeClasses"
+    :style="containerStyle"
+  >
+    <div class="flex-cc absolute left-0 h-full w-9 z-10" :style="{ backgroundColor: bgColor }">
+      <ArtSvgIcon icon="ri:volume-down-line" class="text-lg" />
     </div>
-    <div class="scroll-wrapper">
-      <div
-        class="text-scroll-content"
-        :class="{ scrolling: shouldScroll }"
-        :style="scrollStyle"
-        ref="scrollContent"
-      >
-        <div class="scroll-item" v-html="sanitizedContent"></div>
-        <div class="scroll-item" v-html="sanitizedContent"></div>
-      </div>
+
+    <div
+      ref="contentRef"
+      class="whitespace-nowrap inline-block transition-opacity duration-600 [&_a]:text-danger [&_a:hover]:underline [&_a:hover]:text-danger/80 px-9"
+      :class="[contentClass, { 'opacity-0': !isReady, 'opacity-100': isReady }]"
+      :style="contentStyle"
+      @click="handleContentClick"
+    >
+      <!-- 原始内容 -->
+      <span ref="textRef" class="inline-block">
+        <slot>
+          <span v-html="text"></span>
+        </slot>
+      </span>
+      <!-- 克隆内容用于无缝循环 -->
+      <span v-if="shouldClone" class="inline-block" :style="cloneSpacing">
+        <slot>
+          <span v-html="text"></span>
+        </slot>
+      </span>
     </div>
-    <div class="right-icon flex-c" @click="handleRightIconClick" v-if="showClose">
+
+    <div
+      v-if="showClose"
+      class="flex-cc absolute right-0 h-full w-9 c-p"
+      :style="{ backgroundColor: bgColor }"
+      @click="handleClose"
+    >
       <ArtSvgIcon icon="ri:close-fill" class="text-lg" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
-  import { useElementHover } from '@vueuse/core'
+  import { useSettingStore } from '@/store/modules/setting'
 
-  defineOptions({ name: 'ArtTextScroll' })
+  type ThemeType =
+    | 'theme'
+    | 'primary'
+    | 'secondary'
+    | 'error'
+    | 'info'
+    | 'success'
+    | 'warning'
+    | 'danger'
 
-  const emit = defineEmits(['close'])
-
-  interface Props {
-    /** 文本 */
-    text: string
-    /** 滚动速度 */
+  /**
+   * 文本滚动组件属性接口
+   */
+  export interface TextScrollProps {
+    /** 滚动文本内容 */
+    text?: string
+    /** 主题类型 */
+    type?: ThemeType
+    /** 滚动方向 */
+    direction?: 'left' | 'right' | 'up' | 'down'
+    /** 滚动速度，单位：像素/秒 */
     speed?: number
-    /** 滚动方向 左/右 */
-    direction?: 'left' | 'right'
-    /** 类型 默认/成功/警告/危险/信息 */
-    type?: 'default' | 'success' | 'warning' | 'danger' | 'info'
+    /** 容器宽度 */
+    width?: string
+    /** 容器高度 */
+    height?: string
+    /** 鼠标悬停时是否暂停滚动 */
+    pauseOnHover?: boolean
     /** 是否显示关闭按钮 */
     showClose?: boolean
-    /** 是否启用打字机效果 */
-    typewriter?: boolean
-    /** 打字机速度 */
-    typewriterSpeed?: number
   }
 
-  const props = withDefaults(defineProps<Props>(), {
-    speed: 70,
+  const props = withDefaults(defineProps<TextScrollProps>(), {
+    text: '',
     direction: 'left',
-    type: 'default',
-    showClose: false,
-    typewriter: false,
-    typewriterSpeed: 100
+    speed: 80,
+    width: '100%',
+    height: '36px',
+    pauseOnHover: true,
+    type: 'theme',
+    showClose: false
   })
 
-  // 状态管理
-  const containerRef = ref<HTMLElement | null>(null)
-  const isHovered = useElementHover(containerRef)
-  const scrollContent = ref<HTMLElement | null>(null)
-  const animationDuration = ref(0)
+  const emit = defineEmits<{
+    close: []
+  }>()
 
-  // 添加打字机效果相关的响应式变量
-  const currentText = ref('')
-  let typewriterTimer: ReturnType<typeof setTimeout> | null = null
-
-  // 添加打字机完成状态
-  const isTypewriterComplete = ref(false)
-
-  // 修改滚动状态计算属性
-  const shouldScroll = computed(() => {
-    if (props.typewriter) {
-      return !isHovered.value && isTypewriterComplete.value
-    }
-    return !isHovered.value
-  })
-
-  // 修改 sanitizedContent 计算属性
-  const sanitizedContent = computed(() => (props.typewriter ? currentText.value : props.text))
-
-  // 修改 scrollStyle 计算属性
-  const scrollStyle = computed(() => ({
-    '--animation-duration': `${animationDuration.value}s`,
-    '--animation-play-state': shouldScroll.value ? 'running' : 'paused',
-    '--animation-direction': props.direction === 'left' ? 'normal' : 'reverse'
-  }))
-
-  // 计算动画持续时间
-  const calculateDuration = () => {
-    if (scrollContent.value) {
-      const contentWidth = scrollContent.value.scrollWidth / 2
-      animationDuration.value = contentWidth / props.speed
-    }
-  }
-
-  // 处理右图标点击事件
-  const handleRightIconClick = () => {
+  const handleClose = () => {
     emit('close')
   }
 
-  // 修改打字机效果实现
-  const startTypewriter = () => {
-    let index = 0
-    currentText.value = ''
-    isTypewriterComplete.value = false // 重置状态
+  const settingStore = useSettingStore()
 
-    const type = () => {
-      if (index < props.text.length) {
-        currentText.value += props.text[index]
-        index++
-        typewriterTimer = setTimeout(type, props.typewriterSpeed)
-      } else {
-        isTypewriterComplete.value = true // 打字完成后设置状态
-      }
+  const { isDark } = storeToRefs(settingStore)
+  const containerRef = ref<HTMLElement>()
+  const contentRef = ref<HTMLElement>()
+  const textRef = ref<HTMLElement>()
+  const isReady = ref(false)
+
+  const animationId = ref<number>()
+  const currentPosition = ref(0)
+  const textSize = ref(0)
+  const containerSize = ref(0)
+  const isPaused = ref(false)
+  const shouldClone = ref(false)
+
+  const isHorizontal = computed(() => props.direction === 'left' || props.direction === 'right')
+  const isReverse = computed(() => props.direction === 'right' || props.direction === 'down')
+
+  // 主题样式映射
+  const themeClasses = computed(() => {
+    const themeMap: Record<ThemeType, string> = {
+      theme: 'text-theme/90 !border-theme/50',
+      primary: 'text-primary/90 !border-primary/50',
+      secondary: 'text-secondary/90 !border-secondary/50',
+      error: 'text-error/90 !border-error/50',
+      info: 'text-info/90 !border-info/50',
+      success: 'text-success/90 !border-success/50',
+      warning: 'text-warning/90 !border-warning/50',
+      danger: 'text-danger/90 !border-danger/50'
+    }
+    return themeMap[props.type] || themeMap.theme
+  })
+
+  // 背景色
+  const bgColor = computed(
+    () =>
+      `color-mix(in oklch, var(--color-${props.type}) ${isDark.value ? '25' : '10'}%, var(--art-color))`
+  )
+
+  const containerStyle = computed(() => ({
+    width: props.width,
+    height: props.height,
+    backgroundColor: bgColor.value
+  }))
+
+  const contentClass = computed(() => {
+    if (!isHorizontal.value) {
+      return 'flex flex-col'
+    }
+    return ''
+  })
+
+  const contentStyle = computed(() => {
+    const transform = isHorizontal.value
+      ? `translateX(${currentPosition.value}px)`
+      : `translateY(${currentPosition.value}px)`
+
+    return {
+      transform,
+      willChange: 'transform'
+    }
+  })
+
+  // 克隆元素的间距
+  const cloneSpacing = computed(() => {
+    const spacing = '2em' // 两个文本之间的间距
+    return isHorizontal.value ? { marginLeft: spacing } : { marginTop: spacing }
+  })
+
+  const measureSizes = () => {
+    if (!containerRef.value || !textRef.value) return
+
+    const container = containerRef.value
+    const text = textRef.value
+
+    if (isHorizontal.value) {
+      containerSize.value = container.offsetWidth
+      textSize.value = text.offsetWidth
+    } else {
+      containerSize.value = container.offsetHeight
+      textSize.value = text.offsetHeight
     }
 
-    type()
+    shouldClone.value = textSize.value > containerSize.value
+    currentPosition.value = (containerSize.value - textSize.value) / 2
   }
 
-  // 生命周期钩子
-  onMounted(() => {
-    calculateDuration()
-    window.addEventListener('resize', calculateDuration)
+  let lastTimestamp = 0
 
-    if (props.typewriter) {
-      startTypewriter()
-    }
-  })
+  const animate = (timestamp: number) => {
+    if (!lastTimestamp) lastTimestamp = timestamp
 
-  onUnmounted(() => {
-    window.removeEventListener('resize', calculateDuration)
-    if (typewriterTimer) {
-      clearTimeout(typewriterTimer)
-    }
-  })
+    if (!isPaused.value) {
+      const delta = (timestamp - lastTimestamp) / 1000
+      const distance = props.speed * delta
+      const spacing = textSize.value * 0.1
 
-  // 监听文本变化，重新启动打字机效果
-  watch(
-    () => props.text,
-    () => {
-      if (props.typewriter) {
-        if (typewriterTimer) {
-          clearTimeout(typewriterTimer)
+      currentPosition.value += isReverse.value ? distance : -distance
+
+      // 循环边界检测
+      if (isReverse.value) {
+        if (currentPosition.value > containerSize.value) {
+          currentPosition.value = -(textSize.value + spacing)
         }
-        startTypewriter()
+      } else {
+        if (currentPosition.value < -(textSize.value + spacing)) {
+          currentPosition.value = containerSize.value
+        }
       }
+    }
+
+    lastTimestamp = timestamp
+    animationId.value = requestAnimationFrame(animate)
+  }
+
+  const startAnimation = () => {
+    if (animationId.value) {
+      cancelAnimationFrame(animationId.value)
+    }
+    lastTimestamp = 0
+    animationId.value = requestAnimationFrame(animate)
+  }
+
+  const handleMouseEnter = () => {
+    if (props.pauseOnHover) {
+      isPaused.value = true
+    }
+  }
+
+  const handleMouseLeave = () => {
+    if (props.pauseOnHover) {
+      isPaused.value = false
+      lastTimestamp = 0
+    }
+  }
+
+  const handleContentClick = (e: MouseEvent) => {
+    const target = e.target as HTMLElement
+    if (target.tagName === 'A') {
+      e.stopPropagation()
+    }
+  }
+
+  // 防抖的 resize 处理
+  let resizeTimer: number | undefined
+  const handleResize = () => {
+    if (resizeTimer) clearTimeout(resizeTimer)
+    resizeTimer = window.setTimeout(() => {
+      measureSizes()
+    }, 150)
+  }
+
+  // 监听属性变化
+  watch(
+    () => [props.direction, props.speed, props.text],
+    () => {
+      measureSizes()
+      startAnimation()
     }
   )
+
+  onMounted(() => {
+    // 等待 DOM 渲染完成后测量
+    setTimeout(() => {
+      measureSizes()
+    }, 100)
+
+    // 延迟开始动画
+    setTimeout(() => {
+      isReady.value = true
+      startAnimation()
+    }, 150)
+
+    if (containerRef.value) {
+      containerRef.value.addEventListener('mouseenter', handleMouseEnter)
+      containerRef.value.addEventListener('mouseleave', handleMouseLeave)
+    }
+
+    window.addEventListener('resize', handleResize)
+  })
+
+  onBeforeUnmount(() => {
+    if (animationId.value) {
+      cancelAnimationFrame(animationId.value)
+    }
+
+    if (resizeTimer) {
+      clearTimeout(resizeTimer)
+    }
+
+    if (containerRef.value) {
+      containerRef.value.removeEventListener('mouseenter', handleMouseEnter)
+      containerRef.value.removeEventListener('mouseleave', handleMouseLeave)
+    }
+
+    window.removeEventListener('resize', handleResize)
+  })
 </script>
-
-<style scoped lang="scss">
-  $text-scroll-height: 34px;
-  $icon-width: 40px;
-  $border-radius: calc(var(--custom-radius) / 2 + 2px);
-
-  $types: (
-    default: primary,
-    success: success,
-    warning: warning,
-    danger: danger,
-    info: info
-  );
-
-  // 基础容器样式
-  .text-scroll-container {
-    position: relative;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    padding-right: 16px;
-    overflow: hidden;
-    background-color: var(--el-color-primary-light-9);
-    border: 1px solid var(--el-color-primary-light-5);
-    border-radius: $border-radius;
-
-    // 左右图标公共样式
-    .left-icon,
-    .right-icon {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      z-index: 2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: $icon-width;
-      height: $text-scroll-height;
-      line-height: $text-scroll-height;
-      text-align: center;
-      background-color: var(--el-color-primary-light-9);
-
-      .art-svg-icon {
-        color: var(--main-color);
-      }
-    }
-
-    .left-icon {
-      left: 0;
-    }
-
-    .right-icon {
-      right: 0;
-      cursor: pointer;
-      background-color: transparent;
-    }
-
-    // 滚动内容包装器
-    .scroll-wrapper {
-      flex: 1;
-      margin-left: $text-scroll-height;
-      overflow: hidden;
-    }
-
-    // 滚动内容
-    .text-scroll-content {
-      display: flex;
-      height: $text-scroll-height;
-      line-height: $text-scroll-height;
-      white-space: nowrap;
-      animation: scroll linear infinite;
-      animation-duration: var(--animation-duration);
-      animation-play-state: var(--animation-play-state);
-      animation-direction: var(--animation-direction);
-
-      .scroll-item {
-        display: inline-block;
-        min-width: 100%;
-        padding: 0 10px;
-        font-size: 14px;
-        color: var(--el-color-primary-light-2);
-        text-align: center;
-
-        :deep(a) {
-          color: #fd4e4e;
-          text-decoration: none;
-
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-
-        // 打字机光标效果
-        &::after {
-          content: '|';
-          opacity: 0;
-          animation: cursor 1s infinite;
-        }
-      }
-    }
-
-    // 动态生成类型样式
-    @each $type, $color in $types {
-      &.text-scroll--#{$type} {
-        background-color: var(--el-color-#{$color}-light-9);
-        border-color: var(--el-color-#{$color}-light-5);
-
-        .left-icon,
-        .right-icon {
-          background-color: var(--el-color-#{$color}-light-9);
-
-          .art-svg-icon {
-            color: var(--el-color-#{$color});
-          }
-        }
-
-        .scroll-item {
-          color: var(--el-color-#{$color});
-        }
-      }
-    }
-  }
-
-  // 滚动动画
-  @keyframes scroll {
-    0% {
-      transform: translateX(0);
-    }
-
-    100% {
-      transform: translateX(-100%);
-    }
-  }
-
-  // 光标动画
-  @keyframes cursor {
-    0%,
-    100% {
-      opacity: 0;
-    }
-
-    50% {
-      opacity: 1;
-    }
-  }
-</style>

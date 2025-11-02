@@ -214,11 +214,11 @@
       title: '销售产品',
       count: 1235,
       description: '鞋子、牛仔裤、派对服装、手表',
-      icon: 'ri:account-box-2-line',
+      icon: 'ri:bar-chart-box-line',
       boxStyle: '!bg-theme/10',
       customIconStyle: '!text-theme !text-3xl',
       iconStyle: 'bg-info',
-      textColor: 'var(--a-theme)',
+      textColor: 'var(--theme-color)',
       showArrow: false
     },
     {
@@ -230,7 +230,7 @@
       boxStyle: '!bg-warning/10',
       customIconStyle: '!text-warning !text-3xl',
       iconStyle: 'bg-warning',
-      textColor: 'var(--a-warning)',
+      textColor: 'var(--art-warning)',
       showArrow: false
     },
     {
@@ -238,11 +238,11 @@
       title: '总收入',
       count: 35000,
       description: '月收入超过¥350,000+',
-      icon: 'ri:account-box-2-line',
+      icon: 'ri:money-cny-box-line',
       boxStyle: '!bg-secondary/10',
       customIconStyle: '!text-secondary !text-3xl',
       iconStyle: 'bg-secondary',
-      textColor: 'var(--a-secondary)',
+      textColor: 'var(--art-secondary)',
       showArrow: false
     },
     {
@@ -250,11 +250,11 @@
       title: '客户评价',
       count: 4800,
       description: '平均评分4.8/5',
-      icon: 'ri:account-box-2-line',
+      icon: 'ri:message-3-line',
       boxStyle: '!bg-error/10',
       customIconStyle: '!text-error !text-3xl',
       iconStyle: 'bg-error',
-      textColor: 'var(--a-error)',
+      textColor: 'var(--art-error)',
       showArrow: false
     }
   ]
@@ -264,32 +264,32 @@
       id: 1,
       title: '完成进度',
       percentage: 75,
-      color: 'var(--a-success)',
-      icon: 'ri:account-box-2-line',
+      color: 'var(--art-success)',
+      icon: 'ri:arrow-up-circle-line',
       iconStyle: 'bg-success/12 text-success'
     },
     {
       id: 2,
       title: '项目进度',
       percentage: 65,
-      color: 'var(--a-theme)',
-      icon: 'ri:account-box-2-line',
+      color: 'var(--theme-color)',
+      icon: 'ri:twitch-line',
       iconStyle: 'bg-theme/12 text-theme'
     },
     {
       id: 3,
       title: '学习进度',
       percentage: 45,
-      color: 'var(--a-error)',
-      icon: 'ri:account-box-2-line',
+      color: 'var(--art-error)',
+      icon: 'ri:game-line',
       iconStyle: '!bg-error/12 text-error'
     },
     {
       id: 4,
       title: '任务进度',
       percentage: 90,
-      color: 'var(--a-secondary)',
-      icon: 'ri:account-box-2-line',
+      color: 'var(--art-secondary)',
+      icon: 'ri:flag-2-line',
       iconStyle: 'bg-secondary/12 text-secondary'
     }
   ]
@@ -343,35 +343,35 @@
       status: '进行中',
       time: '5分钟',
       class: 'bg-theme/12 text-theme',
-      icon: 'ri:arrow-down-circle-line'
+      icon: 'ri:camera-4-line'
     },
     {
       title: '归档数据',
       status: '进行中',
       time: '10分钟',
       class: 'bg-secondary/12 text-secondary',
-      icon: 'ri:arrow-down-circle-line'
+      icon: 'ri:bar-chart-box-line'
     },
     {
       title: '客户会议',
       status: '待处理',
       time: '15分钟',
       class: 'bg-warning/12 text-warning',
-      icon: 'ri:arrow-down-circle-line'
+      icon: 'ri:user-3-line'
     },
     {
       title: '筛选任务团队',
       status: '进行中',
       time: '20分钟',
-      class: 'bg-danger/12 text-danger',
-      icon: 'ri:arrow-down-circle-line'
+      class: 'bg-error/12 text-error',
+      icon: 'ri:account-circle-line'
     },
     {
       title: '发送信封给小王',
       status: '已完成',
       time: '20分钟',
       class: 'bg-success/12 text-success',
-      icon: 'ri:arrow-down-circle-line'
+      icon: 'ri:message-3-line'
     }
   ]
 

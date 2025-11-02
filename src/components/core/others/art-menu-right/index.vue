@@ -379,7 +379,7 @@
   }
 
   .menu-item.is-disabled i:not(.submenu-arrow),
-  .menu-item.is-disabled :deep(svg) {
+  .menu-item.is-disabled :deep(.art-svg-icon) {
     color: var(--el-text-color-disabled) !important;
   }
 

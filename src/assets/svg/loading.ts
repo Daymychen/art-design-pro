@@ -7,7 +7,7 @@ export const fourDotsSpinnerSvg = `
         animation: rotate 1.6s linear infinite;
       }
       .dot {
-        fill: var(--main-color);
+        fill: var(--theme-color);
         animation: fade 1.6s infinite;
       }
       .dot:nth-child(1) { animation-delay: 0s; }

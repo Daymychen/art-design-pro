@@ -161,56 +161,60 @@
         fullClass="art-table-card"
       >
         <template #left>
-          <ElButton type="primary" @click="handleAdd" v-ripple>
-            <ElIcon>
-              <Plus />
-            </ElIcon>
-            新增用户
-          </ElButton>
-
-          <!-- 导出导入功能 -->
-          <ArtExcelExport
-            :data="data as any"
-            :columns="exportColumns as any"
-            filename="用户数据"
-            :auto-index="true"
-            button-text="导出"
-            @export-success="handleExportSuccess"
-          />
-          <ArtExcelImport
-            @import-success="handleImportSuccess"
-            @import-error="handleImportError"
-            style="margin: 0 12px"
-          />
-
-          <ElButton @click="handleClearData" plain v-ripple> 清空数据 </ElButton>
-
-          <ElButton @click="handleBatchDelete" :disabled="selectedRows.length === 0" v-ripple>
-            <ElIcon>
-              <Delete />
-            </ElIcon>
-            批量删除 ({{ selectedRows.length }})
-          </ElButton>
-          <!-- 动态列配置演示按钮 -->
-          <ElDropdown @command="handleColumnCommand" style="margin-left: 10px">
-            <ElButton type="primary" plain>
-              动态更新表格列
-              <ElIcon class="el-icon--right">
-                <ArrowDown />
+          <ElSpace wrap>
+            <ElButton type="primary" @click="handleAdd" v-ripple>
+              <ElIcon>
+                <Plus />
               </ElIcon>
+              新增用户
             </ElButton>
-            <template #dropdown>
-              <ElDropdownMenu>
-                <ElDropdownItem command="addColumn">新增列（备注列）</ElDropdownItem>
-                <ElDropdownItem command="toggleColumn">显示隐藏（手机号列）</ElDropdownItem>
-                <ElDropdownItem command="removeColumn">删除列（状态列）</ElDropdownItem>
-                <ElDropdownItem command="reorderColumns">交换列位置（性别、手机号）</ElDropdownItem>
-                <ElDropdownItem command="updateColumn">更新列（手机号列）</ElDropdownItem>
-                <ElDropdownItem command="batchUpdate">批量更新（性别、手机号）</ElDropdownItem>
-                <ElDropdownItem command="resetColumns" divided>重置所有列配置</ElDropdownItem>
-              </ElDropdownMenu>
-            </template>
-          </ElDropdown>
+
+            <!-- 导出导入功能 -->
+            <ArtExcelExport
+              :data="data as any"
+              :columns="exportColumns as any"
+              filename="用户数据"
+              :auto-index="true"
+              button-text="导出"
+              @export-success="handleExportSuccess"
+            />
+            <ArtExcelImport
+              @import-success="handleImportSuccess"
+              @import-error="handleImportError"
+              style="margin: 0 12px"
+            />
+
+            <ElButton @click="handleClearData" plain v-ripple> 清空数据 </ElButton>
+
+            <ElButton @click="handleBatchDelete" :disabled="selectedRows.length === 0" v-ripple>
+              <ElIcon>
+                <Delete />
+              </ElIcon>
+              批量删除 ({{ selectedRows.length }})
+            </ElButton>
+            <!-- 动态列配置演示按钮 -->
+            <ElDropdown @command="handleColumnCommand" style="margin-left: 10px">
+              <ElButton type="primary" plain>
+                动态更新表格列
+                <ElIcon class="el-icon--right">
+                  <ArrowDown />
+                </ElIcon>
+              </ElButton>
+              <template #dropdown>
+                <ElDropdownMenu>
+                  <ElDropdownItem command="addColumn">新增列（备注列）</ElDropdownItem>
+                  <ElDropdownItem command="toggleColumn">显示隐藏（手机号列）</ElDropdownItem>
+                  <ElDropdownItem command="removeColumn">删除列（状态列）</ElDropdownItem>
+                  <ElDropdownItem command="reorderColumns"
+                    >交换列位置（性别、手机号）</ElDropdownItem
+                  >
+                  <ElDropdownItem command="updateColumn">更新列（手机号列）</ElDropdownItem>
+                  <ElDropdownItem command="batchUpdate">批量更新（性别、手机号）</ElDropdownItem>
+                  <ElDropdownItem command="resetColumns" divided>重置所有列配置</ElDropdownItem>
+                </ElDropdownMenu>
+              </template>
+            </ElDropdown>
+          </ElSpace>
         </template>
       </ArtTableHeader>
 

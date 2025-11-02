@@ -1,6 +1,6 @@
 <!-- 服务器管理页面 -->
 <template>
-  <div class="page-content">
+  <div class="page-content mb-5">
     <div class="w-full">
       <div class="flex flex-wrap w-[calc(100%+20px)]">
         <div
@@ -14,7 +14,7 @@
             <span class="text-sm font-medium">{{ item.name }}</span>
             <span class="text-sm text-g-600">{{ item.ip }}</span>
           </div>
-          <div class="flex-c p-9 scale-[0.8] max-lg:p-5 max-md:block max-md:p-5">
+          <div class="flex-c p-9 scale-[0.8] max-lg:p-5 max-md:block max-md:p-5 max-sm:!block">
             <div class="mx-10 max-lg:m-0 max-lg:mr-5 max-md:m-0">
               <img
                 src="@imgs/safeguard/server.png"

@@ -23,3 +23,16 @@
     @apply !h-[40px];
   }
 }
+
+/* 滑入动画 */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

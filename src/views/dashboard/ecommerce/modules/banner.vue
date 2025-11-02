@@ -22,7 +22,7 @@
     @click="handleBannerClick"
   >
     <div class="flex mt-6">
-      <div class="mr-8 pr-8 border-r border-g-300">
+      <div class="mr-8 pr-8 border-r border-g-400 dark:border-g-300/60">
         <p class="text-3xl">
           <ArtCountTo
             class="number box-title"

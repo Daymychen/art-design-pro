@@ -105,7 +105,7 @@ class VersionManager {
 
     if (requireReLogin) {
       messageParts.push(
-        `<p style="color: var(--main-color); padding-top: 5px;">升级完成，请重新登录后继续使用。</p>`
+        `<p style="color: var(--theme-color); padding-top: 5px;">升级完成，请重新登录后继续使用。</p>`
       )
     }
 

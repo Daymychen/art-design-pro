@@ -18,7 +18,7 @@
           :buttonConfig="{
             show: true,
             text: '开始探索',
-            color: 'var(--a-success)',
+            color: 'var(--art-success)',
             textColor: '#fff',
             radius: '6px'
           }"
@@ -100,7 +100,7 @@
           :button="{
             show: true,
             text: '查看详情',
-            color: 'var(--a-warning)',
+            color: 'var(--art-warning)',
             textColor: '#fff'
           }"
         />
@@ -113,7 +113,7 @@
           :button="{
             show: true,
             text: '下载报告',
-            color: 'var(--a-error)',
+            color: 'var(--art-error)',
             textColor: '#fff'
           }"
         />
@@ -126,7 +126,7 @@
           :button="{
             show: true,
             text: '立即更新',
-            color: 'var(--a-theme)',
+            color: 'var(--theme-color)',
             textColor: '#fff'
           }"
           :cancelButton="{
@@ -187,7 +187,7 @@
       buttonConfig: {
         show: true,
         text: '立即抢购',
-        color: 'var(--a-success)',
+        color: 'var(--art-success)',
         textColor: '#fff'
       }
     },
@@ -201,7 +201,7 @@
       buttonConfig: {
         show: true,
         text: '立即续费',
-        color: 'var(--a-secondary)',
+        color: 'var(--art-secondary)',
         textColor: '#fff'
       }
     }

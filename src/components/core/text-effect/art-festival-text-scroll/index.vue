@@ -1,7 +1,7 @@
 <!-- 节日文本滚动 -->
 <template>
   <div
-    class="overflow-hidden transition-[height] duration-500 ease-in-out"
+    class="overflow-hidden transition-[height] duration-800 ease-in-out"
     :style="{
       height: showFestivalText ? '48px' : '0'
     }"
@@ -10,11 +10,8 @@
       v-if="showFestivalText && currentFestivalData?.scrollText !== ''"
       :text="currentFestivalData?.scrollText || ''"
       style="margin-bottom: 12px"
-      show-close
+      showClose
       @close="handleClose"
-      typewriter
-      :speed="100"
-      :typewriter-speed="150"
     />
   </div>
 </template>

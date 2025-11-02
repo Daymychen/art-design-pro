@@ -2,17 +2,14 @@
 <!-- 支持常用表单组件、自定义组件、插槽、校验、隐藏表单项 -->
 <!-- 写法同 ElementPlus 官方文档组件，把属性写在 props 里面就可以了 -->
 <template>
-  <section
-    class="art-card-xs px-5 pb-0 pt-3.5 md:px-5 md:pt-3.5"
-    :class="{ 'is-expanded': isExpanded }"
-  >
+  <section class="art-search-bar art-card-sm" :class="{ 'is-expanded': isExpanded }">
     <ElForm
       ref="formRef"
       :model="modelValue"
       :label-position="labelPosition"
       v-bind="{ ...$attrs }"
     >
-      <ElRow class="flex flex-wrap" :gutter="gutter">
+      <ElRow :gutter="gutter">
         <ElCol
           v-for="item in visibleFormItems"
           :key="item.key"
@@ -68,12 +65,9 @@
             </slot>
           </ElFormItem>
         </ElCol>
-        <ElCol :xs="24" :sm="24" :md="span" :lg="span" :xl="span" class="max-w-full flex-1">
-          <div
-            class="mb-3 flex flex-wrap items-center justify-end md:flex-row md:items-stretch md:gap-2"
-            :style="actionButtonsStyle"
-          >
-            <div class="flex gap-2 md:justify-center">
+        <ElCol :xs="24" :sm="24" :md="span" :lg="span" :xl="span" class="action-column">
+          <div class="action-buttons-wrapper" :style="actionButtonsStyle">
+            <div class="form-buttons">
               <ElButton v-if="showReset" class="reset-button" @click="handleReset" v-ripple>
                 {{ t('table.searchBar.reset') }}
               </ElButton>
@@ -88,13 +82,9 @@
                 {{ t('table.searchBar.search') }}
               </ElButton>
             </div>
-            <div
-              v-if="shouldShowExpandToggle"
-              class="ml-2.5 c-p flex-c leading-8 text-theme tad-200 hover:text-black md:ml-0 md:justify-center"
-              @click="toggleExpand"
-            >
-              <span class="select-none text-sm">{{ expandToggleText }}</span>
-              <div class="ml-1 flex-c text-sm transition-transform duration-200 ease-in-out">
+            <div v-if="shouldShowExpandToggle" class="filter-toggle" @click="toggleExpand">
+              <span>{{ expandToggleText }}</span>
+              <div class="icon-wrapper">
                 <ElIcon>
                   <ArrowUpBold v-if="isExpanded" />
                   <ArrowDownBold v-else />
@@ -350,3 +340,78 @@
   // 解构 props 以便在模板中直接使用
   const { span, gutter, labelPosition, labelWidth } = toRefs(props)
 </script>
+
+<style lang="scss" scoped>
+  .art-search-bar {
+    padding: 15px 20px 0;
+
+    .action-column {
+      flex: 1;
+      max-width: 100%;
+
+      .action-buttons-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+        margin-bottom: 12px;
+      }
+
+      .form-buttons {
+        display: flex;
+        gap: 8px;
+      }
+
+      .filter-toggle {
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
+        line-height: 32px;
+        color: var(--theme-color);
+        cursor: pointer;
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: var(--ElColor-primary);
+        }
+
+        span {
+          font-size: 14px;
+          user-select: none;
+        }
+
+        .icon-wrapper {
+          display: flex;
+          align-items: center;
+          margin-left: 4px;
+          font-size: 14px;
+          transition: transform 0.2s ease;
+        }
+      }
+    }
+  }
+
+  // 响应式优化
+  @media (width <= 768px) {
+    .art-search-bar {
+      padding: 16px 16px 0;
+
+      .action-column {
+        .action-buttons-wrapper {
+          flex-direction: column;
+          gap: 8px;
+          align-items: stretch;
+
+          .form-buttons {
+            justify-content: center;
+          }
+
+          .filter-toggle {
+            justify-content: center;
+            margin-left: 0;
+          }
+        }
+      }
+    }
+  }
+</style>

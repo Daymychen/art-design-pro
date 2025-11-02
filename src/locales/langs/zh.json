@@ -222,7 +222,7 @@
     },
     "widgets": {
       "title": "组件中心",
-      "iconSelector": "图标选择器",
+      "icon": "图标",
       "imageCrop": "图像裁剪",
       "excel": "Excel 导入导出",
       "video": "视频播放器",

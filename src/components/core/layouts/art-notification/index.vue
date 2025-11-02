@@ -84,7 +84,7 @@
           v-show="currentTabIsEmpty"
           class="relative top-25 h-full text-g-500 text-center !bg-transparent"
         >
-          <ArtSvgIcon icon="material-symbols-light:hourglass-empty" class="text-5xl" />
+          <ArtSvgIcon icon="system-uicons:inbox" class="text-5xl" />
           <p class="mt-3.5 text-xs !bg-transparent"
             >{{ $t('notice.text[0]') }}{{ barList[barActiveIndex].name }}</p
           >
@@ -271,7 +271,7 @@
   const useNotificationStyles = () => {
     const noticeStyleMap: Record<NoticeType, NoticeStyle> = {
       email: {
-        icon: 'ri:arrow-right-circle-line',
+        icon: 'ri:mail-line',
         iconClass: 'bg-warning/12 text-warning'
       },
       message: {
@@ -279,15 +279,15 @@
         iconClass: 'bg-success/12 text-success'
       },
       collection: {
-        icon: 'ri:arrow-right-circle-line',
+        icon: 'ri:heart-3-line',
         iconClass: 'bg-danger/12 text-danger'
       },
       user: {
-        icon: 'ri:arrow-right-circle-line',
+        icon: 'ri:volume-down-line',
         iconClass: 'bg-info/12 text-info'
       },
       notice: {
-        icon: 'ri:arrow-right-circle-line',
+        icon: 'ri:notification-3-line',
         iconClass: 'bg-theme/12 text-theme'
       }
     }
@@ -438,8 +438,8 @@
   }
 
   .bar-active {
-    color: var(--main-color) !important;
-    border-bottom: 2px solid var(--main-color);
+    color: var(--theme-color) !important;
+    border-bottom: 2px solid var(--theme-color);
   }
 
   .scrollbar-thin::-webkit-scrollbar {

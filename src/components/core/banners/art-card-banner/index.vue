@@ -84,7 +84,7 @@
     button: () => ({
       show: true,
       text: '查看详情',
-      color: 'var(--main-color)',
+      color: 'var(--theme-color)',
       textColor: '#fff'
     }),
     // 取消按钮默认配置

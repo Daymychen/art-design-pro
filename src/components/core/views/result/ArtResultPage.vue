@@ -1,5 +1,5 @@
 <template>
-  <div class="page-content box-border !px-20 py-3.5 text-center max-md:px-5" :class="type">
+  <div class="page-content box-border !px-20 py-3.5 text-center max-md:!px-5" :class="type">
     <ArtSvgIcon
       class="icon size-22 p-2 mt-16 block rounded-full !text-white"
       :icon="iconCode"
@@ -10,7 +10,7 @@
     }}</h1>
     <p class="msg mt-5 text-base text-g-600">{{ message }}</p>
     <div
-      class="res mt-7.5 rounded bg-g-100 px-7.5 py-5.5 text-left max-md:px-7.5 max-md:py-2.5 [&_p]:flex [&_p]:items-center [&_p]:py-2 [&_p]:text-sm [&_p]:text-[#808695] [&_p_i]:mr-1.5"
+      class="res mt-7.5 rounded bg-g-200/80 dark:bg-g-300/40 px-7.5 py-5.5 text-left max-md:px-7.5 max-md:py-2.5 [&_p]:flex [&_p]:items-center [&_p]:py-2 [&_p]:text-sm [&_p]:text-[#808695] [&_p_i]:mr-1.5"
     >
       <slot name="content"></slot>
     </div>

@@ -30,7 +30,7 @@ $popup-menu-radius: 6px;
 }
 
 // 通用选中样式
-@mixin menu-active($color, $bg-color, $icon-color: var(--main-color)) {
+@mixin menu-active($color, $bg-color, $icon-color: var(--theme-color)) {
   .el-menu-item.is-active {
     color: $color !important;
     background-color: $bg-color;
@@ -144,7 +144,7 @@ $popup-menu-radius: 6px;
         .menu-icon {
           .art-svg-icon {
             // 选中菜单图标颜色
-            color: var(--main-color) !important;
+            color: var(--theme-color) !important;
           }
         }
       }
@@ -154,7 +154,7 @@ $popup-menu-radius: 6px;
   // ---------------------- Design theme menu ----------------------
   .el-menu-design {
     @include theme-menu-base;
-    @include menu-active(var(--main-color), var(--el-color-primary-light-9));
+    @include menu-active(var(--theme-color), var(--el-color-primary-light-9));
     @include menu-hover($hover-bg-color);
 
     .el-sub-menu__icon-arrow {
@@ -186,7 +186,7 @@ $popup-menu-radius: 6px;
       background-color: var(--el-color-primary-light-9);
 
       .art-svg-icon {
-        color: var(--main-color) !important;
+        color: var(--theme-color) !important;
       }
 
       &::before {
@@ -196,7 +196,7 @@ $popup-menu-radius: 6px;
         width: 4px;
         height: 100%;
         content: '';
-        background: var(--main-color);
+        background: var(--theme-color);
       }
     }
 
@@ -254,7 +254,7 @@ $popup-menu-radius: 6px;
     .el-menu-item.is-active {
       span,
       .menu-icon .art-svg-icon {
-        color: var(--main-color) !important;
+        color: var(--theme-color) !important;
       }
     }
 

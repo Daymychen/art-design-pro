@@ -1,19 +1,19 @@
 <template>
-  <div class="pt-24 px-20 max-notebook:!pt-20 max-notebook:!px-8 bg-transparent !border-none">
+  <div class="pt-24 px-20 max-md:!pt-15 max-sm:!px-5 max-md:!px-8 bg-transparent !border-none">
     <div class="mb-10 text-center">
-      <h1 class="mb-2 text-4xl font-medium max-phone:text-3xl">超过 53,476 位信赖的开发者</h1>
-      <h2 class="mb-2.5 text-2xl font-normal text-g-600 max-phone:text-2xl">
+      <h1 class="mb-2 text-4xl font-medium max-sm:text-3xl">超过 53,476 位信赖的开发者</h1>
+      <h2 class="mb-2.5 text-2xl font-normal text-g-600 max-sm:text-2xl">
         以及众多科技巨头的选择
       </h2>
-      <div class="gap-2 flex-cc mt-2.5 max-phone:mt-3.5">
-        <p class="text-sm italic text-g-600 max-phone:text-sm">
+      <div class="gap-2 flex-cc mt-2.5 max-sm:mt-3.5 max-sm:!block">
+        <p class="text-sm italic text-g-600 max-sm:text-sm">
           本项目基于 MIT 协议开源免费，当前页面为定价模板，仅作演示用途
         </p>
-        <ElTag type="success" size="large" round>免费商用</ElTag>
+        <ElTag type="success" size="large" round class="max-sm:mt-3.5">免费商用</ElTag>
       </div>
     </div>
 
-    <div class="mt-20 max-notebook:mt-0">
+    <div class="mt-20 max-md:mt-0">
       <ElRow :gutter="20" justify="center">
         <ElCol v-for="plan in pricingPlans" :key="plan.type" :xs="24" :sm="12" :md="6" class="mb-5">
           <ElCard class="flex flex-col h-full rounded-xl" shadow="never">

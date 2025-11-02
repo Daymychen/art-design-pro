@@ -1,5 +1,5 @@
 <template>
-  <div class="page-content">
+  <div class="page-content mb-5">
     <!-- 完整工具栏编辑器 -->
     <ElCard class="editor-card" shadow="never">
       <template #header>
@@ -393,7 +393,7 @@ function createEditor() {
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .page-content {
     padding: 20px;
   }

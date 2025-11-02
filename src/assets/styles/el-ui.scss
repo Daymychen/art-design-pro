@@ -22,7 +22,7 @@
   --el-popover-border-radius: calc(var(--custom-radius) / 3 + 4px) !important;
 
   .region .el-radio-button__original-radio:checked + .el-radio-button__inner {
-    color: var(--main-color);
+    color: var(--theme-color);
   }
 }
 
@@ -357,7 +357,7 @@ html.dark .el-card {
 }
 
 .el-table__column-filter-trigger i {
-  color: var(--main-color) !important;
+  color: var(--theme-color) !important;
   margin: -3px 0 0 2px;
 }
 
