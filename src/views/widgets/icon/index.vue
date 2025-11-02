@@ -2,7 +2,7 @@
   <div class="space-y-5 mb-5">
     <div class="text-3xl font-medium mt-5 max-sm:text-2xl max-sm:mt-3">图标</div>
     <div class="text-g-800">
-      图标可在
+      v.3.0 版本图标库升级为 iconify，可在
       <a href="https://icones.js.org/" target="_blank" class="text-theme hover:underline"
         >Iconify</a
       >

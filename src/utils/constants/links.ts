@@ -14,6 +14,9 @@ export const WEB_LINKS = {
   // 精简版本
   LiteVersion: 'https://www.artd.pro/docs/zh/guide/lite-version.html',
 
+  // v2.6.1版本
+  OldVersion: 'https://www.artd.pro/v2/',
+
   // 项目社区
   COMMUNITY: 'https://www.artd.pro/docs/zh/community/communicate.html',
 

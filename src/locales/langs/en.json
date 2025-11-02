@@ -305,7 +305,8 @@
     "help": {
       "title": "Help Center",
       "document": "Document",
-      "liteVersion": "Lite Version"
+      "liteVersion": "Lite Version",
+      "oldVersion": "v2.6.1 Version"
     }
   },
   "table": {

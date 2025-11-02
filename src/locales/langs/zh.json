@@ -305,7 +305,8 @@
     "help": {
       "title": "帮助中心",
       "document": "官方文档",
-      "liteVersion": "精简版本"
+      "liteVersion": "精简版本",
+      "oldVersion": "v2.6.1 版本"
     }
   },
   "table": {

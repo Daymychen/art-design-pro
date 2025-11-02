@@ -9,17 +9,23 @@
     border-right: none !important;
   }
 
+  // 自定义滚动条宽度
+  :deep(.el-scrollbar__bar.is-vertical) {
+    width: 4px;
+  }
+
+  :deep(.el-scrollbar__thumb) {
+    right: -2px;
+    background-color: #ccc;
+    border-radius: 2px;
+  }
+
   .dual-menu-left {
     position: relative;
     width: 80px;
     height: 100%;
     border-right: 1px solid var(--default-border) !important;
     transition: width 0.25s;
-
-    // 隐藏滚动条
-    :deep(.el-scrollbar__bar.is-vertical) {
-      display: none;
-    }
 
     .logo {
       margin: auto;
@@ -191,5 +197,13 @@
 @media only screen and (width <= 640px) {
   .layout-sidebar {
     border-right: 0 !important;
+  }
+}
+
+.dark {
+  .layout-sidebar {
+    :deep(.el-scrollbar__thumb) {
+      background-color: #777;
+    }
   }
 }

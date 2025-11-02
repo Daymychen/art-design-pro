@@ -10,7 +10,7 @@ interface UpgradeLog {
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
     version: 'v3.0.0',
-    title: 'Sass 重构为 Tailwind CSS，Iconfont 替换为 Iconify',
+    title: 'Sass 重构为 Tailwind CSS，Iconfont 替换为 Iconify【发布日期待定】',
     date: '待定',
     detail: [
       'Sass 样式全面重构为 Tailwind CSS',

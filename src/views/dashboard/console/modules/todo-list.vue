@@ -8,17 +8,19 @@
     </div>
 
     <div class="h-[calc(100%-40px)] overflow-auto">
-      <div
-        class="flex-cb h-17.5 border-b border-g-300 text-sm last:border-b-0"
-        v-for="(item, index) in list"
-        :key="index"
-      >
-        <div>
-          <p class="text-sm">{{ item.username }}</p>
-          <p class="text-g-500 mt-1">{{ item.date }}</p>
+      <ElScrollbar>
+        <div
+          class="flex-cb h-17.5 border-b border-g-300 text-sm last:border-b-0"
+          v-for="(item, index) in list"
+          :key="index"
+        >
+          <div>
+            <p class="text-sm">{{ item.username }}</p>
+            <p class="text-g-500 mt-1">{{ item.date }}</p>
+          </div>
+          <ElCheckbox v-model="item.complate" />
         </div>
-        <ElCheckbox v-model="item.complate" />
-      </div>
+      </ElScrollbar>
     </div>
   </div>
 </template>

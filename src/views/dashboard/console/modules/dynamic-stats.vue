@@ -8,15 +8,17 @@
     </div>
 
     <div class="h-9/10 mt-2 overflow-hidden">
-      <div
-        class="h-17.5 leading-17.5 border-b border-g-300 text-sm overflow-hidden last:border-b-0"
-        v-for="(item, index) in list"
-        :key="index"
-      >
-        <span class="text-g-800 font-medium">{{ item.username }}</span>
-        <span class="mx-2 text-g-600">{{ item.type }}</span>
-        <span class="text-theme">{{ item.target }}</span>
-      </div>
+      <ElScrollbar>
+        <div
+          class="h-17.5 leading-17.5 border-b border-g-300 text-sm overflow-hidden last:border-b-0"
+          v-for="(item, index) in list"
+          :key="index"
+        >
+          <span class="text-g-800 font-medium">{{ item.username }}</span>
+          <span class="mx-2 text-g-600">{{ item.type }}</span>
+          <span class="text-theme">{{ item.target }}</span>
+        </div>
+      </ElScrollbar>
     </div>
   </div>
 </template>
