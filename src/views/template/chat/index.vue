@@ -43,8 +43,8 @@
         <div
           v-for="item in personList"
           :key="item.id"
-          class="flex-c p-3 c-p rounded-lg tad-300 ease-in-out hover:bg-g-200"
-          :class="{ 'bg-g-200': selectedPerson?.id === item.id }"
+          class="flex-c p-3 c-p rounded-lg tad-200 hover:bg-active-color/30 mb-1"
+          :class="{ 'bg-active-color': selectedPerson?.id === item.id }"
           @click="selectPerson(item)"
         >
           <div class="relative mr-3">
@@ -115,7 +115,7 @@
                 </div>
                 <div
                   class="py-2.5 px-3.5 text-sm leading-[1.4] rounded-md"
-                  :class="message.isMe ? '!bg-theme/15' : '!bg-g-300/60'"
+                  :class="message.isMe ? '!bg-theme/15' : '!bg-active-color'"
                   >{{ message.content }}</div
                 >
               </div>

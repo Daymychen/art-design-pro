@@ -81,6 +81,16 @@
   }
 }
 
+.dark {
+  // 语言切换选中样式
+  .langDropDownStyle {
+    // 选中项背景颜色
+    .is-selected {
+      background-color: var(--art-gray-300) !important;
+    }
+  }
+}
+
 // 盒子默认边框
 .page-content {
   border: 1px solid var(--default-border) !important;

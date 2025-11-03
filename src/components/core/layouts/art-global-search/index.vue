@@ -19,7 +19,9 @@
         class="h-12"
       >
         <template #suffix>
-          <div class="h-4.5 flex-cc rounded border border-g-400 !bg-box px-1.5 text-g-500">
+          <div
+            class="h-4.5 flex-cc rounded border border-g-300 dark:!bg-g-200/50 !bg-box px-1.5 text-g-500"
+          >
             <ArtSvgIcon icon="fluent:arrow-enter-left-20-filled" />
           </div>
         </template>

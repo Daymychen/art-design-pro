@@ -37,6 +37,9 @@
 
   /* Hover Color */
   --art-hover-color: #f2f4f5;
+
+  /* Active Color */
+  --art-active-color: #f2f4f5;
 }
 
 /* ==================== Dark Mode Variables ==================== */
@@ -65,6 +68,9 @@
 
   /* Hover Color */
   --art-hover-color: #252530;
+
+  /* Active Color */
+  --art-active-color: #202226;
 }
 
 /* ==================== Tailwind Theme Configuration ==================== */
@@ -77,6 +83,9 @@
 
   /* Hover Color */
   --color-hover-color: var(--art-hover-color);
+
+  /* Active Color */
+  --color-active-color: var(--art-active-color);
 
   /* ElementPlus Theme Colors */
   --color-primary: var(--art-primary);
