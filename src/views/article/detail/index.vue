@@ -28,7 +28,7 @@
   const route = useRoute()
   const articleId = computed(() => Number(route.params.id))
   const articleTitle = ref('')
-  const articleHtml = ref('')
+  const articleHtml = shallowRef('')
   const loading = ref(false)
   const error = ref<string | null>(null)
 

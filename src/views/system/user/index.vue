@@ -127,13 +127,13 @@
           formatter: (row) => {
             return h('div', { class: 'user flex-c' }, [
               h(ElImage, {
-                class: 'avatar',
+                class: 'size-9.5 rounded-md',
                 src: row.avatar,
                 previewSrcList: [row.avatar],
                 // 图片预览是否插入至 body 元素上，用于解决表格内部图片预览样式异常
                 previewTeleported: true
               }),
-              h('div', {}, [
+              h('div', { class: 'ml-2' }, [
                 h('p', { class: 'user-name' }, row.userName),
                 h('p', { class: 'email' }, row.userEmail)
               ])
@@ -258,21 +258,3 @@
     console.log('选中行数据:', selectedRows.value)
   }
 </script>
-
-<style scoped>
-  .user-page :deep(.user .avatar) {
-    width: 40px;
-    height: 40px;
-    margin-left: 0;
-    border-radius: 6px;
-  }
-
-  .user-page :deep(.user > div) {
-    margin-left: 10px;
-  }
-
-  .user-page :deep(.user > div .user-name) {
-    font-weight: 500;
-    color: var(--art-gray-800);
-  }
-</style>

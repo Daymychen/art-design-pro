@@ -1,8 +1,8 @@
 <!-- 更多按钮 -->
 <template>
-  <div class="">
+  <div>
     <ElDropdown v-if="hasAnyAuthItem">
-      <ArtIconButton icon="ri:more-2-fill" class="!size-8 bg-g-200 text-sm" />
+      <ArtIconButton icon="ri:more-2-fill" class="!size-8 bg-g-200 dark:bg-g-300/45 text-sm" />
       <template #dropdown>
         <ElDropdownMenu>
           <template v-for="item in list" :key="item.key">
@@ -11,16 +11,9 @@
               :disabled="item.disabled"
               @click="handleClick(item)"
             >
-              <div class="flex-c gap-2">
-                <!-- <ElIcon
-                  v-if="item.icon"
-                  :size="15"
-                  :style="{ color: item.iconColor || item.color, margin: 0 }"
-                >
-                  <component :is="item.icon" />
-                </ElIcon> -->
+              <div class="flex-c gap-2" :style="{ color: item.color }">
                 <ArtSvgIcon v-if="item.icon" :icon="item.icon" />
-                <span :style="{ color: item.color }">{{ item.label }}</span>
+                <span>{{ item.label }}</span>
               </div>
             </ElDropdownItem>
           </template>

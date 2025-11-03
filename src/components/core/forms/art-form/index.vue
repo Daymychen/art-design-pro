@@ -149,8 +149,10 @@
     label: string
     /** 表单项标签的宽度，会覆盖 Form 的 labelWidth */
     labelWidth?: string | number
-    /** 表单项类型，可以是预定义的字符串类型或自定义组件 */
-    type: keyof typeof componentMap | string | (() => VNode)
+    /** 表单项类型，支持预定义的组件类型 */
+    type?: keyof typeof componentMap | string
+    /** 自定义渲染函数，用于渲染自定义组件（优先级高于 type） */
+    render?: () => VNode
     /** 是否隐藏该表单项 */
     hidden?: boolean
     /** 表单项占据的列宽，基于24格栅格系统 */
@@ -232,9 +234,10 @@
 
   // 组件
   const getComponent = (item: FormItem) => {
+    // 优先使用 render 函数渲染自定义组件
+    if (item.render) return item.render
+    // 使用 type 获取预定义组件
     const { type } = item
-    if (type && typeof item.type !== 'string') return type
-    // type不传递、默认使用 input
     return componentMap[type as keyof typeof componentMap] || componentMap['input']
   }
 

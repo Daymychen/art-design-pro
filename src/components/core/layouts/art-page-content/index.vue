@@ -1,18 +1,20 @@
 <!-- 布局内容 -->
 <template>
   <div class="layout-content" :class="{ 'overflow-auto': isFullPage }" :style="containerStyle">
-    <!-- 节日滚动 -->
-    <ArtFestivalTextScroll v-if="!isFullPage" />
+    <div id="app-content-header">
+      <!-- 节日滚动 -->
+      <ArtFestivalTextScroll v-if="!isFullPage" />
 
-    <RouterView v-if="isRefresh" v-slot="{ Component, route }" :style="contentStyle">
       <!-- 路由信息调试 -->
       <div
         v-if="isOpenRouteInfo === 'true'"
-        class="px-2 py-1.5 mb-3 text-sm text-g-500 bg-g-200 border-b rounded-md"
+        class="px-2 py-1.5 mb-3 text-sm text-g-500 bg-g-200 border-full-d rounded-md"
       >
         router meta：{{ route.meta }}
       </div>
+    </div>
 
+    <RouterView v-if="isRefresh" v-slot="{ Component, route }" :style="contentStyle">
       <!-- 缓存路由动画 -->
       <Transition :name="showTransitionMask ? '' : actualTransition" mode="out-in" appear>
         <KeepAlive :max="10" :exclude="keepAliveExclude">

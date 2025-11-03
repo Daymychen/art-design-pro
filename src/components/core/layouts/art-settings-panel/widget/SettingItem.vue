@@ -1,6 +1,6 @@
 <template>
-  <div class="setting-item" :class="{ 'mobile-hide': config.mobileHide }">
-    <span class="label">{{ config.label }}</span>
+  <div class="flex-cb mb-4 last:mb-2" :class="{ 'mobile-hide': config.mobileHide }">
+    <span class="text-sm">{{ config.label }}</span>
 
     <!-- 开关类型 -->
     <ElSwitch v-if="config.type === 'switch'" :model-value="modelValue" @change="handleChange" />
@@ -93,20 +93,6 @@
 </script>
 
 <style lang="scss" scoped>
-  .setting-item {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 25px;
-    background: transparent !important;
-
-    .label {
-      font-size: 14px;
-      background: transparent !important;
-    }
-  }
-
   @media screen and (width <= 768px) {
     .mobile-hide {
       display: none !important;

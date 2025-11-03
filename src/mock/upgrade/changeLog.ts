@@ -19,7 +19,9 @@ export const upgradeLogList = ref<UpgradeLog[]>([
       'CSS 开发效率实现质的飞跃',
       '颜色体系全新设计，提升系统 UI 一致性',
       '菜单样式细节调整，提升系统 UI 一致性',
-      '重构 ArtTextScroll 组件'
+      '重构 ArtTextScroll 组件',
+      '部分依赖升级',
+      'ArtForm、ArtSearchBar 增加 render 属性，用于渲染自定义组件'
     ],
     remark:
       '⚠️ 本次升级涉及底层样式系统与图标库的彻底替换，迁移成本较高。建议新项目直接采用，老项目请充分评估后再决定升级。'

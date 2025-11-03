@@ -443,12 +443,12 @@
     {
       label: '渲染组件',
       key: 'iconSelector',
-      type: () => h(ElInput, { placeholder: '渲染自定义 input' })
+      render: () => h(ElInput, { placeholder: '渲染自定义 input' })
     },
     {
       label: '自定义组件',
       key: 'customComponent',
-      type: () =>
+      render: () =>
         h(
           'div',
           {
@@ -456,13 +456,7 @@
               'color: var(--art-gray-600); border: 1px solid var(--default-border-dashed); padding: 0px 15px; border-radius: 6px'
           },
           '我是一个自定义组件'
-        ),
-      props: {
-        placeholder: '请输入备注',
-        type: 'textarea',
-        rows: 4,
-        style: { width: '100%' }
-      }
+        )
     },
     {
       label: '复选框',
@@ -579,12 +573,12 @@
       span: 12,
       placeholder: '示例：栅格 span=12 占容器一半宽度，span=24 占满容器'
     },
-    // 文件上传示例 - 使用 h 函数渲染
+    // 文件上传示例 - 使用 render 函数渲染
     {
       label: '文件上传',
       key: 'multipleFiles',
       span: 12,
-      type: () =>
+      render: () =>
         h(
           ElUpload,
           {
@@ -617,12 +611,12 @@
           }
         )
     },
-    // 图片上传示例 - 使用 h 函数渲染
+    // 图片上传示例 - 使用 render 函数渲染
     {
       label: '图片上传',
       key: 'imageUpload',
       span: 12,
-      type: () =>
+      render: () =>
         h(
           ElUpload,
           {
@@ -663,12 +657,12 @@
           }
         )
     },
-    // 富文本编辑器示例 - 使用 h 函数渲染
+    // 富文本编辑器示例 - 使用 render 函数渲染
     {
       label: '富文本编辑器',
       key: 'richTextContent',
       span: 24,
-      type: () =>
+      render: () =>
         h(ArtWangEditor, {
           modelValue: formData.value.richTextContent,
           height: '500px',

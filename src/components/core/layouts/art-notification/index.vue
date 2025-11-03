@@ -275,7 +275,7 @@
         iconClass: 'bg-warning/12 text-warning'
       },
       message: {
-        icon: 'ri:arrow-right-circle-line',
+        icon: 'ri:volume-down-line',
         iconClass: 'bg-success/12 text-success'
       },
       collection: {

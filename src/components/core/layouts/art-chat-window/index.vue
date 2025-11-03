@@ -1,6 +1,6 @@
 <!-- 系统聊天窗口 -->
 <template>
-  <div class="layout-chat">
+  <div>
     <ElDrawer v-model="isDrawerVisible" :size="isMobile ? '100%' : '480px'" :with-header="false">
       <div class="mb-5 flex-cb">
         <div>
@@ -48,7 +48,7 @@
                 <div
                   :class="[
                     'rounded-md px-3.5 py-2.5 text-sm leading-[1.4] text-g-900',
-                    message.isMe ? 'message-right bg-theme/15' : 'message-left bg-g-200'
+                    message.isMe ? 'message-right bg-theme/15' : 'message-left bg-g-300/50'
                   ]"
                   >{{ message.content }}</div
                 >
@@ -260,17 +260,3 @@
     mittBus.off('openChat', openChat)
   })
 </script>
-
-<style scoped>
-  .layout-chat .el-overlay {
-    background-color: rgb(0 0 0 / 20%) !important;
-  }
-
-  .dark .message-left .message-text {
-    background-color: #232323 !important;
-  }
-
-  .dark .message-right .message-text {
-    background-color: #182331 !important;
-  }
-</style>

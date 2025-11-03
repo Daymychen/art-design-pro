@@ -4,7 +4,7 @@
   min-height: 100vh;
   background: var(--default-bg-color);
 
-  .app-sidebar {
+  #app-sidebar {
     flex-shrink: 0;
   }
 
@@ -16,7 +16,7 @@
     height: 100vh;
     overflow: auto;
 
-    .app-header {
+    #app-header {
       position: sticky;
       top: 0;
       z-index: 50;
@@ -24,7 +24,7 @@
       width: 100%;
     }
 
-    .app-content {
+    #app-content {
       flex: 1;
 
       :deep(.layout-content) {
@@ -58,7 +58,7 @@
   .app-layout {
     position: relative;
 
-    .app-sidebar {
+    #app-sidebar {
       position: fixed;
       top: 0;
       left: 0;
@@ -71,7 +71,7 @@
       height: auto;
       overflow: visible;
 
-      .app-content {
+      #app-content {
         :deep(.layout-content) {
           width: calc(100% - 40px);
         }
@@ -83,7 +83,7 @@
 @media only screen and (width <= 640px) {
   .app-layout {
     #app-main {
-      .app-content {
+      #app-content {
         :deep(.layout-content) {
           width: calc(100% - 30px);
         }

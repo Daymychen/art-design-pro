@@ -1,6 +1,9 @@
 <!-- 烟花效果 | 礼花效果 -->
 <template>
-  <canvas ref="canvasRef" class="layout-fireworks"></canvas>
+  <canvas
+    ref="canvasRef"
+    class="fixed top-0 left-0 z-[9999] w-full h-full pointer-events-none"
+  ></canvas>
 </template>
 
 <script setup lang="ts">
@@ -628,19 +631,3 @@
     mittBus.off('triggerFireworks', handleFireworkTrigger)
   })
 </script>
-
-<style scoped>
-  /**
- * 烟花画布样式
- * 固定定位覆盖整个视口，不响应鼠标事件
- */
-  .layout-fireworks {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 9999; /* 最高层级，确保在所有元素之上 */
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* 不阻挡用户交互 */
-  }
-</style>

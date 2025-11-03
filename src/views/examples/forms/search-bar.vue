@@ -477,12 +477,12 @@
     {
       label: '渲染组件',
       key: 'iconSelector',
-      type: () => h(ElInput, { placeholder: '渲染自定义 input' })
+      render: () => h(ElInput, { placeholder: '渲染自定义 input' })
     },
     {
       label: '自定义组件',
       key: 'customComponent',
-      type: () =>
+      render: () =>
         h(
           'div',
           {
@@ -490,13 +490,7 @@
               'color: var(--art-gray-600); border: 1px solid var(--default-border-dashed); padding: 0px 15px; border-radius: 6px'
           },
           '我是一个自定义组件'
-        ),
-      props: {
-        placeholder: '请输入备注',
-        type: 'textarea',
-        rows: 4,
-        style: { width: '100%' }
-      }
+        )
     },
     {
       label: '复选框',

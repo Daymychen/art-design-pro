@@ -335,5 +335,3 @@
     initPageMode()
   })
 </script>
-
-<style scoped></style>

@@ -48,25 +48,3 @@
     }
   ])
 </script>
-
-<style lang="scss" scoped>
-  .customer-satisfaction {
-    height: 400px;
-
-    .custom-card-body {
-      height: calc(100% - 145px);
-      padding: 60px 20px 10px;
-    }
-  }
-
-  @media screen and (width <= 640px) {
-    .customer-satisfaction {
-      height: 300px;
-
-      .custom-card-body {
-        height: calc(100% - 100px);
-        padding-top: 20px;
-      }
-    }
-  }
-</style>

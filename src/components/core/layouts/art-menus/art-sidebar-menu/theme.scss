@@ -228,21 +228,13 @@ $popup-menu-radius: 6px;
   @include popup-menu-base(var(--art-gray-200), var(--art-gray-900), var(--art-gray-200));
 }
 
-// 菜单折叠 hover 弹窗样式（深色主题）
-.menu-left-dark-popper {
-  &.is-light {
-    border: 1px solid #3a3c45;
-    border-radius: 10px;
-  }
-
-  .el-menu--vertical,
-  .el-menu--popup-container {
-    @include popup-menu-base(rgb(255 255 255 / 8%), #eee, rgb(255 255 255 / 8%));
-  }
-}
-
 // 暗黑模式菜单样式
 .dark {
+  .el-menu--vertical,
+  .el-menu--popup-container {
+    @include popup-menu-base(var(--art-gray-200), var(--art-gray-900), #292a2e);
+  }
+
   .layout-sidebar {
     // 图标颜色、文字颜色
     .menu-icon .art-svg-icon,

@@ -2,7 +2,7 @@
   <div class="art-card h-105 p-4 box-border mb-5">
     <ArtBarChart
       class="box-border p-2"
-      barWidth="46%"
+      barWidth="50%"
       height="13.7rem"
       :showAxisLine="false"
       :data="[160, 100, 150, 80, 190, 100, 175, 120, 160]"

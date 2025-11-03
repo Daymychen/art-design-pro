@@ -93,7 +93,7 @@
           :unique-opened="uniqueOpened"
           :background-color="getMenuTheme.background"
           :default-openeds="defaultOpenedMenus"
-          :popper-class="`menu-left-${getMenuTheme.theme}-popper`"
+          :popper-class="`menu-left-popper menu-left-${getMenuTheme.theme}-popper`"
           :show-timeout="50"
           :hide-timeout="50"
         >

@@ -1,7 +1,7 @@
 <!-- 节日文本滚动 -->
 <template>
   <div
-    class="overflow-hidden transition-[height] duration-800 ease-in-out"
+    class="overflow-hidden transition-[height] duration-600 ease-in-out"
     :style="{
       height: showFestivalText ? '48px' : '0'
     }"

@@ -77,21 +77,6 @@
       }
     }
   }
-
-  .drawer-con {
-    .box-style {
-      .button {
-        &.is-active {
-          color: #fff !important;
-          background-color: var(--art-gray-400);
-        }
-
-        &:hover:not(.is-active) {
-          background-color: rgba($color: #000, $alpha: 20%);
-        }
-      }
-    }
-  }
 }
 
 // 去除火狐浏览器滚动条
@@ -103,44 +88,5 @@
 @media screen and (width <= 800px) {
   .mobile-hide {
     display: none !important;
-  }
-
-  .drawer-con {
-    .style-item {
-      width: calc(50% - 10px);
-      margin-right: 10px;
-
-      &:nth-child(2n) {
-        margin-right: 0;
-      }
-    }
-
-    .basic-box {
-      .item {
-        padding: 6px 0;
-        margin-top: 15px;
-
-        span {
-          font-size: 13px;
-        }
-      }
-    }
-  }
-}
-
-// 小屏幕适配
-@media screen and (width <= 480px) {
-  .drawer-con {
-    padding: 0 8px 20px;
-
-    .main-color-wrap {
-      .offset {
-        justify-content: center;
-
-        > div {
-          margin: 0 8px 8px 0;
-        }
-      }
-    }
   }
 }

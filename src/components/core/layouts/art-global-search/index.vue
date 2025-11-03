@@ -19,9 +19,7 @@
         class="h-12"
       >
         <template #suffix>
-          <div
-            class="search-keydown h-4.5 flex-cc rounded border border-g-400 !bg-box px-1.5 text-g-500"
-          >
+          <div class="h-4.5 flex-cc rounded border border-g-400 !bg-box px-1.5 text-g-500">
             <ArtSvgIcon icon="fluent:arrow-enter-left-20-filled" />
           </div>
         </template>
@@ -360,65 +358,46 @@
     }
   }
 </script>
-
 <style lang="scss" scoped>
-  .layout-search :deep(.search-modal) {
-    background-color: rgb(0 0 0 / 20%);
+  .layout-search {
+    :deep(.search-modal) {
+      background-color: rgb(0 0 0 / 20%);
+    }
+
+    :deep(.el-dialog__header) {
+      padding: 0;
+    }
+
+    .el-input {
+      :deep(.el-input__wrapper) {
+        background-color: var(--art-gray-200);
+        border: 1px solid var(--default-border-dashed);
+        border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
+        box-shadow: none;
+      }
+
+      :deep(.el-input__inner) {
+        color: var(--art-gray-800) !important;
+      }
+    }
   }
 
-  .layout-search :deep(.el-dialog__header) {
-    padding: 5px 0;
-  }
+  .dark .layout-search {
+    .el-input {
+      :deep(.el-input__wrapper) {
+        background-color: #333;
+        border: 1px solid #4c4d50;
+      }
+    }
 
-  .layout-search :deep(.el-dialog) {
-    padding: 0 15px;
-    border-radius: calc(var(--custom-radius) / 2 + 8px) !important;
-  }
+    :deep(.search-modal) {
+      background-color: rgb(23 23 26 / 60%);
+      backdrop-filter: none;
+    }
 
-  .layout-search .el-input :deep(.el-input__wrapper) {
-    background-color: var(--art-gray-200);
-    border: 1px solid var(--default-border-dashed);
-    border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
-    box-shadow: none;
-  }
-
-  .layout-search .el-input :deep(.el-input__inner) {
-    color: var(--art-gray-600) !important;
-  }
-
-  .dark .layout-search .el-input :deep(.el-input__wrapper) {
-    background-color: #252526;
-    border: 1px solid #4c4d50;
-  }
-
-  .dark .layout-search :deep(.search-modal) {
-    background-color: rgb(23 23 26 / 60%);
-    backdrop-filter: none;
-  }
-
-  .dark .layout-search :deep(.el-dialog) {
-    background-color: #252526;
-  }
-
-  .dark .layout-search .result .box div {
-    color: rgb(255 255 255 / 60%) !important;
-  }
-
-  .dark .layout-search .result .box div.highlighted {
-    color: #fff !important;
-  }
-
-  .dark .layout-search .dialog-footer > div {
-    color: var(--art-gray-600) !important;
-  }
-
-  .dark .layout-search .dialog-footer > div i {
-    background-color: var(--art-gray-50);
-  }
-
-  .dark .layout-search .search-keydown {
-    background-color: #252526;
-    border: 1px solid #4c4d50;
+    :deep(.el-dialog) {
+      background-color: #252526;
+    }
   }
 </style>
 

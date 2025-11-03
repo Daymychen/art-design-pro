@@ -299,17 +299,6 @@ html.dark .el-card {
       background-color: #fff !important;
       transform: scale(0.6) !important;
     }
-
-    // &::after {
-    //   width: 3px;
-    //   height: 8px;
-    //   margin: auto;
-    //   border: 2px solid var(--el-checkbox-checked-icon-color);
-    //   border-left: 0;
-    //   border-top: 0;
-    //   transform: translate(-45%, -60%) rotate(45deg) scale(0.86) !important;
-    //   transform-origin: center;
-    // }
   }
 
   .is-checked {
@@ -343,7 +332,7 @@ html.dark .el-card {
   transition: all 0.3s;
 
   &:hover {
-    background-color: var(--art-gray-200) !important;
+    background-color: var(--art-hover-color) !important;
     color: var(--art-gray-900) !important;
   }
 }
@@ -517,4 +506,11 @@ html.dark .el-card {
   .el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {
     background-color: var(--art-gray-300) !important;
   }
+}
+
+// 隐藏折叠菜单弹窗 hover 出现的边框
+.menu-left-popper:focus-within,
+.horizontal-menu-popper:focus-within {
+  box-shadow: none !important;
+  outline: none !important;
 }

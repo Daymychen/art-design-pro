@@ -1,11 +1,9 @@
-import { getTabConfig } from '@/utils/ui'
 import { useSettingStore } from '@/store/modules/setting'
 import { useMenuStore } from '@/store/modules/menu'
 
 // 通用函数
 export function useCommon() {
   const settingStore = useSettingStore()
-  const { showWorkTab, tabStyle } = storeToRefs(settingStore)
 
   // 是否是前端控制模式
   const isFrontendMode = computed(() => {
@@ -29,20 +27,55 @@ export function useCommon() {
   }
 
   // 页面最小高度
-  const containerMinHeight = computed(() => {
-    const { openHeight, closeHeight } = getTabConfig(tabStyle.value)
-    return `calc(100vh - ${showWorkTab.value ? openHeight : closeHeight}px)`
-  })
+  const containerMinHeight = ref('100vh')
+
+  // 更新容器高度
+  const updateContainerHeight = () => {
+    const headerElement = document.getElementById('app-header')
+    const contentHeaderElement = document.getElementById('app-content-header')
+
+    const headerHeight = headerElement?.offsetHeight ?? 0
+    const textHeight = contentHeaderElement?.offsetHeight ?? 0
+    const totalHeight = headerHeight + textHeight + 15
+
+    containerMinHeight.value = `calc(100vh - ${totalHeight}px)`
+    document.documentElement.style.setProperty('--art-full-height', containerMinHeight.value)
+  }
 
   // 设置容器高度CSS变量
   const setContainerHeightCssVar = () => {
-    const height = containerMinHeight.value
-    document.documentElement.style.setProperty('--art-full-height', height)
+    document.documentElement.style.setProperty('--art-full-height', containerMinHeight.value)
   }
 
-  // 监听容器高度变化并更新CSS变量
-  watchEffect(() => {
-    setContainerHeightCssVar()
+  // 页面加载完成后初始化高度并监听变化
+  onMounted(() => {
+    // 初始化高度
+    updateContainerHeight()
+
+    // 监听窗口大小变化
+    window.addEventListener('resize', updateContainerHeight)
+
+    // 使用 ResizeObserver 监听元素高度变化
+    const resizeObserver = new ResizeObserver(() => {
+      updateContainerHeight()
+    })
+
+    const headerElement = document.getElementById('app-header')
+    const contentHeaderElement = document.getElementById('app-content-header')
+
+    if (headerElement) {
+      resizeObserver.observe(headerElement)
+    }
+
+    if (contentHeaderElement) {
+      resizeObserver.observe(contentHeaderElement)
+    }
+
+    // 组件卸载时清理
+    onUnmounted(() => {
+      resizeObserver.disconnect()
+      window.removeEventListener('resize', updateContainerHeight)
+    })
   })
 
   return {

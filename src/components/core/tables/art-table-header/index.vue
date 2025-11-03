@@ -61,38 +61,40 @@
           </div>
         </template>
         <div>
-          <VueDraggable
-            v-model="columns"
-            :disabled="false"
-            filter=".fixed-column"
-            :prevent-on-filter="false"
-            @move="checkColumnMove"
-          >
-            <div
-              v-for="item in columns"
-              :key="item.prop || item.type"
-              class="column-option flex-c"
-              :class="{ 'fixed-column': item.fixed }"
+          <ElScrollbar max-height="380px">
+            <VueDraggable
+              v-model="columns"
+              :disabled="false"
+              filter=".fixed-column"
+              :prevent-on-filter="false"
+              @move="checkColumnMove"
             >
               <div
-                class="drag-icon mr-2 h-4.5 flex-cc text-g-500"
-                :class="item.fixed ? 'cursor-default text-g-300' : 'cursor-move'"
+                v-for="item in columns"
+                :key="item.prop || item.type"
+                class="column-option flex-c"
+                :class="{ 'fixed-column': item.fixed }"
               >
-                <ArtSvgIcon
-                  :icon="item.fixed ? 'ri:unpin-line' : 'ri:drag-move-2-fill'"
-                  class="text-base"
-                />
+                <div
+                  class="drag-icon mr-2 h-4.5 flex-cc text-g-500"
+                  :class="item.fixed ? 'cursor-default text-g-300' : 'cursor-move'"
+                >
+                  <ArtSvgIcon
+                    :icon="item.fixed ? 'ri:unpin-line' : 'ri:drag-move-2-fill'"
+                    class="text-base"
+                  />
+                </div>
+                <ElCheckbox
+                  v-model="item.checked"
+                  :disabled="item.disabled"
+                  class="flex-1 min-w-0 [&_.el-checkbox__label]:overflow-hidden [&_.el-checkbox__label]:text-ellipsis [&_.el-checkbox__label]:whitespace-nowrap"
+                  >{{
+                    item.label || (item.type === 'selection' ? t('table.selection') : '')
+                  }}</ElCheckbox
+                >
               </div>
-              <ElCheckbox
-                v-model="item.checked"
-                :disabled="item.disabled"
-                class="flex-1 min-w-0 [&_.el-checkbox__label]:overflow-hidden [&_.el-checkbox__label]:text-ellipsis [&_.el-checkbox__label]:whitespace-nowrap"
-                >{{
-                  item.label || (item.type === 'selection' ? t('table.selection') : '')
-                }}</ElCheckbox
-              >
-            </div>
-          </VueDraggable>
+            </VueDraggable>
+          </ElScrollbar>
         </div>
       </ElPopover>
       <!-- 其他设置 -->
@@ -127,6 +129,7 @@
   import { VueDraggable } from 'vue-draggable-plus'
   import { useI18n } from 'vue-i18n'
   import type { ColumnOption } from '@/types/component'
+  import { ElScrollbar } from 'element-plus'
 
   defineOptions({ name: 'ArtTableHeader' })
 

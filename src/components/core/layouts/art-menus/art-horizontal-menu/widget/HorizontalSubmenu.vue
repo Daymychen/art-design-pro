@@ -89,7 +89,6 @@
 </script>
 
 <style scoped>
-  /* Adjust submenu arrow position */
   :deep(.el-sub-menu__title .el-sub-menu__icon-arrow) {
     right: 10px !important;
   }
