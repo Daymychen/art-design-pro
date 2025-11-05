@@ -54,7 +54,7 @@ export const vRipple: Directive = {
       )
       const isColoredButton = buttonTypes.some((type) => el.classList.contains(type))
       const defaultColor = isColoredButton
-        ? 'rgba(255, 255, 255, 0.35)' // 有色按钮使用白色水波纹
+        ? 'rgba(255, 255, 255, 0.25)' // 有色按钮使用白色水波纹
         : 'var(--el-color-primary-light-7)' // 默认按钮使用主题色水波纹
 
       // 设置水波纹颜色、初始状态和过渡效果

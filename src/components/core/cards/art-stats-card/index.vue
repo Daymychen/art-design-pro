@@ -27,7 +27,7 @@
       >
     </div>
     <div v-if="showArrow">
-      <ArtSvgIcon icon="ri:arrow-right-s-line" class="text-xl text-g-400" />
+      <ArtSvgIcon icon="ri:arrow-right-s-line" class="text-xl text-g-500" />
     </div>
   </div>
 </template>

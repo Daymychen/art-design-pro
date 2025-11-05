@@ -107,7 +107,7 @@
           popper-class="langDropDownStyle"
           v-if="shouldShowLanguage"
         >
-          <ArtIconButton icon="hugeicons:global" class="language-btn" />
+          <ArtIconButton icon="hugeicons:global" class="language-btn text-[19px]" />
           <template #dropdown>
             <ElDropdownMenu>
               <div v-for="item in languageOptions" :key="item.value" class="lang-btn-item">

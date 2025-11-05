@@ -143,8 +143,8 @@
           </ElInput>
           <div class="flex-cb mt-3">
             <div class="flex-c">
-              <ArtSvgIcon icon="ri:image-line" class="mr-5 c-p text-g-400 text-lg" />
-              <ArtSvgIcon icon="ri:emotion-happy-line" class="mr-5 c-p text-g-400 text-lg" />
+              <ArtSvgIcon icon="ri:image-line" class="mr-5 c-p text-g-600 text-lg" />
+              <ArtSvgIcon icon="ri:emotion-happy-line" class="mr-5 c-p text-g-600 text-lg" />
             </div>
             <ElButton type="primary" @click="sendMessage" v-ripple class="min-w-20">发送</ElButton>
           </div>

@@ -52,7 +52,7 @@
             <div class="relative pb-5 mt-6">
               <div
                 class="relative z-[2] overflow-hidden select-none rounded-lg border border-transparent tad-300"
-                :class="{ '!border-[#ff4d4f]': !isPassing && isClickPass }"
+                :class="{ '!border-[#FF4E4F]': !isPassing && isClickPass }"
               >
                 <ArtDragVerify
                   ref="dragVerify"

@@ -62,7 +62,7 @@
             >
               {{ formatMenuTitle(item.meta.title) }}
               <div
-                class="size-5 selected-icon select-none rounded-full text-g-400 flex-cc c-p"
+                class="size-5 selected-icon select-none rounded-full text-g-500 flex-cc c-p"
                 @click.stop="deleteHistory(index)"
               >
                 <ArtSvgIcon icon="ri:close-large-fill" class="text-xs" />

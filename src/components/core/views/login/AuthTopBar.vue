@@ -19,7 +19,7 @@
       <div class="btn palette-btn relative z-[2] h-8 w-8 c-p flex-cc tad-300">
         <ArtSvgIcon
           icon="ri:palette-line"
-          class="text-lg text-g-800 transition-colors duration-300"
+          class="text-xl text-g-800 transition-colors duration-300"
         />
       </div>
     </div>
@@ -31,7 +31,7 @@
       <div class="btn language-btn h-8 w-8 c-p flex-cc tad-300">
         <ArtSvgIcon
           icon="hugeicons:global"
-          class="text-lg text-g-800 transition-colors duration-300"
+          class="text-[19px] text-g-800 transition-colors duration-300"
         />
       </div>
       <template #dropdown>
@@ -52,7 +52,7 @@
     >
       <ArtSvgIcon
         :icon="isDark ? 'ri:sun-fill' : 'ri:moon-line'"
-        class="text-lg text-g-800 transition-colors duration-300"
+        class="text-xl text-g-800 transition-colors duration-300"
       />
     </div>
   </div>

@@ -315,8 +315,7 @@
     // 重置滑块位置
     handler.value.style.left = '0'
     progressBar.value.style.width = '0'
-    // 重置图标
-    handler.value.children[0].innerHTML = props.handlerIcon
+    progressBar.value.style.background = props.progressBarBg
     // 重置文本样式
     messageRef.value.style['-webkit-text-fill-color'] = 'transparent'
     messageRef.value.style.animation = 'slidetounlock 2s cubic-bezier(0, 0.2, 1, 1) infinite'
