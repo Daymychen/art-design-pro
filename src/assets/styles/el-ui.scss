@@ -29,7 +29,8 @@
 // 优化 el-form-item 标签高度
 .el-form-item__label {
   height: var(--el-component-custom-height) !important;
-  line-height: var(--el-component-custom-height) !important;
+  align-items: center !important;
+  line-height: 1.2 !important;
 }
 
 // 日期选择器
