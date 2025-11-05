@@ -104,13 +104,16 @@
    * 处理弹窗可见性变化
    * 当用户点击 X、ESC 或遮罩层关闭时，调用 cancel 方法（支持拦截）
    */
-  const handleVisibleChange = (value: boolean) => {
+  const handleVisibleChange = async (value: boolean) => {
     if (!value) {
       // 关闭弹窗时调用 cancel（支持 onCancel 拦截）
-      dialog.cancel()
+      const closed = await dialog.cancel()
+      if (!closed) {
+        dialog.visible.value = true
+      }
     } else {
       // 打开弹窗
-      dialog.visible.value = value
+      dialog.visible.value = true
     }
   }
 

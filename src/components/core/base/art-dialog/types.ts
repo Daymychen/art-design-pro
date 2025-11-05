@@ -31,6 +31,16 @@ interface CustomDialogOptions<T = any> {
 export type DialogOptions<T = any> = CustomDialogOptions<T> & Partial<DialogProps>
 
 /**
+ * useDialog 额外配置
+ */
+export interface UseDialogOptions<T = any> {
+  /** 初始化默认配置 */
+  defaults?: DialogOptions<T>
+  /** 关闭后是否自动重置为默认配置，默认 true */
+  resetOnClose?: boolean
+}
+
+/**
  * 弹窗实例接口
  */
 export interface DialogInstance<T = any> {
@@ -42,16 +52,22 @@ export interface DialogInstance<T = any> {
   dialogConfig: Ref<DialogOptions<T>>
   /** 是否可以确认（计算属性） */
   canConfirm: ComputedRef<boolean>
+  /** 更新默认配置 */
+  setDefaults: (config: DialogOptions<T> | ((prev: DialogOptions<T>) => DialogOptions<T>)) => void
+  /** 重置当前配置为默认值 */
+  resetConfig: () => void
   /** 打开弹窗 */
   open: (options?: DialogOptions<T>) => Promise<boolean>
   /** 关闭弹窗 */
   close: () => void
   /** 提交表单数据（执行 onSubmit 并自动关闭），失败时抛出错误 */
   submit: (data?: T) => Promise<void>
-  /** 取消操作（总是成功） */
+  /** 取消操作（onCancel 抛错时返回 false） */
   cancel: () => Promise<boolean>
   /** 设置弹窗可见性 */
-  setVisible: (value: boolean) => void
+  setVisible: (value: boolean) => Promise<boolean>
+  /** 合并更新当前配置 */
+  updateConfig: (config: DialogOptions<T>) => void
   /** 打开后回调 */
   handleOpened: () => void
   /** 关闭后回调 */

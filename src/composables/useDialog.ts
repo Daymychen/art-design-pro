@@ -1,57 +1,106 @@
 import { ref, computed, nextTick } from 'vue'
-import type { DialogOptions } from '@/components/core/base/art-dialog/types'
+import type { DialogOptions, UseDialogOptions } from '@/components/core/base/art-dialog/types'
 
-export function useDialog<T = any>() {
+const DEFAULT_DIALOG_CONFIG: DialogOptions<any> = {
+  // 自定义属性默认值
+  showFooter: true,
+  confirmText: '确定',
+  cancelText: '取消',
+  disableConfirm: false,
+  // ElDialog 默认值
+  title: '弹窗',
+  width: '600px',
+  alignCenter: true,
+  draggable: false,
+  closeOnClickModal: false,
+  closeOnPressEscape: true,
+  destroyOnClose: false
+}
+
+const mergeDialogOptions = <T>(
+  ...configs: Array<DialogOptions<T> | undefined>
+): DialogOptions<T> => {
+  const merged: DialogOptions<T> = {} as DialogOptions<T>
+
+  configs.forEach((config) => {
+    if (!config) return
+
+    const { props: configProps, ...rest } = config
+
+    Object.assign(merged, rest)
+
+    if (configProps) {
+      merged.props = {
+        ...(merged.props || {}),
+        ...configProps
+      }
+    }
+  })
+
+  return merged
+}
+
+const buildBaseConfig = <T>(config?: DialogOptions<T>) =>
+  mergeDialogOptions(DEFAULT_DIALOG_CONFIG as DialogOptions<T>, config)
+
+export function useDialog<T = any>(options: UseDialogOptions<T> = {}) {
+  const { defaults, resetOnClose = true } = options
+
   /** 弹窗可见性 */
   const visible = ref(false)
 
   /** 加载状态 */
   const loading = ref(false)
 
-  /** 默认配置 */
-  const defaultConfig: DialogOptions<T> = {
-    // 自定义属性默认值
-    showFooter: true,
-    confirmText: '确定',
-    cancelText: '取消',
-    disableConfirm: false,
-    // ElDialog 默认值
-    title: '弹窗',
-    width: '600px',
-    alignCenter: true,
-    draggable: false,
-    closeOnClickModal: false,
-    closeOnPressEscape: true,
-    destroyOnClose: false
-  }
+  /** 默认配置（可通过 setDefaults 更新） */
+  const baseConfig = ref<DialogOptions<T>>(buildBaseConfig(defaults))
 
   /** 弹窗配置 */
-  const dialogConfig = ref<DialogOptions<T>>({ ...defaultConfig })
+  const dialogConfig = ref<DialogOptions<T>>(mergeDialogOptions(baseConfig.value))
 
   /** 计算属性：是否可以确认 */
   const canConfirm = computed(() => !loading.value && !dialogConfig.value.disableConfirm)
 
   /**
+   * 重置弹窗配置为默认值
+   */
+  const resetConfig = () => {
+    dialogConfig.value = mergeDialogOptions(baseConfig.value)
+  }
+
+  /**
+   * 更新默认配置（影响后续 open 行为）
+   */
+  const setDefaults = (
+    config: DialogOptions<T> | ((prev: DialogOptions<T>) => DialogOptions<T>)
+  ) => {
+    const next = typeof config === 'function' ? config(baseConfig.value) : config
+    baseConfig.value = buildBaseConfig(next)
+
+    if (!visible.value) {
+      resetConfig()
+    }
+  }
+
+  /**
+   * 合并更新当前配置
+   */
+  const updateConfig = (config: DialogOptions<T>) => {
+    dialogConfig.value = mergeDialogOptions(dialogConfig.value, config)
+  }
+
+  /**
    * 打开弹窗
    */
-  const open = async (options: DialogOptions<T> = {}) => {
-    // 合并配置
-    dialogConfig.value = {
-      ...defaultConfig,
-      ...options
-    }
-
-    // 显示弹窗
+  const open = async (optionOverrides: DialogOptions<T> = {}) => {
+    dialogConfig.value = mergeDialogOptions(baseConfig.value, optionOverrides)
     visible.value = true
-
-    // 等待 DOM 更新
     await nextTick()
-
     return true
   }
 
   /**
-   * 关闭弹窗（简化版，无拦截）
+   * 关闭弹窗（无拦截）
    */
   const close = () => {
     visible.value = false
@@ -65,31 +114,29 @@ export function useDialog<T = any>() {
    * @throws {Error} 当前状态不允许提交或 onSubmit 失败时抛出
    */
   const submit = async (data?: T): Promise<void> => {
-    const { onSubmit } = dialogConfig.value
-
-    // 检查是否可以提交（统一使用抛出错误的方式）
     if (!canConfirm.value) {
       const error = new Error('当前状态不允许提交操作（loading 或 disableConfirm）')
       console.warn('Dialog submit:', error.message)
       throw error
     }
 
-    try {
-      loading.value = true
+    const { onSubmit } = dialogConfig.value
+    const shouldToggleLoading = typeof onSubmit === 'function'
 
-      // 执行提交回调
-      if (onSubmit) {
-        await onSubmit(data)
+    try {
+      if (shouldToggleLoading) {
+        loading.value = true
+        await onSubmit?.(data)
       }
 
-      // 成功后自动关闭
       close()
     } catch (error) {
-      // 记录错误但重新抛出，让调用方可以处理
       console.error('Dialog submit error:', error)
-      throw error // 重新抛出错误，保持错误传播链
+      throw error
     } finally {
-      loading.value = false
+      if (shouldToggleLoading) {
+        loading.value = false
+      }
     }
   }
 
@@ -100,17 +147,12 @@ export function useDialog<T = any>() {
     const { onCancel } = dialogConfig.value
 
     try {
-      // 执行取消回调（如果有）
-      if (onCancel) {
-        await onCancel()
-      }
-
-      // 成功后关闭弹窗
+      await onCancel?.()
       close()
       return true
     } catch (error) {
-      // onCancel 抛出错误，阻止关闭弹窗
       console.warn('Dialog cancel intercepted:', error)
+      visible.value = true
       return false
     }
   }
@@ -126,14 +168,14 @@ export function useDialog<T = any>() {
    * 弹窗关闭后的回调
    */
   const handleClosed = () => {
-    // 保存 onClosed 回调，因为重置后会清除
     const onClosedCallback = dialogConfig.value.onClosed
 
-    // 重置所有状态，避免污染下次打开
     loading.value = false
-    dialogConfig.value = { ...defaultConfig }
 
-    // 触发关闭后回调
+    if (resetOnClose) {
+      resetConfig()
+    }
+
     onClosedCallback?.()
   }
 
@@ -141,12 +183,13 @@ export function useDialog<T = any>() {
    * 设置弹窗可见性
    * 关闭时会调用 cancel（支持 onCancel 拦截）
    */
-  const setVisible = (value: boolean) => {
-    if (!value) {
-      cancel()
-    } else {
-      visible.value = value
+  const setVisible = async (value: boolean) => {
+    if (value) {
+      visible.value = true
+      return true
     }
+
+    return cancel()
   }
 
   return {
@@ -156,6 +199,10 @@ export function useDialog<T = any>() {
     dialogConfig,
     canConfirm,
 
+    // 默认配置管理
+    setDefaults,
+    resetConfig,
+
     // 核心方法
     open,
     close,
@@ -164,6 +211,7 @@ export function useDialog<T = any>() {
 
     // 辅助方法
     setVisible,
+    updateConfig,
 
     // 生命周期钩子
     handleOpened,
