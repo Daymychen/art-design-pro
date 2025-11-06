@@ -52,7 +52,7 @@
 .langDropDownStyle {
   // 选中项背景颜色
   .is-selected {
-    background-color: var(--art-gray-200) !important;
+    background-color: var(--art-el-active-color) !important;
   }
 
   // 语言切换按钮菜单样式优化
@@ -77,16 +77,6 @@
     i {
       font-size: 10px;
       margin-left: 10px;
-    }
-  }
-}
-
-.dark {
-  // 语言切换选中样式
-  .langDropDownStyle {
-    // 选中项背景颜色
-    .is-selected {
-      background-color: var(--art-gray-300) !important;
     }
   }
 }
@@ -290,4 +280,11 @@
   top: auto !important;
   left: auto !important;
   transform: none !important;
+}
+
+// 去除移动端点击背景色
+@media screen and (max-width: 1180px) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
 }

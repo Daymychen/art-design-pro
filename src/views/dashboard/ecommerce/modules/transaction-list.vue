@@ -1,6 +1,6 @@
 <template>
   <ArtDataListCard
-    class="mb-5"
+    class="mb-5 max-sm:mb-4"
     :maxCount="4"
     :list="dataList"
     title="最近活动"

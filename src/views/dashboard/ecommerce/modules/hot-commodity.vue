@@ -1,5 +1,5 @@
 <template>
-  <div class="art-card p-5 h-[28.2rem] mb-5">
+  <div class="art-card p-5 h-[28.2rem] mb-5 max-sm:mb-4">
     <div class="art-card-header">
       <div class="title">
         <h4>热销商品</h4>

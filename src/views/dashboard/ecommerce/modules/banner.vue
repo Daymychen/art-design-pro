@@ -1,7 +1,6 @@
 <template>
   <ArtBasicBanner
-    class="justify-center mb-5"
-    height="13.3rem"
+    class="justify-center !h-53 mb-5 max-sm:!pt-8 max-sm:!h-48 max-sm:mb-4"
     :title="`欢迎回来 ${userInfo.userName}`"
     boxStyle="!bg-theme/10"
     titleColor="var(--art-gray-900)"

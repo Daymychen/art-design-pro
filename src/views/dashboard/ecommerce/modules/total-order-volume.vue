@@ -1,5 +1,5 @@
 <template>
-  <div class="art-card p-5 pt-3.5 mb-5" style="height: 13.3rem">
+  <div class="art-card h-53 p-5 pt-3.5 mb-5 max-sm:mb-4">
     <div class="art-card-header">
       <div class="title">
         <h4 class="text-2xl font-medium">205,216</h4>

@@ -184,7 +184,7 @@ html.dark .el-card {
 
     &:hover:not(.is-disabled) {
       color: var(--art-gray-900) !important;
-      background-color: var(--art-gray-200) !important;
+      background-color: var(--art-el-active-color) !important;
     }
 
     &:focus:not(.is-disabled) {
@@ -439,12 +439,12 @@ html.dark .el-card {
       &.is-selected {
         color: var(--art-gray-900) !important;
         font-weight: 400 !important;
-        background-color: var(--art-gray-200) !important;
+        background-color: var(--art-el-active-color) !important;
         margin-bottom: 4px !important;
       }
 
       &:hover {
-        background-color: var(--art-gray-200) !important;
+        background-color: var(--art-hover-color) !important;
       }
     }
 
@@ -498,7 +498,7 @@ html.dark .el-card {
   padding: 1px 0;
 
   &:hover {
-    background-color: var(--art-gray-200) !important;
+    background-color: var(--art-hover-color) !important;
   }
 }
 

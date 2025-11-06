@@ -592,8 +592,8 @@ async function updateMenuApi() {
   try {
     const content = await fs.readFile(apiPath, 'utf-8')
     const updatedContent = content.replace(
-      "url: '/api/system/menus'",
-      "url: '/api/system/menus/simple'"
+      "url: '/api/v3/system/menus'",
+      "url: '/api/v3/system/menus/simple'"
     )
 
     await fs.writeFile(apiPath, updatedContent, 'utf-8')

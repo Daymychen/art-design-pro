@@ -12,7 +12,7 @@
   }
 
   .title {
-    @apply text-g-900 text-4xl font-semibold max-md:text-3xl;
+    @apply text-g-900 text-4xl font-semibold max-md:text-3xl max-sm:pt-10;
   }
 
   .sub-title {

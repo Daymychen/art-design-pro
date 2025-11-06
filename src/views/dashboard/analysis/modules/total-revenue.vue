@@ -1,5 +1,5 @@
 <template>
-  <div class="art-card h-100 p-5 mb-5">
+  <div class="art-card h-100 p-5 mb-5 max-sm:mb-4">
     <div class="art-card-header">
       <div class="title">
         <h4>总收入</h4>

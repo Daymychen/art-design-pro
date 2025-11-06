@@ -40,6 +40,9 @@
 
   /* Active Color */
   --art-active-color: #f2f4f5;
+
+  /* Element Component Active Color */
+  --art-el-active-color: #f2f4f5;
 }
 
 /* ==================== Dark Mode Variables ==================== */
@@ -71,6 +74,9 @@
 
   /* Active Color */
   --art-active-color: #202226;
+
+  /* Element Component Active Color */
+  --art-el-active-color: #2e2e38;
 }
 
 /* ==================== Tailwind Theme Configuration ==================== */
@@ -86,6 +92,9 @@
 
   /* Active Color */
   --color-active-color: var(--art-active-color);
+
+  /* Active Color */
+  --color-el-active-color: var(--art-active-color);
 
   /* ElementPlus Theme Colors */
   --color-primary: var(--art-primary);

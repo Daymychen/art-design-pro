@@ -1,5 +1,5 @@
 <template>
-  <div class="art-card h-100 p-5 mb-5">
+  <div class="art-card h-100 p-5 mb-5 max-sm:mb-4">
     <div class="art-card-header">
       <div class="title">
         <h4>目标与实际</h4>

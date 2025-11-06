@@ -2,7 +2,9 @@
 <template>
   <div
     class="w-full bg-[var(--default-bg-color)]"
-    :class="[tabStyle === 'tab-card' || tabStyle === 'tab-google' ? 'mb-5 !bg-box' : '']"
+    :class="[
+      tabStyle === 'tab-card' || tabStyle === 'tab-google' ? 'mb-5 max-sm:mb-3 !bg-box' : ''
+    ]"
   >
     <div
       class="relative box-border flex-b h-15 leading-15 select-none"

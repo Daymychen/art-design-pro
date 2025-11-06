@@ -1,5 +1,5 @@
 <template>
-  <div class="art-card p-5 h-128 overflow-hidden mb-5">
+  <div class="art-card p-5 h-128 overflow-hidden mb-5 max-sm:mb-4">
     <div class="art-card-header">
       <div class="title">
         <h4>新用户</h4>

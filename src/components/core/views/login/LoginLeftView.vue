@@ -506,10 +506,7 @@
       }
 
       .logo {
-        position: fixed;
-        top: 15px;
-        left: 25px;
-        z-index: 1000;
+        display: none;
       }
     }
   }
