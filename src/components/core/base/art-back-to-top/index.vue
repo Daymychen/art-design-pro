@@ -19,11 +19,11 @@
 </template>
 
 <script setup lang="ts">
-  import { useCommon } from '@/composables/useCommon'
+  import { usePageControl } from '@/composables/usePageControl'
 
   defineOptions({ name: 'ArtBackToTop' })
 
-  const { scrollToTop } = useCommon()
+  const { scrollToTop } = usePageControl()
 
   const showButton = ref(false)
   const scrollThreshold = 300

@@ -126,7 +126,7 @@
   import { isIframe } from '@/utils/navigation'
   import { handleMenuJump } from '@/utils/navigation'
   import SidebarSubmenu from './widget/SidebarSubmenu.vue'
-  import { useCommon } from '@/composables/useCommon'
+  import { useHomePath } from '@/composables/useHomePath'
 
   defineOptions({ name: 'ArtSidebarMenu' })
 
@@ -234,11 +234,13 @@
     return []
   }
 
+  const { homePath } = useHomePath()
+
   /**
    * 导航到首页
    */
   const navigateToHome = (): void => {
-    router.push(useCommon().homePath.value)
+    router.push(homePath.value)
   }
 
   /**

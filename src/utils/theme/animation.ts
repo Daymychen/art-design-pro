@@ -1,4 +1,4 @@
-import { useCommon } from '@/composables/useCommon'
+import { usePageControl } from '@/composables/usePageControl'
 import { useTheme } from '@/composables/useTheme'
 import { SystemThemeEnum } from '@/enums/appEnum'
 import { useSettingStore } from '@/store/modules/setting'
@@ -31,7 +31,7 @@ export const themeAnimation = (e: any) => {
  */
 const toggleTheme = () => {
   useTheme().switchThemeStyles(useSettingStore().systemThemeType === LIGHT ? DARK : LIGHT)
-  useCommon().refresh()
+  usePageControl().refresh()
 }
 
 /**

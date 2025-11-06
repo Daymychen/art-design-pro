@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-  import { useCommon } from '@/composables/useCommon'
+  import { useHomePath } from '@/composables/useHomePath'
 
   const router = useRouter()
 
@@ -35,7 +35,9 @@
     {}
   )
 
+  const { homePath } = useHomePath()
+
   const backHome = () => {
-    router.push(useCommon().homePath.value)
+    router.push(homePath.value)
   }
 </script>

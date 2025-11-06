@@ -412,14 +412,14 @@
   import { ArrowDown, Lock } from '@element-plus/icons-vue'
   import { useAuth } from '@/composables/useAuth'
   import { useUserStore } from '@/store/modules/user'
-  import { useCommon } from '@/composables/useCommon'
+  import { useAppMode } from '@/composables/useAppMode'
   import { useRoute } from 'vue-router'
   import type { AppRouteRecord } from '@/types/router'
 
   defineOptions({ name: 'PermissionButtonAuth' })
 
   const { hasAuth } = useAuth()
-  const { isFrontendMode } = useCommon()
+  const { isFrontendMode } = useAppMode()
   const userStore = useUserStore()
   const route = useRoute()
 

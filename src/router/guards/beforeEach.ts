@@ -14,7 +14,8 @@ import { menuDataToRouter } from '../utils/menuToRouter'
 import { asyncRoutes } from '../routes/asyncRoutes'
 import { staticRoutes } from '../routes/staticRoutes'
 import { loadingService } from '@/utils/ui'
-import { useCommon } from '@/composables/useCommon'
+import { useAppMode } from '@/composables/useAppMode'
+import { useHomePath } from '@/composables/useHomePath'
 import { useWorktabStore } from '@/store/modules/worktab'
 import { fetchGetUserInfo } from '@/api/auth'
 import { ApiStatus } from '@/utils/http/status'
@@ -207,7 +208,9 @@ async function handleDynamicRoutes(
  * 获取菜单数据
  */
 async function getMenuData(router: Router): Promise<void> {
-  if (useCommon().isFrontendMode.value) {
+  const { isFrontendMode } = useAppMode()
+
+  if (isFrontendMode.value) {
     await processFrontendMenu(router)
   } else {
     await processBackendMenu(router)
@@ -335,7 +338,7 @@ export function resetRouterState(): void {
  */
 function handleRootPathRedirect(to: RouteLocationNormalized, next: NavigationGuardNext): boolean {
   if (to.path === '/') {
-    const { homePath } = useCommon()
+    const { homePath } = useHomePath()
     if (homePath.value && homePath.value !== '/') {
       next({ path: homePath.value, replace: true })
       return true

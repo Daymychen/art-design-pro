@@ -21,7 +21,10 @@ export const upgradeLogList = ref<UpgradeLog[]>([
       '菜单样式细节调整，提升系统 UI 一致性',
       '重构 ArtTextScroll 组件',
       '部分依赖升级',
-      'ArtForm、ArtSearchBar 增加 render 属性，用于渲染自定义组件'
+      '核心代码性能优化',
+      '修复 ArtForm、ArtSearchBar 自定义组件渲染报错',
+      'ArtForm、ArtSearchBar 增加 render 属性，渲染自定义组件',
+      '优化 ArtForm 与 ArtSearchBar 的栅格布局逻辑，使组件在不同屏幕尺寸下的显示更合理'
     ],
     remark:
       '⚠️ 本次升级涉及底层样式系统与图标库的彻底替换，迁移成本较高。建议新项目直接采用，老项目请充分评估后再决定升级。'

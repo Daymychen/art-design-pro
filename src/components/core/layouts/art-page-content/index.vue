@@ -51,14 +51,14 @@
   import '@/assets/styles/transition.scss'
   import type { CSSProperties } from 'vue'
   import { useRoute } from 'vue-router'
-  import { useCommon } from '@/composables/useCommon'
+  import { useAutoLayoutHeight } from '@/composables/useLayoutHeight'
   import { useSettingStore } from '@/store/modules/setting'
   import { useWorktabStore } from '@/store/modules/worktab'
 
   defineOptions({ name: 'ArtPageContent' })
 
   const route = useRoute()
-  const { containerMinHeight } = useCommon()
+  const { containerMinHeight } = useAutoLayoutHeight()
   const { pageTransition, containerWidth, refresh } = storeToRefs(useSettingStore())
   const { keepAliveExclude } = storeToRefs(useWorktabStore())
 
@@ -66,14 +66,19 @@
   const isOpenRouteInfo = import.meta.env.VITE_OPEN_ROUTE_INFO
   const showTransitionMask = ref(false)
 
+  // 标记是否是首次加载（浏览器刷新）
+  const isFirstLoad = ref(true)
+
   // 检查当前路由是否需要使用无基础布局模式
   const isFullPage = computed(() => route.matched.some((r) => r.meta?.isFullPage))
   const prevIsFullPage = ref(isFullPage.value)
 
-  // 切换动画名称：从全屏返回时不使用动画
-  const actualTransition = computed(() =>
-    prevIsFullPage.value && !isFullPage.value ? '' : pageTransition.value
-  )
+  // 切换动画名称：首次加载、从全屏返回时不使用动画
+  const actualTransition = computed(() => {
+    if (isFirstLoad.value) return ''
+    if (prevIsFullPage.value && !isFullPage.value) return ''
+    return pageTransition.value
+  })
 
   // 监听全屏状态变化，显示过渡遮罩
   watch(isFullPage, (val, oldVal) => {
@@ -121,4 +126,12 @@
   }
 
   watch(refresh, reload, { flush: 'post' })
+
+  // 组件挂载后标记首次加载完成
+  onMounted(() => {
+    // 延迟一帧，确保首次渲染完成
+    nextTick(() => {
+      isFirstLoad.value = false
+    })
+  })
 </script>

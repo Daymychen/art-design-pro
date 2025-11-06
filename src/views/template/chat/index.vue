@@ -168,11 +168,11 @@
   import avatar8 from '@/assets/img/avatar/avatar8.webp'
   import avatar9 from '@/assets/img/avatar/avatar9.webp'
   import avatar10 from '@/assets/img/avatar/avatar10.webp'
-  import { useCommon } from '@/composables/useCommon'
+  import { useAutoLayoutHeight } from '@/composables/useLayoutHeight'
 
   defineOptions({ name: 'TemplateChat' })
 
-  const { containerMinHeight } = useCommon()
+  const { containerMinHeight } = useAutoLayoutHeight()
 
   /**
    * 联系人类型定义

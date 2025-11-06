@@ -91,33 +91,52 @@ export function useChart(options: UseChartOptions = {}) {
     })
   }
 
-  // 收缩菜单时，重新计算图表大小
-  watch(menuOpen, () => multiDelayResize(RESIZE_DELAYS))
+  // 收缩菜单时，重新计算图表大小（仅在图表存在时监听）
+  let menuOpenStopHandle: (() => void) | null = null
+  let menuTypeStopHandle: (() => void) | null = null
 
-  // 菜单类型变化触发
-  watch(menuType, () => {
-    nextTick(requestAnimationResize)
-    setTimeout(() => multiDelayResize(MENU_RESIZE_DELAYS), 0)
-  })
+  const setupMenuWatchers = () => {
+    menuOpenStopHandle = watch(menuOpen, () => multiDelayResize(RESIZE_DELAYS))
+    menuTypeStopHandle = watch(menuType, () => {
+      nextTick(requestAnimationResize)
+      setTimeout(() => multiDelayResize(MENU_RESIZE_DELAYS), 0)
+    })
+  }
+
+  const cleanupMenuWatchers = () => {
+    menuOpenStopHandle?.()
+    menuTypeStopHandle?.()
+    menuOpenStopHandle = null
+    menuTypeStopHandle = null
+  }
 
   // 主题变化时重新设置图表选项
-  if (autoTheme) {
-    watch(isDark, () => {
-      // 更新空状态样式
-      emptyStateManager.updateStyle()
+  let themeStopHandle: (() => void) | null = null
 
-      if (chart && !isDestroyed) {
-        // 使用 requestAnimationFrame 优化主题更新
-        requestAnimationFrame(() => {
-          if (chart && !isDestroyed) {
-            const currentOptions = chart.getOption()
-            if (currentOptions) {
-              updateChart(currentOptions as EChartsOption)
+  const setupThemeWatcher = () => {
+    if (autoTheme) {
+      themeStopHandle = watch(isDark, () => {
+        // 更新空状态样式
+        emptyStateManager.updateStyle()
+
+        if (chart && !isDestroyed) {
+          // 使用 requestAnimationFrame 优化主题更新
+          requestAnimationFrame(() => {
+            if (chart && !isDestroyed) {
+              const currentOptions = chart.getOption()
+              if (currentOptions) {
+                updateChart(currentOptions as EChartsOption)
+              }
             }
-          }
-        })
-      }
-    })
+          })
+        }
+      })
+    }
+  }
+
+  const cleanupThemeWatcher = () => {
+    themeStopHandle?.()
+    themeStopHandle = null
   }
 
   // 样式生成器 - 统一的样式配置
@@ -127,29 +146,66 @@ export function useChart(options: UseChartOptions = {}) {
     ...(type && { type })
   })
 
+  // 缓存样式配置以减少重复计算
+  const styleCache = {
+    axisLine: null as any,
+    splitLine: null as any,
+    axisLabel: null as any,
+    lastDarkValue: isDark.value
+  }
+
+  const clearStyleCache = () => {
+    styleCache.axisLine = null
+    styleCache.splitLine = null
+    styleCache.axisLabel = null
+    styleCache.lastDarkValue = isDark.value
+  }
+
   // 坐标轴线样式
-  const getAxisLineStyle = (show: boolean = true) => ({
-    show,
-    lineStyle: createLineStyle(isDark.value ? '#444' : '#EDEDED')
-  })
+  const getAxisLineStyle = (show: boolean = true) => {
+    if (styleCache.lastDarkValue !== isDark.value) {
+      clearStyleCache()
+    }
+    if (!styleCache.axisLine) {
+      styleCache.axisLine = {
+        show,
+        lineStyle: createLineStyle(isDark.value ? '#444' : '#EDEDED')
+      }
+    }
+    return styleCache.axisLine
+  }
 
   // 分割线样式
-  const getSplitLineStyle = (show: boolean = true) => ({
-    show,
-    lineStyle: createLineStyle(isDark.value ? '#444' : '#EDEDED', 1, 'dashed')
-  })
+  const getSplitLineStyle = (show: boolean = true) => {
+    if (styleCache.lastDarkValue !== isDark.value) {
+      clearStyleCache()
+    }
+    if (!styleCache.splitLine) {
+      styleCache.splitLine = {
+        show,
+        lineStyle: createLineStyle(isDark.value ? '#444' : '#EDEDED', 1, 'dashed')
+      }
+    }
+    return styleCache.splitLine
+  }
 
   // 坐标轴标签样式
   const getAxisLabelStyle = (show: boolean = true) => {
-    const { fontColor, fontSize } = useChartOps()
-    return {
-      show,
-      color: fontColor,
-      fontSize
+    if (styleCache.lastDarkValue !== isDark.value) {
+      clearStyleCache()
     }
+    if (!styleCache.axisLabel) {
+      const { fontColor, fontSize } = useChartOps()
+      styleCache.axisLabel = {
+        show,
+        color: fontColor,
+        fontSize
+      }
+    }
+    return styleCache.axisLabel
   }
 
-  // 坐标轴刻度样式
+  // 坐标轴刻度样式（静态配置，无需缓存）
   const getAxisTickStyle = () => ({
     show: false
   })
@@ -330,6 +386,9 @@ export function useChart(options: UseChartOptions = {}) {
   const performChartInit = (options: EChartsOption) => {
     if (!chart && chartRef.value && !isDestroyed) {
       chart = echarts.init(chartRef.value)
+      // 图表创建后立即设置监听器
+      setupMenuWatchers()
+      setupThemeWatcher()
     }
     if (chart && !isDestroyed) {
       chart.setOption(options)
@@ -462,10 +521,13 @@ export function useChart(options: UseChartOptions = {}) {
       }
     }
 
-    // 清理空状态div
+    // 清理所有监听器和资源
+    cleanupMenuWatchers()
+    cleanupThemeWatcher()
     emptyStateManager.remove()
     cleanupIntersectionObserver()
     clearTimers()
+    clearStyleCache()
     pendingOptions = null
   }
 
@@ -571,18 +633,29 @@ export function useChartComponent<T extends BaseChartProps>(options: UseChartCom
     }
   }
 
+  // 存储监听器停止函数
+  const stopHandles: (() => void)[] = []
+
   // 设置数据监听
   const setupWatchers = () => {
     // 监听自定义数据源
     if (watchSources.length > 0) {
-      watch(watchSources, updateChart, { deep: true })
+      const stopHandle = watch(watchSources, updateChart, { deep: true })
+      stopHandles.push(stopHandle)
     }
 
     // 监听主题变化
-    watch(isDark, () => {
+    const themeStopHandle = watch(isDark, () => {
       emptyStateManager.updateStyle()
       updateChart()
     })
+    stopHandles.push(themeStopHandle)
+  }
+
+  // 清理所有监听器
+  const cleanupWatchers = () => {
+    stopHandles.forEach((stop) => stop())
+    stopHandles.length = 0
   }
 
   // 设置生命周期
@@ -601,6 +674,8 @@ export function useChartComponent<T extends BaseChartProps>(options: UseChartCom
       if (chartRef.value) {
         chartRef.value.removeEventListener('chartVisible', handleChartVisible)
       }
+      // 清理所有监听器
+      cleanupWatchers()
       // 清理空状态div
       emptyStateManager.remove()
     })

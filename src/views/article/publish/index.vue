@@ -82,7 +82,7 @@
   import EmojiText from '@/utils/ui/emojo'
   import { PageModeEnum } from '@/enums/formEnum'
   import axios from 'axios'
-  import { useCommon } from '@/composables/useCommon'
+  import { usePageControl } from '@/composables/usePageControl'
 
   defineOptions({ name: 'ArticlePublish' })
 
@@ -329,8 +329,10 @@
     return true
   }
 
+  const { scrollToTop } = usePageControl()
+
   onMounted(() => {
-    useCommon().scrollToTop()
+    scrollToTop()
     getArticleTypes()
     initPageMode()
   })

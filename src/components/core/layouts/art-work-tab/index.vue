@@ -88,7 +88,7 @@
   import { formatMenuTitle } from '@/router/utils/utils'
   import { useSettingStore } from '@/store/modules/setting'
   import { MenuItemType } from '../../others/art-menu-right/index.vue'
-  import { useCommon } from '@/composables/useCommon'
+  import { usePageControl } from '@/composables/usePageControl'
   import { WorkTab } from '@/types'
 
   defineOptions({ name: 'ArtWorkTab' })
@@ -400,7 +400,7 @@
       const { key } = item
 
       if (key === 'refresh') {
-        useCommon().refresh()
+        usePageControl().refresh()
         return
       }
 

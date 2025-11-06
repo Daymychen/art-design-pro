@@ -160,8 +160,10 @@ function useTableImpl<TApiFn extends (params: any) => Promise<any>>(
   // 缓存实例
   const cache = enableCache ? new TableCache<TRecord>(cacheTime, maxCacheSize, enableLog) : null
 
-  // 加载状态
-  const loading = ref(false)
+  // 加载状态机
+  type LoadingState = 'idle' | 'loading' | 'success' | 'error'
+  const loadingState = ref<LoadingState>('idle')
+  const loading = computed(() => loadingState.value === 'loading')
 
   // 错误状态
   const error = ref<TableError | null>(null)
@@ -264,7 +266,8 @@ function useTableImpl<TApiFn extends (params: any) => Promise<any>>(
     const currentController = new AbortController()
     abortController = currentController
 
-    loading.value = true
+    // 状态机：进入 loading 状态
+    loadingState.value = 'loading'
     error.value = null
 
     try {
@@ -303,7 +306,8 @@ function useTableImpl<TApiFn extends (params: any) => Promise<any>>(
             paramsRecord[sizeKey] = pagination.size
           }
 
-          loading.value = false
+          // 状态机：缓存命中，进入 success 状态
+          loadingState.value = 'success'
 
           // 缓存命中时触发专门的回调，而不是 onSuccess
           if (onCacheHit) {
@@ -354,6 +358,9 @@ function useTableImpl<TApiFn extends (params: any) => Promise<any>>(
         logger.log(`数据已缓存`)
       }
 
+      // 状态机：请求成功，进入 success 状态
+      loadingState.value = 'success'
+
       // 成功回调
       if (onSuccess) {
         onSuccess(tableData, standardResponse)
@@ -362,15 +369,17 @@ function useTableImpl<TApiFn extends (params: any) => Promise<any>>(
       return standardResponse
     } catch (err) {
       if (err instanceof Error && err.message === '请求已取消') {
-        // 请求被取消，不做处理
+        // 请求被取消，回到 idle 状态
+        loadingState.value = 'idle'
         return { records: [], total: 0, current: 1, size: 10 }
       }
 
+      // 状态机：请求失败，进入 error 状态
+      loadingState.value = 'error'
       data.value = []
       const tableError = handleError(err, '获取表格数据失败')
       throw tableError
     } finally {
-      loading.value = false
       // 只有当前控制器是活跃的才清空
       if (abortController === currentController) {
         abortController = null

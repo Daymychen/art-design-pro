@@ -13,11 +13,11 @@
         <ElCol
           v-for="item in visibleFormItems"
           :key="item.key"
-          :xs="24"
-          :sm="12"
-          :md="8"
-          :lg="item.span || span"
-          :xl="item.span || span"
+          :xs="getColSpan(item.span, 'xs')"
+          :sm="getColSpan(item.span, 'sm')"
+          :md="getColSpan(item.span, 'md')"
+          :lg="getColSpan(item.span, 'lg')"
+          :xl="getColSpan(item.span, 'xl')"
         >
           <ElFormItem
             :label="item.label"
@@ -95,12 +95,14 @@
 <script setup lang="ts">
   import { useWindowSize } from '@vueuse/core'
   import { useI18n } from 'vue-i18n'
+  import type { Component } from 'vue'
   import {
     ElCascader,
     ElCheckbox,
     ElCheckboxGroup,
     ElDatePicker,
     ElInput,
+    ElInputTag,
     ElInputNumber,
     ElRadioGroup,
     ElRate,
@@ -112,11 +114,13 @@
     ElTreeSelect,
     type FormInstance
   } from 'element-plus'
+  import { calculateResponsiveSpan, type ResponsiveBreakpoint } from '@/utils/form/responsive'
 
   defineOptions({ name: 'ArtForm' })
 
   const componentMap = {
     input: ElInput, // 输入框
+    inputtag: ElInputTag, // 标签输入框
     number: ElInputNumber, // 数字输入框
     select: ElSelect, // 选择器
     switch: ElSwitch, // 开关
@@ -151,8 +155,8 @@
     labelWidth?: string | number
     /** 表单项类型，支持预定义的组件类型 */
     type?: keyof typeof componentMap | string
-    /** 自定义渲染函数，用于渲染自定义组件（优先级高于 type） */
-    render?: () => VNode
+    /** 自定义渲染函数或组件，用于渲染自定义组件（优先级高于 type） */
+    render?: (() => VNode) | Component
     /** 是否隐藏该表单项 */
     hidden?: boolean
     /** 表单项占据的列宽，基于24格栅格系统 */
@@ -234,11 +238,21 @@
 
   // 组件
   const getComponent = (item: FormItem) => {
-    // 优先使用 render 函数渲染自定义组件
-    if (item.render) return item.render
+    // 优先使用 render 函数或组件渲染自定义组件
+    if (item.render) {
+      return item.render
+    }
     // 使用 type 获取预定义组件
     const { type } = item
     return componentMap[type as keyof typeof componentMap] || componentMap['input']
+  }
+
+  /**
+   * 获取列宽 span 值
+   * 根据屏幕尺寸智能降级，避免小屏幕上表单项被压缩过小
+   */
+  const getColSpan = (itemSpan: number | undefined, breakpoint: ResponsiveBreakpoint): number => {
+    return calculateResponsiveSpan(itemSpan, span.value, breakpoint)
   }
 
   /**

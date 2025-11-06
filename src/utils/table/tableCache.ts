@@ -1,4 +1,5 @@
 // 表格缓存管理
+import { hash } from 'ohash'
 
 // 缓存失效策略枚举
 export enum CacheInvalidationStrategy {
@@ -57,32 +58,9 @@ export class TableCache<T> {
     }
   }
 
-  // 🔧 优化：生成稳定的缓存键
+  // 生成稳定的缓存键
   private generateKey(params: unknown): string {
-    if (!params || typeof params !== 'object') {
-      return JSON.stringify(params)
-    }
-
-    // 对象属性排序后再序列化，确保键的稳定性
-    const sortedParams = this.sortObjectKeys(params as Record<string, unknown>)
-    return JSON.stringify(sortedParams)
-  }
-
-  // 递归排序对象键
-  private sortObjectKeys(obj: Record<string, unknown>): Record<string, unknown> {
-    const result: Record<string, unknown> = {}
-    const keys = Object.keys(obj).sort()
-
-    for (const key of keys) {
-      const value = obj[key]
-      if (value && typeof value === 'object' && !Array.isArray(value)) {
-        result[key] = this.sortObjectKeys(value as Record<string, unknown>)
-      } else {
-        result[key] = value
-      }
-    }
-
-    return result
+    return hash(params)
   }
 
   // 🔧 优化：增强类型安全性

@@ -52,6 +52,9 @@ importers:
       nprogress:
         specifier: ^0.2.0
         version: 0.2.0
+      ohash:
+        specifier: ^2.0.11
+        version: 2.0.11
       pinia:
         specifier: ^3.0.3
         version: 3.0.3(typescript@5.6.3)(vue@3.5.22(typescript@5.6.3))
@@ -4835,6 +4838,12 @@ packages:
         integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==
       }
 
+  ohash@2.0.11:
+    resolution:
+      {
+        integrity: sha512-RdR9FQrFwNBNXAr4GixM8YaRZRJ5PUWbKYbE5eOsrwAjJW0q2REGcf79oYPsLyskQCZG1PLN+S/K1V00joZAoQ==
+      }
+
   once@1.4.0:
     resolution:
       {
@@ -9127,6 +9136,8 @@ snapshots:
   nth-check@2.1.1:
     dependencies:
       boolbase: 1.0.0
+
+  ohash@2.0.11: {}
 
   once@1.4.0:
     dependencies:
