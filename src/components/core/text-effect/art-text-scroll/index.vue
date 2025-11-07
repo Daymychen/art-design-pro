@@ -81,6 +81,8 @@
     pauseOnHover?: boolean
     /** 是否显示关闭按钮 */
     showClose?: boolean
+    /** 始终滚动（即使文字未溢出） */
+    alwaysScroll?: boolean
   }
 
   const props = withDefaults(defineProps<TextScrollProps>(), {
@@ -91,7 +93,8 @@
     height: '36px',
     pauseOnHover: true,
     type: 'theme',
-    showClose: false
+    showClose: false,
+    alwaysScroll: true
   })
 
   const emit = defineEmits<{
@@ -125,7 +128,13 @@
   const isHovered = useElementHover(containerRef)
 
   // 计算是否应该暂停动画
-  const isPaused = computed(() => props.pauseOnHover && isHovered.value)
+  const isPaused = computed(() => {
+    // 如果未启用 alwaysScroll，且文字未超出容器，则暂停滚动
+    if (!props.alwaysScroll && textSize.value <= containerSize.value) {
+      return true
+    }
+    return props.pauseOnHover && isHovered.value
+  })
 
   // 主题样式映射
   const themeClasses = computed(() => {
@@ -191,7 +200,10 @@
       textSize.value = text.offsetHeight
     }
 
-    shouldClone.value = textSize.value > containerSize.value
+    const isOverflow = textSize.value > containerSize.value
+    shouldClone.value = isOverflow
+
+    // 居中显示
     currentPosition.value = (containerSize.value - textSize.value) / 2
   }
 

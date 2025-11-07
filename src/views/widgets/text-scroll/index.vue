@@ -26,6 +26,12 @@
       direction="right"
     />
 
+    <ArtTextScroll
+      text="这是一条文字溢出才会滚动的公告，当文本内容超出容器宽度时才会开始滚动显示，否则保持静止状态"
+      @close="handleClose"
+      :alwaysScroll="false"
+    />
+
     <ArtTextScroll type="danger" direction="up" :speed="30" text="这是一条向上滚动的公告" />
 
     <ArtTextScroll type="info" direction="down" :speed="30" text="这是一条向下滚动的公告" />
