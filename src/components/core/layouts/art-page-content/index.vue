@@ -48,7 +48,6 @@
   </div>
 </template>
 <script setup lang="ts">
-  import '@/assets/styles/transition.scss'
   import type { CSSProperties } from 'vue'
   import { useRoute } from 'vue-router'
   import { useAutoLayoutHeight } from '@/composables/useLayoutHeight'

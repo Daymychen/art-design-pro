@@ -6,7 +6,7 @@
 <script setup lang="ts">
   import { useChartOps, useChartComponent } from '@/composables/useChart'
   import { getCssVar } from '@/utils/ui'
-  import { graphic, type EChartsOption } from '@/utils/echarts'
+  import { graphic, type EChartsOption } from '@/plugins/echarts'
   import type { BarChartProps, BarDataItem } from '@/types/component/chart'
 
   defineOptions({ name: 'ArtBarChart' })

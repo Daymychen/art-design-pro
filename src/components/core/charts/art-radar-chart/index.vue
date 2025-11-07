@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-  import type { EChartsOption } from '@/utils/echarts'
+  import type { EChartsOption } from '@/plugins/echarts'
   import { useChartOps, useChartComponent } from '@/composables/useChart'
   import type { RadarChartProps } from '@/types/component/chart'
 

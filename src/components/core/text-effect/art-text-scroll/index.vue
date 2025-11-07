@@ -42,6 +42,13 @@
 </template>
 
 <script setup lang="ts">
+  import {
+    useElementSize,
+    useRafFn,
+    useElementHover,
+    useDebounceFn,
+    useTimeoutFn
+  } from '@vueuse/core'
   import { useSettingStore } from '@/store/modules/setting'
 
   type ThemeType =
@@ -96,22 +103,29 @@
   }
 
   const settingStore = useSettingStore()
-
   const { isDark } = storeToRefs(settingStore)
+
   const containerRef = ref<HTMLElement>()
   const contentRef = ref<HTMLElement>()
   const textRef = ref<HTMLElement>()
   const isReady = ref(false)
 
-  const animationId = ref<number>()
   const currentPosition = ref(0)
   const textSize = ref(0)
   const containerSize = ref(0)
-  const isPaused = ref(false)
   const shouldClone = ref(false)
 
   const isHorizontal = computed(() => props.direction === 'left' || props.direction === 'right')
   const isReverse = computed(() => props.direction === 'right' || props.direction === 'down')
+
+  // 使用 VueUse 的 useElementSize 监听容器尺寸变化
+  const { width: containerWidth, height: containerHeight } = useElementSize(containerRef)
+
+  // 使用 VueUse 的 useElementHover 检测鼠标悬停
+  const isHovered = useElementHover(containerRef)
+
+  // 计算是否应该暂停动画
+  const isPaused = computed(() => props.pauseOnHover && isHovered.value)
 
   // 主题样式映射
   const themeClasses = computed(() => {
@@ -160,21 +174,20 @@
 
   // 克隆元素的间距
   const cloneSpacing = computed(() => {
-    const spacing = '2em' // 两个文本之间的间距
+    const spacing = '2em'
     return isHorizontal.value ? { marginLeft: spacing } : { marginTop: spacing }
   })
 
   const measureSizes = () => {
     if (!containerRef.value || !textRef.value) return
 
-    const container = containerRef.value
     const text = textRef.value
 
     if (isHorizontal.value) {
-      containerSize.value = container.offsetWidth
+      containerSize.value = containerWidth.value
       textSize.value = text.offsetWidth
     } else {
-      containerSize.value = container.offsetHeight
+      containerSize.value = containerHeight.value
       textSize.value = text.offsetHeight
     }
 
@@ -182,54 +195,39 @@
     currentPosition.value = (containerSize.value - textSize.value) / 2
   }
 
+  // 使用 VueUse 的 useDebounceFn 防抖测量
+  const debouncedMeasure = useDebounceFn(measureSizes, 150)
+
   let lastTimestamp = 0
 
-  const animate = (timestamp: number) => {
-    if (!lastTimestamp) lastTimestamp = timestamp
+  // 使用 VueUse 的 useRafFn 替代手动 requestAnimationFrame
+  const { pause, resume } = useRafFn(
+    ({ timestamp }) => {
+      if (!lastTimestamp) lastTimestamp = timestamp
 
-    if (!isPaused.value) {
-      const delta = (timestamp - lastTimestamp) / 1000
-      const distance = props.speed * delta
-      const spacing = textSize.value * 0.1
+      if (!isPaused.value) {
+        const delta = (timestamp - lastTimestamp) / 1000
+        const distance = props.speed * delta
+        const spacing = textSize.value * 0.1
 
-      currentPosition.value += isReverse.value ? distance : -distance
+        currentPosition.value += isReverse.value ? distance : -distance
 
-      // 循环边界检测
-      if (isReverse.value) {
-        if (currentPosition.value > containerSize.value) {
-          currentPosition.value = -(textSize.value + spacing)
-        }
-      } else {
-        if (currentPosition.value < -(textSize.value + spacing)) {
-          currentPosition.value = containerSize.value
+        // 循环边界检测
+        if (isReverse.value) {
+          if (currentPosition.value > containerSize.value) {
+            currentPosition.value = -(textSize.value + spacing)
+          }
+        } else {
+          if (currentPosition.value < -(textSize.value + spacing)) {
+            currentPosition.value = containerSize.value
+          }
         }
       }
-    }
 
-    lastTimestamp = timestamp
-    animationId.value = requestAnimationFrame(animate)
-  }
-
-  const startAnimation = () => {
-    if (animationId.value) {
-      cancelAnimationFrame(animationId.value)
-    }
-    lastTimestamp = 0
-    animationId.value = requestAnimationFrame(animate)
-  }
-
-  const handleMouseEnter = () => {
-    if (props.pauseOnHover) {
-      isPaused.value = true
-    }
-  }
-
-  const handleMouseLeave = () => {
-    if (props.pauseOnHover) {
-      isPaused.value = false
-      lastTimestamp = 0
-    }
-  }
+      lastTimestamp = timestamp
+    },
+    { immediate: false }
+  )
 
   const handleContentClick = (e: MouseEvent) => {
     const target = e.target as HTMLElement
@@ -238,58 +236,36 @@
     }
   }
 
-  // 防抖的 resize 处理
-  let resizeTimer: number | undefined
-  const handleResize = () => {
-    if (resizeTimer) clearTimeout(resizeTimer)
-    resizeTimer = window.setTimeout(() => {
-      measureSizes()
-    }, 150)
-  }
+  // 监听容器尺寸变化
+  watch([containerWidth, containerHeight], () => {
+    debouncedMeasure()
+  })
 
   // 监听属性变化
   watch(
     () => [props.direction, props.speed, props.text],
     () => {
       measureSizes()
-      startAnimation()
+      lastTimestamp = 0
     }
   )
 
+  // 使用 VueUse 的 useTimeoutFn 替代 setTimeout
+  const { start: startMeasure } = useTimeoutFn(() => {
+    measureSizes()
+  }, 100)
+
+  const { start: startAnimation } = useTimeoutFn(() => {
+    isReady.value = true
+    resume()
+  }, 150)
+
   onMounted(() => {
-    // 等待 DOM 渲染完成后测量
-    setTimeout(() => {
-      measureSizes()
-    }, 100)
-
-    // 延迟开始动画
-    setTimeout(() => {
-      isReady.value = true
-      startAnimation()
-    }, 150)
-
-    if (containerRef.value) {
-      containerRef.value.addEventListener('mouseenter', handleMouseEnter)
-      containerRef.value.addEventListener('mouseleave', handleMouseLeave)
-    }
-
-    window.addEventListener('resize', handleResize)
+    startMeasure()
+    startAnimation()
   })
 
   onBeforeUnmount(() => {
-    if (animationId.value) {
-      cancelAnimationFrame(animationId.value)
-    }
-
-    if (resizeTimer) {
-      clearTimeout(resizeTimer)
-    }
-
-    if (containerRef.value) {
-      containerRef.value.removeEventListener('mouseenter', handleMouseEnter)
-      containerRef.value.removeEventListener('mouseleave', handleMouseLeave)
-    }
-
-    window.removeEventListener('resize', handleResize)
+    pause()
   })
 </script>

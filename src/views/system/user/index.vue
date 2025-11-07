@@ -49,13 +49,14 @@
   import UserSearch from './modules/user-search.vue'
   import UserDialog from './modules/user-dialog.vue'
   import { ElTag, ElMessageBox, ElImage } from 'element-plus'
+  import { DialogType } from '@/types'
 
   defineOptions({ name: 'User' })
 
   type UserListItem = Api.SystemManage.UserListItem
 
   // 弹窗相关
-  const dialogType = ref<Form.DialogType>('add')
+  const dialogType = ref<DialogType>('add')
   const dialogVisible = ref(false)
   const currentUserData = ref<Partial<UserListItem>>({})
 
@@ -215,7 +216,7 @@
   /**
    * 显示用户弹窗
    */
-  const showDialog = (type: Form.DialogType, row?: UserListItem): void => {
+  const showDialog = (type: DialogType, row?: UserListItem): void => {
     console.log('打开弹窗:', { type, row })
     dialogType.value = type
     currentUserData.value = row || {}

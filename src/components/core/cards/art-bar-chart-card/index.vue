@@ -29,7 +29,7 @@
 
 <script setup lang="ts">
   import { useChartOps, useChartComponent } from '@/composables/useChart'
-  import { type EChartsOption } from '@/utils/echarts'
+  import { type EChartsOption } from '@/plugins/echarts'
 
   defineOptions({ name: 'ArtBarChartCard' })
 

@@ -1,12 +1,40 @@
 /**
- * 系统配置
- * 包含：系统信息、系统主题、菜单主题、菜单布局、系统主色、系统主色列表、系统主色、系统其他项默认配置、快速入口配置
+ * 系统全局配置
+ *
+ * 这是系统的核心配置文件，集中管理所有全局配置项。
+ * 包含系统信息、主题样式、菜单布局、颜色方案等所有可配置项。
+ *
+ * ## 核心功能
+ *
+ * 1. 系统信息 - 系统名称等基础信息
+ * 2. 主题配置 - 亮色/暗色/自动主题的样式配置
+ * 3. 菜单配置 - 菜单布局、主题、宽度等配置
+ * 4. 颜色方案 - 系统主色和预设颜色列表
+ * 5. 快速入口 - 快速入口应用和链接配置
+ * 6. 顶部栏配置 - 顶部栏功能模块配置
+ *
+ * ## 配置项说明
+ *
+ * - systemInfo: 系统基础信息（名称等）
+ * - systemThemeStyles: 系统主题样式映射
+ * - settingThemeList: 可选的系统主题列表
+ * - menuLayoutList: 可选的菜单布局列表
+ * - themeList: 菜单主题样式列表
+ * - darkMenuStyles: 暗黑模式下的菜单样式
+ * - systemMainColor: 预设的系统主色列表
+ * - systemSetting: 其他系统默认配置
+ * - fastEnter: 快速入口配置
+ * - headerBar: 顶部栏功能配置
+ *
+ * @module config
+ * @author Art Design Pro Team
  */
+
 import { MenuThemeEnum, MenuTypeEnum, SystemThemeEnum } from '@/enums/appEnum'
 import { SystemConfig } from '@/types/config'
 import { configImages } from './assets/images'
-import fastEnterConfig from './fastEnter'
-import { headerBarConfig } from './headerBar'
+import fastEnterConfig from './modules/fastEnter'
+import { headerBarConfig } from './modules/headerBar'
 
 const appConfig: SystemConfig = {
   // 系统信息

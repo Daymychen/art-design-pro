@@ -10,24 +10,27 @@ interface UpgradeLog {
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
     version: 'v3.0.0',
-    title: 'Sass 重构为 Tailwind CSS，Iconfont 替换为 Iconify【发布日期待定】',
+    title:
+      'Sass 重构为 Tailwind CSS，Iconfont 替换为 Iconify，目录结构，文件注释全方位优化【发布日期待定】',
     date: '待定',
     detail: [
-      'Sass 样式全面重构为 Tailwind CSS',
-      'Iconfont 图标库替换为 Iconify',
-      '完整包体积减少 1.3 MB',
-      'CSS 开发效率实现质的飞跃',
-      '颜色体系全新设计，提升系统 UI 一致性',
-      '菜单样式细节调整，提升系统 UI 一致性',
-      '重构 ArtTextScroll 组件',
-      '部分依赖升级',
-      '核心代码性能优化',
-      '修复 ArtForm、ArtSearchBar 自定义组件渲染报错',
-      'ArtForm、ArtSearchBar 增加 render 属性，渲染自定义组件',
-      '优化 ArtForm 与 ArtSearchBar 的栅格布局逻辑，使组件在不同屏幕尺寸下的显示更合理'
+      '样式系统重构：Sass 全面迁移至 Tailwind CSS，提升开发效率与样式一致性',
+      '图标方案升级：Iconfont 替换为 Iconify，支持更丰富的图标库与按需加载',
+      '构建优化：完整包体积减少 1.3 MB，显著提升加载性能',
+      '注释优化：统一模块注释规范，完善每一个组件介绍、功能说明与使用示例，降低用户理解成本与上手难度',
+      '架构优化：重构目录结构，职责划分更清晰，降低用户学习成本与上手难度',
+      '性能提升：优化核心代码逻辑，提升系统运行效率',
+      '设计系统：重构颜色体系，统一 UI 视觉规范，提升界面一致性',
+      '菜单优化：细化菜单样式，优化交互体验与视觉呈现',
+      '组件重构：重构 ArtTextScroll 组件，提升性能与可维护性',
+      '问题修复：修复 ArtForm、ArtSearchBar 自定义组件渲染异常',
+      '功能增强：ArtForm、ArtSearchBar 新增 render 属性，支持自定义组件渲染',
+      '响应式优化：优化 ArtForm、ArtSearchBar 栅格布局，适配多种屏幕尺寸',
+      '节日功能增强：礼花配置支持跨日期范围设置与自定义播放次数',
+      '依赖更新：升级核心依赖至最新稳定版本'
     ],
     remark:
-      '⚠️ 本次升级涉及底层样式系统与图标库的彻底替换，迁移成本较高。建议新项目直接采用，老项目请充分评估后再决定升级。'
+      '重要提示：本次升级涉及样式系统（Sass → Tailwind CSS）与图标库（Iconfont → Iconify）的底层重构，属于破坏性更新。建议新项目直接使用 v3.0，旧版本项目不建议升级。'
   },
   {
     version: 'v2.6.1',

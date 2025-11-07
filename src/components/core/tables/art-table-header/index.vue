@@ -297,7 +297,7 @@
 </script>
 
 <style scoped>
-  @reference '@styles/tailwind.css';
+  @reference '@styles/core/tailwind.css';
 
   .button {
     @apply ml-2 

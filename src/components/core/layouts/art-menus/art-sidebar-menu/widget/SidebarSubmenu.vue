@@ -1,6 +1,5 @@
 <template>
-  <template v-for="item in filteredMenuItems" :key="item.path">
-    <!-- 包含子菜单的项目 -->
+  <template v-for="(item, index) in filteredMenuItems" :key="getUniqueKey(item, index)">
     <ElSubMenu v-if="hasChildren(item)" :index="item.path || item.meta.title" :level="level">
       <template #title>
         <div class="menu-icon flex-cc">
@@ -25,7 +24,6 @@
       />
     </ElSubMenu>
 
-    <!-- 普通菜单项 -->
     <ElMenuItem
       v-else
       :index="isExternalLink(item) ? undefined : item.path || item.meta.title"
@@ -175,5 +173,16 @@
    */
   const isExternalLink = (item: AppRouteRecord): boolean => {
     return !!(item.meta.link && !item.meta.isIframe)
+  }
+
+  /**
+   * 生成唯一的 key
+   * 使用 path、title 和 index 组合确保唯一性
+   * @param item 菜单项数据
+   * @param index 索引
+   * @returns 唯一的 key
+   */
+  const getUniqueKey = (item: AppRouteRecord, index: number): string => {
+    return `${item.path || item.meta.title || 'menu'}-${props.level}-${index}`
   }
 </script>

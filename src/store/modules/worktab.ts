@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 import { router } from '@/router'
 import { LocationQueryRaw, Router } from 'vue-router'
 import { WorkTab } from '@/types'
-import { useHomePath } from '@/composables/useHomePath'
+import { useCommon } from '@/composables/useCommon'
 
 interface WorktabState {
   current: Partial<WorkTab>
@@ -164,7 +164,7 @@ export const useWorktabStore = defineStore(
         addKeepAliveExclude(targetTab)
       }
 
-      const { homePath } = useHomePath()
+      const { homePath } = useCommon()
 
       // 如果关闭后无标签页，跳转首页
       if (!hasOpenedTabs.value) {
@@ -287,7 +287,7 @@ export const useWorktabStore = defineStore(
      * 关闭所有可关闭的标签页
      */
     const removeAll = (): void => {
-      const { homePath } = useHomePath()
+      const { homePath } = useCommon()
       const hasFixedTabs = opened.value.some((tab) => tab.fixedTab)
 
       // 获取可关闭的标签页

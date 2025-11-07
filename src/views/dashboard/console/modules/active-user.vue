@@ -5,8 +5,8 @@
       barWidth="50%"
       height="13.7rem"
       :showAxisLine="false"
-      :data="[160, 100, 150, 80, 190, 100, 175, 120, 160]"
-      :xAxisData="['1', '2', '3', '4', '5', '6', '7', '8', '9']"
+      :data="chartData"
+      :xAxisData="xAxisLabels"
     />
     <div class="ml-1">
       <h3 class="mt-5 text-lg font-medium">用户概述</h3>
@@ -27,6 +27,12 @@
     name: string
     num: string
   }
+
+  // 最近9个月
+  const xAxisLabels = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月']
+
+  // 每月活跃用户数
+  const chartData = [160, 100, 150, 80, 190, 100, 175, 120, 160]
 
   /**
    * 用户统计数据列表

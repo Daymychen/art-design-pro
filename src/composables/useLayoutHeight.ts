@@ -1,8 +1,26 @@
+/**
+ * useLayoutHeight - 页面布局高度管理
+ *
+ * 自动计算和管理页面内容区域的高度，确保内容区域能够正确填充剩余空间。
+ * 监听头部元素高度变化，动态调整内容区域高度，避免出现滚动条或布局错乱。
+ *
+ * ## 核心功能
+ *
+ * 1. 动态高度计算 - 根据头部元素高度自动计算内容区域高度
+ * 2. 响应式监听 - 自动监听元素尺寸变化并更新高度
+ * 3. CSS 变量同步 - 自动更新 CSS 变量，方便全局使用
+ * 4. 灵活配置 - 支持自定义间距、CSS 变量名等
+ * 5. 自动查找模式 - 提供通过 ID 自动查找元素的便捷方式
+ *
+ * @module useLayoutHeight
+ * @author Art Design Pro Team
+ */
+
 import { ref, computed, watch, onMounted } from 'vue'
 import { useElementSize } from '@vueuse/core'
 
 /**
- * 布局高度配置
+ * 页面容器高度配置
  */
 interface LayoutHeightOptions {
   /** 额外的间距（默认 15px） */
@@ -13,28 +31,6 @@ interface LayoutHeightOptions {
   cssVarName?: string
 }
 
-/**
- * 布局高度管理
- * 用于动态计算和管理页面容器的高度
- *
- * 使用场景：
- * - 需要让内容区域自适应剩余高度
- * - 需要响应头部高度变化
- * - 需要在窗口大小变化时重新计算高度
- *
- * @example
- * ```vue
- * <script setup>
- * const { containerMinHeight, headerRef, contentHeaderRef } = useLayoutHeight()
- * </script>
- *
- * <template>
- *   <header ref="headerRef">头部</header>
- *   <div ref="contentHeaderRef">内容头部</div>
- *   <div :style="{ minHeight: containerMinHeight }">内容区域</div>
- * </template>
- * ```
- */
 export function useLayoutHeight(options: LayoutHeightOptions = {}) {
   const { extraSpacing = 15, updateCssVar = true, cssVarName = '--art-full-height' } = options
 
@@ -85,17 +81,6 @@ export function useLayoutHeight(options: LayoutHeightOptions = {}) {
  * @param headerIds 头部元素的 ID 数组
  * @param options 配置选项
  *
- * @example
- * ```vue
- * <script setup>
- * const { containerMinHeight } = useAutoLayoutHeight(['app-header', 'app-content-header'])
- * </script>
- *
- * <template>
- *   <div :style="{ minHeight: containerMinHeight }">
- *     内容区域
- *   </div>
- * </template>
  * ```
  */
 export function useAutoLayoutHeight(

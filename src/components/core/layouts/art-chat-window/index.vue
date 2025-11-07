@@ -91,8 +91,8 @@
 <script setup lang="ts">
   import { Picture, Paperclip, Close } from '@element-plus/icons-vue'
   import { mittBus } from '@/utils/sys'
-  import meAvatar from '@/assets/img/avatar/avatar5.webp'
-  import aiAvatar from '@/assets/img/avatar/avatar10.webp'
+  import meAvatar from '@/assets/images/avatar/avatar5.webp'
+  import aiAvatar from '@/assets/images/avatar/avatar10.webp'
 
   defineOptions({ name: 'ArtChatWindow' })
 

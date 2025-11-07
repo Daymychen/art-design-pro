@@ -1,3 +1,37 @@
+/**
+ * useTableColumns - 表格列配置管理
+ *
+ * 提供动态的表格列配置管理能力，支持运行时灵活控制列的显示、隐藏、排序等操作。
+ * 通常与 useTable 配合使用，为表格提供完整的列管理功能。
+ *
+ * ## 核心功能
+ *
+ * 1. 列显示控制 - 动态显示/隐藏列，支持批量操作
+ * 2. 列排序 - 拖拽或编程方式重新排列列顺序
+ * 3. 列配置管理 - 新增、删除、更新列配置
+ * 4. 特殊列支持 - 自动处理 selection、expand、index 等特殊列
+ * 5. 状态持久化 - 保持列的显示状态，支持重置到初始状态
+ *
+ * ## 使用示例
+ *
+ * ```typescript
+ * const { columns, columnChecks, toggleColumn, reorderColumns } = useTableColumns(() => [
+ *   { prop: 'name', label: '姓名', checked: true },
+ *   { prop: 'email', label: '邮箱', checked: true },
+ *   { prop: 'status', label: '状态', checked: false }
+ * ])
+ *
+ * // 切换列显示
+ * toggleColumn('email', false)
+ *
+ * // 重新排序
+ * reorderColumns(0, 2)
+ * ```
+ *
+ * @module useTableColumns
+ * @author Art Design Pro Team
+ */
+
 import { ref, computed, watch } from 'vue'
 import { $t } from '@/locales'
 import type { ColumnOption } from '@/types/component'

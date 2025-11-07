@@ -1,4 +1,4 @@
-@reference '@styles/tailwind.css';
+@reference '@styles/core/tailwind.css';
 
 /* 授权页右侧区域 */
 .auth-right-wrap {

@@ -15,7 +15,7 @@ import { asyncRoutes } from '../routes/asyncRoutes'
 import { staticRoutes } from '../routes/staticRoutes'
 import { loadingService } from '@/utils/ui'
 import { useAppMode } from '@/composables/useAppMode'
-import { useHomePath } from '@/composables/useHomePath'
+import { useCommon } from '@/composables/useCommon'
 import { useWorktabStore } from '@/store/modules/worktab'
 import { fetchGetUserInfo } from '@/api/auth'
 import { ApiStatus } from '@/utils/http/status'
@@ -338,7 +338,7 @@ export function resetRouterState(): void {
  */
 function handleRootPathRedirect(to: RouteLocationNormalized, next: NavigationGuardNext): boolean {
   if (to.path === '/') {
-    const { homePath } = useHomePath()
+    const { homePath } = useCommon()
     if (homePath.value && homePath.value !== '/') {
       next({ path: homePath.value, replace: true })
       return true

@@ -1,3 +1,13 @@
+/**
+ * ECharts 插件配置
+ *
+ * 按需导入 ECharts 图表和组件，减小打包体积。
+ * 只注册项目中实际使用的图表类型和组件。
+ *
+ * @module plugins/echarts
+ * @author Art Design Pro Team
+ */
+
 // ECharts 按需导入配置
 import * as echarts from 'echarts/core'
 

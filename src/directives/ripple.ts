@@ -1,17 +1,46 @@
+/**
+ * v-ripple 水波纹效果指令
+ *
+ * 为元素添加 Material Design 风格的水波纹点击效果。
+ * 点击时从点击位置扩散出圆形水波纹动画，提升交互体验。
+ *
+ * ## 核心功能
+ *
+ * 1. 水波纹动画 - 点击时从点击位置扩散圆形波纹
+ * 2. 自适应大小 - 根据元素尺寸自动调整波纹大小和动画时长
+ * 3. 智能配色 - 自动识别按钮类型，使用合适的波纹颜色
+ * 4. 自定义颜色 - 支持通过参数自定义波纹颜色
+ * 5. 性能优化 - 使用 requestAnimationFrame 和自动清理机制
+ *
+ * ## 使用示例
+ *
+ * ```vue
+ * <template>
+ *   <!-- 基础用法 - 使用默认颜色 -->
+ *   <el-button v-ripple>点击我</el-button>
+ *
+ *   <!-- 自定义颜色 -->
+ *   <el-button v-ripple="{ color: 'rgba(255, 0, 0, 0.3)' }">自定义颜色</el-button>
+ *
+ *   <!-- 应用到任意元素 -->
+ *   <div v-ripple class="custom-card">卡片内容</div>
+ * </template>
+ * ```
+ *
+ * ## 颜色规则
+ *
+ * - 有色按钮（primary、success、warning 等）：使用白色半透明波纹
+ * - 默认按钮：使用主题色半透明波纹
+ * - 自定义：通过 color 参数指定任意颜色
+ *
+ * @module directives/ripple
+ * @author Art Design Pro Team
+ */
+
 import type { App, Directive, DirectiveBinding } from 'vue'
 
-/**
- * 水波纹指令
- * 用法：
- * <!-- 基础用法 -->
- * <ElButton v-ripple>点击查看水波纹效果</ElButton>
- *
- * <!-- 自定义颜色 -->
- * <ElButton v-ripple="{ color: 'rgba(0, 0, 0, 0.2)' }">
- *   自定义水波纹颜色
- * </ElButton>
- */
 export interface RippleOptions {
+  /** 水波纹颜色 */
   color?: string
 }
 

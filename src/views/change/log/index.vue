@@ -1,11 +1,11 @@
 <!-- 更新日志页面 -->
 <template>
-  <div class="mx-auto pt-5">
+  <div class="mx-auto pt-5 mb-5">
     <!-- 标题 -->
     <h3 class="text-2xl font-medium text-g-900 mb-8">更新日志</h3>
 
     <!-- 日志列表 -->
-    <div class="space-y-6">
+    <div class="space-y-5">
       <div
         v-for="item in upgradeLogList"
         :key="item.version"

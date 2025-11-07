@@ -166,9 +166,9 @@ const targets = [
   'src/mock/temp/articleList.ts',
   'src/mock/temp/commentDetail.ts',
   'src/mock/temp/commentList.ts',
-  'src/assets/img/cover',
-  'src/assets/img/safeguard',
-  'src/assets/img/3d',
+  'src/assets/images/cover',
+  'src/assets/images/safeguard',
+  'src/assets/images/3d',
   'src/components/core/charts/art-map-chart',
   'src/components/custom/comment-widget'
 ]

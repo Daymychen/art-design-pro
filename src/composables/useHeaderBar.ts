@@ -1,12 +1,24 @@
 /**
- * 顶部栏功能管理组合式函数
- * 提供顶部栏功能的配置管理和状态控制
+ * useHeaderBar - 顶部栏功能管理
+ *
+ * 统一管理顶部栏各个功能模块的显示状态和配置信息。
+ * 提供灵活的功能开关控制，支持动态显示/隐藏顶部栏的各个功能按钮。
+ *
+ * ## 核心功能
+ *
+ * 1. 功能开关控制 - 统一管理菜单按钮、刷新按钮、快速入口等功能的显示状态
+ * 2. 配置信息获取 - 获取各个功能模块的详细配置信息
+ * 3. 功能列表查询 - 快速获取所有启用或禁用的功能列表
+ * 4. 响应式状态 - 所有状态自动响应配置和 store 变化
+ *
+ * @module useHeaderBar
+ * @author Art Design Pro Team
  */
 
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useSettingStore } from '@/store/modules/setting'
-import { headerBarConfig } from '@/config/headerBar'
+import { headerBarConfig } from '@/config/modules/headerBar'
 import { HeaderBarFeatureConfig } from '@/types'
 
 /**

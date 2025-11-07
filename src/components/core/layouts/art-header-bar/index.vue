@@ -176,8 +176,7 @@
   import { languageOptions } from '@/locales'
   import { mittBus } from '@/utils/sys'
   import { themeAnimation } from '@/utils/theme/animation'
-  import { useHomePath } from '@/composables/useHomePath'
-  import { usePageControl } from '@/composables/usePageControl'
+  import { useCommon } from '@/composables/useCommon'
   import { useHeaderBar } from '@/composables/useHeaderBar'
   import ArtUserMenu from './widget/ArtUserMenu.vue'
 
@@ -250,8 +249,8 @@
     settingStore.setMenuOpen(!menuOpen.value)
   }
 
-  const { homePath } = useHomePath()
-  const { refresh } = usePageControl()
+  const { homePath } = useCommon()
+  const { refresh } = useCommon()
 
   /**
    * 跳转到首页

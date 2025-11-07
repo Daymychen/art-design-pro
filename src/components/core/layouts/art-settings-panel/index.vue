@@ -49,7 +49,6 @@
   const { showDrawer } = settingsPanel
 
   // 获取各种处理器
-  const { handleWindowResize } = settingsPanel.useResponsiveLayout()
   const { handleOpen, handleClose, closeDrawer } = settingsPanel.useDrawerControl()
   const { initializeSettings, cleanupSettings } = settingsPanel.useSettingsInitializer()
 
@@ -58,7 +57,6 @@
 
   onMounted(() => {
     initializeSettings()
-    handleWindowResize()
   })
 
   onUnmounted(() => {

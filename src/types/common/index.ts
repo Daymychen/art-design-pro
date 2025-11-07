@@ -2,6 +2,9 @@
  * 通用类型定义
  */
 
+// 导出响应类型
+export * from './response'
+
 // 状态类型
 export type Status = 0 | 1 // 0: 禁用, 1: 启用
 
@@ -62,3 +65,6 @@ export type Language = 'zh-CN' | 'en-US'
 
 // 环境类型
 export type Environment = 'development' | 'production' | 'test'
+
+// 弹窗类型
+export type DialogType = 'add' | 'edit'

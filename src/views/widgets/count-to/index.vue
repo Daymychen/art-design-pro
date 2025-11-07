@@ -159,7 +159,7 @@
 </script>
 
 <style scoped>
-  @reference '@styles/tailwind.css';
+  @reference '@styles/core/tailwind.css';
 
   .count {
     @apply p-5 

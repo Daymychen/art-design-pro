@@ -126,7 +126,8 @@
   import { isIframe } from '@/utils/navigation'
   import { handleMenuJump } from '@/utils/navigation'
   import SidebarSubmenu from './widget/SidebarSubmenu.vue'
-  import { useHomePath } from '@/composables/useHomePath'
+  import { useCommon } from '@/composables/useCommon'
+  import { useWindowSize, useTimeoutFn } from '@vueuse/core'
 
   defineOptions({ name: 'ArtSidebarMenu' })
 
@@ -145,7 +146,9 @@
   const defaultOpenedMenus = ref<string[]>([])
   const isMobileMode = ref(false)
   const showMobileModal = ref(false)
-  const currentScreenWidth = ref(0)
+
+  // 使用 VueUse 的窗口尺寸监听
+  const { width } = useWindowSize()
 
   // 菜单宽度相关
   const menuopenwidth = computed(() => getMenuOpenWidth.value)
@@ -157,6 +160,9 @@
     () => menuType.value === MenuTypeEnum.LEFT || menuType.value === MenuTypeEnum.TOP_LEFT
   )
   const isDualMenu = computed(() => menuType.value === MenuTypeEnum.DUAL_MENU)
+
+  // 移动端屏幕判断（使用 computed 避免重复计算）
+  const isMobileScreen = computed(() => width.value < MOBILE_BREAKPOINT)
 
   // 路由相关
   const firstLevelMenuPath = computed(() => route.matched[0]?.path)
@@ -193,20 +199,15 @@
   })
 
   /**
-   * 检查是否为移动端屏幕
+   * 延迟隐藏移动端模态框（使用 VueUse 的 useTimeoutFn）
    */
-  const isMobileScreen = (): boolean => {
-    return document.body.clientWidth < MOBILE_BREAKPOINT
-  }
-
-  /**
-   * 延迟隐藏移动端模态框
-   */
-  const delayHideMobileModal = (): void => {
-    setTimeout(() => {
+  const { start: delayHideMobileModal } = useTimeoutFn(
+    () => {
       showMobileModal.value = false
-    }, ANIMATION_DELAY)
-  }
+    },
+    ANIMATION_DELAY,
+    { immediate: false }
+  )
 
   /**
    * 查找 iframe 对应的二级菜单列表
@@ -234,7 +235,7 @@
     return []
   }
 
-  const { homePath } = useHomePath()
+  const { homePath } = useCommon()
 
   /**
    * 导航到首页
@@ -250,7 +251,7 @@
     settingStore.setMenuOpen(!menuOpen.value)
 
     // 移动端模态框控制逻辑
-    if (isMobileScreen()) {
+    if (isMobileScreen.value) {
       if (!menuOpen.value) {
         // 菜单即将打开，立即显示模态框
         showMobileModal.value = true
@@ -265,7 +266,7 @@
    * 处理菜单关闭（来自子组件）
    */
   const handleMenuClose = (): void => {
-    if (isMobileScreen()) {
+    if (isMobileScreen.value) {
       settingStore.setMenuOpen(false)
       delayHideMobileModal()
     }
@@ -279,59 +280,36 @@
   }
 
   /**
-   * 处理屏幕尺寸变化
+   * 监听窗口尺寸变化，自动处理移动端菜单
    */
-  const handleScreenResize = (): void => {
-    // 小屏幕自动折叠菜单
-    if (currentScreenWidth.value < MOBILE_BREAKPOINT) {
+  watch(width, (newWidth) => {
+    if (newWidth < MOBILE_BREAKPOINT) {
       settingStore.setMenuOpen(false)
-      // 在小屏幕上，如果菜单关闭则隐藏模态框
       if (!menuOpen.value) {
         showMobileModal.value = false
       }
     } else {
-      // 大屏幕上始终隐藏模态框
       showMobileModal.value = false
     }
-  }
-
-  /**
-   * 设置窗口大小监听器
-   */
-  const setupWindowResizeListener = (): void => {
-    currentScreenWidth.value = document.body.clientWidth
-    handleScreenResize()
-
-    window.onresize = () => {
-      currentScreenWidth.value = document.body.clientWidth
-      handleScreenResize()
-    }
-  }
+  })
 
   /**
    * 监听菜单开关状态变化
    */
-  watch(
-    () => menuOpen.value,
-    (isMenuOpen: boolean) => {
-      if (!isMobileScreen()) {
-        // 大屏幕设备上，模态框始终隐藏
-        showMobileModal.value = false
+  watch(menuOpen, (isMenuOpen: boolean) => {
+    if (!isMobileScreen.value) {
+      // 大屏幕设备上，模态框始终隐藏
+      showMobileModal.value = false
+    } else {
+      // 小屏幕设备上，根据菜单状态控制模态框
+      if (isMenuOpen) {
+        // 菜单打开时立即显示模态框
+        showMobileModal.value = true
       } else {
-        // 小屏幕设备上，根据菜单状态控制模态框
-        if (isMenuOpen) {
-          // 菜单打开时立即显示模态框
-          showMobileModal.value = true
-        } else {
-          // 菜单关闭时延迟隐藏模态框，确保动画完成
-          delayHideMobileModal()
-        }
+        // 菜单关闭时延迟隐藏模态框，确保动画完成
+        delayHideMobileModal()
       }
     }
-  )
-
-  onMounted(() => {
-    setupWindowResizeListener()
   })
 </script>
 

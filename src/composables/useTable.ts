@@ -1,3 +1,22 @@
+/**
+ * useTable - 企业级表格数据管理方案
+ *
+ * 功能完整的表格数据管理解决方案，专为后台管理系统设计。
+ * 封装了表格开发中的所有常见需求，让你专注于业务逻辑。
+ *
+ * ## 核心功能
+ *
+ * 1. 数据管理 - 自动处理 API 请求、响应转换、加载状态和错误处理
+ * 2. 分页控制 - 自动同步分页状态、移动端适配、智能页码边界处理
+ * 3. 搜索功能 - 防抖搜索优化、参数管理、一键重置、参数过滤
+ * 4. 缓存系统 - 智能请求缓存、多种清理策略、自动过期管理、统计信息
+ * 5. 刷新策略 - 提供 5 种刷新方法适配不同业务场景（新增/更新/删除/手动/定时）
+ * 6. 列配置管理 - 动态显示/隐藏列、列排序、配置持久化、批量操作（可选）
+ *
+ * @module useTable
+ * @author Art Design Pro Team
+ */
+
 import { ref, reactive, computed, onMounted, onUnmounted, nextTick, readonly } from 'vue'
 import { useWindowSize } from '@vueuse/core'
 import { useTableColumns } from './useTableColumns'

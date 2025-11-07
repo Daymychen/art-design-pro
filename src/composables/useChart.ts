@@ -1,4 +1,55 @@
-import { echarts, type EChartsOption } from '@/utils/echarts'
+/**
+ * useChart - ECharts 图表管理
+ *
+ * 提供完整的 ECharts 图表生命周期管理和配置能力，简化图表开发流程。
+ * 自动处理图表初始化、更新、销毁、主题切换、响应式调整等复杂逻辑。
+ *
+ * ## 核心功能
+ *
+ * 1. 图表生命周期管理 - 自动处理初始化、更新、销毁，支持延迟加载和可见性检测
+ * 2. 主题自动适配 - 响应系统主题变化，自动更新图表样式和配色
+ * 3. 响应式调整 - 监听窗口大小、菜单展开等变化，自动调整图表尺寸
+ * 4. 空状态处理 - 优雅的空数据展示，自动显示"暂无数据"提示
+ * 5. 样式配置统一 - 提供坐标轴、图例、提示框等统一的样式配置方法
+ * 6. 性能优化 - 防抖处理、样式缓存、requestAnimationFrame 优化
+ * 7. 高级组件抽象 - useChartComponent 提供更高层次的图表组件封装
+ *
+ * ## 使用示例
+ *
+ * ```typescript
+ * // 基础用法
+ * const {
+ *   chartRef,
+ *   initChart,
+ *   updateChart,
+ *   getAxisLineStyle,
+ *   getTooltipStyle
+ * } = useChart()
+ *
+ * onMounted(() => {
+ *   initChart({
+ *     xAxis: { type: 'category', data: ['Mon', 'Tue', 'Wed'] },
+ *     yAxis: { type: 'value' },
+ *     series: [{ data: [120, 200, 150], type: 'bar' }]
+ *   })
+ * })
+ *
+ * // 高级用法 - 组件抽象
+ * const chart = useChartComponent({
+ *   props,
+ *   generateOptions: () => ({
+ *     // ECharts 配置
+ *   }),
+ *   checkEmpty: () => data.value.length === 0,
+ *   watchSources: [() => props.data]
+ * })
+ * ```
+ *
+ * @module useChart
+ * @author Art Design Pro Team
+ */
+
+import { echarts, type EChartsOption } from '@/plugins/echarts'
 import { storeToRefs } from 'pinia'
 import { useSettingStore } from '@/store/modules/setting'
 import { getCssVar } from '@/utils/ui'

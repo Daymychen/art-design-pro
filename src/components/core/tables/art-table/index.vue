@@ -80,7 +80,7 @@
   import { storeToRefs } from 'pinia'
   import { ColumnOption } from '@/types'
   import { useTableStore } from '@/store/modules/table'
-  import { usePageControl } from '@/composables/usePageControl'
+  import { useCommon } from '@/composables/useCommon'
   import { useTableHeight } from '@/composables/useTableHeight'
   import { useResizeObserver, useWindowSize } from '@vueuse/core'
 
@@ -274,7 +274,7 @@
     scrollToTop() // 页码改变后滚动到表格顶部
   }
 
-  const { scrollToTop: scrollPageToTop } = usePageControl()
+  const { scrollToTop: scrollPageToTop } = useCommon()
 
   // 滚动表格内容到顶部，并可以联动页面滚动到顶部
   const scrollToTop = () => {

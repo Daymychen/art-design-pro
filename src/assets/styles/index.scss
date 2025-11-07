@@ -1,0 +1,23 @@
+// 重置默认样式
+@use './core/reset.scss';
+
+// 应用全局样式
+@use './core/app.scss';
+
+// Element Plus 样式优化
+@use './core/el-ui.scss';
+
+// Element Plus 暗黑主题
+@use './core/el-dark.scss';
+
+// 暗黑主题样式优化
+@use './core/dark.scss';
+
+// 路由切换动画
+@use './core/router-transition';
+
+// 主题切换过渡优化
+@use './core/theme-change.scss';
+
+// 主题切换圆形扩散动画
+@use './core/theme-animation.scss';

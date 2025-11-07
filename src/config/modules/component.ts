@@ -1,10 +1,25 @@
 /**
  * 全局组件配置
- * 用于管理应用中的全局组件，如设置面板、搜索、锁屏等
+ *
+ * 统一管理系统级全局组件的注册。
+ * 这些组件会在应用启动时全局注册，可在任何地方使用。
+ *
+ * ## 核心功能
+ *
+ * 1. 组件配置 - 集中管理全局组件的配置信息
+ * 2. 异步加载 - 使用 defineAsyncComponent 实现按需加载
+ * 3. 开关控制 - 支持通过 enabled 字段启用/禁用组件
+ * 4. 配置查询 - 提供工具函数快速查询组件配置
+ *
+ * @module config/component
+ * @author Art Design Pro Team
  */
+
 import { defineAsyncComponent } from 'vue'
 
-// 全局组件配置列表
+/**
+ * 全局组件配置列表
+ */
 export const globalComponentsConfig: GlobalComponentConfig[] = [
   {
     name: '设置面板',
@@ -56,7 +71,9 @@ export const globalComponentsConfig: GlobalComponentConfig[] = [
   }
 ]
 
-// 全局组件配置接口
+/**
+ * 全局组件配置接口
+ */
 export interface GlobalComponentConfig {
   /** 组件名称 */
   name: string
@@ -70,12 +87,19 @@ export interface GlobalComponentConfig {
   description?: string
 }
 
-// 获取启用的全局组件
+/**
+ * 获取启用的全局组件
+ * @returns 已启用的组件配置列表
+ */
 export const getEnabledGlobalComponents = () => {
   return globalComponentsConfig.filter((config) => config.enabled !== false)
 }
 
-// 根据key获取组件配置
+/**
+ * 根据 key 获取组件配置
+ * @param key 组件标识
+ * @returns 组件配置对象
+ */
 export const getGlobalComponentByKey = (key: string) => {
   return globalComponentsConfig.find((config) => config.key === key)
 }

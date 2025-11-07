@@ -73,7 +73,7 @@
       </ElScrollbar>
 
       <template #footer>
-        <div class="dialog-footer box-border flex-c border-t border-g-100 py-4">
+        <div class="dialog-footer box-border flex-c border-t-d pt-4.5 pb-1">
           <div class="flex-cc">
             <ArtSvgIcon icon="fluent:arrow-enter-left-20-filled" class="keyboard" />
             <span class="mr-3.5 text-xs text-g-700">{{ $t('search.selectKeydown') }}</span>
@@ -366,6 +366,10 @@
       background-color: rgb(0 0 0 / 20%);
     }
 
+    :deep(.el-dialog__body) {
+      padding: 5px 0 0 !important;
+    }
+
     :deep(.el-dialog__header) {
       padding: 0;
     }
@@ -404,7 +408,7 @@
 </style>
 
 <style scoped>
-  @reference '@styles/tailwind.css';
+  @reference '@styles/core/tailwind.css';
 
   .keyboard {
     @apply mr-2 

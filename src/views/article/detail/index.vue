@@ -10,9 +10,9 @@
 </template>
 
 <script setup lang="ts">
-  import '@/assets/styles/markdown.scss'
-  import '@/assets/styles/one-dark-pro.scss'
-  import { usePageControl } from '@/composables/usePageControl'
+  import '@/assets/styles/core/md.scss'
+  import '@/assets/styles/custom/one-dark-pro.scss'
+  import { useCommon } from '@/composables/useCommon'
   import axios from 'axios'
 
   defineOptions({ name: 'ArticleDetail' })
@@ -55,7 +55,7 @@
     }
   }
 
-  const { scrollToTop } = usePageControl()
+  const { scrollToTop } = useCommon()
 
   onMounted(() => {
     scrollToTop()

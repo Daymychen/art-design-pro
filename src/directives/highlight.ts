@@ -1,11 +1,48 @@
+/**
+ * v-highlight 代码高亮指令
+ *
+ * 为代码块提供语法高亮、行号显示和一键复制功能。
+ * 基于 highlight.js 实现，支持多种编程语言的语法高亮。
+ *
+ * ## 核心功能
+ *
+ * 1. 语法高亮 - 使用 highlight.js 自动识别并高亮代码
+ * 2. 行号显示 - 自动为每行代码添加行号
+ * 3. 一键复制 - 提供复制按钮，点击即可复制代码（自动过滤行号）
+ * 4. 性能优化 - 批量处理代码块，避免阻塞渲染
+ * 5. 动态监听 - 使用 MutationObserver 监听新增代码块
+ * 6. 防重复处理 - 自动标记已处理的代码块，避免重复处理
+ *
+ * ## 使用示例
+ *
+ * ```vue
+ * <template>
+ *   <!-- 基础用法 -->
+ *   <div v-highlight v-html="codeContent"></div>
+ *
+ *   <!-- 配合 Markdown 渲染 -->
+ *   <div v-highlight>
+ *     <pre><code class="language-javascript">
+ *       const hello = 'world';
+ *       console.log(hello);
+ *     </code></pre>
+ *   </div>
+ * </template>
+ * ```
+ *
+ * ## 性能优化
+ *
+ * - 批量处理：每次处理 10 个代码块，避免长时间阻塞
+ * - 延迟处理：使用 requestAnimationFrame 分批处理
+ * - 重试机制：自动重试处理失败的代码块
+ * - 智能监听：只在有新代码块时才触发处理
+ *
+ * @module directives/highlight
+ * @author Art Design Pro Team
+ */
+
 import { App, Directive } from 'vue'
 import hljs from 'highlight.js'
-
-/**
- * 高亮代码
- * 插入行号、添加复制按钮、分片处理代码块，解决大数据量一次写入卡顿问题
- * 支持动态内容监听，确保所有代码块都能被正确处理
- */
 
 // 高亮代码
 function highlightCode(block: HTMLElement) {

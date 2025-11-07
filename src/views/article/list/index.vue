@@ -94,7 +94,7 @@
   import { useDateFormat } from '@vueuse/core'
   import EmojiText from '@/utils/ui/emojo'
   import { ArticleList } from '@/mock/temp/articleList'
-  import { usePageControl } from '@/composables/usePageControl'
+  import { useCommon } from '@/composables/useCommon'
 
   defineOptions({ name: 'ArticleList' })
 
@@ -144,7 +144,7 @@
       articleList.value = ArticleList as Article[]
 
       if (backTop) {
-        usePageControl().scrollToTop()
+        useCommon().scrollToTop()
       }
     } catch (error) {
       console.error('获取文章列表失败:', error)
