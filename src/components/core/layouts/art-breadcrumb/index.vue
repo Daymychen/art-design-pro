@@ -10,7 +10,7 @@
         <div
           :class="
             isClickable(item, index)
-              ? 'c-p rounded tad-200 hover:bg-g-200 hover:[&_span]:text-g-600'
+              ? 'c-p py-1 rounded tad-200 hover:bg-active-color hover:[&_span]:text-g-600'
               : ''
           "
           @click="handleBreadcrumbClick(item, index)"

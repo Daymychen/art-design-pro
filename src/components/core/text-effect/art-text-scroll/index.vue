@@ -1,3 +1,4 @@
+<!-- 文字滚动 -->
 <template>
   <div
     ref="containerRef"
@@ -205,6 +206,11 @@
 
     // 居中显示
     currentPosition.value = (containerSize.value - textSize.value) / 2
+
+    // 测量完成后才显示内容
+    if (!isReady.value) {
+      isReady.value = true
+    }
   }
 
   // 使用 VueUse 的 useDebounceFn 防抖测量
@@ -265,16 +271,12 @@
   // 使用 VueUse 的 useTimeoutFn 替代 setTimeout
   const { start: startMeasure } = useTimeoutFn(() => {
     measureSizes()
-  }, 100)
-
-  const { start: startAnimation } = useTimeoutFn(() => {
-    isReady.value = true
+    // 测量完成后立即开始动画
     resume()
-  }, 150)
+  }, 100)
 
   onMounted(() => {
     startMeasure()
-    startAnimation()
   })
 
   onBeforeUnmount(() => {

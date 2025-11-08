@@ -100,6 +100,14 @@
         "slideBottom": "下方滑入",
         "slideTop": "上方滑入"
       }
+    },
+    "actions": {
+      "resetConfig": "重置配置",
+      "copyConfig": "复制配置",
+      "copySuccess": "配置已复制到剪贴板，可粘贴到 src/config/setting.ts 文件中",
+      "copyFailed": "复制失败，请重试",
+      "resetSuccess": "重置成功",
+      "resetFailed": "重置失败，请刷新页面后重试"
     }
   },
   "notice": {

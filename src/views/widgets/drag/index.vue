@@ -9,7 +9,7 @@
         <template #default>
           <VueDraggable ref="el" v-model="userList">
             <div
-              class="p-2.5 mb-2.5 cursor-move bg-g-200 rounded"
+              class="p-2.5 mb-2.5 cursor-move bg-active-color rounded"
               v-for="item in userList"
               :key="item.name"
             >
@@ -29,7 +29,7 @@
               <li
                 v-for="item in userList"
                 :key="item.name"
-                class="p-2.5 mb-2.5 cursor-move bg-g-200 rounded"
+                class="p-2.5 mb-2.5 cursor-move bg-active-color rounded"
               >
                 {{ item.name }}
               </li>

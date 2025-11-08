@@ -11,7 +11,7 @@ export const upgradeLogList = ref<UpgradeLog[]>([
   {
     version: 'v3.0.0',
     title:
-      'Sass 重构为 Tailwind CSS，Iconfont 替换为 Iconify，目录结构，文件注释全方位优化【发布日期待定】',
+      'Sass 重构为 Tailwind CSS，Iconfont 替换为 Iconify，性能，目录结构，文件注释全方位优化【发布日期待定】',
     date: '待定',
     detail: [
       '样式系统重构：Sass 全面迁移至 Tailwind CSS，提升开发效率与样式一致性',
@@ -27,7 +27,8 @@ export const upgradeLogList = ref<UpgradeLog[]>([
       '功能增强：ArtForm、ArtSearchBar 新增 render 属性，支持自定义组件渲染',
       '响应式优化：优化 ArtForm、ArtSearchBar 栅格布局，适配多种屏幕尺寸',
       '节日功能增强：礼花配置支持跨日期范围设置与自定义播放次数',
-      '依赖更新：升级核心依赖至最新稳定版本'
+      '依赖更新：升级核心依赖至最新稳定版本',
+      '配置管理优化：新增 setting.ts 配置文件，支持一键复制与重置系统默认设置'
     ],
     remark:
       '重要提示：本次升级涉及样式系统（Sass → Tailwind CSS）与图标库（Iconfont → Iconify）的底层重构，属于破坏性更新。建议新项目直接使用 v3.0，旧版本项目不建议升级。'

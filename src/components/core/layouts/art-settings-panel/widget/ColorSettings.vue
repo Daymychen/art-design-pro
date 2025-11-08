@@ -6,13 +6,13 @@
         <div
           v-for="color in configOptions.mainColors"
           :key="color"
-          class="flex items-center justify-center size-[23px] mr-4 mb-2.5 cursor-pointer rounded-full"
+          class="flex items-center justify-center size-[23px] mr-4 mb-2.5 cursor-pointer rounded-full transition-all duration-200 hover:opacity-85"
           :style="{ background: `${color} !important` }"
           @click="colorHandlers.selectColor(color)"
         >
           <ArtSvgIcon
             icon="ri:check-fill"
-            class="text-sm !text-white"
+            class="text-base !text-white"
             v-show="color === systemThemeColor"
           />
         </div>

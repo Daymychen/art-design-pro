@@ -8,7 +8,11 @@
   >
     <div
       class="relative box-border flex-b h-15 leading-15 select-none"
-      :class="[tabStyle === 'tab-card' || tabStyle === 'tab-google' ? 'border-b border-g-300' : '']"
+      :class="[
+        tabStyle === 'tab-card' || tabStyle === 'tab-google'
+          ? 'border-b border-[var(--art-card-border)]'
+          : ''
+      ]"
     >
       <div class="flex-c flex-1 min-w-0 leading-15" style="display: flex">
         <!-- 系统信息  -->

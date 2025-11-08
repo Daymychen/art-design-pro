@@ -31,7 +31,7 @@
     { label: '项目官网', url: WEB_LINKS.DOCS },
     { label: '文档', url: WEB_LINKS.INTRODUCE },
     { label: 'Github', url: WEB_LINKS.GITHUB_HOME },
-    { label: '博客', url: WEB_LINKS.BLOG }
+    { label: '哔哩哔哩', url: WEB_LINKS.BILIBILI }
   ]
 
   /**

@@ -1,5 +1,27 @@
 /**
- * 配置相关类型定义
+ * 配置类型定义模块
+ *
+ * 提供系统配置相关的类型定义
+ *
+ * ## 主要功能
+ *
+ * - 主题设置类型
+ * - 菜单布局类型
+ * - 节日配置类型
+ * - 系统基础配置类型
+ * - 快速入口配置类型
+ * - 顶部栏功能配置类型
+ * - 环境配置类型
+ * - 应用配置类型
+ *
+ * ## 使用场景
+ *
+ * - 系统配置文件类型约束
+ * - 配置项类型定义
+ * - 配置数据验证
+ *
+ * @module types/config/index
+ * @author Art Design Pro Team
  */
 
 import { MenuTypeEnum, SystemThemeEnum } from '@/enums/appEnum'
@@ -7,19 +29,29 @@ import { MenuThemeType, SystemThemeTypes } from '@/types/store'
 
 // 主题设置
 export interface ThemeSetting {
+  /** 主题名称 */
   name: string
+  /** 系统主题类型 */
   theme: SystemThemeEnum
+  /** 主题颜色数组 */
   color: string[]
+  /** 左侧线条颜色 */
   leftLineColor: string
+  /** 右侧线条颜色 */
   rightLineColor: string
+  /** 主题图片 */
   img: string
 }
 
 // 菜单布局
 export interface MenuLayout {
+  /** 布局名称 */
   name: string
+  /** 菜单类型值 */
   value: MenuTypeEnum
+  /** 布局预览图 */
   img: string
+  /** 布局描述 */
   description?: string
 }
 
@@ -108,12 +140,6 @@ export interface SystemConfig {
   darkMenuStyles: MenuThemeType[]
   // 系统主色调
   systemMainColor: readonly string[]
-  // 系统设置
-  systemSetting: {
-    defaultMenuWidth: number
-    defaultCustomRadius: string
-    defaultTabStyle: string
-  }
   // 快速入口配置
   fastEnter?: FastEnterConfig
   // 顶部栏功能配置

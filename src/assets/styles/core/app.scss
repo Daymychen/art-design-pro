@@ -83,7 +83,7 @@
 
 // 盒子默认边框
 .page-content {
-  border: 1px solid var(--default-border) !important;
+  border: 1px solid var(--art-card-border) !important;
 }
 
 @mixin art-card-base($border-color, $shadow: none, $radius-diff: 4px) {
@@ -96,26 +96,26 @@
 .art-card,
 .art-card-sm,
 .art-card-xs {
-  border: 1px solid var(--default-border);
+  border: 1px solid var(--art-card-border);
 }
 
 // 盒子边框
 [data-box-mode='border-mode'] {
   .page-content,
   .art-table-card {
-    border: 1px solid var(--default-border) !important;
+    border: 1px solid var(--art-card-border) !important;
   }
 
   .art-card {
-    @include art-card-base(var(--default-border), none, 4px);
+    @include art-card-base(var(--art-card-border), none, 4px);
   }
 
   .art-card-sm {
-    @include art-card-base(var(--default-border), none, 0px);
+    @include art-card-base(var(--art-card-border), none, 0px);
   }
 
   .art-card-xs {
-    @include art-card-base(var(--default-border), none, -4px);
+    @include art-card-base(var(--art-card-border), none, -4px);
   }
 }
 
@@ -128,7 +128,7 @@
   }
 
   .layout-sidebar {
-    border-right: 1px solid var(--default-border) !important;
+    border-right: 1px solid var(--art-card-border) !important;
   }
 
   .art-card {

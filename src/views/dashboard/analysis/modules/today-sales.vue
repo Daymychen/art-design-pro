@@ -15,7 +15,7 @@
       <ElRow :gutter="20">
         <ElCol :span="6" :xs="24" v-for="(item, index) in salesData" :key="index">
           <div
-            class="flex px-5 flex-col justify-center h-55 border border-g-300 rounded-xl max-lg:mb-4 max-sm:flex-row max-sm:justify-between max-sm:items-center max-sm:h-40"
+            class="flex px-5 flex-col justify-center h-55 border border-g-300/85 rounded-xl max-lg:mb-4 max-sm:flex-row max-sm:justify-between max-sm:items-center max-sm:h-40"
           >
             <div class="size-12 rounded-lg flex-cc bg-theme/10">
               <ArtSvgIcon :icon="item.icon" class="text-xl text-theme" />

@@ -1,3 +1,32 @@
+/**
+ * 主题动画工具模块
+ *
+ * 提供主题切换的视觉动画效果
+ *
+ * ## 主要功能
+ *
+ * - 基于鼠标点击位置的圆形扩散动画
+ * - View Transition API 支持（现代浏览器）
+ * - 降级处理（不支持动画的浏览器）
+ * - 暗黑主题切换过渡效果
+ * - 页面刷新时的主题过渡优化
+ *
+ * ## 使用场景
+ *
+ * - 明暗主题切换
+ * - 提升用户体验的视觉反馈
+ * - 页面刷新时的平滑过渡
+ *
+ * ## 技术实现
+ *
+ * - 使用 CSS 变量存储点击位置和半径
+ * - 利用 View Transition API 实现流畅动画
+ * - 通过 CSS class 控制过渡效果
+ * - 自动计算最大扩散半径
+ *
+ * @module utils/theme/animation
+ * @author Art Design Pro Team
+ */
 import { useCommon } from '@/composables/useCommon'
 import { useTheme } from '@/composables/useTheme'
 import { SystemThemeEnum } from '@/enums/appEnum'

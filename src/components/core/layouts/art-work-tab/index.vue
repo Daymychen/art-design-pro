@@ -4,8 +4,8 @@
     v-if="showWorkTab"
     class="box-border flex-b w-full px-5 mb-3 select-none max-sm:px-[15px]"
     :class="[
-      tabStyle === 'tab-card' ? 'py-1 border-b border-g-300' : '',
-      tabStyle === 'tab-google' ? 'pt-1 pb-0 border-b border-g-300' : ''
+      tabStyle === 'tab-card' ? 'py-1 border-b border-[var(--art-card-border)]' : '',
+      tabStyle === 'tab-google' ? 'pt-1 pb-0 border-b border-[var(--art-card-border)]' : ''
     ]"
   >
     <div class="w-full overflow-hidden" ref="scrollRef">

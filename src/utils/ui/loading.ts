@@ -1,3 +1,33 @@
+/**
+ * 全局 Loading 加载管理模块
+ *
+ * 提供统一的全屏加载动画管理
+ *
+ * ## 主要功能
+ *
+ * - 全屏 Loading 显示和隐藏
+ * - 自动适配明暗主题背景色
+ * - 自定义 SVG 加载动画
+ * - 单例模式防止重复创建
+ * - 锁定页面交互
+ *
+ * ## 使用场景
+ *
+ * - 页面初始化加载
+ * - 大量数据请求
+ * - 路由切换过渡
+ * - 异步操作等待
+ *
+ * ## 特性
+ *
+ * - 自动检测当前主题并应用对应背景色
+ * - 使用自定义 SVG 动画（四点旋转）
+ * - 单例模式确保同时只有一个 Loading
+ * - 提供便捷的显示/隐藏方法
+ *
+ * @module utils/ui/loading
+ * @author Art Design Pro Team
+ */
 import { fourDotsSpinnerSvg } from '@/assets/svg/loading'
 
 /**

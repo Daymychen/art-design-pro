@@ -76,25 +76,25 @@
       <div class="space-y-4">
         <div>
           <div class="text-sm text-g-600 mb-2">基础使用</div>
-          <div class="bg-g-300/50 p-4 rounded font-mono text-sm text-g-800">
+          <div class="bg-g-200 dark:bg-g-300/30 p-4 rounded font-mono text-sm text-g-800">
             &lt;ArtSvgIcon icon="ri:home-line" /&gt;
           </div>
         </div>
         <div>
           <div class="text-sm text-g-600 mb-2">自定义大小</div>
-          <div class="bg-g-300/50 p-4 rounded font-mono text-sm text-g-800">
+          <div class="bg-g-200 dark:bg-g-300/30 p-4 rounded font-mono text-sm text-g-800">
             &lt;ArtSvgIcon icon="ri:user-line" class="text-2xl" /&gt;
           </div>
         </div>
         <div>
           <div class="text-sm text-g-600 mb-2">自定义颜色</div>
-          <div class="bg-g-300/50 p-4 rounded font-mono text-sm text-g-800">
+          <div class="bg-g-200 dark:bg-g-300/30 p-4 rounded font-mono text-sm text-g-800">
             &lt;ArtSvgIcon icon="ri:heart-fill" class="text-red-500" /&gt;
           </div>
         </div>
         <div>
           <div class="text-sm text-g-600 mb-2">组合使用</div>
-          <div class="bg-g-300/50 p-4 rounded font-mono text-sm text-g-800">
+          <div class="bg-g-200 dark:bg-g-300/30 p-4 rounded font-mono text-sm text-g-800">
             &lt;ArtSvgIcon icon="ri:star-fill" class="text-4xl text-yellow-500" /&gt;
           </div>
         </div>

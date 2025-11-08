@@ -1,3 +1,26 @@
+/**
+ * 工作标签页管理模块
+ *
+ * 提供工作标签页（Worktab）的自动管理功能
+ *
+ * ## 主要功能
+ *
+ * - 根据路由导航自动创建和更新工作标签页
+ * - iframe 页面标签页特殊处理
+ * - 标签页信息提取（标题、路径、缓存状态等）
+ * - 固定标签页支持
+ * - 根据系统设置控制标签页显示
+ * - 首页标签页特殊处理
+ *
+ * ## 使用场景
+ *
+ * - 路由守卫中自动创建标签页
+ * - 页面切换时更新标签页状态
+ * - 多标签页导航系统
+ *
+ * @module utils/navigation/worktab
+ * @author Art Design Pro Team
+ */
 import { useWorktabStore } from '@/store/modules/worktab'
 import { RouteLocationNormalized } from 'vue-router'
 import { isIframe } from './route'

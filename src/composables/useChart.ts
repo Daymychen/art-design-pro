@@ -463,8 +463,8 @@ export function useChart(options: UseChartOptions = {}) {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        font-size: 14px;
-        color: ${isDark.value ? '#666' : '#999'};
+        font-size: 12px;
+        color: ${isDark.value ? '#555555' : '#B3B2B2'};
         background: transparent;
         z-index: 10;
       `

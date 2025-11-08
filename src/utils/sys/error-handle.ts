@@ -1,3 +1,34 @@
+/**
+ * 全局错误处理模块
+ *
+ * 提供统一的错误捕获和处理机制
+ *
+ * ## 主要功能
+ *
+ * - Vue 运行时错误捕获（组件错误、生命周期错误等）
+ * - 全局脚本错误捕获（语法错误、运行时错误等）
+ * - Promise 未捕获错误处理（unhandledrejection）
+ * - 静态资源加载错误监控（图片、脚本、样式等）
+ * - 错误日志记录和上报
+ * - 统一的错误处理入口
+ *
+ * ## 使用场景
+ * - 应用启动时安装全局错误处理器
+ * - 捕获和记录所有类型的错误
+ * - 错误上报到监控平台
+ * - 提升应用稳定性和可维护性
+ * - 问题排查和调试
+ *
+ * ## 错误类型
+ *
+ * - VueError: Vue 组件相关错误
+ * - ScriptError: JavaScript 脚本错误
+ * - PromiseError: Promise 未捕获的 rejection
+ * - ResourceError: 静态资源加载失败
+ *
+ * @module utils/sys/error-handle
+ * @author Art Design Pro Team
+ */
 import type { App } from 'vue'
 
 /**

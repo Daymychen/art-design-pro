@@ -3,7 +3,7 @@
   height: 100vh;
   user-select: none;
   scrollbar-width: none;
-  border-right: 1px solid var(--default-border);
+  border-right: 1px solid var(--art-card-border);
 
   &.no-border {
     border-right: none !important;
@@ -24,7 +24,7 @@
     position: relative;
     width: 80px;
     height: 100%;
-    border-right: 1px solid var(--default-border) !important;
+    border-right: 1px solid var(--art-card-border) !important;
     transition: width 0.25s;
 
     .logo {
@@ -202,8 +202,14 @@
 
 .dark {
   .layout-sidebar {
+    border-right: 1px solid rgb(255 255 255 / 13%);
+
     :deep(.el-scrollbar__thumb) {
       background-color: #777;
+    }
+
+    .dual-menu-left {
+      border-right: 1px solid rgb(255 255 255 / 9%) !important;
     }
   }
 }

@@ -170,6 +170,6 @@
     bg-g-100
     rounded-lg 
     tabular-nums
-    border border-g-300;
+    border border-g-300/60;
   }
 </style>

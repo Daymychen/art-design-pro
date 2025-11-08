@@ -1,4 +1,40 @@
 /**
+ * 表单响应式布局工具模块
+ *
+ * 提供表单项在不同屏幕尺寸下的智能布局计算
+ *
+ * ## 主要功能
+ *
+ * - 响应式断点管理（xs/sm/md/lg/xl）
+ * - 表单列宽自动降级（避免小屏幕压缩）
+ * - 基于阈值的智能 span 计算
+ * - 响应式计算器工厂函数
+ * - 可配置的断点规则
+ *
+ * ## 使用场景
+ *
+ * - 表单组件响应式布局
+ * - 搜索表单自适应
+ * - 移动端表单优化
+ * - 多列表单布局
+ *
+ * ## 断点说明（基于 Element Plus Grid 24 栅格系统）：
+ * - xs (手机): < 768px，小于 12 时降级为 24（满宽）
+ * - sm (平板): ≥ 768px，小于 12 时降级为 12（半宽）
+ * - md (中等屏幕): ≥ 992px，小于 8 时降级为 8（三分之一宽）
+ * - lg (大屏幕): ≥ 1200px，直接使用设置的 span
+ * - xl (超大屏幕): ≥ 1920px，直接使用设置的 span
+ *
+ * ## 核心功能
+ *
+ * - calculateResponsiveSpan: 计算响应式列宽
+ * - createResponsiveSpanCalculator: 创建 span 计算器（柯里化）
+ *
+ * @module utils/form/responsive
+ * @author Art Design Pro Team
+ */
+
+/**
  * 响应式断点类型
  */
 export type ResponsiveBreakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
