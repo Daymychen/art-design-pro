@@ -38,7 +38,7 @@ import { router } from '@/router'
 import { useSettingStore } from './setting'
 import { useWorktabStore } from './worktab'
 import { AppRouteRecord } from '@/types/router'
-import { setPageTitle } from '@/router/utils/utils'
+import { setPageTitle } from '@/utils/router'
 import { resetRouterState } from '@/router/guards/beforeEach'
 import { useMenuStore } from './menu'
 

@@ -50,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-  import { formatMenuTitle } from '@/router/utils/utils'
+  import { formatMenuTitle } from '@/utils/router'
   import ArtButtonTable from '@/components/core/forms/art-button-table/index.vue'
   import { useTableColumns } from '@/composables/useTableColumns'
   import type { AppRouteRecord } from '@/types/router'

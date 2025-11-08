@@ -99,7 +99,7 @@
   import { Search } from '@element-plus/icons-vue'
   import { mittBus } from '@/utils/sys'
   import { useMenuStore } from '@/store/modules/menu'
-  import { formatMenuTitle } from '@/router/utils/utils'
+  import { formatMenuTitle } from '@/utils/router'
   import { type ScrollbarInstance } from 'element-plus'
 
   defineOptions({ name: 'ArtGlobalSearch' })

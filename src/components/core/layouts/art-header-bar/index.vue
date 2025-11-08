@@ -179,7 +179,7 @@
   import AppConfig from '@/config'
   import { languageOptions } from '@/locales'
   import { mittBus } from '@/utils/sys'
-  import { themeAnimation } from '@/utils/theme/animation'
+  import { themeAnimation } from '@/utils/ui/animation'
   import { useCommon } from '@/composables/useCommon'
   import { useHeaderBar } from '@/composables/useHeaderBar'
   import ArtUserMenu from './widget/ArtUserMenu.vue'

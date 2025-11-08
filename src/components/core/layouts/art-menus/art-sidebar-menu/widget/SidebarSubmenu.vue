@@ -59,7 +59,7 @@
 <script setup lang="ts">
   import { computed } from 'vue'
   import type { AppRouteRecord } from '@/types/router'
-  import { formatMenuTitle } from '@/router/utils/utils'
+  import { formatMenuTitle } from '@/utils/router'
   import { handleMenuJump } from '@/utils/navigation'
   import { useSettingStore } from '@/store/modules/setting'
 

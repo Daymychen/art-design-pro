@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-  import { getIframeRoutes } from '@/router/utils/menuToRouter'
+  import { IframeRouteManager } from '@/router/core'
 
   defineOptions({ name: 'IframeView' })
 
@@ -21,23 +21,11 @@
   const iframeRef = ref<HTMLIFrameElement | null>(null)
 
   /**
-   * Iframe 路由类型
-   */
-  interface IframeRoute {
-    path: string
-    meta?: {
-      link?: string
-      [key: string]: any
-    }
-    [key: string]: any
-  }
-
-  /**
    * 初始化 iframe URL
    * 从路由配置中获取对应的外部链接地址
    */
   onMounted(() => {
-    const iframeRoute = getIframeRoutes().find((item: IframeRoute) => item.path === route.path)
+    const iframeRoute = IframeRouteManager.getInstance().findByPath(route.path)
 
     if (iframeRoute?.meta) {
       iframeUrl.value = iframeRoute.meta.link || ''

@@ -56,7 +56,7 @@
   import { ref, computed, onMounted, nextTick } from 'vue'
   import { ArrowLeft, ArrowRight } from '@element-plus/icons-vue'
   import { useThrottleFn } from '@vueuse/core'
-  import { formatMenuTitle } from '@/router/utils/utils'
+  import { formatMenuTitle } from '@/utils/router'
   import { handleMenuJump } from '@/utils/navigation'
   import type { AppRouteRecord } from '@/types/router'
 

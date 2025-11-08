@@ -10,7 +10,7 @@
   import en from 'element-plus/es/locale/lang/en'
   import { systemUpgrade } from './utils/sys'
 
-  import { setThemeTransitionClass } from './utils/theme/animation'
+  import { setThemeTransitionClass } from './utils/ui/animation'
   import { checkStorageCompatibility } from './utils/storage'
 
   const userStore = useUserStore()

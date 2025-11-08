@@ -25,7 +25,7 @@ import { useWorktabStore } from '@/store/modules/worktab'
 import { RouteLocationNormalized } from 'vue-router'
 import { isIframe } from './route'
 import { useSettingStore } from '@/store/modules/setting'
-import { getIframeRoutes } from '@/router/utils/menuToRouter'
+import { IframeRouteManager } from '@/router/core'
 import { useCommon } from '@/composables/useCommon'
 
 /**
@@ -38,7 +38,7 @@ export const setWorktab = (to: RouteLocationNormalized): void => {
   if (!meta.isHideTab) {
     // 如果是 iframe 页面，则特殊处理工作标签页
     if (isIframe(path)) {
-      const iframeRoute = getIframeRoutes().find((route: any) => route.path === to.path)
+      const iframeRoute = IframeRouteManager.getInstance().findByPath(to.path)
 
       if (iframeRoute?.meta) {
         worktabStore.openTab({

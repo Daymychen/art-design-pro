@@ -1,3 +1,10 @@
+/**
+ * 路由工具函数
+ *
+ * 提供路由相关的工具函数
+ *
+ * @module utils/router
+ */
 import { RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
 import AppConfig from '@/config'
 import NProgress from 'nprogress'

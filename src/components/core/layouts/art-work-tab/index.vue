@@ -85,7 +85,7 @@
 
   import { useWorktabStore } from '@/store/modules/worktab'
   import { useUserStore } from '@/store/modules/user'
-  import { formatMenuTitle } from '@/router/utils/utils'
+  import { formatMenuTitle } from '@/utils/router'
   import { useSettingStore } from '@/store/modules/setting'
   import { MenuItemType } from '../../others/art-menu-right/index.vue'
   import { useCommon } from '@/composables/useCommon'
