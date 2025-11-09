@@ -1,29 +1,19 @@
 <!-- 进度条卡片 -->
 <template>
-  <div class="progress-card art-custom-card">
-    <div class="progress-info" :style="{ justifyContent: icon ? 'space-between' : 'flex-start' }">
-      <div class="left">
-        <i
-          v-if="icon"
-          class="iconfont-sys"
-          v-html="icon"
-          :style="{
-            color: iconColor,
-            backgroundColor: iconBgColor,
-            fontSize: iconSize + 'px',
-            borderRadius: iconBgRadius + 'px'
-          }"
-        ></i>
+  <div class="art-card h-32 flex flex-col justify-center px-5">
+    <div class="mb-3.5 flex-c" :style="{ justifyContent: icon ? 'space-between' : 'flex-start' }">
+      <div v-if="icon" class="size-11 flex-cc bg-g-300 text-xl rounded-lg" :class="iconStyle">
+        <ArtSvgIcon :icon="icon" class="text-2xl"></ArtSvgIcon>
       </div>
-      <div class="right">
+      <div>
         <ArtCountTo
-          class="percentage"
+          class="mb-1 block text-2xl font-semibold"
           :target="percentage"
           :duration="2000"
           suffix="%"
           :style="{ textAlign: icon ? 'right' : 'left' }"
         />
-        <p class="title">{{ title }}</p>
+        <p class="text-sm text-g-500">{{ title }}</p>
       </div>
     </div>
     <ElProgress
@@ -31,6 +21,7 @@
       :stroke-width="strokeWidth"
       :show-text="false"
       :color="color"
+      class="[&_.el-progress-bar__outer]:bg-[rgb(240_240_240)]"
     />
   </div>
 </template>
@@ -47,21 +38,14 @@
     color?: string
     /** 图标 */
     icon?: string
-    /** 图标颜色 */
-    iconColor?: string
-    /** 图标背景颜色 */
-    iconBgColor?: string
-    /** icon 背景圆角大小 */
-    iconBgRadius?: number
-    /** 图标大小 */
-    iconSize?: number
+    /** 图标样式 */
+    iconStyle?: string
     /** 进度条宽度 */
     strokeWidth?: number
   }
 
   const props = withDefaults(defineProps<Props>(), {
     strokeWidth: 5,
-    iconBgRadius: 8,
     color: '#67C23A'
   })
 
@@ -100,51 +84,3 @@
     }
   )
 </script>
-
-<style lang="scss" scoped>
-  .progress-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 8rem;
-    padding: 0 20px;
-    background-color: var(--art-main-bg-color);
-    border-radius: calc(var(--custom-radius) + 4px);
-
-    .progress-info {
-      display: flex;
-      align-items: center;
-      margin-block-end: 15px;
-
-      .left {
-        i {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 46px;
-          height: 46px;
-          background-color: var(--art-gray-300);
-        }
-      }
-
-      .right {
-        .percentage {
-          display: block;
-          margin-block-end: 4px;
-          font-size: 1.5rem;
-          font-weight: 600;
-          color: var(--art-gray-900);
-        }
-
-        .title {
-          font-size: 0.875rem;
-          color: var(--art-gray-600);
-        }
-      }
-    }
-
-    :deep(.el-progress-bar__outer) {
-      background-color: rgb(240 240 240);
-    }
-  }
-</style>

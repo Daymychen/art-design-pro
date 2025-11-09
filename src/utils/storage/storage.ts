@@ -1,3 +1,37 @@
+/**
+ * 存储兼容性管理模块
+ *
+ * 提供完整的本地存储兼容性检查和数据验证功能
+ *
+ * 主要功能
+ *
+ * - 多版本存储数据检测和验证
+ * - 新旧存储格式兼容处理
+ * - 存储数据完整性校验
+ * - 存储异常自动恢复（清理+登出）
+ * - 登录状态验证
+ * - 存储为空检测
+ * - 版本号管理
+ *
+ * ## 使用场景
+ *
+ * - 应用启动时检查存储数据有效性
+ * - 路由守卫中验证登录状态
+ * - 版本升级时的数据兼容性检查
+ * - 存储异常时的自动恢复
+ * - 防止因存储数据损坏导致的系统异常
+ *
+ * ## 工作流程
+ *
+ * 1. 优先检查当前版本的存储数据
+ * 2. 检查其他版本的存储数据
+ * 3. 兼容旧格式的存储数据
+ * 4. 验证数据完整性
+ * 5. 异常时提示用户并执行登出
+ *
+ * @module utils/storage/storage
+ * @author Art Design Pro Team
+ */
 import { router } from '@/router'
 import { useUserStore } from '@/store/modules/user'
 import { StorageConfig } from '@/utils/storage/storage-config'

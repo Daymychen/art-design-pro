@@ -6,7 +6,7 @@ export const exceptionRoutes: AppRouteRecord = {
   component: '/index/index',
   meta: {
     title: 'menus.exception.title',
-    icon: '&#xe820;'
+    icon: 'ri:error-warning-line'
   },
   children: [
     {

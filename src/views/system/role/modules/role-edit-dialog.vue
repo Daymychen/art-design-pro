@@ -26,10 +26,8 @@
       </ElFormItem>
     </ElForm>
     <template #footer>
-      <div class="dialog-footer">
-        <ElButton @click="handleClose">取消</ElButton>
-        <ElButton type="primary" @click="handleSubmit">提交</ElButton>
-      </div>
+      <ElButton @click="handleClose">取消</ElButton>
+      <ElButton type="primary" @click="handleSubmit">提交</ElButton>
     </template>
   </ElDialog>
 </template>
@@ -162,11 +160,3 @@
     }
   }
 </script>
-
-<style lang="scss" scoped>
-  .dialog-footer {
-    display: flex;
-    gap: 12px;
-    justify-content: flex-end;
-  }
-</style>

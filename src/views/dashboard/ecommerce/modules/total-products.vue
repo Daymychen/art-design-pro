@@ -1,9 +1,12 @@
 <template>
-  <div class="card art-custom-card" style="height: 13.3rem">
-    <div class="card-header">
-      <p class="title" style="font-size: 24px">55,231</p>
-      <p class="subtitle">商品总数</p>
+  <div class="art-card h-53 p-5 pt-3.5 mb-5 max-sm:mb-4">
+    <div class="art-card-header">
+      <div class="title">
+        <h4 class="text-2xl font-medium">55,231</h4>
+        <p>商品总数</p>
+      </div>
     </div>
+
     <ArtBarChart
       :showAxisLabel="false"
       :showAxisLine="false"

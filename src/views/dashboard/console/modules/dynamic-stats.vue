@@ -1,18 +1,24 @@
 <template>
-  <div class="card art-custom-card">
-    <div class="card-header">
+  <div class="art-card h-128 p-5 mb-5 max-sm:mb-4">
+    <div class="art-card-header">
       <div class="title">
-        <h4 class="box-title">动态</h4>
-        <p class="subtitle">新增<span class="text-success">+6</span></p>
+        <h4>动态</h4>
+        <p>新增<span class="text-success">+6</span></p>
       </div>
     </div>
 
-    <div class="list">
-      <div v-for="(item, index) in list" :key="index">
-        <span class="user">{{ item.username }}</span>
-        <span class="type">{{ item.type }}</span>
-        <span class="target">{{ item.target }}</span>
-      </div>
+    <div class="h-9/10 mt-2 overflow-hidden">
+      <ElScrollbar>
+        <div
+          class="h-17.5 leading-17.5 border-b border-g-300 text-sm overflow-hidden last:border-b-0"
+          v-for="(item, index) in list"
+          :key="index"
+        >
+          <span class="text-g-800 font-medium">{{ item.username }}</span>
+          <span class="mx-2 text-g-600">{{ item.type }}</span>
+          <span class="text-theme">{{ item.target }}</span>
+        </div>
+      </ElScrollbar>
     </div>
   </div>
 </template>
@@ -29,6 +35,16 @@
    * 记录用户的关注、发文、提问、兑换等各类活动
    */
   const list = reactive<DynamicItem[]>([
+    {
+      username: '中小鱼',
+      type: '关注了',
+      target: '誶誶淰'
+    },
+    {
+      username: '何小荷',
+      type: '发表文章',
+      target: 'Vue3 + Typescript + Vite 项目实战笔记'
+    },
     {
       username: '中小鱼',
       type: '关注了',
@@ -61,48 +77,3 @@
     }
   ])
 </script>
-
-<style lang="scss" scoped>
-  .card {
-    box-sizing: border-box;
-    width: 100%;
-    height: 510px;
-    padding: 0 25px;
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      padding: 20px 0 0;
-    }
-
-    .list {
-      height: calc(100% - 100px);
-      margin-top: 10px;
-      overflow: hidden;
-
-      > div {
-        height: 70px;
-        overflow: hidden;
-        line-height: 70px;
-        border-bottom: 1px solid var(--art-border-color);
-
-        span {
-          font-size: 13px;
-        }
-
-        .user {
-          font-weight: 500;
-          color: var(--art-text-gray-800);
-        }
-
-        .type {
-          margin: 0 8px;
-        }
-
-        .target {
-          color: var(--main-color);
-        }
-      }
-    }
-  }
-</style>

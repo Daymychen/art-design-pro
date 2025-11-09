@@ -1,12 +1,8 @@
 <template>
-  <ElSubMenu v-if="hasChildren" :index="item.path || item.meta.title">
+  <ElSubMenu v-if="hasChildren" :index="item.path || item.meta.title" class="!p-0">
     <template #title>
-      <i
-        class="menu-icon iconfont-sys"
-        :style="{ color: theme?.iconColor }"
-        v-html="item.meta.icon"
-      ></i>
-      <span>{{ formatMenuTitle(item.meta.title) }}</span>
+      <ArtSvgIcon :icon="item.meta.icon" :color="theme?.iconColor" class="mr-1 text-lg" />
+      <span class="text-md">{{ formatMenuTitle(item.meta.title) }}</span>
       <div v-if="item.meta.showBadge" class="art-badge art-badge-horizontal" />
       <div v-if="item.meta.showTextBadge" class="art-text-badge">
         {{ item.meta.showTextBadge }}
@@ -30,12 +26,13 @@
     :index="item.path || item.meta.title"
     @click="goPage(item)"
   >
-    <i
-      class="menu-icon iconfont-sys"
-      :style="{ color: theme?.iconColor }"
-      v-html="item.meta.icon"
-    ></i>
-    <span>{{ formatMenuTitle(item.meta.title) }}</span>
+    <ArtSvgIcon
+      :icon="item.meta.icon"
+      :color="theme?.iconColor"
+      class="mr-1 text-lg"
+      :style="{ color: theme.iconColor }"
+    />
+    <span class="text-md">{{ formatMenuTitle(item.meta.title) }}</span>
     <div
       v-if="item.meta.showBadge"
       class="art-badge"
@@ -51,7 +48,7 @@
   import { computed, type PropType } from 'vue'
   import { AppRouteRecord } from '@/types/router'
   import { handleMenuJump } from '@/utils/navigation'
-  import { formatMenuTitle } from '@/router/utils/utils'
+  import { formatMenuTitle } from '@/utils/router'
 
   const props = defineProps({
     item: {
@@ -91,19 +88,8 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .el-sub-menu {
-    padding: 0 !important;
-
-    :deep(.el-sub-menu__title) {
-      .el-sub-menu__icon-arrow {
-        right: 10px !important;
-      }
-    }
-  }
-
-  .menu-icon {
-    margin-right: 5px;
-    font-size: 16px;
+<style scoped>
+  :deep(.el-sub-menu__title .el-sub-menu__icon-arrow) {
+    right: 10px !important;
   }
 </style>

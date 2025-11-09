@@ -29,22 +29,20 @@
       </ElTree>
     </ElScrollbar>
     <template #footer>
-      <div class="dialog-footer">
-        <ElButton @click="outputSelectedData" style="margin-left: 8px">获取选中数据</ElButton>
+      <ElButton @click="outputSelectedData" style="margin-left: 8px">获取选中数据</ElButton>
 
-        <ElButton @click="toggleExpandAll">{{ isExpandAll ? '全部收起' : '全部展开' }}</ElButton>
-        <ElButton @click="toggleSelectAll" style="margin-left: 8px">{{
-          isSelectAll ? '取消全选' : '全部选择'
-        }}</ElButton>
-        <ElButton type="primary" @click="savePermission">保存</ElButton>
-      </div>
+      <ElButton @click="toggleExpandAll">{{ isExpandAll ? '全部收起' : '全部展开' }}</ElButton>
+      <ElButton @click="toggleSelectAll" style="margin-left: 8px">{{
+        isSelectAll ? '取消全选' : '全部选择'
+      }}</ElButton>
+      <ElButton type="primary" @click="savePermission">保存</ElButton>
     </template>
   </ElDialog>
 </template>
 
 <script setup lang="ts">
   import { useMenuStore } from '@/store/modules/menu'
-  import { formatMenuTitle } from '@/router/utils/utils'
+  import { formatMenuTitle } from '@/utils/router'
 
   type RoleListItem = Api.SystemManage.RoleListItem
 
@@ -254,11 +252,3 @@
     ElMessage.success(`已输出选中数据到控制台，共选中 ${selectedData.totalChecked} 个节点`)
   }
 </script>
-
-<style lang="scss" scoped>
-  .dialog-footer {
-    display: flex;
-    gap: 12px;
-    justify-content: flex-end;
-  }
-</style>

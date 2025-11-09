@@ -1,4 +1,38 @@
-// 表格缓存管理
+/**
+ * 表格缓存管理模块
+ *
+ * 提供高性能的表格数据缓存机制
+ *
+ * ## 主要功能
+ *
+ * - 基于参数的智能缓存键生成（使用 ohash）
+ * - LRU（最近最少使用）缓存淘汰策略
+ * - 缓存过期时间管理
+ * - 缓存大小限制和自动清理
+ * - 基于标签的缓存分组管理
+ * - 多种缓存失效策略（清空所有、清空当前、清空分页等）
+ * - 缓存访问统计和命中率分析
+ * - 缓存大小估算
+ *
+ * ## 使用场景
+ *
+ * - 表格数据的分页缓存
+ * - 减少重复的 API 请求
+ * - 提升表格切换和返回的响应速度
+ * - 搜索条件变化时的智能缓存管理
+ * - 数据更新后的缓存失效处理
+ *
+ * ## 缓存策略
+ *
+ * - CLEAR_ALL: 清空所有缓存（适用于全局数据更新）
+ * - CLEAR_CURRENT: 仅清空当前查询条件的缓存（适用于单条数据更新）
+ * - CLEAR_PAGINATION: 清空所有分页缓存但保留不同搜索条件（适用于批量操作）
+ * - KEEP_ALL: 不清除缓存（适用于只读操作）
+ *
+ * @module utils/table/tableCache
+ * @author Art Design Pro Team
+ */
+import { hash } from 'ohash'
 
 // 缓存失效策略枚举
 export enum CacheInvalidationStrategy {
@@ -57,32 +91,9 @@ export class TableCache<T> {
     }
   }
 
-  // 🔧 优化：生成稳定的缓存键
+  // 生成稳定的缓存键
   private generateKey(params: unknown): string {
-    if (!params || typeof params !== 'object') {
-      return JSON.stringify(params)
-    }
-
-    // 对象属性排序后再序列化，确保键的稳定性
-    const sortedParams = this.sortObjectKeys(params as Record<string, unknown>)
-    return JSON.stringify(sortedParams)
-  }
-
-  // 递归排序对象键
-  private sortObjectKeys(obj: Record<string, unknown>): Record<string, unknown> {
-    const result: Record<string, unknown> = {}
-    const keys = Object.keys(obj).sort()
-
-    for (const key of keys) {
-      const value = obj[key]
-      if (value && typeof value === 'object' && !Array.isArray(value)) {
-        result[key] = this.sortObjectKeys(value as Record<string, unknown>)
-      } else {
-        result[key] = value
-      }
-    }
-
-    return result
+    return hash(params)
   }
 
   // 🔧 优化：增强类型安全性

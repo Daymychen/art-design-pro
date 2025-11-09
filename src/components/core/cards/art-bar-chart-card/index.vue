@@ -1,33 +1,35 @@
 <!-- 柱状图卡片 -->
 <template>
-  <div class="bar-chart-card art-custom-card" :style="{ height: `${height}rem` }">
-    <div class="card-body">
-      <div class="chart-header">
-        <div class="metric">
-          <p class="value">{{ value }}</p>
-          <p class="label">{{ label }}</p>
-        </div>
-        <div
-          class="percentage"
-          :class="{ 'is-increase': percentage > 0, 'is-mini-chart': isMiniChart }"
-        >
-          {{ percentage > 0 ? '+' : '' }}{{ percentage }}%
-        </div>
-        <div class="date" v-if="date" :class="{ 'is-mini-chart': isMiniChart }">{{ date }}</div>
+  <div class="art-card relative overflow-hidden" :style="{ height: `${height}rem` }">
+    <div class="mb-5 flex-b items-start px-5 pt-5">
+      <div>
+        <p class="m-0 text-2xl font-medium leading-tight text-g-900">
+          {{ value }}
+        </p>
+        <p class="mt-1 text-sm text-g-600">{{ label }}</p>
       </div>
       <div
-        ref="chartRef"
-        class="chart-container"
-        :class="{ 'is-mini-chart': isMiniChart }"
-        :style="{ height: `calc(${height}rem - 5rem)` }"
-      ></div>
+        class="text-sm font-medium text-danger"
+        :class="[percentage > 0 ? 'text-success' : '', isMiniChart ? 'absolute bottom-5' : '']"
+      >
+        {{ percentage > 0 ? '+' : '' }}{{ percentage }}%
+      </div>
+      <div v-if="date" class="absolute bottom-5 right-5 text-xs text-g-600">
+        {{ date }}
+      </div>
     </div>
+    <div
+      ref="chartRef"
+      class="absolute bottom-0 left-0 right-0 mx-auto"
+      :class="isMiniChart ? '!absolute !top-5 !right-5 !bottom-auto !left-auto !h-15 !w-4/10' : ''"
+      :style="{ height: isMiniChart ? '60px' : `calc(${height}rem - 5rem)` }"
+    ></div>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { useChartOps, useChartComponent } from '@/composables/useChart'
-  import { type EChartsOption } from '@/utils/echarts'
+  import { useChartOps, useChartComponent } from '@/hooks/core/useChart'
+  import { type EChartsOption } from '@/plugins/echarts'
 
   defineOptions({ name: 'ArtBarChartCard' })
 
@@ -99,78 +101,3 @@
     }
   })
 </script>
-
-<style lang="scss" scoped>
-  .bar-chart-card {
-    position: relative;
-    overflow: hidden;
-    color: #303133;
-    background-color: var(--art-main-bg-color);
-    border-radius: var(--custom-radius);
-    transition: 0.3s;
-
-    .chart-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      padding: 20px 20px 0;
-      margin-bottom: 20px;
-    }
-
-    .metric {
-      .value {
-        margin: 0;
-        font-size: 24px;
-        font-weight: 500;
-        line-height: 1.2;
-        color: var(--art-text-gray-900);
-      }
-
-      .label {
-        margin: 4px 0 0;
-        font-size: 14px;
-        color: var(--art-text-gray-600);
-      }
-    }
-
-    .percentage {
-      font-size: 14px;
-      font-weight: 500;
-      color: #f56c6c;
-
-      &.is-increase {
-        color: #67c23a;
-      }
-
-      &.is-mini-chart {
-        position: absolute;
-        bottom: 20px;
-      }
-    }
-
-    .date {
-      position: absolute;
-      right: 20px;
-      bottom: 20px;
-      font-size: 12px;
-      color: var(--art-text-gray-600);
-    }
-
-    .chart-container {
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      width: calc(100% - 22px);
-      height: 100px;
-      margin: auto;
-
-      &.is-mini-chart {
-        position: absolute;
-        inset: 25px 20px auto auto;
-        width: 40%;
-        height: 60px !important;
-      }
-    }
-  }
-</style>

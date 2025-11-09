@@ -1,5 +1,4 @@
-@use '@styles/variables.scss' as *;
-@use '@styles/mixin.scss' as *;
+@use '@styles/core/mixin.scss' as *;
 
 // 设置抽屉模态框样式
 .setting-modal {
@@ -32,7 +31,7 @@
           height: 52px;
           overflow: hidden;
           cursor: pointer;
-          border: 2px solid var(--art-border-color);
+          border: 2px solid var(--default-border);
           border-radius: 8px;
           box-shadow: 0 0 8px 0 rgb(0 0 0 / 10%);
           transition: box-shadow 0.1s;
@@ -42,7 +41,7 @@
           }
 
           &.is-active {
-            border: 2px solid var(--main-color);
+            border: 2px solid var(--theme-color);
           }
 
           img {
@@ -78,21 +77,6 @@
       }
     }
   }
-
-  .drawer-con {
-    .box-style {
-      .button {
-        &.is-active {
-          color: #fff !important;
-          background-color: rgba(var(--art-gray-400-rgb), 0.7);
-        }
-
-        &:hover:not(.is-active) {
-          background-color: rgba($color: #000, $alpha: 20%);
-        }
-      }
-    }
-  }
 }
 
 // 去除火狐浏览器滚动条
@@ -101,47 +85,8 @@
 }
 
 // 移动端隐藏
-@media screen and (max-width: $device-ipad) {
+@media screen and (width <= 800px) {
   .mobile-hide {
     display: none !important;
-  }
-
-  .drawer-con {
-    .style-item {
-      width: calc(50% - 10px);
-      margin-right: 10px;
-
-      &:nth-child(2n) {
-        margin-right: 0;
-      }
-    }
-
-    .basic-box {
-      .item {
-        padding: 6px 0;
-        margin-top: 15px;
-
-        span {
-          font-size: 13px;
-        }
-      }
-    }
-  }
-}
-
-// 小屏幕适配
-@media screen and (width <= 480px) {
-  .drawer-con {
-    padding: 0 8px 20px;
-
-    .main-color-wrap {
-      .offset {
-        justify-content: center;
-
-        > div {
-          margin: 0 8px 8px 0;
-        }
-      }
-    }
   }
 }

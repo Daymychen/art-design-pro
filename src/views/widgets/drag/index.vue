@@ -1,28 +1,36 @@
 <!-- https://vue-draggable-plus.pages.dev/ -->
 <template>
-  <div class="page-content">
+  <div class="page-content mb-5">
     <ElRow>
-      <ElCard shadow="never" style="width: 300px; margin-right: 20px">
+      <ElCard shadow="never" class="w-75 mr-5 mb-7.5">
         <template #header>
-          <span class="card-header">基础示例</span>
+          <span class="text-base font-bold">基础示例</span>
         </template>
         <template #default>
           <VueDraggable ref="el" v-model="userList">
-            <div class="demo1-item" v-for="item in userList" :key="item.name">
+            <div
+              class="p-2.5 mb-2.5 cursor-move bg-active-color rounded"
+              v-for="item in userList"
+              :key="item.name"
+            >
               {{ item.name }}
             </div>
           </VueDraggable>
         </template>
       </ElCard>
 
-      <ElCard shadow="never" style="width: 300px">
+      <ElCard shadow="never" class="w-75 mb-7.5">
         <template #header>
-          <span class="card-header">过渡动画</span>
+          <span class="text-base font-bold">过渡动画</span>
         </template>
         <template #default>
           <VueDraggable v-model="userList" target=".sort-target" :scroll="true">
             <TransitionGroup type="transition" tag="ul" name="fade" class="sort-target">
-              <li v-for="item in userList" :key="item.name" class="demo1-item">
+              <li
+                v-for="item in userList"
+                :key="item.name"
+                class="p-2.5 mb-2.5 cursor-move bg-active-color rounded"
+              >
                 {{ item.name }}
               </li>
             </TransitionGroup>
@@ -31,9 +39,9 @@
       </ElCard>
     </ElRow>
 
-    <ElCard shadow="never">
+    <ElCard shadow="never" class="mb-7.5">
       <template #header>
-        <span class="card-header">表格拖拽排序</span>
+        <span class="text-base font-bold">表格拖拽排序</span>
       </template>
       <template #default>
         <VueDraggable target="tbody" v-model="userList" :animation="150">
@@ -45,9 +53,9 @@
       </template>
     </ElCard>
 
-    <ElCard shadow="never">
+    <ElCard shadow="never" class="mb-7.5">
       <template #header>
-        <span class="card-header">指定元素拖拽排序</span>
+        <span class="text-base font-bold">指定元素拖拽排序</span>
       </template>
       <template #default>
         <VueDraggable target="tbody" handle=".handle" v-model="userList" :animation="150">
@@ -81,26 +89,7 @@
   ])
 </script>
 
-<style lang="scss" scoped>
-  .page-content {
-    .demo1-item {
-      padding: 10px;
-      margin-bottom: 10px;
-      cursor: move;
-      background-color: rgba(var(--art-gray-200-rgb), 0.8);
-      border-radius: 4px;
-    }
-
-    .el-card {
-      margin-bottom: 30px;
-
-      .card-header {
-        font-size: 16px;
-        font-weight: bold;
-      }
-    }
-  }
-
+<style scoped>
   .fade-move,
   .fade-enter-active,
   .fade-leave-active {

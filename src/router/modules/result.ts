@@ -6,7 +6,7 @@ export const resultRoutes: AppRouteRecord = {
   component: '/index/index',
   meta: {
     title: 'menus.result.title',
-    icon: '&#xe715;'
+    icon: 'ri:checkbox-circle-line'
   },
   children: [
     {

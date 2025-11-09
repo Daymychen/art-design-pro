@@ -1,9 +1,14 @@
 <template>
-  <template v-for="item in filteredMenuItems" :key="item.path">
-    <!-- 包含子菜单的项目 -->
+  <template v-for="(item, index) in filteredMenuItems" :key="getUniqueKey(item, index)">
     <ElSubMenu v-if="hasChildren(item)" :index="item.path || item.meta.title" :level="level">
       <template #title>
-        <MenuItemIcon :icon="item.meta.icon" :color="theme?.iconColor" />
+        <div class="menu-icon flex-cc">
+          <ArtSvgIcon
+            :icon="item.meta.icon"
+            :color="theme?.iconColor"
+            :style="{ color: theme.iconColor }"
+          />
+        </div>
         <span class="menu-name">
           {{ formatMenuTitle(item.meta.title) }}
         </span>
@@ -19,14 +24,19 @@
       />
     </ElSubMenu>
 
-    <!-- 普通菜单项 -->
     <ElMenuItem
       v-else
       :index="isExternalLink(item) ? undefined : item.path || item.meta.title"
       :level-item="level + 1"
       @click="goPage(item)"
     >
-      <MenuItemIcon :icon="item.meta.icon" :color="theme?.iconColor" />
+      <div class="menu-icon flex-cc">
+        <ArtSvgIcon
+          :icon="item.meta.icon"
+          :color="theme?.iconColor"
+          :style="{ color: theme.iconColor }"
+        />
+      </div>
       <div
         v-show="item.meta.showBadge && level === 0 && !menuOpen"
         class="art-badge"
@@ -49,7 +59,7 @@
 <script setup lang="ts">
   import { computed } from 'vue'
   import type { AppRouteRecord } from '@/types/router'
-  import { formatMenuTitle } from '@/router/utils/utils'
+  import { formatMenuTitle } from '@/utils/router'
   import { handleMenuJump } from '@/utils/navigation'
   import { useSettingStore } from '@/store/modules/setting'
 
@@ -164,34 +174,15 @@
   const isExternalLink = (item: AppRouteRecord): boolean => {
     return !!(item.meta.link && !item.meta.isIframe)
   }
-</script>
 
-<script lang="ts">
   /**
-   * 菜单图标组件
-   * 用于渲染菜单项的图标
+   * 生成唯一的 key
+   * 使用 path、title 和 index 组合确保唯一性
+   * @param item 菜单项数据
+   * @param index 索引
+   * @returns 唯一的 key
    */
-  const MenuItemIcon = defineComponent({
-    name: 'MenuItemIcon',
-    props: {
-      /** 图标内容 */
-      icon: {
-        type: String,
-        default: ''
-      },
-      /** 图标颜色 */
-      color: {
-        type: String,
-        default: ''
-      }
-    },
-    setup(props) {
-      return () =>
-        h('i', {
-          class: 'menu-icon iconfont-sys',
-          style: props.color ? { color: props.color } : undefined,
-          innerHTML: props.icon
-        })
-    }
-  })
+  const getUniqueKey = (item: AppRouteRecord, index: number): string => {
+    return `${item.path || item.meta.title || 'menu'}-${props.level}-${index}`
+  }
 </script>

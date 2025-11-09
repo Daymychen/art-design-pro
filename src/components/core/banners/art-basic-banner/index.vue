@@ -1,9 +1,9 @@
 <!-- 基础横幅组件 -->
 <template>
   <div
-    class="basic-banner art-custom-card"
-    :class="{ 'has-decoration': decoration }"
-    :style="{ backgroundColor: backgroundColor, height: height }"
+    class="art-card basic-banner"
+    :class="[{ 'has-decoration': decoration }, boxStyle]"
+    :style="{ height }"
     @click="emit('click')"
   >
     <!-- 流星效果 -->
@@ -126,8 +126,8 @@
     title?: string
     /** 副标题文本 */
     subtitle?: string
-    /** 背景颜色 */
-    backgroundColor?: string
+    /** 盒子样式 */
+    boxStyle?: string
     /** 是否显示装饰效果 */
     decoration?: boolean
     /** 按钮配置 */
@@ -147,7 +147,7 @@
     height: '11rem',
     titleColor: 'white',
     subtitleColor: 'white',
-    backgroundColor: 'var(--el-color-primary-light-3)',
+    boxStyle: '!bg-theme/60',
     decoration: true,
     buttonConfig: () => ({
       show: true,
@@ -321,7 +321,7 @@
     }
   }
 
-  @media (max-width: $device-phone) {
+  @media (width <= 640px) {
     .basic-banner {
       box-sizing: border-box;
       justify-content: flex-start;

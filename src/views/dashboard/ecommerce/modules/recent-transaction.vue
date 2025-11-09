@@ -1,5 +1,10 @@
 <template>
-  <ArtTimelineListCard :list="timelineData" title="最近交易" subtitle="今日订单动态" />
+  <ArtTimelineListCard
+    :list="timelineData"
+    title="最近交易"
+    subtitle="今日订单动态"
+    class="h-[27.8rem] mb-5 max-sm:mb-4"
+  />
 </template>
 
 <script setup lang="ts">

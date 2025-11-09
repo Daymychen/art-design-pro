@@ -8,7 +8,7 @@ export const helpRoutes: AppRouteRecord[] = [
     component: '',
     meta: {
       title: 'menus.help.document',
-      icon: '&#xe73e;',
+      icon: 'ri:bill-line',
       link: WEB_LINKS.DOCS,
       isIframe: false,
       keepAlive: false
@@ -20,8 +20,20 @@ export const helpRoutes: AppRouteRecord[] = [
     component: '',
     meta: {
       title: 'menus.help.liteVersion',
-      icon: '&#xe7ff;',
+      icon: 'ri:bus-2-line',
       link: WEB_LINKS.LiteVersion,
+      isIframe: false,
+      keepAlive: false
+    }
+  },
+  {
+    name: 'OldVersion',
+    path: '',
+    component: '',
+    meta: {
+      title: 'menus.help.oldVersion',
+      icon: 'ri:subway-line',
+      link: WEB_LINKS.OldVersion,
       isIframe: false,
       keepAlive: false
     }
@@ -33,7 +45,7 @@ export const helpRoutes: AppRouteRecord[] = [
     meta: {
       title: 'menus.plan.log',
       showTextBadge: `v${__APP_VERSION__}`,
-      icon: '&#xe712;',
+      icon: 'ri:gamepad-line',
       keepAlive: false
     }
   }

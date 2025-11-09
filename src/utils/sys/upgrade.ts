@@ -1,3 +1,39 @@
+/**
+ * 系统版本升级管理模块
+ *
+ * 提供完整的应用版本升级检测和处理功能
+ *
+ * ## 主要功能
+ *
+ * - 版本号比较和升级检测
+ * - 首次访问识别和处理
+ * - 旧版本数据自动清理
+ * - 升级日志展示和通知
+ * - 强制重新登录控制（根据升级日志配置）
+ * - 版本号规范化处理
+ * - 旧存储结构迁移和清理
+ * - 升级流程延迟执行（确保应用完全加载）
+ *
+ * ## 使用场景
+ *
+ * - 应用启动时自动检测版本升级
+ * - 版本更新后清理旧数据
+ * - 向用户展示版本更新内容
+ * - 重大更新时要求用户重新登录
+ * - 防止旧版本数据污染新版本
+ *
+ * ## 工作流程
+ *
+ * 1. 检查本地存储的版本号
+ * 2. 与当前应用版本对比
+ * 3. 查找并清理旧版本数据
+ * 4. 展示升级通知（包含更新日志）
+ * 5. 根据配置决定是否强制重新登录
+ * 6. 更新本地版本号
+ *
+ * @module utils/sys/upgrade
+ * @author Art Design Pro Team
+ */
 import { upgradeLogList } from '@/mock/upgrade/changeLog'
 import { ElNotification } from 'element-plus'
 import { useUserStore } from '@/store/modules/user'
@@ -97,7 +133,7 @@ class VersionManager {
     const { title: content } = upgradeLogList.value[0]
 
     const messageParts = [
-      `<p style="color: var(--art-gray-text-800) !important; padding-bottom: 5px;">`,
+      `<p style="color: var(--art-gray-800) !important; padding-bottom: 5px;">`,
       `系统已升级到 ${StorageConfig.CURRENT_VERSION} 版本，此次更新带来了以下改进：`,
       `</p>`,
       content
@@ -105,7 +141,7 @@ class VersionManager {
 
     if (requireReLogin) {
       messageParts.push(
-        `<p style="color: var(--main-color); padding-top: 5px;">升级完成，请重新登录后继续使用。</p>`
+        `<p style="color: var(--theme-color); padding-top: 5px;">升级完成，请重新登录后继续使用。</p>`
       )
     }
 

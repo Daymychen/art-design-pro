@@ -1,6 +1,9 @@
 <!-- 数字滚动 -->
 <template>
-  <span class="art-count-to" :class="{ 'is-running': isRunning }">
+  <span
+    class="text-g-900 tabular-nums"
+    :class="isRunning ? 'transition-opacity duration-300 ease-in-out' : ''"
+  >
     {{ formattedValue }}
   </span>
 </template>
@@ -305,13 +308,3 @@
     }
   })
 </script>
-
-<style lang="scss" scoped>
-  .art-count-to {
-    color: var(--art-gray-800);
-
-    &.is-running {
-      transition: opacity 0.3s ease;
-    }
-  }
-</style>

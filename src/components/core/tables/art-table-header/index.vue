@@ -1,39 +1,46 @@
 <!-- 表格头部，包含表格大小、刷新、全屏、列设置、其他设置 -->
 <template>
-  <div class="table-header" id="art-table-header">
-    <div class="left">
+  <div class="flex-cb max-md:!block" id="art-table-header">
+    <div class="flex-wrap">
       <slot name="left"></slot>
     </div>
 
-    <div class="right">
+    <div class="flex-c md:justify-end max-md:mt-3 max-sm:!hidden">
       <div
         v-if="showSearchBar != null"
-        class="btn"
+        class="button"
         @click="search"
-        :class="{ active: showSearchBar }"
+        :class="showSearchBar ? 'active !bg-theme hover:!bg-theme/80' : ''"
       >
-        <i class="iconfont-sys">&#xe6cb;</i>
+        <ArtSvgIcon icon="ri:search-line" :class="showSearchBar ? 'text-white' : 'text-g-700'" />
       </div>
       <div
         v-if="shouldShow('refresh')"
-        class="btn"
+        class="button"
         @click="refresh"
         :class="{ loading: loading && isManualRefresh }"
       >
-        <i class="iconfont-sys">&#xe615;</i>
+        <ArtSvgIcon
+          icon="ri:refresh-line"
+          :class="loading && isManualRefresh ? 'animate-spin text-g-600' : ''"
+        />
       </div>
 
       <ElDropdown v-if="shouldShow('size')" @command="handleTableSizeChange">
-        <div class="btn">
-          <i class="iconfont-sys">&#xe63d;</i>
+        <div class="button">
+          <ArtSvgIcon icon="ri:arrow-up-down-fill" />
         </div>
         <template #dropdown>
           <ElDropdownMenu>
-            <div v-for="item in tableSizeOptions" :key="item.value" class="table-size-btn-item">
+            <div
+              v-for="item in tableSizeOptions"
+              :key="item.value"
+              class="table-size-btn-item [&_.el-dropdown-menu__item]:!mb-[3px] last:[&_.el-dropdown-menu__item]:!mb-0"
+            >
               <ElDropdownItem
                 :key="item.value"
                 :command="item.value"
-                :class="{ 'is-selected': tableSize === item.value }"
+                :class="tableSize === item.value ? '!bg-g-300/55' : ''"
               >
                 {{ item.label }}
               </ElDropdownItem>
@@ -42,44 +49,60 @@
         </template>
       </ElDropdown>
 
-      <div v-if="shouldShow('fullscreen')" class="btn" @click="toggleFullScreen">
-        <i class="iconfont-sys">{{ isFullScreen ? '&#xe62d;' : '&#xe8ce;' }}</i>
+      <div v-if="shouldShow('fullscreen')" class="button" @click="toggleFullScreen">
+        <ArtSvgIcon :icon="isFullScreen ? 'ri:fullscreen-exit-line' : 'ri:fullscreen-line'" />
       </div>
 
       <!-- 列设置 -->
       <ElPopover v-if="shouldShow('columns')" placement="bottom" trigger="click">
         <template #reference>
-          <div class="btn"><i class="iconfont-sys">&#xe6bd;</i> </div>
+          <div class="button">
+            <ArtSvgIcon icon="ri:align-right" />
+          </div>
         </template>
         <div>
-          <VueDraggable
-            v-model="columns"
-            :disabled="false"
-            filter=".fixed-column"
-            :prevent-on-filter="false"
-            @move="checkColumnMove"
-          >
-            <div
-              v-for="item in columns"
-              :key="item.prop || item.type"
-              class="column-option"
-              :class="{ 'fixed-column': item.fixed }"
+          <ElScrollbar max-height="380px">
+            <VueDraggable
+              v-model="columns"
+              :disabled="false"
+              filter=".fixed-column"
+              :prevent-on-filter="false"
+              @move="checkColumnMove"
             >
-              <div class="drag-icon" :class="{ disabled: item.fixed }">
-                <i class="iconfont-sys">{{ item.fixed ? '&#xe648;' : '&#xe648;' }}</i>
+              <div
+                v-for="item in columns"
+                :key="item.prop || item.type"
+                class="column-option flex-c"
+                :class="{ 'fixed-column': item.fixed }"
+              >
+                <div
+                  class="drag-icon mr-2 h-4.5 flex-cc text-g-500"
+                  :class="item.fixed ? 'cursor-default text-g-300' : 'cursor-move'"
+                >
+                  <ArtSvgIcon
+                    :icon="item.fixed ? 'ri:unpin-line' : 'ri:drag-move-2-fill'"
+                    class="text-base"
+                  />
+                </div>
+                <ElCheckbox
+                  :model-value="getColumnVisibility(item)"
+                  @update:model-value="(val) => updateColumnVisibility(item, val)"
+                  :disabled="item.disabled"
+                  class="flex-1 min-w-0 [&_.el-checkbox__label]:overflow-hidden [&_.el-checkbox__label]:text-ellipsis [&_.el-checkbox__label]:whitespace-nowrap"
+                  >{{
+                    item.label || (item.type === 'selection' ? t('table.selection') : '')
+                  }}</ElCheckbox
+                >
               </div>
-              <ElCheckbox v-model="item.checked" :disabled="item.disabled">{{
-                item.label || (item.type === 'selection' ? t('table.selection') : '')
-              }}</ElCheckbox>
-            </div>
-          </VueDraggable>
+            </VueDraggable>
+          </ElScrollbar>
         </div>
       </ElPopover>
       <!-- 其他设置 -->
       <ElPopover v-if="shouldShow('settings')" placement="bottom" trigger="click">
         <template #reference>
-          <div class="btn">
-            <i class="iconfont-sys" style="font-size: 17px">&#xe72b;</i>
+          <div class="button">
+            <ArtSvgIcon icon="ri:settings-line" />
           </div>
         </template>
         <div>
@@ -107,6 +130,7 @@
   import { VueDraggable } from 'vue-draggable-plus'
   import { useI18n } from 'vue-i18n'
   import type { ColumnOption } from '@/types/component'
+  import { ElScrollbar } from 'element-plus'
 
   defineOptions({ name: 'ArtTableHeader' })
 
@@ -148,6 +172,27 @@
     (e: 'search'): void
     (e: 'update:showSearchBar', value: boolean): void
   }>()
+
+  /**
+   * 获取列的显示状态
+   * 优先使用 visible 字段，如果不存在则使用 checked 字段
+   */
+  const getColumnVisibility = (col: ColumnOption): boolean => {
+    if (col.visible !== undefined) {
+      return col.visible
+    }
+    return col.checked ?? true
+  }
+
+  /**
+   * 更新列的显示状态
+   * 同时更新 checked 和 visible 字段以保持兼容性
+   */
+  const updateColumnVisibility = (col: ColumnOption, value: boolean | string | number): void => {
+    const boolValue = !!value
+    col.checked = boolValue
+    col.visible = boolValue
+  }
 
   /** 表格大小选项配置 */
   const tableSizeOptions = [
@@ -273,150 +318,22 @@
   })
 </script>
 
-<style lang="scss" scoped>
-  :deep(.table-size-btn-item) {
-    .el-dropdown-menu__item {
-      margin-bottom: 3px !important;
-    }
+<style scoped>
+  @reference '@styles/core/tailwind.css';
 
-    &:last-child {
-      .el-dropdown-menu__item {
-        margin-bottom: 0 !important;
-      }
-    }
-  }
-
-  :deep(.is-selected) {
-    background-color: rgba(var(--art-gray-200-rgb), 0.8) !important;
-  }
-
-  .table-header {
-    display: flex;
-    justify-content: space-between;
-
-    .left {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px 0;
-    }
-
-    .right {
-      display: flex;
-      align-items: center;
-
-      .btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 32px;
-        margin-left: 8px;
-        color: var(--art-gray-700);
-        cursor: pointer;
-        background-color: rgba(var(--art-gray-200-rgb), 0.8);
-        border-radius: 6px;
-        transition: color 0.3s;
-        transition: all 0.3s;
-
-        i {
-          font-size: 16px;
-          color: var(--art-gray-700);
-          user-select: none;
-        }
-
-        &:hover {
-          background-color: rgba(var(--art-gray-300-rgb), 0.75);
-
-          i {
-            color: var(--art-gray-800);
-          }
-        }
-
-        &.loading {
-          i {
-            color: var(--art-gray-600);
-            animation: loading-spin 1s linear infinite;
-          }
-        }
-
-        &.active {
-          background-color: var(--el-color-primary);
-
-          i {
-            color: #fff;
-          }
-
-          &:hover {
-            background-color: var(--el-color-primary-light-3);
-
-            i {
-              color: #fff;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  :deep(.column-option) {
-    display: flex;
-    align-items: center;
-
-    .drag-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 18px;
-      margin-right: 8px;
-      color: var(--art-gray-500);
-      cursor: move;
-
-      i {
-        font-size: 18px;
-      }
-
-      &.disabled {
-        color: var(--art-gray-300);
-        cursor: default;
-      }
-    }
-
-    .el-checkbox {
-      flex: 1;
-      min-width: 0;
-
-      .el-checkbox__label {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-    }
-  }
-
-  @media (max-width: $device-phone) {
-    .table-header {
-      flex-direction: column;
-
-      .right {
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 10px;
-
-        .btn {
-          margin-right: 10px;
-          margin-left: 0;
-        }
-      }
-    }
-  }
-
-  @keyframes loading-spin {
-    0% {
-      transform: rotate(0deg);
-    }
-
-    100% {
-      transform: rotate(360deg);
-    }
+  .button {
+    @apply ml-2 
+    size-8 
+    flex 
+    items-center 
+    justify-center 
+    cursor-pointer 
+    rounded-md 
+    bg-g-300/55
+    dark:bg-g-300/40
+    text-g-700  
+    hover:bg-g-300 
+    md:ml-0 
+    md:mr-2.5;
   }
 </style>

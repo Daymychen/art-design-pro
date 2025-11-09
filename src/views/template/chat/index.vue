@@ -1,5 +1,6 @@
+<!-- 聊天页 -->
 <template>
-  <div class="chat" :style="{ height: containerMinHeight }">
+  <div class="page-content flex !p-0 max-md:flex-col" :style="{ height: containerMinHeight }">
     <ElRow>
       <ElCol :span="12">
         <div class="grid-content ep-bg-purple" />
@@ -8,20 +9,22 @@
         <div class="grid-content ep-bg-purple-light" />
       </ElCol>
     </ElRow>
-    <div class="person-list">
-      <div class="person-item-header">
-        <div class="user-info">
+    <div
+      class="box-border w-90 h-full p-5 border-r border-g-300 max-md:w-full max-md:h-42 max-md:border-r-0"
+    >
+      <div class="pb-5 max-md:!hidden">
+        <div class="flex-c gap-3">
           <ElAvatar :size="50" :src="selectedPerson?.avatar" />
-          <div class="user-details">
-            <div class="name">{{ selectedPerson?.name }}</div>
-            <div class="email">{{ selectedPerson?.email }}</div>
+          <div>
+            <div class="text-base font-medium">{{ selectedPerson?.name }}</div>
+            <div class="mt-1 text-xs text-g-500">{{ selectedPerson?.email }}</div>
           </div>
         </div>
-        <div class="search-box">
+        <div class="mt-3">
           <ElInput v-model="searchQuery" placeholder="搜索联系人" prefix-icon="Search" clearable />
         </div>
         <ElDropdown trigger="click" placement="bottom-start">
-          <span class="sort-btn">
+          <span class="mt-5 c-p">
             排序方式
             <ElIcon class="el-icon--right">
               <arrow-down />
@@ -40,68 +43,88 @@
         <div
           v-for="item in personList"
           :key="item.id"
-          class="person-item"
-          :class="{ active: selectedPerson?.id === item.id }"
+          class="flex-c p-3 c-p rounded-lg tad-200 hover:bg-active-color/30 mb-1"
+          :class="{ 'bg-active-color': selectedPerson?.id === item.id }"
           @click="selectPerson(item)"
         >
-          <div class="avatar-wrapper">
+          <div class="relative mr-3">
             <ElAvatar :size="40" :src="item.avatar">
               {{ item.name.charAt(0) }}
             </ElAvatar>
-            <div class="status-dot" :class="{ online: item.online }"></div>
+            <div
+              class="absolute right-1 bottom-1 size-2 rounded-full"
+              :class="item.online ? 'bg-success/100' : 'bg-error/100'"
+            ></div>
           </div>
-          <div class="person-info">
-            <div class="info-top">
-              <span class="person-name">{{ item.name }}</span>
-              <span class="last-time">{{ item.lastTime }}</span>
+          <div class="flex-1 min-w-0">
+            <div class="flex-cb mb-1">
+              <span class="text-sm font-medium">{{ item.name }}</span>
+              <span class="text-xs text-g-600">{{ item.lastTime }}</span>
             </div>
-            <div class="info-bottom">
-              <span class="email">{{ item.email }}</span>
+            <div class="flex-cb">
+              <span class="overflow-hidden text-xs text-g-600 text-ellipsis whitespace-nowrap">{{
+                item.email
+              }}</span>
             </div>
           </div>
         </div>
       </ElScrollbar>
     </div>
-    <div class="chat-modal">
-      <div class="header">
-        <div class="header-left">
-          <span class="name">Art Bot</span>
-          <div class="status">
-            <div class="dot" :class="{ online: isOnline, offline: !isOnline }"></div>
-            <span class="status-text">{{ isOnline ? '在线' : '离线' }}</span>
+    <div class="box-border flex-1 h-full max-md:h-[calc(70%-30px)]">
+      <div class="flex-cb pt-4 px-4 pb-0 mb-5">
+        <div>
+          <span class="text-base font-medium">Art Bot</span>
+          <div class="flex-c gap-1 mt-1.5">
+            <div
+              class="w-2 h-2 rounded-full"
+              :class="isOnline ? 'bg-success/100' : 'bg-danger/100'"
+            ></div>
+            <span class="text-xs text-g-600">{{ isOnline ? '在线' : '离线' }}</span>
           </div>
         </div>
-        <div class="header-right">
-          <div class="btn">
-            <i class="iconfont-sys">&#xe776;</i>
-          </div>
-          <div class="btn">
-            <i class="iconfont-sys">&#xe778;</i>
-          </div>
-          <div class="btn">
-            <i class="iconfont-sys">&#xe6df;</i>
-          </div>
+        <div class="flex-c gap-2">
+          <ArtIconButton icon="ri:phone-line" circle class="size-11 text-g-600" />
+          <ArtIconButton icon="ri:video-on-line" circle class="size-11 text-g-600" />
+          <ArtIconButton icon="ri:more-2-fill" circle class="size-11 text-g-600" />
         </div>
       </div>
-      <div class="chat-container">
+      <div class="flex flex-col h-[calc(100%-85px)]">
         <!-- 聊天消息区域 -->
-        <div class="chat-messages" ref="messageContainer">
-          <template v-for="(message, index) in messages" :key="index">
-            <div :class="['message-item', message.isMe ? 'message-right' : 'message-left']">
-              <ElAvatar :size="32" :src="message.avatar" class="message-avatar" />
-              <div class="message-content">
-                <div class="message-info">
-                  <span class="sender-name">{{ message.sender }}</span>
-                  <span class="message-time">{{ message.time }}</span>
+        <div
+          class="flex-1 py-7.5 px-4 overflow-y-auto border-t-d [&::-webkit-scrollbar]:!w-1"
+          ref="messageContainer"
+        >
+          <template v-for="message in messages" :key="message.id">
+            <div
+              :class="[
+                'flex gap-2 items-start w-full mb-7.5',
+                message.isMe ? 'flex-row-reverse' : 'flex-row justify-start'
+              ]"
+            >
+              <ElAvatar :size="32" :src="message.avatar" class="flex-shrink-0" />
+              <div
+                class="flex flex-col max-w-[70%]"
+                :class="message.isMe ? 'items-end' : 'items-start'"
+              >
+                <div
+                  class="flex gap-2 mb-1 text-xs"
+                  :class="message.isMe ? 'flex-row-reverse' : 'flex-row'"
+                >
+                  <span class="font-medium">{{ message.sender }}</span>
+                  <span class="text-g-600">{{ message.time }}</span>
                 </div>
-                <div class="message-text">{{ message.content }}</div>
+                <div
+                  class="py-2.5 px-3.5 text-sm leading-[1.4] rounded-md"
+                  :class="message.isMe ? '!bg-theme/15' : '!bg-active-color'"
+                  >{{ message.content }}</div
+                >
               </div>
             </div>
           </template>
         </div>
 
         <!-- 聊天输入区域 -->
-        <div class="chat-input">
+        <div class="p-4">
           <ElInput
             v-model="messageText"
             type="textarea"
@@ -111,19 +134,19 @@
             @keyup.enter.prevent="sendMessage"
           >
             <template #append>
-              <div class="input-actions">
+              <div class="flex gap-2 py-2">
                 <ElButton :icon="Paperclip" circle plain />
                 <ElButton :icon="Picture" circle plain />
                 <ElButton type="primary" @click="sendMessage" v-ripple>发送</ElButton>
               </div>
             </template>
           </ElInput>
-          <div class="chat-input-actions">
-            <div class="left">
-              <i class="iconfont-sys">&#xe634;</i>
-              <i class="iconfont-sys">&#xe809;</i>
+          <div class="flex-cb mt-3">
+            <div class="flex-c">
+              <ArtSvgIcon icon="ri:image-line" class="mr-5 c-p text-g-600 text-lg" />
+              <ArtSvgIcon icon="ri:emotion-happy-line" class="mr-5 c-p text-g-600 text-lg" />
             </div>
-            <ElButton type="primary" @click="sendMessage" v-ripple>发送</ElButton>
+            <ElButton type="primary" @click="sendMessage" v-ripple class="min-w-20">发送</ElButton>
           </div>
         </div>
       </div>
@@ -134,22 +157,22 @@
 <script setup lang="ts">
   import { Picture, Paperclip, ArrowDown } from '@element-plus/icons-vue'
   import { mittBus } from '@/utils/sys'
-  import meAvatar from '@/assets/img/avatar/avatar5.webp'
-  import aiAvatar from '@/assets/img/avatar/avatar10.webp'
-  import avatar2 from '@/assets/img/avatar/avatar2.webp'
-  import avatar3 from '@/assets/img/avatar/avatar3.webp'
-  import avatar4 from '@/assets/img/avatar/avatar4.webp'
-  import avatar5 from '@/assets/img/avatar/avatar5.webp'
-  import avatar6 from '@/assets/img/avatar/avatar6.webp'
-  import avatar7 from '@/assets/img/avatar/avatar7.webp'
-  import avatar8 from '@/assets/img/avatar/avatar8.webp'
-  import avatar9 from '@/assets/img/avatar/avatar9.webp'
-  import avatar10 from '@/assets/img/avatar/avatar10.webp'
-  import { useCommon } from '@/composables/useCommon'
+  import meAvatar from '@/assets/images/avatar/avatar5.webp'
+  import aiAvatar from '@/assets/images/avatar/avatar10.webp'
+  import avatar2 from '@/assets/images/avatar/avatar2.webp'
+  import avatar3 from '@/assets/images/avatar/avatar3.webp'
+  import avatar4 from '@/assets/images/avatar/avatar4.webp'
+  import avatar5 from '@/assets/images/avatar/avatar5.webp'
+  import avatar6 from '@/assets/images/avatar/avatar6.webp'
+  import avatar7 from '@/assets/images/avatar/avatar7.webp'
+  import avatar8 from '@/assets/images/avatar/avatar8.webp'
+  import avatar9 from '@/assets/images/avatar/avatar9.webp'
+  import avatar10 from '@/assets/images/avatar/avatar10.webp'
+  import { useAutoLayoutHeight } from '@/hooks/core/useLayoutHeight'
 
   defineOptions({ name: 'TemplateChat' })
 
-  const { containerMinHeight } = useCommon()
+  const { containerMinHeight } = useAutoLayoutHeight()
 
   /**
    * 联系人类型定义
@@ -427,359 +450,3 @@
     selectedPerson.value = personList.value[0]
   })
 </script>
-
-<style lang="scss">
-  .chat-modal {
-    .el-overlay {
-      background-color: rgb(0 0 0 / 20%) !important;
-    }
-  }
-</style>
-
-<style lang="scss" scoped>
-  .chat {
-    display: flex;
-    overflow: hidden;
-    background-color: var(--art-main-bg-color);
-    border: 1px solid var(--art-border-color);
-    border-radius: 10px;
-
-    .person-list {
-      box-sizing: border-box;
-      width: 360px;
-      height: 100%;
-      padding: 20px;
-      border-right: 1px solid var(--art-border-color);
-
-      .person-item-header {
-        padding-bottom: 20px;
-
-        .user-info {
-          display: flex;
-          gap: 12px;
-          align-items: center;
-
-          .user-details {
-            .name {
-              font-size: 16px;
-              font-weight: 500;
-              color: var(--art-gray-900);
-            }
-
-            .email {
-              margin-top: 4px;
-              font-size: 13px;
-              color: var(--art-gray-500);
-            }
-          }
-        }
-
-        .search-box {
-          margin-top: 12px;
-        }
-
-        .sort-btn {
-          margin-top: 20px;
-          cursor: pointer;
-        }
-      }
-
-      .person-item {
-        display: flex;
-        align-items: center;
-        padding: 12px;
-        cursor: pointer;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-
-        &:hover,
-        &.active {
-          background-color: var(--el-fill-color-light);
-        }
-
-        .avatar-wrapper {
-          position: relative;
-          margin-right: 12px;
-
-          .status-dot {
-            position: absolute;
-            right: 1px;
-            bottom: 1px;
-            width: 9px;
-            height: 9px;
-            background-color: var(--el-color-error);
-            border-radius: 50%;
-
-            &.online {
-              background-color: var(--el-color-success);
-            }
-          }
-        }
-
-        .person-info {
-          flex: 1;
-          min-width: 0;
-
-          .info-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 4px;
-
-            .person-name {
-              font-size: 14px;
-              font-weight: 500;
-              color: var(--el-text-color-primary);
-            }
-
-            .last-time {
-              font-size: 12px;
-              color: var(--el-text-color-secondary);
-            }
-          }
-
-          .info-bottom {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            .email {
-              overflow: hidden;
-              font-size: 12px;
-              color: var(--el-text-color-secondary);
-              text-overflow: ellipsis;
-              white-space: nowrap;
-            }
-
-            .unread-badge {
-              :deep(.el-badge__content) {
-                border: none;
-              }
-            }
-          }
-        }
-      }
-    }
-
-    .chat-modal {
-      box-sizing: border-box;
-      flex: 1;
-      height: 100%;
-    }
-
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 16px 0;
-      margin-bottom: 20px;
-
-      .header-left {
-        .name {
-          font-size: 16px;
-          font-weight: 500;
-        }
-
-        .status {
-          display: flex;
-          gap: 4px;
-          align-items: center;
-          margin-top: 6px;
-
-          .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-
-            &.online {
-              background-color: var(--el-color-success);
-            }
-
-            &.offline {
-              background-color: var(--el-color-danger);
-            }
-          }
-
-          .status-text {
-            font-size: 12px;
-            color: var(--art-gray-600);
-          }
-        }
-      }
-
-      .header-right {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-
-        .btn {
-          width: 42px;
-          height: 42px;
-          line-height: 42px;
-          text-align: center;
-          cursor: pointer;
-          border-radius: 50%;
-          transition: background-color 0.2s ease;
-
-          &:hover {
-            background-color: var(--art-gray-200);
-          }
-
-          i {
-            font-size: 20px;
-            color: var(--art-text-gray-700);
-          }
-        }
-      }
-    }
-
-    .chat-container {
-      display: flex;
-      flex-direction: column;
-      height: calc(100% - 85px);
-
-      .chat-messages {
-        flex: 1;
-        padding: 30px 16px;
-        overflow-y: auto;
-        border-top: 1px solid var(--el-border-color-lighter);
-
-        &::-webkit-scrollbar {
-          width: 5px !important;
-        }
-
-        .message-item {
-          display: flex;
-          flex-direction: row;
-          gap: 8px;
-          align-items: flex-start;
-          width: 100%;
-          margin-bottom: 30px;
-
-          .message-text {
-            font-size: 14px;
-            color: var(--art-gray-900);
-            border-radius: 6px;
-          }
-
-          &.message-left {
-            justify-content: flex-start;
-
-            .message-content {
-              align-items: flex-start;
-
-              .message-info {
-                flex-direction: row;
-              }
-
-              .message-text {
-                background-color: var(--art-gray-200);
-              }
-            }
-          }
-
-          &.message-right {
-            flex-direction: row-reverse;
-
-            .message-content {
-              align-items: flex-end;
-
-              .message-info {
-                flex-direction: row-reverse;
-              }
-
-              .message-text {
-                background-color: #e9f3ff;
-                background-color: rgb(var(--art-bg-secondary));
-              }
-            }
-          }
-
-          .message-avatar {
-            flex-shrink: 0;
-          }
-
-          .message-content {
-            display: flex;
-            flex-direction: column;
-            max-width: 70%;
-
-            .message-info {
-              display: flex;
-              gap: 8px;
-              margin-bottom: 4px;
-              font-size: 12px;
-
-              .message-time {
-                color: var(--el-text-color-secondary);
-              }
-
-              .sender-name {
-                font-weight: 500;
-              }
-            }
-
-            .message-text {
-              padding: 10px 14px;
-              line-height: 1.4;
-            }
-          }
-        }
-      }
-
-      .chat-input {
-        padding: 16px; // 增加填充以提升输入区域的布局
-
-        .input-actions {
-          display: flex;
-          gap: 8px;
-          padding: 8px 0;
-        }
-
-        .chat-input-actions {
-          display: flex;
-          align-items: center; // 修正为单数
-          justify-content: space-between;
-          margin-top: 12px;
-
-          .left {
-            display: flex;
-            align-items: center;
-
-            i {
-              margin-right: 20px;
-              font-size: 16px;
-              color: var(--art-gray-500);
-              cursor: pointer;
-            }
-          }
-
-          // 确保发送按钮与输入框对齐
-          el-button {
-            min-width: 80px;
-          }
-        }
-      }
-    }
-  }
-
-  @media only screen and (max-width: $device-ipad-pro) {
-    .chat {
-      flex-direction: column;
-
-      .person-list {
-        width: 100%;
-        height: 170px;
-        border-right: none;
-
-        .person-item-header {
-          display: none;
-        }
-      }
-
-      .chat-modal {
-        height: calc(70% - 30px);
-      }
-    }
-  }
-</style>

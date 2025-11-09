@@ -1,3 +1,4 @@
+<!-- 电子商务页面 -->
 <template>
   <div class="ecommerce">
     <ElRow :gutter="20">
@@ -74,7 +75,3 @@
 
   defineOptions({ name: 'Ecommerce' })
 </script>
-
-<style lang="scss" scoped>
-  @use './style';
-</style>

@@ -1,7 +1,7 @@
 <!-- 表格搜索栏示例 -->
 <template>
-  <div class="search-bar">
-    <h2 class="title">基础示例（默认收起）</h2>
+  <div class="pb-5">
+    <h2 class="mb-1 text-lg font-medium">基础示例（默认收起）</h2>
     <ArtSearchBar
       ref="searchBarBasicRef"
       v-model="formDataBasic"
@@ -11,7 +11,7 @@
     >
     </ArtSearchBar>
 
-    <h2 class="title m-15">完整示例（默认展开）</h2>
+    <h2 class="mb-1 mt-3.5 text-lg font-medium">完整示例（默认展开）</h2>
     <ArtSearchBar
       ref="searchBarAdvancedRef"
       v-model="formDataAdvanced"
@@ -30,11 +30,11 @@
       </template>
     </ArtSearchBar>
 
-    <div class="code">
+    <div class="art-card p-5 !rounded-lg mt-5">
       <pre><code>{{ formDataAdvanced }}</code></pre>
     </div>
 
-    <div class="button-group">
+    <div class="mt-3.5">
       <ElSpace wrap>
         <ElButton @click="getLevelOptions"> 获取用户等级数据 </ElButton>
         <ElButton @click="advancedValidate"> 校验表单 </ElButton>
@@ -53,9 +53,8 @@
 </template>
 
 <script setup lang="ts">
-  import ArtIconSelector from '@/components/core/base/art-icon-selector/index.vue'
+  import { ElInput } from 'element-plus'
   import { SearchFormItem } from '@/components/core/forms/art-search-bar/index.vue'
-  import { IconTypeEnum } from '@/enums/appEnum'
 
   interface Emits {
     (e: 'update:modelValue', value: Record<string, any>): void
@@ -478,27 +477,20 @@
     {
       label: '渲染组件',
       key: 'iconSelector',
-      type: () => h(ArtIconSelector, { iconType: IconTypeEnum.UNICODE, width: '100%' }),
-      props: { placeholder: '请输入备注', type: 'textarea', rows: 4 }
+      render: () => h(ElInput, { placeholder: '渲染自定义 input' })
     },
     {
       label: '自定义组件',
       key: 'customComponent',
-      type: () =>
+      render: () =>
         h(
           'div',
           {
             style:
-              'color: var(--art-gray-600); border: 1px solid var(--art-border-dashed-color); padding: 0px 15px; border-radius: 6px'
+              'color: var(--art-gray-600); border: 1px solid var(--default-border-dashed); padding: 0px 15px; border-radius: 6px'
           },
           '我是一个自定义组件'
-        ),
-      props: {
-        placeholder: '请输入备注',
-        type: 'textarea',
-        rows: 4,
-        style: { width: '100%' }
-      }
+        )
     },
     {
       label: '复选框',
@@ -701,32 +693,3 @@
     formDataAdvanced.value.name = undefined
   }
 </script>
-
-<style scoped lang="scss">
-  .search-bar {
-    padding-bottom: 20px;
-
-    .title {
-      margin-bottom: 5px;
-      font-size: 18px;
-      font-weight: 500;
-
-      &.m-15 {
-        margin-top: 15px;
-      }
-    }
-
-    .code {
-      padding: 15px;
-      margin-top: 15px;
-      font-size: 14px;
-      background-color: var(--art-main-bg-color);
-      border: 1px solid var(--art-border-color);
-      border-radius: var(--el-border-radius-base);
-    }
-
-    .button-group {
-      margin-top: 15px;
-    }
-  }
-</style>

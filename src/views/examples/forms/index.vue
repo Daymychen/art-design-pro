@@ -1,9 +1,9 @@
 <!-- 表单示例 -->
 <template>
-  <div class="form-example">
-    <h2 class="title">表单组件示例</h2>
+  <div class="pb-5">
+    <h2 class="mb-1 text-lg font-medium">表单组件示例</h2>
 
-    <ElCard class="art-custom-card" shadow="never">
+    <ElCard shadow="never">
       <ArtForm
         ref="formRef"
         v-model="formData"
@@ -23,11 +23,11 @@
       </ArtForm>
     </ElCard>
 
-    <div class="code">
+    <div class="art-card p-5 !rounded-lg mt-5">
       <pre><code>{{ formData }}</code></pre>
     </div>
 
-    <div class="button-group">
+    <div class="mt-3.5">
       <ElSpace wrap>
         <ElButton @click="getLevelOptions"> 获取用户等级数据 </ElButton>
         <ElButton @click="validateForm"> 校验表单 </ElButton>
@@ -45,17 +45,15 @@
 
     <!-- 图片预览对话框 -->
     <ElDialog v-model="dialogVisible">
-      <img w-full :src="dialogImageUrl" alt="Preview Image" style="width: 100%; height: auto" />
+      <img w-full :src="dialogImageUrl" alt="Preview Image" class="w-full h-auto" />
     </ElDialog>
   </div>
 </template>
 
 <script setup lang="ts">
-  import ArtIconSelector from '@/components/core/base/art-icon-selector/index.vue'
   import ArtWangEditor from '@/components/core/forms/art-wang-editor/index.vue'
   import { SearchFormItem } from '@/components/core/forms/art-search-bar/index.vue'
-  import { IconTypeEnum } from '@/enums/appEnum'
-  import { ElMessage, ElUpload, ElButton, ElIcon } from 'element-plus'
+  import { ElMessage, ElUpload, ElButton, ElIcon, ElInput } from 'element-plus'
   import type { UploadFile, UploadFiles, UploadUserFile } from 'element-plus'
   import { Plus } from '@element-plus/icons-vue'
 
@@ -445,27 +443,20 @@
     {
       label: '渲染组件',
       key: 'iconSelector',
-      type: () => h(ArtIconSelector, { iconType: IconTypeEnum.UNICODE, width: '100%' }),
-      props: { placeholder: '请输入备注', type: 'textarea', rows: 4 }
+      render: () => h(ElInput, { placeholder: '渲染自定义 input' })
     },
     {
       label: '自定义组件',
       key: 'customComponent',
-      type: () =>
+      render: () =>
         h(
           'div',
           {
             style:
-              'color: var(--art-gray-600); border: 1px solid var(--art-border-dashed-color); padding: 0px 15px; border-radius: 6px'
+              'color: var(--art-gray-600); border: 1px solid var(--default-border-dashed); padding: 0px 15px; border-radius: 6px'
           },
           '我是一个自定义组件'
-        ),
-      props: {
-        placeholder: '请输入备注',
-        type: 'textarea',
-        rows: 4,
-        style: { width: '100%' }
-      }
+        )
     },
     {
       label: '复选框',
@@ -582,12 +573,12 @@
       span: 12,
       placeholder: '示例：栅格 span=12 占容器一半宽度，span=24 占满容器'
     },
-    // 文件上传示例 - 使用 h 函数渲染
+    // 文件上传示例 - 使用 render 函数渲染
     {
       label: '文件上传',
       key: 'multipleFiles',
       span: 12,
-      type: () =>
+      render: () =>
         h(
           ElUpload,
           {
@@ -620,12 +611,12 @@
           }
         )
     },
-    // 图片上传示例 - 使用 h 函数渲染
+    // 图片上传示例 - 使用 render 函数渲染
     {
       label: '图片上传',
       key: 'imageUpload',
       span: 12,
-      type: () =>
+      render: () =>
         h(
           ElUpload,
           {
@@ -666,12 +657,12 @@
           }
         )
     },
-    // 富文本编辑器示例 - 使用 h 函数渲染
+    // 富文本编辑器示例 - 使用 render 函数渲染
     {
       label: '富文本编辑器',
       key: 'richTextContent',
       span: 24,
-      type: () =>
+      render: () =>
         h(ArtWangEditor, {
           modelValue: formData.value.richTextContent,
           height: '500px',
@@ -747,32 +738,3 @@
     formData.value.name = undefined
   }
 </script>
-
-<style scoped lang="scss">
-  .form-example {
-    padding-bottom: 20px;
-
-    .title {
-      margin-bottom: 5px;
-      font-size: 18px;
-      font-weight: 500;
-
-      &.m-15 {
-        margin-top: 15px;
-      }
-    }
-
-    .code {
-      padding: 15px;
-      margin-top: 15px;
-      font-size: 14px;
-      background-color: var(--art-main-bg-color);
-      border: 1px solid var(--art-border-color);
-      border-radius: var(--el-border-radius-base);
-    }
-
-    .button-group {
-      margin-top: 15px;
-    }
-  }
-</style>

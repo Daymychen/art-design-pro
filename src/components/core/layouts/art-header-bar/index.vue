@@ -1,31 +1,52 @@
 <!-- 顶部栏 -->
 <template>
-  <div class="layout-top-bar" :class="[tabStyle]">
-    <div class="menu">
-      <div class="left" style="display: flex">
+  <div
+    class="w-full bg-[var(--default-bg-color)]"
+    :class="[
+      tabStyle === 'tab-card' || tabStyle === 'tab-google' ? 'mb-5 max-sm:mb-3 !bg-box' : ''
+    ]"
+  >
+    <div
+      class="relative box-border flex-b h-15 leading-15 select-none"
+      :class="[
+        tabStyle === 'tab-card' || tabStyle === 'tab-google'
+          ? 'border-b border-[var(--art-card-border)]'
+          : ''
+      ]"
+    >
+      <div class="flex-c flex-1 min-w-0 leading-15" style="display: flex">
         <!-- 系统信息  -->
-        <div class="top-header" @click="toHome" v-if="isTopMenu">
-          <ArtLogo class="logo" />
-          <p v-if="width >= 1400">{{ AppConfig.systemInfo.name }}</p>
+        <div class="flex-c c-p" @click="toHome" v-if="isTopMenu">
+          <ArtLogo class="pl-4.5" />
+          <p v-if="width >= 1400" class="my-0 mx-2 ml-2 text-lg">{{ AppConfig.systemInfo.name }}</p>
         </div>
 
-        <ArtLogo class="logo2" @click="toHome" />
+        <ArtLogo
+          class="!hidden pl-3.5 overflow-hidden align-[-0.15em] fill-current"
+          @click="toHome"
+        />
 
         <!-- 菜单按钮 -->
-        <div class="btn-box" v-if="isLeftMenu && shouldShowMenuButton">
-          <div class="btn menu-btn">
-            <i class="iconfont-sys" @click="visibleMenu">&#xe6ba;</i>
-          </div>
-        </div>
+        <ArtIconButton
+          v-if="isLeftMenu && shouldShowMenuButton"
+          icon="ri:menu-2-fill"
+          class="ml-3 max-sm:ml-[7px]"
+          @click="visibleMenu"
+        />
+
         <!-- 刷新按钮 -->
-        <div class="btn-box" v-if="shouldShowRefreshButton">
-          <div class="btn refresh-btn" :style="{ marginLeft: !isLeftMenu ? '10px' : '0' }">
-            <i class="iconfont-sys" @click="reload()"> &#xe6b3; </i>
-          </div>
-        </div>
+        <ArtIconButton
+          v-if="shouldShowRefreshButton"
+          icon="ri:refresh-line"
+          class="!ml-3 refresh-btn max-sm:!hidden"
+          :style="{ marginLeft: !isLeftMenu ? '10px' : '0' }"
+          @click="reload"
+        />
 
         <!-- 快速入口 -->
-        <ArtFastEnter v-if="shouldShowFastEnter && width >= headerBarFastEnterMinWidth" />
+        <ArtFastEnter v-if="shouldShowFastEnter && width >= headerBarFastEnterMinWidth">
+          <ArtIconButton icon="ri:function-line" class="ml-3" />
+        </ArtFastEnter>
 
         <!-- 面包屑 -->
         <ArtBreadcrumb
@@ -39,72 +60,81 @@
         <ArtMixedMenu v-if="isTopLeftMenu" :list="menuList" />
       </div>
 
-      <div class="right">
+      <div class="flex-c gap-2.5">
         <!-- 搜索 -->
-        <div class="search-wrap" v-if="shouldShowGlobalSearch">
-          <div class="search-input" @click="openSearchDialog">
-            <div class="left">
-              <i class="iconfont-sys">&#xe710;</i>
-              <span>{{ $t('topBar.search.title') }}</span>
-            </div>
-            <div class="search-keydown">
-              <i class="iconfont-sys" v-if="isWindows">&#xeeac;</i>
-              <i class="iconfont-sys" v-else>&#xe9ab;</i>
-              <span>k</span>
-            </div>
+        <div
+          v-if="shouldShowGlobalSearch"
+          class="flex-cb w-40 h-9 px-2.5 c-p border border-g-400 rounded-custom-sm max-md:!hidden"
+          @click="openSearchDialog"
+        >
+          <div class="flex-c">
+            <ArtSvgIcon icon="ri:search-line" class="text-sm text-g-500" />
+            <span class="ml-1 text-xs font-normal text-g-500">{{ $t('topBar.search.title') }}</span>
+          </div>
+          <div class="flex-c h-5 px-1.5 text-g-500/80 border border-g-400 rounded">
+            <ArtSvgIcon v-if="isWindows" icon="vaadin:ctrl-a" class="text-sm" />
+            <ArtSvgIcon v-else icon="ri:command-fill" class="text-xs" />
+            <span class="ml-0.5 text-xs">k</span>
           </div>
         </div>
 
         <!-- 全屏按钮 -->
-        <div class="btn-box screen-box" v-if="shouldShowFullscreen" @click="toggleFullScreen">
-          <div
-            class="btn"
-            :class="{ 'full-screen-btn': !isFullscreen, 'exit-full-screen-btn': isFullscreen }"
-          >
-            <i class="iconfont-sys">{{ isFullscreen ? '&#xe62d;' : '&#xe8ce;' }}</i>
-          </div>
-        </div>
-        <!-- 通知 -->
-        <div class="btn-box notice-btn" v-if="shouldShowNotification" @click="visibleNotice">
-          <div class="btn notice-button">
-            <i class="iconfont-sys notice-btn">&#xe6c2;</i>
-            <span class="count notice-btn"></span>
-          </div>
-        </div>
-        <!-- 聊天 -->
-        <div class="btn-box chat-btn" v-if="shouldShowChat" @click="openChat">
-          <div class="btn chat-button">
-            <i class="iconfont-sys">&#xe89a;</i>
-            <span class="dot"></span>
-          </div>
-        </div>
-        <!-- 语言 -->
-        <div class="btn-box" v-if="shouldShowLanguage">
-          <ElDropdown @command="changeLanguage" popper-class="langDropDownStyle">
-            <div class="btn language-btn">
-              <i class="iconfont-sys">&#xe611;</i>
-            </div>
-            <template #dropdown>
-              <ElDropdownMenu>
-                <div v-for="item in languageOptions" :key="item.value" class="lang-btn-item">
-                  <ElDropdownItem
-                    :command="item.value"
-                    :class="{ 'is-selected': locale === item.value }"
-                  >
-                    <span class="menu-txt">{{ item.label }}</span>
-                    <i v-if="locale === item.value" class="iconfont-sys">&#xe621;</i>
-                  </ElDropdownItem>
-                </div>
-              </ElDropdownMenu>
-            </template>
-          </ElDropdown>
-        </div>
-        <!-- 设置 -->
-        <div class="btn-box" v-if="shouldShowSettings" @click="openSetting">
+        <ArtIconButton
+          v-if="shouldShowFullscreen"
+          :icon="isFullscreen ? 'ri:fullscreen-exit-line' : 'ri:fullscreen-fill'"
+          :class="[!isFullscreen ? 'full-screen-btn' : 'exit-full-screen-btn', 'ml-3']"
+          class="max-md:!hidden"
+          @click="toggleFullScreen"
+        />
+
+        <!-- 通知按钮 -->
+        <ArtIconButton
+          v-if="shouldShowNotification"
+          icon="ri:notification-2-line"
+          class="notice-button relative"
+          @click="visibleNotice"
+        >
+          <div class="absolute top-2 right-2 size-1.5 !bg-danger rounded-full"></div>
+        </ArtIconButton>
+
+        <!-- 聊天按钮 -->
+        <ArtIconButton
+          v-if="shouldShowChat"
+          icon="ri:message-3-line"
+          class="chat-button relative"
+          @click="openChat"
+        >
+          <div class="breathing-dot absolute top-2 right-2 size-1.5 !bg-success rounded-full"></div>
+        </ArtIconButton>
+
+        <!-- 国际化按钮 -->
+        <ElDropdown
+          @command="changeLanguage"
+          popper-class="langDropDownStyle"
+          v-if="shouldShowLanguage"
+        >
+          <ArtIconButton icon="hugeicons:global" class="language-btn text-[19px]" />
+          <template #dropdown>
+            <ElDropdownMenu>
+              <div v-for="item in languageOptions" :key="item.value" class="lang-btn-item">
+                <ElDropdownItem
+                  :command="item.value"
+                  :class="{ 'is-selected': locale === item.value }"
+                >
+                  <span class="menu-txt">{{ item.label }}</span>
+                  <ArtSvgIcon icon="ri:check-fill" v-if="locale === item.value" />
+                </ElDropdownItem>
+              </div>
+            </ElDropdownMenu>
+          </template>
+        </ElDropdown>
+
+        <!-- 设置按钮 -->
+        <div v-if="shouldShowSettings">
           <ElPopover :visible="showSettingGuide" placement="bottom-start" :width="190" :offset="0">
             <template #reference>
-              <div class="btn setting-btn">
-                <i class="iconfont-sys">&#xe6d0;</i>
+              <div class="flex-cc">
+                <ArtIconButton icon="ri:settings-line" class="setting-btn" @click="openSetting" />
               </div>
             </template>
             <template #default>
@@ -117,68 +147,23 @@
             </template>
           </ElPopover>
         </div>
-        <!-- 切换主题 -->
-        <div class="btn-box" v-if="shouldShowThemeToggle" @click="themeAnimation">
-          <div class="btn theme-btn">
-            <i class="iconfont-sys">{{ isDark ? '&#xe6b5;' : '&#xe725;' }}</i>
-          </div>
-        </div>
+
+        <!-- 主题切换按钮 -->
+        <ArtIconButton
+          v-if="shouldShowThemeToggle"
+          @click="themeAnimation"
+          :icon="isDark ? 'ri:sun-fill' : 'ri:moon-line'"
+        />
 
         <!-- 用户头像、菜单 -->
-        <div class="user">
-          <ElPopover
-            ref="userMenuPopover"
-            placement="bottom-end"
-            :width="240"
-            :hide-after="0"
-            :offset="10"
-            trigger="hover"
-            :show-arrow="false"
-            popper-class="user-menu-popover"
-            popper-style="border: 1px solid var(--art-border-dashed-color); border-radius: calc(var(--custom-radius) / 2 + 4px); padding: 5px 16px; 5px 16px;"
-          >
-            <template #reference>
-              <img class="cover" src="@imgs/user/avatar.webp" alt="avatar" />
-            </template>
-            <template #default>
-              <div class="user-menu-box">
-                <div class="user-head">
-                  <img class="cover" src="@imgs/user/avatar.webp" style="float: left" />
-                  <div class="user-wrap">
-                    <span class="name">{{ userInfo.userName }}</span>
-                    <span class="email">{{ userInfo.email }}</span>
-                  </div>
-                </div>
-                <ul class="user-menu">
-                  <li @click="goPage('/system/user-center')">
-                    <i class="menu-icon iconfont-sys">&#xe734;</i>
-                    <span class="menu-txt">{{ $t('topBar.user.userCenter') }}</span>
-                  </li>
-                  <li @click="toDocs()">
-                    <i class="menu-icon iconfont-sys" style="font-size: 15px">&#xe828;</i>
-                    <span class="menu-txt">{{ $t('topBar.user.docs') }}</span>
-                  </li>
-                  <li @click="toGithub()">
-                    <i class="menu-icon iconfont-sys">&#xe8d6;</i>
-                    <span class="menu-txt">{{ $t('topBar.user.github') }}</span>
-                  </li>
-                  <li @click="lockScreen()">
-                    <i class="menu-icon iconfont-sys">&#xe817;</i>
-                    <span class="menu-txt">{{ $t('topBar.user.lockScreen') }}</span>
-                  </li>
-                  <div class="line"></div>
-                  <div class="logout-btn" @click="loginOut">
-                    {{ $t('topBar.user.logout') }}
-                  </div>
-                </ul>
-              </div>
-            </template>
-          </ElPopover>
-        </div>
+        <ArtUserMenu />
       </div>
     </div>
+
+    <!-- 标签页 -->
     <ArtWorkTab />
 
+    <!-- 通知 -->
     <ArtNotification v-model:value="showNotice" ref="notice" />
   </div>
 </template>
@@ -186,7 +171,6 @@
 <script setup lang="ts">
   import { useI18n } from 'vue-i18n'
   import { useRouter } from 'vue-router'
-  import { ElMessageBox } from 'element-plus'
   import { useFullscreen, useWindowSize } from '@vueuse/core'
   import { LanguageEnum, MenuTypeEnum } from '@/enums/appEnum'
   import { useSettingStore } from '@/store/modules/setting'
@@ -194,11 +178,11 @@
   import { useMenuStore } from '@/store/modules/menu'
   import AppConfig from '@/config'
   import { languageOptions } from '@/locales'
-  import { WEB_LINKS } from '@/utils/constants'
   import { mittBus } from '@/utils/sys'
-  import { themeAnimation } from '@/utils/theme/animation'
-  import { useCommon } from '@/composables/useCommon'
-  import { useHeaderBar } from '@/composables/useHeaderBar'
+  import { themeAnimation } from '@/utils/ui/animation'
+  import { useCommon } from '@/hooks/core/useCommon'
+  import { useHeaderBar } from '@/hooks/core/useHeaderBar'
+  import ArtUserMenu from './widget/ArtUserMenu.vue'
 
   defineOptions({ name: 'ArtHeaderBar' })
 
@@ -206,7 +190,7 @@
   const isWindows = navigator.userAgent.includes('Windows')
 
   const router = useRouter()
-  const { locale, t } = useI18n()
+  const { locale } = useI18n()
   const { width } = useWindowSize()
 
   const settingStore = useSettingStore()
@@ -232,12 +216,11 @@
   const { menuOpen, systemThemeColor, showSettingGuide, menuType, isDark, tabStyle } =
     storeToRefs(settingStore)
 
-  const { language, getUserInfo: userInfo } = storeToRefs(userStore)
+  const { language } = storeToRefs(userStore)
   const { menuList } = storeToRefs(menuStore)
 
   const showNotice = ref(false)
   const notice = ref(null)
-  const userMenuPopover = ref()
 
   // 菜单类型判断
   const isLeftMenu = computed(() => menuType.value === MenuTypeEnum.LEFT)
@@ -270,49 +253,14 @@
     settingStore.setMenuOpen(!menuOpen.value)
   }
 
-  /**
-   * 页面跳转
-   * @param {string} path - 目标路径
-   */
-  const goPage = (path: string): void => {
-    router.push(path)
-  }
-
-  /**
-   * 打开文档页面
-   */
-  const toDocs = (): void => {
-    window.open(WEB_LINKS.DOCS)
-  }
-
-  /**
-   * 打开 GitHub 页面
-   */
-  const toGithub = (): void => {
-    window.open(WEB_LINKS.GITHUB)
-  }
+  const { homePath } = useCommon()
+  const { refresh } = useCommon()
 
   /**
    * 跳转到首页
    */
   const toHome = (): void => {
-    router.push(useCommon().homePath.value)
-  }
-
-  /**
-   * 用户登出确认
-   */
-  const loginOut = (): void => {
-    closeUserMenu()
-    setTimeout(() => {
-      ElMessageBox.confirm(t('common.logOutTips'), t('common.tips'), {
-        confirmButtonText: t('common.confirm'),
-        cancelButtonText: t('common.cancel'),
-        customClass: 'login-out-dialog'
-      }).then(() => {
-        userStore.logOut()
-      })
-    }, 200)
+    router.push(homePath.value)
   }
 
   /**
@@ -321,7 +269,7 @@
    */
   const reload = (time: number = 0): void => {
     setTimeout(() => {
-      useCommon().refresh()
+      refresh()
     }, time)
   }
 
@@ -367,16 +315,16 @@
    * @param {Event} e - 点击事件对象
    */
   const bodyCloseNotice = (e: any): void => {
-    let { className } = e.target
+    if (!showNotice.value) return
 
-    if (showNotice.value) {
-      if (typeof className === 'object') {
-        showNotice.value = false
-        return
-      }
-      if (className.indexOf('notice-btn') === -1) {
-        showNotice.value = false
-      }
+    const target = e.target as HTMLElement
+
+    // 检查是否点击了通知按钮或通知面板内部
+    const isNoticeButton = target.closest('.notice-button')
+    const isNoticePanel = target.closest('.art-notification-panel')
+
+    if (!isNoticeButton && !isNoticePanel) {
+      showNotice.value = false
     }
   }
 
@@ -393,25 +341,145 @@
   const openChat = (): void => {
     mittBus.emit('openChat')
   }
-
-  /**
-   * 打开锁屏功能
-   */
-  const lockScreen = (): void => {
-    mittBus.emit('openLockScreen')
-  }
-
-  /**
-   * 关闭用户菜单弹出层
-   */
-  const closeUserMenu = (): void => {
-    setTimeout(() => {
-      userMenuPopover.value.hide()
-    }, 100)
-  }
 </script>
 
 <style lang="scss" scoped>
-  @use './style';
-  @use './mobile';
+  /* Custom animations */
+  @keyframes rotate180 {
+    0% {
+      transform: rotate(0);
+    }
+
+    100% {
+      transform: rotate(180deg);
+    }
+  }
+
+  @keyframes shake {
+    0% {
+      transform: rotate(0);
+    }
+
+    25% {
+      transform: rotate(-5deg);
+    }
+
+    50% {
+      transform: rotate(5deg);
+    }
+
+    75% {
+      transform: rotate(-5deg);
+    }
+
+    100% {
+      transform: rotate(0);
+    }
+  }
+
+  @keyframes expand {
+    0% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.1);
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes shrink {
+    0% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(0.9);
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes moveUp {
+    0% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-3px);
+    }
+
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes breathing {
+    0% {
+      opacity: 0.4;
+      transform: scale(0.9);
+    }
+
+    50% {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    100% {
+      opacity: 0.4;
+      transform: scale(0.9);
+    }
+  }
+
+  /* Hover animation classes */
+  .refresh-btn:hover :deep(.art-svg-icon) {
+    animation: rotate180 0.5s;
+  }
+
+  .language-btn:hover :deep(.art-svg-icon) {
+    animation: moveUp 0.4s;
+  }
+
+  .setting-btn:hover :deep(.art-svg-icon) {
+    animation: rotate180 0.5s;
+  }
+
+  .full-screen-btn:hover :deep(.art-svg-icon) {
+    animation: expand 0.6s forwards;
+  }
+
+  .exit-full-screen-btn:hover :deep(.art-svg-icon) {
+    animation: shrink 0.6s forwards;
+  }
+
+  .notice-button:hover :deep(.art-svg-icon) {
+    animation: shake 0.5s ease-in-out;
+  }
+
+  .chat-button:hover :deep(.art-svg-icon) {
+    animation: shake 0.5s ease-in-out;
+  }
+
+  /* Breathing animation for chat dot */
+  .breathing-dot {
+    animation: breathing 1.5s ease-in-out infinite;
+  }
+
+  /* iPad breakpoint adjustments */
+  @media screen and (width <= 768px) {
+    .logo2 {
+      display: block !important;
+    }
+  }
+
+  @media screen and (width <= 640px) {
+    .btn-box {
+      width: 40px;
+    }
+  }
 </style>

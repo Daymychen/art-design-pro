@@ -12,14 +12,14 @@
  * 数据点类型： symbol="circle" | "rect" | "roundRect" | "triangle" | "diamond" | "pin" | "arrow" | "none"
 -->
 <template>
-  <div class="charts">
+  <div class="pt-5">
     <h1 class="page-title">图表</h1>
 
     <ElRow :gutter="20">
-      <ElCol :xs="24" :md="12" :lg="8">
-        <div class="card art-custom-card">
-          <div class="card-header">
-            <span>柱状图（单数据）</span>
+      <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
+        <div class="art-card">
+          <div class="pb-3.5">
+            <span class="text-base font-medium">柱状图（单数据）</span>
           </div>
           <ArtBarChart
             :data="singleBarData"
@@ -29,10 +29,10 @@
           />
         </div>
       </ElCol>
-      <ElCol :xs="24" :md="12" :lg="8">
-        <div class="card art-custom-card">
-          <div class="card-header">
-            <span>柱状图（多组数据）</span>
+      <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
+        <div class="art-card">
+          <div class="pb-3.5">
+            <span class="text-base font-medium">柱状图（多组数据）</span>
           </div>
           <ArtBarChart
             :data="multiBarData"
@@ -42,10 +42,10 @@
           />
         </div>
       </ElCol>
-      <ElCol :xs="24" :md="12" :lg="8">
-        <div class="card art-custom-card">
-          <div class="card-header">
-            <span>柱状图（堆叠）</span>
+      <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
+        <div class="art-card">
+          <div class="pb-3.5">
+            <span class="text-base font-medium">柱状图（堆叠）</span>
           </div>
           <ArtBarChart
             :data="stackBarData"
@@ -56,10 +56,10 @@
           />
         </div>
       </ElCol>
-      <ElCol :xs="24" :md="12" :lg="8">
-        <div class="card art-custom-card">
-          <div class="card-header">
-            <span>折线图</span>
+      <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
+        <div class="art-card">
+          <div class="pb-3.5">
+            <span class="text-base font-medium">折线图</span>
           </div>
           <ArtLineChart
             :data="[58, 15, 82, 35, 120, 62, 45]"
@@ -69,10 +69,10 @@
           />
         </div>
       </ElCol>
-      <ElCol :xs="24" :md="12" :lg="8">
-        <div class="card art-custom-card">
-          <div class="card-header">
-            <span>折线图（渐变背景）</span>
+      <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
+        <div class="art-card">
+          <div class="pb-3.5">
+            <span class="text-base font-medium">折线图（渐变背景）</span>
           </div>
           <ArtLineChart
             :data="[28, 45, 82, 35, 100, 32, 55]"
@@ -81,10 +81,10 @@
           />
         </div>
       </ElCol>
-      <ElCol :xs="24" :md="12" :lg="8">
-        <div class="card art-custom-card">
-          <div class="card-header">
-            <span>折线图（多组数据）</span>
+      <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
+        <div class="art-card">
+          <div class="pb-3.5">
+            <span class="text-base font-medium">折线图（多组数据）</span>
           </div>
           <ArtLineChart
             :data="multiLineData"
@@ -94,10 +94,10 @@
         </div>
       </ElCol>
 
-      <ElCol :xs="24" :md="12" :lg="8">
-        <div class="card art-custom-card">
-          <div class="card-header">
-            <span>柱状图（水平）</span>
+      <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
+        <div class="art-card">
+          <div class="pb-3.5">
+            <span class="text-base font-medium">柱状图（水平）</span>
           </div>
           <ArtHBarChart
             :data="[50, 80, 120, 90, 60]"
@@ -105,10 +105,10 @@
           />
         </div>
       </ElCol>
-      <ElCol :xs="24" :md="12" :lg="8">
-        <div class="card art-custom-card">
-          <div class="card-header">
-            <span>柱状图（水平）</span>
+      <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
+        <div class="art-card">
+          <div class="pb-3.5">
+            <span class="text-base font-medium">柱状图（水平）</span>
           </div>
 
           <ArtHBarChart
@@ -122,10 +122,10 @@
           />
         </div>
       </ElCol>
-      <ElCol :xs="24" :md="12" :lg="8">
-        <div class="card art-custom-card">
-          <div class="card-header">
-            <span>柱状图（水平堆叠）</span>
+      <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
+        <div class="art-card">
+          <div class="pb-3.5">
+            <span class="text-base font-medium">柱状图（水平堆叠）</span>
           </div>
           <ArtHBarChart
             :data="[
@@ -140,10 +140,10 @@
         </div>
       </ElCol>
 
-      <ElCol :xs="24" :md="12" :lg="8">
-        <div class="card art-custom-card">
-          <div class="card-header">
-            <span>环形图</span>
+      <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
+        <div class="art-card">
+          <div class="pb-3.5">
+            <span class="text-base font-medium">环形图</span>
           </div>
           <ArtRingChart
             :data="[
@@ -157,10 +157,10 @@
         </div>
       </ElCol>
 
-      <ElCol :xs="24" :md="12" :lg="8">
-        <div class="card art-custom-card">
-          <div class="card-header">
-            <span>环形图</span>
+      <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
+        <div class="art-card">
+          <div class="pb-3.5">
+            <span class="text-base font-medium">环形图</span>
           </div>
           <ArtRingChart
             :data="[
@@ -179,10 +179,10 @@
           />
         </div>
       </ElCol>
-      <ElCol :xs="24" :md="12" :lg="8">
-        <div class="card art-custom-card">
-          <div class="card-header">
-            <span>饼图</span>
+      <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
+        <div class="art-card">
+          <div class="pb-3.5">
+            <span class="text-base font-medium">饼图</span>
           </div>
           <ArtRingChart
             :data="[
@@ -196,10 +196,10 @@
           />
         </div>
       </ElCol>
-      <ElCol :xs="24" :md="12" :lg="8">
-        <div class="card art-custom-card">
-          <div class="card-header">
-            <span>散点图</span>
+      <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
+        <div class="art-card">
+          <div class="pb-3.5">
+            <span class="text-base font-medium">散点图</span>
           </div>
           <ArtScatterChart
             :data="[
@@ -220,10 +220,10 @@
         </div>
       </ElCol>
 
-      <ElCol :xs="24" :md="12" :lg="8">
-        <div class="card art-custom-card">
-          <div class="card-header">
-            <span>雷达图</span>
+      <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
+        <div class="art-card">
+          <div class="pb-3.5">
+            <span class="text-base font-medium">雷达图</span>
           </div>
           <ArtRadarChart
             :indicator="[
@@ -246,10 +246,10 @@
           />
         </div>
       </ElCol>
-      <ElCol :xs="24" :md="12" :lg="8">
-        <div class="card art-custom-card">
-          <div class="card-header">
-            <span>k线图</span>
+      <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
+        <div class="art-card">
+          <div class="pb-3.5">
+            <span class="text-base font-medium">k线图</span>
           </div>
           <ArtKLineChart
             :data="[
@@ -263,10 +263,10 @@
           />
         </div>
       </ElCol>
-      <ElCol :xs="24" :md="12" :lg="8">
-        <div class="card art-custom-card">
-          <div class="card-header">
-            <span>双向堆叠柱状图</span>
+      <ElCol :xs="24" :md="12" :lg="8" class="mb-5">
+        <div class="art-card">
+          <div class="pb-3.5">
+            <span class="text-base font-medium">双向堆叠柱状图</span>
           </div>
           <ArtDualBarCompareChart
             :positiveData="[50, 28, 80, 65, 68, 70, 60, 55]"
@@ -342,37 +342,14 @@
   const stackXAxisData = ref(['产品A', '产品B', '产品C', '产品D', '产品E'])
 </script>
 
-<style lang="scss" scoped>
-  .charts {
-    padding-top: 20px;
+<style scoped>
+  @reference '@styles/core/tailwind.css';
 
-    .page-title {
-      margin: 20px 0 15px;
-      font-size: 22px;
-      font-weight: 500;
+  .page-title {
+    @apply my-5 text-xl font-medium first:mt-0;
+  }
 
-      &:first-child {
-        margin-top: 0;
-      }
-    }
-
-    .card {
-      padding: 20px;
-      background-color: var(--art-main-bg-color);
-      border-radius: var(--custom-radius);
-
-      .card-header {
-        padding-bottom: 15px;
-
-        span {
-          font-size: 16px;
-          font-weight: 500;
-        }
-      }
-    }
-
-    .el-col {
-      margin-bottom: 20px;
-    }
+  .art-card {
+    @apply p-5;
   }
 </style>

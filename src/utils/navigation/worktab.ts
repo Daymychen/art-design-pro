@@ -1,9 +1,32 @@
+/**
+ * 工作标签页管理模块
+ *
+ * 提供工作标签页（Worktab）的自动管理功能
+ *
+ * ## 主要功能
+ *
+ * - 根据路由导航自动创建和更新工作标签页
+ * - iframe 页面标签页特殊处理
+ * - 标签页信息提取（标题、路径、缓存状态等）
+ * - 固定标签页支持
+ * - 根据系统设置控制标签页显示
+ * - 首页标签页特殊处理
+ *
+ * ## 使用场景
+ *
+ * - 路由守卫中自动创建标签页
+ * - 页面切换时更新标签页状态
+ * - 多标签页导航系统
+ *
+ * @module utils/navigation/worktab
+ * @author Art Design Pro Team
+ */
 import { useWorktabStore } from '@/store/modules/worktab'
 import { RouteLocationNormalized } from 'vue-router'
 import { isIframe } from './route'
 import { useSettingStore } from '@/store/modules/setting'
-import { getIframeRoutes } from '@/router/utils/menuToRouter'
-import { useCommon } from '@/composables/useCommon'
+import { IframeRouteManager } from '@/router/core'
+import { useCommon } from '@/hooks/core/useCommon'
 
 /**
  * 根据当前路由信息设置工作标签页（worktab）
@@ -15,7 +38,7 @@ export const setWorktab = (to: RouteLocationNormalized): void => {
   if (!meta.isHideTab) {
     // 如果是 iframe 页面，则特殊处理工作标签页
     if (isIframe(path)) {
-      const iframeRoute = getIframeRoutes().find((route: any) => route.path === to.path)
+      const iframeRoute = IframeRouteManager.getInstance().findByPath(to.path)
 
       if (iframeRoute?.meta) {
         worktabStore.openTab({

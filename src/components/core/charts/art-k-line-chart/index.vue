@@ -1,11 +1,16 @@
 <!-- k线图表 -->
 <template>
-  <div ref="chartRef" :style="{ height: props.height }" v-loading="props.loading"></div>
+  <div
+    ref="chartRef"
+    class="relative w-full"
+    :style="{ height: props.height }"
+    v-loading="props.loading"
+  ></div>
 </template>
 
 <script setup lang="ts">
-  import type { EChartsOption } from '@/utils/echarts'
-  import { useChartOps, useChartComponent } from '@/composables/useChart'
+  import type { EChartsOption } from '@/plugins/echarts'
+  import { useChartOps, useChartComponent } from '@/hooks/core/useChart'
   import type { KLineChartProps } from '@/types/component/chart'
 
   defineOptions({ name: 'ArtKLineChart' })
@@ -145,10 +150,3 @@
     }
   })
 </script>
-
-<style lang="scss" scoped>
-  .art-k-line-chart {
-    position: relative;
-    width: 100%;
-  }
-</style>

@@ -1,7 +1,7 @@
 <!-- 节日文本滚动 -->
 <template>
   <div
-    class="festival-text-scroll"
+    class="overflow-hidden transition-[height] duration-600 ease-in-out"
     :style="{
       height: showFestivalText ? '48px' : '0'
     }"
@@ -10,18 +10,15 @@
       v-if="showFestivalText && currentFestivalData?.scrollText !== ''"
       :text="currentFestivalData?.scrollText || ''"
       style="margin-bottom: 12px"
-      show-close
+      showClose
       @close="handleClose"
-      typewriter
-      :speed="100"
-      :typewriter-speed="150"
     />
   </div>
 </template>
 
 <script setup lang="ts">
   import { useSettingStore } from '@/store/modules/setting'
-  import { useCeremony } from '@/composables/useCeremony'
+  import { useCeremony } from '@/hooks/core/useCeremony'
 
   defineOptions({ name: 'ArtFestivalTextScroll' })
 
@@ -33,10 +30,3 @@
     settingStore.setShowFestivalText(false)
   }
 </script>
-
-<style lang="scss" scoped>
-  .festival-text-scroll {
-    overflow: hidden;
-    transition: height 0.5s ease-in-out;
-  }
-</style>

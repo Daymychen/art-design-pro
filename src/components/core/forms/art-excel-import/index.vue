@@ -1,6 +1,6 @@
 <!-- 导入 Excel 文件 -->
 <template>
-  <div class="excel-uploader">
+  <div class="inline-block">
     <ElUpload
       :auto-upload="false"
       accept=".xlsx, .xls"
@@ -60,9 +60,3 @@
     }
   }
 </script>
-
-<style scoped>
-  .excel-uploader {
-    display: inline-block;
-  }
-</style>

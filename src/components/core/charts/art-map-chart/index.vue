@@ -1,16 +1,16 @@
 <!-- 地图图表 -->
 <template>
-  <div class="art-map-chart" :style="{ height: 'calc(100vh - 120px)' }">
-    <div v-if="isEmpty" class="chart-empty-state">
+  <div class="relative w-full" :style="{ height: 'calc(100vh - 120px)' }">
+    <div v-if="isEmpty" class="h-full flex-cc">
       <ElEmpty description="暂无地图数据" />
     </div>
 
-    <div v-else id="china-map" ref="chinaMapRef" class="china-map" />
+    <div v-else id="china-map" ref="chinaMapRef" class="h-full w-full overflow-hidden rounded-lg" />
   </div>
 </template>
 
 <script setup lang="ts">
-  import { echarts } from '@/utils/echarts'
+  import { echarts } from '@/plugins/echarts'
   import { useSettingStore } from '@/store/modules/setting'
   import chinaMapJson from '@/mock/json/chinaMap.json'
   import type { MapChartProps } from '@/types/component/chart'
@@ -289,24 +289,3 @@
     { deep: true }
   )
 </script>
-
-<style lang="scss" scoped>
-  .art-map-chart {
-    position: relative;
-    width: 100%;
-
-    .chart-empty-state {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-    }
-
-    .china-map {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      border-radius: 8px;
-    }
-  }
-</style>

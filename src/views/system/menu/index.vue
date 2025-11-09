@@ -1,3 +1,4 @@
+<!-- 菜单管理页面 -->
 <template>
   <div class="menu-page art-full-height">
     <!-- 搜索栏 -->
@@ -49,9 +50,9 @@
 </template>
 
 <script setup lang="ts">
-  import { formatMenuTitle } from '@/router/utils/utils'
+  import { formatMenuTitle } from '@/utils/router'
   import ArtButtonTable from '@/components/core/forms/art-button-table/index.vue'
-  import { useTableColumns } from '@/composables/useTableColumns'
+  import { useTableColumns } from '@/hooks/core/useTableColumns'
   import type { AppRouteRecord } from '@/types/router'
   import MenuDialog from './modules/menu-dialog.vue'
   import { fetchGetMenuList } from '@/api/system-manage'
@@ -476,21 +477,3 @@
     })
   }
 </script>
-
-<style lang="scss" scoped>
-  .menu-page {
-    .svg-icon {
-      width: 1.8em;
-      height: 1.8em;
-      overflow: hidden;
-      vertical-align: -8px;
-      fill: currentcolor;
-    }
-
-    :deep(.small-btn) {
-      height: 30px !important;
-      padding: 0 10px !important;
-      font-size: 12px !important;
-    }
-  }
-</style>

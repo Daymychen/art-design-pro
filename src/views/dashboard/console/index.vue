@@ -1,5 +1,6 @@
+<!-- 工作台页面 -->
 <template>
-  <div class="console">
+  <div>
     <CardList></CardList>
 
     <ElRow :gutter="20">
@@ -35,13 +36,10 @@
   import Dynamic from './modules/dynamic-stats.vue'
   import TodoList from './modules/todo-list.vue'
   import AboutProject from './modules/about-project.vue'
-  import { useCommon } from '@/composables/useCommon'
+  import { useCommon } from '@/hooks/core/useCommon'
 
   defineOptions({ name: 'Console' })
 
-  useCommon().scrollToTop()
+  const { scrollToTop } = useCommon()
+  scrollToTop()
 </script>
-
-<style lang="scss" scoped>
-  @use './style';
-</style>

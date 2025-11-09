@@ -1,38 +1,33 @@
 <!-- 统计卡片 -->
 <template>
-  <div class="stats-card art-custom-card" :style="{ backgroundColor: backgroundColor }">
-    <div
-      v-if="icon"
-      class="stats-card__icon"
-      :style="{ backgroundColor: iconBgColor, borderRadius: iconBgRadius + 'px' }"
-    >
-      <i
-        class="iconfont-sys"
-        v-html="icon"
-        :style="{
-          color: iconColor,
-          fontSize: iconSize + 'px'
-        }"
-      ></i>
+  <div
+    class="art-card h-32 flex-c px-5 transition-transform duration-200 hover:-translate-y-0.5"
+    :class="boxStyle"
+  >
+    <div v-if="icon" class="mr-4 size-11 flex-cc rounded-lg text-xl text-white" :class="iconStyle">
+      <ArtSvgIcon :icon="icon"></ArtSvgIcon>
     </div>
-    <div class="stats-card__content">
-      <p class="stats-card__title" :style="{ color: textColor }" v-if="title">
+    <div class="flex-1">
+      <p class="m-0 text-lg font-medium" :style="{ color: textColor }" v-if="title">
         {{ title }}
       </p>
       <ArtCountTo
-        class="stats-card__count"
+        class="m-0 text-2xl font-medium"
         v-if="count !== undefined"
         :target="count"
         :duration="2000"
         :decimals="decimals"
         :separator="separator"
       />
-      <p class="stats-card__description" :style="{ color: textColor }" v-if="description">{{
-        description
-      }}</p>
+      <p
+        class="mt-1 text-sm text-g-500 opacity-90"
+        :style="{ color: textColor }"
+        v-if="description"
+        >{{ description }}</p
+      >
     </div>
-    <div class="stats-card__arrow" v-if="showArrow">
-      <i class="iconfont-sys">&#xe703;</i>
+    <div v-if="showArrow">
+      <ArtSvgIcon icon="ri:arrow-right-s-line" class="text-xl text-g-500" />
     </div>
   </div>
 </template>
@@ -41,8 +36,12 @@
   defineOptions({ name: 'ArtStatsCard' })
 
   interface StatsCardProps {
+    /** 盒子样式 */
+    boxStyle?: string
     /** 图标 */
     icon?: string
+    /** 图标样式 */
+    iconStyle?: string
     /** 标题 */
     title?: string
     /** 数值 */
@@ -53,18 +52,8 @@
     separator?: string
     /** 描述 */
     description: string
-    /** 图标颜色 */
-    iconColor?: string
-    /** 图标背景颜色 */
-    iconBgColor?: string
-    /** 图标圆角大小 */
-    iconBgRadius?: number
-    /** 图标大小 */
-    iconSize?: number
     /** 文本颜色 */
     textColor?: string
-    /** 背景颜色 */
-    backgroundColor?: string
     /** 是否显示箭头 */
     showArrow?: boolean
   }
@@ -76,66 +65,3 @@
     separator: ','
   })
 </script>
-
-<style lang="scss" scoped>
-  .stats-card {
-    display: flex;
-    align-items: center;
-    height: 8rem;
-    padding: 0 20px;
-    cursor: pointer;
-    background-color: var(--art-main-bg-color);
-    border-radius: calc(var(--custom-radius) + 4px) !important;
-    transition: transform 0.2s ease;
-
-    &:hover {
-      transform: translateY(-2px);
-    }
-
-    &__icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 46px;
-      height: 46px;
-      margin-right: 16px;
-      border-radius: 50%;
-
-      i {
-        font-size: 30px;
-      }
-    }
-
-    &__content {
-      flex: 1;
-    }
-
-    &__title {
-      margin: 0;
-      font-size: 18px;
-      font-weight: 500;
-      color: var(--art-gray-900);
-    }
-
-    &__count {
-      margin: 0;
-      font-size: 28px;
-      font-weight: 500;
-      color: var(--art-gray-900);
-    }
-
-    &__description {
-      margin: 4px 0 0;
-      font-size: 14px;
-      color: var(--art-gray-600);
-      opacity: 0.9;
-    }
-
-    &__arrow {
-      i {
-        font-size: 18px;
-        color: var(--art-gray-600);
-      }
-    }
-  }
-</style>

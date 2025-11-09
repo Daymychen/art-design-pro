@@ -1,9 +1,9 @@
 <template>
-  <div class="card art-custom-card">
-    <div class="card-header">
+  <div class="art-card p-5 h-128 overflow-hidden mb-5 max-sm:mb-4">
+    <div class="art-card-header">
       <div class="title">
-        <h4 class="box-title">新用户</h4>
-        <p class="subtitle">这个月增长<span class="text-success">+20%</span></p>
+        <h4>新用户</h4>
+        <p>这个月增长<span class="text-success">+20%</span></p>
       </div>
       <ElRadioGroup v-model="radio2">
         <ElRadioButton value="本月" label="本月"></ElRadioButton>
@@ -12,7 +12,7 @@
       </ElRadioGroup>
     </div>
     <ArtTable
-      class="table"
+      class="w-full"
       :data="tableData"
       style="width: 100%"
       size="large"
@@ -24,8 +24,8 @@
         <ElTableColumn label="头像" prop="avatar" width="150px">
           <template #default="scope">
             <div style="display: flex; align-items: center">
-              <img class="avatar" :src="scope.row.avatar" alt="avatar" />
-              <span class="user-name">{{ scope.row.username }}</span>
+              <img class="size-9 rounded-lg" :src="scope.row.avatar" alt="avatar" />
+              <span class="ml-2">{{ scope.row.username }}</span>
             </div>
           </template>
         </ElTableColumn>
@@ -53,12 +53,12 @@
 </template>
 
 <script setup lang="ts">
-  import avatar1 from '@/assets/img/avatar/avatar1.webp'
-  import avatar2 from '@/assets/img/avatar/avatar2.webp'
-  import avatar3 from '@/assets/img/avatar/avatar3.webp'
-  import avatar4 from '@/assets/img/avatar/avatar4.webp'
-  import avatar5 from '@/assets/img/avatar/avatar5.webp'
-  import avatar6 from '@/assets/img/avatar/avatar6.webp'
+  import avatar1 from '@/assets/images/avatar/avatar1.webp'
+  import avatar2 from '@/assets/images/avatar/avatar2.webp'
+  import avatar3 from '@/assets/images/avatar/avatar3.webp'
+  import avatar4 from '@/assets/images/avatar/avatar4.webp'
+  import avatar5 from '@/assets/images/avatar/avatar5.webp'
+  import avatar6 from '@/assets/images/avatar/avatar6.webp'
 
   interface UserTableItem {
     username: string
@@ -87,7 +87,7 @@
       age: 22,
       percentage: 60,
       pro: 0,
-      color: 'rgb(var(--art-primary)) !important',
+      color: 'var(--art-primary)',
       avatar: avatar1
     },
     {
@@ -97,7 +97,7 @@
       age: 21,
       percentage: 20,
       pro: 0,
-      color: 'rgb(var(--art-secondary)) !important',
+      color: 'var(--art-secondary)',
       avatar: avatar2
     },
     {
@@ -107,7 +107,7 @@
       age: 23,
       percentage: 60,
       pro: 0,
-      color: 'rgb(var(--art-warning)) !important',
+      color: 'var(--art-warning)',
       avatar: avatar3
     },
     {
@@ -117,7 +117,7 @@
       age: 28,
       percentage: 50,
       pro: 0,
-      color: 'rgb(var(--art-info)) !important',
+      color: 'var(--art-info)',
       avatar: avatar4
     },
     {
@@ -127,7 +127,7 @@
       age: 26,
       percentage: 70,
       pro: 0,
-      color: 'rgb(var(--art-error)) !important',
+      color: 'var(--art-error)',
       avatar: avatar5
     },
     {
@@ -137,7 +137,7 @@
       age: 25,
       percentage: 90,
       pro: 0,
-      color: 'rgb(var(--art-success)) !important',
+      color: 'var(--art-success)',
       avatar: avatar6
     }
   ])
@@ -159,42 +159,11 @@
   })
 </script>
 
-<style lang="scss">
-  .card {
-    // 进度动画
-    .el-progress-bar__inner {
-      transition: all 1s !important;
-    }
-
-    .el-radio-button__original-radio:checked + .el-radio-button__inner {
+<style lang="scss" scoped>
+  .art-card {
+    :deep(.el-radio-button__original-radio:checked + .el-radio-button__inner) {
       color: var(--el-color-primary) !important;
       background: transparent !important;
-    }
-  }
-</style>
-
-<style lang="scss" scoped>
-  .card {
-    width: 100%;
-    height: 510px;
-    overflow: hidden;
-
-    .card-header {
-      padding-left: 25px !important;
-    }
-
-    :deep(.el-table__body tr:last-child td) {
-      border-bottom: none !important;
-    }
-
-    .avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 6px;
-    }
-
-    .user-name {
-      margin-left: 10px;
     }
   }
 </style>

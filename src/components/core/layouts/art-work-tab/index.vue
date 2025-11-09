@@ -1,9 +1,17 @@
 <!-- 标签页 -->
 <template>
-  <div class="worktab" :class="[tabStyle]" v-if="showWorkTab">
-    <div class="scroll-view" ref="scrollRef">
+  <div
+    v-if="showWorkTab"
+    class="box-border flex-b w-full px-5 mb-3 select-none max-sm:px-[15px]"
+    :class="[
+      tabStyle === 'tab-card' ? 'py-1 border-b border-[var(--art-card-border)]' : '',
+      tabStyle === 'tab-google' ? 'pt-1 pb-0 border-b border-[var(--art-card-border)]' : ''
+    ]"
+  >
+    <div class="w-full overflow-hidden" ref="scrollRef">
       <ul
-        class="tabs"
+        class="float-left whitespace-nowrap !bg-transparent flex"
+        :class="[tabStyle === 'tab-google' ? 'pl-1' : '']"
         ref="tabsRef"
         :style="{
           transform: `translateX(${scrollState.translateX}px)`,
@@ -11,35 +19,52 @@
         }"
       >
         <li
-          class="art-custom-card"
+          class="art-card-xs inline-flex flex-cc h-8 mr-1.5 text-xs c-p hover:text-theme"
+          :class="[
+            item.path === activeTab ? 'activ-tab !text-theme' : 'text-g-600 dark:text-g-800',
+            tabStyle === 'tab-google' ? 'google-tab relative !h-8 !leading-8 !border-none' : ''
+          ]"
+          :style="{
+            padding: item.fixedTab ? '0 10px' : '0 8px 0 12px',
+            borderRadius:
+              tabStyle === 'tab-google'
+                ? 'calc(var(--custom-radius) / 2.5 + 4px) !important'
+                : 'calc(var(--custom-radius) / 2.5 + 2px) !important'
+          }"
           v-for="(item, index) in list"
           :key="item.path"
           :ref="item.path"
-          :class="{ 'activ-tab': item.path === activeTab }"
           :id="`scroll-li-${index}`"
-          :style="{ padding: item.fixedTab ? '0 10px' : '0 8px 0 12px' }"
           @click="clickTab(item)"
           @contextmenu.prevent="(e: MouseEvent) => showMenu(e, item.path)"
         >
           {{ item.customTitle || formatMenuTitle(item.title) }}
-          <ElIcon
+          <span
             v-if="list.length > 1 && !item.fixedTab"
+            class="inline-flex flex-cc relative ml-0.5 p-1 rounded-full tad-200 hover:bg-g-200"
             @click.stop="closeWorktab('current', item.path)"
           >
-            <Close />
-          </ElIcon>
-          <div class="line"></div>
+            <ArtSvgIcon icon="ri:close-large-fill" class="text-[10px] text-g-600" />
+          </span>
+          <div
+            v-if="tabStyle === 'tab-google'"
+            class="line absolute top-0 bottom-0 left-0 w-px h-4 my-auto bg-g-400 transition-opacity duration-150"
+          />
         </li>
       </ul>
     </div>
 
-    <div class="right">
-      <ElIcon
-        class="btn console-box art-custom-card"
+    <div class="flex">
+      <div
+        class="flex-cc art-card-xs relative top-0 size-8 leading-8 text-center c-p tad-200 hover:!bg-hover-color"
+        :style="{
+          borderRadius: 'calc(var(--custom-radius) / 2.5 + 0px)',
+          marginTop: tabStyle === 'tab-google' ? '-2px' : ''
+        }"
         @click="(e: MouseEvent) => showMenu(e, activeTab)"
       >
-        <ArrowDown />
-      </ElIcon>
+        <ArtSvgIcon icon="iconamoon:arrow-down-2-thin" class="text-2xl text-g-700" />
+      </div>
     </div>
 
     <ArtMenuRight
@@ -56,15 +81,14 @@
   import { computed, onMounted, ref, watch, nextTick, onUnmounted } from 'vue'
   import { LocationQueryRaw, useRoute, useRouter } from 'vue-router'
   import { useI18n } from 'vue-i18n'
-  import { ArrowDown, Close } from '@element-plus/icons-vue'
   import { storeToRefs } from 'pinia'
 
   import { useWorktabStore } from '@/store/modules/worktab'
   import { useUserStore } from '@/store/modules/user'
-  import { formatMenuTitle } from '@/router/utils/utils'
+  import { formatMenuTitle } from '@/utils/router'
   import { useSettingStore } from '@/store/modules/setting'
   import { MenuItemType } from '../../others/art-menu-right/index.vue'
-  import { useCommon } from '@/composables/useCommon'
+  import { useCommon } from '@/hooks/core/useCommon'
   import { WorkTab } from '@/types'
 
   defineOptions({ name: 'ArtWorkTab' })
@@ -153,38 +177,38 @@
         {
           key: 'refresh',
           label: t('worktab.btn.refresh'),
-          icon: '&#xe6b3;',
+          icon: 'ri:refresh-line',
           disabled: !isCurrentTab
         },
         {
           key: 'fixed',
           label: currentTab?.fixedTab ? t('worktab.btn.unfixed') : t('worktab.btn.fixed'),
-          icon: '&#xe644;',
+          icon: 'ri:pushpin-2-line',
           disabled: false,
           showLine: true
         },
         {
           key: 'left',
           label: t('worktab.btn.closeLeft'),
-          icon: '&#xe866;',
+          icon: 'ri:arrow-left-s-line',
           disabled: clickedIndex === 0 || fixedStatus.areAllLeftTabsFixed
         },
         {
           key: 'right',
           label: t('worktab.btn.closeRight'),
-          icon: '&#xe865;',
+          icon: 'ri:arrow-right-s-line',
           disabled: isLastTab || fixedStatus.areAllRightTabsFixed
         },
         {
           key: 'other',
           label: t('worktab.btn.closeOther'),
-          icon: '&#xe83a;',
+          icon: 'ri:close-fill',
           disabled: isOneTab || fixedStatus.areAllOtherTabsFixed
         },
         {
           key: 'all',
           label: t('worktab.btn.closeAll'),
-          icon: '&#xe71a;',
+          icon: 'ri:close-circle-line',
           disabled: isOneTab || fixedStatus.areAllTabsFixed
         }
       ]
@@ -449,6 +473,106 @@
   )
 </script>
 
-<style lang="scss" scoped>
-  @use './style';
+<style scoped>
+  .google-tab.activ-tab {
+    color: var(--theme-color) !important;
+    background-color: var(--el-color-primary-light-9) !important;
+    border-bottom: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
+
+  .google-tab.activ-tab::before,
+  .google-tab.activ-tab::after {
+    position: absolute;
+    bottom: 0;
+    width: 20px;
+    height: 20px;
+    content: '';
+    border-radius: 50%;
+    box-shadow: 0 0 0 30px var(--el-color-primary-light-9);
+  }
+
+  .google-tab.activ-tab::before {
+    left: -20px;
+    clip-path: inset(50% -10px 0 50%);
+  }
+
+  .google-tab.activ-tab::after {
+    right: -20px;
+    clip-path: inset(50% 50% 0 -10px);
+  }
+
+  .dark .google-tab.activ-tab {
+    color: var(--art-gray-800) !important;
+    background-color: var(--art-hover-color) !important;
+  }
+
+  .dark .google-tab.activ-tab::before,
+  .dark .google-tab.activ-tab::after {
+    box-shadow: 0 0 0 30px var(--art-hover-color);
+  }
+
+  .google-tab:not(.activ-tab):hover {
+    box-sizing: border-box;
+    color: var(--art-gray-600) !important;
+    background-color: var(--art-gray-200) !important;
+    border-bottom: 1px solid var(--default-box-color) !important;
+    border-radius: calc(var(--custom-radius) / 2.5 + 4px) !important;
+  }
+
+  .dark .google-tab:not(.activ-tab):hover {
+    background-color: var(--art-hover-color) !important;
+  }
+
+  .google-tab:hover .line,
+  .google-tab.activ-tab .line,
+  .google-tab:first-child .line {
+    opacity: 0;
+  }
+
+  .google-tab:hover + .google-tab .line,
+  .google-tab.activ-tab + .google-tab .line {
+    opacity: 0;
+  }
+
+  .google-tab::before,
+  .google-tab::after {
+    position: absolute;
+    bottom: 0;
+    width: 20px;
+    height: 20px;
+    content: '';
+    border-radius: 50%;
+    box-shadow: 0 0 0 30px transparent;
+  }
+
+  .google-tab::before {
+    left: -20px;
+    clip-path: inset(50% -10px 0 50%);
+  }
+
+  .google-tab::after {
+    right: -20px;
+    clip-path: inset(50% 50% 0 -10px);
+  }
+
+  .google-tab i:hover {
+    color: var(--art-gray-700);
+    background: var(--art-gray-300);
+  }
+
+  @media only screen and (width <= 768px) {
+    .box-border.flex.justify-between {
+      padding-right: 0.625rem;
+      padding-left: 0.625rem;
+    }
+  }
+
+  @media only screen and (width <= 640px) {
+    .box-border.flex.justify-between {
+      padding-right: 0.9375rem;
+      padding-left: 0.9375rem;
+    }
+  }
 </style>

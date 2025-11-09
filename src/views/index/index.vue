@@ -1,19 +1,20 @@
+<!-- 布局容器 -->
 <template>
   <div class="app-layout">
-    <aside class="app-sidebar">
+    <aside id="app-sidebar">
       <ArtSidebarMenu />
     </aside>
 
     <main id="app-main">
-      <div class="app-header">
+      <div id="app-header">
         <ArtHeaderBar />
       </div>
-      <div class="app-content">
+      <div id="app-content">
         <ArtPageContent />
       </div>
     </main>
 
-    <div class="app-global">
+    <div id="app-global">
       <ArtGlobalComponent />
     </div>
   </div>

@@ -55,7 +55,26 @@ module.exports = {
           'if',
           'else',
           'for',
-          'while'
+          'while',
+          'reference'
+        ]
+      }
+    ],
+    'scss/at-rule-no-unknown': [
+      true,
+      {
+        ignoreAtRules: [
+          'apply',
+          'use',
+          'mixin',
+          'include',
+          'extend',
+          'each',
+          'if',
+          'else',
+          'for',
+          'while',
+          'reference'
         ]
       }
     ]

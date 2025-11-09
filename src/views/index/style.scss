@@ -1,12 +1,10 @@
-@use '@/assets/styles/variables' as *;
-
 .app-layout {
   display: flex;
   width: 100%;
   min-height: 100vh;
-  background: var(--art-bg-color);
+  background: var(--default-bg-color);
 
-  .app-sidebar {
+  #app-sidebar {
     flex-shrink: 0;
   }
 
@@ -18,7 +16,7 @@
     height: 100vh;
     overflow: auto;
 
-    .app-header {
+    #app-header {
       position: sticky;
       top: 0;
       z-index: 50;
@@ -26,7 +24,7 @@
       width: 100%;
     }
 
-    .app-content {
+    #app-content {
       flex: 1;
 
       :deep(.layout-content) {
@@ -40,7 +38,7 @@
           box-sizing: border-box;
           padding: 20px;
           overflow: hidden;
-          background: var(--art-main-bg-color);
+          background: var(--default-box-color);
           border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
         }
       }
@@ -48,7 +46,7 @@
   }
 }
 
-@media only screen and (max-width: $device-ipad-pro) {
+@media only screen and (width <= 1180px) {
   .app-layout {
     #app-main {
       height: 100dvh;
@@ -56,11 +54,11 @@
   }
 }
 
-@media only screen and (max-width: $device-ipad) {
+@media only screen and (width <= 800px) {
   .app-layout {
     position: relative;
 
-    .app-sidebar {
+    #app-sidebar {
       position: fixed;
       top: 0;
       left: 0;
@@ -73,7 +71,7 @@
       height: auto;
       overflow: visible;
 
-      .app-content {
+      #app-content {
         :deep(.layout-content) {
           width: calc(100% - 40px);
         }
@@ -82,10 +80,10 @@
   }
 }
 
-@media only screen and (max-width: $device-phone) {
+@media only screen and (width <= 640px) {
   .app-layout {
     #app-main {
-      .app-content {
+      #app-content {
         :deep(.layout-content) {
           width: calc(100% - 30px);
         }

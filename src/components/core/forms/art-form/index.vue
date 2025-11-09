@@ -2,22 +2,22 @@
 <!-- 支持常用表单组件、自定义组件、插槽、校验、隐藏表单项 -->
 <!-- 写法同 ElementPlus 官方文档组件，把属性写在 props 里面就可以了 -->
 <template>
-  <section class="art-form">
+  <section class="px-4 pb-0 pt-4 md:px-4 md:pt-4">
     <ElForm
       ref="formRef"
       :model="modelValue"
       :label-position="labelPosition"
       v-bind="{ ...$attrs }"
     >
-      <ElRow class="form-row" :gutter="gutter">
+      <ElRow class="flex flex-wrap" :gutter="gutter">
         <ElCol
           v-for="item in visibleFormItems"
           :key="item.key"
-          :xs="24"
-          :sm="12"
-          :md="8"
-          :lg="item.span || span"
-          :xl="item.span || span"
+          :xs="getColSpan(item.span, 'xs')"
+          :sm="getColSpan(item.span, 'sm')"
+          :md="getColSpan(item.span, 'md')"
+          :lg="getColSpan(item.span, 'lg')"
+          :xl="getColSpan(item.span, 'xl')"
         >
           <ElFormItem
             :label="item.label"
@@ -65,9 +65,12 @@
             </slot>
           </ElFormItem>
         </ElCol>
-        <ElCol :xs="24" :sm="24" :md="span" :lg="span" :xl="span" class="action-column">
-          <div class="action-buttons-wrapper" :style="actionButtonsStyle">
-            <div class="form-buttons">
+        <ElCol :xs="24" :sm="24" :md="span" :lg="span" :xl="span" class="max-w-full flex-1">
+          <div
+            class="mb-3 flex-c flex-wrap justify-end md:flex-row md:items-stretch md:gap-2"
+            :style="actionButtonsStyle"
+          >
+            <div class="flex gap-2 md:justify-center">
               <ElButton v-if="showReset" class="reset-button" @click="handleReset" v-ripple>
                 {{ t('table.form.reset') }}
               </ElButton>
@@ -92,12 +95,14 @@
 <script setup lang="ts">
   import { useWindowSize } from '@vueuse/core'
   import { useI18n } from 'vue-i18n'
+  import type { Component } from 'vue'
   import {
     ElCascader,
     ElCheckbox,
     ElCheckboxGroup,
     ElDatePicker,
     ElInput,
+    ElInputTag,
     ElInputNumber,
     ElRadioGroup,
     ElRate,
@@ -109,11 +114,13 @@
     ElTreeSelect,
     type FormInstance
   } from 'element-plus'
+  import { calculateResponsiveSpan, type ResponsiveBreakpoint } from '@/utils/form/responsive'
 
   defineOptions({ name: 'ArtForm' })
 
   const componentMap = {
     input: ElInput, // 输入框
+    inputtag: ElInputTag, // 标签输入框
     number: ElInputNumber, // 数字输入框
     select: ElSelect, // 选择器
     switch: ElSwitch, // 开关
@@ -146,8 +153,10 @@
     label: string
     /** 表单项标签的宽度，会覆盖 Form 的 labelWidth */
     labelWidth?: string | number
-    /** 表单项类型，可以是预定义的字符串类型或自定义组件 */
-    type: keyof typeof componentMap | string | (() => VNode)
+    /** 表单项类型，支持预定义的组件类型 */
+    type?: keyof typeof componentMap | string
+    /** 自定义渲染函数或组件，用于渲染自定义组件（优先级高于 type） */
+    render?: (() => VNode) | Component
     /** 是否隐藏该表单项 */
     hidden?: boolean
     /** 表单项占据的列宽，基于24格栅格系统 */
@@ -229,10 +238,21 @@
 
   // 组件
   const getComponent = (item: FormItem) => {
+    // 优先使用 render 函数或组件渲染自定义组件
+    if (item.render) {
+      return item.render
+    }
+    // 使用 type 获取预定义组件
     const { type } = item
-    if (type && typeof item.type !== 'string') return type
-    // type不传递、默认使用 input
     return componentMap[type as keyof typeof componentMap] || componentMap['input']
+  }
+
+  /**
+   * 获取列宽 span 值
+   * 根据屏幕尺寸智能降级，避免小屏幕上表单项被压缩过小
+   */
+  const getColSpan = (itemSpan: number | undefined, breakpoint: ResponsiveBreakpoint): number => {
+    return calculateResponsiveSpan(itemSpan, span.value, breakpoint)
   }
 
   /**
@@ -286,81 +306,3 @@
   // 解构 props 以便在模板中直接使用
   const { span, gutter, labelPosition, labelWidth } = toRefs(props)
 </script>
-
-<style lang="scss" scoped>
-  .art-form {
-    .form-row {
-      display: flex;
-      flex-wrap: wrap;
-    }
-
-    .action-column {
-      flex: 1;
-      max-width: 100%;
-
-      .action-buttons-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: flex-end;
-        margin-bottom: 12px;
-      }
-
-      .form-buttons {
-        display: flex;
-        gap: 8px;
-      }
-
-      .filter-toggle {
-        display: flex;
-        align-items: center;
-        margin-left: 10px;
-        line-height: 32px;
-        color: var(--main-color);
-        cursor: pointer;
-        transition: color 0.2s ease;
-
-        &:hover {
-          color: var(--ElColor-primary);
-        }
-
-        span {
-          font-size: 14px;
-          user-select: none;
-        }
-
-        .icon-wrapper {
-          display: flex;
-          align-items: center;
-          margin-left: 4px;
-          font-size: 14px;
-          transition: transform 0.2s ease;
-        }
-      }
-    }
-  }
-
-  // 响应式优化
-  @media (width <= 768px) {
-    .art-form {
-      padding: 16px 16px 0;
-
-      .action-column {
-        .action-buttons-wrapper {
-          flex-direction: column;
-          gap: 8px;
-          align-items: stretch;
-
-          .form-buttons {
-            justify-content: center;
-          }
-
-          .filter-toggle {
-            justify-content: center;
-            margin-left: 0;
-          }
-        }
-      }
-    }
-  }
-</style>

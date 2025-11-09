@@ -1,17 +1,28 @@
 <!-- 面包屑导航 -->
 <template>
-  <nav class="breadcrumb" aria-label="breadcrumb">
-    <ul>
-      <li v-for="(item, index) in breadcrumbItems" :key="item.path">
+  <nav class="ml-2.5 max-lg:!hidden" aria-label="breadcrumb">
+    <ul class="flex-c h-full">
+      <li
+        v-for="(item, index) in breadcrumbItems"
+        :key="item.path"
+        class="box-border flex-c h-7 text-sm leading-7"
+      >
         <div
-          :class="{ clickable: isClickable(item, index) }"
+          :class="
+            isClickable(item, index)
+              ? 'c-p py-1 rounded tad-200 hover:bg-active-color hover:[&_span]:text-g-600'
+              : ''
+          "
           @click="handleBreadcrumbClick(item, index)"
         >
-          <span>{{ formatMenuTitle(item.meta?.title as string) }}</span>
+          <span
+            class="block max-w-46 overflow-hidden text-ellipsis whitespace-nowrap px-1.5 text-sm text-g-600 dark:text-g-800"
+            >{{ formatMenuTitle(item.meta?.title as string) }}</span
+          >
         </div>
         <div
           v-if="!isLastItem(index) && item.meta?.title"
-          class="breadcrumb-separator"
+          class="mx-1 text-sm not-italic text-g-500"
           aria-hidden="true"
         >
           /
@@ -25,7 +36,7 @@
   import { computed } from 'vue'
   import { useRouter, useRoute } from 'vue-router'
   import type { RouteLocationMatched, RouteRecordRaw } from 'vue-router'
-  import { formatMenuTitle } from '@/router/utils/utils'
+  import { formatMenuTitle } from '@/utils/router'
 
   defineOptions({ name: 'ArtBreadcrumb' })
 
@@ -129,56 +140,3 @@
     }
   }
 </script>
-
-<style lang="scss" scoped>
-  @use './style';
-
-  .breadcrumb {
-    ul {
-      display: flex;
-      align-items: center;
-      height: 100%;
-
-      li {
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        height: 28px;
-        font-size: 14px;
-        line-height: 28px;
-
-        .clickable {
-          cursor: pointer;
-          border-radius: 4px;
-          transition: color 0.2s ease;
-          transition: all 0.2s ease;
-
-          &:hover {
-            background-color: rgba(var(--art-gray-200-rgb), 0.85);
-
-            span {
-              color: var(--art-gray-700);
-            }
-          }
-        }
-
-        span {
-          display: block;
-          max-width: 200px;
-          padding: 0 6px;
-          overflow: hidden;
-          color: var(--art-gray-600);
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          transition: color 0.2s ease;
-        }
-
-        .breadcrumb-separator {
-          margin: 0 4px;
-          font-style: normal;
-          color: var(--art-gray-600);
-        }
-      }
-    }
-  }
-</style>

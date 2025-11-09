@@ -1,19 +1,19 @@
 <template>
-  <div class="custom-card art-custom-card customer-satisfaction">
-    <div class="custom-card-header">
-      <span class="title">客户满意度</span>
+  <div class="art-card h-100 p-5 mb-5 max-sm:mb-4">
+    <div class="art-card-header">
+      <div class="title">
+        <h4>客户满意度</h4>
+      </div>
     </div>
-    <div class="custom-card-body">
-      <ArtLineChart
-        height="100%"
-        :data="chartData"
-        :xAxisData="xAxisData"
-        :showLegend="true"
-        :showAxisLabel="true"
-        :showAxisLine="false"
-        :showSplitLine="true"
-      />
-    </div>
+    <ArtLineChart
+      height="calc(100% - 30px)"
+      :data="chartData"
+      :xAxisData="xAxisData"
+      :showLegend="true"
+      :showAxisLabel="true"
+      :showAxisLine="false"
+      :showSplitLine="true"
+    />
   </div>
 </template>
 
@@ -48,25 +48,3 @@
     }
   ])
 </script>
-
-<style lang="scss" scoped>
-  .customer-satisfaction {
-    height: 400px;
-
-    .custom-card-body {
-      height: calc(100% - 145px);
-      padding: 60px 20px 10px;
-    }
-  }
-
-  @media screen and (max-width: $device-phone) {
-    .customer-satisfaction {
-      height: 300px;
-
-      .custom-card-body {
-        height: calc(100% - 100px);
-        padding-top: 20px;
-      }
-    }
-  }
-</style>

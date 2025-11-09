@@ -1,5 +1,8 @@
 <template>
-  <p class="section-title" :style="style">
+  <p
+    class="relative mt-7.5 mb-5.5 text-sm text-center text-g-800 before:absolute before:top-[10px] before:left-0 before:w-[50px] before:m-auto before:content-[''] before:border-b before:border-[var(--art-gray-300)] after:absolute after:top-[10px] after:right-0 after:w-[50px] after:m-auto after:content-[''] after:border-b after:border-g-300"
+    :style="style"
+  >
     {{ title }}
   </p>
 </template>
@@ -12,31 +15,3 @@
 
   defineProps<Props>()
 </script>
-
-<style lang="scss" scoped>
-  .section-title {
-    position: relative;
-    margin: 30px 0 20px;
-    font-size: 14px;
-    color: var(--art-text-gray-800);
-    text-align: center;
-
-    &::before,
-    &::after {
-      position: absolute;
-      top: 10px;
-      width: 50px;
-      margin: auto;
-      content: '';
-      border-bottom: 1px solid rgba(var(--art-gray-300-rgb), 0.8);
-    }
-
-    &::before {
-      left: 0;
-    }
-
-    &::after {
-      right: 0;
-    }
-  }
-</style>

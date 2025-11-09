@@ -2,7 +2,7 @@
 <template>
   <div
     ref="chartRef"
-    class="art-ring-chart"
+    class="relative w-full"
     :style="{ height: props.height }"
     v-loading="props.loading"
   >
@@ -10,8 +10,8 @@
 </template>
 
 <script setup lang="ts">
-  import type { EChartsOption } from '@/utils/echarts'
-  import { useChartOps, useChartComponent } from '@/composables/useChart'
+  import type { EChartsOption } from '@/plugins/echarts'
+  import { useChartOps, useChartComponent } from '@/hooks/core/useChart'
   import type { RingChartProps } from '@/types/component/chart'
 
   defineOptions({ name: 'ArtRingChart' })
@@ -131,10 +131,3 @@
       }
     })
 </script>
-
-<style lang="scss" scoped>
-  .art-ring-chart {
-    position: relative;
-    width: 100%;
-  }
-</style>

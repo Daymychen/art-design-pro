@@ -1,27 +1,29 @@
 <!-- 数据列表卡片 -->
 <template>
-  <div class="basic-list-card">
-    <div class="art-card art-custom-card">
-      <div class="card-header">
-        <p class="card-title">{{ title }}</p>
-        <p class="card-subtitle">{{ subtitle }}</p>
-      </div>
-      <ElScrollbar :style="{ height: maxHeight }">
-        <div v-for="(item, index) in list" :key="index" class="list-item">
-          <div class="item-icon" :class="item.class" v-if="item.icon">
-            <i class="iconfont-sys" v-html="item.icon"></i>
-          </div>
-          <div class="item-content">
-            <div class="item-title">{{ item.title }}</div>
-            <div class="item-status">{{ item.status }}</div>
-          </div>
-          <div class="item-time">{{ item.time }}</div>
-        </div>
-      </ElScrollbar>
-      <ElButton class="more-btn" v-if="showMoreButton" v-ripple @click="handleMore"
-        >查看更多</ElButton
-      >
+  <div class="art-card p-5">
+    <div class="pb-3.5">
+      <p class="text-lg font-medium">{{ title }}</p>
+      <p class="text-sm text-g-600">{{ subtitle }}</p>
     </div>
+    <ElScrollbar :style="{ height: maxHeight }">
+      <div v-for="(item, index) in list" :key="index" class="flex-c py-3">
+        <div v-if="item.icon" class="flex-cc mr-3 size-10 rounded-lg" :class="item.class">
+          <ArtSvgIcon :icon="item.icon" class="text-xl" />
+        </div>
+        <div class="flex-1">
+          <div class="mb-1 text-sm">{{ item.title }}</div>
+          <div class="text-xs text-g-500">{{ item.status }}</div>
+        </div>
+        <div class="ml-3 text-xs text-g-500">{{ item.time }}</div>
+      </div>
+    </ElScrollbar>
+    <ElButton
+      class="mt-[25px] w-full text-center"
+      v-if="showMoreButton"
+      v-ripple
+      @click="handleMore"
+      >查看更多</ElButton
+    >
   </div>
 </template>
 
@@ -70,75 +72,3 @@
 
   const handleMore = () => emit('more')
 </script>
-
-<style lang="scss" scoped>
-  .basic-list-card {
-    .art-card {
-      padding: 30px;
-      background-color: var(--art-main-bg-color);
-      border-radius: var(--custom-radius);
-
-      .card-header {
-        padding-bottom: 15px;
-
-        .card-title {
-          font-size: 18px;
-          font-weight: 500;
-          color: var(--art-gray-900);
-        }
-
-        .card-subtitle {
-          font-size: 14px;
-          color: var(--art-gray-500);
-        }
-      }
-    }
-
-    .list-item {
-      display: flex;
-      align-items: center;
-      padding: 12px 0;
-
-      .item-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 40px;
-        margin-right: 12px;
-        border-radius: 8px;
-
-        i {
-          font-size: 20px;
-        }
-      }
-
-      .item-content {
-        flex: 1;
-
-        .item-title {
-          margin-bottom: 4px;
-          font-size: 15px;
-          color: var(--art-gray-900);
-        }
-
-        .item-status {
-          font-size: 12px;
-          color: var(--art-gray-600);
-        }
-      }
-
-      .item-time {
-        margin-left: 12px;
-        font-size: 12px;
-        color: var(--art-gray-500);
-      }
-    }
-
-    .more-btn {
-      width: 100%;
-      margin-top: 25px;
-      text-align: center;
-    }
-  }
-</style>

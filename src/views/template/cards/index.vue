@@ -1,16 +1,13 @@
 <template>
-  <div class="cards">
+  <div class="py-5">
     <h1 class="page-title">统计卡片（文字）</h1>
     <ElRow :gutter="20">
-      <ElCol :xs="24" :sm="12" :md="6" v-for="card in statsCards" :key="card.id">
+      <ElCol :xs="24" :sm="12" :md="6" v-for="card in statsCards" :key="card.id" class="mb-5">
         <ArtStatsCard
           :icon="card.icon"
+          :iconStyle="card.iconStyle"
           :title="card.title"
           :description="card.description"
-          :iconSize="card.iconSize"
-          :iconBgRadius="8"
-          iconColor="#fff"
-          :iconBgColor="card.iconBgColor"
           :showArrow="card.showArrow"
         />
       </ElCol>
@@ -18,31 +15,29 @@
 
     <h1 class="page-title">统计卡片（数字滚动）</h1>
     <ElRow :gutter="20">
-      <ElCol :xs="24" :sm="12" :md="6" v-for="card in statsCards" :key="card.id">
+      <ElCol :xs="24" :sm="12" :md="6" v-for="card in statsCards" :key="card.id" class="mb-5">
         <ArtStatsCard
           :icon="card.icon"
+          :iconStyle="card.iconStyle"
           :count="card.count"
           :description="card.description"
-          :iconSize="card.iconSize"
           :decimals="0"
-          :iconBgColor="card.iconBgColor"
           :showArrow="card.showArrow"
           separator=","
-          iconColor="#fff"
         />
       </ElCol>
     </ElRow>
 
     <h1 class="page-title">统计卡片（自定义样式）</h1>
     <ElRow :gutter="20">
-      <ElCol :xs="24" :sm="12" :md="6" v-for="card in statsCards" :key="card.id">
+      <ElCol :xs="24" :sm="12" :md="6" v-for="card in statsCards" :key="card.id" class="mb-5">
         <ArtStatsCard
           :icon="card.icon"
+          :iconStyle="card.customIconStyle"
+          :boxStyle="card.boxStyle"
           :title="card.title"
           :description="card.description"
-          :iconColor="card.iconColor"
           :textColor="card.textColor"
-          :backgroundColor="card.backgroundColor"
           :showArrow="card.showArrow"
         />
       </ElCol>
@@ -50,30 +45,27 @@
 
     <h1 class="page-title">进度卡片</h1>
     <ElRow :gutter="20">
-      <ElCol :xs="24" :sm="12" :md="6" v-for="card in progressCards" :key="card.id">
+      <ElCol :xs="24" :sm="12" :md="6" v-for="card in progressCards" :key="card.id" class="mb-5">
         <ArtProgressCard :percentage="card.percentage" :title="card.title" :color="card.color" />
       </ElCol>
     </ElRow>
 
     <h1 class="page-title">进度卡片（icon）</h1>
     <ElRow :gutter="20">
-      <ElCol :xs="24" :sm="12" :md="6" v-for="card in progressCards" :key="card.id">
+      <ElCol :xs="24" :sm="12" :md="6" v-for="card in progressCards" :key="card.id" class="mb-5">
         <ArtProgressCard
           :percentage="card.percentage"
           :title="card.title"
           :color="card.color"
           :icon="card.icon"
-          :iconColor="card.iconColor"
-          :iconBgColor="card.iconBgColor"
-          :iconSize="card.iconSize"
-          :iconBgRadius="8"
+          :iconStyle="card.iconStyle"
         />
       </ElCol>
     </ElRow>
 
     <h1 class="page-title">图表卡片（小图表）</h1>
     <ElRow :gutter="20">
-      <ElCol :xs="24" :sm="12" :md="6">
+      <ElCol :xs="24" :sm="12" :md="6" class="mb-5">
         <ArtLineChartCard
           :isMiniChart="true"
           :value="2545"
@@ -84,7 +76,7 @@
           :chartData="[120, 132, 101, 134, 90, 230, 210]"
         />
       </ElCol>
-      <ElCol :xs="24" :sm="12" :md="6">
+      <ElCol :xs="24" :sm="12" :md="6" class="mb-5">
         <ArtBarChartCard
           :isMiniChart="true"
           :value="15480"
@@ -96,7 +88,7 @@
           :chartData="[120, 100, 150, 140, 90, 120, 130]"
         />
       </ElCol>
-      <ElCol :xs="24" :sm="12" :md="6">
+      <ElCol :xs="24" :sm="12" :md="6" class="mb-5">
         <ArtLineChartCard
           :isMiniChart="true"
           :value="2545"
@@ -108,7 +100,7 @@
           :chartData="[150, 180, 160, 200, 180, 220, 240]"
         />
       </ElCol>
-      <ElCol :xs="24" :sm="12" :md="6">
+      <ElCol :xs="24" :sm="12" :md="6" class="mb-5">
         <ArtDonutChartCard
           :value="36358"
           title="粉丝量"
@@ -125,7 +117,7 @@
 
     <h1 class="page-title">图表卡片（大图表）</h1>
     <ElRow :gutter="20">
-      <ElCol :xs="24" :sm="12" :md="6">
+      <ElCol :xs="24" :sm="12" :md="6" class="mb-5">
         <ArtLineChartCard
           :value="2545"
           label="新用户"
@@ -134,7 +126,7 @@
           :chartData="[120, 132, 101, 134, 90, 230, 210]"
         />
       </ElCol>
-      <ElCol :xs="24" :sm="12" :md="6">
+      <ElCol :xs="24" :sm="12" :md="6" class="mb-5">
         <ArtBarChartCard
           :value="15480"
           label="浏览量"
@@ -143,7 +135,7 @@
           :chartData="[120, 100, 150, 140, 90, 120, 130, 110]"
         />
       </ElCol>
-      <ElCol :xs="24" :sm="12" :md="6">
+      <ElCol :xs="24" :sm="12" :md="6" class="mb-5">
         <ArtLineChartCard
           :value="2545"
           label="粉丝数"
@@ -153,7 +145,7 @@
           :chartData="[150, 180, 160, 200, 180, 220, 240]"
         />
       </ElCol>
-      <ElCol :xs="24" :sm="12" :md="6">
+      <ElCol :xs="24" :sm="12" :md="6" class="mb-5">
         <ArtDonutChartCard
           :value="36358"
           title="粉丝量"
@@ -169,10 +161,10 @@
 
     <h1 class="page-title">数据列表卡片</h1>
     <ElRow :gutter="20">
-      <ElCol :xs="24" :sm="12" :lg="8">
+      <ElCol :xs="24" :sm="12" :lg="8" class="mb-5">
         <ArtDataListCard :list="dataList" title="待办事项" subtitle="今日待处理任务" />
       </ElCol>
-      <ElCol :xs="24" :sm="12" :lg="8">
+      <ElCol :xs="24" :sm="12" :lg="8" class="mb-5">
         <ArtDataListCard
           :maxCount="4"
           :list="dataList"
@@ -182,14 +174,14 @@
           @more="handleMore"
         />
       </ElCol>
-      <ElCol :xs="24" :sm="12" :lg="8">
+      <ElCol :xs="24" :sm="12" :lg="8" class="mb-5">
         <ArtTimelineListCard :list="timelineData" title="最近交易" subtitle="2024年12月20日" />
       </ElCol>
     </ElRow>
 
     <h1 class="page-title">图片卡片</h1>
     <ElRow :gutter="20">
-      <ElCol :xs="24" :sm="12" :md="6" v-for="card in imageCards" :key="card.id">
+      <ElCol :xs="24" :sm="12" :md="6" v-for="card in imageCards" :key="card.id" class="mb-5">
         <ArtImageCard
           :imageUrl="card.imageUrl"
           :title="card.title"
@@ -222,12 +214,11 @@
       title: '销售产品',
       count: 1235,
       description: '鞋子、牛仔裤、派对服装、手表',
-      icon: '&#xe812;',
-      iconColor: 'rgb(var(--art-primary))',
-      iconSize: 20,
-      iconBgColor: 'rgb(var(--art-info))',
-      textColor: 'rgb(var(--art-primary))',
-      backgroundColor: 'rgb(var(--art-bg-primary))',
+      icon: 'ri:bar-chart-box-line',
+      boxStyle: '!bg-theme/10',
+      customIconStyle: '!text-theme !text-3xl',
+      iconStyle: 'bg-info',
+      textColor: 'var(--theme-color)',
       showArrow: false
     },
     {
@@ -235,12 +226,11 @@
       title: '活跃用户',
       count: 5000,
       description: '日活跃用户超过5,000+',
-      icon: '&#xe724;',
-      iconColor: 'rgb(var(--art-warning))',
-      iconSize: 20,
-      iconBgColor: 'rgb(var(--art-success))',
-      textColor: 'rgb(var(--art-warning))',
-      backgroundColor: 'rgb(var(--art-bg-warning))',
+      icon: 'ri:account-box-2-line',
+      boxStyle: '!bg-warning/10',
+      customIconStyle: '!text-warning !text-3xl',
+      iconStyle: 'bg-warning',
+      textColor: 'var(--art-warning)',
       showArrow: false
     },
     {
@@ -248,12 +238,11 @@
       title: '总收入',
       count: 35000,
       description: '月收入超过¥350,000+',
-      icon: '&#xe70e;',
-      iconColor: 'rgb(var(--art-secondary))',
-      iconSize: 20,
-      iconBgColor: 'rgb(var(--art-secondary))',
-      textColor: 'rgb(var(--art-secondary))',
-      backgroundColor: 'rgb(var(--art-bg-secondary))',
+      icon: 'ri:money-cny-box-line',
+      boxStyle: '!bg-secondary/10',
+      customIconStyle: '!text-secondary !text-3xl',
+      iconStyle: 'bg-secondary',
+      textColor: 'var(--art-secondary)',
       showArrow: false
     },
     {
@@ -261,12 +250,11 @@
       title: '客户评价',
       count: 4800,
       description: '平均评分4.8/5',
-      icon: '&#xe82d;',
-      iconColor: 'rgb(var(--art-error))',
-      iconSize: 20,
-      iconBgColor: 'rgb(var(--art-error))',
-      textColor: 'rgb(var(--art-error))',
-      backgroundColor: 'rgb(var(--art-bg-error))',
+      icon: 'ri:message-3-line',
+      boxStyle: '!bg-error/10',
+      customIconStyle: '!text-error !text-3xl',
+      iconStyle: 'bg-error',
+      textColor: 'var(--art-error)',
       showArrow: false
     }
   ]
@@ -276,41 +264,33 @@
       id: 1,
       title: '完成进度',
       percentage: 75,
-      color: 'rgb(var(--art-success))',
-      icon: '&#xe812;',
-      iconColor: 'rgb(var(--art-success))',
-      iconBgColor: 'rgb(var(--art-bg-success))',
-      iconSize: 20
+      color: 'var(--art-success)',
+      icon: 'ri:arrow-up-circle-line',
+      iconStyle: 'bg-success/12 text-success'
     },
     {
       id: 2,
       title: '项目进度',
       percentage: 65,
-      color: 'rgb(var(--art-primary))',
-      icon: '&#xe724;',
-      iconColor: 'rgb(var(--art-primary))',
-      iconBgColor: 'rgb(var(--art-bg-primary))',
-      iconSize: 20
+      color: 'var(--theme-color)',
+      icon: 'ri:twitch-line',
+      iconStyle: 'bg-theme/12 text-theme'
     },
     {
       id: 3,
       title: '学习进度',
       percentage: 45,
-      color: 'rgb(var(--art-error))',
-      icon: '&#xe724;',
-      iconColor: 'rgb(var(--art-error))',
-      iconBgColor: 'rgb(var(--art-bg-error))',
-      iconSize: 20
+      color: 'var(--art-error)',
+      icon: 'ri:game-line',
+      iconStyle: '!bg-error/12 text-error'
     },
     {
       id: 4,
       title: '任务进度',
       percentage: 90,
-      color: 'rgb(var(--art-secondary))',
-      icon: '&#xe724;',
-      iconColor: 'rgb(var(--art-secondary))',
-      iconBgColor: 'rgb(var(--art-bg-secondary))',
-      iconSize: 20
+      color: 'var(--art-secondary)',
+      icon: 'ri:flag-2-line',
+      iconStyle: 'bg-secondary/12 text-secondary'
     }
   ]
 
@@ -362,36 +342,36 @@
       title: '新加坡之行',
       status: '进行中',
       time: '5分钟',
-      class: 'bg-primary',
-      icon: '&#xe6f2;'
+      class: 'bg-theme/12 text-theme',
+      icon: 'ri:camera-4-line'
     },
     {
       title: '归档数据',
       status: '进行中',
       time: '10分钟',
-      class: 'bg-secondary',
-      icon: '&#xe806;'
+      class: 'bg-secondary/12 text-secondary',
+      icon: 'ri:bar-chart-box-line'
     },
     {
       title: '客户会议',
       status: '待处理',
       time: '15分钟',
-      class: 'bg-warning',
-      icon: '&#xe6fb;'
+      class: 'bg-warning/12 text-warning',
+      icon: 'ri:user-3-line'
     },
     {
       title: '筛选任务团队',
       status: '进行中',
       time: '20分钟',
-      class: 'bg-danger',
-      icon: '&#xe813;'
+      class: 'bg-error/12 text-error',
+      icon: 'ri:account-circle-line'
     },
     {
       title: '发送信封给小王',
       status: '已完成',
       time: '20分钟',
-      class: 'bg-success',
-      icon: '&#xe70c;'
+      class: 'bg-success/12 text-success',
+      icon: 'ri:message-3-line'
     }
   ]
 
@@ -461,22 +441,10 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .cards {
-    padding: 20px 0;
+<style scoped>
+  @reference '@styles/core/tailwind.css';
 
-    .page-title {
-      margin: 20px 0 15px;
-      font-size: 22px;
-      font-weight: 500;
-
-      &:first-child {
-        margin-top: 0;
-      }
-    }
-
-    .el-col {
-      margin-bottom: 20px;
-    }
+  .page-title {
+    @apply my-5 text-xl font-medium first:mt-0;
   }
 </style>

@@ -18,6 +18,8 @@
       <ContainerSettings />
       <!-- 基础配置 -->
       <BasicSettings />
+      <!-- 操作按钮 -->
+      <SettingActions />
     </SettingDrawer>
   </div>
 </template>
@@ -34,6 +36,7 @@
   import BoxStyleSettings from './widget/BoxStyleSettings.vue'
   import ContainerSettings from './widget/ContainerSettings.vue'
   import BasicSettings from './widget/BasicSettings.vue'
+  import SettingActions from './widget/SettingActions.vue'
 
   defineOptions({ name: 'ArtSettingsPanel' })
 
@@ -49,7 +52,6 @@
   const { showDrawer } = settingsPanel
 
   // 获取各种处理器
-  const { handleWindowResize } = settingsPanel.useResponsiveLayout()
   const { handleOpen, handleClose, closeDrawer } = settingsPanel.useDrawerControl()
   const { initializeSettings, cleanupSettings } = settingsPanel.useSettingsInitializer()
 
@@ -58,7 +60,6 @@
 
   onMounted(() => {
     initializeSettings()
-    handleWindowResize()
   })
 
   onUnmounted(() => {

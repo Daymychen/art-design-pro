@@ -29,7 +29,7 @@
 
 ## 技术栈
 
-开发框架：Vue3、TypeScript、Vite、Element-Plus
+开发框架：Vue3、TypeScript、Vite、Element-Plus、Tailwind CSS
 
 代码规范：Eslint、Prettier、Stylelint、Husky、Lint-staged、cz-git
 

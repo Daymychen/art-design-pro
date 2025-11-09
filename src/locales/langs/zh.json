@@ -11,12 +11,69 @@
     "500": "抱歉，服务器出错了",
     "gohome": "返回首页"
   },
-  "forgetPassword": {
-    "backBtnText": "返回",
-    "placeholder": "请输入您的电子邮件",
-    "subTitle": "输入您的电子邮件来重置您的密码",
-    "submitBtnText": "提交",
-    "title": "忘记密码？"
+  "setting": {
+    "menuType": {
+      "title": "菜单布局",
+      "list": ["垂直", "水平", "混合", "双列"]
+    },
+    "theme": {
+      "title": "主题风格",
+      "list": ["浅色", "深色", "系统"]
+    },
+    "menu": {
+      "title": "菜单风格"
+    },
+    "color": {
+      "title": "系统主题色"
+    },
+    "box": {
+      "title": "盒子样式",
+      "list": ["边框", "阴影"]
+    },
+    "container": {
+      "title": "容器宽度",
+      "list": ["铺满", "定宽"]
+    },
+    "basics": {
+      "title": "基础配置",
+      "list": {
+        "multiTab": "开启多标签栏",
+        "accordion": "侧边栏开启手风琴模式",
+        "collapseSidebar": "显示折叠侧边栏按钮",
+        "fastEnter": "显示快速入口",
+        "reloadPage": "显示重载页面按钮",
+        "breadcrumb": "显示全局面包屑导航",
+        "language": "显示多语言选择",
+        "progressBar": "显示顶部进度条",
+        "weakMode": "色弱模式",
+        "watermark": "全局水印",
+        "menuWidth": "菜单宽度",
+        "tabStyle": "标签页风格",
+        "pageTransition": "页面切换动画",
+        "borderRadius": "自定义圆角"
+      }
+    },
+    "tabStyle": {
+      "default": "默认",
+      "card": "卡片",
+      "google": "谷歌"
+    },
+    "transition": {
+      "list": {
+        "none": "无动画",
+        "fade": "淡入淡出",
+        "slideLeft": "左侧滑入",
+        "slideBottom": "下方滑入",
+        "slideTop": "上方滑入"
+      }
+    },
+    "actions": {
+      "resetConfig": "重置配置",
+      "copyConfig": "复制配置",
+      "copySuccess": "配置已复制到剪贴板，可粘贴到 src/config/setting.ts 文件中",
+      "copyFailed": "复制失败，请重试",
+      "resetFailed": "重置失败，请刷新页面后重试"
+    }
   },
   "greeting": {
     "afternoon": "下午好！",
@@ -273,9 +330,21 @@
     "menu": {
       "title": "菜单风格"
     },
-    "menuType": {
-      "list": ["垂直", "水平", "混合", "双列"],
-      "title": "菜单布局"
+    "widgets": {
+      "title": "组件中心",
+      "icon": "图标",
+      "imageCrop": "图像裁剪",
+      "excel": "Excel 导入导出",
+      "video": "视频播放器",
+      "countTo": "数字滚动",
+      "wangEditor": "富文本编辑器",
+      "watermark": "水印",
+      "contextMenu": "右键菜单",
+      "qrcode": "二维码",
+      "drag": "拖拽",
+      "textScroll": "文字滚动",
+      "fireworks": "礼花",
+      "elementUI": "组件总览"
     },
     "tabStyle": {
       "card": "卡片",
@@ -294,6 +363,35 @@
         "slideLeft": "左侧滑入",
         "slideTop": "上方滑入"
       }
+    },
+    "system": {
+      "title": "系统管理",
+      "user": "用户管理",
+      "role": "角色管理",
+      "userCenter": "个人中心",
+      "menu": "菜单管理",
+      "nested": "嵌套菜单",
+      "menu1": "菜单1",
+      "menu2": "菜单2",
+      "menu21": "菜单2-1",
+      "menu3": "菜单3",
+      "menu31": "菜单3-1",
+      "menu32": "菜单3-2",
+      "menu321": "菜单3-2-1"
+    },
+    "safeguard": {
+      "title": "运维管理",
+      "server": "服务器管理"
+    },
+    "plan": {
+      "title": "版本计划",
+      "log": "更新日志"
+    },
+    "help": {
+      "title": "帮助中心",
+      "document": "官方文档",
+      "liteVersion": "精简版本",
+      "oldVersion": "v2.6.1 版本"
     }
   },
   "table": {

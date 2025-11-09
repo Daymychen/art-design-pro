@@ -1,39 +1,64 @@
+<!-- 系统聊天窗口 -->
 <template>
-  <div class="layout-chat">
+  <div>
     <ElDrawer v-model="isDrawerVisible" :size="isMobile ? '100%' : '480px'" :with-header="false">
-      <div class="header">
-        <div class="header-left">
-          <span class="name">Art Bot</span>
-          <div class="status">
-            <div class="dot" :class="{ online: isOnline, offline: !isOnline }"></div>
-            <span class="status-text">{{ isOnline ? '在线' : '离线' }}</span>
+      <div class="mb-5 flex-cb">
+        <div>
+          <span class="text-base font-medium">Art Bot</span>
+          <div class="mt-1.5 flex-c gap-1">
+            <div
+              class="h-2 w-2 rounded-full"
+              :class="isOnline ? 'bg-success/100' : 'bg-danger/100'"
+            ></div>
+            <span class="text-xs text-g-600">{{ isOnline ? '在线' : '离线' }}</span>
           </div>
         </div>
-        <div class="header-right">
-          <ElIcon class="icon-close" :size="20" @click="closeChat">
+        <div>
+          <ElIcon class="c-p" :size="20" @click="closeChat">
             <Close />
           </ElIcon>
         </div>
       </div>
-      <div class="chat-container">
+      <div class="flex h-[calc(100%-70px)] flex-col">
         <!-- 聊天消息区域 -->
-        <div class="chat-messages" ref="messageContainer">
+        <div
+          class="flex-1 overflow-y-auto border-t-d px-4 py-7.5 [&::-webkit-scrollbar]:!w-1"
+          ref="messageContainer"
+        >
           <template v-for="(message, index) in messages" :key="index">
-            <div :class="['message-item', message.isMe ? 'message-right' : 'message-left']">
-              <ElAvatar :size="32" :src="message.avatar" class="message-avatar" />
-              <div class="message-content">
-                <div class="message-info">
-                  <span class="sender-name">{{ message.sender }}</span>
-                  <span class="message-time">{{ message.time }}</span>
+            <div
+              :class="[
+                'mb-7.5 flex w-full items-start gap-2',
+                message.isMe ? 'flex-row-reverse' : 'flex-row'
+              ]"
+            >
+              <ElAvatar :size="32" :src="message.avatar" class="shrink-0" />
+              <div
+                :class="['flex max-w-[70%] flex-col', message.isMe ? 'items-end' : 'items-start']"
+              >
+                <div
+                  :class="[
+                    'mb-1 flex gap-2 text-xs',
+                    message.isMe ? 'flex-row-reverse' : 'flex-row'
+                  ]"
+                >
+                  <span class="font-medium">{{ message.sender }}</span>
+                  <span class="text-g-600">{{ message.time }}</span>
                 </div>
-                <div class="message-text">{{ message.content }}</div>
+                <div
+                  :class="[
+                    'rounded-md px-3.5 py-2.5 text-sm leading-[1.4] text-g-900',
+                    message.isMe ? 'message-right bg-theme/15' : 'message-left bg-g-300/50'
+                  ]"
+                  >{{ message.content }}</div
+                >
               </div>
             </div>
           </template>
         </div>
 
         <!-- 聊天输入区域 -->
-        <div class="chat-input">
+        <div class="px-4 pt-4">
           <ElInput
             v-model="messageText"
             type="textarea"
@@ -43,19 +68,19 @@
             @keyup.enter.prevent="sendMessage"
           >
             <template #append>
-              <div class="input-actions">
+              <div class="flex gap-2 py-2">
                 <ElButton :icon="Paperclip" circle plain />
                 <ElButton :icon="Picture" circle plain />
                 <ElButton type="primary" @click="sendMessage" v-ripple>发送</ElButton>
               </div>
             </template>
           </ElInput>
-          <div class="chat-input-actions">
-            <div class="left">
-              <i class="iconfont-sys">&#xe634;</i>
-              <i class="iconfont-sys">&#xe809;</i>
+          <div class="mt-3 flex-cb">
+            <div class="flex-c">
+              <ArtSvgIcon icon="ri:image-line" class="mr-5 c-p text-g-600 text-lg" />
+              <ArtSvgIcon icon="ri:emotion-happy-line" class="mr-5 c-p text-g-600 text-lg" />
             </div>
-            <ElButton type="primary" @click="sendMessage" v-ripple>发送</ElButton>
+            <ElButton type="primary" @click="sendMessage" v-ripple class="min-w-20">发送</ElButton>
           </div>
         </div>
       </div>
@@ -66,8 +91,8 @@
 <script setup lang="ts">
   import { Picture, Paperclip, Close } from '@element-plus/icons-vue'
   import { mittBus } from '@/utils/sys'
-  import meAvatar from '@/assets/img/avatar/avatar5.webp'
-  import aiAvatar from '@/assets/img/avatar/avatar10.webp'
+  import meAvatar from '@/assets/images/avatar/avatar5.webp'
+  import aiAvatar from '@/assets/images/avatar/avatar10.webp'
 
   defineOptions({ name: 'ArtChatWindow' })
 
@@ -82,7 +107,7 @@
   }
 
   // 常量定义
-  const MOBILE_BREAKPOINT = 500
+  const MOBILE_BREAKPOINT = 640
   const SCROLL_DELAY = 100
   const BOT_NAME = 'Art Bot'
   const USER_NAME = 'Ricky'
@@ -235,15 +260,3 @@
     mittBus.off('openChat', openChat)
   })
 </script>
-
-<style lang="scss">
-  .layout-chat {
-    .el-overlay {
-      background-color: rgb(0 0 0 / 20%) !important;
-    }
-  }
-</style>
-
-<style lang="scss" scoped>
-  @use './style';
-</style>

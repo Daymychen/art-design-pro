@@ -1,46 +1,71 @@
 <!-- 授权页右上角组件 -->
 <template>
-  <div class="top-right-wrap">
-    <div class="color-picker-expandable">
-      <div class="color-dots-container">
+  <div
+    class="absolute w-full flex-cb top-4.5 z-10 flex-c !justify-end max-[1180px]:!justify-between"
+  >
+    <div class="flex-cc !hidden max-[1180px]:!flex ml-2 max-sm:ml-6">
+      <ArtLogo class="icon" size="46" />
+      <h1 class="text-xl ont-mediumf ml-2">{{ AppConfig.systemInfo.name }}</h1>
+    </div>
+
+    <div class="flex-cc gap-1.5 mr-2 max-sm:mr-5">
+      <div class="color-picker-expandable relative flex-c max-sm:!hidden">
         <div
-          v-for="(color, index) in mainColors"
-          :key="color"
-          class="color-dot"
-          :class="{ active: color === systemThemeColor }"
-          :style="{ background: color, '--index': index }"
-          @click="changeThemeColor(color)"
+          class="color-dots absolute right-0 rounded-full flex-c gap-2 rounded-5 px-2.5 py-2 pr-9 pl-2.5 opacity-0"
         >
-          <i v-if="color === systemThemeColor" class="iconfont-sys check-icon">&#xe616;</i>
+          <div
+            v-for="(color, index) in mainColors"
+            :key="color"
+            class="color-dot relative size-5 c-p flex-cc rounded-full opacity-0"
+            :class="{ active: color === systemThemeColor }"
+            :style="{ background: color, '--index': index }"
+            @click="changeThemeColor(color)"
+          >
+            <ArtSvgIcon v-if="color === systemThemeColor" icon="ri:check-fill" class="text-white" />
+          </div>
+        </div>
+        <div class="btn palette-btn relative z-[2] h-8 w-8 c-p flex-cc tad-300">
+          <ArtSvgIcon
+            icon="ri:palette-line"
+            class="text-xl text-g-800 transition-colors duration-300"
+          />
         </div>
       </div>
-      <div class="color-trigger-btn btn">
-        <i class="iconfont-sys">&#xe82c;</i>
+      <ElDropdown
+        v-if="shouldShowLanguage"
+        @command="changeLanguage"
+        popper-class="langDropDownStyle"
+      >
+        <div class="btn language-btn h-8 w-8 c-p flex-cc tad-300">
+          <ArtSvgIcon
+            icon="hugeicons:global"
+            class="text-[19px] text-g-800 transition-colors duration-300"
+          />
+        </div>
+        <template #dropdown>
+          <ElDropdownMenu>
+            <div v-for="lang in languageOptions" :key="lang.value" class="lang-btn-item">
+              <ElDropdownItem
+                :command="lang.value"
+                :class="{ 'is-selected': locale === lang.value }"
+              >
+                <span class="menu-txt">{{ lang.label }}</span>
+                <ArtSvgIcon icon="ri:check-fill" class="text-base" v-if="locale === lang.value" />
+              </ElDropdownItem>
+            </div>
+          </ElDropdownMenu>
+        </template>
+      </ElDropdown>
+      <div
+        v-if="shouldShowThemeToggle"
+        class="btn theme-btn h-8 w-8 c-p flex-cc tad-300"
+        @click="themeAnimation"
+      >
+        <ArtSvgIcon
+          :icon="isDark ? 'ri:sun-fill' : 'ri:moon-line'"
+          class="text-xl text-g-800 transition-colors duration-300"
+        />
       </div>
-    </div>
-    <ElDropdown
-      v-if="shouldShowLanguage"
-      @command="changeLanguage"
-      popper-class="langDropDownStyle"
-    >
-      <div class="btn language-btn">
-        <i class="iconfont-sys icon-language">&#xe611;</i>
-      </div>
-      <template #dropdown>
-        <ElDropdownMenu>
-          <div v-for="lang in languageOptions" :key="lang.value" class="lang-btn-item">
-            <ElDropdownItem :command="lang.value" :class="{ 'is-selected': locale === lang.value }">
-              <span class="menu-txt">{{ lang.label }}</span>
-              <i v-if="locale === lang.value" class="iconfont-sys icon-check">&#xe621;</i>
-            </ElDropdownItem>
-          </div>
-        </ElDropdownMenu>
-      </template>
-    </ElDropdown>
-    <div v-if="shouldShowThemeToggle" class="btn theme-btn" @click="themeAnimation">
-      <i class="iconfont-sys">
-        {{ isDark ? '&#xe6b5;' : '&#xe725;' }}
-      </i>
     </div>
   </div>
 </template>
@@ -49,8 +74,8 @@
   import { useI18n } from 'vue-i18n'
   import { useSettingStore } from '@/store/modules/setting'
   import { useUserStore } from '@/store/modules/user'
-  import { useHeaderBar } from '@/composables/useHeaderBar'
-  import { themeAnimation } from '@/utils/theme/animation'
+  import { useHeaderBar } from '@/hooks/core/useHeaderBar'
+  import { themeAnimation } from '@/utils/ui/animation'
   import { languageOptions } from '@/locales'
   import { LanguageEnum } from '@/enums/appEnum'
   import AppConfig from '@/config'
@@ -64,6 +89,7 @@
   const { locale } = useI18n()
 
   const mainColors = AppConfig.systemMainColor
+  const color = systemThemeColor // css v-bind 使用
 
   const changeLanguage = (lang: LanguageEnum) => {
     if (locale.value === lang) return
@@ -78,132 +104,46 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .top-right-wrap {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    z-index: 10;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-
-    .btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      cursor: pointer;
-      transition: all 0.3s;
-
-      .iconfont-sys {
-        font-size: 18px;
-        color: var(--art-gray-800);
-        transition: color 0.3s;
-      }
-
-      &:hover {
-        .iconfont-sys {
-          color: var(--main-color);
-        }
-      }
-    }
-
-    .color-picker-expandable {
-      position: relative;
-      display: flex;
-      align-items: center;
-
-      .color-trigger-btn {
-        position: relative;
-        z-index: 2;
-
-        i {
-          font-size: 19px !important;
-        }
-      }
-
-      .color-dots-container {
-        position: absolute;
-        right: 0;
-        display: flex;
-        gap: 8px;
-        align-items: center;
-        padding: 8px 36px 8px 10px;
-        pointer-events: none;
-        backdrop-filter: blur(10px);
-        border-radius: 20px;
-        box-shadow: 0 2px 12px var(--art-gray-300);
-        opacity: 0;
-        transition:
-          opacity 0.3s ease,
-          transform 0.3s ease;
-        transform: translateX(10px);
-
-        .color-dot {
-          position: relative;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 22px;
-          height: 22px;
-          cursor: pointer;
-          border-radius: 50%;
-          box-shadow: 0 2px 4px rgb(0 0 0 / 15%);
-          opacity: 0;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          transform: translateX(20px) scale(0.8);
-
-          .check-icon {
-            font-size: 12px;
-            color: #fff;
-            filter: drop-shadow(0 1px 2px rgb(0 0 0 / 30%));
-          }
-
-          &:hover {
-            box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
-            transform: translateX(0) scale(1.1);
-          }
-        }
-      }
-
-      &:hover {
-        .color-dots-container {
-          pointer-events: auto;
-          opacity: 1;
-          transform: translateX(0);
-
-          .color-dot {
-            opacity: 1;
-            transition-delay: calc(var(--index) * 0.05s);
-            transform: translateX(0) scale(1);
-          }
-        }
-
-        .color-trigger-btn .iconfont-sys {
-          color: var(--main-color);
-        }
-      }
-    }
+<style scoped>
+  .color-dots {
+    pointer-events: none;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 12px var(--art-gray-300);
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+    transform: translateX(10px);
   }
 
-  .dark {
-    .top-right-wrap {
-      .color-picker-expandable {
-        .color-dots-container {
-          background-color: var(--art-gray-200);
-          box-shadow: none;
-        }
-      }
-    }
+  .color-dot {
+    box-shadow: 0 2px 4px rgb(0 0 0 / 15%);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: calc(var(--index) * 0.05s);
+    transform: translateX(20px) scale(0.8);
   }
 
-  @media screen and (width <= 680px) {
-    .top-right-wrap {
-      .color-picker-expandable {
-        display: none;
-      }
-    }
+  .color-dot:hover {
+    box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
+    transform: translateX(0) scale(1.1);
+  }
+
+  .color-picker-expandable:hover .color-dots {
+    pointer-events: auto;
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .color-picker-expandable:hover .color-dot {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+
+  .dark .color-dots {
+    background-color: var(--art-gray-200);
+    box-shadow: none;
+  }
+
+  .color-picker-expandable:hover .palette-btn :deep(.art-svg-icon) {
+    color: v-bind(color);
   }
 </style>

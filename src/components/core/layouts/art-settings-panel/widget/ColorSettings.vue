@@ -1,15 +1,20 @@
 <template>
-  <div class="color-settings">
-    <SectionTitle :title="$t('setting.color.title')" style="margin-top: 40px" />
-    <div class="main-color-wrap">
-      <div class="offset">
+  <div>
+    <SectionTitle :title="$t('setting.color.title')" class="mt-10" />
+    <div class="-mr-4">
+      <div class="flex flex-wrap">
         <div
           v-for="color in configOptions.mainColors"
           :key="color"
+          class="flex items-center justify-center size-[23px] mr-4 mb-2.5 cursor-pointer rounded-full transition-all duration-200 hover:opacity-85"
           :style="{ background: `${color} !important` }"
           @click="colorHandlers.selectColor(color)"
         >
-          <i class="iconfont-sys" v-show="color === systemThemeColor">&#xe616;</i>
+          <ArtSvgIcon
+            icon="ri:check-fill"
+            class="text-base !text-white"
+            v-show="color === systemThemeColor"
+          />
         </div>
       </div>
     </div>
@@ -28,37 +33,3 @@
   const { configOptions } = useSettingsConfig()
   const { colorHandlers } = useSettingsHandlers()
 </script>
-
-<style lang="scss" scoped>
-  .color-settings {
-    .main-color-wrap {
-      .offset {
-        display: flex;
-        flex-wrap: wrap;
-        width: calc(100% + 16px);
-
-        $size: 23px;
-
-        > div {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: $size;
-          height: $size;
-          margin: 0 16px 10px 0;
-          cursor: pointer;
-          border-radius: $size;
-
-          &:last-of-type {
-            margin-right: 0;
-          }
-
-          i {
-            font-size: 14px;
-            color: #fff !important;
-          }
-        }
-      }
-    }
-  }
-</style>

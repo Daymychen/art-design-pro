@@ -1,8 +1,8 @@
 import type { App } from 'vue'
-import { setupAuthDirective } from './auth'
-import { setupHighlightDirective } from './highlight'
-import { setupRippleDirective } from './ripple'
-import { setupRolesDirective } from './roles'
+import { setupAuthDirective } from './core/auth'
+import { setupHighlightDirective } from './business/highlight'
+import { setupRippleDirective } from './business/ripple'
+import { setupRolesDirective } from './core/roles'
 
 export function setupGlobDirectives(app: App) {
   setupAuthDirective(app) // 权限指令

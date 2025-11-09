@@ -37,8 +37,8 @@
     '#071F4D': 'var(--el-color-primary-dark-2)',
     '#00E4E5': 'var(--el-color-primary-light-1)',
     '#006EFF': 'var(--el-color-primary)',
-    '#fff': 'var(--art-main-bg-color)',
-    '#ffffff': 'var(--art-main-bg-color)',
+    '#fff': 'var(--default-box-color)',
+    '#ffffff': 'var(--default-box-color)',
     '#DEEBFC': 'var(--el-color-primary-light-7)'
   } as const
 

@@ -9,9 +9,9 @@
   import zh from 'element-plus/es/locale/lang/zh-cn'
   import en from 'element-plus/es/locale/lang/en'
   import { systemUpgrade } from './utils/sys'
-
-  import { setThemeTransitionClass } from './utils/theme/animation'
+  import { toggleTransition } from './utils/ui/animation'
   import { checkStorageCompatibility } from './utils/storage'
+  import { initializeTheme } from './hooks/core/useTheme'
 
   const userStore = useUserStore()
   const { language } = storeToRefs(userStore)
@@ -22,15 +22,13 @@
   }
 
   onBeforeMount(() => {
-    setThemeTransitionClass(true)
+    toggleTransition(true)
+    initializeTheme()
   })
 
   onMounted(() => {
-    // 检查存储兼容性
     checkStorageCompatibility()
-    // 提升暗黑主题下页面刷新视觉体验
-    setThemeTransitionClass(false)
-    // 系统升级
+    toggleTransition(false)
     systemUpgrade()
   })
 </script>

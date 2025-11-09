@@ -1,9 +1,12 @@
 <template>
-  <div class="card art-custom-card" style="height: 13.3rem">
-    <div class="card-header">
-      <p class="title" style="font-size: 24px">205,216</p>
-      <p class="subtitle">总订单量</p>
+  <div class="art-card h-53 p-5 pt-3.5 mb-5 max-sm:mb-4">
+    <div class="art-card-header">
+      <div class="title">
+        <h4 class="text-2xl font-medium">205,216</h4>
+        <p>这个月增长</p>
+      </div>
     </div>
+
     <ArtRingChart
       :data="[
         { value: 30, name: '已完成' },

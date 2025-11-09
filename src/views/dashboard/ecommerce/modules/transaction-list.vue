@@ -1,5 +1,6 @@
 <template>
   <ArtDataListCard
+    class="mb-5 max-sm:mb-4"
     :maxCount="4"
     :list="dataList"
     title="最近活动"
@@ -27,36 +28,36 @@
       title: '新订单 #38291',
       status: '待处理',
       time: '5分钟',
-      class: 'bg-primary',
-      icon: '&#xe6f2;'
+      class: 'bg-theme/12 text-theme',
+      icon: 'ri:shopping-bag-4-line'
     },
     {
       title: '退款申请 #12845',
       status: '处理中',
       time: '10分钟',
-      class: 'bg-secondary',
-      icon: '&#xe806;'
+      class: 'bg-secondary/12 text-secondary',
+      icon: 'ri:profile-line'
     },
     {
       title: '客户投诉处理',
       status: '待处理',
       time: '15分钟',
-      class: 'bg-warning',
-      icon: '&#xe6fb;'
+      class: 'bg-warning/12 text-warning',
+      icon: 'ri:customer-service-2-line'
     },
     {
       title: '库存不足提醒',
       status: '紧急',
       time: '20分钟',
-      class: 'bg-danger',
-      icon: '&#xe813;'
+      class: 'bg-danger/12 text-danger',
+      icon: 'ri:box-1-line'
     },
     {
       title: '订单 #29384 已发货',
       status: '已完成',
       time: '20分钟',
-      class: 'bg-success',
-      icon: '&#xe70c;'
+      class: 'bg-success/12 text-success',
+      icon: 'ri:shopping-bag-3-line'
     }
   ]
 

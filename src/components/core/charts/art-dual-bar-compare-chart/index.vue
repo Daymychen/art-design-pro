@@ -4,8 +4,8 @@
 </template>
 
 <script setup lang="ts">
-  import { useChartOps, useChartComponent } from '@/composables/useChart'
-  import type { EChartsOption, BarSeriesOption } from '@/utils/echarts'
+  import { useChartOps, useChartComponent } from '@/hooks/core/useChart'
+  import type { EChartsOption, BarSeriesOption } from '@/plugins/echarts'
   import type { BidirectionalBarChartProps } from '@/types/component/chart'
 
   defineOptions({ name: 'ArtDualBarCompareChart' })

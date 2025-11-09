@@ -1,5 +1,24 @@
 /**
- * 组件相关类型定义
+ * 组件类型定义模块
+ *
+ * 提供项目组件的类型定义
+ *
+ * ## 主要功能
+ *
+ * - 搜索组件类型定义
+ * - 表格列配置类型
+ * - 分页配置类型
+ * - 表单规则类型
+ * - 对话框配置类型
+ *
+ * ## 使用场景
+ *
+ * - 组件 Props 类型约束
+ * - 组件配置类型定义
+ * - 组件事件参数类型
+ *
+ * @module types/component/index
+ * @author Art Design Pro Team
  */
 
 // 搜索组件类型
@@ -50,7 +69,9 @@ export interface ColumnOption<T = any> {
   filterPlacement?: string
   // 是否禁用
   disabled?: boolean
-  // 是否选中显示（可用于隐藏列）
+  // 是否显示列
+  visible?: boolean
+  // 是否选中显示
   checked?: boolean
   // 自定义渲染函数
   formatter?: (row: T) => any

@@ -16,62 +16,76 @@
         @blur="searchBlur"
         ref="searchInput"
         :prefix-icon="Search"
+        class="h-12"
       >
         <template #suffix>
-          <div class="search-keydown">
-            <i class="iconfont-sys">&#xe6e6;</i>
+          <div
+            class="h-4.5 flex-cc rounded border border-g-300 dark:!bg-g-200/50 !bg-box px-1.5 text-g-500"
+          >
+            <ArtSvgIcon icon="fluent:arrow-enter-left-20-filled" />
           </div>
         </template>
       </ElInput>
-      <ElScrollbar class="search-scrollbar" max-height="370px" ref="searchResultScrollbar" always>
-        <div class="result" v-show="searchResult.length">
-          <div class="box" v-for="(item, index) in searchResult" :key="index">
+      <ElScrollbar class="mt-5" max-height="370px" ref="searchResultScrollbar" always>
+        <div class="result w-full" v-show="searchResult.length">
+          <div
+            class="box !mt-0 c-p text-base leading-none"
+            v-for="(item, index) in searchResult"
+            :key="index"
+          >
             <div
-              :class="{ highlighted: isHighlighted(index) }"
+              class="mt-2 h-12 flex-cb rounded-custom-sm bg-g-200/80 px-4 text-sm text-g-700"
+              :class="isHighlighted(index) ? 'highlighted !bg-theme/70 !text-white' : ''"
               @click="searchGoPage(item)"
               @mouseenter="highlightOnHover(index)"
             >
               {{ formatMenuTitle(item.meta.title) }}
-              <i class="selected-icon iconfont-sys" v-show="isHighlighted(index)">&#xe6e6;</i>
+              <ArtSvgIcon v-show="isHighlighted(index)" icon="fluent:arrow-enter-left-20-filled" />
             </div>
           </div>
         </div>
 
-        <div
-          class="history-box"
-          v-show="!searchVal && searchResult.length === 0 && historyResult.length > 0"
-        >
-          <p class="title">{{ $t('search.historyTitle') }}</p>
-          <div class="history-result">
+        <div v-show="!searchVal && searchResult.length === 0 && historyResult.length > 0">
+          <p class="text-xs text-g-500">{{ $t('search.historyTitle') }}</p>
+          <div class="mt-1.5 w-full">
             <div
-              class="box"
+              class="box mt-2 h-12 c-p flex-cb rounded-custom-sm bg-g-200/80 px-4 text-sm text-g-800"
               v-for="(item, index) in historyResult"
               :key="index"
-              :class="{ highlighted: historyHIndex === index }"
+              :class="
+                historyHIndex === index
+                  ? 'highlighted !bg-theme/70 !text-white [&_.selected-icon]:!text-white'
+                  : ''
+              "
               @click="searchGoPage(item)"
               @mouseenter="highlightOnHoverHistory(index)"
             >
               {{ formatMenuTitle(item.meta.title) }}
-              <i class="selected-icon iconfont-sys" @click.stop="deleteHistory(index)">&#xe83a;</i>
+              <div
+                class="size-5 selected-icon select-none rounded-full text-g-500 flex-cc c-p"
+                @click.stop="deleteHistory(index)"
+              >
+                <ArtSvgIcon icon="ri:close-large-fill" class="text-xs" />
+              </div>
             </div>
           </div>
         </div>
       </ElScrollbar>
 
       <template #footer>
-        <div class="dialog-footer">
-          <div>
-            <i class="iconfont-sys">&#xe6e6;</i>
-            <span>{{ $t('search.selectKeydown') }}</span>
+        <div class="dialog-footer box-border flex-c border-t-d pt-4.5 pb-1">
+          <div class="flex-cc">
+            <ArtSvgIcon icon="fluent:arrow-enter-left-20-filled" class="keyboard" />
+            <span class="mr-3.5 text-xs text-g-700">{{ $t('search.selectKeydown') }}</span>
           </div>
-          <div>
-            <i class="iconfont-sys">&#xe864;</i>
-            <i class="iconfont-sys">&#xe867;</i>
-            <span>{{ $t('search.switchKeydown') }}</span>
+          <div class="flex-c">
+            <ArtSvgIcon icon="ri:arrow-up-wide-fill" class="keyboard" />
+            <ArtSvgIcon icon="ri:arrow-down-wide-fill" class="keyboard" />
+            <span class="mr-3.5 text-xs text-g-700">{{ $t('search.switchKeydown') }}</span>
           </div>
-          <div>
-            <i class="iconfont-sys esc"><p>ESC</p></i>
-            <span>{{ $t('search.exitKeydown') }}</span>
+          <div class="flex-c">
+            <i class="keyboard !w-8 flex-cc"><p class="text-[10px] font-medium">ESC</p></i>
+            <span class="mr-3.5 text-xs text-g-700">{{ $t('search.exitKeydown') }}</span>
           </div>
         </div>
       </template>
@@ -85,7 +99,7 @@
   import { Search } from '@element-plus/icons-vue'
   import { mittBus } from '@/utils/sys'
   import { useMenuStore } from '@/store/modules/menu'
-  import { formatMenuTitle } from '@/router/utils/utils'
+  import { formatMenuTitle } from '@/utils/router'
   import { type ScrollbarInstance } from 'element-plus'
 
   defineOptions({ name: 'ArtGlobalSearch' })
@@ -346,7 +360,67 @@
     }
   }
 </script>
-
 <style lang="scss" scoped>
-  @use './style';
+  .layout-search {
+    :deep(.search-modal) {
+      background-color: rgb(0 0 0 / 20%);
+    }
+
+    :deep(.el-dialog__body) {
+      padding: 5px 0 0 !important;
+    }
+
+    :deep(.el-dialog__header) {
+      padding: 0;
+    }
+
+    .el-input {
+      :deep(.el-input__wrapper) {
+        background-color: var(--art-gray-200);
+        border: 1px solid var(--default-border-dashed);
+        border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
+        box-shadow: none;
+      }
+
+      :deep(.el-input__inner) {
+        color: var(--art-gray-800) !important;
+      }
+    }
+  }
+
+  .dark .layout-search {
+    .el-input {
+      :deep(.el-input__wrapper) {
+        background-color: #333;
+        border: 1px solid #4c4d50;
+      }
+    }
+
+    :deep(.search-modal) {
+      background-color: rgb(23 23 26 / 60%);
+      backdrop-filter: none;
+    }
+
+    :deep(.el-dialog) {
+      background-color: #252526;
+    }
+  }
+</style>
+
+<style scoped>
+  @reference '@styles/core/tailwind.css';
+
+  .keyboard {
+    @apply mr-2 
+    box-border
+    h-5 
+    w-5.5
+    rounded
+    border 
+    border-g-400 
+    px-1 
+    text-g-500
+    shadow-[0_2px_0_var(--default-border-dashed)] 
+    last-of-type:mr-1.5;
+  }
 </style>

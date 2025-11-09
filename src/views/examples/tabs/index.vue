@@ -1,15 +1,16 @@
+<!-- 标签页示例页面 -->
 <template>
   <div class="page-content">
-    <h3 class="page-title">标签页操作</h3>
+    <h3 class="mb-5 text-xl font-normal">标签页操作</h3>
 
     <!-- 修改标签标题模块 -->
-    <ElCard class="module-card" header="修改标签标题" shadow="never">
-      <div style="display: flex; gap: 10px">
+    <ElCard class="mb-7.5" header="修改标签标题" shadow="never">
+      <div class="flex gap-2">
         <ElInput
           v-model="newTabTitle"
           placeholder="请输入新的标签页标题"
           clearable
-          style="width: 300px"
+          class="!max-w-75"
         />
 
         <ElButton type="primary" @click="handleUpdateTabTitle" :disabled="!newTabTitle.trim()">
@@ -20,9 +21,9 @@
     </ElCard>
 
     <!-- 获取标签页模块 -->
-    <ElCard class="module-card" header="获取标签页信息" shadow="never">
+    <ElCard class="mb-7.5" header="获取标签页信息" shadow="never">
       <div class="mb-4">
-        <p class="tab-info">当前标签页信息：{{ currentTab }}</p>
+        <p class="m-0 mb-2 text-sm text-g-600"> 当前标签页信息：{{ currentTab }} </p>
       </div>
       <ElRow :gutter="20">
         <ElCol :span="24">
@@ -34,7 +35,7 @@
     </ElCard>
 
     <!-- 关闭标签页模块 -->
-    <ElCard class="module-card" header="关闭标签页" shadow="never">
+    <ElCard class="mb-7.5" header="关闭标签页" shadow="never">
       <ElRow :gutter="20">
         <ElCol :span="24">
           <ElButton type="danger" plain @click="handleCloseTab(routePath)"> 关闭当前标签 </ElButton>
@@ -118,24 +119,3 @@
     worktabStore.removeAll()
   }
 </script>
-
-<style lang="scss" scoped>
-  .page-content {
-    .page-title {
-      margin-bottom: 20px;
-      font-size: 20px;
-      font-weight: 400;
-      color: var(--el-text-color-primary);
-    }
-
-    .module-card {
-      margin-bottom: 30px;
-    }
-
-    .tab-info {
-      margin: 0 0 10px;
-      font-size: 14px;
-      color: var(--art-gray-600);
-    }
-  }
-</style>

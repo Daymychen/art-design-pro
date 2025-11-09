@@ -1,4 +1,4 @@
-<!-- 用户管理 -->
+<!-- 用户管理页面 -->
 <!-- art-full-height 自动计算出页面剩余高度 -->
 <!-- art-table-card 一个符合系统样式的 class，同时自动撑满剩余高度 -->
 <!-- 更多 useTable 使用示例请移步至 功能示例 下面的 高级表格示例或者查看官方文档 -->
@@ -44,18 +44,19 @@
 <script setup lang="ts">
   import ArtButtonTable from '@/components/core/forms/art-button-table/index.vue'
   import { ACCOUNT_TABLE_DATA } from '@/mock/temp/formData'
-  import { useTable } from '@/composables/useTable'
+  import { useTable } from '@/hooks/core/useTable'
   import { fetchGetUserList } from '@/api/system-manage'
   import UserSearch from './modules/user-search.vue'
   import UserDialog from './modules/user-dialog.vue'
   import { ElTag, ElMessageBox, ElImage } from 'element-plus'
+  import { DialogType } from '@/types'
 
   defineOptions({ name: 'User' })
 
   type UserListItem = Api.SystemManage.UserListItem
 
   // 弹窗相关
-  const dialogType = ref<Form.DialogType>('add')
+  const dialogType = ref<DialogType>('add')
   const dialogVisible = ref(false)
   const currentUserData = ref<Partial<UserListItem>>({})
 
@@ -121,19 +122,20 @@
         { type: 'selection' }, // 勾选列
         { type: 'index', width: 60, label: '序号' }, // 序号
         {
-          prop: 'avatar',
+          prop: 'userInfo',
           label: '用户名',
           width: 280,
+          // visible: false, // 默认是否显示列
           formatter: (row) => {
-            return h('div', { class: 'user', style: 'display: flex; align-items: center' }, [
+            return h('div', { class: 'user flex-c' }, [
               h(ElImage, {
-                class: 'avatar',
+                class: 'size-9.5 rounded-md',
                 src: row.avatar,
                 previewSrcList: [row.avatar],
                 // 图片预览是否插入至 body 元素上，用于解决表格内部图片预览样式异常
                 previewTeleported: true
               }),
-              h('div', {}, [
+              h('div', { class: 'ml-2' }, [
                 h('p', { class: 'user-name' }, row.userName),
                 h('p', { class: 'email' }, row.userEmail)
               ])
@@ -144,7 +146,6 @@
           prop: 'userGender',
           label: '性别',
           sortable: true,
-          // checked: false, // 隐藏列
           formatter: (row) => row.userGender
         },
         { prop: 'userPhone', label: '手机号' },
@@ -215,7 +216,7 @@
   /**
    * 显示用户弹窗
    */
-  const showDialog = (type: Form.DialogType, row?: UserListItem): void => {
+  const showDialog = (type: DialogType, row?: UserListItem): void => {
     console.log('打开弹窗:', { type, row })
     dialogType.value = type
     currentUserData.value = row || {}
@@ -258,25 +259,3 @@
     console.log('选中行数据:', selectedRows.value)
   }
 </script>
-
-<style lang="scss" scoped>
-  .user-page {
-    :deep(.user) {
-      .avatar {
-        width: 40px;
-        height: 40px;
-        margin-left: 0;
-        border-radius: 6px;
-      }
-
-      > div {
-        margin-left: 10px;
-
-        .user-name {
-          font-weight: 500;
-          color: var(--art-text-gray-800);
-        }
-      }
-    }
-  }
-</style>

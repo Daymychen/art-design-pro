@@ -1,9 +1,11 @@
 <template>
-  <div class="custom-card art-custom-card top-products">
-    <div class="custom-card-header">
-      <span class="title">热门产品</span>
+  <div class="art-card h-82 p-5 mb-5 overflow-hidden max-sm:mb-4">
+    <div class="art-card-header">
+      <div class="title">
+        <h4>热门产品</h4>
+      </div>
     </div>
-    <div class="custom-card-body">
+    <div class="overflow-auto h-full">
       <ArtTable
         :data="products"
         style="width: 100%"
@@ -90,25 +92,3 @@
     return POPULARITY_COLORS.VERY_HIGH
   }
 </script>
-
-<style lang="scss" scoped>
-  .custom-card {
-    height: 330px;
-    overflow-y: scroll;
-
-    // 隐藏滚动条
-    &::-webkit-scrollbar {
-      display: none;
-    }
-
-    &-body {
-      padding: 0 6px;
-    }
-  }
-
-  @media (width <= 1200px) {
-    .custom-card {
-      height: auto;
-    }
-  }
-</style>

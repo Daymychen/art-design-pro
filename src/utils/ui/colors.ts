@@ -1,3 +1,46 @@
+/**
+ * 颜色处理工具模块
+ *
+ * 提供完整的颜色格式转换和处理功能
+ *
+ * ## 主要功能
+ *
+ * - Hex 与 RGB/RGBA 格式互转
+ * - 颜色混合计算
+ * - 颜色变浅/变深处理
+ * - Element Plus 主题色自动生成
+ * - 颜色格式验证
+ * - CSS 变量读取
+ * - 暗黑模式颜色适配
+ *
+ * ## 使用场景
+ *
+ * - 主题色动态切换
+ * - Element Plus 组件主题定制
+ * - 颜色渐变生成
+ * - 明暗主题颜色计算
+ * - 颜色格式标准化
+ *
+ * ## 核心功能
+ *
+ * - hexToRgba: Hex 转 RGBA（支持透明度）
+ * - hexToRgb: Hex 转 RGB 数组
+ * - rgbToHex: RGB 转 Hex
+ * - colourBlend: 两种颜色混合
+ * - getLightColor: 生成变浅的颜色
+ * - getDarkColor: 生成变深的颜色
+ * - handleElementThemeColor: 处理 Element Plus 主题色
+ * - setElementThemeColor: 设置完整的主题色系统
+ *
+ * ## 支持格式
+ *
+ * - Hex: #FFF, #FFFFFF
+ * - RGB: rgb(255, 255, 255)
+ * - RGBA: rgba(255, 255, 255, 0.5)
+ *
+ * @module utils/ui/colors
+ * @author Art Design Pro Team
+ */
 import { useSettingStore } from '@/store/modules/setting'
 
 /**

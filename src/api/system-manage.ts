@@ -20,6 +20,6 @@ export function fetchGetRoleList(params: Api.SystemManage.RoleSearchParams) {
 // 获取菜单列表
 export function fetchGetMenuList() {
   return request.get<AppRouteRecord[]>({
-    url: '/api/system/menus'
+    url: '/api/v3/system/menus'
   })
 }

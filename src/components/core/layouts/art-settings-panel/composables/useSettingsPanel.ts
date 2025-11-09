@@ -1,12 +1,12 @@
 import { ref, computed, watch } from 'vue'
 import { useSettingStore } from '@/store/modules/setting'
 import { storeToRefs } from 'pinia'
-import { useWindowSize } from '@vueuse/core'
+import { useBreakpoints } from '@vueuse/core'
 import AppConfig from '@/config'
 import { SystemThemeEnum, MenuTypeEnum } from '@/enums/appEnum'
 import { mittBus } from '@/utils/sys'
-import { useTheme } from '@/composables/useTheme'
-import { useCeremony } from '@/composables/useCeremony'
+import { useTheme } from '@/hooks/core/useTheme'
+import { useCeremony } from '@/hooks/core/useCeremony'
 import { useSettingsState } from './useSettingsState'
 import { useSettingsHandlers } from './useSettingsHandlers'
 
@@ -25,7 +25,10 @@ export function useSettingsPanel() {
 
   // 响应式状态
   const showDrawer = ref(false)
-  const { width } = useWindowSize()
+
+  // 使用 VueUse breakpoints 优化性能
+  const breakpoints = useBreakpoints({ tablet: 1000 })
+  const isMobile = breakpoints.smaller('tablet')
 
   // 记录窗口宽度变化前的菜单类型
   const beforeMenuType = ref<MenuTypeEnum>()
@@ -71,9 +74,12 @@ export function useSettingsPanel() {
 
   // 响应式布局处理
   const useResponsiveLayout = () => {
-    const handleWindowResize = () => {
-      watch(width, (newWidth: number) => {
-        if (newWidth < 1000) {
+    // 使用 watch 监听断点变化，性能更优
+    const stopWatch = watch(
+      isMobile,
+      (mobile: boolean) => {
+        if (mobile) {
+          // 切换到移动端布局
           if (!hasChangedMenu.value) {
             beforeMenuType.value = menuType.value
             useSettingsState().switchMenuLayouts(MenuTypeEnum.LEFT)
@@ -81,16 +87,18 @@ export function useSettingsPanel() {
             hasChangedMenu.value = true
           }
         } else {
+          // 恢复桌面端布局
           if (hasChangedMenu.value && beforeMenuType.value) {
             useSettingsState().switchMenuLayouts(beforeMenuType.value)
             settingStore.setMenuOpen(true)
             hasChangedMenu.value = false
           }
         }
-      })
-    }
+      },
+      { immediate: true }
+    )
 
-    return { handleWindowResize }
+    return { stopWatch }
   }
 
   // 抽屉控制
@@ -141,6 +149,7 @@ export function useSettingsPanel() {
   const useSettingsInitializer = () => {
     const themeHandlers = useThemeHandlers()
     const { openSetting } = useDrawerControl()
+    const { stopWatch } = useResponsiveLayout()
     let themeCleanup: (() => void) | null = null
 
     const initializeSettings = () => {
@@ -151,15 +160,14 @@ export function useSettingsPanel() {
 
       // 设置盒子模式
       const boxMode = settingStore.boxBorderMode ? 'border-mode' : 'shadow-mode'
-      setTimeout(() => {
-        domOperations.setRootAttribute('data-box-mode', boxMode)
-      }, 50)
+      domOperations.setRootAttribute('data-box-mode', boxMode)
 
       themeHandlers.initSystemTheme()
       openFestival()
     }
 
     const cleanupSettings = () => {
+      stopWatch()
       themeCleanup?.()
       cleanup()
     }

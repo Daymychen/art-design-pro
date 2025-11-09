@@ -268,7 +268,7 @@
 
     .preview-container {
       .preview-box {
-        background-color: #f6f6f6 !important;
+        background-color: var(--art-active-color) !important;
 
         .preview-img {
           width: 100%;

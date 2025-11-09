@@ -1,29 +1,32 @@
+<!-- 权限页面可见页面 -->
 <template>
-  <div class="page-visibility-page">
+  <div class="w-full py-2">
     <!-- 页面头部 -->
-    <div class="page-header">
-      <h2>{{ $t('menus.examples.permission.pageVisibility') }}</h2>
-      <p class="description">
-        此页面仅对<strong>超级管理员</strong>用户可见，演示页面级别的权限控制。
-        如果您能看到此页面，说明您拥有相应的访问权限。
+    <div class="mb-6">
+      <h2 class="m-0 mb-2 text-xl font-medium">{{
+        $t('menus.examples.permission.pageVisibility')
+      }}</h2>
+      <p class="m-0 text-sm leading-[1.6] text-g-700">
+        此页面仅对<strong class="font-semibold text-warning">超级管理员</strong
+        >用户可见，演示页面级别的权限控制。 如果您能看到此页面，说明您拥有相应的访问权限。
       </p>
     </div>
 
-    <div class="success-card">
+    <div class="mb-6">
       <ElCard shadow="never">
         <template #header>
-          <div class="card-header">
+          <div class="flex-c gap-2 font-semibold">
             <span>权限验证成功</span>
           </div>
         </template>
-        <div class="success-content">
-          <div class="success-info">
-            <div class="success-text">
-              <h3>您拥有访问此页面的权限</h3>
-              <p>
-                当前用户：<strong>{{ currentUser.userName }}</strong>
+        <div>
+          <div class="flex-c gap-5">
+            <div>
+              <h3 class="m-0 mb-2 text-lg font-semibold">您拥有访问此页面的权限</h3>
+              <p class="my-1 text-sm text-g-700">
+                当前用户：<strong class="font-semibold">{{ currentUser.userName }}</strong>
               </p>
-              <p>
+              <p class="my-1 text-sm text-g-700">
                 用户角色：
                 <ElTag type="warning">{{ getRoleDisplayName(currentUser.roles?.[0] || '') }}</ElTag>
               </p>
@@ -34,23 +37,28 @@
     </div>
 
     <!-- 页面级权限控制说明 -->
-    <div class="permission-explanation">
+    <div class="mb-6 last:mb-0">
       <ElCard shadow="never">
         <template #header>
-          <div class="card-header">
+          <div class="flex-c font-semibold">
             <span>页面级权限控制说明</span>
           </div>
         </template>
-        <div class="explanation-content">
+        <div>
           <ElTimeline>
             <ElTimelineItem timestamp="前端控制模式" type="primary" size="large">
               <ElCard shadow="never">
-                <h4>基于角色的权限控制</h4>
-                <p>
-                  在前端控制模式下，页面访问权限由路由配置文件中的 <code>meta.roles</code>
+                <h4 class="m-0 mb-2 text-base font-semibold">基于角色的权限控制</h4>
+                <p class="m-0 mb-2 leading-[1.6] text-g-700">
+                  在前端控制模式下，页面访问权限由路由配置文件中的
+                  <code class="px-1.5 py-0.5 font-mono text-xs text-theme bg-theme/12 rounded"
+                    >meta.roles</code
+                  >
                   字段定义，前端会根据用户接口所拥有的角色对路由和菜单进行过滤与控制
                 </p>
-                <pre><code>{
+                <pre
+                  class="p-4 mt-3 mb-0 overflow-x-auto font-mono text-xs leading-[1.5] bg-g-200 border-full-d rounded-md"
+                ><code class="">{
   path: 'page-visibility',
   name: 'PermissionPageVisibility',
   component: '/examples/permission/page-visibility',
@@ -60,26 +68,42 @@
     keepAlive: true
   }
 }</code></pre>
-                <p><strong>权限验证流程：</strong></p>
-                <ul>
-                  <li>用户登录后，接口返回用户角色信息（如 R_SUPER、R_ADMIN、R_USER）</li>
-                  <li>
-                    在 <code>beforeEach</code> 路由守卫中检查目标路由的 <code>roles</code> 配置
+                <p class="m-0 mb-2 leading-[1.6] text-g-700"><strong>权限验证流程：</strong></p>
+                <ul class="pl-5 my-2">
+                  <li class="my-1 leading-[1.5] text-g-700"
+                    >用户登录后，接口返回用户角色信息（如 R_SUPER、R_ADMIN、R_USER）</li
+                  >
+                  <li class="my-1 leading-[1.5] text-g-700">
+                    在
+                    <code class="px-1.5 py-0.5 font-mono text-xs text-theme bg-theme/12 rounded"
+                      >beforeEach</code
+                    >
+                    路由守卫中检查目标路由的
+                    <code class="px-1.5 py-0.5 font-mono text-xs text-theme bg-theme/12 rounded"
+                      >roles</code
+                    >
+                    配置
                   </li>
-                  <li>比较用户角色是否包含在允许访问的角色列表中</li>
-                  <li>权限不足时跳转到 403 页面</li>
+                  <li class="my-1 leading-[1.5] text-g-700"
+                    >比较用户角色是否包含在允许访问的角色列表中</li
+                  >
+                  <li class="my-1 leading-[1.5] text-g-700">权限不足时跳转到 403 页面</li>
                 </ul>
               </ElCard>
             </ElTimelineItem>
 
             <ElTimelineItem timestamp="后端控制模式" type="warning" size="large">
               <ElCard shadow="never">
-                <h4>基于菜单接口的权限控制</h4>
-                <p
+                <h4 class="m-0 mb-2 text-base font-semibold">基于菜单接口的权限控制</h4>
+                <p class="m-0 mb-2 leading-[1.6] text-g-700"
                   >在后端控制模式下，页面访问权限由后端统一管理，前端通过解析后端接口返回的菜单列表来生成可访问的路由，从而实现权限控制</p
                 >
-                <p>接口地址：src/api/menuApi.ts getMenuList</p>
-                <pre><code>
+                <p class="m-0 mb-2 leading-[1.6] text-g-700"
+                  >接口地址：src/api/menuApi.ts getMenuList</p
+                >
+                <pre
+                  class="p-4 mt-3 mb-0 overflow-x-auto font-mono text-xs leading-[1.5] bg-g-200 border-full-d rounded-md"
+                ><code class="">
 {
   "code": 200,
   "data": [
@@ -149,47 +173,53 @@
         </template>
         <div class="practices-content">
           <ElRow :gutter="24">
-            <ElCol :span="12">
-              <div class="practice-item">
-                <div class="practice-icon">
+            <ElCol :span="12" class="!mb-5">
+              <div class="flex-c">
+                <div class="size-10 bg-g-200 flex-cc rounded mr-2">
                   <ElIcon size="20" color="#409EFF"><Lock /></ElIcon>
                 </div>
-                <div class="practice-content">
+                <div>
                   <h4>多层权限验证</h4>
-                  <p>在前端路由、后端接口、UI组件等多个层面实施权限控制，确保安全性。</p>
+                  <p class="text-g-700 text-sm"
+                    >在前端路由、后端接口、UI组件等多个层面实施权限控制，确保安全性。</p
+                  >
                 </div>
               </div>
             </ElCol>
             <ElCol :span="12">
-              <div class="practice-item">
-                <div class="practice-icon">
+              <div class="flex-c">
+                <div class="size-10 bg-g-200 flex-cc rounded mr-2">
                   <ElIcon size="20" color="#67C23A"><User /></ElIcon>
                 </div>
-                <div class="practice-content">
+                <div>
                   <h4>基于角色的访问控制</h4>
-                  <p>采用RBAC模型，通过角色分配权限，简化权限管理复杂度。</p>
+                  <p class="text-g-700 text-sm"
+                    >采用RBAC模型，通过角色分配权限，简化权限管理复杂度。</p
+                  >
                 </div>
               </div>
             </ElCol>
             <ElCol :span="12">
-              <div class="practice-item">
-                <div class="practice-icon">
+              <div class="flex-c">
+                <div class="size-10 bg-g-200 flex-cc rounded mr-2">
                   <ElIcon size="20" color="#E6A23C"><Key /></ElIcon>
                 </div>
-                <div class="practice-content">
+                <div>
                   <h4>细粒度权限控制</h4>
-                  <p>支持页面级、按钮级、数据级等多种粒度的权限控制。</p>
+                  <p class="text-g-700 text-sm">支持页面级、按钮级、数据级等多种粒度的权限控制。</p>
                 </div>
               </div>
             </ElCol>
             <ElCol :span="12">
-              <div class="practice-item">
-                <div class="practice-icon">
+              <div class="flex-c">
+                <div class="size-10 bg-g-200 flex-cc rounded mr-2">
                   <ElIcon size="20" color="#F56C6C"><View /></ElIcon>
                 </div>
-                <div class="practice-content">
+                <div>
                   <h4>安全性优先原则</h4>
-                  <p>始终遵循最小权限原则，确保用户只能访问必要的功能和数据。</p>
+                  <p class="text-g-700 text-sm"
+                    >始终遵循最小权限原则，确保用户只能访问必要的功能和数据。</p
+                  >
                 </div>
               </div>
             </ElCol>
@@ -223,196 +253,3 @@
     return roleMap[role] || '未知角色'
   }
 </script>
-
-<style lang="scss" scoped>
-  .page-visibility-page {
-    width: 100%;
-    padding: 10px 0;
-
-    .page-header {
-      margin-bottom: 24px;
-
-      h2 {
-        margin: 0 0 8px;
-        font-size: 22px;
-        font-weight: 500;
-        color: var(--el-text-color-primary);
-      }
-
-      .description {
-        margin: 0;
-        font-size: 14px;
-        line-height: 1.6;
-        color: var(--el-text-color-regular);
-
-        strong {
-          font-weight: 600;
-          color: var(--el-color-warning);
-        }
-      }
-    }
-
-    .success-card {
-      margin-bottom: 24px;
-
-      .card-header {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-        font-weight: 600;
-
-        &.success {
-          color: var(--el-color-success);
-        }
-      }
-
-      .success-content {
-        .success-info {
-          display: flex;
-          gap: 20px;
-          align-items: center;
-
-          .success-text {
-            h3 {
-              margin: 0 0 8px;
-              font-size: 18px;
-              font-weight: 600;
-              color: var(--el-text-color-primary);
-            }
-
-            p {
-              margin: 4px 0;
-              font-size: 14px;
-              color: var(--el-text-color-regular);
-
-              strong {
-                font-weight: 600;
-                color: var(--el-text-color-primary);
-              }
-            }
-          }
-        }
-      }
-    }
-
-    .permission-explanation,
-    .best-practices {
-      margin-bottom: 24px;
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
-
-    .card-header {
-      display: flex;
-      align-items: center;
-      font-weight: 600;
-      color: var(--el-text-color-primary);
-    }
-
-    .explanation-content {
-      pre {
-        padding: 16px;
-        margin: 12px 0 0;
-        overflow-x: auto;
-        font-family: Monaco, Menlo, 'Ubuntu Mono', monospace;
-        font-size: 13px;
-        line-height: 1.5;
-        background: var(--el-fill-color-light);
-        border: 1px solid var(--el-border-color-lighter);
-        border-radius: 6px;
-
-        code {
-          color: var(--el-text-color-primary);
-        }
-      }
-
-      h4 {
-        margin: 0 0 8px;
-        font-size: 16px;
-        font-weight: 600;
-        color: var(--el-text-color-primary);
-      }
-
-      p {
-        margin: 0 0 8px;
-        line-height: 1.6;
-        color: var(--el-text-color-regular);
-
-        code {
-          padding: 2px 6px;
-          font-family: Monaco, Menlo, 'Ubuntu Mono', monospace;
-          font-size: 13px;
-          color: var(--el-color-primary);
-          background: var(--el-color-primary-light-9);
-          border-radius: 4px;
-        }
-      }
-
-      ul {
-        padding-left: 20px;
-        margin: 8px 0;
-
-        li {
-          margin: 4px 0;
-          line-height: 1.5;
-          color: var(--el-text-color-regular);
-        }
-      }
-    }
-
-    .practices-content {
-      .practice-item {
-        display: flex;
-        gap: 16px;
-        align-items: flex-start;
-        margin-bottom: 15px !important;
-
-        &:last-child {
-          margin-bottom: 0;
-        }
-
-        .practice-icon {
-          display: flex;
-          flex-shrink: 0;
-          align-items: center;
-          justify-content: center;
-          width: 44px;
-          height: 44px;
-          background: var(--el-fill-color-light);
-          border-radius: 8px;
-        }
-
-        .practice-content {
-          flex: 1;
-
-          h4 {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--el-text-color-primary);
-          }
-
-          p {
-            margin: 0;
-            font-size: 14px;
-            line-height: 1.6;
-            color: var(--el-text-color-regular);
-          }
-        }
-      }
-    }
-  }
-
-  @media (width <= 768px) {
-    .page-visibility-page {
-      padding: 16px 0;
-
-      .success-info {
-        flex-direction: column;
-        gap: 16px !important;
-        text-align: center;
-      }
-    }
-  }
-</style>

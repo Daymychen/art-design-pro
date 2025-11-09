@@ -1,12 +1,20 @@
 <template>
-  <div class="page-content" :class="type">
-    <i class="iconfont-sys icon" v-html="iconCode"></i>
-    <h1 class="title">{{ title }}</h1>
-    <p class="msg">{{ message }}</p>
-    <div class="res">
+  <div class="page-content box-border !px-20 py-3.5 text-center max-md:!px-5" :class="type">
+    <ArtSvgIcon
+      class="icon size-22 p-2 mt-16 block rounded-full !text-white"
+      :icon="iconCode"
+      :class="type === 'success' ? 'bg-[#19BE6B]' : 'bg-[#ED4014]'"
+    />
+    <h1 class="title mt-8 text-3xl font-medium !text-g-900 max-md:mt-2.5 max-md:text-2xl">{{
+      title
+    }}</h1>
+    <p class="msg mt-5 text-base text-g-600">{{ message }}</p>
+    <div
+      class="res mt-7.5 rounded bg-g-200/80 dark:bg-g-300/40 px-7.5 py-5.5 text-left max-md:px-7.5 max-md:py-2.5 [&_p]:flex [&_p]:items-center [&_p]:py-2 [&_p]:text-sm [&_p]:text-[#808695] [&_p_i]:mr-1.5"
+    >
       <slot name="content"></slot>
     </div>
-    <div class="btn-group">
+    <div class="btn-group mt-12.5">
       <slot name="buttons"></slot>
     </div>
   </div>
@@ -33,102 +41,3 @@
     iconCode: ''
   })
 </script>
-
-<style lang="scss" scoped>
-  .page-content {
-    box-sizing: border-box;
-    padding: 15px 100px !important;
-    text-align: center;
-
-    .icon {
-      display: block;
-      margin-top: 6vh;
-      font-size: 80px;
-    }
-
-    .title {
-      margin-top: 20px;
-      font-size: 30px;
-      font-weight: 500;
-      color: var(--art-text-gray-900) !important;
-    }
-
-    .msg {
-      margin-top: 20px;
-      font-size: 16px;
-      color: #808695;
-    }
-
-    :deep(.res) {
-      padding: 22px 30px;
-      margin-top: 30px;
-      text-align: left;
-      background-color: #f8f8f9;
-      border-radius: 5px;
-
-      p {
-        display: flex;
-        align-items: center;
-        padding: 8px 0;
-        font-size: 15px;
-        color: #808695;
-
-        i {
-          margin-right: 5px;
-        }
-      }
-    }
-
-    .btn-group {
-      margin-top: 50px;
-    }
-  }
-
-  .success {
-    .icon {
-      color: #19be6b !important;
-    }
-  }
-
-  .fail {
-    .icon {
-      color: #ed4014 !important;
-    }
-
-    :deep(.res) {
-      p {
-        i {
-          color: #ed4014;
-        }
-      }
-    }
-  }
-
-  .dark {
-    .page-content {
-      .res {
-        background: #28282a;
-      }
-    }
-  }
-
-  @media screen and (max-width: $device-phone) {
-    .page-content {
-      padding: 15px 25px !important;
-
-      .icon {
-        margin-top: 4vh;
-        font-size: 60px;
-      }
-
-      .title {
-        margin-top: 10px;
-        font-size: 25px;
-      }
-
-      .res {
-        padding: 10px 30px;
-      }
-    }
-  }
-</style>

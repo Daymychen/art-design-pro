@@ -35,7 +35,7 @@
       ref="handler"
       :style="handlerStyle"
     >
-      <i class="iconfont-sys" v-html="value ? successIcon : handlerIcon"></i>
+      <ArtSvgIcon :icon="value ? successIcon : handlerIcon" class="text-g-600"></ArtSvgIcon>
     </div>
   </div>
 </template>
@@ -92,8 +92,8 @@
     completedBg: '#57D187',
     circle: false,
     radius: 'calc(var(--custom-radius) / 3 + 2px)',
-    handlerIcon: '&#xea50;',
-    successIcon: '&#xe621;',
+    handlerIcon: 'solar:double-alt-arrow-right-linear',
+    successIcon: 'ri:check-fill',
     handlerBg: '#fff',
     textSize: '13px',
     textColor: '#333'
@@ -315,8 +315,7 @@
     // 重置滑块位置
     handler.value.style.left = '0'
     progressBar.value.style.width = '0'
-    // 重置图标
-    handler.value.children[0].innerHTML = props.handlerIcon
+    progressBar.value.style.background = props.progressBarBg
     // 重置文本样式
     messageRef.value.style['-webkit-text-fill-color'] = 'transparent'
     messageRef.value.style.animation = 'slidetounlock 2s cubic-bezier(0, 0.2, 1, 1) infinite'
@@ -340,7 +339,7 @@
     box-sizing: border-box;
     overflow: hidden;
     text-align: center;
-    border: 1px solid var(--art-border-dashed-color);
+    border: 1px solid var(--default-border-dashed);
 
     .dv_handler {
       position: absolute;

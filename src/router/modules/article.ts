@@ -6,7 +6,7 @@ export const articleRoutes: AppRouteRecord = {
   component: '/index/index',
   meta: {
     title: 'menus.article.title',
-    icon: '&#xe7ae;',
+    icon: 'ri:book-2-line',
     roles: ['R_SUPER', 'R_ADMIN']
   },
   children: [

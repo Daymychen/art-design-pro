@@ -1,9 +1,8 @@
 <template>
   <ArtBasicBanner
-    class="banner"
-    height="13.3rem"
+    class="justify-center !h-53 mb-5 max-sm:!pt-8 max-sm:!h-48 max-sm:mb-4"
     :title="`欢迎回来 ${userInfo.userName}`"
-    backgroundColor="var(--el-color-primary-light-9)"
+    boxStyle="!bg-theme/10"
     titleColor="var(--art-gray-900)"
     :decoration="false"
     :meteorConfig="{
@@ -21,9 +20,9 @@
     }"
     @click="handleBannerClick"
   >
-    <div class="banner-slot">
-      <div class="item">
-        <p class="title">
+    <div class="flex mt-6">
+      <div class="mr-8 pr-8 border-r border-g-400 dark:border-g-300/60">
+        <p class="text-3xl">
           <ArtCountTo
             class="number box-title"
             :target="2340"
@@ -31,16 +30,16 @@
             prefix="¥"
             separator=","
           />
-          <i class="iconfont-sys text-success">&#xe8d5;</i>
+          <ArtSvgIcon icon="ri:arrow-right-up-line" class="text-xl text-success relative -top-2" />
         </p>
-        <p class="subtitle">今日销售额</p>
+        <p class="mt-1 text-sm text-g-700">今日销售额</p>
       </div>
-      <div class="item">
-        <p class="title">
+      <div class="mr-8">
+        <p class="text-3xl">
           <ArtCountTo class="number box-title" :target="35" :duration="1500" suffix="%" />
-          <i class="iconfont-sys text-success">&#xe8d5;</i>
+          <ArtSvgIcon icon="ri:arrow-right-up-line" class="text-xl text-success relative -top-2" />
         </p>
-        <p class="subtitle">较昨日</p>
+        <p class="mt-1 text-sm text-g-700">较昨日</p>
       </div>
     </div>
   </ArtBasicBanner>
@@ -64,41 +63,3 @@
     // TODO: 添加横幅点击处理逻辑
   }
 </script>
-
-<style lang="scss" scoped>
-  .banner {
-    justify-content: center;
-
-    .banner-slot {
-      display: flex;
-      margin-top: 24px;
-
-      .item {
-        margin-right: 30px;
-
-        &:first-of-type {
-          padding-right: 30px;
-          border-right: 1px solid var(--art-gray-300);
-        }
-
-        .title {
-          font-size: 30px;
-          color: var(--art-gray-900) !important;
-
-          i {
-            position: relative;
-            top: -10px;
-            margin-left: 10px;
-            font-size: 16px;
-          }
-        }
-
-        .subtitle {
-          margin-top: 4px;
-          font-size: 14px;
-          color: var(--art-gray-700) !important;
-        }
-      }
-    }
-  }
-</style>

@@ -1,0 +1,93 @@
+/*
+* 深色主题
+* 单页面移除深色主题 document.getElementsByTagName("html")[0].removeAttribute('class')
+*/
+
+$font-color: rgba(#ffffff, 0.85);
+
+/* 覆盖element-plus默认深色背景色 */
+html.dark {
+  // element-plus
+  --el-bg-color: var(--default-box-color);
+  --el-text-color-regular: #{$font-color};
+
+  // 富文本编辑器
+  // 工具栏背景颜色
+  --w-e-toolbar-bg-color: #18191c;
+  // 输入区域背景颜色
+  --w-e-textarea-bg-color: #090909;
+  // 工具栏文字颜色
+  --w-e-toolbar-color: var(--art-gray-600);
+  // 选中菜单颜色
+  --w-e-toolbar-active-bg-color: #25262b;
+  // 弹窗边框颜色
+  --w-e-toolbar-border-color: var(--default-border-dashed);
+  // 分割线颜色
+  --w-e-textarea-border-color: var(--default-border-dashed);
+  // 链接输入框边框颜色
+  --w-e-modal-button-border-color: var(--default-border-dashed);
+  // 表格头颜色
+  --w-e-textarea-slight-bg-color: #090909;
+  // 按钮背景颜色
+  --w-e-modal-button-bg-color: #090909;
+  // hover toolbar 背景颜色
+  --w-e-toolbar-active-color: var(--art-gray-800);
+}
+
+.dark {
+  .page-content .article-list .item .left .outer > div {
+    border-right-color: var(--dark-border-color) !important;
+  }
+
+  // 富文本编辑器
+  .editor-wrapper {
+    *:not(pre code *) {
+      color: inherit !important;
+    }
+  }
+  // 分隔线
+  .w-e-bar-divider {
+    background-color: var(--art-gray-300) !important;
+  }
+
+  .w-e-select-list,
+  .w-e-drop-panel,
+  .w-e-bar-item-group .w-e-bar-item-menus-container,
+  .w-e-text-container [data-slate-editor] pre > code {
+    border: 1px solid var(--default-border) !important;
+  }
+
+  // 下拉选择框
+  .w-e-select-list {
+    background-color: var(--default-box-color) !important;
+  }
+
+  /* 下拉选择框 hover 样式调整 */
+  .w-e-select-list ul li:hover,
+    /* 工具栏 hover 按钮背景颜色 */
+    .w-e-bar-item button:hover {
+    background-color: #090909 !important;
+  }
+
+  /* 代码块 */
+  .w-e-text-container [data-slate-editor] pre > code {
+    background-color: #25262b !important;
+    text-shadow: none !important;
+  }
+
+  /* 引用 */
+  .w-e-text-container [data-slate-editor] blockquote {
+    border-left: 4px solid var(--default-border-dashed) !important;
+    background-color: var(--art-color);
+  }
+
+  .editor-wrapper {
+    .w-e-text-container [data-slate-editor] .table-container th:last-of-type {
+      border-right: 1px solid var(--default-border-dashed) !important;
+    }
+
+    .w-e-modal {
+      background-color: var(--art-color);
+    }
+  }
+}

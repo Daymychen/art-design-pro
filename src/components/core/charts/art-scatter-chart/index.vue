@@ -2,7 +2,7 @@
 <template>
   <div
     ref="chartRef"
-    class="art-scatter-chart"
+    class="relative w-full"
     :style="{ height: props.height }"
     v-loading="props.loading"
   >
@@ -10,9 +10,9 @@
 </template>
 
 <script setup lang="ts">
-  import type { EChartsOption } from '@/utils/echarts'
+  import type { EChartsOption } from '@/plugins/echarts'
   import { getCssVar } from '@/utils/ui'
-  import { useChartOps, useChartComponent } from '@/composables/useChart'
+  import { useChartOps, useChartComponent } from '@/hooks/core/useChart'
   import type { ScatterChartProps } from '@/types/component/chart'
 
   defineOptions({ name: 'ArtScatterChart' })
@@ -113,10 +113,3 @@
     }
   })
 </script>
-
-<style lang="scss" scoped>
-  .art-scatter-chart {
-    position: relative;
-    width: 100%;
-  }
-</style>

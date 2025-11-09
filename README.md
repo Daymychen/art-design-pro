@@ -29,7 +29,7 @@
 
 ## Tech Stack
 
-Development Framework: Vue3, TypeScript, Vite, Element-Plus
+Development Framework: Vue3, TypeScript, Vite, Element-Plus, Tailwind CSS
 
 Code Standards: Eslint, Prettier, Stylelint, Husky, Lint-staged, cz-git
 

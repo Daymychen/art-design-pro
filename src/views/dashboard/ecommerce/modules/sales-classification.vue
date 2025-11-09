@@ -1,9 +1,12 @@
 <template>
-  <div class="card art-custom-card sales-card" style="height: 26rem">
-    <div class="card-header">
-      <p class="title">销售分类</p>
-      <p class="subtitle">按产品类别</p>
+  <div class="art-card p-5 mb-5 h-105 max-sm:mb-4">
+    <div class="art-card-header">
+      <div class="title">
+        <h4>销售分类</h4>
+        <p>按产品类别</p>
+      </div>
     </div>
+
     <ArtRingChart
       :data="[
         { value: 30, name: '电子产品' },
@@ -17,23 +20,23 @@
       :borderRadius="0"
       centerText="¥300,458"
     />
-    <div class="icon-text-widget">
-      <div class="item">
-        <div class="icon">
-          <i class="iconfont-sys">&#xe718;</i>
+    <div class="flex justify-around">
+      <div class="flex-c">
+        <div class="flex-cc size-10.5 mr-2.5 text-theme bg-theme/10 rounded-lg">
+          <ArtSvgIcon icon="ri:money-cny-circle-line" class="text-xl" />
         </div>
-        <div class="content">
-          <p>¥500,458</p>
-          <span>总收入</span>
+        <div>
+          <p class="text-lg">¥500,458</p>
+          <span class="text-sm">总收入</span>
         </div>
       </div>
-      <div class="item">
-        <div class="icon">
-          <i class="iconfont-sys">&#xe70c;</i>
+      <div class="flex-c">
+        <div class="flex-cc size-10.5 mr-2.5 text-theme bg-theme/10 rounded-lg">
+          <ArtSvgIcon icon="ri:heart-3-line" class="text-xl" />
         </div>
-        <div class="content">
-          <p>¥130,580</p>
-          <span>净利润</span>
+        <div>
+          <p class="text-lg">¥130,580</p>
+          <span class="text-sm">净利润</span>
         </div>
       </div>
     </div>

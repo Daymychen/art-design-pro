@@ -1,13 +1,12 @@
 <template>
-  <div class="card art-custom-card">
-    <div class="card-header">
+  <div class="art-card h-105 p-5 mb-5 max-sm:mb-4">
+    <div class="art-card-header">
       <div class="title">
-        <h4 class="box-title">访问量</h4>
-        <p class="subtitle">今年增长<span class="text-success">+15%</span></p>
+        <h4>访问量</h4>
+        <p>今年增长<span class="text-success">+15%</span></p>
       </div>
     </div>
     <ArtLineChart
-      class="chart"
       height="calc(100% - 40px)"
       :data="data"
       :xAxisData="xAxisData"
@@ -42,28 +41,3 @@
     '12月'
   ]
 </script>
-
-<style lang="scss" scoped>
-  .card {
-    box-sizing: border-box;
-    width: 100%;
-    height: 420px;
-    padding: 20px 0 30px;
-
-    .card-header {
-      padding: 0 18px !important;
-    }
-
-    .chart {
-      box-sizing: border-box;
-      width: 100%;
-      padding: 20px 20px 0;
-    }
-  }
-
-  @media screen and (max-width: $device-phone) {
-    .card {
-      height: 280px;
-    }
-  }
-</style>

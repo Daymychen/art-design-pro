@@ -1,33 +1,33 @@
 <!-- 卡片横幅组件 -->
 <template>
-  <div class="card-banner art-custom-card" :style="{ height: props.height }">
-    <div class="banner-content">
-      <div class="banner-icon">
-        <img :src="props.image" :alt="props.title" />
+  <div class="art-card-sm flex-c flex-col pb-6" :style="{ height: height }">
+    <div class="flex-c flex-col gap-4 text-center">
+      <div class="w-45">
+        <img :src="image" :alt="title" class="w-full h-full object-contain" />
       </div>
-      <div class="banner-text">
-        <p class="banner-title">{{ props.title }}</p>
-        <p class="banner-description">{{ props.description }}</p>
+      <div class="box-border px-4">
+        <p class="mb-2 text-lg font-semibold text-g-800">{{ title }}</p>
+        <p class="m-0 text-sm text-g-600">{{ description }}</p>
       </div>
-      <div class="banner-buttons">
+      <div class="flex-c gap-3">
         <div
-          v-if="props.cancelButton?.show"
-          class="banner-button cancel-button"
+          v-if="cancelButton?.show"
+          class="inline-block h-9 px-3 text-sm/9 c-p select-none rounded-md border border-g-300"
           :style="{
-            backgroundColor: props.cancelButton?.color,
-            color: props.cancelButton?.textColor
+            backgroundColor: cancelButton?.color,
+            color: cancelButton?.textColor
           }"
           @click="handleCancel"
         >
-          {{ props.cancelButton?.text }}
+          {{ cancelButton?.text }}
         </div>
         <div
-          v-if="props.button?.show"
-          class="banner-button"
-          :style="{ backgroundColor: props.button?.color, color: props.button?.textColor }"
+          v-if="button?.show"
+          class="inline-block h-9 px-3 text-sm/9 c-p select-none rounded-md"
+          :style="{ backgroundColor: button?.color, color: button?.textColor }"
           @click="handleClick"
         >
-          {{ props.button?.text }}
+          {{ button?.text }}
         </div>
       </div>
     </div>
@@ -75,7 +75,7 @@
   }
 
   // 定义组件属性默认值
-  const props = withDefaults(defineProps<CardBannerProps>(), {
+  withDefaults(defineProps<CardBannerProps>(), {
     height: '24rem',
     image: defaultIcon,
     title: '',
@@ -84,7 +84,7 @@
     button: () => ({
       show: true,
       text: '查看详情',
-      color: 'var(--main-color)',
+      color: 'var(--theme-color)',
       textColor: '#fff'
     }),
     // 取消按钮默认配置
@@ -112,76 +112,3 @@
     emit('cancel')
   }
 </script>
-
-<style lang="scss" scoped>
-  .card-banner {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-bottom: 1.5rem;
-    background-color: var(--art-main-bg-color);
-    border-radius: calc(var(--custom-radius) + 2px) !important;
-
-    .banner-content {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      align-items: center;
-      text-align: center;
-    }
-
-    .banner-icon {
-      width: 180px;
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-      }
-    }
-
-    .banner-text {
-      box-sizing: border-box;
-      padding: 0 16px;
-
-      .banner-title {
-        margin-bottom: 8px;
-        font-size: 18px;
-        font-weight: 600;
-        color: var(--art-text-gray-800);
-      }
-
-      .banner-description {
-        margin: 0;
-        font-size: 14px;
-        color: var(--art-text-gray-600);
-      }
-    }
-
-    .banner-buttons {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .banner-button {
-      display: inline-block;
-      height: var(--el-component-custom-height);
-      padding: 0 12px;
-      font-size: 14px;
-      line-height: var(--el-component-custom-height);
-      cursor: pointer;
-      user-select: none;
-      border-radius: 6px;
-      transition: opacity 0.3s;
-
-      &:hover {
-        opacity: 0.9;
-      }
-
-      &.cancel-button {
-        border: 1px solid #dcdfe6;
-      }
-    }
-  }
-</style>

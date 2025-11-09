@@ -6,6 +6,6 @@ dist-ssr
 .cursorrules
 
 # Auto-generated files
-src/types/auto-imports.d.ts
-src/types/components.d.ts
+src/types/import/auto-imports.d.ts
+src/types/import/components.d.ts
 .auto-import.json

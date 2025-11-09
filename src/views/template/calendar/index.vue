@@ -1,25 +1,27 @@
 <template>
-  <div class="page-content">
+  <div class="page-content mb-5">
     <!-- 日历主体 -->
     <ElCalendar v-model="currentDate">
       <template #date-cell="{ data }">
         <div
-          class="calendar-cell"
+          class="relative flex flex-col h-full min-h-30 max-h-30 p-1 overflow-hidden c-p"
           :class="{ 'is-selected': data.isSelected }"
           @click="handleCellClick(data.day)"
         >
           <!-- 日期显示 -->
-          <p class="calendar-date">{{ formatDate(data.day) }}</p>
+          <p class="absolute top-1 right-1 text-sm">{{ formatDate(data.day) }}</p>
 
           <!-- 事件列表 -->
-          <div class="calendar-events">
+          <div class="flex flex-col gap-1 w-full max-h-21 pr-1 mt-6 overflow-y-auto">
             <div
               v-for="event in getEvents(data.day)"
               :key="`${event.date}-${event.content}`"
-              class="calendar-event"
               @click.stop="handleEventClick(event)"
             >
-              <div class="event-tag" :class="[`${event.type || 'bg-primary'}`]">
+              <div
+                class="min-w-25 px-3 py-1.5 overflow-hidden text-xs/6 font-medium text-ellipsis whitespace-nowrap rounded hover:opacity-80"
+                :class="[event.bgClass, event.textClass]"
+              >
                 {{ event.content }}
               </div>
             </div>
@@ -85,17 +87,19 @@
     date: string
     endDate?: string
     content: string
-    type?: 'bg-primary' | 'bg-success' | 'bg-warning' | 'bg-danger'
+    type?: 'primary' | 'success' | 'warning' | 'danger'
+    bgClass?: string
+    textClass?: string
   }
 
   /**
    * 事件类型选项
    */
   const eventTypes = [
-    { label: '基本', value: 'bg-primary' },
-    { label: '成功', value: 'bg-success' },
-    { label: '警告', value: 'bg-warning' },
-    { label: '危险', value: 'bg-danger' }
+    { label: '基本', value: 'primary' },
+    { label: '成功', value: 'success' },
+    { label: '警告', value: 'warning' },
+    { label: '危险', value: 'danger' }
   ] as const
 
   const currentDate = ref(new Date('2025-02-07'))
@@ -107,20 +111,20 @@
    * 事件列表数据
    */
   const events = ref<CalendarEvent[]>([
-    { date: '2025-02-01', content: '产品需求评审', type: 'bg-primary' },
+    { date: '2025-02-01', content: '产品需求评审', type: 'primary' },
     {
       date: '2025-02-03',
       endDate: '2025-02-05',
       content: '项目周报会议（跨日期）',
-      type: 'bg-primary'
+      type: 'primary'
     },
-    { date: '2025-02-10', content: '瑜伽课程', type: 'bg-success' },
-    { date: '2025-02-15', content: '团队建设活动', type: 'bg-primary' },
-    { date: '2025-02-20', content: '健身训练', type: 'bg-success' },
-    { date: '2025-02-20', content: '代码评审', type: 'bg-danger' },
-    { date: '2025-02-20', content: '团队午餐', type: 'bg-primary' },
-    { date: '2025-02-20', content: '项目进度汇报', type: 'bg-warning' },
-    { date: '2025-02-28', content: '月度总结会', type: 'bg-warning' }
+    { date: '2025-02-10', content: '瑜伽课程', type: 'success' },
+    { date: '2025-02-15', content: '团队建设活动', type: 'primary' },
+    { date: '2025-02-20', content: '健身训练', type: 'success' },
+    { date: '2025-02-20', content: '代码评审', type: 'danger' },
+    { date: '2025-02-20', content: '团队午餐', type: 'primary' },
+    { date: '2025-02-20', content: '项目进度汇报', type: 'warning' },
+    { date: '2025-02-28', content: '月度总结会', type: 'warning' }
   ])
 
   /**
@@ -130,7 +134,7 @@
     date: '',
     endDate: '',
     content: '',
-    type: 'bg-primary'
+    type: 'primary'
   })
 
   /**
@@ -146,19 +150,39 @@
   const formatDate = (date: string) => date.split('-')[2]
 
   /**
+   * 获取事件类型对应的样式类名
+   * @param type 事件类型
+   * @returns 包含背景和文字颜色的类名对象
+   */
+  const getEventClasses = (type: CalendarEvent['type'] = 'primary') => {
+    const classMap = {
+      primary: { bgClass: 'bg-theme/12', textClass: 'text-theme' },
+      success: { bgClass: 'bg-success/12', textClass: 'text-success' },
+      warning: { bgClass: 'bg-warning/12', textClass: 'text-warning' },
+      danger: { bgClass: 'bg-danger/12', textClass: 'text-danger' }
+    }
+    return classMap[type]
+  }
+
+  /**
    * 获取指定日期的所有事件
    * 支持跨日期事件的显示
    * @param day 日期字符串
    * @returns 该日期的事件列表
    */
   const getEvents = (day: string) => {
-    return events.value.filter((event) => {
-      const eventDate = new Date(event.date)
-      const currentDate = new Date(day)
-      const endDate = event.endDate ? new Date(event.endDate) : new Date(event.date)
+    return events.value
+      .filter((event) => {
+        const eventDate = new Date(event.date)
+        const currentDate = new Date(day)
+        const endDate = event.endDate ? new Date(event.endDate) : new Date(event.date)
 
-      return currentDate >= eventDate && currentDate <= endDate
-    })
+        return currentDate >= eventDate && currentDate <= endDate
+      })
+      .map((event) => {
+        const { bgClass, textClass } = getEventClasses(event.type)
+        return { ...event, bgClass, textClass }
+      })
   }
 
   /**
@@ -169,7 +193,7 @@
       date: '',
       endDate: '',
       content: '',
-      type: 'bg-primary'
+      type: 'primary'
     }
     editingEventIndex.value = -1
   }
@@ -184,7 +208,7 @@
     eventForm.value = {
       date: day,
       content: '',
-      type: 'bg-primary'
+      type: 'primary'
     }
     editingEventIndex.value = -1
     dialogVisible.value = true
@@ -233,99 +257,29 @@
   }
 </script>
 
-<style scoped lang="scss">
-  .page-content {
+<style scoped>
+  :deep(.el-calendar) {
     height: 100%;
-
-    :deep(.el-calendar) {
-      height: 100%;
-
-      .el-calendar__body {
-        height: calc(100% - 70px);
-      }
-
-      .el-calendar-table {
-        height: 100%;
-
-        .is-selected {
-          // 选中日期的背景颜色
-          background-color: var(--el-color-warning-light-9) !important;
-        }
-
-        .el-calendar-day {
-          height: 100%;
-
-          &:hover {
-            background-color: transparent !important;
-          }
-        }
-      }
-    }
   }
 
-  .calendar-cell {
-    position: relative;
-    display: flex;
-    flex-direction: column;
+  :deep(.el-calendar__body) {
+    height: calc(100% - 70px);
+  }
+
+  :deep(.el-calendar-table) {
     height: 100%;
-    min-height: 120px;
-    max-height: 120px;
-    padding: 4px;
-    overflow: hidden;
-    cursor: pointer;
+  }
 
-    .calendar-date {
-      position: absolute;
-      top: 4px;
-      right: 4px;
-      font-size: 14px;
-    }
+  :deep(.is-selected) {
+    background-color: var(--el-color-warning-light-9) !important;
+  }
 
-    .calendar-events {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      width: 100%;
-      max-height: 85px;
-      padding-right: 4px;
-      margin-top: 24px;
-      overflow-y: auto;
-    }
+  :deep(.el-calendar-day) {
+    height: 100%;
+  }
 
-    .event-tag {
-      min-width: 100px;
-      padding: 6px 12px;
-      overflow: hidden;
-      font-size: 13px;
-      font-weight: 500;
-      line-height: 24px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      border-radius: 4px;
-
-      &:hover {
-        opacity: 0.8;
-      }
-
-      &::before {
-        position: absolute;
-        top: 0;
-        left: 0;
-        display: inline-block;
-        width: 4px;
-        height: 100%;
-        content: '';
-      }
-
-      &.event-continues::after {
-        position: absolute;
-        top: 50%;
-        right: 4px;
-        font-size: 12px;
-        content: '►';
-        transform: translateY(-50%);
-      }
-    }
+  :deep(.el-calendar-day:hover) {
+    background-color: transparent !important;
   }
 
   :deep(.el-dialog__body) {

@@ -1,4 +1,43 @@
-// 表格工具函数
+/**
+ * 表格工具函数模块
+ *
+ * 提供表格数据处理和请求管理的核心工具函数
+ *
+ * ## 主要功能
+ *
+ * - 多格式 API 响应自动适配和标准化
+ * - 表格数据提取和转换
+ * - 分页信息自动更新和校验
+ * - 智能防抖函数（支持取消和立即执行）
+ * - 统一的错误处理机制
+ * - 嵌套数据结构解析
+ *
+ * ## 使用场景
+ *
+ * - useTable 组合式函数的底层工具
+ * - 适配各种后端接口响应格式
+ * - 表格数据的标准化处理
+ * - 请求防抖和性能优化
+ * - 错误统一处理和日志记录
+ *
+ * ## 支持的响应格式
+ *
+ * 1. 直接数组: [item1, item2, ...]
+ * 2. 标准对象: { records: [], total: 100 }
+ * 3. 嵌套data: { data: { list: [], total: 100 } }
+ * 4. 多种字段名: list/data/records/items/result/rows
+ *
+ * ## 核心功能
+ *
+ * - defaultResponseAdapter: 智能识别和转换响应格式
+ * - extractTableData: 提取表格数据数组
+ * - updatePaginationFromResponse: 更新分页信息
+ * - createSmartDebounce: 创建可控的防抖函数
+ * - createErrorHandler: 生成错误处理器
+ *
+ * @module utils/table/tableUtils
+ * @author Art Design Pro Team
+ */
 
 import type { ApiResponse } from './tableCache'
 import { tableConfig } from './tableConfig'

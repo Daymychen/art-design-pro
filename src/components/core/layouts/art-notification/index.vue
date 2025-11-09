@@ -1,104 +1,118 @@
 <!-- 通知组件 -->
 <template>
   <div
-    class="notice"
-    v-show="visible"
+    class="art-notification-panel art-card-sm !shadow-xl"
     :style="{
       transform: show ? 'scaleY(1)' : 'scaleY(0.9)',
       opacity: show ? 1 : 0
     }"
-    @click.stop=""
+    v-show="visible"
+    @click.stop
   >
-    <div class="header">
-      <span class="text">{{ $t('notice.title') }}</span>
-      <span class="btn">{{ $t('notice.btnRead') }}</span>
+    <div class="flex-cb px-3.5 mt-3.5">
+      <span class="text-base font-medium text-g-800">{{ $t('notice.title') }}</span>
+      <span class="text-xs text-g-800 px-1.5 py-1 c-p select-none rounded hover:bg-g-200">
+        {{ $t('notice.btnRead') }}
+      </span>
     </div>
 
-    <ul class="bar">
+    <ul class="box-border flex items-end w-full h-12.5 px-3.5 border-b-d">
       <li
         v-for="(item, index) in barList"
         :key="index"
-        :class="{ active: barActiveIndex === index }"
+        class="h-12 leading-12 mr-5 overflow-hidden text-[13px] text-g-700 c-p select-none"
+        :class="{ 'bar-active': barActiveIndex === index }"
         @click="changeBar(index)"
       >
         {{ item.name }} ({{ item.num }})
       </li>
     </ul>
 
-    <div class="content">
-      <div class="scroll">
+    <div class="w-full h-[calc(100%-95px)]">
+      <div class="h-[calc(100%-60px)] overflow-y-scroll scrollbar-thin">
         <!-- 通知 -->
-        <ul class="notice-list" v-show="barActiveIndex === 0">
-          <li v-for="(item, index) in noticeList" :key="index">
+        <ul v-show="barActiveIndex === 0">
+          <li
+            v-for="(item, index) in noticeList"
+            :key="index"
+            class="box-border flex-c px-3.5 py-3.5 c-p last:border-b-0 hover:bg-g-200/60"
+          >
             <div
-              class="icon"
-              :style="{ background: getNoticeStyle(item.type).backgroundColor + '!important' }"
+              class="size-9 leading-9 text-center rounded-lg flex-cc"
+              :class="[getNoticeStyle(item.type).iconClass]"
             >
-              <i
-                class="iconfont-sys"
-                :style="{ color: getNoticeStyle(item.type).iconColor + '!important' }"
-                v-html="getNoticeStyle(item.type).icon"
-              >
-              </i>
+              <ArtSvgIcon class="text-lg !bg-transparent" :icon="getNoticeStyle(item.type).icon" />
             </div>
-            <div class="text">
-              <h4>{{ item.title }}</h4>
-              <p>{{ item.time }}</p>
+            <div class="w-[calc(100%-45px)] ml-3.5">
+              <h4 class="text-sm font-normal leading-5.5 text-g-900">{{ item.title }}</h4>
+              <p class="mt-1.5 text-xs text-g-500">{{ item.time }}</p>
             </div>
           </li>
         </ul>
 
         <!-- 消息 -->
-        <ul class="user-list" v-show="barActiveIndex === 1">
-          <li v-for="(item, index) in msgList" :key="index">
-            <div class="avatar">
-              <img :src="item.avatar" />
+        <ul v-show="barActiveIndex === 1">
+          <li
+            v-for="(item, index) in msgList"
+            :key="index"
+            class="box-border flex-c px-3.5 py-3.5 c-p last:border-b-0 hover:bg-g-200/60"
+          >
+            <div class="w-9 h-9">
+              <img :src="item.avatar" class="w-full h-full rounded-lg" />
             </div>
-            <div class="text">
-              <h4>{{ item.title }}</h4>
-              <p>{{ item.time }}</p>
+            <div class="w-[calc(100%-45px)] ml-3.5">
+              <h4 class="text-xs font-normal leading-5.5">{{ item.title }}</h4>
+              <p class="mt-1.5 text-xs text-g-500">{{ item.time }}</p>
             </div>
           </li>
         </ul>
 
         <!-- 待办 -->
-        <ul class="base" v-show="barActiveIndex === 2">
-          <li v-for="(item, index) in pendingList" :key="index">
+        <ul v-show="barActiveIndex === 2">
+          <li
+            v-for="(item, index) in pendingList"
+            :key="index"
+            class="box-border px-5 py-3.5 last:border-b-0"
+          >
             <h4>{{ item.title }}</h4>
-            <p>{{ item.time }}</p>
+            <p class="text-xs text-g-500">{{ item.time }}</p>
           </li>
         </ul>
 
         <!-- 空状态 -->
-        <div class="empty-tips" v-show="currentTabIsEmpty">
-          <i class="iconfont-sys">&#xe8d7;</i>
-          <p>{{ $t('notice.text[0]') }}{{ barList[barActiveIndex].name }}</p>
+        <div
+          v-show="currentTabIsEmpty"
+          class="relative top-25 h-full text-g-500 text-center !bg-transparent"
+        >
+          <ArtSvgIcon icon="system-uicons:inbox" class="text-5xl" />
+          <p class="mt-3.5 text-xs !bg-transparent"
+            >{{ $t('notice.text[0]') }}{{ barList[barActiveIndex].name }}</p
+          >
         </div>
       </div>
 
-      <div class="btn-wrapper">
-        <ElButton class="view-all" @click="handleViewAll" v-ripple>
+      <div class="relative box-border w-full px-3.5">
+        <ElButton class="w-full mt-3" @click="handleViewAll" v-ripple>
           {{ $t('notice.viewAll') }}
         </ElButton>
       </div>
     </div>
 
-    <div style="height: 100px"></div>
+    <div class="h-25"></div>
   </div>
 </template>
 
 <script setup lang="ts">
   import { computed, ref, watch, type Ref, type ComputedRef } from 'vue'
   import { useI18n } from 'vue-i18n'
-  import AppConfig from '@/config'
 
   // 导入头像图片
-  import avatar1 from '@/assets/img/avatar/avatar1.webp'
-  import avatar2 from '@/assets/img/avatar/avatar2.webp'
-  import avatar3 from '@/assets/img/avatar/avatar3.webp'
-  import avatar4 from '@/assets/img/avatar/avatar4.webp'
-  import avatar5 from '@/assets/img/avatar/avatar5.webp'
-  import avatar6 from '@/assets/img/avatar/avatar6.webp'
+  import avatar1 from '@/assets/images/avatar/avatar1.webp'
+  import avatar2 from '@/assets/images/avatar/avatar2.webp'
+  import avatar3 from '@/assets/images/avatar/avatar3.webp'
+  import avatar4 from '@/assets/images/avatar/avatar4.webp'
+  import avatar5 from '@/assets/images/avatar/avatar5.webp'
+  import avatar6 from '@/assets/images/avatar/avatar6.webp'
 
   defineOptions({ name: 'ArtNotification' })
 
@@ -137,10 +151,8 @@
   interface NoticeStyle {
     /** 图标 */
     icon: string
-    /** 图标颜色 */
-    iconColor: string
-    /** 背景颜色 */
-    backgroundColor: string
+    /** icon 样式 */
+    iconClass: string
   }
 
   type NoticeType = 'email' | 'message' | 'collection' | 'user' | 'notice'
@@ -149,6 +161,10 @@
 
   const props = defineProps<{
     value: boolean
+  }>()
+
+  const emit = defineEmits<{
+    'update:value': [value: boolean]
   }>()
 
   const show = ref(false)
@@ -255,42 +271,31 @@
   const useNotificationStyles = () => {
     const noticeStyleMap: Record<NoticeType, NoticeStyle> = {
       email: {
-        icon: '&#xe72e;',
-        iconColor: 'rgb(var(--art-warning))',
-        backgroundColor: 'rgb(var(--art-bg-warning))'
+        icon: 'ri:mail-line',
+        iconClass: 'bg-warning/12 text-warning'
       },
       message: {
-        icon: '&#xe747;',
-        iconColor: 'rgb(var(--art-success))',
-        backgroundColor: 'rgb(var(--art-bg-success))'
+        icon: 'ri:volume-down-line',
+        iconClass: 'bg-success/12 text-success'
       },
       collection: {
-        icon: '&#xe714;',
-        iconColor: 'rgb(var(--art-danger))',
-        backgroundColor: 'rgb(var(--art-bg-danger))'
+        icon: 'ri:heart-3-line',
+        iconClass: 'bg-danger/12 text-danger'
       },
       user: {
-        icon: '&#xe608;',
-        iconColor: 'rgb(var(--art-info))',
-        backgroundColor: 'rgb(var(--art-bg-info))'
+        icon: 'ri:volume-down-line',
+        iconClass: 'bg-info/12 text-info'
       },
       notice: {
-        icon: '&#xe6c2;',
-        iconColor: 'rgb(var(--art-primary))',
-        backgroundColor: 'rgb(var(--art-bg-primary))'
+        icon: 'ri:notification-3-line',
+        iconClass: 'bg-theme/12 text-theme'
       }
-    }
-
-    const getRandomColor = (): string => {
-      const index = Math.floor(Math.random() * AppConfig.systemMainColor.length)
-      return AppConfig.systemMainColor[index]
     }
 
     const getNoticeStyle = (type: NoticeType): NoticeStyle => {
       const defaultStyle: NoticeStyle = {
-        icon: '&#xe747;',
-        iconColor: '#FFFFFF',
-        backgroundColor: getRandomColor()
+        icon: 'ri:arrow-right-circle-line',
+        iconClass: 'bg-theme/12 text-theme'
       }
 
       return noticeStyleMap[type] || defaultStyle
@@ -305,14 +310,14 @@
   const useNotificationAnimation = () => {
     const showNotice = (open: boolean) => {
       if (open) {
-        visible.value = open
+        visible.value = true
         setTimeout(() => {
-          show.value = open
+          show.value = true
         }, 5)
       } else {
-        show.value = open
+        show.value = false
         setTimeout(() => {
-          visible.value = open
+          visible.value = false
         }, 350)
       }
     }
@@ -355,6 +360,9 @@
 
       const handler = viewAllHandlers[barActiveIndex.value]
       handler?.()
+
+      // 关闭通知面板
+      emit('update:value', false)
     }
 
     return {
@@ -409,6 +417,40 @@
   )
 </script>
 
-<style lang="scss" scoped>
-  @use './style';
+<style scoped>
+  @reference '@styles/core/tailwind.css';
+
+  .art-notification-panel {
+    @apply absolute 
+    top-14.5 
+    right-5 
+    w-90 
+    h-125 
+    overflow-hidden 
+    transition-all 
+    duration-300
+    origin-top 
+    will-change-[top,left] 
+    max-[640px]:top-[65px]
+    max-[640px]:right-0
+    max-[640px]:w-full 
+    max-[640px]:h-[80vh];
+  }
+
+  .bar-active {
+    color: var(--theme-color) !important;
+    border-bottom: 2px solid var(--theme-color);
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 5px !important;
+  }
+
+  .dark .scrollbar-thin::-webkit-scrollbar-track {
+    background-color: var(--default-box-color);
+  }
+
+  .dark .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: #222 !important;
+  }
 </style>

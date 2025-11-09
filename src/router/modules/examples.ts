@@ -6,7 +6,7 @@ export const examplesRoutes: AppRouteRecord = {
   component: '/index/index',
   meta: {
     title: 'menus.examples.title',
-    icon: '&#xe8d4;'
+    icon: 'ri:sparkling-line'
   },
   children: [
     {

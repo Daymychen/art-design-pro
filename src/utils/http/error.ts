@@ -1,22 +1,55 @@
+/**
+ * HTTP 错误处理模块
+ *
+ * 提供统一的 HTTP 请求错误处理机制
+ *
+ * ## 主要功能
+ *
+ * - 自定义 HttpError 错误类，封装错误信息、状态码、时间戳等
+ * - 错误拦截和转换，将 Axios 错误转换为标准的 HttpError
+ * - 错误消息国际化处理，根据状态码返回对应的多语言错误提示
+ * - 错误日志记录，便于问题追踪和调试
+ * - 错误和成功消息的统一展示
+ * - 类型守卫函数，用于判断错误类型
+ *
+ * ## 使用场景
+ *
+ * - HTTP 请求拦截器中统一处理错误
+ * - 业务代码中捕获和处理特定错误
+ * - 错误日志收集和上报
+ *
+ * @module utils/http/error
+ * @author Art Design Pro Team
+ */
 import { AxiosError } from 'axios'
 import { ApiStatus } from './status'
 import { $t } from '@/locales'
 
 // 错误响应接口
 export interface ErrorResponse {
+  /** 错误状态码 */
   code: number
+  /** 错误消息 */
   msg: string
+  /** 错误附加数据 */
   data?: unknown
 }
 
 // 错误日志数据接口
 export interface ErrorLogData {
+  /** 错误状态码 */
   code: number
+  /** 错误消息 */
   message: string
+  /** 错误附加数据 */
   data?: unknown
+  /** 错误发生时间戳 */
   timestamp: string
+  /** 请求 URL */
   url?: string
+  /** 请求方法 */
   method?: string
+  /** 错误堆栈信息 */
   stack?: string
 }
 

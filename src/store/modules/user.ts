@@ -1,3 +1,36 @@
+/**
+ * 用户状态管理模块
+ *
+ * 提供用户相关的状态管理
+ *
+ * ## 主要功能
+ *
+ * - 用户登录状态管理
+ * - 用户信息存储
+ * - 访问令牌和刷新令牌管理
+ * - 语言设置
+ * - 搜索历史记录
+ * - 锁屏状态和密码管理
+ * - 登出清理逻辑
+ *
+ * ## 使用场景
+ *
+ * - 用户登录和认证
+ * - 权限验证
+ * - 个人信息展示
+ * - 多语言切换
+ * - 锁屏功能
+ * - 搜索历史管理
+ *
+ * ## 持久化
+ *
+ * - 使用 localStorage 存储
+ * - 存储键：sys-v{version}-user
+ * - 登出时自动清理
+ *
+ * @module store/modules/user
+ * @author Art Design Pro Team
+ */
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { LanguageEnum } from '@/enums/appEnum'
@@ -5,7 +38,7 @@ import { router } from '@/router'
 import { useSettingStore } from './setting'
 import { useWorktabStore } from './worktab'
 import { AppRouteRecord } from '@/types/router'
-import { setPageTitle } from '@/router/utils/utils'
+import { setPageTitle } from '@/utils/router'
 import { resetRouterState } from '@/router/guards/beforeEach'
 import { useMenuStore } from './menu'
 

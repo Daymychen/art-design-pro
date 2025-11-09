@@ -1,15 +1,18 @@
 <!-- 烟花效果 | 礼花效果 -->
 <template>
-  <canvas ref="canvasRef" class="layout-fireworks"></canvas>
+  <canvas
+    ref="canvasRef"
+    class="fixed top-0 left-0 z-[9999] w-full h-full pointer-events-none"
+  ></canvas>
 </template>
 
 <script setup lang="ts">
   import { useEventListener } from '@vueuse/core'
   import { mittBus } from '@/utils/sys'
   import type { Handler } from 'mitt'
-  import bp from '@/assets/img/ceremony/hb.png'
-  import sd from '@/assets/img/ceremony/sd.png'
-  import yd from '@/assets/img/ceremony/yd.png'
+  import bp from '@/assets/images/ceremony/hb.png'
+  import sd from '@/assets/images/ceremony/sd.png'
+  import yd from '@/assets/images/ceremony/yd.png'
 
   defineOptions({ name: 'ArtFireworksEffect' })
 
@@ -100,8 +103,6 @@
     [url: string]: HTMLImageElement
   }
 
-  // ==================== 配置常量 ====================
-
   /**
    * 烟花效果的全局配置
    * 使用 as const 确保配置的不可变性
@@ -167,14 +168,10 @@
     ]
   } as const
 
-  // ==================== 响应式状态 ====================
-
   /** Canvas DOM 元素引用 */
   const canvasRef = ref<HTMLCanvasElement>()
   /** Canvas 2D 绘制上下文 */
   const ctx = ref<CanvasRenderingContext2D | null>(null)
-
-  // ==================== 烟花系统 ====================
 
   /**
    * 烟花系统核心类
@@ -558,8 +555,6 @@
     }
   }
 
-  // ==================== 组件逻辑 ====================
-
   /** 烟花系统实例 */
   const fireworkSystem = new FireworkSystem()
 
@@ -602,8 +597,6 @@
     fireworkSystem.createFirework(imageUrl)
   }
 
-  // ==================== 生命周期 ====================
-
   /**
    * 组件挂载时的初始化逻辑
    */
@@ -638,19 +631,3 @@
     mittBus.off('triggerFireworks', handleFireworkTrigger)
   })
 </script>
-
-<style scoped>
-  /**
- * 烟花画布样式
- * 固定定位覆盖整个视口，不响应鼠标事件
- */
-  .layout-fireworks {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 9999; /* 最高层级，确保在所有元素之上 */
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* 不阻挡用户交互 */
-  }
-</style>

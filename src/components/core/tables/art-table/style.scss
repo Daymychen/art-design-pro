@@ -1,5 +1,3 @@
-@use '@styles/variables.scss' as *;
-
 .art-table {
   position: relative;
   height: 100%;
@@ -11,7 +9,7 @@
 
   :deep(.el-loading-mask) {
     z-index: 100;
-    background-color: var(--art-main-bg-color) !important;
+    background-color: var(--default-box-color) !important;
   }
 
   // Loading 过渡动画 - 消失时淡出
@@ -61,8 +59,8 @@
           transition: border-color 0.15s;
 
           &:hover:not(.is-disabled) {
-            color: var(--main-color);
-            border-color: var(--main-color);
+            color: var(--theme-color);
+            border-color: var(--theme-color);
           }
         }
 
@@ -76,12 +74,12 @@
           &.is-active {
             font-weight: 400;
             color: #fff;
-            background-color: var(--main-color);
-            border: 1px solid var(--main-color);
+            background-color: var(--theme-color);
+            border: 1px solid var(--theme-color);
           }
 
           &:hover:not(.is-disabled) {
-            border-color: var(--main-color);
+            border-color: var(--theme-color);
           }
         }
       }
@@ -90,7 +88,7 @@
 }
 
 // 移动端分页
-@media (max-width: $device-phone) {
+@media (width <= 640px) {
   :deep(.el-pagination) {
     display: flex;
     flex-wrap: wrap;

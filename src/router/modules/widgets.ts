@@ -6,24 +6,15 @@ export const widgetsRoutes: AppRouteRecord = {
   component: '/index/index',
   meta: {
     title: 'menus.widgets.title',
-    icon: '&#xe81a;'
+    icon: 'ri:apps-2-add-line'
   },
   children: [
     {
-      path: 'icon-list',
-      name: 'IconList',
-      component: '/widgets/icon-list',
+      path: 'icon',
+      name: 'Icon',
+      component: '/widgets/icon',
       meta: {
-        title: 'menus.widgets.iconList',
-        keepAlive: true
-      }
-    },
-    {
-      path: 'icon-selector',
-      name: 'IconSelector',
-      component: '/widgets/icon-selector',
-      meta: {
-        title: 'menus.widgets.iconSelector',
+        title: 'menus.widgets.icon',
         keepAlive: true
       }
     },

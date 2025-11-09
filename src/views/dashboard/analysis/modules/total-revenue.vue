@@ -1,18 +1,18 @@
 <template>
-  <div class="custom-card total-revenue-card art-custom-card">
-    <div class="custom-card-header">
-      <span class="title">总收入</span>
+  <div class="art-card h-100 p-5 mb-5 max-sm:mb-4">
+    <div class="art-card-header">
+      <div class="title">
+        <h4>总收入</h4>
+      </div>
     </div>
-    <div class="custom-card-body">
-      <ArtBarChart
-        height="100%"
-        :data="revenueData"
-        :xAxisData="weekDays"
-        :showLegend="true"
-        :showAxisLine="false"
-        barWidth="18%"
-      />
-    </div>
+    <ArtBarChart
+      height="calc(100% - 30px)"
+      :data="revenueData"
+      :xAxisData="weekDays"
+      :showLegend="true"
+      :showAxisLine="false"
+      barWidth="18%"
+    />
   </div>
 </template>
 
@@ -42,20 +42,3 @@
     }
   ])
 </script>
-
-<style lang="scss" scoped>
-  .total-revenue-card {
-    height: 400px;
-
-    .custom-card-body {
-      height: calc(100% - 108px);
-      padding: 20px;
-    }
-  }
-
-  @media screen and (max-width: $device-phone) {
-    .total-revenue-card {
-      height: 300px;
-    }
-  }
-</style>

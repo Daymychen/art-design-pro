@@ -1,24 +1,26 @@
 <template>
-  <div class="login register">
-    <LoginLeftView></LoginLeftView>
-    <div class="right-wrap">
+  <div class="flex w-full h-screen">
+    <LoginLeftView />
+
+    <div class="relative flex-1">
       <AuthTopBar />
-      <div class="header">
-        <ArtLogo class="icon" />
-        <h1>{{ systemName }}</h1>
-      </div>
-      <div class="login-wrap">
+
+      <div class="auth-right-wrap">
         <div class="form">
           <h3 class="title">{{ $t('forgetPassword.title') }}</h3>
           <p class="sub-title">{{ $t('forgetPassword.subTitle') }}</p>
-          <div class="input-wrap">
+          <div class="mt-5">
             <span class="input-label" v-if="showInputLabel">账号</span>
-            <ElInput :placeholder="$t('forgetPassword.placeholder')" v-model.trim="username" />
+            <ElInput
+              class="custom-height"
+              :placeholder="$t('forgetPassword.placeholder')"
+              v-model.trim="username"
+            />
           </div>
 
           <div style="margin-top: 15px">
             <ElButton
-              class="login-btn"
+              class="w-full custom-height"
               type="primary"
               @click="register"
               :loading="loading"
@@ -29,7 +31,7 @@
           </div>
 
           <div style="margin-top: 15px">
-            <ElButton class="back-btn" plain @click="toLogin">
+            <ElButton class="w-full custom-height" plain @click="toLogin">
               {{ $t('forgetPassword.backBtnText') }}
             </ElButton>
           </div>
@@ -40,14 +42,11 @@
 </template>
 
 <script setup lang="ts">
-  import AppConfig from '@/config'
-
   defineOptions({ name: 'ForgetPassword' })
 
   const router = useRouter()
   const showInputLabel = ref(false)
 
-  const systemName = AppConfig.systemInfo.name
   const username = ref('')
   const loading = ref(false)
 
@@ -58,6 +57,6 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  @use '../login/index';
+<style scoped>
+  @import '../login/style.css';
 </style>

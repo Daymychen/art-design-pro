@@ -167,9 +167,9 @@ const targets = [
   'src/mock/temp/articleList.ts',
   'src/mock/temp/commentDetail.ts',
   'src/mock/temp/commentList.ts',
-  'src/assets/img/cover',
-  'src/assets/img/safeguard',
-  'src/assets/img/3d',
+  'src/assets/images/cover',
+  'src/assets/images/safeguard',
+  'src/assets/images/3d',
   'src/components/core/charts/art-map-chart',
   'src/components/custom/comment-widget'
 ]
@@ -266,7 +266,7 @@ export const dashboardRoutes: AppRouteRecord = {
   component: '/index/index',
   meta: {
     title: 'menus.dashboard.title',
-    icon: '&#xe721;',
+    icon: 'ri:pie-chart-line',
     roles: ['R_SUPER', 'R_ADMIN']
   },
   children: [
@@ -294,7 +294,7 @@ export const systemRoutes: AppRouteRecord = {
   component: '/index/index',
   meta: {
     title: 'menus.system.title',
-    icon: '&#xe7b9;',
+    icon: 'ri:user-3-line',
     roles: ['R_SUPER', 'R_ADMIN']
   },
   children: [
@@ -512,7 +512,7 @@ const fastEnterConfig: FastEnterConfig = {
     {
       name: '工作台',
       description: '系统概览与数据统计',
-      icon: '&#xe721;',
+      icon: 'ri:pie-chart-line',
       iconColor: '#377dff',
       enabled: true,
       order: 1,
@@ -521,7 +521,7 @@ const fastEnterConfig: FastEnterConfig = {
     {
       name: '官方文档',
       description: '使用指南与开发文档',
-      icon: '&#xe788;',
+      icon: 'ri:bill-line',
       iconColor: '#ffb100',
       enabled: true,
       order: 2,
@@ -530,7 +530,7 @@ const fastEnterConfig: FastEnterConfig = {
     {
       name: '技术支持',
       description: '技术支持与问题反馈',
-      icon: '&#xe86e;',
+      icon: 'ri:user-location-line',
       iconColor: '#ff6b6b',
       enabled: true,
       order: 3,
@@ -539,7 +539,7 @@ const fastEnterConfig: FastEnterConfig = {
     {
       name: '哔哩哔哩',
       description: '技术分享与交流',
-      icon: '&#xe6b4;',
+      icon: 'ri:bilibili-line',
       iconColor: '#FB7299',
       enabled: true,
       order: 4,
@@ -593,8 +593,8 @@ async function updateMenuApi() {
   try {
     const content = await fs.readFile(apiPath, 'utf-8')
     const updatedContent = content.replace(
-      "url: '/api/system/menus'",
-      "url: '/api/system/menus/simple'"
+      "url: '/api/v3/system/menus'",
+      "url: '/api/v3/system/menus/simple'"
     )
 
     await fs.writeFile(apiPath, updatedContent, 'utf-8')

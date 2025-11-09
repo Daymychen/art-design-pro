@@ -1,15 +1,20 @@
 <!-- 布局内容 -->
 <template>
-  <div class="layout-content" :class="{ 'no-basic-layout': isFullPage }" :style="containerStyle">
-    <!-- 节日滚动 -->
-    <ArtFestivalTextScroll v-if="!isFullPage" />
+  <div class="layout-content" :class="{ 'overflow-auto': isFullPage }" :style="containerStyle">
+    <div id="app-content-header">
+      <!-- 节日滚动 -->
+      <ArtFestivalTextScroll v-if="!isFullPage" />
 
-    <RouterView v-if="isRefresh" v-slot="{ Component, route }" :style="contentStyle">
       <!-- 路由信息调试 -->
-      <div v-if="isOpenRouteInfo === 'true'" class="route-info">
+      <div
+        v-if="isOpenRouteInfo === 'true'"
+        class="px-2 py-1.5 mb-3 text-sm text-g-500 bg-g-200 border-full-d rounded-md"
+      >
         router meta：{{ route.meta }}
       </div>
+    </div>
 
+    <RouterView v-if="isRefresh" v-slot="{ Component, route }" :style="contentStyle">
       <!-- 缓存路由动画 -->
       <Transition :name="showTransitionMask ? '' : actualTransition" mode="out-in" appear>
         <KeepAlive :max="10" :exclude="keepAliveExclude">
@@ -35,22 +40,24 @@
 
     <!-- 全屏页面切换过渡遮罩（用于提升页面切换视觉体验） -->
     <Teleport to="body">
-      <div v-show="showTransitionMask" class="full-page-mask" />
+      <div
+        v-show="showTransitionMask"
+        class="fixed top-0 left-0 z-[2000] w-screen h-screen pointer-events-none bg-box"
+      />
     </Teleport>
   </div>
 </template>
 <script setup lang="ts">
-  import '@/assets/styles/transition.scss'
   import type { CSSProperties } from 'vue'
   import { useRoute } from 'vue-router'
-  import { useCommon } from '@/composables/useCommon'
+  import { useAutoLayoutHeight } from '@/hooks/core/useLayoutHeight'
   import { useSettingStore } from '@/store/modules/setting'
   import { useWorktabStore } from '@/store/modules/worktab'
 
   defineOptions({ name: 'ArtPageContent' })
 
   const route = useRoute()
-  const { containerMinHeight } = useCommon()
+  const { containerMinHeight } = useAutoLayoutHeight()
   const { pageTransition, containerWidth, refresh } = storeToRefs(useSettingStore())
   const { keepAliveExclude } = storeToRefs(useWorktabStore())
 
@@ -58,14 +65,19 @@
   const isOpenRouteInfo = import.meta.env.VITE_OPEN_ROUTE_INFO
   const showTransitionMask = ref(false)
 
+  // 标记是否是首次加载（浏览器刷新）
+  const isFirstLoad = ref(true)
+
   // 检查当前路由是否需要使用无基础布局模式
   const isFullPage = computed(() => route.matched.some((r) => r.meta?.isFullPage))
   const prevIsFullPage = ref(isFullPage.value)
 
-  // 切换动画名称：从全屏返回时不使用动画
-  const actualTransition = computed(() =>
-    prevIsFullPage.value && !isFullPage.value ? '' : pageTransition.value
-  )
+  // 切换动画名称：首次加载、从全屏返回时不使用动画
+  const actualTransition = computed(() => {
+    if (isFirstLoad.value) return ''
+    if (prevIsFullPage.value && !isFullPage.value) return ''
+    return pageTransition.value
+  })
 
   // 监听全屏状态变化，显示过渡遮罩
   watch(isFullPage, (val, oldVal) => {
@@ -92,7 +104,7 @@
             width: '100%',
             height: '100vh',
             zIndex: 2500,
-            background: 'var(--art-bg-color)'
+            background: 'var(--default-bg-color)'
           }
         : {
             maxWidth: containerWidth.value
@@ -113,33 +125,12 @@
   }
 
   watch(refresh, reload, { flush: 'post' })
+
+  // 组件挂载后标记首次加载完成
+  onMounted(() => {
+    // 延迟一帧，确保首次渲染完成
+    nextTick(() => {
+      isFirstLoad.value = false
+    })
+  })
 </script>
-
-<style lang="scss" scoped>
-  .layout-content {
-    &.no-basic-layout {
-      overflow: auto;
-    }
-  }
-
-  .route-info {
-    padding: 6px 8px;
-    margin-bottom: 12px;
-    font-size: 14px;
-    color: var(--art-gray-600);
-    background: var(--art-gray-200);
-    border: 1px solid var(--art-border-dashed-color);
-    border-radius: 6px;
-  }
-
-  .full-page-mask {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 2000;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    background-color: var(--art-main-bg-color);
-  }
-</style>

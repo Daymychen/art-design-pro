@@ -1,17 +1,18 @@
 <!-- 表格按钮 -->
 <template>
   <div
-    :class="['btn-text', buttonClass]"
+    :class="[
+      'inline-flex items-center justify-center min-w-8 h-8 px-2.5 mr-2.5 text-sm c-p rounded-md',
+      buttonClass
+    ]"
     :style="{ backgroundColor: buttonBgColor, color: iconColor }"
     @click="handleClick"
   >
-    <i v-if="iconContent" class="iconfont-sys" v-html="iconContent"></i>
+    <ArtSvgIcon :icon="iconContent" />
   </div>
 </template>
 
 <script setup lang="ts">
-  import { BgColorEnum } from '@/enums/appEnum'
-
   defineOptions({ name: 'ArtButtonTable' })
 
   interface Props {
@@ -20,7 +21,7 @@
     /** 按钮图标 */
     icon?: string
     /** 按钮样式类 */
-    iconClass?: BgColorEnum
+    iconClass?: string
     /** icon 颜色 */
     iconColor?: string
     /** 按钮背景色 */
@@ -35,11 +36,11 @@
 
   // 默认按钮配置
   const defaultButtons = {
-    add: { icon: '&#xe602;', color: BgColorEnum.PRIMARY },
-    edit: { icon: '&#xe642;', color: BgColorEnum.SECONDARY },
-    delete: { icon: '&#xe783;', color: BgColorEnum.ERROR },
-    view: { icon: '&#xe689;', color: BgColorEnum.INFO },
-    more: { icon: '&#xe6df;', color: '' }
+    add: { icon: 'ri:add-fill', class: 'bg-theme/12 text-theme' },
+    edit: { icon: 'ri:pencil-line', class: 'bg-secondary/12 text-secondary' },
+    delete: { icon: 'ri:delete-bin-5-line', class: 'bg-error/12 text-error' },
+    view: { icon: 'ri:eye-line', class: 'bg-info/12 text-info' },
+    more: { icon: 'ri:more-2-fill', class: '' }
   } as const
 
   // 获取图标内容
@@ -49,31 +50,10 @@
 
   // 获取按钮样式类
   const buttonClass = computed(() => {
-    return props.iconClass || (props.type ? defaultButtons[props.type]?.color : '') || ''
+    return props.iconClass || (props.type ? defaultButtons[props.type]?.class : '') || ''
   })
 
   const handleClick = () => {
     emit('click')
   }
 </script>
-
-<style scoped lang="scss">
-  .btn-text {
-    display: inline-block;
-    min-width: 34px;
-    height: 34px;
-    padding: 0 10px;
-    margin-right: 10px;
-    font-size: 13px;
-    line-height: 34px;
-    color: #666;
-    cursor: pointer;
-    background-color: rgba(var(--art-gray-200-rgb), 0.7);
-    border-radius: 6px;
-    transition: all 0.2s ease-in-out;
-
-    &:hover {
-      background-color: rgba(var(--art-gray-300-rgb), 0.5);
-    }
-  }
-</style>

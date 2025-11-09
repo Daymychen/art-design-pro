@@ -49,11 +49,3 @@
     visible.value = false
   }
 </script>
-
-<style lang="scss" scoped>
-  .drawer-con {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-</style>

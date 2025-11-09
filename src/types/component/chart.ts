@@ -1,4 +1,33 @@
-import type { EChartsOption } from '@/utils/echarts'
+/**
+ * 图表组件类型定义模块
+ *
+ * 提供 ECharts 图表组件的完整类型定义
+ *
+ * ## 主要功能
+ *
+ * - 基础图表配置类型
+ * - 柱状图类型定义
+ * - 折线图类型定义
+ * - 饼图/环形图类型定义
+ * - 雷达图类型定义
+ * - K线图类型定义
+ * - 散点图类型定义
+ * - 地图图表类型定义
+ * - 双向堆叠柱状图类型定义
+ * - 图表主题配置类型
+ * - 图表事件回调类型
+ *
+ * ## 使用场景
+ *
+ * - 图表组件 Props 类型约束
+ * - 图表配置类型定义
+ * - 图表数据结构定义
+ * - 图表事件处理
+ *
+ * @module types/component/chart
+ * @author Art Design Pro Team
+ */
+import type { EChartsOption } from '@/plugins/echarts'
 
 // 图例位置类型
 export type LegendPosition = 'bottom' | 'top' | 'left' | 'right'

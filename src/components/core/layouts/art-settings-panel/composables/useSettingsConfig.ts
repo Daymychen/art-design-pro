@@ -2,7 +2,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ContainerWidthEnum } from '@/enums/appEnum'
 import AppConfig from '@/config'
-import { headerBarConfig } from '@/config/headerBar'
+import { headerBarConfig } from '@/config/modules/headerBar'
 
 /**
  * 设置项配置选项管理
@@ -64,12 +64,12 @@ export function useSettingsConfig() {
     {
       value: ContainerWidthEnum.FULL,
       label: t('setting.container.list[0]'),
-      icon: '&#xe694;'
+      icon: 'icon-park-outline:auto-width'
     },
     {
       value: ContainerWidthEnum.BOXED,
       label: t('setting.container.list[1]'),
-      icon: '&#xe6de;'
+      icon: 'ix:width'
     }
   ])
 

@@ -6,6 +6,9 @@
  * ElMessage.success(`${EmojiText[200]} 图片上传成功`)
  * ElMessage.error(`${EmojiText[400]} 图片上传失败`)
  * ElMessage.error(`${EmojiText[500]} 图片上传失败`)
+ *
+ * @module utils/ui/emojo
+ * @author Art Design Pro Team
  */
 
 // macos 用户 按 shift + 6 可以唤出更多表情……

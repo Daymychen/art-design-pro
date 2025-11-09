@@ -1,22 +1,22 @@
 <template>
-  <div class="card art-custom-card">
+  <div class="art-card h-105 p-4 box-border mb-5 max-sm:mb-4">
     <ArtBarChart
-      class="chart"
+      class="box-border p-2"
       barWidth="50%"
       height="13.7rem"
       :showAxisLine="false"
-      :data="[160, 100, 150, 80, 190, 100, 175, 120, 160]"
-      :xAxisData="['1', '2', '3', '4', '5', '6', '7', '8', '9']"
+      :data="chartData"
+      :xAxisData="xAxisLabels"
     />
-    <div class="text">
-      <h3 class="box-title">用户概述</h3>
-      <p class="subtitle">比上周 <span class="text-success">+23%</span></p>
-      <p class="subtitle">我们为您创建了多个选项，可将它们组合在一起并定制为像素完美的页面</p>
+    <div class="ml-1">
+      <h3 class="mt-5 text-lg font-medium">用户概述</h3>
+      <p class="mt-1 text-sm">比上周 <span class="text-success font-medium">+23%</span></p>
+      <p class="mt-1 text-sm">我们为您创建了多个选项，可将它们组合在一起并定制为像素完美的页面</p>
     </div>
-    <div class="list">
-      <div v-for="(item, index) in list" :key="index">
-        <p>{{ item.num }}</p>
-        <p class="subtitle">{{ item.name }}</p>
+    <div class="flex-b mt-2">
+      <div class="flex-1" v-for="(item, index) in list" :key="index">
+        <p class="text-2xl text-g-900">{{ item.num }}</p>
+        <p class="text-xs text-g-500">{{ item.name }}</p>
       </div>
     </div>
   </div>
@@ -27,6 +27,12 @@
     name: string
     num: string
   }
+
+  // 最近9个月
+  const xAxisLabels = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月']
+
+  // 每月活跃用户数
+  const chartData = [160, 100, 150, 80, 190, 100, 175, 120, 160]
 
   /**
    * 用户统计数据列表
@@ -39,81 +45,3 @@
     { name: '周同比', num: '+5%' }
   ]
 </script>
-
-<style lang="scss" scoped>
-  .card {
-    box-sizing: border-box;
-    width: 100%;
-    height: 420px;
-    padding: 16px;
-
-    .chart {
-      box-sizing: border-box;
-      width: 100%;
-      height: 220px;
-      padding: 10px;
-      border-radius: calc(var(--custom-radius) / 2 + 4px) !important;
-    }
-
-    .text {
-      margin-left: 3px;
-
-      h3 {
-        margin-top: 20px;
-        font-size: 18px;
-        font-weight: 500;
-      }
-
-      p {
-        margin-top: 5px;
-        font-size: 14px;
-
-        &:last-of-type {
-          height: 42px;
-          margin-top: 5px;
-        }
-      }
-    }
-
-    .list {
-      display: flex;
-      justify-content: space-between;
-      margin-left: 3px;
-
-      > div {
-        flex: 1;
-
-        p {
-          font-weight: 400;
-
-          &:first-of-type {
-            font-size: 24px;
-            color: var(--art-gray-900);
-          }
-
-          &:last-of-type {
-            font-size: 13px;
-          }
-        }
-      }
-    }
-  }
-
-  .dark {
-    .card {
-      .chart {
-        background: none;
-      }
-    }
-  }
-
-  @media screen and (max-width: $device-phone) {
-    .dark {
-      .card {
-        .chart {
-          padding: 15px 0 0 !important;
-        }
-      }
-    }
-  }
-</style>

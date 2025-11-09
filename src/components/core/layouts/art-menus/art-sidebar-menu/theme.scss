@@ -1,11 +1,103 @@
-@use '@styles/variables.scss' as *;
-@use '@styles/mixin.scss' as *;
+@use '@styles/core/mixin.scss' as *;
 
-// 重新修改菜单样式
-$menu-height: 42px; // 菜单高度
-$menu-icon-size: 20px; // 菜单图标大小
-$menu-font-size: 14px; // 菜单字体大小
-$hover-bg-color: rgba(var(--art-gray-200-rgb), 0.8); // 鼠标移入背景色
+// 菜单样式变量
+$menu-height: 42px;
+$menu-icon-size: 20px;
+$menu-font-size: 14px;
+$hover-bg-color: var(--art-gray-200);
+$popup-menu-height: 40px;
+$popup-menu-padding: 8px;
+$popup-menu-margin: 5px;
+$popup-menu-radius: 6px;
+
+// 通用菜单项样式
+@mixin menu-item-base {
+  width: calc(100% - 16px);
+  margin-left: 8px;
+  border-radius: 6px;
+
+  .menu-icon {
+    margin-left: -7px;
+  }
+}
+
+// 通用 hover 样式
+@mixin menu-hover($bg-color) {
+  .el-sub-menu__title:hover,
+  .el-menu-item:not(.is-active):hover {
+    background: $bg-color !important;
+  }
+}
+
+// 通用选中样式
+@mixin menu-active($color, $bg-color, $icon-color: var(--theme-color)) {
+  .el-menu-item.is-active {
+    color: $color !important;
+    background-color: $bg-color;
+
+    .menu-icon {
+      .art-svg-icon {
+        color: $icon-color !important;
+      }
+    }
+  }
+}
+
+// 弹窗菜单项样式
+@mixin popup-menu-item {
+  height: $popup-menu-height;
+  margin-bottom: $popup-menu-margin;
+  border-radius: $popup-menu-radius;
+
+  .menu-icon {
+    margin-right: 5px;
+  }
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+// 主题菜单通用样式（合并 design 和 dark 主题的共同逻辑）
+@mixin theme-menu-base {
+  .el-sub-menu__title,
+  .el-menu-item {
+    @include menu-item-base;
+  }
+}
+
+// 弹窗菜单通用样式
+@mixin popup-menu-base($hover-bg, $active-color, $active-bg) {
+  .el-menu--popup {
+    padding: $popup-menu-padding;
+
+    .el-sub-menu__title:hover,
+    .el-menu-item:hover {
+      background-color: $hover-bg !important;
+      border-radius: $popup-menu-radius;
+    }
+
+    .el-menu-item {
+      @include popup-menu-item;
+
+      &.is-active {
+        color: $active-color !important;
+        background-color: $active-bg !important;
+      }
+    }
+
+    .el-sub-menu {
+      @include popup-menu-item;
+
+      height: $popup-menu-height !important;
+
+      .el-sub-menu__title {
+        height: $popup-menu-height !important;
+        border-radius: $popup-menu-radius;
+      }
+    }
+  }
+}
 
 .layout-sidebar {
   // ---------------------- Modify default style ----------------------
@@ -37,13 +129,6 @@ $hover-bg-color: rgba(var(--art-gray-200-rgb), 0.8); // 鼠标移入背景色
 
       @include ellipsis();
     }
-
-    &.is-active {
-      .menu-icon {
-        // 选中菜单图标颜色
-        color: var(--main-color) !important;
-      }
-    }
   }
 
   // 右侧箭头
@@ -56,41 +141,22 @@ $hover-bg-color: rgba(var(--art-gray-200-rgb), 0.8); // 鼠标移入背景色
   .el-menu--collapse {
     .el-sub-menu.is-active {
       .el-sub-menu__title {
-        .iconfont-sys {
-          // 选中菜单图标颜色
-          color: var(--main-color) !important;
+        .menu-icon {
+          .art-svg-icon {
+            // 选中菜单图标颜色
+            color: var(--theme-color) !important;
+          }
         }
       }
     }
   }
 
   // ---------------------- Design theme menu ----------------------
-
   .el-menu-design {
-    .el-sub-menu__title,
-    .el-menu-item {
-      width: calc(100% - 16px);
-      margin-left: 8px;
-      border-radius: 6px;
+    @include theme-menu-base;
+    @include menu-active(var(--theme-color), var(--el-color-primary-light-9));
+    @include menu-hover($hover-bg-color);
 
-      .menu-icon {
-        margin-left: -4px;
-      }
-    }
-
-    // 选中颜色
-    .el-menu-item.is-active {
-      color: var(--main-color) !important;
-      background-color: var(--el-color-primary-light-9);
-    }
-
-    // 鼠标移入背景色
-    .el-sub-menu__title:hover,
-    .el-menu-item:not(.is-active):hover {
-      background: $hover-bg-color !important;
-    }
-
-    // 右侧箭头
     .el-sub-menu__icon-arrow {
       color: var(--art-gray-600);
     }
@@ -98,34 +164,10 @@ $hover-bg-color: rgba(var(--art-gray-200-rgb), 0.8); // 鼠标移入背景色
 
   // ---------------------- Dark theme menu ----------------------
   .el-menu-dark {
-    .el-sub-menu__title,
-    .el-menu-item {
-      width: calc(100% - 16px);
-      margin-left: 8px;
-      border-radius: 6px;
+    @include theme-menu-base;
+    @include menu-active(#fff, #27282d, #fff);
+    @include menu-hover(#0f1015);
 
-      .menu-icon {
-        margin-left: -4px;
-      }
-    }
-
-    // 选中颜色
-    .el-menu-item.is-active {
-      color: #fff !important;
-      background-color: var(--el-color-primary-light-1);
-
-      .menu-icon {
-        color: #fff !important;
-      }
-    }
-
-    // 鼠标移入背景色
-    .el-sub-menu__title:hover,
-    .el-menu-item:not(.is-active):hover {
-      background: #0f1015 !important;
-    }
-
-    // 右侧箭头
     .el-sub-menu__icon-arrow {
       color: var(--art-gray-400);
     }
@@ -136,14 +178,16 @@ $hover-bg-color: rgba(var(--art-gray-200-rgb), 0.8); // 鼠标移入背景色
     .el-sub-menu__title,
     .el-menu-item {
       .menu-icon {
-        margin-left: 4px;
+        margin-left: 1px;
       }
     }
 
-    // 选中颜色
     .el-menu-item.is-active {
-      color: var(--main-color) !important;
       background-color: var(--el-color-primary-light-9);
+
+      .art-svg-icon {
+        color: var(--theme-color) !important;
+      }
 
       &::before {
         position: absolute;
@@ -152,15 +196,11 @@ $hover-bg-color: rgba(var(--art-gray-200-rgb), 0.8); // 鼠标移入背景色
         width: 4px;
         height: 100%;
         content: '';
-        background: var(--main-color);
+        background: var(--theme-color);
       }
     }
 
-    // 鼠标移入背景色
-    .el-sub-menu__title:hover,
-    .el-menu-item:not(.is-active):hover {
-      background: $hover-bg-color !important;
-    }
+    @include menu-hover($hover-bg-color);
 
     .el-sub-menu__icon-arrow {
       color: var(--art-gray-600);
@@ -168,22 +208,7 @@ $hover-bg-color: rgba(var(--art-gray-200-rgb), 0.8); // 鼠标移入背景色
   }
 }
 
-.dark {
-  .layout-sidebar {
-    .el-menu-item.is-active {
-      span {
-        // 暗黑主题模式，选中菜单文字颜色
-        color: var(--main-color) !important;
-      }
-
-      .menu-icon {
-        color: var(--main-color) !important;
-      }
-    }
-  }
-}
-
-@media only screen and (max-width: $device-phone) {
+@media only screen and (width <= 640px) {
   .layout-sidebar {
     .el-menu-design {
       > .el-sub-menu {
@@ -197,71 +222,37 @@ $hover-bg-color: rgba(var(--art-gray-200-rgb), 0.8); // 鼠标移入背景色
   }
 }
 
-// 菜单折叠 hover 弹窗样式
+// 菜单折叠 hover 弹窗样式（浅色主题）
 .el-menu--vertical,
 .el-menu--popup-container {
-  .el-menu--popup {
-    padding: 8px;
-
-    .el-sub-menu__title:hover,
-    .el-menu-item:hover {
-      background-color: var(--art-gray-200) !important;
-      border-radius: 6px;
-    }
-
-    .el-menu-item {
-      height: 40px;
-      margin-bottom: 5px;
-      border-radius: 6px;
-
-      .menu-icon {
-        margin-right: 5px;
-      }
-
-      &:last-of-type {
-        margin-bottom: 0;
-      }
-    }
-
-    .el-sub-menu {
-      height: 40px !important;
-      margin-bottom: 5px;
-
-      .menu-icon {
-        margin-right: 5px;
-      }
-
-      .el-sub-menu__title {
-        height: 40px !important;
-        border-radius: 6px;
-      }
-
-      &:last-of-type {
-        margin-bottom: 0;
-      }
-    }
-
-    .el-menu-item.is-active {
-      color: var(--art-gray-900) !important;
-      background-color: var(--art-gray-200) !important;
-    }
-  }
+  @include popup-menu-base(var(--art-gray-200), var(--art-gray-900), var(--art-gray-200));
 }
 
-// 菜单折叠 hover 弹窗样式（黑色菜单）
-.menu-left-dark-popper {
+// 暗黑模式菜单样式
+.dark {
   .el-menu--vertical,
   .el-menu--popup-container {
-    .el-menu--popup {
-      .el-sub-menu__title:hover,
-      .el-menu-item:hover {
-        background-color: rgb(255 255 255 / 8%) !important;
-      }
+    @include popup-menu-base(var(--art-gray-200), var(--art-gray-900), #292a2e);
+  }
 
-      .el-menu-item.is-active {
-        color: #eee !important;
-        background-color: rgb(255 255 255 / 8%) !important;
+  .layout-sidebar {
+    // 图标颜色、文字颜色
+    .menu-icon .art-svg-icon,
+    .menu-name {
+      color: var(--art-gray-800) !important;
+    }
+
+    // 选中的文字颜色跟图标颜色
+    .el-menu-item.is-active {
+      span,
+      .menu-icon .art-svg-icon {
+        color: var(--theme-color) !important;
       }
+    }
+
+    // 右侧箭头颜色
+    .el-sub-menu__icon-arrow {
+      color: #fff;
     }
   }
 }

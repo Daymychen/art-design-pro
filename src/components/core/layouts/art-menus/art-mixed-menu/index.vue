@@ -1,8 +1,8 @@
 <!-- 混合菜单 -->
 <template>
-  <div class="mixed-top-menu">
+  <div class="relative box-border flex-c w-full overflow-hidden">
     <!-- 左侧滚动按钮 -->
-    <div v-show="showLeftArrow" class="scroll-btn left" @click="scroll('left')">
+    <div v-show="showLeftArrow" class="button-arrow" @click="scroll('left')">
       <ElIcon>
         <ArrowLeft />
       </ElIcon>
@@ -16,16 +16,27 @@
       @scroll="handleScroll"
       @wheel="handleWheel"
     >
-      <div class="scroll-bar">
+      <div class="box-border flex-c flex-shrink-0 flex-nowrap h-15 whitespace-nowrap">
         <template v-for="item in processedMenuList" :key="item.meta.title">
           <div
             v-if="!item.meta.isHide"
-            class="item"
-            :class="{ active: item.isActive }"
+            class="menu-item relative flex-shrink-0 h-10 px-3 text-sm flex-c c-p hover:text-theme"
+            :class="{
+              'menu-item-active text-theme': item.isActive
+            }"
             @click="handleMenuJump(item, true)"
           >
-            <i class="iconfont-sys" v-html="item.meta.icon" />
-            <span>{{ item.formattedTitle }}</span>
+            <ArtSvgIcon
+              :icon="item.meta.icon"
+              class="text-lg text-g-700 dark:text-g-800 mr-1"
+              :class="item.isActive && '!text-theme'"
+            />
+            <span
+              class="text-md text-g-700 dark:text-g-800"
+              :class="item.isActive && '!text-theme'"
+            >
+              {{ item.formattedTitle }}
+            </span>
             <div v-if="item.meta.showBadge" class="art-badge art-badge-mixed" />
           </div>
         </template>
@@ -33,7 +44,7 @@
     </ElScrollbar>
 
     <!-- 右侧滚动按钮 -->
-    <div v-show="showRightArrow" class="scroll-btn right" @click="scroll('right')">
+    <div v-show="showRightArrow" class="button-arrow right-2" @click="scroll('right')">
       <ElIcon>
         <ArrowRight />
       </ElIcon>
@@ -45,7 +56,7 @@
   import { ref, computed, onMounted, nextTick } from 'vue'
   import { ArrowLeft, ArrowRight } from '@element-plus/icons-vue'
   import { useThrottleFn } from '@vueuse/core'
-  import { formatMenuTitle } from '@/router/utils/utils'
+  import { formatMenuTitle } from '@/utils/router'
   import { handleMenuJump } from '@/utils/navigation'
   import type { AppRouteRecord } from '@/types/router'
 
@@ -213,109 +224,56 @@
   onMounted(initScrollState)
 </script>
 
-<style lang="scss" scoped>
-  .mixed-top-menu {
-    position: relative;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    overflow: hidden;
+<style scoped>
+  @reference '@styles/core/tailwind.css';
 
-    :deep(.el-scrollbar__bar.is-horizontal) {
-      bottom: 5px;
-      display: none;
-      height: 2px;
-    }
+  .button-arrow {
+    @apply absolute 
+    top-1/2
+    z-2 
+    flex
+    items-center
+    justify-center
+    size-7.5
+    text-g-600 
+    cursor-pointer
+    rounded 
+    transition-all
+    duration-300
+    -translate-y-1/2 
+    hover:text-g-900 
+    hover:bg-g-200;
+  }
+</style>
 
-    :deep(.scrollbar-wrapper) {
-      flex: 1;
-      min-width: 0;
-      margin: 0 50px 0 30px;
-    }
-
-    .scroll-bar {
-      box-sizing: border-box;
-      display: flex;
-      flex-shrink: 0;
-      flex-wrap: nowrap;
-      align-items: center;
-      height: 60px;
-      white-space: nowrap;
-
-      .item {
-        position: relative;
-        flex-shrink: 0; // 防止菜单项被压缩
-        height: 40px;
-        padding: 0 12px;
-        font-size: 14px;
-        line-height: 40px;
-        cursor: pointer;
-        border-radius: 6px;
-
-        i {
-          margin-right: 5px;
-          font-size: 15px;
-        }
-
-        &:hover {
-          color: var(--main-color);
-        }
-
-        &.active {
-          color: var(--main-color);
-          background-color: var(--main-bg-color);
-
-          &::after {
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            margin: auto;
-            content: '';
-            background-color: var(--main-color);
-          }
-        }
-      }
-    }
-
-    .scroll-btn {
-      position: absolute;
-      top: 50%;
-      z-index: 2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 30px;
-      height: 30px;
-      color: var(--art-text-gray-600);
-      cursor: pointer;
-      border-radius: 4px;
-      transition: all 0.2s ease;
-      transform: translateY(-50%);
-
-      &:hover {
-        color: var(--art-text-gray-900);
-        background-color: rgba(var(--art-gray-200-rgb), 0.8);
-      }
-
-      &.left {
-        left: 3px;
-      }
-
-      &.right {
-        right: 10px;
-      }
-    }
+<style scoped>
+  :deep(.el-scrollbar__bar.is-horizontal) {
+    bottom: 5px;
+    display: none;
+    height: 2px;
   }
 
-  @media (max-width: $device-notebook) {
-    .mixed-top-menu {
-      :deep(.scrollbar-wrapper) {
-        margin: 0 45px;
-      }
+  :deep(.scrollbar-wrapper) {
+    flex: 1;
+    min-width: 0;
+    margin: 0 50px 0 30px;
+  }
+
+  .menu-item-active::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    margin: auto;
+    content: '';
+    background-color: var(--theme-color);
+  }
+
+  @media (width <= 1440px) {
+    :deep(.scrollbar-wrapper) {
+      margin: 0 45px;
     }
   }
 </style>

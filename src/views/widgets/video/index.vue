@@ -1,6 +1,6 @@
 <template>
   <div class="page-content">
-    <div class="video-container">
+    <div class="max-w-150">
       <ArtVideoPlayer
         playerId="my-video-1"
         :videoUrl="videoUrl"
@@ -30,9 +30,3 @@
    */
   const posterUrl = ref(lockImg)
 </script>
-
-<style scoped>
-  .video-container {
-    max-width: 600px;
-  }
-</style>

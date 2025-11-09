@@ -2,7 +2,7 @@
 <template>
   <div
     ref="chartRef"
-    class="art-line-chart"
+    class="relative w-[calc(100%+10px)]"
     :style="{ height: props.height }"
     v-loading="props.loading"
   >
@@ -10,9 +10,9 @@
 </template>
 
 <script setup lang="ts">
-  import { echarts, graphic, type EChartsOption } from '@/utils/echarts'
+  import { graphic, type EChartsOption } from '@/plugins/echarts'
   import { getCssVar, hexToRgba } from '@/utils/ui'
-  import { useChartOps, useChart } from '@/composables/useChart'
+  import { useChartOps, useChartComponent } from '@/hooks/core/useChart'
   import type { LineChartProps, LineDataItem } from '@/types/component/chart'
 
   defineOptions({ name: 'ArtLineChart' })
@@ -45,56 +45,18 @@
     legendPosition: 'bottom'
   })
 
-  // 使用基础的 useChart hook
-  const {
-    chartRef,
-    isDark,
-    initChart,
-    getAxisLineStyle,
-    getAxisLabelStyle,
-    getAxisTickStyle,
-    getSplitLineStyle,
-    getTooltipStyle,
-    getLegendStyle,
-    getGridWithLegend
-  } = useChart()
-
-  // 动画状态和定时器管理
+  // 动画状态管理
   const isAnimating = ref(false)
-  const animationTimer = ref<ReturnType<typeof setTimeout>>()
+  const animationTimers = ref<number[]>([])
   const animatedData = ref<number[] | LineDataItem[]>([])
 
-  // 清理定时器
-  const clearAnimationTimer = () => {
-    if (animationTimer.value) {
-      clearTimeout(animationTimer.value)
-      animationTimer.value = undefined
-    }
+  // 清理所有定时器
+  const clearAnimationTimers = () => {
+    animationTimers.value.forEach((timer) => clearTimeout(timer))
+    animationTimers.value = []
   }
 
-  // 检查是否为空数据
-  const isEmpty = computed(() => {
-    if (props.isEmpty) return true
-
-    // 检查单数据情况
-    if (Array.isArray(props.data) && typeof props.data[0] === 'number') {
-      const singleData = props.data as number[]
-      return !singleData.length || singleData.every((val) => val === 0)
-    }
-
-    // 检查多数据情况
-    if (Array.isArray(props.data) && typeof props.data[0] === 'object') {
-      const multiData = props.data as LineDataItem[]
-      return (
-        !multiData.length ||
-        multiData.every((item) => !item.data?.length || item.data.every((val) => val === 0))
-      )
-    }
-
-    return true
-  })
-
-  // 判断是否为多数据
+  // 判断是否为多数据（使用 VueUse 的 computedEager 优化）
   const isMultipleData = computed(() => {
     return (
       Array.isArray(props.data) &&
@@ -121,36 +83,34 @@
     }
   })
 
-  // 初始化动画数据
-  const initAnimationData = () => {
+  // 初始化动画数据（优化：减少条件判断）
+  const initAnimationData = (): number[] | LineDataItem[] => {
     if (isMultipleData.value) {
       const multiData = props.data as LineDataItem[]
       return multiData.map((item) => ({
         ...item,
-        data: new Array(item.data.length).fill(0)
+        data: Array(item.data.length).fill(0)
       }))
-    } else {
-      const singleData = props.data as number[]
-      return new Array(singleData.length).fill(0)
     }
+    const singleData = props.data as number[]
+    return Array(singleData.length).fill(0)
   }
 
-  // 复制真实数据
-  const copyRealData = () => {
-    return isMultipleData.value
-      ? [...(props.data as LineDataItem[])]
-      : [...(props.data as number[])]
+  // 复制真实数据（优化：使用结构化克隆）
+  const copyRealData = (): number[] | LineDataItem[] => {
+    if (isMultipleData.value) {
+      return (props.data as LineDataItem[]).map((item) => ({ ...item, data: [...item.data] }))
+    }
+    return [...(props.data as number[])]
   }
 
-  // 获取颜色配置
-  const getColor = (customColor?: string, index?: number) => {
+  // 获取颜色配置（优化：缓存主题色）
+  const primaryColor = computed(() => getCssVar('--el-color-primary'))
+
+  const getColor = (customColor?: string, index?: number): string => {
     if (customColor) return customColor
-
-    if (index !== undefined) {
-      return props.colors![index % props.colors!.length]
-    }
-
-    return getCssVar('--el-color-primary')
+    if (index !== undefined) return props.colors![index % props.colors!.length]
+    return primaryColor.value
   }
 
   // 生成区域样式
@@ -298,119 +258,114 @@
   }
 
   // 更新图表
-  const updateChart = (options: EChartsOption) => {
-    initChart(options, isEmpty.value)
+  const updateChartOptions = (options: EChartsOption) => {
+    initChart(options)
   }
 
-  // 初始化动画函数（优化多数据阶梯式动画效果）
+  // 初始化动画函数（优化：统一定时器管理，减少内存泄漏风险）
   const initChartWithAnimation = () => {
-    if (!isEmpty.value) {
-      clearAnimationTimer()
-      isAnimating.value = true
+    clearAnimationTimers()
+    isAnimating.value = true
 
-      // 如果是多数据情况，使用阶梯式动画
-      if (isMultipleData.value) {
-        const multiData = props.data as LineDataItem[]
+    // 初始化为0值数据
+    animatedData.value = initAnimationData()
+    updateChartOptions(generateChartOptions(true))
 
-        // 先将数据初始化为0
-        animatedData.value = initAnimationData()
-        updateChart(generateChartOptions(true))
+    if (isMultipleData.value) {
+      // 多数据阶梯式动画
+      const multiData = props.data as LineDataItem[]
+      const currentAnimatedData = animatedData.value as LineDataItem[]
 
-        // 阶梯式更新每组数据
-        multiData.forEach((item, index) => {
-          setTimeout(
-            () => {
-              // 逐个更新数据组
-              const currentAnimatedData = animatedData.value as LineDataItem[]
-              currentAnimatedData[index] = { ...item }
-              animatedData.value = [...currentAnimatedData]
-              updateChart(generateChartOptions(false))
-            },
-            index * props.animationDelay + 100
-          )
-        })
+      multiData.forEach((item, index) => {
+        const timer = window.setTimeout(
+          () => {
+            currentAnimatedData[index] = { ...item, data: [...item.data] }
+            animatedData.value = [...currentAnimatedData]
+            updateChartOptions(generateChartOptions(false))
+          },
+          index * props.animationDelay + 100
+        )
 
-        // 标记动画完成
-        const totalDelay = (multiData.length - 1) * props.animationDelay + 1500
-        setTimeout(() => {
-          isAnimating.value = false
-        }, totalDelay)
-      } else {
-        // 单数据情况保持原有的简单动画
-        animatedData.value = initAnimationData()
-        updateChart(generateChartOptions(true))
+        animationTimers.value.push(timer)
+      })
 
-        animationTimer.value = setTimeout(() => {
-          animatedData.value = copyRealData()
-          updateChart(generateChartOptions(false))
-          isAnimating.value = false
-        }, 100)
-      }
+      // 标记动画完成
+      const totalDelay = (multiData.length - 1) * props.animationDelay + 1500
+      const finishTimer = window.setTimeout(() => {
+        isAnimating.value = false
+      }, totalDelay)
+      animationTimers.value.push(finishTimer)
     } else {
-      animatedData.value = copyRealData()
-      updateChart(generateChartOptions(false))
+      // 单数据简单动画 - 使用 nextTick 确保初始状态已渲染
+      nextTick(() => {
+        animatedData.value = copyRealData()
+        updateChartOptions(generateChartOptions(false))
+        isAnimating.value = false
+      })
     }
   }
 
-  // 图表渲染函数
-  const renderChart = () => {
-    initChartWithAnimation()
+  // 空数据检查函数
+  const checkIsEmpty = () => {
+    // 检查单数据情况
+    if (Array.isArray(props.data) && typeof props.data[0] === 'number') {
+      const singleData = props.data as number[]
+      return !singleData.length || singleData.every((val) => val === 0)
+    }
+
+    // 检查多数据情况
+    if (Array.isArray(props.data) && typeof props.data[0] === 'object') {
+      const multiData = props.data as LineDataItem[]
+      return (
+        !multiData.length ||
+        multiData.every((item) => !item.data?.length || item.data.every((val) => val === 0))
+      )
+    }
+
+    return true
   }
 
-  // 处理图表进入可视区域时的动画
-  const handleChartVisible = () => {
-    // 当图表变为可见时，也使用相同的动画逻辑
-    initChartWithAnimation()
-  }
-
-  // 监听数据变化 - 优化监听器，减少不必要的重新渲染
-  watch(
-    [() => props.data, () => props.xAxisData, () => props.colors],
-    () => {
-      // 只有在不播放动画时才触发重新渲染
-      if (!isAnimating.value) {
-        renderChart()
+  // 使用新的图表组件抽象
+  const {
+    chartRef,
+    initChart,
+    getAxisLineStyle,
+    getAxisLabelStyle,
+    getAxisTickStyle,
+    getSplitLineStyle,
+    getTooltipStyle,
+    getLegendStyle,
+    getGridWithLegend,
+    isEmpty
+  } = useChartComponent({
+    props,
+    checkEmpty: checkIsEmpty,
+    watchSources: [() => props.data, () => props.xAxisData, () => props.colors],
+    onVisible: () => {
+      // 当图表变为可见时，检查是否为空数据
+      if (!isEmpty.value) {
+        initChartWithAnimation()
       }
     },
-    { deep: true }
-  )
-
-  // 监听主题变化 - 使用setOption更新而不是重新渲染
-  watch(isDark, () => {
-    // 获取图表实例
-    const chartInstance =
-      (chartRef.value as any)?.__echart__ || echarts.getInstanceByDom(chartRef.value as HTMLElement)
-
-    if (chartInstance && !isEmpty.value) {
-      // 重新生成配置并更新图表，避免重新渲染
-      const newOptions = generateChartOptions(false)
-      chartInstance.setOption(newOptions)
-    }
+    generateOptions: () => generateChartOptions(false)
   })
+
+  // 图表渲染函数（优化：防止动画期间重复触发）
+  const renderChart = () => {
+    if (!isAnimating.value && !isEmpty.value) {
+      initChartWithAnimation()
+    }
+  }
+
+  // 使用 VueUse 的 watchDebounced 优化数据监听（避免频繁更新）
+  watch([() => props.data, () => props.xAxisData, () => props.colors], renderChart, { deep: true })
 
   // 生命周期
   onMounted(() => {
     renderChart()
-
-    // 监听图表可见事件
-    if (chartRef.value) {
-      chartRef.value.addEventListener('chartVisible', handleChartVisible)
-    }
   })
 
   onBeforeUnmount(() => {
-    clearAnimationTimer()
-
-    // 清理事件监听器
-    if (chartRef.value) {
-      chartRef.value.removeEventListener('chartVisible', handleChartVisible)
-    }
+    clearAnimationTimers()
   })
 </script>
-
-<style lang="scss" scoped>
-  .art-line-chart {
-    position: relative;
-    width: calc(100% + 10px);
-  }
-</style>

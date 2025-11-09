@@ -1,9 +1,48 @@
+/**
+ * 工作标签页状态管理模块
+ *
+ * 提供多标签页功能的完整状态管理
+ *
+ * ## 主要功能
+ *
+ * - 标签页打开和关闭
+ * - 标签页固定和取消固定
+ * - 批量关闭（左侧、右侧、其他、全部）
+ * - 标签页缓存管理（KeepAlive）
+ * - 标签页标题自定义
+ * - 标签页路由验证
+ * - 动态路由参数处理
+ *
+ * ## 使用场景
+ *
+ * - 多标签页导航
+ * - 页面缓存控制
+ * - 标签页右键菜单
+ * - 固定常用页面
+ * - 批量关闭标签
+ *
+ * ## 核心特性
+ *
+ * - 智能标签页复用（同路由名称复用）
+ * - 固定标签页保护（不可关闭）
+ * - KeepAlive 缓存排除管理
+ * - 路由有效性验证
+ * - 首页自动保留
+ *
+ * ## 持久化
+ * - 使用 localStorage 存储
+ * - 存储键：sys-v{version}-worktab
+ * - 刷新页面保持标签状态
+ *
+ * @module store/modules/worktab
+ * @author Art Design Pro Team
+ */
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { router } from '@/router'
 import { LocationQueryRaw, Router } from 'vue-router'
 import { WorkTab } from '@/types'
-import { useCommon } from '@/composables/useCommon'
+import { useCommon } from '@/hooks/core/useCommon'
 
 interface WorktabState {
   current: Partial<WorkTab>

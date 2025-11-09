@@ -9,12 +9,8 @@ $box-radius: calc(var(--custom-radius) / 3 + 2px);
 .editor-wrapper {
   width: 100%;
   height: 100%;
-  border: 1px solid rgba(var(--art-gray-300-rgb), 0.8);
+  border: 1px solid var(--art-gray-300);
   border-radius: $box-radius !important;
-
-  .iconfont-sys {
-    font-size: 20px !important;
-  }
 
   .w-e-bar {
     border-radius: $box-radius $box-radius 0 0 !important;
@@ -32,7 +28,7 @@ $box-radius: calc(var(--custom-radius) / 3 + 2px);
 
   /* 工具栏 */
   .editor-toolbar {
-    border-bottom: 1px solid var(--art-border-color);
+    border-bottom: 1px solid var(--default-border);
   }
 
   /* 下拉选择框配置 */
@@ -75,7 +71,12 @@ $box-radius: calc(var(--custom-radius) / 3 + 2px);
   }
 
   /* 工具栏按钮样式 */
+  .w-e-bar-item svg {
+    fill: var(--art-gray-800);
+  }
+
   .w-e-bar-item button {
+    color: var(--art-gray-800);
     border-radius: $box-radius;
   }
 
@@ -109,7 +110,7 @@ $box-radius: calc(var(--custom-radius) / 3 + 2px);
   /* 代码块 */
   .w-e-text-container [data-slate-editor] pre > code {
     padding: 0.6rem 1rem;
-    background-color: var(--art-gray-100);
+    background-color: var(--art-gray-50);
     border-radius: $box-radius;
   }
 
@@ -146,7 +147,7 @@ $box-radius: calc(var(--custom-radius) / 3 + 2px);
 
   /* 引用 */
   .w-e-text-container [data-slate-editor] blockquote {
-    background-color: rgba(var(--art-gray-300-rgb), 0.25);
+    background-color: var(--art-gray-200);
     border-left: 4px solid var(--art-gray-300);
   }
 

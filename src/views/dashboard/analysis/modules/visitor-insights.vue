@@ -1,19 +1,19 @@
 <template>
-  <div class="custom-card art-custom-card visitor-insights">
-    <div class="custom-card-header">
-      <span class="title">访客洞察</span>
+  <div class="art-card h-82 p-5 mb-5 max-sm:mb-4">
+    <div class="art-card-header">
+      <div class="title">
+        <h4>访客洞察</h4>
+      </div>
     </div>
-    <div class="custom-card-body">
-      <ArtLineChart
-        height="15rem"
-        :data="chartData"
-        :xAxisData="xAxisData"
-        :showLegend="true"
-        :showAxisLabel="true"
-        :showAxisLine="false"
-        :showSplitLine="true"
-      />
-    </div>
+    <ArtLineChart
+      height="calc(100% - 30px)"
+      :data="chartData"
+      :xAxisData="xAxisData"
+      :showLegend="true"
+      :showAxisLabel="true"
+      :showAxisLine="false"
+      :showSplitLine="true"
+    />
   </div>
 </template>
 
@@ -41,13 +41,3 @@
     }
   ])
 </script>
-
-<style lang="scss" scoped>
-  .visitor-insights {
-    height: 330px;
-
-    .custom-card-body {
-      padding: 10px 20px;
-    }
-  }
-</style>
