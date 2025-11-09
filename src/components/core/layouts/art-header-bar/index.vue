@@ -180,8 +180,8 @@
   import { languageOptions } from '@/locales'
   import { mittBus } from '@/utils/sys'
   import { themeAnimation } from '@/utils/ui/animation'
-  import { useCommon } from '@/composables/useCommon'
-  import { useHeaderBar } from '@/composables/useHeaderBar'
+  import { useCommon } from '@/hooks/core/useCommon'
+  import { useHeaderBar } from '@/hooks/core/useHeaderBar'
   import ArtUserMenu from './widget/ArtUserMenu.vue'
 
   defineOptions({ name: 'ArtHeaderBar' })

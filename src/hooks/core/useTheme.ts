@@ -35,7 +35,9 @@ import { useSettingStore } from '@/store/modules/setting'
 import { SystemThemeEnum } from '@/enums/appEnum'
 import AppConfig from '@/config'
 import { SystemThemeTypes } from '@/types/store'
-import { getDarkColor, getLightColor } from '@/utils/ui'
+import { getDarkColor, getLightColor, setElementThemeColor } from '@/utils/ui'
+import { usePreferredDark } from '@vueuse/core'
+import { watch } from 'vue'
 
 export function useTheme() {
   const settingStore = useSettingStore()
@@ -95,13 +97,13 @@ export function useTheme() {
     })
   }
 
+  // 使用 VueUse 的 usePreferredDark 检测系统主题偏好
+  const prefersDark = usePreferredDark()
+
   // 自动设置系统主题
   const setSystemAutoTheme = () => {
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setSystemTheme(SystemThemeEnum.DARK, SystemThemeEnum.AUTO)
-    } else {
-      setSystemTheme(SystemThemeEnum.LIGHT, SystemThemeEnum.AUTO)
-    }
+    const theme = prefersDark.value ? SystemThemeEnum.DARK : SystemThemeEnum.LIGHT
+    setSystemTheme(theme, SystemThemeEnum.AUTO)
   }
 
   // 切换主题
@@ -116,6 +118,57 @@ export function useTheme() {
   return {
     setSystemTheme,
     setSystemAutoTheme,
-    switchThemeStyles
+    switchThemeStyles,
+    prefersDark
+  }
+}
+
+/**
+ * 初始化主题系统
+ */
+export function initializeTheme() {
+  const settingStore = useSettingStore()
+  const prefersDark = usePreferredDark()
+
+  // 根据系统偏好应用主题
+  const applyThemeByMode = () => {
+    const el = document.getElementsByTagName('html')[0]
+    let actualTheme = settingStore.systemThemeType
+
+    // 如果是 AUTO 模式，检测系统偏好
+    if (settingStore.systemThemeMode === SystemThemeEnum.AUTO) {
+      actualTheme = prefersDark.value ? SystemThemeEnum.DARK : SystemThemeEnum.LIGHT
+      // 更新实际应用的主题类型
+      settingStore.systemThemeType = actualTheme
+    }
+
+    // 设置主题 class
+    const currentTheme = AppConfig.systemThemeStyles[actualTheme as keyof SystemThemeTypes]
+    if (currentTheme) {
+      el.setAttribute('class', currentTheme.className)
+    }
+
+    // 设置主题颜色
+    setElementThemeColor(settingStore.systemThemeColor)
+
+    // 设置圆角
+    document.documentElement.style.setProperty('--custom-radius', `${settingStore.customRadius}rem`)
+  }
+
+  // 应用主题
+  applyThemeByMode()
+
+  // 如果是 AUTO 模式，监听系统主题变化（使用 VueUse 的响应式特性）
+  if (settingStore.systemThemeMode === SystemThemeEnum.AUTO) {
+    watch(
+      prefersDark,
+      () => {
+        // 只有在 AUTO 模式下才响应系统主题变化
+        if (settingStore.systemThemeMode === SystemThemeEnum.AUTO) {
+          applyThemeByMode()
+        }
+      },
+      { immediate: false }
+    )
   }
 }

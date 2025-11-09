@@ -31,12 +31,12 @@
  * @author Art Design Pro Team
  */
 import { defineStore } from 'pinia'
-import { ref, computed, nextTick } from 'vue'
+import { ref, computed } from 'vue'
 import { MenuThemeType } from '@/types/store'
 import AppConfig from '@/config'
 import { SystemThemeEnum, MenuThemeEnum, MenuTypeEnum, ContainerWidthEnum } from '@/enums/appEnum'
 import { setElementThemeColor } from '@/utils/ui'
-import { useCeremony } from '@/composables/useCeremony'
+import { useCeremony } from '@/hooks/core/useCeremony'
 import { StorageConfig } from '@/utils'
 import { SETTING_DEFAULT_CONFIG } from '@/config/setting'
 
@@ -374,16 +374,6 @@ export const useSettingStore = defineStore(
     const setDualMenuShowText = (show: boolean) => {
       dualMenuShowText.value = show
     }
-
-    // 初始化主题样式
-    const initThemeStyles = () => {
-      setElementThemeColor(systemThemeColor.value)
-      document.documentElement.style.setProperty('--custom-radius', `${customRadius.value}rem`)
-    }
-
-    nextTick(() => {
-      initThemeStyles()
-    })
 
     return {
       menuType,

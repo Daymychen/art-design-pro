@@ -12,7 +12,7 @@
 <script setup lang="ts">
   import '@/assets/styles/core/md.scss'
   import '@/assets/styles/custom/one-dark-pro.scss'
-  import { useCommon } from '@/composables/useCommon'
+  import { useCommon } from '@/hooks/core/useCommon'
   import axios from 'axios'
 
   defineOptions({ name: 'ArticleDetail' })

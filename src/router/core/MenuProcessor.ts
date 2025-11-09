@@ -9,7 +9,7 @@
 
 import type { AppRouteRecord } from '@/types/router'
 import { useUserStore } from '@/store/modules/user'
-import { useAppMode } from '@/composables/useAppMode'
+import { useAppMode } from '@/hooks/core/useAppMode'
 import { fetchGetMenuList } from '@/api/system-manage'
 import { asyncRoutes } from '../routes/asyncRoutes'
 import { RoutesAlias } from '../routesAlias'

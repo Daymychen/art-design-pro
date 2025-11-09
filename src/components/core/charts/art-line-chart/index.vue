@@ -12,7 +12,7 @@
 <script setup lang="ts">
   import { graphic, type EChartsOption } from '@/plugins/echarts'
   import { getCssVar, hexToRgba } from '@/utils/ui'
-  import { useChartOps, useChartComponent } from '@/composables/useChart'
+  import { useChartOps, useChartComponent } from '@/hooks/core/useChart'
   import type { LineChartProps, LineDataItem } from '@/types/component/chart'
 
   defineOptions({ name: 'ArtLineChart' })

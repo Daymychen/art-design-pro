@@ -168,7 +168,7 @@
   import avatar8 from '@/assets/images/avatar/avatar8.webp'
   import avatar9 from '@/assets/images/avatar/avatar9.webp'
   import avatar10 from '@/assets/images/avatar/avatar10.webp'
-  import { useAutoLayoutHeight } from '@/composables/useLayoutHeight'
+  import { useAutoLayoutHeight } from '@/hooks/core/useLayoutHeight'
 
   defineOptions({ name: 'TemplateChat' })
 

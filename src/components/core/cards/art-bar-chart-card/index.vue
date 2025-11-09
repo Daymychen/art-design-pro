@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-  import { useChartOps, useChartComponent } from '@/composables/useChart'
+  import { useChartOps, useChartComponent } from '@/hooks/core/useChart'
   import { type EChartsOption } from '@/plugins/echarts'
 
   defineOptions({ name: 'ArtBarChartCard' })

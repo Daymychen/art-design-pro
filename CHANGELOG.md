@@ -6,6 +6,45 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Released]
 
+### v3.0.0 - 2025-11-09 🎉
+
+#### Refactored
+
+- Style system refactored: Sass fully migrated to Tailwind CSS, improving development efficiency and style consistency
+- Icon solution upgraded: Iconfont replaced with Iconify, supporting richer icon libraries and on-demand loading
+- Route registration refactored: Comprehensive refactoring of route registration system with object-oriented design, improving code maintainability, testability and extensibility
+- Refactored ArtTextScroll component, improving performance and maintainability
+- Refactored color system, unified UI visual specifications, improving interface consistency
+
+#### Optimized
+
+- Build optimization: Complete package size reduced by 1.3 MB, significantly improving loading performance
+- Architecture optimization: Optimized directory structure with clearer responsibility division, reducing user learning curve and onboarding difficulty
+- Comment optimization: Unified module comment standards, improved component descriptions, feature explanations and usage examples, reducing user understanding cost and onboarding difficulty
+- Performance improvement: Optimized core code logic, improving system runtime efficiency
+- Menu optimization: Refined menu styles, optimized interaction experience and visual presentation
+- Responsive optimization: Optimized ArtForm and ArtSearchBar grid layout, adapting to various screen sizes
+- Configuration management optimization: Added setting.ts configuration file, supporting one-click copy and reset of system default settings
+
+#### Fixed
+
+- Fixed ArtForm and ArtSearchBar custom component rendering issues
+
+#### Added
+
+- ArtForm and ArtSearchBar added render property, supporting custom component rendering
+- Festival feature enhancement: Fireworks configuration supports cross-date range settings and custom playback counts
+
+#### Upgraded
+
+- Dependency updates: Upgraded core dependencies to latest stable versions
+
+#### ⚠️ Important Notice
+
+> This upgrade involves fundamental refactoring of the style system (Sass → Tailwind CSS) and icon library (Iconfont → Iconify), which is a breaking change. It is recommended to use v3.0 for new projects. Upgrading existing projects is not recommended.
+
+---
+
 ### v2.6.1 - 2025-10-19
 
 #### Fixed

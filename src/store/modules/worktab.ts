@@ -42,7 +42,7 @@ import { ref, computed } from 'vue'
 import { router } from '@/router'
 import { LocationQueryRaw, Router } from 'vue-router'
 import { WorkTab } from '@/types'
-import { useCommon } from '@/composables/useCommon'
+import { useCommon } from '@/hooks/core/useCommon'
 
 interface WorktabState {
   current: Partial<WorkTab>

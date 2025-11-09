@@ -80,8 +80,8 @@
   import { storeToRefs } from 'pinia'
   import { ColumnOption } from '@/types'
   import { useTableStore } from '@/store/modules/table'
-  import { useCommon } from '@/composables/useCommon'
-  import { useTableHeight } from '@/composables/useTableHeight'
+  import { useCommon } from '@/hooks/core/useCommon'
+  import { useTableHeight } from '@/hooks/core/useTableHeight'
   import { useResizeObserver, useWindowSize } from '@vueuse/core'
 
   defineOptions({ name: 'ArtTable' })

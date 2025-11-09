@@ -10,9 +10,9 @@ interface UpgradeLog {
 export const upgradeLogList = ref<UpgradeLog[]>([
   {
     version: 'v3.0.0',
-    title:
-      'Sass 重构为 Tailwind CSS，Iconfont 替换为 Iconify，性能，目录结构，文件注释全方位优化【发布日期待定】',
-    date: '待定',
+    title: 'Sass 重构为 Tailwind CSS，Iconfont 替换为 Iconify，性能，目录结构，文件注释全方位优化',
+    date: '2025-11-9',
+    requireReLogin: true,
     detail: [
       '样式系统重构：Sass 全面迁移至 Tailwind CSS，提升开发效率与样式一致性',
       '图标方案升级：Iconfont 替换为 Iconify，支持更丰富的图标库与按需加载',
@@ -26,6 +26,7 @@ export const upgradeLogList = ref<UpgradeLog[]>([
       '组件重构：重构 ArtTextScroll 组件，提升性能与可维护性',
       '问题修复：修复 ArtForm、ArtSearchBar 自定义组件渲染异常',
       '功能增强：ArtForm、ArtSearchBar 新增 render 属性，支持自定义组件渲染',
+      '功能增强：useTable hooks 新增 visible 属性，用于控制列默认是否显示',
       '响应式优化：优化 ArtForm、ArtSearchBar 栅格布局，适配多种屏幕尺寸',
       '节日功能增强：礼花配置支持跨日期范围设置与自定义播放次数',
       '依赖更新：升级核心依赖至最新稳定版本',

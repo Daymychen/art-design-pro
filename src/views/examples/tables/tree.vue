@@ -54,7 +54,7 @@
 </template>
 
 <script setup lang="ts">
-  import { useTable } from '@/composables/useTable'
+  import { useTable } from '@/hooks/core/useTable'
   import { fetchGetUserList } from '@/api/system-manage'
   import UserSearch from '@/views/system/user/modules/user-search.vue'
 

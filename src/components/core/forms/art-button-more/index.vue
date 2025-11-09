@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-  import { useAuth } from '@/composables/useAuth'
+  import { useAuth } from '@/hooks/core/useAuth'
 
   defineOptions({ name: 'ArtButtonMore' })
 

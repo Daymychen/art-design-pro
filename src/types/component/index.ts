@@ -69,7 +69,9 @@ export interface ColumnOption<T = any> {
   filterPlacement?: string
   // 是否禁用
   disabled?: boolean
-  // 是否选中显示（可用于隐藏列）
+  // 是否显示列
+  visible?: boolean
+  // 是否选中显示
   checked?: boolean
   // 自定义渲染函数
   formatter?: (row: T) => any

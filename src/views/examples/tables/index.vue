@@ -427,10 +427,10 @@
     ArrowDown
   } from '@element-plus/icons-vue'
   import { ElMessageBox } from 'element-plus'
-  import { useTable, CacheInvalidationStrategy } from '@/composables/useTable'
+  import { useTable, CacheInvalidationStrategy } from '@/hooks/core/useTable'
   import { fetchGetUserList } from '@/api/system-manage'
   import { ACCOUNT_TABLE_DATA } from '@/mock/temp/formData'
-  import { getColumnKey } from '@/composables/useTableColumns'
+  import { getColumnKey } from '@/hooks/core/useTableColumns'
 
   defineOptions({ name: 'AdvancedTableDemo' })
 
@@ -723,7 +723,7 @@
           useSlot: true,
           useHeaderSlot: true,
           sortable: false
-          // checked: false, // 隐藏列
+          // visible: false, // 隐藏列
         },
         {
           prop: 'userGender',

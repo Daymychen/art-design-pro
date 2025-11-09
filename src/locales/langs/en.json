@@ -106,7 +106,6 @@
       "copyConfig": "Copy Config",
       "copySuccess": "Configuration copied to clipboard, paste it into src/config/setting.ts file",
       "copyFailed": "Copy failed, please try again",
-      "resetSuccess": "Reset successful",
       "resetFailed": "Reset failed, please refresh the page and try again"
     }
   },

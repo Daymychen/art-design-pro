@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-  import { useCommon } from '@/composables/useCommon'
+  import { useCommon } from '@/hooks/core/useCommon'
 
   defineOptions({ name: 'ArtBackToTop' })
 

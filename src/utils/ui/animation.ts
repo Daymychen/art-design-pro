@@ -27,8 +27,8 @@
  * @module utils/theme/animation
  * @author Art Design Pro Team
  */
-import { useCommon } from '@/composables/useCommon'
-import { useTheme } from '@/composables/useTheme'
+import { useCommon } from '@/hooks/core/useCommon'
+import { useTheme } from '@/hooks/core/useTheme'
 import { SystemThemeEnum } from '@/enums/appEnum'
 import { useSettingStore } from '@/store/modules/setting'
 const { LIGHT, DARK } = SystemThemeEnum
@@ -64,17 +64,17 @@ const toggleTheme = () => {
 }
 
 /**
- * 提升暗黑主题下页面刷新视觉体验
- * @param addClass 是否添加 class
+ * 切换主题过渡效果
+ * @param enable 是否启用过渡效果
  */
-export const setThemeTransitionClass = (addClass: boolean) => {
-  const el = document.getElementsByTagName('body')[0]
+export const toggleTransition = (enable: boolean) => {
+  const body = document.body
 
-  if (addClass) {
-    el.setAttribute('class', 'theme-change')
+  if (enable) {
+    body.classList.add('theme-change')
   } else {
     setTimeout(() => {
-      el.removeAttribute('class')
+      body.classList.remove('theme-change')
     }, 300)
   }
 }

@@ -3,26 +3,30 @@
   <div
     class="mt-10 flex gap-8 border-t border-[var(--default-border)] bg-[var(--art-bg-color)] pt-5"
   >
-    <ElButton type="danger" plain class="flex-1" @click="handleResetConfig">
-      {{ $t('setting.actions.resetConfig') }}
-    </ElButton>
-    <ElButton type="primary" plain class="flex-1" @click="handleCopyConfig">
+    <ElButton type="primary" class="flex-1 !h-8" @click="handleCopyConfig">
       {{ $t('setting.actions.copyConfig') }}
+    </ElButton>
+    <ElButton type="danger" plain class="flex-1 !h-8" @click="handleResetConfig">
+      {{ $t('setting.actions.resetConfig') }}
     </ElButton>
   </div>
 </template>
 
 <script setup lang="ts">
+  import { nextTick } from 'vue'
   import { useSettingStore } from '@/store/modules/setting'
   import { SETTING_DEFAULT_CONFIG } from '@/config/setting'
   import { useClipboard } from '@vueuse/core'
   import { useI18n } from 'vue-i18n'
+  import { MenuThemeEnum } from '@/enums/appEnum'
+  import { useTheme } from '@/hooks/core/useTheme'
 
   defineOptions({ name: 'SettingActions' })
 
   const { t } = useI18n()
   const settingStore = useSettingStore()
   const { copy, copied } = useClipboard()
+  const { switchThemeStyles } = useTheme()
 
   /** 枚举映射表 */
   const ENUM_MAPS = {
@@ -159,7 +163,7 @@
   /**
    * 重置配置为默认值
    */
-  const handleResetConfig = () => {
+  const handleResetConfig = async () => {
     try {
       const config = SETTING_DEFAULT_CONFIG
 
@@ -169,9 +173,14 @@
       settingStore.setMenuOpen(config.menuOpen)
       settingStore.setDualMenuShowText(config.dualMenuShowText)
 
-      // 主题相关
-      settingStore.setGlopTheme(config.systemThemeType, config.systemThemeMode)
-      settingStore.switchMenuStyles(config.menuThemeType)
+      // 主题相关 - 使用 switchThemeStyles 确保正确处理 AUTO 模式
+      switchThemeStyles(config.systemThemeMode)
+
+      // 等待主题切换完成后，根据实际应用的主题设置菜单主题
+      await nextTick()
+      const menuTheme = settingStore.isDark ? MenuThemeEnum.DARK : config.menuThemeType
+      settingStore.switchMenuStyles(menuTheme)
+
       settingStore.setElementTheme(config.systemThemeColor)
 
       // 界面显示（切换类方法）
@@ -217,13 +226,7 @@
       settingStore.setFestivalDate(config.festivalDate)
       settingStore.setholidayFireworksLoaded(config.holidayFireworksLoaded)
 
-      ElMessage.success({
-        message: t('setting.actions.resetSuccess'),
-        duration: 2000
-      })
-
-      // 延迟刷新页面，让用户看到成功提示
-      setTimeout(() => location.reload(), 500)
+      location.reload()
     } catch (error) {
       console.error('重置配置失败:', error)
       ElMessage.error(t('setting.actions.resetFailed'))

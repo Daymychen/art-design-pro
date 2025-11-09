@@ -82,7 +82,7 @@
   import EmojiText from '@/utils/ui/emojo'
   import { PageModeEnum } from '@/enums/formEnum'
   import axios from 'axios'
-  import { useCommon } from '@/composables/useCommon'
+  import { useCommon } from '@/hooks/core/useCommon'
 
   defineOptions({ name: 'ArticlePublish' })
 

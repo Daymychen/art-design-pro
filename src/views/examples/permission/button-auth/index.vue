@@ -410,9 +410,9 @@
 <script setup lang="ts">
   import { computed, ref } from 'vue'
   import { ArrowDown, Lock } from '@element-plus/icons-vue'
-  import { useAuth } from '@/composables/useAuth'
+  import { useAuth } from '@/hooks/core/useAuth'
   import { useUserStore } from '@/store/modules/user'
-  import { useAppMode } from '@/composables/useAppMode'
+  import { useAppMode } from '@/hooks/core/useAppMode'
   import { useRoute } from 'vue-router'
   import type { AppRouteRecord } from '@/types/router'
 

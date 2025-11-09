@@ -44,7 +44,7 @@
 <script setup lang="ts">
   import ArtButtonTable from '@/components/core/forms/art-button-table/index.vue'
   import { ACCOUNT_TABLE_DATA } from '@/mock/temp/formData'
-  import { useTable } from '@/composables/useTable'
+  import { useTable } from '@/hooks/core/useTable'
   import { fetchGetUserList } from '@/api/system-manage'
   import UserSearch from './modules/user-search.vue'
   import UserDialog from './modules/user-dialog.vue'
@@ -122,9 +122,10 @@
         { type: 'selection' }, // 勾选列
         { type: 'index', width: 60, label: '序号' }, // 序号
         {
-          prop: 'avatar',
+          prop: 'userInfo',
           label: '用户名',
           width: 280,
+          // visible: false, // 默认是否显示列
           formatter: (row) => {
             return h('div', { class: 'user flex-c' }, [
               h(ElImage, {
@@ -145,7 +146,6 @@
           prop: 'userGender',
           label: '性别',
           sortable: true,
-          // checked: false, // 隐藏列
           formatter: (row) => row.userGender
         },
         { prop: 'userPhone', label: '手机号' },

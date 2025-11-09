@@ -94,7 +94,7 @@
   import { useDateFormat } from '@vueuse/core'
   import EmojiText from '@/utils/ui/emojo'
   import { ArticleList } from '@/mock/temp/articleList'
-  import { useCommon } from '@/composables/useCommon'
+  import { useCommon } from '@/hooks/core/useCommon'
 
   defineOptions({ name: 'ArticleList' })
 
