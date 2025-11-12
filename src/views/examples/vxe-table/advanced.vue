@@ -20,7 +20,11 @@
 
   // 基础列配置（不包含 filterRender）
   const baseColumns = [
-    { field: 'name', title: 'Name' },
+    {
+      field: 'name',
+      title: 'Name',
+      filterRender: { name: 'VxeDatePicker', props: { clearable: true } }
+    },
     { field: 'sex', title: 'Sex' },
     { field: 'age', title: 'Age' },
     { field: 'date', title: 'Date' }
@@ -34,8 +38,8 @@
    */
   const getColumnsWithFilter = () => {
     return baseColumns.map((col) => ({
-      ...col,
-      filterRender: filterRenderConfig
+      filterRender: filterRenderConfig,
+      ...col
     }))
   }
 
