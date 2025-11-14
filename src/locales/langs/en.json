@@ -1,347 +1,366 @@
 {
-  "httpMsg": {
-    "unauthorized": "Unauthorized access, please login again",
-    "forbidden": "Access to this resource is forbidden",
-    "notFound": "The requested resource does not exist",
-    "methodNotAllowed": "Request method not allowed",
-    "requestTimeout": "Request timeout, please try again later",
-    "internalServerError": "Internal server error, please try again later",
-    "badGateway": "Bad gateway error, please try again later",
-    "serviceUnavailable": "Service temporarily unavailable, please try again later",
-    "gatewayTimeout": "Gateway timeout, please try again later",
-    "requestCancelled": "Request cancelled",
-    "networkError": "Network connection error, please check your connection",
-    "requestFailed": "Request failed",
-    "requestConfigError": "Request configuration error"
-  },
-  "topBar": {
-    "search": {
-      "title": "Search"
-    },
-    "user": {
-      "userCenter": "User center",
-      "docs": "Document",
-      "github": "Github",
-      "lockScreen": "Lock screen",
-      "logout": "Log out"
-    },
-    "guide": {
-      "title": "Click here to view",
-      "theme": "Theme style",
-      "menu": "Open top menu",
-      "description": "More configurations"
-    }
-  },
   "common": {
-    "tips": "Prompt",
+    "autoTransTest": "Auto translation test",
+    "autoTransTest2": "Automatic translation test",
     "cancel": "Cancel",
     "confirm": "Confirm",
-    "logOutTips": "Do you want to log out?"
+    "logOutTips": "Do you want to log out?",
+    "tips": "Prompt"
   },
-  "search": {
-    "placeholder": "Search page",
-    "historyTitle": "Search history",
-    "switchKeydown": "Navigate",
-    "selectKeydown": "Select",
-    "exitKeydown": "Close"
+  "exceptionPage": {
+    "403": "Sorry, you do not have permission to access this page",
+    "404": "Sorry, the page you are trying to access does not exist",
+    "500": "Sorry, there was an error on the server",
+    "gohome": "Go Home"
   },
-  "setting": {
-    "menuType": {
-      "title": "Menu Layout",
-      "list": ["Vertical", "Horizontal", "Mixed", "Dual"]
-    },
-    "theme": {
-      "title": "Theme Style",
-      "list": ["Light", "Dark", "System"]
-    },
-    "menu": {
-      "title": "Menu Style"
-    },
-    "color": {
-      "title": "Theme Color"
-    },
-    "box": {
-      "title": "Box Style",
-      "list": ["Border", "Shadow"]
-    },
-    "container": {
-      "title": "Container Width",
-      "list": ["Full", "Boxed"]
-    },
-    "basics": {
-      "title": "Basic Config",
-      "list": {
-        "multiTab": "Show work tab",
-        "accordion": "Sidebar opens accordion",
-        "collapseSidebar": "Show sidebar button",
-        "reloadPage": "Show reload page button",
-        "fastEnter": "Show fast enter",
-        "breadcrumb": "Show crumb navigation",
-        "language": "Show multilingual selection",
-        "progressBar": "Show top progress bar",
-        "weakMode": "Color Weakness Mode",
-        "watermark": "Global watermark",
-        "menuWidth": "Menu width",
-        "tabStyle": "Tab style",
-        "pageTransition": "Page animation",
-        "borderRadius": "Custom radius"
-      }
-    },
-    "tabStyle": {
-      "default": "Default",
-      "card": "Card",
-      "google": "Chrome"
-    },
-    "transition": {
-      "list": {
-        "none": "None",
-        "fade": "Fade",
-        "slideLeft": "Slide Left",
-        "slideBottom": "Slide Bottom",
-        "slideTop": "Slide Top"
-      }
-    },
-    "actions": {
-      "resetConfig": "Reset Config",
-      "copyConfig": "Copy Config",
-      "copySuccess": "Configuration copied to clipboard, paste it into src/config/setting.ts file",
-      "copyFailed": "Copy failed, please try again",
-      "resetFailed": "Reset failed, please refresh the page and try again"
-    }
+  "forgetPassword": {
+    "backBtnText": "Back",
+    "placeholder": "Please enter your email",
+    "subTitle": "Enter your email to reset your password",
+    "submitBtnText": "Submit",
+    "title": "Forgot password?"
   },
-  "notice": {
-    "title": "Notice",
-    "btnRead": "Mark as read",
-    "bar": ["Notice", "Message", "Todo"],
-    "text": ["No"],
-    "viewAll": "View all"
+  "greeting": {
+    "afternoon": "Good afternoon!",
+    "dawn": "Good morning!",
+    "evening": "Good evening!",
+    "morning": "Good morning!"
   },
-  "worktab": {
-    "btn": {
-      "refresh": "Refresh",
-      "fixed": "Fixed",
-      "unfixed": "Unfixed",
-      "closeLeft": "Close left",
-      "closeRight": "Close right",
-      "closeOther": "Close other",
-      "closeAll": "Close all"
+  "httpMsg": {
+    "badGateway": "Bad gateway error, please try again later",
+    "forbidden": "Access to this resource is forbidden",
+    "gatewayTimeout": "Gateway timeout, please try again later",
+    "internalServerError": "Internal server error, please try again later",
+    "methodNotAllowed": "Request method not allowed",
+    "networkError": "Network connection error, please check your connection",
+    "notFound": "The requested resource does not exist",
+    "requestCancelled": "Request cancelled",
+    "requestConfigError": "Request configuration error",
+    "requestFailed": "Request failed",
+    "requestTimeout": "Request timeout, please try again later",
+    "serviceUnavailable": "Service temporarily unavailable, please try again later",
+    "unauthorized": "Unauthorized access, please login again"
+  },
+  "lockScreen": {
+    "lock": {
+      "btnText": "Lock",
+      "inputPlaceholder": "Please input lock screen password"
+    },
+    "pwdError": "Password error",
+    "unlock": {
+      "backBtnText": "Back to login",
+      "btnText": "Unlock",
+      "inputPlaceholder": "Please input unlock password"
     }
   },
   "login": {
+    "btnText": "Login",
+    "forgetPwd": "Forgot password",
     "leftView": {
-      "title": "A backend system of beauty and efficiency",
-      "subTitle": "A sleek and practical interface for a great user experience"
+      "subTitle": "A sleek and practical interface for a great user experience",
+      "title": "A backend system of beauty and efficiency"
     },
-    "title": "Welcome back",
-    "subTitle": "Please enter your account and password to login",
+    "noAccount": "No account yet?",
+    "placeholder": {
+      "password": "Please enter your password",
+      "slider": "Please slide to verify",
+      "username": "Please enter your account"
+    },
+    "register": "Register",
+    "rememberPwd": "Remember password",
     "roles": {
-      "super": "Super Admin",
       "admin": "Admin",
+      "super": "Super Admin",
       "user": "User"
     },
-    "placeholder": {
-      "username": "Please enter your account",
-      "password": "Please enter your password",
-      "slider": "Please slide to verify"
-    },
-    "sliderText": "Please slide to verify",
     "sliderSuccessText": "Verification successful",
-    "rememberPwd": "Remember password",
-    "forgetPwd": "Forgot password",
-    "btnText": "Login",
-    "noAccount": "No account yet?",
-    "register": "Register",
+    "sliderText": "Please slide to verify",
+    "subTitle": "Please enter your account and password to login",
     "success": {
-      "title": "Login successful",
-      "message": "Welcome back"
-    }
-  },
-  "forgetPassword": {
-    "title": "Forgot password?",
-    "subTitle": "Enter your email to reset your password",
-    "placeholder": "Please enter your email",
-    "submitBtnText": "Submit",
-    "backBtnText": "Back"
-  },
-  "register": {
-    "title": "Create account",
-    "subTitle": "Welcome to join us, please fill in the following information to complete the registration",
-    "placeholder": {
-      "username": "Please enter your account",
-      "password": "Please enter your password",
-      "confirmPassword": "Please enter your password again"
+      "message": "Welcome back",
+      "title": "Login successful"
     },
-    "rule": {
-      "confirmPasswordRequired": "Please enter your password again",
-      "passwordMismatch": "The two passwords are inconsistent!",
-      "usernameLength": "The length is 3 to 20 characters",
-      "passwordLength": "The password length cannot be less than 6 digits",
-      "agreementRequired": "Please agree to the privacy policy"
-    },
-    "agreeText": "I agree",
-    "privacyPolicy": "Privacy policy",
-    "submitBtnText": "Register",
-    "hasAccount": "Already have an account?",
-    "toLogin": "To login"
-  },
-  "lockScreen": {
-    "pwdError": "Password error",
-    "lock": {
-      "inputPlaceholder": "Please input lock screen password",
-      "btnText": "Lock"
-    },
-    "unlock": {
-      "inputPlaceholder": "Please input unlock password",
-      "btnText": "Unlock",
-      "backBtnText": "Back to login"
-    }
-  },
-  "greeting": {
-    "dawn": "Good morning!",
-    "morning": "Good morning!",
-    "afternoon": "Good afternoon!",
-    "evening": "Good evening!"
-  },
-  "exceptionPage": {
-    "gohome": "Go Home",
-    "403": "Sorry, you do not have permission to access this page",
-    "404": "Sorry, the page you are trying to access does not exist",
-    "500": "Sorry, there was an error on the server"
+    "title": "Welcome back"
   },
   "menus": {
-    "login": {
-      "title": "Login"
+    "article": {
+      "articleDetail": "Article Detail",
+      "articleList": "Article List",
+      "articlePublish": "Article Publish",
+      "comment": "Comment",
+      "title": "Article"
     },
-    "register": {
-      "title": "Register"
+    "dashboard": {
+      "analysis": "Analysis",
+      "console": "Console",
+      "ecommerce": "Ecommerce",
+      "title": "Dashboard"
+    },
+    "examples": {
+      "forms": "Forms",
+      "permission": {
+        "buttonAuth": "Button Authority",
+        "pageVisibility": "Super Admin Visibility",
+        "switchRole": "Toggle Auth",
+        "title": "Frontend Permission"
+      },
+      "searchBar": "Search Form",
+      "tables": "Advanced Tables",
+      "tablesBasic": "Basic Tables",
+      "tablesTree": "Tree Table Layout",
+      "tabs": "Tabs",
+      "title": "Feature Examples"
+    },
+    "exception": {
+      "forbidden": "403",
+      "notFound": "404",
+      "serverError": "500",
+      "title": "Exception"
     },
     "forgetPassword": {
       "title": "Forget Password"
     },
+    "help": {
+      "document": "Document",
+      "liteVersion": "Lite Version",
+      "oldVersion": "v2.6.1 Version",
+      "title": "Help Center"
+    },
+    "login": {
+      "title": "Login"
+    },
     "outside": {
       "title": "Outside"
     },
-    "dashboard": {
-      "title": "Dashboard",
-      "console": "Console",
-      "analysis": "Analysis",
-      "ecommerce": "Ecommerce"
+    "plan": {
+      "log": "Change Log",
+      "title": "Version Plan"
     },
-    "widgets": {
-      "title": "Components",
-      "icon": "Icon",
-      "imageCrop": "Image Crop",
-      "excel": "Excel Import Export",
-      "video": "Video Player",
-      "countTo": "Count To",
-      "wangEditor": "Wang Editor",
-      "watermark": "Watermark",
-      "contextMenu": "Context Menu",
-      "qrcode": "QR Code",
-      "drag": "Drag",
-      "textScroll": "Text Scroll",
-      "fireworks": "Fireworks",
-      "elementUI": "Component Overview"
-    },
-    "template": {
-      "title": "Template Center",
-      "chat": "Chat",
-      "cards": "Cards",
-      "banners": "Banners",
-      "charts": "Charts",
-      "map": "Map",
-      "calendar": "Calendar",
-      "pricing": "Pricing"
-    },
-    "article": {
-      "title": "Article",
-      "articleList": "Article List",
-      "articleDetail": "Article Detail",
-      "comment": "Comment",
-      "articlePublish": "Article Publish"
+    "register": {
+      "title": "Register"
     },
     "result": {
-      "title": "Result Page",
+      "fail": "Fail",
       "success": "Success",
-      "fail": "Fail"
+      "title": "Result Page"
     },
-    "exception": {
-      "title": "Exception",
-      "forbidden": "403",
-      "notFound": "404",
-      "serverError": "500"
-    },
-    "examples": {
-      "title": "Feature Examples",
-      "tabs": "Tabs",
-      "tablesBasic": "Basic Tables",
-      "tables": "Advanced Tables",
-      "tablesTree": "Tree Table Layout",
-      "forms": "Forms",
-      "searchBar": "Search Form",
-      "permission": {
-        "title": "Frontend Permission",
-        "switchRole": "Toggle Auth",
-        "buttonAuth": "Button Authority",
-        "pageVisibility": "Super Admin Visibility"
-      }
+    "safeguard": {
+      "server": "Server",
+      "title": "Safeguard"
     },
     "system": {
-      "title": "System Settings",
-      "user": "User Manage",
-      "role": "Role Manage",
-      "userCenter": "User Center",
       "menu": "Menu Manage",
-      "nested": "Nested Menu",
       "menu1": "Menu 1",
       "menu2": "Menu 2",
       "menu21": "Menu 2-1",
       "menu3": "Menu 3",
       "menu31": "Menu 3-1",
       "menu32": "Menu 3-2",
-      "menu321": "Menu 3-2-1"
+      "menu321": "Menu 3-2-1",
+      "nested": "Nested Menu",
+      "role": "Role Manage",
+      "title": "System Settings",
+      "user": "User Manage",
+      "userCenter": "User Center"
     },
-    "safeguard": {
-      "title": "Safeguard",
-      "server": "Server"
+    "template": {
+      "banners": "Banners",
+      "calendar": "Calendar",
+      "cards": "Cards",
+      "charts": "Charts",
+      "chat": "Chat",
+      "map": "Map",
+      "pricing": "Pricing",
+      "title": "Template Center"
     },
-    "plan": {
-      "title": "Version Plan",
-      "log": "Change Log"
+    "widgets": {
+      "contextMenu": "Context Menu",
+      "countTo": "Count To",
+      "drag": "Drag",
+      "elementUI": "Component Overview",
+      "excel": "Excel Import Export",
+      "fireworks": "Fireworks",
+      "icon": "Icon",
+      "imageCrop": "Image Crop",
+      "qrcode": "QR Code",
+      "textScroll": "Text Scroll",
+      "title": "Components",
+      "video": "Video Player",
+      "wangEditor": "Wang Editor",
+      "watermark": "Watermark"
+    }
+  },
+  "notice": {
+    "bar": ["Notice", "Message", "Todo"],
+    "bar[0]": "bar[0]",
+    "bar[1]": "bar[1]",
+    "bar[2]": "bar[2]",
+    "btnRead": "Mark as read",
+    "text": ["No"],
+    "text[0]": "text[0]",
+    "title": "Notice",
+    "viewAll": "View all"
+  },
+  "register": {
+    "agreeText": "I agree",
+    "hasAccount": "Already have an account?",
+    "placeholder": {
+      "confirmPassword": "Please enter your password again",
+      "password": "Please enter your password",
+      "username": "Please enter your account"
     },
-    "help": {
-      "title": "Help Center",
-      "document": "Document",
-      "liteVersion": "Lite Version",
-      "oldVersion": "v2.6.1 Version"
+    "privacyPolicy": "Privacy policy",
+    "rule": {
+      "agreementRequired": "Please agree to the privacy policy",
+      "confirmPasswordRequired": "Please enter your password again",
+      "passwordLength": "The password length cannot be less than 6 digits",
+      "passwordMismatch": "The two passwords are inconsistent!",
+      "usernameLength": "The length is 3 to 20 characters"
+    },
+    "subTitle": "Welcome to join us, please fill in the following information to complete the registration",
+    "submitBtnText": "Register",
+    "title": "Create account",
+    "toLogin": "To login"
+  },
+  "search": {
+    "exitKeydown": "Close",
+    "historyTitle": "Search history",
+    "placeholder": "Search page",
+    "selectKeydown": "Select",
+    "switchKeydown": "Navigate"
+  },
+  "setting": {
+    "actions": {
+      "copyConfig": "Copy Config",
+      "copyFailed": "Copy failed, please try again",
+      "copySuccess": "Configuration copied to clipboard, paste it into src/config/setting.ts file",
+      "resetConfig": "Reset Config",
+      "resetFailed": "Reset failed, please refresh the page and try again"
+    },
+    "basics": {
+      "list": {
+        "accordion": "Sidebar opens accordion",
+        "borderRadius": "Custom radius",
+        "breadcrumb": "Show crumb navigation",
+        "collapseSidebar": "Show sidebar button",
+        "fastEnter": "Show fast enter",
+        "language": "Show multilingual selection",
+        "menuWidth": "Menu width",
+        "multiTab": "Show work tab",
+        "pageTransition": "Page animation",
+        "progressBar": "Show top progress bar",
+        "reloadPage": "Show reload page button",
+        "tabStyle": "Tab style",
+        "watermark": "Global watermark",
+        "weakMode": "Color Weakness Mode"
+      },
+      "title": "Basic Config"
+    },
+    "box": {
+      "list": ["Border", "Shadow"],
+      "list[0]": "list[0]",
+      "list[1]": "list[1]",
+      "title": "Box Style"
+    },
+    "color": {
+      "title": "Theme Color"
+    },
+    "container": {
+      "list": ["Full", "Boxed"],
+      "list[0]": "list[0]",
+      "list[1]": "list[1]",
+      "title": "Container Width"
+    },
+    "menu": {
+      "title": "Menu Style"
+    },
+    "menuType": {
+      "list": ["Vertical", "Horizontal", "Mixed", "Dual"],
+      "title": "Menu Layout"
+    },
+    "tabStyle": {
+      "card": "Card",
+      "default": "Default",
+      "google": "Chrome"
+    },
+    "theme": {
+      "list": ["Light", "Dark", "System"],
+      "title": "Theme Style"
+    },
+    "transition": {
+      "list": {
+        "fade": "Fade",
+        "none": "None",
+        "slideBottom": "Slide Bottom",
+        "slideLeft": "Slide Left",
+        "slideTop": "Slide Top"
+      }
+    }
+  },
+  "system": {
+    "menu": {
+      "add": "add",
+      "button": "button",
+      "collapse": "collapse",
+      "expand": "expand",
+      "menu": "menu"
     }
   },
   "table": {
+    "border": "Border",
+    "column": {
+      "expand": "Expand",
+      "index": "Index",
+      "selection": "Select"
+    },
     "form": {
       "reset": "Reset",
       "submit": "Submit"
     },
+    "headerBackground": "Header BG",
     "searchBar": {
+      "collapse": "Collapse",
+      "expand": "Expand",
       "reset": "Reset",
       "search": "Search",
-      "expand": "Expand",
-      "collapse": "Collapse",
       "searchInputPlaceholder": "Please enter",
       "searchSelectPlaceholder": "Please select"
     },
     "selection": "Select",
     "sizeOptions": {
-      "small": "Compact",
       "default": "Default",
-      "large": "Loose"
+      "large": "Loose",
+      "small": "Compact"
     },
-    "column": {
-      "selection": "Select",
-      "expand": "Expand",
-      "index": "Index"
+    "zebra": "Zebra"
+  },
+  "topBar": {
+    "guide": {
+      "description": "More configurations",
+      "menu": "Open top menu",
+      "theme": "Theme style",
+      "title": "Click here to view"
     },
-    "zebra": "Zebra",
-    "border": "Border",
-    "headerBackground": "Header BG"
+    "search": {
+      "title": "Search"
+    },
+    "user": {
+      "docs": "Document",
+      "github": "Github",
+      "lockScreen": "Lock screen",
+      "logout": "Log out",
+      "userCenter": "User center"
+    }
+  },
+  "worktab": {
+    "btn": {
+      "closeAll": "Close all",
+      "closeLeft": "Close left",
+      "closeOther": "Close other",
+      "closeRight": "Close right",
+      "fixed": "Fixed",
+      "refresh": "Refresh",
+      "unfixed": "Unfixed"
+    }
   }
 }
