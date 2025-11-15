@@ -36,10 +36,6 @@
   import Dynamic from './modules/dynamic-stats.vue'
   import TodoList from './modules/todo-list.vue'
   import AboutProject from './modules/about-project.vue'
-  import { useCommon } from '@/hooks/core/useCommon'
 
   defineOptions({ name: 'Console' })
-
-  const { scrollToTop } = useCommon()
-  scrollToTop()
 </script>

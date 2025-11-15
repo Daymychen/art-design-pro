@@ -15,6 +15,7 @@ export const resultRoutes: AppRouteRecord = {
       component: '/result/success',
       meta: {
         title: 'menus.result.success',
+        icon: 'ri:checkbox-circle-line',
         keepAlive: true
       }
     },
@@ -24,6 +25,7 @@ export const resultRoutes: AppRouteRecord = {
       component: '/result/fail',
       meta: {
         title: 'menus.result.fail',
+        icon: 'ri:close-circle-line',
         keepAlive: true
       }
     }

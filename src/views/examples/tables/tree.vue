@@ -3,7 +3,7 @@
   <div class="art-full-height">
     <div class="box-border flex gap-4 h-full max-md:block max-md:gap-0 max-md:h-auto">
       <div class="flex-shrink-0 w-58 h-full max-md:w-full max-md:h-auto max-md:mb-5">
-        <ElCard class="tree-card flex flex-col h-full mt-0" shadow="never">
+        <ElCard class="tree-card art-card-xs flex flex-col h-full mt-0" shadow="never">
           <template #header>
             <b>分类树</b>
           </template>

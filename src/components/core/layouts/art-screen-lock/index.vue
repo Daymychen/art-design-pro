@@ -47,7 +47,7 @@
                 </template>
               </ElInput>
             </ElFormItem>
-            <ElButton type="primary" class="w-full" @click="handleLock" v-ripple>
+            <ElButton type="primary" class="w-full mt-0.5" @click="handleLock" v-ripple>
               {{ $t('lockScreen.lock.btnText') }}
             </ElButton>
           </ElForm>
@@ -57,9 +57,9 @@
 
     <!-- 解锁界面 -->
     <div v-else class="unlock-content">
-      <div class="flex-c flex-col w-90 p-7.5 bg-white/90 rounded-xl">
+      <div class="flex-c flex-col w-80">
         <img class="w-16 h-16 mt-5 rounded-full" src="@imgs/user/avatar.webp" alt="用户头像" />
-        <div class="mt-7.5 mb-3.5 text-base font-medium">
+        <div class="mt-3 mb-3.5 text-base font-medium">
           {{ userInfo.userName }}
         </div>
         <ElForm
@@ -86,7 +86,7 @@
             </ElInput>
           </ElFormItem>
 
-          <ElButton type="primary" class="w-full" @click="handleUnlock" v-ripple>
+          <ElButton type="primary" class="w-full mt-2" @click="handleUnlock" v-ripple>
             {{ $t('lockScreen.unlock.btnText') }}
           </ElButton>
           <div class="w-full text-center">
@@ -380,7 +380,16 @@
             console.error('更新store失败:', error)
           }
         } else {
+          // 触发抖动动画
+          const inputElement = unlockInputRef.value?.$el
+          if (inputElement) {
+            inputElement.classList.add('shake-animation')
+            setTimeout(() => {
+              inputElement.classList.remove('shake-animation')
+            }, 300)
+          }
           ElMessage.error(t('lockScreen.pwdError'))
+          unlockForm.password = ''
         }
       } else {
         console.error('表单验证失败:', fields)
@@ -439,7 +448,7 @@
   })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .layout-lock-screen :deep(.el-dialog) {
     border-radius: 10px;
   }
@@ -453,9 +462,15 @@
     justify-content: center;
     overflow: hidden;
     background-color: #fff;
-    background-image: url('@imgs/lock/lock_screen_1.webp');
+    background-image: url('@imgs/lock/bg_light.webp');
     background-size: cover;
     transition: transform 0.3s ease-in-out;
+  }
+
+  .dark {
+    .unlock-content {
+      background-image: url('@imgs/lock/bg_dark.webp');
+    }
   }
 
   @keyframes fade-in {
@@ -472,5 +487,31 @@
 
   .animate-fade-in {
     animation: fade-in 0.3s ease-in-out;
+  }
+
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+      transform: translateX(-10px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+      transform: translateX(10px);
+    }
+  }
+
+  .shake-animation {
+    animation: shake 0.5s ease-in-out;
   }
 </style>

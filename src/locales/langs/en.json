@@ -281,6 +281,7 @@
       "tablesTree": "Tree Table Layout",
       "forms": "Forms",
       "searchBar": "Search Form",
+      "socketChat": "Socket Connection",
       "permission": {
         "title": "Frontend Permission",
         "switchRole": "Toggle Auth",

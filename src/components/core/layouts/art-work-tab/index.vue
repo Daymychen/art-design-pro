@@ -19,7 +19,7 @@
         }"
       >
         <li
-          class="art-card-xs inline-flex flex-cc h-8 mr-1.5 text-xs c-p hover:text-theme"
+          class="art-card-xs inline-flex flex-cc h-8 mr-1.5 text-xs c-p hover:text-theme group"
           :class="[
             item.path === activeTab ? 'activ-tab !text-theme' : 'text-g-600 dark:text-g-800',
             tabStyle === 'tab-google' ? 'google-tab relative !h-8 !leading-8 !border-none' : ''
@@ -38,6 +38,12 @@
           @click="clickTab(item)"
           @contextmenu.prevent="(e: MouseEvent) => showMenu(e, item.path)"
         >
+          <ArtSvgIcon
+            v-show="item.icon"
+            :icon="item.icon"
+            class="text-base mr-1 group-hover:text-theme"
+            :class="item.path === activeTab ? 'text-theme' : 'text-g-600'"
+          />
           {{ item.customTitle || formatMenuTitle(item.title) }}
           <span
             v-if="list.length > 1 && !item.fixedTab"

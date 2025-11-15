@@ -39,6 +39,9 @@ export class StorageConfig {
   /** 主题键名（index.html中使用了，如果修改，需要同步修改） */
   static readonly THEME_KEY = 'sys-theme'
 
+  /** 上次登录用户ID键名（用于判断是否为同一用户登录） */
+  static readonly LAST_USER_ID_KEY = 'sys-last-user-id'
+
   /** 跳过升级检查的版本 */
   static readonly SKIP_UPGRADE_VERSION = '1.0.0'
 

@@ -281,6 +281,7 @@
       "tablesTree": "左右布局表格",
       "forms": "表单",
       "searchBar": "搜索表单",
+      "socketChat": "Socket 连接",
       "permission": {
         "title": "前端权限",
         "switchRole": "切换权限",

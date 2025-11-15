@@ -11,7 +11,7 @@
 
     <!-- 当前用户信息 -->
     <div class="mb-6">
-      <ElCard shadow="never">
+      <ElCard shadow="never" class="art-card-xs">
         <template #header>
           <div class="font-semibold">
             <span>当前登录用户</span>
@@ -45,7 +45,7 @@
 
     <!-- 用户角色切换 -->
     <div class="mb-6">
-      <ElCard shadow="never">
+      <ElCard shadow="never" class="art-card-xs">
         <template #header>
           <div class="font-semibold">
             <span>账号切换</span>
