@@ -129,6 +129,16 @@ export const widgetsRoutes: AppRouteRecord = {
       }
     },
     {
+      path: 'check-card',
+      name: 'CheckCard',
+      component: '/widgets/check-card',
+      meta: {
+        title: 'menus.widgets.checkCard',
+        keepAlive: true,
+        showTextBadge: 'Hot'
+      }
+    },
+    {
       path: '/outside/iframe/elementui',
       name: 'ElementUI',
       component: '',
