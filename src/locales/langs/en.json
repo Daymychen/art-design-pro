@@ -241,7 +241,6 @@
       "drag": "Drag",
       "textScroll": "Text Scroll",
       "fireworks": "Fireworks",
-      "socketChat": "Socket Connection",
       "elementUI": "Component Overview"
     },
     "template": {
@@ -280,6 +279,7 @@
       "tablesTree": "Tree Table Layout",
       "forms": "Forms",
       "searchBar": "Search Form",
+      "socketChat": "Socket Connection",
       "permission": {
         "title": "Frontend Permission",
         "switchRole": "Toggle Auth",

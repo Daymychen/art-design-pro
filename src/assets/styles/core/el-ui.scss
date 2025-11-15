@@ -514,3 +514,11 @@ html.dark .el-card {
   box-shadow: none !important;
   outline: none !important;
 }
+
+// 数字输入组件右侧按钮高度跟随自定义组件高度
+.el-input-number--default.is-controls-right {
+  .el-input-number__decrease,
+  .el-input-number__increase {
+    height: calc((var(--el-component-size) / 2)) !important;
+  }
+}

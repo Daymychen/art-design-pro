@@ -2,7 +2,7 @@
 // 顶部进度条颜色
 #nprogress .bar {
   z-index: 2400;
-  background-color: color-mix(in srgb, var(--theme-color) 65%, white);
+  background-color: color-mix(in srgb, var(--theme-color) 70%, white);
 }
 
 #nprogress .peg {
@@ -91,6 +91,8 @@
   border: 1px solid #{$border-color} !important;
   border-radius: calc(var(--custom-radius) + #{$radius-diff}) !important;
   box-shadow: #{$shadow} !important;
+
+  --el-card-border-color: var(--default-border) !important;
 }
 
 .art-card,

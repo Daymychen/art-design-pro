@@ -241,7 +241,6 @@
       "drag": "拖拽",
       "textScroll": "文字滚动",
       "fireworks": "礼花",
-      "socketChat": "Socket 连接",
       "elementUI": "组件总览"
     },
     "template": {
@@ -280,6 +279,7 @@
       "tablesTree": "左右布局表格",
       "forms": "表单",
       "searchBar": "搜索表单",
+      "socketChat": "Socket 连接",
       "permission": {
         "title": "前端权限",
         "switchRole": "切换权限",

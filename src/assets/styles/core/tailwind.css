@@ -28,7 +28,7 @@
   --art-gray-900: #323251;
 
   /* Border Colors */
-  --art-card-border: rgba(0, 0, 0, 0.07);
+  --art-card-border: rgba(0, 0, 0, 0.08);
 
   --default-border: #e2e8ee;
   --default-border-dashed: #dbdfe9;
@@ -38,7 +38,7 @@
   --default-box-color: #ffffff;
 
   /* Hover Color */
-  --art-hover-color: #f2f4f5;
+  --art-hover-color: #edeff0;
 
   /* Active Color */
   --art-active-color: #f2f4f5;
@@ -64,7 +64,7 @@
   --art-gray-900: #e3e3e8;
 
   /* Border Colors */
-  --art-card-border: rgba(255, 255, 255, 0.07);
+  --art-card-border: rgba(255, 255, 255, 0.08);
 
   --default-border: rgba(255, 255, 255, 0.1);
   --default-border-dashed: #363843;

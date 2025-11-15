@@ -120,12 +120,7 @@ export default ({ mode }: { mode: string }) => {
         'vue-img-cutter',
         'element-plus/es',
         'element-plus/es/components/*/style/css',
-        'element-plus/es/components/message-box/style/index',
-        'element-plus/es/components/notification/style/index',
-        'element-plus/es/components/message/style/index',
-        'element-plus/es/components/upload/style/index',
-        'element-plus/es/components/button/style/index',
-        'element-plus/es/components/icon/style/index'
+        'element-plus/es/components/*/style/index'
       ]
     },
     css: {

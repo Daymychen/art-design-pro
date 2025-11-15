@@ -20,10 +20,13 @@
           :xl="getColSpan(item.span, 'xl')"
         >
           <ElFormItem
-            :label="item.label"
             :prop="item.key"
             :label-width="item.label ? item.labelWidth || labelWidth : undefined"
           >
+            <template #label v-if="item.label">
+              <component v-if="typeof item.label !== 'string'" :is="item.label" />
+              <span v-else>{{ item.label }}</span>
+            </template>
             <slot :name="item.key" :item="item" :modelValue="modelValue">
               <component
                 :is="getComponent(item)"
@@ -149,8 +152,8 @@
   export interface FormItem {
     /** 表单项的唯一标识 */
     key: string
-    /** 表单项的标签文本 */
-    label: string
+    /** 表单项的标签文本或自定义渲染函数 */
+    label: string | (() => VNode) | Component
     /** 表单项标签的宽度，会覆盖 Form 的 labelWidth */
     labelWidth?: string | number
     /** 表单项类型，支持预定义的组件类型 */

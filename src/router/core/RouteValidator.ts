@@ -17,6 +17,9 @@ export interface ValidationResult {
 }
 
 export class RouteValidator {
+  // 用于记录已经提示过的路由，避免重复提示
+  private warnedRoutes = new Set<string>()
+
   /**
    * 验证路由配置
    */
@@ -29,6 +32,9 @@ export class RouteValidator {
 
     // 检测组件配置
     this.checkComponents(routes, errors, warnings)
+
+    // 检测嵌套菜单的 /index/index 配置
+    this.checkNestedIndexComponent(routes)
 
     return {
       valid: errors.length === 0,
@@ -129,6 +135,47 @@ export class RouteValidator {
         this.checkComponents(route.children, errors, warnings, fullPath)
       }
     })
+  }
+
+  /**
+   * 检测嵌套菜单的 Layout 组件配置
+   * 只有一级菜单才能使用 Layout，二级及以下菜单不能使用
+   */
+  private checkNestedIndexComponent(routes: AppRouteRecord[], level = 1): void {
+    routes.forEach((route) => {
+      // 检查二级及以下菜单是否错误使用了 Layout
+      if (level > 1 && route.component === RoutesAlias.Layout) {
+        this.logLayoutError(route, level)
+      }
+
+      // 递归检查子路由
+      if (route.children?.length) {
+        this.checkNestedIndexComponent(route.children, level + 1)
+      }
+    })
+  }
+
+  /**
+   * 输出 Layout 组件配置错误日志
+   */
+  private logLayoutError(route: AppRouteRecord, level: number): void {
+    const routeName = String(route.name || route.path || '未知路由')
+    const routeKey = `${routeName}_${route.path}`
+
+    // 避免重复提示
+    if (this.warnedRoutes.has(routeKey)) return
+    this.warnedRoutes.add(routeKey)
+
+    const menuTitle = route.meta?.title || routeName
+    const routePath = route.path || '/'
+
+    console.error(
+      `[路由配置错误] 菜单 "${menuTitle}" (name: ${routeName}, path: ${routePath}) 配置错误\n` +
+        `  问题: ${level}级菜单不能使用 ${RoutesAlias.Layout} 作为 component\n` +
+        `  说明: 只有一级菜单才能使用 ${RoutesAlias.Layout}，二级及以下菜单应该指向具体的组件路径\n` +
+        `  当前配置: component: '${RoutesAlias.Layout}'\n` +
+        `  应该改为: component: '/your/component/path' 或留空 ''（如果是目录菜单）`
+    )
   }
 
   /**

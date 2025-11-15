@@ -153,6 +153,8 @@ const stats = {
 const targets = [
   'README.md',
   'README.zh-CN.md',
+  'CHANGELOG.md',
+  'CHANGELOG.zh-CN.md',
   'src/views/change',
   'src/views/safeguard',
   'src/views/article',
@@ -170,7 +172,7 @@ const targets = [
   'src/assets/images/safeguard',
   'src/assets/images/3d',
   'src/components/core/charts/art-map-chart',
-  'src/components/custom/comment-widget'
+  'src/components/business/comment-widget'
 ]
 
 // 递归统计文件数量
