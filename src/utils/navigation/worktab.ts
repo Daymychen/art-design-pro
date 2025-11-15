@@ -43,6 +43,7 @@ export const setWorktab = (to: RouteLocationNormalized): void => {
       if (iframeRoute?.meta) {
         worktabStore.openTab({
           title: iframeRoute.meta.title,
+          icon: meta.icon as string,
           path,
           name: name as string,
           keepAlive: meta.keepAlive as boolean,
@@ -53,6 +54,7 @@ export const setWorktab = (to: RouteLocationNormalized): void => {
     } else if (useSettingStore().showWorkTab || path === useCommon().homePath.value) {
       worktabStore.openTab({
         title: meta.title as string,
+        icon: meta.icon as string,
         path,
         name: name as string,
         keepAlive: meta.keepAlive as boolean,

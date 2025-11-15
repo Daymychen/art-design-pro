@@ -87,6 +87,28 @@
           @click="toggleFullScreen"
         />
 
+        <!-- 国际化按钮 -->
+        <ElDropdown
+          @command="changeLanguage"
+          popper-class="langDropDownStyle"
+          v-if="shouldShowLanguage"
+        >
+          <ArtIconButton icon="ri:translate-2" class="language-btn text-[19px]" />
+          <template #dropdown>
+            <ElDropdownMenu>
+              <div v-for="item in languageOptions" :key="item.value" class="lang-btn-item">
+                <ElDropdownItem
+                  :command="item.value"
+                  :class="{ 'is-selected': locale === item.value }"
+                >
+                  <span class="menu-txt">{{ item.label }}</span>
+                  <ArtSvgIcon icon="ri:check-fill" v-if="locale === item.value" />
+                </ElDropdownItem>
+              </div>
+            </ElDropdownMenu>
+          </template>
+        </ElDropdown>
+
         <!-- 通知按钮 -->
         <ArtIconButton
           v-if="shouldShowNotification"
@@ -106,28 +128,6 @@
         >
           <div class="breathing-dot absolute top-2 right-2 size-1.5 !bg-success rounded-full"></div>
         </ArtIconButton>
-
-        <!-- 国际化按钮 -->
-        <ElDropdown
-          @command="changeLanguage"
-          popper-class="langDropDownStyle"
-          v-if="shouldShowLanguage"
-        >
-          <ArtIconButton icon="hugeicons:global" class="language-btn text-[19px]" />
-          <template #dropdown>
-            <ElDropdownMenu>
-              <div v-for="item in languageOptions" :key="item.value" class="lang-btn-item">
-                <ElDropdownItem
-                  :command="item.value"
-                  :class="{ 'is-selected': locale === item.value }"
-                >
-                  <span class="menu-txt">{{ item.label }}</span>
-                  <ArtSvgIcon icon="ri:check-fill" v-if="locale === item.value" />
-                </ElDropdownItem>
-              </div>
-            </ElDropdownMenu>
-          </template>
-        </ElDropdown>
 
         <!-- 设置按钮 -->
         <div v-if="shouldShowSettings">

@@ -3,7 +3,7 @@
   <div class="pb-5">
     <h2 class="mb-1 text-lg font-medium">表单组件示例</h2>
 
-    <ElCard shadow="never">
+    <ElCard shadow="never" class="art-card-xs">
       <ArtForm
         ref="formRef"
         v-model="formData"

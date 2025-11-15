@@ -51,7 +51,7 @@ import { useWorktabStore } from '@/store/modules/worktab'
 import { fetchGetUserInfo } from '@/api/auth'
 import { ApiStatus } from '@/utils/http/status'
 import { isHttpError } from '@/utils/http/error'
-import { RouteRegistry, MenuProcessor, IframeRouteManager } from '../core'
+import { RouteRegistry, MenuProcessor, IframeRouteManager, RoutePermissionValidator } from '../core'
 
 // 路由注册器实例
 let routeRegistry: RouteRegistry | null = null
@@ -61,6 +61,20 @@ const menuProcessor = new MenuProcessor()
 
 // 跟踪是否需要关闭 loading
 let pendingLoading = false
+
+/**
+ * 获取 pendingLoading 状态
+ */
+export function getPendingLoading(): boolean {
+  return pendingLoading
+}
+
+/**
+ * 重置 pendingLoading 状态
+ */
+export function resetPendingLoading(): void {
+  pendingLoading = false
+}
 
 /**
  * 设置路由全局前置守卫
@@ -79,36 +93,17 @@ export function setupBeforeEachGuard(router: Router): void {
         await handleRouteGuard(to, from, next, router)
       } catch (error) {
         console.error('[RouteGuard] 路由守卫处理失败:', error)
-        closeLoadingAndProgress()
+        closeLoading()
         next({ name: 'Exception500' })
       }
     }
   )
-
-  // 设置后置守卫以关闭 loading 和进度条
-  setupAfterEachGuard(router)
 }
 
 /**
- * 设置路由全局后置守卫
+ * 关闭 loading 效果
  */
-function setupAfterEachGuard(router: Router): void {
-  router.afterEach(() => {
-    closeLoadingAndProgress()
-  })
-}
-
-/**
- * 关闭 loading 和进度条
- */
-function closeLoadingAndProgress(): void {
-  // 关闭进度条
-  const settingStore = useSettingStore()
-  if (settingStore.showNprogress) {
-    NProgress.done()
-  }
-
-  // 关闭 loading 效果
+function closeLoading(): void {
   if (pendingLoading) {
     nextTick(() => {
       loadingService.hideLoading()
@@ -176,9 +171,12 @@ function handleLoginStatus(
     return true
   }
 
-  // 未登录且访问需要权限的页面，跳转到登录页
+  // 未登录且访问需要权限的页面，跳转到登录页并携带 redirect 参数
   userStore.logOut()
-  next({ name: 'Login' })
+  next({
+    name: 'Login',
+    query: { redirect: to.fullPath }
+  })
   return false
 }
 
@@ -244,20 +242,52 @@ async function handleDynamicRoutes(
     // 7. 验证工作标签页
     useWorktabStore().validateWorktabs(router)
 
-    // 8. 重新导航到目标路由
-    next({
-      path: to.path,
-      query: to.query,
-      hash: to.hash,
-      replace: true
-    })
+    // 8. 验证目标路径权限
+    const { homePath } = useCommon()
+    const { path: validatedPath, hasPermission } = RoutePermissionValidator.validatePath(
+      to.path,
+      menuList,
+      homePath.value || '/'
+    )
+
+    // 9. 重新导航到目标路由
+    if (!hasPermission) {
+      // 无权限访问，跳转到首页
+      closeLoading()
+
+      // 输出警告信息
+      console.warn(`[RouteGuard] 用户无权限访问路径: ${to.path}，已跳转到首页`)
+
+      // 直接跳转到首页
+      next({
+        path: validatedPath,
+        replace: true
+      })
+    } else {
+      // 有权限，正常导航
+      next({
+        path: to.path,
+        query: to.query,
+        hash: to.hash,
+        replace: true
+      })
+    }
   } catch (error) {
     console.error('[RouteGuard] 动态路由注册失败:', error)
 
     // 401 错误：axios 拦截器已处理退出登录，取消当前导航
     if (isUnauthorizedError(error)) {
-      closeLoadingAndProgress()
+      closeLoading()
       next(false)
+      return
+    }
+
+    // 404 错误：接口不存在，标记路由已注册避免重复请求
+    if (isNotFoundError(error)) {
+      console.error('[RouteGuard] 接口返回 404，请检查后端接口配置')
+      routeRegistry?.markAsRegistered()
+      closeLoading()
+      next({ name: 'Exception404' })
       return
     }
 
@@ -279,18 +309,22 @@ async function fetchUserInfo(): Promise<void> {
   const userStore = useUserStore()
   const data = await fetchGetUserInfo()
   userStore.setUserInfo(data)
+  // 检查并清理工作台标签页（如果是不同用户登录）
+  userStore.checkAndClearWorktabs()
 }
 
 /**
  * 重置路由相关状态
  */
-export function resetRouterState(): void {
-  routeRegistry?.unregister()
-  IframeRouteManager.getInstance().clear()
+export function resetRouterState(delay: number): void {
+  setTimeout(() => {
+    routeRegistry?.unregister()
+    IframeRouteManager.getInstance().clear()
 
-  const menuStore = useMenuStore()
-  menuStore.removeAllDynamicRoutes()
-  menuStore.setMenuList([])
+    const menuStore = useMenuStore()
+    menuStore.removeAllDynamicRoutes()
+    menuStore.setMenuList([])
+  }, delay)
 }
 
 /**
@@ -316,4 +350,11 @@ function handleRootPathRedirect(to: RouteLocationNormalized, next: NavigationGua
  */
 function isUnauthorizedError(error: unknown): boolean {
   return isHttpError(error) && error.code === ApiStatus.unauthorized
+}
+
+/**
+ * 判断是否为 404 错误
+ */
+function isNotFoundError(error: unknown): boolean {
+  return isHttpError(error) && error.code === ApiStatus.notFound
 }

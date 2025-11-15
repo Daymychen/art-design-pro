@@ -66,11 +66,14 @@
       :class="`menu-left-${getMenuTheme.theme} menu-left-${!menuOpen ? 'close' : 'open'}`"
       :style="{ background: getMenuTheme.background }"
     >
-      <ElScrollbar>
+      <ElScrollbar :style="scrollbarStyle">
+        <!-- Logo、系统名称 -->
         <div
           class="header"
           @click="navigateToHome"
-          :style="{ background: getMenuTheme.background }"
+          :style="{
+            background: getMenuTheme.background
+          }"
         >
           <ArtLogo v-if="!isDualMenu" class="logo" />
 
@@ -105,6 +108,14 @@
           />
         </ElMenu>
       </ElScrollbar>
+
+      <!-- 双列菜单右侧折叠按钮 -->
+      <div class="dual-menu-collapse-btn" v-if="isDualMenu" @click="toggleMenuVisibility">
+        <ArtSvgIcon
+          class="text-g-500/70"
+          :icon="menuOpen ? 'ri:arrow-left-wide-fill' : 'ri:arrow-right-wide-fill'"
+        />
+      </div>
 
       <div
         class="menu-model"
@@ -196,6 +207,16 @@
     const currentTopPath = `/${route.path.split('/')[1]}`
     const currentMenu = allMenus.find((menu) => menu.path === currentTopPath)
     return currentMenu?.children ?? []
+  })
+
+  // 双列菜单收起时的滚动条样式
+  const scrollbarStyle = computed(() => {
+    const isCollapsed = isDualMenu.value && !menuOpen.value
+    return {
+      transform: isCollapsed ? 'translateY(-50px)' : 'translateY(0)',
+      height: isCollapsed ? 'calc(100% + 50px)' : '100%',
+      transition: 'transform 0.3s ease'
+    }
   })
 
   /**
