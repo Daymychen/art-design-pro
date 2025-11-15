@@ -241,6 +241,7 @@
       "drag": "Drag",
       "textScroll": "Text Scroll",
       "fireworks": "Fireworks",
+      "socketChat": "Socket Connection",
       "elementUI": "Component Overview"
     },
     "template": {
