@@ -139,6 +139,16 @@ export const widgetsRoutes: AppRouteRecord = {
       }
     },
     {
+      path: 'text-ellipsis',
+      name: 'TextEllipsis',
+      component: '/widgets/text-ellipsis',
+      meta: {
+        title: 'menus.widgets.textEllipsis',
+        keepAlive: true,
+        showTextBadge: 'New'
+      }
+    },
+    {
       path: '/outside/iframe/elementui',
       name: 'ElementUI',
       component: '',
