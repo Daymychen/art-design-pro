@@ -10,13 +10,6 @@
     ]"
     @click="handleClick"
   >
-    <!-- 选择状态指示器 -->
-    <div class="art-check-card__indicator">
-      <div class="art-check-card__radio">
-        <div class="art-check-card__radio-dot"></div>
-      </div>
-    </div>
-
     <!-- 卡片内容区域 -->
     <div class="art-check-card__content">
       <!-- 头像区域 -->
@@ -180,27 +173,6 @@
 
   .art-check-card--disabled:hover {
     @apply border-gray-200 bg-white;
-  }
-
-  /* 选择指示器 */
-  .art-check-card__indicator {
-    @apply flex items-center justify-center mr-3 mt-1;
-  }
-
-  .art-check-card__radio {
-    @apply relative w-4 h-4 border-2 border-gray-400 rounded-full transition-all duration-200;
-  }
-
-  .art-check-card--checked .art-check-card__radio {
-    @apply border-blue-500 bg-blue-500;
-  }
-
-  .art-check-card__radio-dot {
-    @apply absolute top-1/2 left-1/2 w-0 h-0 bg-white rounded-full transform -translate-x-1/2 -translate-y-1/2 transition-all duration-200;
-  }
-
-  .art-check-card--checked .art-check-card__radio-dot {
-    @apply w-2 h-2;
   }
 
   /* 内容区域 */

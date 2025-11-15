@@ -17,7 +17,8 @@
     "lint:lint-staged": "lint-staged",
     "prepare": "husky",
     "commit": "git-cz",
-    "clean:dev": "tsx scripts/clean-dev.ts"
+    "clean:dev": "tsx scripts/clean-dev.ts",
+    "download": "tsx scripts/download-icons.ts"
   },
   "config": {
     "commitizen": {
