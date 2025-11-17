@@ -21,16 +21,16 @@
     >
       <template #menuType>
         <ElRadioGroup v-model="form.menuType" :disabled="disableMenuType">
-          <ElRadioButton value="menu" label="menu">菜单</ElRadioButton>
-          <ElRadioButton value="button" label="button">按钮</ElRadioButton>
+          <ElRadioButton value="menu" label="menu">{{ t('system.menu.menu') }}</ElRadioButton>
+          <ElRadioButton value="button" label="button">{{ t('system.menu.button') }}</ElRadioButton>
         </ElRadioGroup>
       </template>
     </ArtForm>
 
     <template #footer>
       <span class="dialog-footer">
-        <ElButton @click="handleCancel">取 消</ElButton>
-        <ElButton type="primary" @click="handleSubmit">确 定</ElButton>
+        <ElButton @click="handleCancel">{{ t('common.cancel') }}</ElButton>
+        <ElButton type="primary" @click="handleSubmit">{{ t('common.confirm') }}</ElButton>
       </span>
     </template>
   </ElDialog>
@@ -45,6 +45,9 @@
   import type { FormItem } from '@/components/core/forms/art-form/index.vue'
   import ArtForm from '@/components/core/forms/art-form/index.vue'
   import { useWindowSize } from '@vueuse/core'
+  import { useI18n } from 'vue-i18n'
+
+  const { t } = useI18n()
 
   const { width } = useWindowSize()
 
