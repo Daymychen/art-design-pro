@@ -115,8 +115,8 @@
       "serverError": "500",
       "title": "异常页面"
     },
-    "forgetPassword": {
-      "title": "忘记密码"
+    "color": {
+      "title": "系统主题色"
     },
     "help": {
       "document": "官方文档",

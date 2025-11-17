@@ -115,8 +115,8 @@
       "serverError": "500",
       "title": "Exception"
     },
-    "forgetPassword": {
-      "title": "Forget Password"
+    "color": {
+      "title": "Theme Color"
     },
     "help": {
       "document": "Document",

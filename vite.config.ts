@@ -1,5 +1,6 @@
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import vueDevTools from 'vite-plugin-vue-devtools'
@@ -68,6 +69,7 @@ export default ({ mode }: { mode: string }) => {
     plugins: [
       vue(),
       tailwindcss(),
+      vueJsx(),
       // 自动按需导入 API
       AutoImport({
         imports: ['vue', 'vue-router', 'pinia', '@vueuse/core'],

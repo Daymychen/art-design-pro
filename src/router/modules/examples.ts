@@ -93,6 +93,15 @@ export const examplesRoutes: AppRouteRecord = {
       }
     },
     {
+      path: 'cforms',
+      name: 'CForms',
+      component: '/examples/cForms',
+      meta: {
+        title: 'menus.examples.cforms',
+        keepAlive: true
+      }
+    },
+    {
       path: 'form/search-bar',
       name: 'SearchBar',
       component: '/examples/forms/search-bar',
@@ -107,6 +116,24 @@ export const examplesRoutes: AppRouteRecord = {
       component: '/examples/tables/tree',
       meta: {
         title: 'menus.examples.tablesTree',
+        keepAlive: true
+      }
+    },
+    {
+      path: 'vxe-table',
+      name: 'VxeTableDemo',
+      component: '/examples/vxe-table',
+      meta: {
+        title: 'menus.examples.vxeTable',
+        keepAlive: true
+      }
+    },
+    {
+      path: 'vxe-table/advanced',
+      name: 'VxeTableAdvanced',
+      component: '/examples/vxe-table/advanced',
+      meta: {
+        title: 'menus.examples.vxeTableAdvanced',
         keepAlive: true
       }
     }
