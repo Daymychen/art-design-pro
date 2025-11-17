@@ -80,4 +80,11 @@ export class RouteRegistry {
   getRemoveRouteFns(): (() => void)[] {
     return this.removeRouteFns
   }
+
+  /**
+   * 标记为已注册（用于错误处理场景，避免重复请求）
+   */
+  markAsRegistered(): void {
+    this.registered = true
+  }
 }

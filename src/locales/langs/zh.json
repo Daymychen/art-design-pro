@@ -94,27 +94,6 @@
       "ecommerce": "电子商务",
       "title": "仪表盘"
     },
-    "examples": {
-      "forms": "表单",
-      "permission": {
-        "buttonAuth": "按钮权限演示",
-        "pageVisibility": "超级管理员可见",
-        "switchRole": "切换权限",
-        "title": "前端权限"
-      },
-      "searchBar": "搜索表单",
-      "tables": "高级表格",
-      "tablesBasic": "基础表格",
-      "tablesTree": "左右布局表格",
-      "tabs": "标签页",
-      "title": "功能示例"
-    },
-    "exception": {
-      "forbidden": "403",
-      "notFound": "404",
-      "serverError": "500",
-      "title": "异常页面"
-    },
     "color": {
       "title": "系统主题色"
     },
@@ -142,9 +121,27 @@
       "success": "成功页",
       "title": "结果页面"
     },
-    "safeguard": {
-      "server": "服务器管理",
-      "title": "运维管理"
+    "exception": {
+      "title": "异常页面",
+      "forbidden": "403",
+      "notFound": "404",
+      "serverError": "500"
+    },
+    "examples": {
+      "title": "功能示例",
+      "tabs": "标签页",
+      "tablesBasic": "基础表格",
+      "tables": "高级表格",
+      "tablesTree": "左右布局表格",
+      "forms": "表单",
+      "searchBar": "搜索表单",
+      "socketChat": "Socket 连接",
+      "permission": {
+        "title": "前端权限",
+        "switchRole": "切换权限",
+        "buttonAuth": "按钮权限演示",
+        "pageVisibility": "超级管理员可见"
+      }
     },
     "system": {
       "menu": "菜单管理",

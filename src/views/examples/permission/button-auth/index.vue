@@ -10,7 +10,7 @@
     </div>
 
     <div class="mb-6">
-      <ElCard shadow="never">
+      <ElCard shadow="never" class="art-card-xs">
         <template #header>
           <div class="flex-cb font-semibold">
             <span class="flex-1">当前用户权限信息</span>
@@ -46,7 +46,7 @@
 
     <!-- 基于角色的权限控制演示 -->
     <div class="mb-6 last:mb-0">
-      <ElCard shadow="never">
+      <ElCard shadow="never" class="art-card-xs">
         <template #header>
           <div class="flex-cb font-semibold">
             <span class="flex-1">基于角色的权限控制（v-roles 指令）</span>
@@ -104,7 +104,7 @@
 
     <!-- 后端模式：基于路由权限配置的控制演示 -->
     <div class="mb-6 last:mb-0">
-      <ElCard shadow="never">
+      <ElCard shadow="never" class="art-card-xs">
         <template #header>
           <div class="flex-cb font-semibold">
             <span class="flex-1">后端模式权限控制（v-auth 指令）</span>
@@ -197,7 +197,7 @@
 
     <!-- 前端模式：编程式权限控制演示 -->
     <div class="mb-6 last:mb-0">
-      <ElCard shadow="never">
+      <ElCard shadow="never" class="art-card-xs">
         <template #header>
           <div class="flex-cb font-semibold">
             <span class="flex-1">前端模式权限控制（hasAuth 方法）</span>
@@ -293,7 +293,7 @@
 
     <!-- 后端模式：编程式权限控制演示 -->
     <div class="mb-6 last:mb-0">
-      <ElCard shadow="never">
+      <ElCard shadow="never" class="art-card-xs">
         <template #header>
           <div class="flex-cb font-semibold">
             <span class="flex-1">后端模式权限控制（hasAuth 方法）</span>
@@ -387,7 +387,7 @@
 
     <!-- 权限模式对比说明 -->
     <div class="mb-6 last:mb-0">
-      <ElCard shadow="never">
+      <ElCard shadow="never" class="art-card-xs">
         <template #header>
           <div class="flex-cb font-semibold">
             <span class="flex-1">权限控制模式对比</span>

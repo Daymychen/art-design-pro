@@ -6,6 +6,41 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Released]
 
+### v3.0.1 - 2025-11-15
+
+#### Fixed
+
+- Fixed repeated API calls issue when accessing non-existent interfaces during route registration
+- Fixed one-click cleanup script build failure issue
+
+#### Optimized
+
+- Enhanced route configuration validation mechanism, automatically detects and prompts path configuration errors for non-first-level menus
+- Optimized top progress bar ghosting issue
+- Optimized vite pre-build configuration
+- Unified border radius and border consistency
+- Redesigned lock screen page, improved visual experience
+- Optimized visual experience issue caused by logout menu disappearing prematurely
+
+#### Added
+
+- ArtForm and ArtSearchBar component labels support custom render functions, enabling complex labels with tooltips
+- Menu management form key fields added Tooltip hints, lowering user configuration threshold
+- Iconify added offline icon loading mode
+- Logout added redirect property for redirecting to corresponding page after re-login
+- Logout and re-entry preserves user tabs, identified by userId
+- Dual menu added collapse button
+- Enhanced menu icons
+- Multi-tab pages added icon display
+- Added WebSocket connection example
+- Lock screen password error triggers input box shake animation
+
+#### ⚠️ Important Notice
+
+> This version requires re-login
+
+---
+
 ### v3.0.0 - 2025-11-09 🎉
 
 #### Refactored

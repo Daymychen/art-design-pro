@@ -15,6 +15,7 @@ export const widgetsRoutes: AppRouteRecord = {
       component: '/widgets/icon',
       meta: {
         title: 'menus.widgets.icon',
+        icon: 'ri:palette-line',
         keepAlive: true
       }
     },
@@ -24,6 +25,7 @@ export const widgetsRoutes: AppRouteRecord = {
       component: '/widgets/image-crop',
       meta: {
         title: 'menus.widgets.imageCrop',
+        icon: 'ri:screenshot-line',
         keepAlive: true
       }
     },
@@ -33,6 +35,7 @@ export const widgetsRoutes: AppRouteRecord = {
       component: '/widgets/excel',
       meta: {
         title: 'menus.widgets.excel',
+        icon: 'ri:download-2-line',
         keepAlive: true
       }
     },
@@ -42,6 +45,7 @@ export const widgetsRoutes: AppRouteRecord = {
       component: '/widgets/video',
       meta: {
         title: 'menus.widgets.video',
+        icon: 'ri:vidicon-line',
         keepAlive: true
       }
     },
@@ -51,6 +55,7 @@ export const widgetsRoutes: AppRouteRecord = {
       component: '/widgets/count-to',
       meta: {
         title: 'menus.widgets.countTo',
+        icon: 'ri:anthropic-line',
         keepAlive: false
       }
     },
@@ -60,6 +65,7 @@ export const widgetsRoutes: AppRouteRecord = {
       component: '/widgets/wang-editor',
       meta: {
         title: 'menus.widgets.wangEditor',
+        icon: 'ri:t-box-line',
         keepAlive: true
       }
     },
@@ -69,6 +75,7 @@ export const widgetsRoutes: AppRouteRecord = {
       component: '/widgets/watermark',
       meta: {
         title: 'menus.widgets.watermark',
+        icon: 'ri:water-flash-line',
         keepAlive: true
       }
     },
@@ -78,6 +85,7 @@ export const widgetsRoutes: AppRouteRecord = {
       component: '/widgets/context-menu',
       meta: {
         title: 'menus.widgets.contextMenu',
+        icon: 'ri:menu-2-line',
         keepAlive: true
       }
     },
@@ -87,6 +95,7 @@ export const widgetsRoutes: AppRouteRecord = {
       component: '/widgets/qrcode',
       meta: {
         title: 'menus.widgets.qrcode',
+        icon: 'ri:qr-code-line',
         keepAlive: true
       }
     },
@@ -96,6 +105,7 @@ export const widgetsRoutes: AppRouteRecord = {
       component: '/widgets/drag',
       meta: {
         title: 'menus.widgets.drag',
+        icon: 'ri:drag-move-fill',
         keepAlive: true
       }
     },
@@ -105,6 +115,7 @@ export const widgetsRoutes: AppRouteRecord = {
       component: '/widgets/text-scroll',
       meta: {
         title: 'menus.widgets.textScroll',
+        icon: 'ri:input-method-line',
         keepAlive: true
       }
     },
@@ -114,6 +125,7 @@ export const widgetsRoutes: AppRouteRecord = {
       component: '/widgets/fireworks',
       meta: {
         title: 'menus.widgets.fireworks',
+        icon: 'ri:magic-line',
         keepAlive: true,
         showTextBadge: 'Hot'
       }
@@ -124,6 +136,7 @@ export const widgetsRoutes: AppRouteRecord = {
       component: '',
       meta: {
         title: 'menus.widgets.elementUI',
+        icon: 'ri:apps-2-line',
         keepAlive: false,
         link: 'https://element-plus.org/zh-CN/component/overview.html',
         isIframe: true

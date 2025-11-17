@@ -16,6 +16,7 @@ export const systemRoutes: AppRouteRecord = {
       component: '/system/user',
       meta: {
         title: 'menus.system.user',
+        icon: 'ri:user-line',
         keepAlive: true,
         roles: ['R_SUPER', 'R_ADMIN']
       }
@@ -26,6 +27,7 @@ export const systemRoutes: AppRouteRecord = {
       component: '/system/role',
       meta: {
         title: 'menus.system.role',
+        icon: 'ri:user-settings-line',
         keepAlive: true,
         roles: ['R_SUPER']
       }
@@ -36,6 +38,7 @@ export const systemRoutes: AppRouteRecord = {
       component: '/system/user-center',
       meta: {
         title: 'menus.system.userCenter',
+        icon: 'ri:user-line',
         isHide: true,
         keepAlive: true,
         isHideTab: true
@@ -47,6 +50,7 @@ export const systemRoutes: AppRouteRecord = {
       component: '/system/menu',
       meta: {
         title: 'menus.system.menu',
+        icon: 'ri:menu-line',
         keepAlive: true,
         roles: ['R_SUPER'],
         authList: [
@@ -62,6 +66,7 @@ export const systemRoutes: AppRouteRecord = {
       component: '',
       meta: {
         title: 'menus.system.nested',
+        icon: 'ri:menu-unfold-3-line',
         keepAlive: true
       },
       children: [

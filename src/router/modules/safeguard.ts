@@ -16,6 +16,7 @@ export const safeguardRoutes: AppRouteRecord = {
       component: '/safeguard/server',
       meta: {
         title: 'menus.safeguard.server',
+        icon: 'ri:hard-drive-3-line',
         keepAlive: true
       }
     }

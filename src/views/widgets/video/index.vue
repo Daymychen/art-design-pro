@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-  import lockImg from '@imgs/lock/lock_screen_1.webp'
+  import lockImg from '@imgs/lock/bg_dark.webp'
 
   defineOptions({ name: 'WidgetsVideo' })
 

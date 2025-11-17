@@ -113,7 +113,7 @@
   import { getCssVar } from '@/utils/ui'
   import { useI18n } from 'vue-i18n'
   import { HttpError } from '@/utils/http/error'
-  import { fetchLogin, fetchGetUserInfo } from '@/api/auth'
+  import { fetchLogin } from '@/api/auth'
   import { ElNotification, type FormInstance, type FormRules } from 'element-plus'
   import { useSettingStore } from '@/store/modules/setting'
 
@@ -167,6 +167,7 @@
 
   const userStore = useUserStore()
   const router = useRouter()
+  const route = useRoute()
   const isPassing = ref(false)
   const isClickPass = ref(false)
 
@@ -229,15 +230,16 @@
         throw new Error('Login failed - no token received')
       }
 
-      // 存储token和用户信息
+      // 存储 token 和登录状态
       userStore.setToken(token, refreshToken)
-      const userInfo = await fetchGetUserInfo()
-      userStore.setUserInfo(userInfo)
       userStore.setLoginStatus(true)
 
       // 登录成功处理
       showLoginSuccessNotice()
-      router.push('/')
+
+      // 获取 redirect 参数，如果存在则跳转到指定页面，否则跳转到首页
+      const redirect = route.query.redirect as string
+      router.push(redirect || '/')
     } catch (error) {
       // 处理 HttpError
       if (error instanceof HttpError) {
@@ -268,7 +270,7 @@
         zIndex: 10000,
         message: `${t('login.success.message')}, ${systemName}!`
       })
-    }, 150)
+    }, 1000)
   }
 </script>
 

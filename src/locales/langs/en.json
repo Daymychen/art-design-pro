@@ -94,27 +94,6 @@
       "ecommerce": "Ecommerce",
       "title": "Dashboard"
     },
-    "examples": {
-      "forms": "Forms",
-      "permission": {
-        "buttonAuth": "Button Authority",
-        "pageVisibility": "Super Admin Visibility",
-        "switchRole": "Toggle Auth",
-        "title": "Frontend Permission"
-      },
-      "searchBar": "Search Form",
-      "tables": "Advanced Tables",
-      "tablesBasic": "Basic Tables",
-      "tablesTree": "Tree Table Layout",
-      "tabs": "Tabs",
-      "title": "Feature Examples"
-    },
-    "exception": {
-      "forbidden": "403",
-      "notFound": "404",
-      "serverError": "500",
-      "title": "Exception"
-    },
     "color": {
       "title": "Theme Color"
     },
@@ -142,9 +121,27 @@
       "success": "Success",
       "title": "Result Page"
     },
-    "safeguard": {
-      "server": "Server",
-      "title": "Safeguard"
+    "exception": {
+      "title": "Exception",
+      "forbidden": "403",
+      "notFound": "404",
+      "serverError": "500"
+    },
+    "examples": {
+      "title": "Feature Examples",
+      "tabs": "Tabs",
+      "tablesBasic": "Basic Tables",
+      "tables": "Advanced Tables",
+      "tablesTree": "Tree Table Layout",
+      "forms": "Forms",
+      "searchBar": "Search Form",
+      "socketChat": "Socket Connection",
+      "permission": {
+        "title": "Frontend Permission",
+        "switchRole": "Toggle Auth",
+        "buttonAuth": "Button Authority",
+        "pageVisibility": "Super Admin Visibility"
+      }
     },
     "system": {
       "menu": "Menu Manage",

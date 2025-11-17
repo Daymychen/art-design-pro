@@ -2,7 +2,7 @@
 <!-- 支持常用表单组件、自定义组件、插槽、校验、隐藏表单项 -->
 <!-- 写法同 ElementPlus 官方文档组件，把属性写在 props 里面就可以了 -->
 <template>
-  <section class="art-search-bar art-card-sm" :class="{ 'is-expanded': isExpanded }">
+  <section class="art-search-bar art-card-xs" :class="{ 'is-expanded': isExpanded }">
     <ElForm
       ref="formRef"
       :model="modelValue"
@@ -20,10 +20,13 @@
           :xl="getColSpan(item.span, 'xl')"
         >
           <ElFormItem
-            :label="item.label"
             :prop="item.key"
             :label-width="item.label ? item.labelWidth || labelWidth : undefined"
           >
+            <template #label v-if="item.label">
+              <component v-if="typeof item.label !== 'string'" :is="item.label" />
+              <span v-else>{{ item.label }}</span>
+            </template>
             <slot :name="item.key" :item="item" :modelValue="modelValue">
               <component
                 :is="getComponent(item)"
@@ -156,8 +159,8 @@
   export interface SearchFormItem {
     /** 表单项的唯一标识 */
     key: string
-    /** 表单项的标签文本 */
-    label: string
+    /** 表单项的标签文本或自定义渲染函数 */
+    label: string | (() => VNode) | Component
     /** 表单项标签的宽度，会覆盖 Form 的 labelWidth */
     labelWidth?: string | number
     /** 表单项类型，支持预定义的组件类型 */
