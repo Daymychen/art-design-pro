@@ -13,6 +13,7 @@ import { useAppMode } from '@/hooks/core/useAppMode'
 import { fetchGetMenuList } from '@/api/system-manage'
 import { asyncRoutes } from '../routes/asyncRoutes'
 import { RoutesAlias } from '../routesAlias'
+import { formatMenuTitle } from '@/utils'
 
 export class MenuProcessor {
   /**
@@ -27,6 +28,9 @@ export class MenuProcessor {
     } else {
       menuList = await this.processBackendMenu()
     }
+
+    // 在规范化路径之前，验证原始路径配置
+    this.validateMenuPaths(menuList)
 
     // 规范化路径（将相对路径转换为完整路径）
     return this.normalizeMenuPaths(menuList)
@@ -141,6 +145,70 @@ export class MenuProcessor {
         children
       }
     })
+  }
+
+  /**
+   * 验证菜单路径配置
+   * 检测非一级菜单是否错误使用了 / 开头的路径
+   */
+  /**
+   * 验证菜单路径配置
+   * 检测非一级菜单是否错误使用了 / 开头的路径
+   */
+  private validateMenuPaths(menuList: AppRouteRecord[], level = 1): void {
+    menuList.forEach((route) => {
+      if (!route.children?.length) return
+
+      const parentName = String(route.name || route.path || '未知路由')
+
+      route.children.forEach((child) => {
+        const childPath = child.path || ''
+
+        // 跳过合法的绝对路径：外部链接和 iframe 路由
+        if (this.isValidAbsolutePath(childPath)) return
+
+        // 检测非法的绝对路径
+        if (childPath.startsWith('/')) {
+          this.logPathError(child, childPath, parentName, level)
+        }
+      })
+
+      // 递归检查更深层级的子路由
+      this.validateMenuPaths(route.children, level + 1)
+    })
+  }
+
+  /**
+   * 判断是否为合法的绝对路径
+   */
+  private isValidAbsolutePath(path: string): boolean {
+    return (
+      path.startsWith('http://') ||
+      path.startsWith('https://') ||
+      path.startsWith('/outside/iframe/')
+    )
+  }
+
+  /**
+   * 输出路径配置错误日志
+   */
+  private logPathError(
+    route: AppRouteRecord,
+    path: string,
+    parentName: string,
+    level: number
+  ): void {
+    const routeName = String(route.name || path || '未知路由')
+    const menuTitle = route.meta?.title || routeName
+    const suggestedPath = path.split('/').pop() || path.slice(1)
+
+    console.error(
+      `[路由配置错误] 菜单 "${formatMenuTitle(menuTitle)}" (name: ${routeName}, path: ${path}) 配置错误\n` +
+        `  位置: ${parentName} > ${routeName}\n` +
+        `  问题: ${level + 1}级菜单的 path 不能以 / 开头\n` +
+        `  当前配置: path: '${path}'\n` +
+        `  应该改为: path: '${suggestedPath}'`
+    )
   }
 
   /**

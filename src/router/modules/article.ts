@@ -16,6 +16,7 @@ export const articleRoutes: AppRouteRecord = {
       component: '/article/list',
       meta: {
         title: 'menus.article.articleList',
+        icon: 'ri:article-line',
         keepAlive: true,
         authList: [
           { title: '新增', authMark: 'add' },
@@ -40,6 +41,7 @@ export const articleRoutes: AppRouteRecord = {
       component: '/article/comment',
       meta: {
         title: 'menus.article.comment',
+        icon: 'ri:mail-line',
         keepAlive: true
       }
     },
@@ -49,6 +51,7 @@ export const articleRoutes: AppRouteRecord = {
       component: '/article/publish',
       meta: {
         title: 'menus.article.articlePublish',
+        icon: 'ri:telegram-2-line',
         keepAlive: true,
         authList: [{ title: '发布', authMark: 'add' }]
       }

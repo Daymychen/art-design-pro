@@ -13,7 +13,7 @@
     </div>
 
     <div class="mb-6">
-      <ElCard shadow="never">
+      <ElCard shadow="never" class="art-card-xs">
         <template #header>
           <div class="flex-c gap-2 font-semibold">
             <span>权限验证成功</span>
@@ -38,7 +38,7 @@
 
     <!-- 页面级权限控制说明 -->
     <div class="mb-6 last:mb-0">
-      <ElCard shadow="never">
+      <ElCard shadow="never" class="art-card-xs">
         <template #header>
           <div class="flex-c font-semibold">
             <span>页面级权限控制说明</span>
@@ -165,7 +165,7 @@
 
     <!-- 权限控制最佳实践 -->
     <div class="best-practices">
-      <ElCard shadow="never">
+      <ElCard shadow="never" class="art-card-xs">
         <template #header>
           <div class="card-header">
             <span>权限控制最佳实践</span>

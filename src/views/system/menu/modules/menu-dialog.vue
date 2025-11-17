@@ -3,7 +3,7 @@
     :title="dialogTitle"
     :model-value="visible"
     @update:model-value="handleCancel"
-    width="800px"
+    width="860px"
     align-center
     class="menu-dialog"
     @closed="handleClosed"
@@ -15,7 +15,7 @@
       :rules="rules"
       :span="width > 640 ? 12 : 24"
       :gutter="20"
-      label-width="85px"
+      label-width="100px"
       :show-reset="false"
       :show-submit="false"
     >
@@ -38,6 +38,8 @@
 
 <script setup lang="ts">
   import type { FormRules } from 'element-plus'
+  import { ElIcon, ElTooltip } from 'element-plus'
+  import { QuestionFilled } from '@element-plus/icons-vue'
   import { formatMenuTitle } from '@/utils/router'
   import type { AppRouteRecord } from '@/types/router'
   import type { FormItem } from '@/components/core/forms/art-form/index.vue'
@@ -45,6 +47,27 @@
   import { useWindowSize } from '@vueuse/core'
 
   const { width } = useWindowSize()
+
+  /**
+   * 创建带 tooltip 的表单标签
+   * @param label 标签文本
+   * @param tooltip 提示文本
+   * @returns 渲染函数
+   */
+  const createLabelTooltip = (label: string, tooltip: string) => {
+    return () =>
+      h('span', { class: 'flex items-center' }, [
+        h('span', label),
+        h(
+          ElTooltip,
+          {
+            content: tooltip,
+            placement: 'top'
+          },
+          () => h(ElIcon, { class: 'ml-0.5 cursor-help' }, () => h(QuestionFilled))
+        )
+      ])
+  }
 
   interface MenuFormData {
     id: number
@@ -148,15 +171,34 @@
       return [
         ...baseItems,
         { label: '菜单名称', key: 'name', type: 'input', props: { placeholder: '菜单名称' } },
-        { label: '路由地址', key: 'path', type: 'input', props: { placeholder: '路由地址' } },
-        { label: '权限标识', key: 'label', type: 'input', props: { placeholder: '权限标识' } },
-        { label: '组件路径', key: 'component', type: 'input', props: { placeholder: '组件路径' } },
-        { label: '图标', key: 'icon', type: 'input', props: { placeholder: '图标名称' } },
         {
-          label: '角色权限',
+          label: createLabelTooltip(
+            '路由地址',
+            '一级菜单：以 / 开头的绝对路径（如 /dashboard）\n二级及以下：相对路径（如 console、user）'
+          ),
+          key: 'path',
+          type: 'input',
+          props: { placeholder: '如：/dashboard 或 console' }
+        },
+        { label: '权限标识', key: 'label', type: 'input', props: { placeholder: '如：User' } },
+        {
+          label: createLabelTooltip(
+            '组件路径',
+            '一级父级菜单：填写 /index/index\n具体页面：填写组件路径（如 /system/user）\n目录菜单：留空'
+          ),
+          key: 'component',
+          type: 'input',
+          props: { placeholder: '如：/system/user 或留空' }
+        },
+        { label: '图标', key: 'icon', type: 'input', props: { placeholder: '如：ri:user-line' } },
+        {
+          label: createLabelTooltip(
+            '角色权限',
+            '仅用于前端权限模式：配置角色标识（如 R_SUPER、R_ADMIN）\n后端权限模式：无需配置'
+          ),
           key: 'roles',
           type: 'inputtag',
-          props: { placeholder: '输入角色权限后回车添加' }
+          props: { placeholder: '输入角色标识后按回车，如：R_SUPER' }
         },
         {
           label: '菜单排序',
@@ -168,19 +210,22 @@
           label: '外部链接',
           key: 'link',
           type: 'input',
-          props: { placeholder: '外部链接/内嵌地址(https://www.baidu.com)' }
+          props: { placeholder: '如：https://www.example.com' }
         },
         {
           label: '文本徽章',
           key: 'showTextBadge',
           type: 'input',
-          props: { placeholder: '文本徽章内容' }
+          props: { placeholder: '如：New、Hot' }
         },
         {
-          label: '激活路径',
+          label: createLabelTooltip(
+            '激活路径',
+            '用于详情页等隐藏菜单，指定高亮显示的父级菜单路径\n例如：用户详情页高亮显示"用户管理"菜单'
+          ),
           key: 'activePath',
           type: 'input',
-          props: { placeholder: '详情页激活选中的菜单路径' }
+          props: { placeholder: '如：/system/user' }
         },
         { label: '是否启用', key: 'isEnable', type: 'switch', span: switchSpan },
         { label: '页面缓存', key: 'keepAlive', type: 'switch', span: switchSpan },
@@ -198,13 +243,13 @@
           label: '权限名称',
           key: 'authName',
           type: 'input',
-          props: { placeholder: '权限名称' }
+          props: { placeholder: '如：新增、编辑、删除' }
         },
         {
           label: '权限标识',
           key: 'authLabel',
           type: 'input',
-          props: { placeholder: '权限标识' }
+          props: { placeholder: '如：add、edit、delete' }
         },
         {
           label: '权限排序',

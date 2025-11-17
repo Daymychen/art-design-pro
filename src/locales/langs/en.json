@@ -365,13 +365,31 @@
       "comment": "Comment",
       "articlePublish": "Article Publish"
     },
-    "transition": {
-      "list": {
-        "fade": "Fade",
-        "none": "None",
-        "slideBottom": "Slide Bottom",
-        "slideLeft": "Slide Left",
-        "slideTop": "Slide Top"
+    "result": {
+      "title": "Result Page",
+      "success": "Success",
+      "fail": "Fail"
+    },
+    "exception": {
+      "title": "Exception",
+      "forbidden": "403",
+      "notFound": "404",
+      "serverError": "500"
+    },
+    "examples": {
+      "title": "Feature Examples",
+      "tabs": "Tabs",
+      "tablesBasic": "Basic Tables",
+      "tables": "Advanced Tables",
+      "tablesTree": "Tree Table Layout",
+      "forms": "Forms",
+      "searchBar": "Search Form",
+      "socketChat": "Socket Connection",
+      "permission": {
+        "title": "Frontend Permission",
+        "switchRole": "Toggle Auth",
+        "buttonAuth": "Button Authority",
+        "pageVisibility": "Super Admin Visibility"
       }
     },
     "system": {

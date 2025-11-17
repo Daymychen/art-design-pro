@@ -22,7 +22,6 @@ export const configureNProgress = () => {
     easing: 'ease',
     speed: 600,
     showSpinner: false,
-    trickleSpeed: 200,
     parent: 'body'
   })
 }
