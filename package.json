@@ -17,7 +17,10 @@
     "lint:lint-staged": "lint-staged",
     "prepare": "husky",
     "commit": "git-cz",
-    "clean:dev": "tsx scripts/clean-dev.ts"
+    "clean:dev": "tsx scripts/clean-dev.ts",
+    "i18n:scan": "tsx scripts/i18n-scan.ts",
+    "i18n:trans": "tsx scripts/i18n-trans.ts",
+    "i18n": "pnpm i18n:scan && pnpm i18n:trans"
   },
   "config": {
     "commitizen": {
@@ -96,6 +99,7 @@
     "eslint-plugin-vue": "^9.27.0",
     "globals": "^15.9.0",
     "husky": "^9.1.5",
+    "i18next-scanner": "^4.6.0",
     "lint-staged": "^15.5.2",
     "prettier": "^3.5.3",
     "rollup-plugin-visualizer": "^5.12.0",
