@@ -19,9 +19,11 @@
         @refresh="handleRefresh"
       >
         <template #left>
-          <ElButton v-auth="'add'" @click="handleAddMenu" v-ripple> 添加菜单 </ElButton>
+          <ElButton v-auth="'add'" @click="handleAddMenu" v-ripple>
+            {{ t('system.menu.add') }}
+          </ElButton>
           <ElButton @click="toggleExpand" v-ripple>
-            {{ isExpanded ? '收起' : '展开' }}
+            {{ isExpanded ? t('system.menu.collapse') : t('system.menu.expand') }}
           </ElButton>
         </template>
       </ArtTableHeader>
@@ -57,8 +59,11 @@
   import MenuDialog from './modules/menu-dialog.vue'
   import { fetchGetMenuList } from '@/api/system-manage'
   import { ElTag, ElMessageBox } from 'element-plus'
+  import { useI18n } from 'vue-i18n'
 
   defineOptions({ name: 'Menus' })
+
+  const { t } = useI18n()
 
   // 状态管理
   const loading = ref(false)
