@@ -18,7 +18,9 @@
     "prepare": "husky",
     "commit": "git-cz",
     "clean:dev": "tsx scripts/clean-dev.ts",
-    "i18n:scan": "tsx scripts/i18n-scan.ts"
+    "i18n:scan": "tsx scripts/i18n-scan.ts",
+    "i18n:trans": "tsx scripts/i18n-trans.ts",
+    "i18n": "pnpm i18n:scan && pnpm i18n:trans"
   },
   "config": {
     "commitizen": {

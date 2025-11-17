@@ -1,5 +1,7 @@
 {
   "common": {
+    "autoTransTest": "自动翻译测试",
+    "autoTransTest2": "自动翻译测试",
     "cancel": "取消",
     "confirm": "确定",
     "logOutTips": "您是否要退出登录?",
@@ -94,8 +96,29 @@
       "ecommerce": "电子商务",
       "title": "仪表盘"
     },
-    "color": {
-      "title": "系统主题色"
+    "examples": {
+      "forms": "表单",
+      "permission": {
+        "buttonAuth": "按钮权限演示",
+        "pageVisibility": "超级管理员可见",
+        "switchRole": "切换权限",
+        "title": "前端权限"
+      },
+      "searchBar": "搜索表单",
+      "tables": "高级表格",
+      "tablesBasic": "基础表格",
+      "tablesTree": "左右布局表格",
+      "tabs": "标签页",
+      "title": "功能示例"
+    },
+    "exception": {
+      "forbidden": "403",
+      "notFound": "404",
+      "serverError": "500",
+      "title": "异常页面"
+    },
+    "forgetPassword": {
+      "title": "忘记密码"
     },
     "help": {
       "document": "官方文档",
@@ -121,27 +144,9 @@
       "success": "成功页",
       "title": "结果页面"
     },
-    "exception": {
-      "title": "异常页面",
-      "forbidden": "403",
-      "notFound": "404",
-      "serverError": "500"
-    },
-    "examples": {
-      "title": "功能示例",
-      "tabs": "标签页",
-      "tablesBasic": "基础表格",
-      "tables": "高级表格",
-      "tablesTree": "左右布局表格",
-      "forms": "表单",
-      "searchBar": "搜索表单",
-      "socketChat": "Socket 连接",
-      "permission": {
-        "title": "前端权限",
-        "switchRole": "切换权限",
-        "buttonAuth": "按钮权限演示",
-        "pageVisibility": "超级管理员可见"
-      }
+    "safeguard": {
+      "server": "服务器管理",
+      "title": "运维管理"
     },
     "system": {
       "menu": "菜单管理",
@@ -282,32 +287,23 @@
       "list": ["浅色", "深色", "系统"],
       "title": "主题风格"
     },
-    "result": {
-      "title": "结果页面",
-      "success": "成功页",
-      "fail": "失败页"
-    },
-    "exception": {
-      "title": "异常页面",
-      "forbidden": "403",
-      "notFound": "404",
-      "serverError": "500"
-    },
-    "examples": {
-      "title": "功能示例",
-      "tabs": "标签页",
-      "tablesBasic": "基础表格",
-      "tables": "高级表格",
-      "tablesTree": "左右布局表格",
-      "forms": "表单",
-      "searchBar": "搜索表单",
-      "socketChat": "Socket 连接",
-      "permission": {
-        "title": "前端权限",
-        "switchRole": "切换权限",
-        "buttonAuth": "按钮权限演示",
-        "pageVisibility": "超级管理员可见"
+    "transition": {
+      "list": {
+        "fade": "淡入淡出",
+        "none": "无动画",
+        "slideBottom": "下方滑入",
+        "slideLeft": "左侧滑入",
+        "slideTop": "上方滑入"
       }
+    }
+  },
+  "system": {
+    "menu": {
+      "add": "添加菜单",
+      "button": "按钮",
+      "collapse": "收起",
+      "expand": "展开",
+      "menu": "菜单"
     }
   },
   "table": {
