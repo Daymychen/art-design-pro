@@ -17,7 +17,8 @@
     "lint:lint-staged": "lint-staged",
     "prepare": "husky",
     "commit": "git-cz",
-    "clean:dev": "tsx scripts/clean-dev.ts"
+    "clean:dev": "tsx scripts/clean-dev.ts",
+    "download": "tsx scripts/download-icons.ts"
   },
   "config": {
     "commitizen": {
@@ -76,6 +77,7 @@
     "vue-draggable-plus": "^0.6.0",
     "vue-i18n": "^9.14.0",
     "vue-router": "^4.5.1",
+    "vue-tippy": "^6.7.1",
     "xgplayer": "^3.0.20",
     "xlsx": "^0.18.5"
   },

@@ -241,6 +241,9 @@
       "drag": "拖拽",
       "textScroll": "文字滚动",
       "fireworks": "礼花",
+      "socketChat": "Socket 连接",
+      "checkCard": "多选卡片",
+      "textEllipsis": "文本省略",
       "elementUI": "组件总览"
     },
     "template": {

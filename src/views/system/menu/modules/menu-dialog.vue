@@ -7,6 +7,7 @@
     align-center
     class="menu-dialog"
     @closed="handleClosed"
+    :style="{ maxHeight: '90vh' }"
   >
     <ArtForm
       ref="formRef"
@@ -48,25 +49,13 @@
 
   const { width } = useWindowSize()
 
-  /**
-   * 创建带 tooltip 的表单标签
-   * @param label 标签文本
-   * @param tooltip 提示文本
-   * @returns 渲染函数
-   */
-  const createLabelTooltip = (label: string, tooltip: string) => {
-    return () =>
-      h('span', { class: 'flex items-center' }, [
-        h('span', label),
-        h(
-          ElTooltip,
-          {
-            content: tooltip,
-            placement: 'top'
-          },
-          () => h(ElIcon, { class: 'ml-0.5 cursor-help' }, () => h(QuestionFilled))
-        )
-      ])
+  interface IconItem {
+    id: string
+    name: string
+    prefix: string
+    category: string
+    color: string
+    tags: string[]
   }
 
   interface MenuFormData {
@@ -75,7 +64,7 @@
     path: string
     label: string
     component: string
-    icon: string
+    icon: string | IconItem | null
     isEnable: boolean
     sort: number
     isMenu: boolean
@@ -171,6 +160,10 @@
       return [
         ...baseItems,
         { label: '菜单名称', key: 'name', type: 'input', props: { placeholder: '菜单名称' } },
+        { label: '路由地址', key: 'path', type: 'input', props: { placeholder: '路由地址' } },
+        { label: '权限标识', key: 'label', type: 'input', props: { placeholder: '权限标识' } },
+        { label: '组件路径', key: 'component', type: 'input', props: { placeholder: '组件路径' } },
+        { label: '图标', key: 'icon', type: 'iconpicker', span: 24 },
         {
           label: createLabelTooltip(
             '路由地址',
@@ -298,6 +291,7 @@
       form.path = row.path || ''
       form.label = row.name || ''
       form.component = row.component || ''
+      // 图标选择器会自动处理字符串转换
       form.icon = row.meta?.icon || ''
       form.sort = row.meta?.sort || 1
       form.isMenu = row.meta?.isMenu ?? true
@@ -330,7 +324,14 @@
 
     try {
       await formRef.value.validate()
-      emit('submit', { ...form })
+
+      // 转换图标数据：提取图标 ID
+      const submitData = {
+        ...form,
+        icon: form.icon && typeof form.icon === 'object' ? form.icon.id : form.icon || ''
+      }
+
+      emit('submit', submitData as MenuFormData & { icon: string })
       ElMessage.success(`${isEdit.value ? '编辑' : '新增'}成功`)
       handleCancel()
     } catch {
@@ -382,3 +383,39 @@
     }
   )
 </script>
+
+<style scoped>
+  .menu-dialog :deep(.el-dialog__body) {
+    max-height: calc(90vh - 180px);
+    padding: 20px 24px;
+    overflow-y: auto;
+  }
+
+  .menu-dialog :deep(.el-dialog__body)::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .menu-dialog :deep(.el-dialog__body)::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+  }
+
+  .menu-dialog :deep(.el-dialog__body)::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+  }
+
+  .menu-dialog :deep(.el-dialog__body)::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+  }
+
+  /* 优化表单布局 */
+  .menu-dialog :deep(.el-form-item) {
+    margin-bottom: 18px;
+  }
+
+  /* 图标选择器优化 */
+  .menu-dialog :deep(.el-form-item:has([class*='icon-picker'])) {
+    margin-bottom: 20px;
+  }
+</style>

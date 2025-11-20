@@ -131,6 +131,36 @@ export const widgetsRoutes: AppRouteRecord = {
       }
     },
     {
+      path: 'socket-chat',
+      name: 'SocketChat',
+      component: '/widgets/socket-chat',
+      meta: {
+        title: 'menus.widgets.socketChat',
+        keepAlive: true,
+        showTextBadge: 'New'
+      }
+    },
+    {
+      path: 'check-card',
+      name: 'CheckCard',
+      component: '/widgets/check-card',
+      meta: {
+        title: 'menus.widgets.checkCard',
+        keepAlive: true,
+        showTextBadge: 'Hot'
+      }
+    },
+    {
+      path: 'text-ellipsis',
+      name: 'TextEllipsis',
+      component: '/widgets/text-ellipsis',
+      meta: {
+        title: 'menus.widgets.textEllipsis',
+        keepAlive: true,
+        showTextBadge: 'New'
+      }
+    },
+    {
       path: '/outside/iframe/elementui',
       name: 'ElementUI',
       component: '',
