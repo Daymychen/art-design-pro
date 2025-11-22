@@ -6,7 +6,7 @@ const asciiArt = `
 \x1b[0m
 \x1b[33mGitHub: https://github.com/Daymychen/art-design-pro
 \x1b[0m
-\x1b[31m技术支持（QQ群）: 821834289，和开发者一起交流～ 群里有小伙伴实时答疑，遇到问题不用慌！
+\x1b[31m技术支持（QQ群）: 1038930070，和开发者一起交流～ 群里有小伙伴实时答疑，遇到问题不用慌！
 \x1b[0m
 `
 
