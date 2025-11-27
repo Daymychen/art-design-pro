@@ -95,7 +95,7 @@ export const examplesRoutes: AppRouteRecord = {
       name: 'Forms',
       component: '/examples/forms',
       meta: {
-        title: 'menus.examples.forms',
+        title: 'menus.examples.forms.title',
         icon: 'ri:table-view',
         keepAlive: true
       }
@@ -107,6 +107,16 @@ export const examplesRoutes: AppRouteRecord = {
       meta: {
         title: 'menus.examples.searchBar',
         icon: 'ri:table-line',
+        keepAlive: true
+      }
+    },
+    {
+      path: 'form/dynamic-form',
+      name: 'DynamicFormExample',
+      component: '/examples/forms/dynamic-form',
+      meta: {
+        title: 'menus.examples.forms.dynamicForm',
+        icon: 'ri:list-settings-line',
         keepAlive: true
       }
     },

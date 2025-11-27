@@ -277,7 +277,10 @@
       "tablesBasic": "Basic Tables",
       "tables": "Advanced Tables",
       "tablesTree": "Tree Table Layout",
-      "forms": "Forms",
+      "forms": {
+        "title": "Forms",
+        "dynamicForm": "Dynamic Form"
+      },
       "searchBar": "Search Form",
       "socketChat": "Socket Connection",
       "permission": {
