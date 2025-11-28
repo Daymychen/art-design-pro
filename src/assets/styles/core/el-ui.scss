@@ -26,6 +26,11 @@
   }
 }
 
+// 骨架屏圆形大小
+.el-skeleton {
+  --el-skeleton-circle-size: 50px !important;
+}
+
 // 优化 el-form-item 标签高度
 .el-form-item__label {
   height: var(--el-component-custom-height) !important;
