@@ -20,7 +20,7 @@
         </ElCard>
       </div>
 
-      <div class="flex flex-col flex-grow">
+      <div class="flex flex-col flex-grow min-w-0">
         <UserSearch v-model="defaultFilter" />
 
         <ElCard class="flex flex-col flex-1 min-h-0 art-table-card" shadow="never">
