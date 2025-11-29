@@ -103,15 +103,30 @@ export function useSettingsPanel() {
 
   // 抽屉控制
   const useDrawerControl = () => {
+    // 用于存储 setTimeout 的 ID，以便在需要时清除
+    let themeChangeTimer: ReturnType<typeof setTimeout> | null = null
+
     // 打开抽屉
     const handleOpen = () => {
-      setTimeout(() => {
+      // 清除可能存在的旧定时器
+      if (themeChangeTimer) {
+        clearTimeout(themeChangeTimer)
+      }
+      // 延迟添加 theme-change class，避免抽屉打开动画受影响
+      themeChangeTimer = setTimeout(() => {
         domOperations.setBodyClass('theme-change', true)
+        themeChangeTimer = null
       }, 500)
     }
 
     // 关闭抽屉
     const handleClose = () => {
+      // 清除未执行的定时器，防止关闭后才添加 class
+      if (themeChangeTimer) {
+        clearTimeout(themeChangeTimer)
+        themeChangeTimer = null
+      }
+      // 立即移除 theme-change class
       domOperations.setBodyClass('theme-change', false)
     }
 
