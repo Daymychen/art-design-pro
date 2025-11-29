@@ -60,7 +60,7 @@
                   :text="$t('login.sliderText')"
                   textColor="var(--art-gray-700)"
                   :successText="$t('login.sliderSuccessText')"
-                  :progressBarBg="getCssVar('--el-color-primary')"
+                  progressBarBg="var(--main-color)"
                   :background="isDark ? '#26272F' : '#F1F1F4'"
                   handlerBg="var(--default-box-color)"
                 />
@@ -110,7 +110,6 @@
 <script setup lang="ts">
   import AppConfig from '@/config'
   import { useUserStore } from '@/store/modules/user'
-  import { getCssVar } from '@/utils/ui'
   import { useI18n } from 'vue-i18n'
   import { HttpError } from '@/utils/http/error'
   import { fetchLogin } from '@/api/auth'
