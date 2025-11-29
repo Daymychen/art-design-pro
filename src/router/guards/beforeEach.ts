@@ -62,6 +62,13 @@ const menuProcessor = new MenuProcessor()
 // 跟踪是否需要关闭 loading
 let pendingLoading = false
 
+// 路由初始化失败标记，防止死循环
+// 一旦设置为 true，只有刷新页面或重新登录才能重置
+let routeInitFailed = false
+
+// 路由初始化进行中标记，防止并发请求
+let routeInitInProgress = false
+
 /**
  * 获取 pendingLoading 状态
  */
@@ -74,6 +81,21 @@ export function getPendingLoading(): boolean {
  */
 export function resetPendingLoading(): void {
   pendingLoading = false
+}
+
+/**
+ * 获取路由初始化失败状态
+ */
+export function getRouteInitFailed(): boolean {
+  return routeInitFailed
+}
+
+/**
+ * 重置路由初始化状态（用于重新登录场景）
+ */
+export function resetRouteInitState(): void {
+  routeInitFailed = false
+  routeInitInProgress = false
 }
 
 /**
@@ -134,18 +156,36 @@ async function handleRouteGuard(
     return
   }
 
-  // 2. 处理动态路由注册
+  // 2. 检查路由初始化是否已失败（防止死循环）
+  if (routeInitFailed) {
+    // 已经失败过，直接放行到错误页面，不再重试
+    if (to.matched.length > 0) {
+      next()
+    } else {
+      // 未匹配到路由，跳转到 500 页面
+      next({ name: 'Exception500', replace: true })
+    }
+    return
+  }
+
+  // 3. 处理动态路由注册
   if (!routeRegistry?.isRegistered() && userStore.isLogin) {
+    // 防止并发请求（快速连续导航场景）
+    if (routeInitInProgress) {
+      // 正在初始化中，等待完成后重新导航
+      next(false)
+      return
+    }
     await handleDynamicRoutes(to, next, router)
     return
   }
 
-  // 3. 处理根路径重定向
+  // 4. 处理根路径重定向
   if (handleRootPathRedirect(to, next)) {
     return
   }
 
-  // 4. 处理已匹配的路由
+  // 5. 处理已匹配的路由
   if (to.matched.length > 0) {
     setWorktab(to)
     setPageTitle(to)
@@ -153,7 +193,7 @@ async function handleRouteGuard(
     return
   }
 
-  // 5. 未匹配到路由，跳转到 404
+  // 6. 未匹配到路由，跳转到 404
   next({ name: 'Exception404' })
 }
 
@@ -212,6 +252,9 @@ async function handleDynamicRoutes(
   next: NavigationGuardNext,
   router: Router
 ): Promise<void> {
+  // 标记初始化进行中
+  routeInitInProgress = true
+
   // 显示 loading
   pendingLoading = true
   loadingService.showLoading()
@@ -250,6 +293,9 @@ async function handleDynamicRoutes(
       homePath.value || '/'
     )
 
+    // 初始化成功，重置进行中标记
+    routeInitInProgress = false
+
     // 9. 重新导航到目标路由
     if (!hasPermission) {
       // 无权限访问，跳转到首页
@@ -275,35 +321,33 @@ async function handleDynamicRoutes(
   } catch (error) {
     console.error('[RouteGuard] 动态路由注册失败:', error)
 
+    // 关闭 loading
+    closeLoading()
+
     // 401 错误：axios 拦截器已处理退出登录，取消当前导航
     if (isUnauthorizedError(error)) {
-      closeLoading()
+      // 重置状态，允许重新登录后再次初始化
+      routeInitInProgress = false
       next(false)
       return
     }
 
-    // 404 错误：接口不存在，标记路由已注册避免重复请求
-    if (isNotFoundError(error)) {
-      console.error('[RouteGuard] 接口返回 404，请检查后端接口配置')
-      routeRegistry?.markAsRegistered()
-      closeLoading()
-      next({ name: 'Exception404' })
-      return
+    // 标记初始化失败，防止死循环
+    routeInitFailed = true
+    routeInitInProgress = false
+
+    // 输出详细错误信息，便于排查
+    if (isHttpError(error)) {
+      console.error(`[RouteGuard] 错误码: ${error.code}, 消息: ${error.message}`)
     }
 
-    // 其他错误：跳转到 500 页面
-    next({ name: 'Exception500' })
+    // 跳转到 500 页面，使用 replace 避免产生历史记录
+    next({ name: 'Exception500', replace: true })
   }
 }
 
 /**
  * 获取用户信息
- *
- * 注意：每次动态路由注册时都会重新获取用户信息，确保数据最新
- * 这样可以避免以下问题：
- * 1. 用户信息过期但仍使用 localStorage 中的旧数据
- * 2. 权限变更后不能及时更新
- * 3. 用户信息在后台被修改后前端不同步
  */
 async function fetchUserInfo(): Promise<void> {
   const userStore = useUserStore()
@@ -324,6 +368,9 @@ export function resetRouterState(delay: number): void {
     const menuStore = useMenuStore()
     menuStore.removeAllDynamicRoutes()
     menuStore.setMenuList([])
+
+    // 重置路由初始化状态，允许重新登录后再次初始化
+    resetRouteInitState()
   }, delay)
 }
 
@@ -350,11 +397,4 @@ function handleRootPathRedirect(to: RouteLocationNormalized, next: NavigationGua
  */
 function isUnauthorizedError(error: unknown): boolean {
   return isHttpError(error) && error.code === ApiStatus.unauthorized
-}
-
-/**
- * 判断是否为 404 错误
- */
-function isNotFoundError(error: unknown): boolean {
-  return isHttpError(error) && error.code === ApiStatus.notFound
 }
