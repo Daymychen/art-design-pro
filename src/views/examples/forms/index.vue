@@ -28,8 +28,18 @@
     </div>
 
     <div class="mt-3.5">
-      <ElSpace wrap>
+      <h3 class="mb-2 text-base font-medium">动态表单操作</h3>
+      <ElSpace wrap class="mb-3">
         <ElButton @click="getLevelOptions"> 获取用户等级数据 </ElButton>
+        <ElButton @click="addFormItem"> 新增表单项 </ElButton>
+        <ElButton @click="updateFormItem"> 修改表单项 </ElButton>
+        <ElButton @click="deleteFormItem"> 删除表单项 </ElButton>
+        <ElButton @click="batchAddFormItems"> 批量新增 </ElButton>
+        <ElButton @click="resetDynamicItems"> 重置动态项 </ElButton>
+      </ElSpace>
+
+      <h3 class="mb-2 text-base font-medium">其他操作</h3>
+      <ElSpace wrap>
         <ElButton @click="validateForm"> 校验表单 </ElButton>
         <ElButton @click="resetForm"> 重置 </ElButton>
         <ElButton v-if="showUserName" @click="updateUserName"> 修改用户名 </ElButton>
@@ -265,6 +275,12 @@
   // 控制用户名字段是否显示
   const showUserName = ref(true)
 
+  // 动态表单项列表
+  const dynamicFormItems = ref<SearchFormItem[]>([])
+
+  // 动态表单项计数器（用于生成唯一 key）
+  let dynamicItemCounter = 0
+
   // 级联选择器数据
   const cascaderOptions = [
     {
@@ -343,6 +359,8 @@
   // 表单配置
   const formItems = computed(() => [
     ...(showUserName.value ? [userItem.value] : []),
+    // 动态表单项
+    ...dynamicFormItems.value,
     {
       ...baseFormItems.phone
     },
@@ -665,7 +683,7 @@
       render: () =>
         h(ArtWangEditor, {
           modelValue: formData.value.richTextContent,
-          height: '500px',
+          height: '300px',
           placeholder: '请输入富文本内容...',
           'onUpdate:modelValue': (value: string) => {
             formData.value.richTextContent = value
@@ -736,5 +754,133 @@
   const deleteUserName = (): void => {
     showUserName.value = false
     formData.value.name = undefined
+  }
+
+  /**
+   * 新增表单项
+   */
+  const addFormItem = (): void => {
+    dynamicItemCounter++
+    const newItem: SearchFormItem = {
+      label: `动态字段${dynamicItemCounter}`,
+      key: `dynamic_${dynamicItemCounter}`,
+      type: 'input',
+      props: {
+        placeholder: `请输入动态字段${dynamicItemCounter}`,
+        clearable: true
+      }
+    }
+    dynamicFormItems.value.push(newItem)
+    ElMessage.success(`已新增表单项：${newItem.label}`)
+  }
+
+  /**
+   * 修改表单项（修改最后一个动态表单项）
+   */
+  const updateFormItem = (): void => {
+    if (dynamicFormItems.value.length === 0) {
+      ElMessage.warning('没有可修改的动态表单项，请先新增')
+      return
+    }
+
+    const lastIndex = dynamicFormItems.value.length - 1
+    const lastItem = dynamicFormItems.value[lastIndex]
+
+    // 修改最后一个表单项的配置
+    dynamicFormItems.value[lastIndex] = {
+      ...lastItem,
+      label: `已修改`,
+      type: 'select',
+      props: {
+        placeholder: '修改为下拉选择',
+        options: [
+          { label: '选项A', value: 'a' },
+          { label: '选项B', value: 'b' },
+          { label: '选项C', value: 'c' }
+        ]
+      }
+    }
+
+    ElMessage.success(`已修改表单项：${lastItem.label}`)
+  }
+
+  /**
+   * 删除表单项（删除最后一个动态表单项）
+   */
+  const deleteFormItem = (): void => {
+    if (dynamicFormItems.value.length === 0) {
+      ElMessage.warning('没有可删除的动态表单项')
+      return
+    }
+
+    const deletedItem = dynamicFormItems.value.pop()
+    if (deletedItem) {
+      // 清除对应的表单数据
+      delete formData.value[deletedItem.key as keyof FormData]
+      ElMessage.success(`已删除表单项：${deletedItem.label}`)
+    }
+  }
+
+  /**
+   * 批量新增表单项
+   */
+  const batchAddFormItems = (): void => {
+    const batchItems: SearchFormItem[] = [
+      {
+        label: '公司名称',
+        key: `company_${++dynamicItemCounter}`,
+        type: 'input',
+        props: {
+          placeholder: '请输入公司名称',
+          clearable: true
+        }
+      },
+      {
+        label: '部门',
+        key: `department_${++dynamicItemCounter}`,
+        type: 'select',
+        props: {
+          placeholder: '请选择部门',
+          options: [
+            { label: '技术部', value: 'tech' },
+            { label: '产品部', value: 'product' },
+            { label: '运营部', value: 'operation' }
+          ]
+        }
+      },
+      {
+        label: '入职日期',
+        key: `joinDate_${++dynamicItemCounter}`,
+        type: 'datetime',
+        props: {
+          style: { width: '100%' },
+          placeholder: '请选择入职日期',
+          type: 'date',
+          valueFormat: 'YYYY-MM-DD'
+        }
+      }
+    ]
+
+    dynamicFormItems.value.push(...batchItems)
+    ElMessage.success(`已批量新增 ${batchItems.length} 个表单项`)
+  }
+
+  /**
+   * 重置动态表单项
+   */
+  const resetDynamicItems = (): void => {
+    if (dynamicFormItems.value.length === 0) {
+      ElMessage.info('当前没有动态表单项')
+      return
+    }
+
+    // 清除所有动态表单项的数据
+    dynamicFormItems.value.forEach((item) => {
+      delete formData.value[item.key as keyof FormData]
+    })
+
+    dynamicFormItems.value = []
+    dynamicItemCounter = 0
+    ElMessage.success('已重置所有动态表单项')
   }
 </script>
