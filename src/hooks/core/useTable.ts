@@ -157,6 +157,8 @@ function useTableImpl<TApiFn extends (params: any) => Promise<any>>(
   // 分页字段名配置：优先使用传入的配置，否则使用全局配置
   const pageKey = paginationKey?.current || tableConfig.paginationKey.current
   const sizeKey = paginationKey?.size || tableConfig.paginationKey.size
+  const orderFieldKey = tableConfig.paginationKey.orderField
+  const orderTypeKey = tableConfig.paginationKey.orderType
 
   // 响应式触发器，用于手动更新缓存统计信息
   const cacheUpdateTrigger = ref(0)
@@ -531,6 +533,33 @@ function useTableImpl<TApiFn extends (params: any) => Promise<any>>(
     }
   }
 
+  // 处理表格排序变化：更新查询参数中的排序字段与排序类型，并请求后端数据
+  const handleSortChange = async (payload: {
+    column?: unknown
+    prop?: string
+    order?: 'ascending' | 'descending' | null
+  }): Promise<void> => {
+    const paramsRecord = searchParams as Record<string, unknown>
+
+    // 如果清除排序，则移除相关查询参数
+    if (!payload.order || !payload.prop) {
+      delete paramsRecord[orderFieldKey]
+      delete paramsRecord[orderTypeKey]
+    } else {
+      paramsRecord[orderFieldKey] = payload.prop
+      paramsRecord[orderTypeKey] = payload.order === 'ascending' ? 'asc' : 'desc'
+    }
+
+    // 排序变化通常回到第一页以保持数据一致性
+    pagination.current = 1
+    paramsRecord[pageKey] = 1
+
+    // 清除当前搜索缓存，确保拿到最新排序数据
+    clearCache(CacheInvalidationStrategy.CLEAR_CURRENT, '排序变化')
+
+    await getData()
+  }
+
   // 针对不同业务场景的刷新方法
 
   // 新增后刷新：回到第一页并清空分页缓存（适用于新增数据后）
@@ -656,6 +685,8 @@ function useTableImpl<TApiFn extends (params: any) => Promise<any>>(
     handleSizeChange,
     /** 当前页变化处理 */
     handleCurrentChange,
+    /** 排序变化处理 */
+    handleSortChange,
 
     // 搜索相关 - 统一前缀
     /** 搜索参数 */
