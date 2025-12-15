@@ -51,16 +51,16 @@ Code Standards: Eslint, Prettier, Stylelint, Husky, Lint-staged, cz-git
 
 ```bash
 # Install dependencies
-pnpm install
+bun install
 
-# If pnpm install fails, try using the command below
-pnpm install --ignore-scripts
+# If bun install fails, try using the command below
+bun install --ignore-scripts
 
 # Start local development environment
-pnpm dev
+bun dev
 
 # Build for production
-pnpm build
+bun build
 ```
 
 ## Clean Version
@@ -68,7 +68,7 @@ pnpm build
 The project includes a cleanup script to quickly remove demo data and provide developers with a ready-to-develop base project
 
 ```bash
-pnpm clean:dev
+bun run clean:dev
 ```
 
 ## Technical Support
