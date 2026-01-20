@@ -170,8 +170,6 @@
 
   .el-menu {
     box-sizing: border-box;
-    height: calc(100vh - 60px);
-    overflow-y: auto;
     // 防止菜单内的滚动影响整个页面滚动
     overscroll-behavior: contain;
     border-right: 0;
