@@ -10,7 +10,7 @@
     <!-- 连接状态和统计信息 -->
     <ElRow :gutter="20" class="mb-15">
       <ElCol :xs="24" :sm="12" :md="8">
-        <ElCard class="h-full border-0" :body-style="{ padding: '20px' }" shadow="never">
+        <ElCard class="h-full border-0" :body-style="{ padding: '20px' }">
           <div class="text-center">
             <div class="text-2xl font-bold text-blue-500 mb-1">{{ messageCount }}</div>
             <div class="text-sm font-medium text-gray-900 mb-1">消息统计</div>
@@ -19,7 +19,7 @@
         </ElCard>
       </ElCol>
       <ElCol :xs="24" :sm="12" :md="8">
-        <ElCard class="h-full border-0" :body-style="{ padding: '20px' }" shadow="never">
+        <ElCard class="h-full border-0" :body-style="{ padding: '20px' }">
           <div class="text-center">
             <ElTag :type="connectionTagType" size="large" class="mb-2">
               {{ wsClient?.connectionStatusText || '未连接' }}
@@ -30,7 +30,7 @@
         </ElCard>
       </ElCol>
       <ElCol :xs="24" :sm="12" :md="8">
-        <ElCard class="h-full border-0" :body-style="{ padding: '20px' }" shadow="never">
+        <ElCard class="h-full border-0" :body-style="{ padding: '20px' }">
           <div class="text-center">
             <div class="text-2xl font-bold text-amber-500 mb-1">{{ reconnectCount }}</div>
             <div class="text-sm font-medium text-gray-900 mb-1">重连次数</div>
@@ -43,7 +43,7 @@
     <!-- 连接配置和发送消息 -->
     <ElRow :gutter="20" class="mb-15">
       <ElCol :xs="24" :md="12">
-        <ElCard class="h-full border-0" shadow="never">
+        <ElCard class="h-full border-0">
           <template #header>
             <div class="flex items-center justify-between">
               <span class="text-base font-bold">连接配置</span>
@@ -84,7 +84,7 @@
       </ElCol>
 
       <ElCol :xs="24" :md="12">
-        <ElCard class="h-full border-0" shadow="never">
+        <ElCard class="h-full border-0">
           <template #header>
             <span class="text-base font-bold">发送消息</span>
           </template>
@@ -125,7 +125,7 @@
     <!-- 接收消息 - 单独占一行 -->
     <ElRow class="mb-15">
       <ElCol :span="24">
-        <ElCard class="border-0" shadow="never">
+        <ElCard class="border-0">
           <template #header>
             <div class="flex items-center justify-between">
               <span class="text-base font-bold">接收消息</span>
@@ -151,7 +151,7 @@
     </ElRow>
 
     <!-- 连接日志 -->
-    <ElCard class="border-0" shadow="never">
+    <ElCard class="border-0">
       <template #header>
         <div class="flex items-center justify-between">
           <span class="text-base font-bold">连接日志</span>

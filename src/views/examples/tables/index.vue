@@ -3,7 +3,7 @@
 <template>
   <div class="flex flex-col gap-4 pb-5">
     <!-- 功能介绍卡片 -->
-    <ElCard shadow="never" class="art-card-xs">
+    <ElCard class="art-card-xs">
       <template #header>
         <div class="flex-wrap gap-3 flex-cb">
           <h3 class="m-0">高级表格完整能力展示</h3>
@@ -139,7 +139,7 @@
     />
 
     <!-- 表格区域 -->
-    <ElCard class="flex-1 art-table-card" shadow="never" style="margin-top: 0">
+    <ElCard class="flex-1 art-table-card" style="margin-top: 0">
       <template #header>
         <div class="flex-cb">
           <h4 class="m-0">用户数据表格</h4>
@@ -321,7 +321,7 @@
     </ElCard>
 
     <!-- 高级功能演示 -->
-    <ElCard shadow="never" class="art-card-xs">
+    <ElCard class="art-card-xs">
       <template #header>
         <h4 class="m-0">高级功能演示</h4>
       </template>
@@ -384,7 +384,7 @@
     </ElCard>
 
     <!-- 缓存刷新策略演示 -->
-    <ElCard shadow="never" class="art-card-xs">
+    <ElCard class="art-card-xs">
       <template #header>
         <h4 class="m-0">缓存刷新策略演示</h4>
       </template>

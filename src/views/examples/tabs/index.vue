@@ -4,7 +4,7 @@
     <h3 class="mb-5 text-xl font-normal">标签页操作</h3>
 
     <!-- 修改标签标题模块 -->
-    <ElCard class="mb-7.5" header="修改标签标题" shadow="never">
+    <ElCard class="mb-7.5" header="修改标签标题">
       <div class="flex gap-2">
         <ElInput
           v-model="newTabTitle"
@@ -21,7 +21,7 @@
     </ElCard>
 
     <!-- 获取标签页模块 -->
-    <ElCard class="mb-7.5" header="获取标签页信息" shadow="never">
+    <ElCard class="mb-7.5" header="获取标签页信息">
       <div class="mb-4">
         <p class="m-0 mb-2 text-sm text-g-600"> 当前标签页信息：{{ currentTab }} </p>
       </div>
@@ -35,7 +35,7 @@
     </ElCard>
 
     <!-- 关闭标签页模块 -->
-    <ElCard class="mb-7.5" header="关闭标签页" shadow="never">
+    <ElCard class="mb-7.5" header="关闭标签页">
       <ElRow :gutter="20">
         <ElCol :span="24">
           <ElButton type="danger" plain @click="handleCloseTab(routePath)"> 关闭当前标签 </ElButton>

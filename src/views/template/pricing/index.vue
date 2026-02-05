@@ -16,7 +16,7 @@
     <div class="mt-20 max-md:mt-0">
       <ElRow :gutter="20" justify="center">
         <ElCol v-for="plan in pricingPlans" :key="plan.type" :xs="24" :sm="12" :md="6" class="mb-5">
-          <ElCard class="flex flex-col h-full rounded-xl" shadow="never">
+          <ElCard class="flex flex-col h-full rounded-xl">
             <div class="mb-5">
               <h3 class="mb-2.5 text-xl font-medium">{{ plan.title }}</h3>
               <p
