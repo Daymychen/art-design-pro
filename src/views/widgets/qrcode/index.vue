@@ -9,7 +9,7 @@
         v-for="preset in qrcodePresets"
         :key="preset.title"
       >
-        <ElCard class="mb-5" shadow="never">
+        <ElCard class="mb-5">
           <template #header>
             <div>
               <span class="text-base font-bold">{{ preset.title }}</span>
