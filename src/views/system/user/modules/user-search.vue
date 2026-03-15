@@ -12,11 +12,11 @@
 
 <script setup lang="ts">
   interface Props {
-    modelValue: Record<string, any>
+    modelValue: Api.SystemManage.UserSearchParams
   }
   interface Emits {
-    (e: 'update:modelValue', value: Record<string, any>): void
-    (e: 'search', params: Record<string, any>): void
+    (e: 'update:modelValue', value: Api.SystemManage.UserSearchParams): void
+    (e: 'search', params: Api.SystemManage.UserSearchParams): void
     (e: 'reset'): void
   }
   const props = defineProps<Props>()
@@ -104,9 +104,9 @@
     emit('reset')
   }
 
-  async function handleSearch() {
+  async function handleSearch(params: Api.SystemManage.UserSearchParams) {
     await searchBarRef.value.validate()
-    emit('search', formData.value)
-    console.log('表单数据', formData.value)
+    emit('search', params)
+    console.log('表单数据', params)
   }
 </script>

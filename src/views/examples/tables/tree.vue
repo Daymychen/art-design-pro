@@ -177,8 +177,12 @@
   }
 
   // 表单搜索初始值
-  const defaultFilter = ref({
-    name: undefined
+  const defaultFilter = ref<Api.SystemManage.UserSearchParams>({
+    userName: undefined,
+    userGender: undefined,
+    userPhone: undefined,
+    userEmail: undefined,
+    status: undefined
   })
 
   const {

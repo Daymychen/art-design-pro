@@ -30,12 +30,19 @@ export function isIframe(url: string): boolean {
 }
 
 /**
- * 验证菜单项是否有效
- * @param menuItem 菜单项
- * @returns 是否为有效菜单项
+ * 判断菜单项是否可作为默认导航落点
+ * 隐藏的全屏页面虽然不展示在菜单中，但仍然可能是合法首页。
  */
-const isValidMenuItem = (menuItem: AppRouteRecord): boolean => {
-  return !!(menuItem.path && menuItem.path.trim() && !menuItem.meta?.isHide)
+export const isNavigableMenuItem = (menuItem: AppRouteRecord): boolean => {
+  if (!menuItem.path || !menuItem.path.trim()) {
+    return false
+  }
+
+  if (!menuItem.meta?.isHide) {
+    return true
+  }
+
+  return menuItem.meta?.isFullPage === true
 }
 
 /**
@@ -58,7 +65,7 @@ export const getFirstMenuPath = (menuList: AppRouteRecord[]): string => {
   }
 
   for (const menuItem of menuList) {
-    if (!isValidMenuItem(menuItem)) {
+    if (!isNavigableMenuItem(menuItem)) {
       continue
     }
 

@@ -123,8 +123,19 @@
   }
 
   /**
+   * 判断菜单项本身是否可以作为可点击页面保留在菜单中
+   */
+  const isNavigableRoute = (item: AppRouteRecord): boolean => {
+    return !!(
+      !item.meta.isHide &&
+      ((item.path && item.path.trim()) || item.meta.link || item.meta.isIframe === true) &&
+      (item.component || item.meta.link || item.meta.isIframe === true)
+    )
+  }
+
+  /**
    * 递归过滤菜单路由，移除隐藏的菜单项
-   * 如果一个父菜单的所有子菜单都被隐藏，则父菜单也会被隐藏
+   * 但如果父菜单本身就是可访问页面，则即使子菜单都被隐藏也应该保留
    * @param items 菜单项数组
    * @returns 过滤后的菜单项数组
    */
@@ -139,12 +150,12 @@
         // 如果有子菜单，递归过滤子菜单
         if (item.children && item.children.length > 0) {
           const filteredChildren = filterRoutes(item.children)
-          // 如果所有子菜单都被过滤掉了，则隐藏父菜单
-          return filteredChildren.length > 0
+          // 目录菜单要求有可见子菜单；页面菜单则允许仅保留自身
+          return filteredChildren.length > 0 || isNavigableRoute(item)
         }
 
         // 叶子节点且未被隐藏，保留
-        return true
+        return isNavigableRoute(item)
       })
       .map((item) => ({
         ...item,

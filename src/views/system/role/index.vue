@@ -64,9 +64,12 @@
   defineOptions({ name: 'Role' })
 
   type RoleListItem = Api.SystemManage.RoleListItem
+  type RoleSearchFormParams = Api.SystemManage.RoleSearchParams & {
+    daterange?: string[]
+  }
 
   // 搜索表单
-  const searchForm = ref({
+  const searchForm = ref<RoleSearchFormParams>({
     roleName: undefined,
     roleCode: undefined,
     description: undefined,
@@ -191,7 +194,7 @@
    * 搜索处理
    * @param params 搜索参数
    */
-  const handleSearch = (params: Record<string, any>) => {
+  const handleSearch = (params: RoleSearchFormParams) => {
     // 处理日期区间参数，把 daterange 转换为 startTime 和 endTime
     const { daterange, ...filtersParams } = params
     const [startTime, endTime] = Array.isArray(daterange) ? daterange : [null, null]

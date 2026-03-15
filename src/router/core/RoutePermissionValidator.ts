@@ -38,11 +38,7 @@ export class RoutePermissionValidator {
       return true
     }
 
-    // 构建路径集合
-    const pathSet = this.buildMenuPathSet(menuList)
-
-    // 检查路径是否在集合中（精确匹配或前缀匹配）
-    return pathSet.has(targetPath) || this.checkPathPrefix(targetPath, pathSet)
+    return this.matchRoute(targetPath, menuList)
   }
 
   /**
@@ -60,8 +56,7 @@ export class RoutePermissionValidator {
     }
 
     for (const menuItem of menuList) {
-      // 跳过隐藏的菜单项
-      if (menuItem.meta?.isHide || !menuItem.path) {
+      if (!menuItem.path) {
         continue
       }
 
@@ -93,6 +88,53 @@ export class RoutePermissionValidator {
       }
     }
     return false
+  }
+
+  /**
+   * 递归匹配路由配置，支持隐藏路由和动态参数路由
+   */
+  static matchRoute(targetPath: string, routes: AppRouteRecord[]): boolean {
+    if (!Array.isArray(routes) || routes.length === 0) {
+      return false
+    }
+
+    for (const route of routes) {
+      if (!route.path) {
+        continue
+      }
+
+      const routePath = route.path.startsWith('/') ? route.path : `/${route.path}`
+
+      if (
+        routePath === targetPath ||
+        this.isDynamicRouteMatch(targetPath, routePath) ||
+        targetPath.startsWith(`${routePath}/`)
+      ) {
+        return true
+      }
+
+      if (route.children?.length && this.matchRoute(targetPath, route.children)) {
+        return true
+      }
+    }
+
+    return false
+  }
+
+  /**
+   * 检查目标路径是否匹配动态参数路由，如 /demo/123 匹配 /demo/:id
+   */
+  static isDynamicRouteMatch(targetPath: string, routePath: string): boolean {
+    if (!routePath.includes(':')) {
+      return false
+    }
+
+    const pattern = routePath
+      .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+      .replace(/:([^/]+)/g, '[^/]+')
+      .replace(/\\\*/g, '.*')
+
+    return new RegExp(`^${pattern}$`).test(targetPath)
   }
 
   /**

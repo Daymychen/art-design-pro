@@ -206,7 +206,7 @@
    * 搜索处理
    * @param params 参数
    */
-  const handleSearch = (params: Record<string, any>) => {
+  const handleSearch = (params: Api.SystemManage.UserSearchParams) => {
     console.log(params)
     // 搜索参数赋值
     Object.assign(searchParams, params)

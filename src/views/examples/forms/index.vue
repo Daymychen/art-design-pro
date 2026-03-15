@@ -719,10 +719,10 @@
   /**
    * 处理表单提交事件
    */
-  const handleSubmit = async (): Promise<void> => {
+  const handleSubmit = async (params: Record<string, any>): Promise<void> => {
     await formRef.value.validate()
-    emit('search', formData.value)
-    console.log('表单数据', formData.value)
+    emit('search', params)
+    console.log('表单数据', params)
   }
 
   /**

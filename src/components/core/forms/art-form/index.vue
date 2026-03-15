@@ -30,7 +30,8 @@
             <slot :name="item.key" :item="item" :modelValue="modelValue">
               <component
                 :is="getComponent(item)"
-                v-model="modelValue[item.key]"
+                :model-value="getFieldValue(item.key)"
+                @update:model-value="setFieldValue(item.key, $event)"
                 v-bind="getProps(item)"
               >
                 <!-- 下拉选择 -->
@@ -98,7 +99,7 @@
 <script setup lang="ts">
   import { useWindowSize } from '@vueuse/core'
   import { useI18n } from 'vue-i18n'
-  import type { Component } from 'vue'
+  import { toRaw, type Component } from 'vue'
   import {
     ElCascader,
     ElCheckbox,
@@ -195,6 +196,23 @@
     showSubmit?: boolean
     /** 是否禁用提交按钮 */
     disabledSubmit?: boolean
+    /** 提交时是否清洗空值 */
+    sanitizeOutput?: Partial<SanitizeOutputOptions>
+  }
+
+  interface SanitizeOutputOptions {
+    /** 移除空字符串 */
+    removeEmptyString: boolean
+    /** 移除空数组 */
+    removeEmptyArray: boolean
+    /** 移除清洗后为空的对象 */
+    removeEmptyObject: boolean
+    /** 移除空富文本占位内容，如 <p><br></p> */
+    removeEmptyRichText: boolean
+    /** 保留数字 0 这类有效值 */
+    keepZero: boolean
+    /** 保留 false 这类有效值 */
+    keepFalse: boolean
   }
 
   const props = withDefaults(defineProps<FormProps>(), {
@@ -206,19 +224,194 @@
     buttonLeftLimit: 2,
     showReset: true,
     showSubmit: true,
-    disabledSubmit: false
+    disabledSubmit: false,
+    sanitizeOutput: () => ({})
   })
 
   interface FormEmits {
     reset: []
-    submit: []
+    submit: [Record<string, any>]
   }
 
   const emit = defineEmits<FormEmits>()
 
   const modelValue = defineModel<Record<string, any>>({ default: {} })
+  const initialModelValue = ref<Record<string, any>>({})
+
+  // 保存组件初始化时的表单快照，用于 reset 时恢复默认值。
+  const cloneModelValue = (value: Record<string, any> | undefined) => {
+    if (!value) return {}
+
+    const deepClone = (source: unknown): unknown => {
+      if (Array.isArray(source)) {
+        return source.map((item) => deepClone(item))
+      }
+
+      if (source && typeof source === 'object') {
+        const rawSource = toRaw(source)
+        return Object.keys(rawSource).reduce<Record<string, unknown>>((accumulator, key) => {
+          accumulator[key] = deepClone((rawSource as Record<string, unknown>)[key])
+          return accumulator
+        }, {})
+      }
+
+      return source
+    }
+
+    return deepClone(toRaw(value)) as Record<string, any>
+  }
+
+  initialModelValue.value = cloneModelValue(modelValue.value)
 
   const rootProps = ['label', 'labelWidth', 'key', 'type', 'hidden', 'span', 'slots']
+  // 输出时的清洗策略默认偏“接口友好”，但允许按业务覆盖。
+  const sanitizeOutputOptions = computed<SanitizeOutputOptions>(() => ({
+    removeEmptyString: true,
+    removeEmptyArray: true,
+    removeEmptyObject: true,
+    removeEmptyRichText: true,
+    keepZero: true,
+    keepFalse: true,
+    ...props.sanitizeOutput
+  }))
+
+  const PATH_NUMBER_RE = /^\d+$/
+
+  // 兼容 a.b、a.0.b 这类路径写法，数字段会被当作数组索引处理。
+  const parsePath = (path: string) => {
+    return path
+      .split('.')
+      .filter(Boolean)
+      .map((segment) => (PATH_NUMBER_RE.test(segment) ? Number(segment) : segment))
+  }
+
+  const getFieldValue = (path: string) => {
+    return parsePath(path).reduce<any>((currentValue, segment) => {
+      if (currentValue == null) return undefined
+      return currentValue[segment]
+    }, modelValue.value)
+  }
+
+  // 清空字段时只删除路径的最后一段，避免误删同级数据。
+  const deleteFieldValue = (path: string) => {
+    const segments = parsePath(path)
+    if (!segments.length) return
+
+    const lastSegment = segments.pop()
+    const parent = segments.reduce<any>((currentValue, segment) => {
+      if (currentValue == null) return undefined
+      return currentValue[segment]
+    }, modelValue.value)
+
+    if (parent != null && lastSegment !== undefined) {
+      delete parent[lastSegment]
+    }
+  }
+
+  // 表单清空输入时不保留空字符串，同时按路径自动补齐中间对象或数组。
+  const setFieldValue = (path: string, value: unknown) => {
+    const normalizedValue = value === '' ? undefined : value
+    const segments = parsePath(path)
+
+    if (!segments.length) return
+
+    if (normalizedValue === undefined) {
+      deleteFieldValue(path)
+      return
+    }
+
+    let currentValue: any = modelValue.value
+
+    segments.forEach((segment, index) => {
+      const isLast = index === segments.length - 1
+
+      if (isLast) {
+        currentValue[segment] = normalizedValue
+        return
+      }
+
+      const nextSegment = segments[index + 1]
+      const nextContainer = typeof nextSegment === 'number' ? [] : {}
+
+      if (
+        currentValue[segment] === null ||
+        currentValue[segment] === undefined ||
+        typeof currentValue[segment] !== 'object'
+      ) {
+        currentValue[segment] = nextContainer
+      }
+
+      currentValue = currentValue[segment]
+    })
+  }
+
+  const isRichTextEmpty = (value: string) => {
+    if (/<(img|video|audio|iframe|embed|object)\b/i.test(value)) {
+      return false
+    }
+
+    // 去掉编辑器常见占位标签后再判断是否还有实际内容。
+    return (
+      value
+        .replace(/&nbsp;/gi, '')
+        .replace(/<br\s*\/?>/gi, '')
+        .replace(/<[^>]*>/g, '')
+        .trim() === ''
+    )
+  }
+
+  // 提交时按配置清洗空值，但保留 0 和 false 这类有效值。
+  const sanitizeOutputValue = (value: unknown): unknown => {
+    const options = sanitizeOutputOptions.value
+
+    if (Array.isArray(value)) {
+      const sanitizedArray = value
+        .map((item) => sanitizeOutputValue(item))
+        .filter((item) => item !== undefined)
+      return sanitizedArray.length === 0 && options.removeEmptyArray ? undefined : sanitizedArray
+    }
+
+    if (value && typeof value === 'object') {
+      const rawValue = toRaw(value)
+      const sanitizedObject = Object.entries(rawValue).reduce<Record<string, unknown>>(
+        (accumulator, [key, item]) => {
+          const sanitizedItem = sanitizeOutputValue(item)
+          if (sanitizedItem !== undefined) {
+            accumulator[key] = sanitizedItem
+          }
+          return accumulator
+        },
+        {}
+      )
+      return Object.keys(sanitizedObject).length === 0 && options.removeEmptyObject
+        ? undefined
+        : sanitizedObject
+    }
+
+    if (typeof value === 'string') {
+      if (options.removeEmptyString && value.trim() === '') {
+        return undefined
+      }
+      if (options.removeEmptyRichText && isRichTextEmpty(value)) {
+        return undefined
+      }
+      return value
+    }
+
+    if (value === 0) {
+      return options.keepZero ? value : undefined
+    }
+
+    if (value === false) {
+      return options.keepFalse ? value : undefined
+    }
+
+    return value ?? undefined
+  }
+
+  const getSanitizedOutput = () => {
+    return (sanitizeOutputValue(cloneModelValue(modelValue.value)) || {}) as Record<string, any>
+  }
 
   const getProps = (item: FormItem) => {
     if (item.props) return item.props
@@ -283,11 +476,11 @@
     // 重置表单字段（UI 层）
     formInstance.value?.resetFields()
 
-    // 清空所有表单项值（包含隐藏项）
-    Object.assign(
-      modelValue.value,
-      Object.fromEntries(props.items.map(({ key }) => [key, undefined]))
-    )
+    // 恢复初始表单值，保留默认值而不是简单清空。
+    Object.keys(modelValue.value).forEach((key) => {
+      delete modelValue.value[key]
+    })
+    Object.assign(modelValue.value, cloneModelValue(initialModelValue.value))
 
     // 触发 reset 事件
     emit('reset')
@@ -297,13 +490,16 @@
    * 处理提交事件
    */
   const handleSubmit = () => {
-    emit('submit')
+    // 对外只抛出清洗后的结果，避免业务层重复过滤空值。
+    emit('submit', getSanitizedOutput())
   }
 
   defineExpose({
     ref: formInstance,
     validate: (...args: any[]) => formInstance.value?.validate(...args),
-    reset: handleReset
+    reset: handleReset,
+    // 允许外部在不触发提交事件时主动获取清洗后的输出。
+    getOutput: getSanitizedOutput
   })
 
   // 解构 props 以便在模板中直接使用

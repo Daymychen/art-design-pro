@@ -127,8 +127,7 @@ export const examplesRoutes: AppRouteRecord = {
       meta: {
         title: 'menus.examples.socketChat',
         icon: 'ri:shake-hands-line',
-        keepAlive: true,
-        showTextBadge: 'New'
+        keepAlive: true
       }
     }
   ]

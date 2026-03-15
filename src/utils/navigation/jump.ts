@@ -16,6 +16,7 @@
  */
 import { AppRouteRecord } from '@/types/router'
 import { router } from '@/router'
+import { isNavigableMenuItem } from './route'
 
 // 打开外部链接
 export const openExternalLink = (link: string) => {
@@ -40,17 +41,22 @@ export const handleMenuJump = (item: AppRouteRecord, jumpToFirst: boolean = fals
     return router.push(item.path)
   }
 
-  // 递归查找第一个可见的叶子节点菜单
-  const findFirstLeafMenu = (items: AppRouteRecord[]): AppRouteRecord => {
+  // 递归查找第一个可导航的叶子节点菜单
+  const findFirstLeafMenu = (items: AppRouteRecord[]): AppRouteRecord | undefined => {
     for (const child of items) {
-      if (!child.meta.isHide) {
-        return child.children?.length ? findFirstLeafMenu(child.children) : child
+      if (isNavigableMenuItem(child)) {
+        return child.children?.length ? findFirstLeafMenu(child.children) || child : child
       }
     }
-    return items[0]
+    return undefined
   }
 
   const firstChild = findFirstLeafMenu(item.children)
+
+  // 如果子菜单都不可见，则回退到父级页面自身。
+  if (!firstChild) {
+    return router.push(item.path)
+  }
 
   // 如果第一个子菜单是外部链接则打开新窗口
   if (firstChild.meta?.link) {

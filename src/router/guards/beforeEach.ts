@@ -226,6 +226,12 @@ function handleLoginStatus(
 function isStaticRoute(path: string): boolean {
   const checkRoute = (routes: any[], targetPath: string): boolean => {
     return routes.some((route) => {
+      // 404 catch-all 路由不应视为可匿名访问的静态页，
+      // 否则未登录时手动输入任意地址会直接落到 404，无法跳转登录页。
+      if (route.name === 'Exception404') {
+        return false
+      }
+
       // 处理动态路由参数匹配
       const routePath = route.path
       const pattern = routePath.replace(/:[^/]+/g, '[^/]+').replace(/\*/g, '.*')
@@ -284,6 +290,18 @@ async function handleDynamicRoutes(
 
     // 7. 验证工作标签页
     useWorktabStore().validateWorktabs(router)
+
+    // 8. 静态路由不依赖菜单权限，初始化后直接恢复目标地址。
+    if (isStaticRoute(to.path)) {
+      routeInitInProgress = false
+      next({
+        path: to.path,
+        query: to.query,
+        hash: to.hash,
+        replace: true
+      })
+      return
+    }
 
     // 8. 验证目标路径权限
     const { homePath } = useCommon()
