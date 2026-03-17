@@ -602,6 +602,17 @@
     )
   }
 
+  const buildSearchParams = (params: typeof searchFormState.value) => {
+    const { daterange, ...filtersParams } = params
+    const [startTime, endTime] = Array.isArray(daterange) ? daterange : [null, null]
+
+    return {
+      ...filtersParams,
+      startTime,
+      endTime
+    }
+  }
+
   // 模拟网络请求
   // const simulateNetworkRequest = (): Promise<void> => {
   //   return new Promise((resolve) => {
@@ -638,6 +649,7 @@
 
     // 搜索相关
     searchParams, // 搜索参数
+    replaceSearchParams, // 替换搜索参数
     resetSearchParams, // 重置搜索参数
 
     // 数据操作
@@ -960,11 +972,7 @@
     await searchBarRef.value.validate()
 
     console.log('搜索参数:', searchFormState.value)
-    const { daterange, ...filtersParams } = searchFormState.value
-    const [startTime, endTime] = Array.isArray(daterange) ? daterange : [null, null]
-
-    // 搜索参数赋值
-    Object.assign(searchParams, { ...filtersParams, startTime, endTime })
+    replaceSearchParams(buildSearchParams(searchFormState.value))
     getData()
   }
 
@@ -977,8 +985,8 @@
 
   const handlePhoneSearch = (value: string) => {
     searchFormState.value.phone = value
-    searchParams.phone = value
-    requestParams.value = { ...searchParams, phone: value }
+    replaceSearchParams(buildSearchParams(searchFormState.value))
+    requestParams.value = { ...searchParams }
     addCacheLog(`📱 手机号搜索: ${value}`)
     getDataDebounced()
   }

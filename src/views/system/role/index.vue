@@ -90,7 +90,7 @@
     loading,
     pagination,
     getData,
-    searchParams,
+    replaceSearchParams,
     resetSearchParams,
     handleSizeChange,
     handleCurrentChange,
@@ -199,8 +199,7 @@
     const { daterange, ...filtersParams } = params
     const [startTime, endTime] = Array.isArray(daterange) ? daterange : [null, null]
 
-    // 搜索参数赋值
-    Object.assign(searchParams, { ...filtersParams, startTime, endTime })
+    replaceSearchParams({ ...filtersParams, startTime, endTime })
     getData()
   }
 
