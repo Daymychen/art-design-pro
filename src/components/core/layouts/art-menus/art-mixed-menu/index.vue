@@ -111,11 +111,16 @@
    * @returns 是否为激活状态
    */
   const isMenuItemActive = (item: AppRouteRecord): boolean => {
+    // 如果当前菜单项本身是隐藏的，则不参与激活判断
+    if (item.meta?.isHide) return false
+
     const activePath = currentActivePath.value
 
-    // 如果有子菜单，递归检查子菜单
+    // 如果有子菜单，递归检查子菜单，但只考虑未隐藏的子菜单
     if (item.children?.length) {
       return item.children.some((child) => {
+        // 跳过隐藏的子菜单
+        if (child.meta?.isHide) return false
         if (child.children?.length) {
           return isMenuItemActive(child)
         }

@@ -57,7 +57,7 @@
         <ArtHorizontalMenu v-if="isTopMenu" :list="menuList" />
 
         <!-- 混合菜单-顶部 -->
-        <ArtMixedMenu v-if="isTopLeftMenu" :list="menuList" />
+        <ArtMixedMenu v-if="isTopLeftMenu || isTopLeftMiddleMenu" :list="menuList" />
       </div>
 
       <div class="flex-c gap-2.5">
@@ -161,10 +161,12 @@
     </div>
 
     <!-- 标签页 -->
-    <ArtWorkTab />
+    <ArtWorkTab v-if="shouldShowWorkTab" />
 
     <!-- 通知 -->
     <ArtNotification v-model:value="showNotice" ref="notice" />
+
+    <ArtThirdLevelMenu v-if="isTopLeftMiddleMenu" />
   </div>
 </template>
 
@@ -203,6 +205,7 @@
     shouldShowRefreshButton,
     shouldShowFastEnter,
     shouldShowBreadcrumb,
+    shouldShowWorkTab,
     shouldShowGlobalSearch,
     shouldShowFullscreen,
     shouldShowNotification,
@@ -227,6 +230,7 @@
   const isDualMenu = computed(() => menuType.value === MenuTypeEnum.DUAL_MENU)
   const isTopMenu = computed(() => menuType.value === MenuTypeEnum.TOP)
   const isTopLeftMenu = computed(() => menuType.value === MenuTypeEnum.TOP_LEFT)
+  const isTopLeftMiddleMenu = computed(() => menuType.value === MenuTypeEnum.TOP_LEFT_MIDDLE)
 
   const { isFullscreen, toggle: toggleFullscreen } = useFullscreen()
 

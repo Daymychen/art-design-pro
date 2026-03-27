@@ -103,6 +103,7 @@
             :list="menuList"
             :isMobile="isMobileMode"
             :theme="getMenuTheme"
+            :enable-parent-jump="isTopLeftMiddleMenu"
             @close="handleMenuClose"
           />
         </ElMenu>
@@ -166,8 +167,12 @@
 
   // 菜单类型判断
   const isTopLeftMenu = computed(() => menuType.value === MenuTypeEnum.TOP_LEFT)
+  const isTopLeftMiddleMenu = computed(() => menuType.value === MenuTypeEnum.TOP_LEFT_MIDDLE)
   const showLeftMenu = computed(
-    () => menuType.value === MenuTypeEnum.LEFT || menuType.value === MenuTypeEnum.TOP_LEFT
+    () =>
+      menuType.value === MenuTypeEnum.LEFT ||
+      menuType.value === MenuTypeEnum.TOP_LEFT ||
+      menuType.value === MenuTypeEnum.TOP_LEFT_MIDDLE
   )
   const isDualMenu = computed(() => menuType.value === MenuTypeEnum.DUAL_MENU)
 
@@ -187,8 +192,8 @@
     const menuStore = useMenuStore()
     const allMenus = menuStore.menuList
 
-    // 如果不是顶部左侧菜单或双列菜单，直接返回完整菜单列表
-    if (!isTopLeftMenu.value && !isDualMenu.value) {
+    // 如果不是顶部左侧菜单或顶左中或双列菜单，直接返回完整菜单列表
+    if (!isTopLeftMenu.value && !isTopLeftMiddleMenu.value && !isDualMenu.value) {
       return allMenus
     }
 
@@ -202,7 +207,11 @@
       return []
     }
 
-    // 返回当前顶级路径对应的子菜单
+    // 处理隐藏菜单
+    if (route.meta.isHide) {
+      return []
+    }
+
     const currentTopPath = `/${route.path.split('/')[1]}`
     const currentMenu = allMenus.find((menu) => menu.path === currentTopPath)
     return currentMenu?.children ?? []

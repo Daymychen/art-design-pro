@@ -48,7 +48,7 @@
   "setting": {
     "menuType": {
       "title": "Menu Layout",
-      "list": ["Vertical", "Horizontal", "Mixed", "Dual"]
+      "list": ["Vertical", "Horizontal", "Mixed", "Dual", "Mixed2"]
     },
     "theme": {
       "title": "Theme Style",

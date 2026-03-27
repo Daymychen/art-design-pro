@@ -77,7 +77,16 @@ const appConfig: SystemConfig = {
     { name: 'Left', value: MenuTypeEnum.LEFT, img: configImages.menuLayouts.vertical },
     { name: 'Top', value: MenuTypeEnum.TOP, img: configImages.menuLayouts.horizontal },
     { name: 'Mixed', value: MenuTypeEnum.TOP_LEFT, img: configImages.menuLayouts.mixed },
-    { name: 'Dual Column', value: MenuTypeEnum.DUAL_MENU, img: configImages.menuLayouts.dualColumn }
+    {
+      name: 'Dual Column',
+      value: MenuTypeEnum.DUAL_MENU,
+      img: configImages.menuLayouts.dualColumn
+    },
+    {
+      name: 'Top Left Middle',
+      value: MenuTypeEnum.TOP_LEFT_MIDDLE,
+      img: configImages.menuLayouts.topLeftMiddle
+    }
   ],
   // 菜单主题列表
   themeList: [

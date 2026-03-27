@@ -19,7 +19,11 @@ export function useSettingsState() {
 
   // 菜单布局切换
   const switchMenuLayouts = (type: MenuTypeEnum) => {
-    if (type === MenuTypeEnum.LEFT || type === MenuTypeEnum.TOP_LEFT) {
+    if (
+      type === MenuTypeEnum.LEFT ||
+      type === MenuTypeEnum.TOP_LEFT ||
+      type === MenuTypeEnum.TOP_LEFT_MIDDLE
+    ) {
       settingStore.setMenuOpen(true)
     }
     settingStore.switchMenuLayouts(type)
