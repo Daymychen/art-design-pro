@@ -34,7 +34,8 @@
       left: 'MenuTypeEnum.LEFT',
       top: 'MenuTypeEnum.TOP',
       'top-left': 'MenuTypeEnum.TOP_LEFT',
-      'dual-menu': 'MenuTypeEnum.DUAL_MENU'
+      'dual-menu': 'MenuTypeEnum.DUAL_MENU',
+      'top-left-middle': 'MenuTypeEnum.TOP_LEFT_MIDDLE'
     },
     systemTheme: {
       auto: 'SystemThemeEnum.AUTO',

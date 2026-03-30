@@ -57,6 +57,10 @@ export const headerBarConfig: HeaderBarFeatureConfig = {
   themeToggle: {
     enabled: true,
     description: '主题切换功能（明暗主题）'
+  },
+  worktab: {
+    enabled: false,
+    description: '工作台标签页功能，显示用户历史访问tab标签页'
   }
 }
 

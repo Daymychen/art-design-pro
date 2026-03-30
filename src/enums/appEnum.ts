@@ -25,7 +25,9 @@ export enum MenuTypeEnum {
   /** 顶部+左侧菜单 */
   TOP_LEFT = 'top-left',
   /** 双栏菜单 */
-  DUAL_MENU = 'dual-menu'
+  DUAL_MENU = 'dual-menu',
+  /** 顶左中菜单 */
+  TOP_LEFT_MIDDLE = 'top-left-middle'
 }
 
 /**

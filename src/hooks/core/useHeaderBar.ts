@@ -73,6 +73,10 @@ export function useHeaderBar() {
     return isFeatureEnabled('breadcrumb') && showCrumbs.value
   })
 
+  // 检查worktab是否显示
+  const shouldShowWorkTab = computed(() => {
+    return isFeatureEnabled('worktab')
+  })
   // 检查全局搜索是否显示
   const shouldShowGlobalSearch = computed(() => {
     return isFeatureEnabled('globalSearch')
@@ -177,6 +181,7 @@ export function useHeaderBar() {
     shouldShowRefreshButton, // 是否显示刷新按钮
     shouldShowFastEnter, // 是否显示快速入口
     shouldShowBreadcrumb, // 是否显示面包屑
+    shouldShowWorkTab, // 是否显示工作台
     shouldShowGlobalSearch, // 是否显示全局搜索
     shouldShowFullscreen, // 是否显示全屏按钮
     shouldShowNotification, // 是否显示通知中心

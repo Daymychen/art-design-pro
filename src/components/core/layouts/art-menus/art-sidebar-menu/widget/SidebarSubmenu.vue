@@ -1,7 +1,36 @@
 <template>
-  <template v-for="(item, index) in filteredMenuItems" :key="getUniqueKey(item, index)">
-    <ElSubMenu v-if="hasChildren(item)" :index="item.path || item.meta.title" :level="level">
-      <template #title>
+  <div v-if="!enableParentJump">
+    <template v-for="(item, index) in filteredMenuItems" :key="getUniqueKey(item, index)">
+      <ElSubMenu v-if="hasChildren(item)" :index="item.path || item.meta.title" :level="level">
+        <template #title>
+          <div class="menu-icon flex-cc">
+            <ArtSvgIcon
+              :icon="item.meta.icon"
+              :color="theme?.iconColor"
+              :style="{ color: theme.iconColor }"
+            />
+          </div>
+          <span class="menu-name">
+            {{ formatMenuTitle(item.meta.title) }}
+          </span>
+          <div v-if="item.meta.showBadge" class="art-badge" style="right: 10px" />
+        </template>
+
+        <SidebarSubmenu
+          :list="item.children"
+          :is-mobile="isMobile"
+          :level="level + 1"
+          :theme="theme"
+          @close="closeMenu"
+        />
+      </ElSubMenu>
+
+      <ElMenuItem
+        v-else
+        :index="isExternalLink(item) ? undefined : item.path || item.meta.title"
+        :level-item="level + 1"
+        @click="goPage(item)"
+      >
         <div class="menu-icon flex-cc">
           <ArtSvgIcon
             :icon="item.meta.icon"
@@ -9,51 +38,53 @@
             :style="{ color: theme.iconColor }"
           />
         </div>
-        <span class="menu-name">
-          {{ formatMenuTitle(item.meta.title) }}
-        </span>
-        <div v-if="item.meta.showBadge" class="art-badge" style="right: 10px" />
-      </template>
-
-      <SidebarSubmenu
-        :list="item.children"
-        :is-mobile="isMobile"
-        :level="level + 1"
-        :theme="theme"
-        @close="closeMenu"
-      />
-    </ElSubMenu>
-
-    <ElMenuItem
-      v-else
-      :index="isExternalLink(item) ? undefined : item.path || item.meta.title"
-      :level-item="level + 1"
-      @click="goPage(item)"
-    >
-      <div class="menu-icon flex-cc">
-        <ArtSvgIcon
-          :icon="item.meta.icon"
-          :color="theme?.iconColor"
-          :style="{ color: theme.iconColor }"
+        <div
+          v-show="item.meta.showBadge && level === 0 && !menuOpen"
+          class="art-badge"
+          style="right: 5px"
         />
-      </div>
-      <div
-        v-show="item.meta.showBadge && level === 0 && !menuOpen"
-        class="art-badge"
-        style="right: 5px"
-      />
 
-      <template #title>
-        <span class="menu-name">
-          {{ formatMenuTitle(item.meta.title) }}
-        </span>
-        <div v-if="item.meta.showBadge" class="art-badge" />
-        <div v-if="item.meta.showTextBadge && (level > 0 || menuOpen)" class="art-text-badge">
-          {{ item.meta.showTextBadge }}
+        <template #title>
+          <span class="menu-name">
+            {{ formatMenuTitle(item.meta.title) }}
+          </span>
+          <div v-if="item.meta.showBadge" class="art-badge" />
+          <div v-if="item.meta.showTextBadge && (level > 0 || menuOpen)" class="art-text-badge">
+            {{ item.meta.showTextBadge }}
+          </div>
+        </template>
+      </ElMenuItem>
+    </template>
+  </div>
+  <div v-else>
+    <template v-for="(item, index) in secondLevelMenus" :key="getUniqueKey(item, index)">
+      <ElMenuItem
+        :index="isExternalLink(item) ? undefined : item.path || item.meta.title"
+        :level-item="1"
+        :class="{ 'is-active': isActive(item) }"
+        @click="goPageSecondLevel(item)"
+      >
+        <div class="menu-icon flex-cc">
+          <ArtSvgIcon
+            :icon="item.meta.icon"
+            :color="theme?.iconColor"
+            :style="{ color: theme.iconColor }"
+          />
         </div>
-      </template>
-    </ElMenuItem>
-  </template>
+        <div v-show="item.meta.showBadge && !menuOpen" class="art-badge" style="right: 5px" />
+
+        <template #title>
+          <span class="menu-name">
+            {{ formatMenuTitle(item.meta.title) }}
+          </span>
+          <div v-if="item.meta.showBadge" class="art-badge" />
+          <div v-if="item.meta.showTextBadge && menuOpen" class="art-text-badge">
+            {{ item.meta.showTextBadge }}
+          </div>
+        </template>
+      </ElMenuItem>
+    </template>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -78,6 +109,8 @@
     isMobile?: boolean
     /** 菜单层级 */
     level?: number
+    /** 是否启用父级菜单跳转（顶左中模式专用） */
+    enableParentJump?: boolean
   }
 
   interface Emits {
@@ -94,6 +127,7 @@
   })
 
   const emit = defineEmits<Emits>()
+  const route = useRoute()
 
   const settingStore = useSettingStore()
 
@@ -106,12 +140,62 @@
   const filteredMenuItems = computed(() => filterRoutes(props.list))
 
   /**
+   * 二级菜单列表（顶左中模式专用）
+   */
+  const secondLevelMenus = computed(() => {
+    const result: AppRouteRecord[] = []
+    props.list.forEach((menu) => {
+      // 过滤隐藏的一级菜单
+      if (menu.meta.isHide) return
+      result.push(menu)
+    })
+    return result
+  })
+
+  /**
+   * 判断当前菜单项是否激活
+   * @param item 菜单项（二级菜单）
+   * @returns 是否激活
+   */
+  const isActive = (item: AppRouteRecord): boolean => {
+    const currentPath = route.path
+
+    // 如果当前路径就是该菜单项的路径
+    if (item.path === currentPath) return true
+
+    // 如果该菜单项有子菜单，检查子菜单中是否包含当前路径
+    if (item.children && item.children.length) {
+      // 递归检查子菜单
+      const hasChildMatch = (children: AppRouteRecord[]): boolean => {
+        for (const child of children) {
+          if (child.path === currentPath) return true
+          if (child.children && hasChildMatch(child.children)) return true
+        }
+        return false
+      }
+      return hasChildMatch(item.children)
+    }
+
+    return false
+  }
+
+  /**
    * 跳转到指定页面
    * @param item 菜单项数据
    */
   const goPage = (item: AppRouteRecord): void => {
     closeMenu()
     handleMenuJump(item)
+  }
+
+  /**
+   * 跳转到指定页面（顶左中模式二级菜单）
+   * @param item 菜单项数据
+   */
+  const goPageSecondLevel = (item: AppRouteRecord): void => {
+    closeMenu()
+    // 传入 true，如果有子菜单则跳转到第一个子菜单
+    handleMenuJump(item, true)
   }
 
   /**
