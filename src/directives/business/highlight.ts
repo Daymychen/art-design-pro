@@ -44,6 +44,8 @@
 import { App, Directive } from 'vue'
 import hljs from 'highlight.js'
 
+export type HighlightDirective = Directive<HTMLElement>
+
 // 高亮代码
 function highlightCode(block: HTMLElement) {
   hljs.highlightElement(block)
@@ -180,7 +182,7 @@ function retryProcessing(el: HTMLElement, maxRetries: number = 3, delay: number 
 }
 
 // 代码高亮、插入行号、复制按钮
-const highlightDirective: Directive<HTMLElement> = {
+const highlightDirective: HighlightDirective = {
   mounted(el: HTMLElement) {
     // 立即尝试处理一次
     processAllCodeBlocks(el)

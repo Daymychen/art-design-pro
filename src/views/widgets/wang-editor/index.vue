@@ -1,7 +1,7 @@
 <template>
   <div class="page-content mb-5">
     <!-- 完整工具栏编辑器 -->
-    <ElCard class="editor-card" shadow="never">
+    <ElCard class="editor-card">
       <template #header>
         <div class="card-header">
           <span>🛠️ 完整工具栏编辑器</span>
@@ -23,7 +23,7 @@
     </ElCard>
 
     <!-- 简化工具栏编辑器 -->
-    <ElCard class="editor-card" shadow="never">
+    <ElCard class="editor-card">
       <template #header>
         <div class="card-header">
           <span>✨ 简化工具栏编辑器</span>
@@ -45,7 +45,7 @@
     </ElCard>
 
     <!-- 内容对比预览 -->
-    <ElCard class="preview-card" shadow="never">
+    <ElCard class="preview-card">
       <template #header>
         <span>📖 内容预览对比</span>
       </template>
@@ -90,7 +90,7 @@
     </ElCard>
 
     <!-- 使用说明 -->
-    <ElCard class="usage-card" shadow="never">
+    <ElCard class="usage-card">
       <template #header>
         <span>📚 使用说明</span>
       </template>

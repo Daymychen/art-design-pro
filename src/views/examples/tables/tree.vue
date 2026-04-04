@@ -3,7 +3,7 @@
   <div class="art-full-height">
     <div class="box-border flex gap-4 h-full max-md:block max-md:gap-0 max-md:h-auto">
       <div class="flex-shrink-0 w-58 h-full max-md:w-full max-md:h-auto max-md:mb-5">
-        <ElCard class="tree-card art-card-xs flex flex-col h-full mt-0" shadow="never">
+        <ElCard class="tree-card art-card-xs flex flex-col h-full mt-0">
           <template #header>
             <b>分类树</b>
           </template>
@@ -20,10 +20,10 @@
         </ElCard>
       </div>
 
-      <div class="flex flex-col flex-grow">
+      <div class="flex flex-col flex-grow min-w-0">
         <UserSearch v-model="defaultFilter" />
 
-        <ElCard class="flex flex-col flex-1 min-h-0 art-table-card" shadow="never">
+        <ElCard class="flex flex-col flex-1 min-h-0 art-table-card">
           <ArtTableHeader v-model:columns="columnChecks" :loading="loading" @refresh="refreshData">
             <template #left>
               <ElSpace wrap>
@@ -177,8 +177,12 @@
   }
 
   // 表单搜索初始值
-  const defaultFilter = ref({
-    name: undefined
+  const defaultFilter = ref<Api.SystemManage.UserSearchParams>({
+    userName: undefined,
+    userGender: undefined,
+    userPhone: undefined,
+    userEmail: undefined,
+    status: undefined
   })
 
   const {

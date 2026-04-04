@@ -13,7 +13,7 @@
     </div>
 
     <div class="mb-6">
-      <ElCard shadow="never" class="art-card-xs">
+      <ElCard class="art-card-xs">
         <template #header>
           <div class="flex-c gap-2 font-semibold">
             <span>权限验证成功</span>
@@ -38,7 +38,7 @@
 
     <!-- 页面级权限控制说明 -->
     <div class="mb-6 last:mb-0">
-      <ElCard shadow="never" class="art-card-xs">
+      <ElCard class="art-card-xs">
         <template #header>
           <div class="flex-c font-semibold">
             <span>页面级权限控制说明</span>
@@ -47,7 +47,7 @@
         <div>
           <ElTimeline>
             <ElTimelineItem timestamp="前端控制模式" type="primary" size="large">
-              <ElCard shadow="never">
+              <ElCard>
                 <h4 class="m-0 mb-2 text-base font-semibold">基于角色的权限控制</h4>
                 <p class="m-0 mb-2 leading-[1.6] text-g-700">
                   在前端控制模式下，页面访问权限由路由配置文件中的
@@ -93,7 +93,7 @@
             </ElTimelineItem>
 
             <ElTimelineItem timestamp="后端控制模式" type="warning" size="large">
-              <ElCard shadow="never">
+              <ElCard>
                 <h4 class="m-0 mb-2 text-base font-semibold">基于菜单接口的权限控制</h4>
                 <p class="m-0 mb-2 leading-[1.6] text-g-700"
                   >在后端控制模式下，页面访问权限由后端统一管理，前端通过解析后端接口返回的菜单列表来生成可访问的路由，从而实现权限控制</p
@@ -142,7 +142,7 @@
             </ElTimelineItem>
 
             <ElTimelineItem timestamp="菜单显示控制" type="success" size="large">
-              <ElCard shadow="never">
+              <ElCard>
                 <h4>侧边栏菜单可见性</h4>
                 <p><strong>前端控制模式：</strong></p>
                 <ul>
@@ -165,7 +165,7 @@
 
     <!-- 权限控制最佳实践 -->
     <div class="best-practices">
-      <ElCard shadow="never" class="art-card-xs">
+      <ElCard class="art-card-xs">
         <template #header>
           <div class="card-header">
             <span>权限控制最佳实践</span>

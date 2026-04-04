@@ -211,7 +211,6 @@ html.dark .el-card {
 // 处理移动端组件兼容性
 @media screen and (max-width: 640px) {
   .el-message-box,
-  .el-message,
   .el-dialog {
     width: calc(100% - 24px) !important;
   }
@@ -359,10 +358,6 @@ html.dark .el-card {
 @media screen and (max-width: 1180px) {
   .el-table-fixed-column--right {
     padding-right: 0 !important;
-
-    .el-button {
-      margin: 5px 10px 5px 0 !important;
-    }
   }
 }
 

@@ -60,7 +60,7 @@ export interface ColumnOption<T = any> {
   // 固定列
   fixed?: boolean | 'left' | 'right'
   // 是否可排序
-  sortable?: boolean
+  sortable?: boolean | 'custom'
   // 过滤器选项
   filters?: any[]
   // 过滤方法

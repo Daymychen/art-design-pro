@@ -3,7 +3,7 @@
 <template>
   <div class="flex flex-col gap-4 pb-5">
     <!-- 功能介绍卡片 -->
-    <ElCard shadow="never" class="art-card-xs">
+    <ElCard class="art-card-xs">
       <template #header>
         <div class="flex-wrap gap-3 flex-cb">
           <h3 class="m-0">高级表格完整能力展示</h3>
@@ -139,7 +139,7 @@
     />
 
     <!-- 表格区域 -->
-    <ElCard class="flex-1 art-table-card" shadow="never" style="margin-top: 0">
+    <ElCard class="flex-1 art-table-card" style="margin-top: 0">
       <template #header>
         <div class="flex-cb">
           <h4 class="m-0">用户数据表格</h4>
@@ -203,13 +203,22 @@
               <template #dropdown>
                 <ElDropdownMenu>
                   <ElDropdownItem command="addColumn">新增列（备注列）</ElDropdownItem>
-                  <ElDropdownItem command="toggleColumn">显示隐藏（手机号列）</ElDropdownItem>
+                  <ElDropdownItem command="batchAddColumns">批量新增（备注、标签）</ElDropdownItem>
+                  <ElDropdownItem command="toggleColumn">切换列（手机号）</ElDropdownItem>
+                  <ElDropdownItem command="batchToggleColumns"
+                    >批量切换（性别、手机号）</ElDropdownItem
+                  >
                   <ElDropdownItem command="removeColumn">删除列（状态列）</ElDropdownItem>
+                  <ElDropdownItem command="batchRemoveColumns"
+                    >批量删除（状态、评分）</ElDropdownItem
+                  >
+                  <ElDropdownItem command="updateColumn">更新列（手机号）</ElDropdownItem>
+                  <ElDropdownItem command="batchUpdateColumns"
+                    >批量更新（性别、手机号）</ElDropdownItem
+                  >
                   <ElDropdownItem command="reorderColumns"
                     >交换列位置（性别、手机号）</ElDropdownItem
                   >
-                  <ElDropdownItem command="updateColumn">更新列（手机号列）</ElDropdownItem>
-                  <ElDropdownItem command="batchUpdate">批量更新（性别、手机号）</ElDropdownItem>
                   <ElDropdownItem command="resetColumns" divided>重置所有列配置</ElDropdownItem>
                 </ElDropdownMenu>
               </template>
@@ -312,7 +321,7 @@
     </ElCard>
 
     <!-- 高级功能演示 -->
-    <ElCard shadow="never" class="art-card-xs">
+    <ElCard class="art-card-xs">
       <template #header>
         <h4 class="m-0">高级功能演示</h4>
       </template>
@@ -375,7 +384,7 @@
     </ElCard>
 
     <!-- 缓存刷新策略演示 -->
-    <ElCard shadow="never" class="art-card-xs">
+    <ElCard class="art-card-xs">
       <template #header>
         <h4 class="m-0">缓存刷新策略演示</h4>
       </template>
@@ -593,6 +602,17 @@
     )
   }
 
+  const buildSearchParams = (params: typeof searchFormState.value) => {
+    const { daterange, ...filtersParams } = params
+    const [startTime, endTime] = Array.isArray(daterange) ? daterange : [null, null]
+
+    return {
+      ...filtersParams,
+      startTime,
+      endTime
+    }
+  }
+
   // 模拟网络请求
   // const simulateNetworkRequest = (): Promise<void> => {
   //   return new Promise((resolve) => {
@@ -629,6 +649,7 @@
 
     // 搜索相关
     searchParams, // 搜索参数
+    replaceSearchParams, // 替换搜索参数
     resetSearchParams, // 重置搜索参数
 
     // 数据操作
@@ -660,12 +681,11 @@
     // 动态列配置方法
     columns, // 表格列配置
     columnChecks, // 列显示、拖拽配置
-    addColumn, // 新增列
-    removeColumn, // 删除列
-    updateColumn, // 更新列
-    toggleColumn, // 切换列显示状态
+    addColumn, // 新增列（支持单个或批量）
+    removeColumn, // 删除列（支持单个或批量）
+    updateColumn, // 更新列（支持单个或批量）
+    toggleColumn, // 切换列显示状态（支持单个或批量）
     resetColumns, // 重置列配置
-    batchUpdateColumns, // 批量更新列配置
     reorderColumns, // 重新排序列
     getColumnConfig, // 获取列配置
     getAllColumns // 获取所有列配置
@@ -952,11 +972,7 @@
     await searchBarRef.value.validate()
 
     console.log('搜索参数:', searchFormState.value)
-    const { daterange, ...filtersParams } = searchFormState.value
-    const [startTime, endTime] = Array.isArray(daterange) ? daterange : [null, null]
-
-    // 搜索参数赋值
-    Object.assign(searchParams, { ...filtersParams, startTime, endTime })
+    replaceSearchParams(buildSearchParams(searchFormState.value))
     getData()
   }
 
@@ -969,8 +985,8 @@
 
   const handlePhoneSearch = (value: string) => {
     searchFormState.value.phone = value
-    searchParams.phone = value
-    requestParams.value = { ...searchParams, phone: value }
+    replaceSearchParams(buildSearchParams(searchFormState.value))
+    requestParams.value = { ...searchParams }
     addCacheLog(`📱 手机号搜索: ${value}`)
     getDataDebounced()
   }
@@ -1186,7 +1202,7 @@
   const handleColumnCommand = (command: string): void => {
     switch (command) {
       case 'addColumn': {
-        // 新增"备注"列
+        // 新增单个列
         addColumn?.({
           prop: 'remark',
           label: '备注',
@@ -1197,24 +1213,81 @@
         break
       }
 
+      case 'batchAddColumns': {
+        // 批量新增多个列
+        addColumn?.(
+          [
+            {
+              prop: 'remark',
+              label: '备注',
+              width: 150,
+              formatter: () => h('span', { style: 'color: #999' }, '暂无备注')
+            },
+            {
+              prop: 'tags',
+              label: '标签',
+              width: 120,
+              formatter: () => h('span', { style: 'color: #67c23a' }, '新用户')
+            }
+          ],
+          5
+        ) // 在第5个位置插入
+        ElMessage.success('已批量新增"备注"和"标签"列')
+        break
+      }
+
       case 'toggleColumn': {
-        // 切换性别列显示/隐藏
+        // 切换单个列显示/隐藏
         if (getColumnConfig?.('userPhone')) {
           toggleColumn?.('userPhone')
+          ElMessage.success('已切换手机号列显示状态')
         }
         break
       }
 
+      case 'batchToggleColumns': {
+        // 批量切换多个列显示/隐藏
+        toggleColumn?.(['userGender', 'userPhone'])
+        ElMessage.success('已批量切换性别和手机号列显示状态')
+        break
+      }
+
       case 'removeColumn': {
-        // 删除列
+        // 删除单个列
         removeColumn?.('status')
-        // 支持数组模式
-        // removeColumn?.(['status', 'score'])
+        ElMessage.success('已删除状态列')
+        break
+      }
+
+      case 'batchRemoveColumns': {
+        // 批量删除多个列
+        removeColumn?.(['status', 'score'])
+        ElMessage.success('已批量删除状态和评分列')
+        break
+      }
+
+      case 'updateColumn': {
+        // 更新单个列
+        updateColumn?.('userPhone', {
+          label: '联系电话',
+          width: 140
+        })
+        ElMessage.success('手机号列已更新为"联系电话"')
+        break
+      }
+
+      case 'batchUpdateColumns': {
+        // 批量更新多个列（新语法）
+        updateColumn?.([
+          { prop: 'userGender', updates: { width: 200, label: '性别-已更新', sortable: false } },
+          { prop: 'userPhone', updates: { width: 200, label: '手机号-已更新', sortable: false } }
+        ])
+        ElMessage.success('已批量更新性别和手机号列')
         break
       }
 
       case 'reorderColumns': {
-        // 交换性别和手机号列位置
+        // 交换列位置
         const allCols = getAllColumns?.()
         if (allCols) {
           const genderIndex = allCols.findIndex((col) => getColumnKey(col) === 'userGender')
@@ -1225,25 +1298,6 @@
             ElMessage.success('已交换性别和手机号列位置')
           }
         }
-        break
-      }
-
-      case 'updateColumn': {
-        // 修改手机号列标题
-        updateColumn?.('userPhone', {
-          label: '联系电话',
-          width: 140
-        })
-        ElMessage.success('手机号列标题已更新为"联系电话"')
-        break
-      }
-
-      case 'batchUpdate': {
-        // 批量更新数据
-        batchUpdateColumns?.([
-          { prop: 'userGender', updates: { width: 200, label: '性别-update', sortable: false } },
-          { prop: 'userPhone', updates: { width: 200, label: '手机号-update', sortable: false } }
-        ])
         break
       }
 

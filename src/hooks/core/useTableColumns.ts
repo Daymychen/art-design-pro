@@ -83,32 +83,36 @@ export const getColumnChecks = <T>(columns: ColumnOption<T>[]) =>
  */
 export interface DynamicColumnConfig<T = any> {
   /**
-   * 新增列
-   * @param column 列配置
-   * @param index 可选的插入位置，默认末尾
+   * 新增列（支持单个或批量）
+   * @param column 列配置或列配置数组
+   * @param index 可选的插入位置，默认末尾（批量时为第一个列的位置）
    */
-  addColumn: (column: ColumnOption<T>, index?: number) => void
+  addColumn: (column: ColumnOption<T> | ColumnOption<T>[], index?: number) => void
   /**
-   * 删除列
+   * 删除列（支持单个或批量）
    * @param prop 列的唯一标识或标识数组
    */
   removeColumn: (prop: string | string[]) => void
   /**
-   * 切换列显示状态
-   * @param prop 列的唯一标识
+   * 切换列显示状态（支持单个或批量）
+   * @param prop 列的唯一标识或标识数组
    * @param visible 可选的显示状态，默认取反
    */
-  toggleColumn: (prop: string, visible?: boolean) => void
+  toggleColumn: (prop: string | string[], visible?: boolean) => void
 
   /**
-   * 更新列
-   * @param prop 列的唯一标识
-   * @param updates 列配置更新
+   * 更新列（支持单个或批量）
+   * @param prop 列的唯一标识或更新配置数组
+   * @param updates 列配置更新（当 prop 为字符串时使用）
    */
-  updateColumn: (prop: string, updates: Partial<ColumnOption<T>>) => void
+  updateColumn: (
+    prop: string | Array<{ prop: string; updates: Partial<ColumnOption<T>> }>,
+    updates?: Partial<ColumnOption<T>>
+  ) => void
   /**
-   * 批量更新列
+   * 批量更新列（兼容旧版本，推荐使用 updateColumn 的数组模式）
    * @param updates 列更新配置
+   * @deprecated 推荐使用 updateColumn 的数组模式
    */
   batchUpdateColumns: (updates: Array<{ prop: string; updates: Partial<ColumnOption<T>> }>) => void
   /**
@@ -184,44 +188,87 @@ export function useTableColumns<T = any>(
     columns,
     columnChecks,
 
-    addColumn: (column: ColumnOption<T>, index?: number) =>
+    /**
+     * 新增列（支持单个或批量）
+     */
+    addColumn: (column: ColumnOption<T> | ColumnOption<T>[], index?: number) =>
       setDynamicColumns((cols) => {
         const next = [...cols]
-        if (typeof index === 'number' && index >= 0 && index <= next.length) {
-          next.splice(index, 0, column)
-        } else {
-          next.push(column)
-        }
+        const columnsToAdd = Array.isArray(column) ? column : [column]
+        const insertIndex =
+          typeof index === 'number' && index >= 0 && index <= next.length ? index : next.length
+
+        // 批量插入
+        next.splice(insertIndex, 0, ...columnsToAdd)
         return next
       }),
 
+    /**
+     * 删除列（支持单个或批量）
+     */
     removeColumn: (prop: string | string[]) =>
       setDynamicColumns((cols) => {
         const propsToRemove = Array.isArray(prop) ? prop : [prop]
         return cols.filter((c) => !propsToRemove.includes(getColumnKey(c)))
       }),
 
-    updateColumn: (prop: string, updates: Partial<ColumnOption<T>>) =>
-      setDynamicColumns((cols) =>
-        cols.map((c) => (getColumnKey(c) === prop ? { ...c, ...updates } : c))
-      ),
-
-    toggleColumn: (prop: string, visible?: boolean) => {
-      const i = columnChecks.value.findIndex((c) => getColumnKey(c) === prop)
-      if (i > -1) {
-        const next = [...columnChecks.value]
-        const currentVisibility = getColumnVisibility(next[i])
-        const newVisibility = visible ?? !currentVisibility
-        // 同时更新 checked 和 visible 以保持兼容性
-        next[i] = { ...next[i], checked: newVisibility, visible: newVisibility }
-        columnChecks.value = next
+    /**
+     * 更新列（支持单个或批量）
+     */
+    updateColumn: (
+      prop: string | Array<{ prop: string; updates: Partial<ColumnOption<T>> }>,
+      updates?: Partial<ColumnOption<T>>
+    ) => {
+      // 批量模式：prop 是数组
+      if (Array.isArray(prop)) {
+        setDynamicColumns((cols) => {
+          const map = new Map(prop.map((u) => [u.prop, u.updates]))
+          return cols.map((c) => {
+            const key = getColumnKey(c)
+            const upd = map.get(key)
+            return upd ? { ...c, ...upd } : c
+          })
+        })
+      }
+      // 单个模式：prop 是字符串
+      else if (updates) {
+        setDynamicColumns((cols) =>
+          cols.map((c) => (getColumnKey(c) === prop ? { ...c, ...updates } : c))
+        )
       }
     },
 
+    /**
+     * 切换列显示状态（支持单个或批量）
+     */
+    toggleColumn: (prop: string | string[], visible?: boolean) => {
+      const propsToToggle = Array.isArray(prop) ? prop : [prop]
+      const next = [...columnChecks.value]
+
+      propsToToggle.forEach((p) => {
+        const i = next.findIndex((c) => getColumnKey(c) === p)
+        if (i > -1) {
+          const currentVisibility = getColumnVisibility(next[i])
+          const newVisibility = visible ?? !currentVisibility
+          // 同时更新 checked 和 visible 以保持兼容性
+          next[i] = { ...next[i], checked: newVisibility, visible: newVisibility }
+        }
+      })
+
+      columnChecks.value = next
+    },
+
+    /**
+     * 重置所有列
+     */
     resetColumns: () => {
       dynamicColumns.value = columnsFactory()
     },
 
+    /**
+     * 批量更新列（兼容旧版本）
+     * @deprecated 推荐使用 updateColumn 的数组模式
+     */
     batchUpdateColumns: (updates) =>
       setDynamicColumns((cols) => {
         const map = new Map(updates.map((u) => [u.prop, u.updates]))
@@ -232,6 +279,9 @@ export function useTableColumns<T = any>(
         })
       }),
 
+    /**
+     * 重新排序列
+     */
     reorderColumns: (fromIndex: number, toIndex: number) =>
       setDynamicColumns((cols) => {
         if (
@@ -249,8 +299,14 @@ export function useTableColumns<T = any>(
         return next
       }),
 
+    /**
+     * 获取列配置
+     */
     getColumnConfig: (prop: string) => dynamicColumns.value.find((c) => getColumnKey(c) === prop),
 
+    /**
+     * 获取所有列配置
+     */
     getAllColumns: () => [...dynamicColumns.value]
   }
 }

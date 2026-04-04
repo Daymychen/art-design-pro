@@ -66,28 +66,27 @@
       :class="`menu-left-${getMenuTheme.theme} menu-left-${!menuOpen ? 'close' : 'open'}`"
       :style="{ background: getMenuTheme.background }"
     >
-      <ElScrollbar :style="scrollbarStyle">
-        <!-- Logo、系统名称 -->
-        <div
-          class="header"
-          @click="navigateToHome"
+      <!-- Logo、系统名称 -->
+      <div
+        class="header"
+        @click="navigateToHome"
+        :style="{
+          background: getMenuTheme.background
+        }"
+      >
+        <ArtLogo v-if="!isDualMenu" class="logo" />
+
+        <p
+          :class="{ 'is-dual-menu-name': isDualMenu }"
           :style="{
-            background: getMenuTheme.background
+            color: getMenuTheme.systemNameColor,
+            opacity: !menuOpen ? 0 : 1
           }"
         >
-          <ArtLogo v-if="!isDualMenu" class="logo" />
-
-          <p
-            :class="{ 'is-dual-menu-name': isDualMenu }"
-            :style="{
-              color: getMenuTheme.systemNameColor,
-              opacity: !menuOpen ? 0 : 1
-            }"
-          >
-            {{ AppConfig.systemInfo.name }}
-          </p>
-        </div>
-
+          {{ AppConfig.systemInfo.name }}
+        </p>
+      </div>
+      <ElScrollbar :style="scrollbarStyle">
         <ElMenu
           :class="'el-menu-' + getMenuTheme.theme"
           :collapse="!menuOpen"
@@ -214,7 +213,7 @@
     const isCollapsed = isDualMenu.value && !menuOpen.value
     return {
       transform: isCollapsed ? 'translateY(-50px)' : 'translateY(0)',
-      height: isCollapsed ? 'calc(100% + 50px)' : '100%',
+      height: isCollapsed ? 'calc(100% + 50px)' : 'calc(100% - 60px)',
       transition: 'transform 0.3s ease'
     }
   })

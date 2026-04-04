@@ -1,7 +1,7 @@
 <!-- 基础表格 -->
 <template>
   <div class="user-page art-full-height">
-    <ElCard class="art-table-card" shadow="never" style="margin-top: 0">
+    <ElCard class="art-table-card" style="margin-top: 0">
       <!-- 表格 -->
       <ArtTable
         rowKey="id"

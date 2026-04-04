@@ -139,12 +139,51 @@ export class MenuProcessor {
         ? this.normalizeMenuPaths(item.children, fullPath)
         : item.children
 
+      const redirect = item.redirect || this.resolveDefaultRedirect(children)
+
       return {
         ...item,
         path: fullPath,
+        redirect,
         children
       }
     })
+  }
+
+  /**
+   * 为目录型菜单推导默认跳转地址
+   */
+  private resolveDefaultRedirect(children?: AppRouteRecord[]): string | undefined {
+    if (!children?.length) {
+      return undefined
+    }
+
+    for (const child of children) {
+      if (this.isNavigableRoute(child)) {
+        return child.path
+      }
+
+      const nestedRedirect = this.resolveDefaultRedirect(child.children)
+      if (nestedRedirect) {
+        return nestedRedirect
+      }
+    }
+
+    return undefined
+  }
+
+  /**
+   * 判断子路由是否可以作为默认落点
+   */
+  private isNavigableRoute(route: AppRouteRecord): boolean {
+    return Boolean(
+      route.path &&
+        route.path !== '/' &&
+        !route.meta?.link &&
+        route.meta?.isIframe !== true &&
+        route.component &&
+        route.component !== ''
+    )
   }
 
   /**

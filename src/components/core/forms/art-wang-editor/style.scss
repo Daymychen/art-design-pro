@@ -125,9 +125,72 @@ $box-radius: calc(var(--custom-radius) / 3 + 2px);
   }
 
   .w-e-text-container {
+    [data-slate-editor] {
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin: 0.8em 0 0.4em;
+        font-weight: 700;
+        line-height: 1.35;
+      }
+
+      h1 {
+        font-size: 2em;
+      }
+
+      h2 {
+        font-size: 1.5em;
+      }
+
+      h3 {
+        font-size: 1.25em;
+      }
+
+      h4 {
+        font-size: 1.125em;
+      }
+
+      h5 {
+        font-size: 1em;
+      }
+
+      h6 {
+        font-size: 0.875em;
+      }
+
+      ul,
+      ol {
+        padding-left: 1.5em;
+        margin: 0.8em 0;
+      }
+
+      ul {
+        list-style: disc;
+      }
+
+      ol {
+        list-style: decimal;
+      }
+
+      li {
+        margin: 0.25em 0;
+      }
+
+      ul ul {
+        list-style: circle;
+      }
+
+      ul ul ul {
+        list-style: square;
+      }
+    }
+
     strong,
     b {
-      font-weight: 500;
+      font-weight: 700;
     }
 
     i,

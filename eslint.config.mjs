@@ -22,7 +22,7 @@ const autoImportConfig = JSON.parse(
 export default [
   // 指定文件匹配规则
   {
-    files: ['**/*.{js,mjs,cjs,ts,vue}']
+    files: ['**/*.{js,mjs,cjs,ts,tsx,vue}']
   },
   // 指定全局变量和环境
   {
@@ -40,7 +40,7 @@ export default [
   // 自定义规则
   {
     // 针对所有 JavaScript、TypeScript 和 Vue 文件应用以下配置
-    files: ['**/*.{js,mjs,cjs,ts,vue}'],
+    files: ['**/*.{js,mjs,cjs,ts,tsx,vue}'],
 
     languageOptions: {
       globals: {

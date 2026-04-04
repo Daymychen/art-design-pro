@@ -36,6 +36,7 @@
                 type="password"
                 :placeholder="$t('lockScreen.lock.inputPlaceholder')"
                 :show-password="true"
+                autocomplete="new-password"
                 ref="lockInputRef"
                 class="w-full mt-9"
                 @keyup.enter="handleLock"
@@ -75,6 +76,7 @@
               type="password"
               :placeholder="$t('lockScreen.unlock.inputPlaceholder')"
               :show-password="true"
+              autocomplete="new-password"
               ref="unlockInputRef"
               class="mt-5"
             >

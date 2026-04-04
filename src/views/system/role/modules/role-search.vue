@@ -11,13 +11,17 @@
 </template>
 
 <script setup lang="ts">
+  type RoleSearchFormParams = Api.SystemManage.RoleSearchParams & {
+    daterange?: string[]
+  }
+
   interface Props {
-    modelValue: Record<string, any>
+    modelValue: RoleSearchFormParams
   }
 
   interface Emits {
-    (e: 'update:modelValue', value: Record<string, any>): void
-    (e: 'search', params: Record<string, any>): void
+    (e: 'update:modelValue', value: RoleSearchFormParams): void
+    (e: 'search', params: RoleSearchFormParams): void
     (e: 'reset'): void
   }
 
@@ -114,8 +118,8 @@
    * 处理搜索事件
    * 验证表单后触发搜索
    */
-  const handleSearch = async () => {
+  const handleSearch = async (params: RoleSearchFormParams) => {
     await searchBarRef.value.validate()
-    emit('search', formData.value)
+    emit('search', params)
   }
 </script>

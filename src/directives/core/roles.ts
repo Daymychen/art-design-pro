@@ -47,11 +47,9 @@
 import { useUserStore } from '@/store/modules/user'
 import { App, Directive, DirectiveBinding } from 'vue'
 
-interface RolesBinding extends DirectiveBinding {
-  value: string | string[]
-}
+export type RolesDirective = Directive<HTMLElement, string | string[]>
 
-function checkRolePermission(el: HTMLElement, binding: RolesBinding): void {
+function checkRolePermission(el: HTMLElement, binding: DirectiveBinding<string | string[]>): void {
   const userStore = useUserStore()
   const userRoles = userStore.getUserInfo.roles
 
@@ -79,7 +77,7 @@ function removeElement(el: HTMLElement): void {
   }
 }
 
-const rolesDirective: Directive = {
+const rolesDirective: RolesDirective = {
   mounted: checkRolePermission,
   updated: checkRolePermission
 }

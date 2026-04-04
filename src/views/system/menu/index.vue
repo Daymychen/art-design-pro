@@ -10,7 +10,7 @@
       @search="handleSearch"
     />
 
-    <ElCard class="art-table-card" shadow="never">
+    <ElCard class="art-table-card">
       <!-- 表格头部 -->
       <ArtTableHeader
         :showZebra="false"

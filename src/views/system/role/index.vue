@@ -8,11 +8,7 @@
       @reset="resetSearchParams"
     ></RoleSearch>
 
-    <ElCard
-      class="art-table-card"
-      shadow="never"
-      :style="{ 'margin-top': showSearchBar ? '12px' : '0' }"
-    >
+    <ElCard class="art-table-card" :style="{ 'margin-top': showSearchBar ? '12px' : '0' }">
       <ArtTableHeader
         v-model:columns="columnChecks"
         v-model:showSearchBar="showSearchBar"
@@ -68,9 +64,12 @@
   defineOptions({ name: 'Role' })
 
   type RoleListItem = Api.SystemManage.RoleListItem
+  type RoleSearchFormParams = Api.SystemManage.RoleSearchParams & {
+    daterange?: string[]
+  }
 
   // 搜索表单
-  const searchForm = ref({
+  const searchForm = ref<RoleSearchFormParams>({
     roleName: undefined,
     roleCode: undefined,
     description: undefined,
@@ -91,7 +90,7 @@
     loading,
     pagination,
     getData,
-    searchParams,
+    replaceSearchParams,
     resetSearchParams,
     handleSizeChange,
     handleCurrentChange,
@@ -195,13 +194,12 @@
    * 搜索处理
    * @param params 搜索参数
    */
-  const handleSearch = (params: Record<string, any>) => {
+  const handleSearch = (params: RoleSearchFormParams) => {
     // 处理日期区间参数，把 daterange 转换为 startTime 和 endTime
     const { daterange, ...filtersParams } = params
     const [startTime, endTime] = Array.isArray(daterange) ? daterange : [null, null]
 
-    // 搜索参数赋值
-    Object.assign(searchParams, { ...filtersParams, startTime, endTime })
+    replaceSearchParams({ ...filtersParams, startTime, endTime })
     getData()
   }
 

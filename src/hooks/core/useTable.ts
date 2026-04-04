@@ -479,6 +479,30 @@ function useTableImpl<TApiFn extends (params: any) => Promise<any>>(
     }
   }
 
+  // 替换搜索参数：适用于表单查询，避免旧字段残留
+  const replaceSearchParams = (params?: Partial<TParams>): void => {
+    const paramsRecord = searchParams as Record<string, unknown>
+    const currentSize = pagination.size || ((paramsRecord[sizeKey] as number) ?? 10)
+
+    Object.keys(searchParams).forEach((key) => {
+      if (key !== pageKey && key !== sizeKey) {
+        delete paramsRecord[key]
+      }
+    })
+
+    Object.assign(
+      searchParams,
+      {
+        [pageKey]: 1,
+        [sizeKey]: currentSize
+      },
+      params || {}
+    )
+
+    pagination.current = 1
+    pagination.size = currentSize
+  }
+
   // 防重复调用的标志
   let isCurrentChanging = false
 
@@ -660,6 +684,8 @@ function useTableImpl<TApiFn extends (params: any) => Promise<any>>(
     // 搜索相关 - 统一前缀
     /** 搜索参数 */
     searchParams,
+    /** 替换搜索参数（适用于表单查询，避免旧字段残留） */
+    replaceSearchParams,
     /** 重置搜索参数 */
     resetSearchParams,
 
