@@ -1,14 +1,12 @@
 {
   "globals": {
-    "ElMessage": true,
-    "ElMessageBox": true,
-    "ElNotification": true,
-    "ElLoading": true,
     "Component": true,
     "ComponentPublicInstance": true,
     "ComputedRef": true,
     "DirectiveBinding": true,
     "EffectScope": true,
+    "ElLoading": true,
+    "ElMessage": true,
     "ExtractDefaultPropTypes": true,
     "ExtractPropTypes": true,
     "ExtractPublicPropTypes": true,

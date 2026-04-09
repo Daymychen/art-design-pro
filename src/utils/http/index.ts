@@ -16,6 +16,7 @@
 
 import axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import { useUserStore } from '@/store/modules/user'
+import { fetchRefreshToken } from '@/api/auth'
 import { ApiStatus } from './status'
 import { HttpError, handleError, showError, showSuccess } from './error'
 import { $t } from '@/locales'
@@ -31,6 +32,28 @@ const UNAUTHORIZED_DEBOUNCE_TIME = 3000
 /** 401防抖状态 */
 let isUnauthorizedErrorShown = false
 let unauthorizedTimer: NodeJS.Timeout | null = null
+
+/** Token刷新状态 */
+let isRefreshing = false
+let failedQueue: Array<{
+  resolve: (value: any) => void
+  reject: (error: any) => void
+  config: InternalAxiosRequestConfig
+}> = []
+
+/** 处理等待队列 */
+const processQueue = (error: any | null, token: string | null = null) => {
+  failedQueue.forEach((prom) => {
+    if (error) {
+      prom.reject(error)
+    } else {
+      // 更新请求头中的Authorization
+      prom.config.headers.set('Authorization', token)
+      prom.resolve(axiosInstance(prom.config))
+    }
+  })
+  failedQueue = []
+}
 
 /** 扩展 AxiosRequestConfig */
 interface ExtendedAxiosRequestConfig extends AxiosRequestConfig {
@@ -64,8 +87,10 @@ const axiosInstance = axios.create({
 /** 请求拦截器 */
 axiosInstance.interceptors.request.use(
   (request: InternalAxiosRequestConfig) => {
-    const { accessToken } = useUserStore()
-    if (accessToken) request.headers.set('Authorization', accessToken)
+    const userStore = useUserStore()
+    if (userStore.accessToken) {
+      request.headers.set('Authorization', userStore.accessToken)
+    }
 
     if (request.data && !(request.data instanceof FormData) && !request.headers['Content-Type']) {
       request.headers.set('Content-Type', 'application/json')
@@ -85,14 +110,71 @@ axiosInstance.interceptors.response.use(
   (response: AxiosResponse<BaseResponse>) => {
     const { code, msg } = response.data
     if (code === ApiStatus.success) return response
-    if (code === ApiStatus.unauthorized) handleUnauthorizedError(msg)
+    if (code === ApiStatus.unauthorized) {
+      // 尝试刷新token
+      return handleTokenRefresh(response.config).catch(() => {
+        handleUnauthorizedError(msg)
+        throw createHttpError(msg || $t('httpMsg.requestFailed'), code)
+      })
+    }
     throw createHttpError(msg || $t('httpMsg.requestFailed'), code)
   },
   (error) => {
-    if (error.response?.status === ApiStatus.unauthorized) handleUnauthorizedError()
+    if (error.response?.status === ApiStatus.unauthorized) {
+      // 尝试刷新token
+      return handleTokenRefresh(error.config).catch(() => {
+        handleUnauthorizedError()
+        return Promise.reject(handleError(error))
+      })
+    }
     return Promise.reject(handleError(error))
   }
 )
+
+/** 处理token刷新 */
+async function handleTokenRefresh(
+  originalConfig: InternalAxiosRequestConfig
+): Promise<AxiosResponse> {
+  const userStore = useUserStore()
+  const refreshTokenValue = userStore.refreshToken
+
+  // 如果没有refresh token，直接抛出错误
+  if (!refreshTokenValue) {
+    return Promise.reject(new Error('No refresh token available'))
+  }
+
+  // 如果已经在刷新中，将当前请求加入队列等待
+  if (isRefreshing) {
+    return new Promise((resolve, reject) => {
+      failedQueue.push({ resolve, reject, config: originalConfig })
+    })
+  }
+
+  isRefreshing = true
+
+  try {
+    // 调用刷新token接口
+    const { token: newAccessToken, refreshToken: newRefreshToken } = await fetchRefreshToken({
+      refreshToken: refreshTokenValue
+    })
+
+    // 更新store中的token
+    userStore.setToken(newAccessToken, newRefreshToken)
+
+    // 处理等待队列
+    processQueue(null, newAccessToken)
+
+    // 更新当前请求的Authorization头并重试
+    originalConfig.headers.set('Authorization', newAccessToken)
+    return axiosInstance(originalConfig)
+  } catch (error) {
+    // 刷新失败，清空队列并抛出错误
+    processQueue(error, null)
+    return Promise.reject(error)
+  } finally {
+    isRefreshing = false
+  }
+}
 
 /** 统一创建HttpError */
 function createHttpError(message: string, code: number) {

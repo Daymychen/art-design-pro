@@ -74,6 +74,17 @@ declare namespace Api {
       refreshToken: string
     }
 
+    /** 刷新令牌参数 */
+    interface RefreshParams {
+      refreshToken: string
+    }
+
+    /** 刷新令牌响应 */
+    interface RefreshResponse {
+      token: string
+      refreshToken: string
+    }
+
     /** 用户信息 */
     interface UserInfo {
       buttons: string[]
