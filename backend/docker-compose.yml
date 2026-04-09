@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: adp-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - '3307:3306'
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    networks:
+      - adp-network
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  redis:
+    image: redis:7.0
+    container_name: adp-redis
+    ports:
+      - '6380:6379'
+    volumes:
+      - ./data/redis:/data
+    networks:
+      - adp-network
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: adp-fastapi
+    env_file:
+      - .env
+    ports:
+      - '8010:8000'
+    volumes:
+      - .:/app
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - adp-network
+
+  rq-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: adp-rq-worker
+    env_file:
+      - .env
+    command: rq worker --url ${REDIS_URL}
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - adp-network
+
+  rq-dashboard:
+    image: eoranged/rq-dashboard
+    container_name: adp-rq-dashboard
+    environment:
+      RQ_DASHBOARD_REDIS_URL: ${REDIS_URL}
+    ports:
+      - '9181:9181'
+    depends_on:
+      - redis
+    networks:
+      - adp-network
+
+networks:
+  adp-network:
+    driver: bridge

@@ -1,0 +1,6 @@
+data/
+__pycache__/
+*.pyc
+.git
+.env
+test.db

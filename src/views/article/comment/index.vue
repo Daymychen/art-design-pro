@@ -64,7 +64,7 @@
             </div>
           </div>
 
-          <!-- 评论组件 -->
+          <!-- 评论组件（留言墙评论无关联文章，不传 articleId） -->
           <CommentWidget />
         </div>
       </template>
@@ -73,7 +73,8 @@
 </template>
 
 <script setup lang="ts">
-  import { commentList } from '@/mock/temp/commentList'
+  import { fetchCommentWall } from '@/api/comment'
+  import type { CommentWallItem } from '@/api/comment'
 
   defineOptions({ name: 'ArticleComment' })
 
@@ -89,6 +90,8 @@
 
   const COLOR_LIST = ['#D8F8FF', '#FDDFD9', '#FCE6F0', '#D3F8F0', '#FFEABC', '#F5E1FF', '#E1E6FE']
 
+  const commentList = ref<CommentWallItem[]>([])
+
   const showDrawer = ref(false)
   const clickItem = ref<CommentItem>({
     id: 1,
@@ -100,13 +103,21 @@
     color: COLOR_LIST[0]
   })
 
+  onMounted(async () => {
+    try {
+      commentList.value = await fetchCommentWall()
+    } catch (e) {
+      console.error('获取留言列表失败:', e)
+    }
+  })
+
   /**
    * 为评论列表分配随机颜色
    */
   const commentsWithColors = computed(() => {
     let lastColorIndex = -1
 
-    return commentList.map((item) => {
+    return commentList.value.map((item) => {
       let newIndex: number
 
       do {
