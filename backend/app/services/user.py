@@ -46,18 +46,18 @@ def get_user_list(db: Session, current: int = 1, size: int = 10, **filters) -> d
 
 
 def create_user(db: Session, data: dict) -> User:
-    gender_val = 1 if data.get("gender", "男") == "男" else 0
+    gender_val = 1 if data.get("userGender", "男") == "男" else 0
     user = User(
         username=data["userName"],
         password_hash=hash_password(data.get("password", "123456")),
         nick_name=data.get("nickName", ""),
         gender=gender_val,
-        mobile=data.get("mobile", ""),
-        email=data.get("email", ""),
+        mobile=data.get("userPhone", ""),
+        email=data.get("userEmail", ""),
         department=data.get("department", ""),
     )
-    if data.get("userRoles"):
-        roles = db.query(Role).filter(Role.role_code.in_(data["userRoles"])).all()
+    if data.get("roles"):
+        roles = db.query(Role).filter(Role.role_code.in_(data["roles"])).all()
         user.roles = roles
     db.add(user)
     db.commit()
@@ -71,18 +71,18 @@ def update_user(db: Session, user_id: int, data: dict) -> User | None:
         return None
     if data.get("nickName") is not None:
         user.nick_name = data["nickName"]
-    if data.get("gender") is not None:
-        user.gender = 1 if data["gender"] == "男" else 0
-    if data.get("mobile") is not None:
-        user.mobile = data["mobile"]
-    if data.get("email") is not None:
-        user.email = data["email"]
+    if data.get("userGender") is not None:
+        user.gender = 1 if data["userGender"] == "男" else 0
+    if data.get("userPhone") is not None:
+        user.mobile = data["userPhone"]
+    if data.get("userEmail") is not None:
+        user.email = data["userEmail"]
     if data.get("department") is not None:
         user.department = data["department"]
     if data.get("status") is not None:
         user.status = data["status"]
-    if data.get("userRoles") is not None:
-        roles = db.query(Role).filter(Role.role_code.in_(data["userRoles"])).all()
+    if data.get("roles") is not None:
+        roles = db.query(Role).filter(Role.role_code.in_(data["roles"])).all()
         user.roles = roles
     db.commit()
     db.refresh(user)

@@ -20,19 +20,19 @@ class UserListItem(BaseModel):
 class UserCreate(BaseModel):
     userName: str
     nickName: str = ""
-    gender: str = "男"
-    mobile: str = ""
-    email: str = ""
+    userGender: str = "男"
+    userPhone: str = ""
+    userEmail: str = ""
     department: str = ""
     password: str = "123456"
-    userRoles: list[str] = []
+    roles: list[str] = []
 
 
 class UserUpdate(BaseModel):
     nickName: str | None = None
-    gender: str | None = None
-    mobile: str | None = None
-    email: str | None = None
+    userGender: str | None = None
+    userPhone: str | None = None
+    userEmail: str | None = None
     department: str | None = None
-    userRoles: list[str] | None = None
+    roles: list[str] | None = None
     status: str | None = None

@@ -11,6 +11,22 @@ from app.services.article import (
 router = APIRouter()
 
 
+@router.get("/api/article/types")
+def article_types(db: Session = Depends(get_db)):
+    """获取文章分类列表（从已有文章中提取去重）"""
+    from sqlalchemy import distinct, func as sqlfunc
+    from app.models.article import Article
+    rows = (
+        db.query(Article.type_name, Article.blog_class)
+        .filter(Article.type_name != "", Article.type_name.isnot(None))
+        .group_by(Article.type_name, Article.blog_class)
+        .all()
+    )
+    types = [{"id": int(r.blog_class) if r.blog_class.isdigit() else idx + 1, "name": r.type_name}
+             for idx, r in enumerate(rows)]
+    return ok(types)
+
+
 @router.get("/api/article/list")
 def list_articles(
     current: int = Query(1),

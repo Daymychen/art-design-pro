@@ -30,6 +30,10 @@ interface ArticleDetail {
   create_time: string
 }
 
+export function fetchArticleTypes() {
+  return request.get<{ id: number; name: string }[]>({ url: '/api/article/types' })
+}
+
 export function fetchArticleList(params: {
   current: number
   size: number
