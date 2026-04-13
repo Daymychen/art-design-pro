@@ -9,23 +9,3 @@ dist-ssr
 src/types/import/auto-imports.d.ts
 src/types/import/components.d.ts
 
-.env
-.env.local
-.env.development.local
-__pycache__
-*.pyc
-*.pyo
-*.pyd
-*.pyi
-*.pytype
-*.pyre
-.pytest_cache
-.mypy_cache
-.coverage
-.nox
-.tox
-.venv
-venv
-env
-build
-dist
