@@ -108,7 +108,7 @@ export function useSettingsPanel() {
 
           settingStore.setMenuOpen(false)
         } else {
-          // 恢复桌面端布局
+          // 恢复桌面端布局（仅在从移动端切回时才强制展开菜单）
           if (hasChangedMenu.value && beforeMenuType.value) {
             if (menuType.value === MenuTypeEnum.LEFT) {
               useSettingsState().switchMenuLayouts(beforeMenuType.value)
@@ -116,9 +116,8 @@ export function useSettingsPanel() {
 
             clearStoredDesktopMenuType()
             hasChangedMenu.value = false
+            settingStore.setMenuOpen(true)
           }
-
-          settingStore.setMenuOpen(true)
         }
       },
       { immediate: true }
