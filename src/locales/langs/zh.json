@@ -132,7 +132,7 @@
       "title": "一款兼具设计美学与高效开发的后台系统",
       "subTitle": "美观实用的界面，经过视觉优化，确保卓越的用户体验"
     },
-    "title": "欢迎回来",
+    "title": "欢迎",
     "subTitle": "输入您的账号和密码登录",
     "roles": {
       "super": "超级管理员",
@@ -153,7 +153,7 @@
     "register": "注册",
     "success": {
       "title": "登录成功",
-      "message": "欢迎回来"
+      "message": "欢迎"
     }
   },
   "forgetPassword": {
