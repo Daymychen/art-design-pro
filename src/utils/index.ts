@@ -32,3 +32,6 @@ export * from './form'
 
 // socket 相关
 export * from './socket'
+
+// 配置相关
+export * from './config/config-loader'
