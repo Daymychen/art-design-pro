@@ -1,4 +1,4 @@
-<!-- 注册页面 -->
+<!-- 注册页面 — 分步表单 -->
 <template>
   <div class="flex w-full h-screen">
     <LoginLeftView />
@@ -10,26 +10,72 @@
         <div class="form">
           <h3 class="title">{{ $t('register.title') }}</h3>
           <p class="sub-title">{{ $t('register.subTitle') }}</p>
+
+          <!-- Step 1: 邮箱验证 -->
           <ElForm
+            v-if="currentStep === 1"
             class="mt-7.5"
-            ref="formRef"
-            :model="formData"
-            :rules="rules"
+            ref="step1FormRef"
+            :model="step1Form"
+            :rules="step1Rules"
             label-position="top"
             :key="formKey"
           >
-            <ElFormItem prop="username">
+            <ElFormItem prop="email">
               <ElInput
                 class="custom-height"
-                v-model.trim="formData.username"
-                :placeholder="$t('register.placeholder.username')"
+                v-model.trim="step1Form.email"
+                :placeholder="emailPlaceholder"
               />
             </ElFormItem>
+
+            <ElFormItem prop="code">
+              <VerifyCodeInput
+                v-model="step1Form.code"
+                :email="step1Form.email"
+                purpose="register"
+                i18n-prefix="register"
+              />
+            </ElFormItem>
+
+            <div style="margin-top: 15px">
+              <ElButton
+                class="w-full custom-height"
+                type="primary"
+                @click="goStep2"
+                :loading="loading"
+                v-ripple
+              >
+                {{ $t('register.nextStep') }}
+              </ElButton>
+            </div>
+
+            <div class="mt-5 text-sm text-g-600">
+              <span>{{ $t('register.hasAccount') }}</span>
+              <RouterLink class="text-theme" :to="{ name: 'Login' }">{{
+                $t('register.toLogin')
+              }}</RouterLink>
+            </div>
+          </ElForm>
+
+          <!-- Step 2: 设置密码 -->
+          <ElForm
+            v-if="currentStep === 2"
+            class="mt-7.5"
+            ref="step2FormRef"
+            :model="step2Form"
+            :rules="step2Rules"
+            label-position="top"
+          >
+            <div class="mb-4 text-sm text-gray-500">
+              <span>{{ $t('register.generatedUsername') }}：</span>
+              <strong class="text-theme">{{ generatedUsername }}</strong>
+            </div>
 
             <ElFormItem prop="password">
               <ElInput
                 class="custom-height"
-                v-model.trim="formData.password"
+                v-model.trim="step2Form.password"
                 :placeholder="$t('register.placeholder.password')"
                 type="password"
                 autocomplete="off"
@@ -40,43 +86,28 @@
             <ElFormItem prop="confirmPassword">
               <ElInput
                 class="custom-height"
-                v-model.trim="formData.confirmPassword"
+                v-model.trim="step2Form.confirmPassword"
                 :placeholder="$t('register.placeholder.confirmPassword')"
                 type="password"
                 autocomplete="off"
-                @keyup.enter="register"
+                @keyup.enter="handleRegister"
                 show-password
               />
             </ElFormItem>
 
-            <ElFormItem prop="agreement">
-              <ElCheckbox v-model="formData.agreement">
-                {{ $t('register.agreeText') }}
-                <RouterLink
-                  style="color: var(--theme-color); text-decoration: none"
-                  to="/privacy-policy"
-                  >{{ $t('register.privacyPolicy') }}</RouterLink
-                >
-              </ElCheckbox>
-            </ElFormItem>
-
-            <div style="margin-top: 15px">
+            <div style="display: flex; gap: 10px; margin-top: 15px">
+              <ElButton class="flex-1 custom-height" @click="currentStep = 1">
+                {{ $t('register.prevStep') }}
+              </ElButton>
               <ElButton
-                class="w-full custom-height"
+                class="flex-1 custom-height"
                 type="primary"
-                @click="register"
+                @click="handleRegister"
                 :loading="loading"
                 v-ripple
               >
                 {{ $t('register.submitBtnText') }}
               </ElButton>
-            </div>
-
-            <div class="mt-5 text-sm text-g-600">
-              <span>{{ $t('register.hasAccount') }}</span>
-              <RouterLink class="text-theme" :to="{ name: 'Login' }">{{
-                $t('register.toLogin')
-              }}</RouterLink>
             </div>
           </ElForm>
         </div>
@@ -88,61 +119,79 @@
 <script setup lang="ts">
   import { useI18n } from 'vue-i18n'
   import type { FormInstance, FormRules } from 'element-plus'
+  import { ElMessage } from 'element-plus'
+  import { fetchEmailConfig, fetchRegister } from '@/api/auth'
+  import VerifyCodeInput from '@/components/auth/VerifyCodeInput.vue'
 
   defineOptions({ name: 'Register' })
 
-  interface RegisterForm {
-    username: string
-    password: string
-    confirmPassword: string
-    agreement: boolean
-  }
-
-  const USERNAME_MIN_LENGTH = 3
-  const USERNAME_MAX_LENGTH = 20
   const PASSWORD_MIN_LENGTH = 6
-  const REDIRECT_DELAY = 1000
 
   const { t, locale } = useI18n()
   const router = useRouter()
-  const formRef = ref<FormInstance>()
 
+  const step1FormRef = ref<FormInstance>()
+  const step2FormRef = ref<FormInstance>()
   const loading = ref(false)
   const formKey = ref(0)
+  const currentStep = ref(1)
+  const allowedDomains = ref<string[]>([])
 
-  // 监听语言切换，重置表单
   watch(locale, () => {
     formKey.value++
   })
 
-  const formData = reactive<RegisterForm>({
-    username: '',
-    password: '',
-    confirmPassword: '',
-    agreement: false
+  // 加载邮箱域名配置
+  onMounted(async () => {
+    try {
+      const data = await fetchEmailConfig()
+      allowedDomains.value = data.allowed_domains
+    } catch {
+      console.error('获取邮箱配置失败')
+    }
   })
 
-  /**
-   * 验证密码
-   * 当密码输入后，如果确认密码已填写，则触发确认密码的验证
-   */
-  const validatePassword = (_rule: any, value: string, callback: (error?: Error) => void) => {
+  const emailPlaceholder = computed(() => {
+    const domain = allowedDomains.value[0] || 'yourcompany.com'
+    return `yourname@${domain}`
+  })
+
+  const generatedUsername = computed(() => {
+    const email = step1Form.email
+    return email.includes('@') ? email.split('@')[0] : ''
+  })
+
+  // Step 1 表单
+  const step1Form = reactive({ email: '', code: '' })
+
+  const validateEmailDomain = (_rule: any, value: string, callback: (error?: Error) => void) => {
     if (!value) {
-      callback(new Error(t('register.placeholder.password')))
+      callback(new Error(t('register.rule.emailRequired')))
       return
     }
-
-    if (formData.confirmPassword) {
-      formRef.value?.validateField('confirmPassword')
+    if (!value.includes('@')) {
+      callback(new Error(t('register.rule.emailInvalid')))
+      return
     }
-
+    const domain = value.split('@')[1]?.toLowerCase()
+    if (!allowedDomains.value.includes(domain)) {
+      callback(new Error(t('register.rule.emailDomainInvalid')))
+      return
+    }
     callback()
   }
 
-  /**
-   * 验证确认密码
-   * 检查确认密码是否与密码一致
-   */
+  const step1Rules = computed<FormRules>(() => ({
+    email: [{ required: true, validator: validateEmailDomain, trigger: 'blur' }],
+    code: [
+      { required: true, message: t('register.rule.codeRequired'), trigger: 'blur' },
+      { len: 6, message: t('register.rule.codeLength'), trigger: 'blur' }
+    ]
+  }))
+
+  // Step 2 表单
+  const step2Form = reactive({ password: '', confirmPassword: '' })
+
   const validateConfirmPassword = (
     _rule: any,
     value: string,
@@ -152,86 +201,52 @@
       callback(new Error(t('register.rule.confirmPasswordRequired')))
       return
     }
-
-    if (value !== formData.password) {
+    if (value !== step2Form.password) {
       callback(new Error(t('register.rule.passwordMismatch')))
       return
     }
-
     callback()
   }
 
-  /**
-   * 验证用户协议
-   * 确保用户已勾选同意协议
-   */
-  const validateAgreement = (_rule: any, value: boolean, callback: (error?: Error) => void) => {
-    if (!value) {
-      callback(new Error(t('register.rule.agreementRequired')))
-      return
-    }
-    callback()
-  }
-
-  const rules = computed<FormRules<RegisterForm>>(() => ({
-    username: [
-      { required: true, message: t('register.placeholder.username'), trigger: 'blur' },
-      {
-        min: USERNAME_MIN_LENGTH,
-        max: USERNAME_MAX_LENGTH,
-        message: t('register.rule.usernameLength'),
-        trigger: 'blur'
-      }
-    ],
+  const step2Rules = computed<FormRules>(() => ({
     password: [
-      { required: true, validator: validatePassword, trigger: 'blur' },
+      { required: true, message: t('register.placeholder.password'), trigger: 'blur' },
       { min: PASSWORD_MIN_LENGTH, message: t('register.rule.passwordLength'), trigger: 'blur' }
     ],
-    confirmPassword: [{ required: true, validator: validateConfirmPassword, trigger: 'blur' }],
-    agreement: [{ validator: validateAgreement, trigger: 'change' }]
+    confirmPassword: [{ required: true, validator: validateConfirmPassword, trigger: 'blur' }]
   }))
 
-  /**
-   * 注册用户
-   * 验证表单后提交注册请求
-   */
-  const register = async () => {
-    if (!formRef.value) return
-
+  const goStep2 = async () => {
+    if (!step1FormRef.value) return
     try {
-      await formRef.value.validate()
-      loading.value = true
-
-      // TODO: 替换为真实 API 调用
-      // const params = {
-      //   username: formData.username,
-      //   password: formData.password
-      // }
-      // const res = await AuthService.register(params)
-      // if (res.code === ApiStatus.success) {
-      //   ElMessage.success('注册成功')
-      //   toLogin()
-      // }
-
-      // 模拟注册请求
-      setTimeout(() => {
-        loading.value = false
-        ElMessage.success('注册成功')
-        toLogin()
-      }, REDIRECT_DELAY)
-    } catch (error) {
-      console.error('表单验证失败:', error)
-      loading.value = false
+      await step1FormRef.value.validate()
+      currentStep.value = 2
+    } catch {
+      // 表单验证失败
     }
   }
 
-  /**
-   * 跳转到登录页面
-   */
-  const toLogin = () => {
-    setTimeout(() => {
-      router.push({ name: 'Login' })
-    }, REDIRECT_DELAY)
+  const handleRegister = async () => {
+    if (!step2FormRef.value) return
+    try {
+      await step2FormRef.value.validate()
+      loading.value = true
+
+      await fetchRegister({
+        email: step1Form.email,
+        code: step1Form.code,
+        password: step2Form.password
+      })
+
+      ElMessage.success('注册成功')
+      setTimeout(() => {
+        router.push({ name: 'Login' })
+      }, 1000)
+    } catch {
+      // http 工具已处理错误提示
+    } finally {
+      loading.value = false
+    }
   }
 </script>
 

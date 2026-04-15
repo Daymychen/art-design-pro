@@ -438,8 +438,14 @@
   import { ElMessageBox } from 'element-plus'
   import { useTable, CacheInvalidationStrategy } from '@/hooks/core/useTable'
   import { fetchGetUserList } from '@/api/system-manage'
-  import { ACCOUNT_TABLE_DATA } from '@/mock/temp/formData'
   import { getColumnKey } from '@/hooks/core/useTableColumns'
+
+  // 头像列表（通过 Vite glob 导入资源）
+  const avatarModules = import.meta.glob(
+    '@/assets/images/avatar/avatar{1,2,3,4,5,6,7,8,9,10}.webp',
+    { eager: true, import: 'default' }
+  )
+  const AVATAR_PLACEHOLDERS = Object.values(avatarModules) as string[]
 
   defineOptions({ name: 'AdvancedTableDemo' })
 
@@ -791,7 +797,7 @@
 
         return records.map((item, index: number) => ({
           ...item,
-          avatar: ACCOUNT_TABLE_DATA[index % ACCOUNT_TABLE_DATA.length].avatar,
+          avatar: AVATAR_PLACEHOLDERS[index % AVATAR_PLACEHOLDERS.length],
           department: ['技术部', '产品部', '运营部', '市场部', '设计部'][
             Math.floor(Math.random() * 5)
           ],

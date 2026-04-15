@@ -12,7 +12,7 @@
 <script setup lang="ts">
   import { echarts } from '@/plugins/echarts'
   import { useSettingStore } from '@/store/modules/setting'
-  import chinaMapJson from '@/mock/json/chinaMap.json'
+  import chinaMapJson from '@/assets/data/chinaMap.json'
   import type { MapChartProps } from '@/types/component/chart'
 
   defineOptions({ name: 'ArtMapChart' })

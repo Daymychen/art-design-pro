@@ -43,8 +43,21 @@
 <script setup lang="ts">
   import { ref } from 'vue'
   import CommentItem from './widget/CommentItem.vue'
-  import { commentList, Comment } from '@/mock/temp/commentDetail'
-  const comments = commentList
+  import { fetchCommentList, addComment as apiAddComment } from '@/api/comment'
+  import type { Comment } from '@/api/comment'
+
+  const props = defineProps<{ articleId?: number }>()
+  const comments = ref<Comment[]>([])
+
+  onMounted(async () => {
+    if (props.articleId) {
+      try {
+        comments.value = await fetchCommentList(props.articleId)
+      } catch (e) {
+        console.error('获取评论失败:', e)
+      }
+    }
+  })
 
   const newComment = ref<Partial<Comment>>({
     author: '',
@@ -53,59 +66,55 @@
 
   const showReplyForm = ref<number | null>(null)
 
-  const addComment = () => {
+  const addComment = async () => {
     if (!newComment.value.author?.trim() || !newComment.value.content?.trim()) {
       ElMessage.warning('请填写完整的评论信息')
       return
     }
 
-    comments.value.push({
-      id: Date.now(),
-      author: newComment.value.author.trim(),
-      content: newComment.value.content.trim(),
-      timestamp: new Date().toISOString(),
-      replies: []
-    })
+    try {
+      await apiAddComment({
+        articleId: props.articleId,
+        author: newComment.value.author.trim(),
+        content: newComment.value.content.trim()
+      })
 
-    newComment.value.author = ''
-    newComment.value.content = ''
-    ElMessage.success('评论发布成功')
+      // 重新加载评论列表
+      if (props.articleId) {
+        comments.value = await fetchCommentList(props.articleId)
+      }
+
+      newComment.value.author = ''
+      newComment.value.content = ''
+    } catch (e) {
+      console.error('发布评论失败:', e)
+    }
   }
 
-  const addReply = (commentId: number, replyAuthor: string, replyContent: string) => {
+  const addReply = async (commentId: number, replyAuthor: string, replyContent: string) => {
     if (!replyAuthor?.trim() || !replyContent?.trim()) {
       ElMessage.warning('请填写完整的回复信息')
       return
     }
 
-    const comment = findComment(comments.value, commentId)
-    if (comment) {
-      comment.replies.push({
-        id: Date.now(),
+    try {
+      await apiAddComment({
+        articleId: props.articleId,
+        parentId: commentId,
         author: replyAuthor.trim(),
-        content: replyContent.trim(),
-        timestamp: new Date().toISOString(),
-        replies: []
+        content: replyContent.trim()
       })
       showReplyForm.value = null
-      ElMessage.success('回复发布成功')
+      // 重新加载评论列表
+      if (props.articleId) {
+        comments.value = await fetchCommentList(props.articleId)
+      }
+    } catch (e) {
+      console.error('回复失败:', e)
     }
   }
 
   const toggleReply = (commentId: number) => {
     showReplyForm.value = showReplyForm.value === commentId ? null : commentId
-  }
-
-  const findComment = (comments: Comment[], commentId: number): Comment | undefined => {
-    for (const comment of comments) {
-      if (comment.id === commentId) {
-        return comment
-      }
-      const found = findComment(comment.replies, commentId)
-      if (found) {
-        return found
-      }
-    }
-    return undefined
   }
 </script>

@@ -43,9 +43,13 @@
 
 <script setup lang="ts">
   import ArtButtonTable from '@/components/core/forms/art-button-table/index.vue'
-  import { ACCOUNT_TABLE_DATA } from '@/mock/temp/formData'
   import { useTable } from '@/hooks/core/useTable'
-  import { fetchGetUserList } from '@/api/system-manage'
+  import {
+    fetchGetUserList,
+    fetchCreateUser,
+    fetchUpdateUser,
+    fetchDeleteUser
+  } from '@/api/system-manage'
   import UserSearch from './modules/user-search.vue'
   import UserDialog from './modules/user-dialog.vue'
   import { ElTag, ElMessageBox, ElImage } from 'element-plus'
@@ -183,21 +187,13 @@
     },
     // 数据处理
     transform: {
-      // 数据转换器 - 替换头像
+      // 数据转换器
       dataTransformer: (records) => {
-        // 类型守卫检查
         if (!Array.isArray(records)) {
           console.warn('数据转换器: 期望数组类型，实际收到:', typeof records)
           return []
         }
-
-        // 使用本地头像替换接口返回的头像
-        return records.map((item, index: number) => {
-          return {
-            ...item,
-            avatar: ACCOUNT_TABLE_DATA[index % ACCOUNT_TABLE_DATA.length].avatar
-          }
-        })
+        return records
       }
     }
   })
@@ -227,23 +223,33 @@
    * 删除用户
    */
   const deleteUser = (row: UserListItem): void => {
-    console.log('删除用户:', row)
     ElMessageBox.confirm(`确定要注销该用户吗？`, '注销用户', {
       confirmButtonText: '确定',
       cancelButtonText: '取消',
       type: 'error'
-    }).then(() => {
-      ElMessage.success('注销成功')
+    }).then(async () => {
+      try {
+        await fetchDeleteUser(row.id)
+        getData()
+      } catch (e) {
+        console.error('删除用户失败:', e)
+      }
     })
   }
 
   /**
    * 处理弹窗提交事件
    */
-  const handleDialogSubmit = async () => {
+  const handleDialogSubmit = async (formData: Record<string, any>) => {
     try {
+      if (dialogType.value === 'add') {
+        await fetchCreateUser(formData as any)
+      } else {
+        await fetchUpdateUser(formData.id, formData)
+      }
       dialogVisible.value = false
       currentUserData.value = {}
+      getData()
     } catch (error) {
       console.error('提交失败:', error)
     }

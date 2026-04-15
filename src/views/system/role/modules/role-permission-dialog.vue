@@ -43,6 +43,7 @@
 <script setup lang="ts">
   import { useMenuStore } from '@/store/modules/menu'
   import { formatMenuTitle } from '@/utils/router'
+  import { fetchGetRolePermissions, fetchSaveRolePermissions } from '@/api/system-manage'
 
   type RoleListItem = Api.SystemManage.RoleListItem
 
@@ -141,10 +142,16 @@
    */
   watch(
     () => props.modelValue,
-    (newVal) => {
+    async (newVal) => {
       if (newVal && props.roleData) {
-        // TODO: 根据角色加载对应的权限数据
-        console.log('设置权限:', props.roleData)
+        try {
+          const checkedNames = await fetchGetRolePermissions(props.roleData.roleId)
+          nextTick(() => {
+            treeRef.value?.setCheckedKeys(checkedNames || [])
+          })
+        } catch (error) {
+          console.error('加载角色权限失败:', error)
+        }
       }
     }
   )
@@ -160,11 +167,23 @@
   /**
    * 保存权限配置
    */
-  const savePermission = () => {
-    // TODO: 调用保存权限接口
-    ElMessage.success('权限保存成功')
-    emit('success')
-    handleClose()
+  const savePermission = async () => {
+    if (!props.roleData) return
+    try {
+      const tree = treeRef.value
+      if (!tree) return
+      // 获取选中和半选中的菜单 name（半选中表示父菜单下有子菜单被选中）
+      const checkedKeys: string[] = tree.getCheckedKeys()
+      const halfCheckedKeys: string[] = tree.getHalfCheckedKeys()
+      const allMenuNames = [...checkedKeys, ...halfCheckedKeys].filter(
+        (key) => !String(key).includes('_')
+      )
+      await fetchSaveRolePermissions(props.roleData.roleId, allMenuNames)
+      emit('success')
+      handleClose()
+    } catch (error) {
+      console.error('保存权限失败:', error)
+    }
   }
 
   /**
