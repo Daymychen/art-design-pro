@@ -12,6 +12,7 @@
  * - 颜色方案 - 系统主色和预设颜色列表
  * - 快速入口 - 快速入口应用和链接配置
  * - 顶部栏配置 - 顶部栏功能模块配置
+ * - 使用 Proxy 实现懒加载
  *
  * ## 配置项说明
  *
@@ -25,111 +26,66 @@
  * - fastEnter: 快速入口配置
  * - headerBar: 顶部栏功能配置
  *
+ * ## 使用方式
+ *
+ * ```typescript
+ * import AppConfig from '@/config'
+ *
+ * // 访问配置
+ * console.log(AppConfig.systemInfo.name)
+ * console.log(AppConfig.systemMainColor)
+ * ```
+ *
+ * ## 注意事项
+ *
+ * 1. 配置使用 Proxy 实现懒加载，只在首次访问时创建
+ * 2. 配置从 public/system-config.json 读取
+ * 3. 如果 JSON 配置不存在或加载失败，使用代码中的默认值
+ * 4. 修改 JSON 配置后需要刷新页面才能生效
+ *
  * @module config
  * @author Art Design Pro Team
  */
 
-import { MenuThemeEnum, MenuTypeEnum, SystemThemeEnum } from '@/enums/appEnum'
-import { SystemConfig } from '@/types/config'
-import { configImages } from './assets/images'
-import fastEnterConfig from './modules/fastEnter'
-import { headerBarConfig } from './modules/headerBar'
+import { createAppConfig } from './init'
+import type { SystemConfig } from '@/types/config'
 
-const appConfig: SystemConfig = {
-  // 系统信息
-  systemInfo: {
-    name: 'Art Design Pro' // 系统名称
-  },
-  // 系统主题
-  systemThemeStyles: {
-    [SystemThemeEnum.LIGHT]: { className: '' },
-    [SystemThemeEnum.DARK]: { className: SystemThemeEnum.DARK }
-  },
-  // 系统主题列表
-  settingThemeList: [
-    {
-      name: 'Light',
-      theme: SystemThemeEnum.LIGHT,
-      color: ['#fff', '#fff'],
-      leftLineColor: '#EDEEF0',
-      rightLineColor: '#EDEEF0',
-      img: configImages.themeStyles.light
-    },
-    {
-      name: 'Dark',
-      theme: SystemThemeEnum.DARK,
-      color: ['#22252A'],
-      leftLineColor: '#3F4257',
-      rightLineColor: '#3F4257',
-      img: configImages.themeStyles.dark
-    },
-    {
-      name: 'System',
-      theme: SystemThemeEnum.AUTO,
-      color: ['#fff', '#22252A'],
-      leftLineColor: '#EDEEF0',
-      rightLineColor: '#3F4257',
-      img: configImages.themeStyles.system
-    }
-  ],
-  // 菜单布局列表
-  menuLayoutList: [
-    { name: 'Left', value: MenuTypeEnum.LEFT, img: configImages.menuLayouts.vertical },
-    { name: 'Top', value: MenuTypeEnum.TOP, img: configImages.menuLayouts.horizontal },
-    { name: 'Mixed', value: MenuTypeEnum.TOP_LEFT, img: configImages.menuLayouts.mixed },
-    { name: 'Dual Column', value: MenuTypeEnum.DUAL_MENU, img: configImages.menuLayouts.dualColumn }
-  ],
-  // 菜单主题列表
-  themeList: [
-    {
-      theme: MenuThemeEnum.DESIGN,
-      background: '#FFFFFF',
-      systemNameColor: 'var(--art-gray-800)',
-      iconColor: '#6B6B6B',
-      textColor: '#29343D',
-      img: configImages.menuStyles.design
-    },
-    {
-      theme: MenuThemeEnum.DARK,
-      background: '#191A23',
-      systemNameColor: '#D9DADB',
-      iconColor: '#BABBBD',
-      textColor: '#BABBBD',
-      img: configImages.menuStyles.dark
-    },
-    {
-      theme: MenuThemeEnum.LIGHT,
-      background: '#ffffff',
-      systemNameColor: 'var(--art-gray-800)',
-      iconColor: '#6B6B6B',
-      textColor: '#29343D',
-      img: configImages.menuStyles.light
-    }
-  ],
-  // 暗黑模式菜单样式
-  darkMenuStyles: [
-    {
-      theme: MenuThemeEnum.DARK,
-      background: 'var(--default-box-color)',
-      systemNameColor: '#DDDDDD',
-      iconColor: '#BABBBD',
-      textColor: 'rgba(#FFFFFF, 0.7)'
-    }
-  ],
-  // 系统主色
-  systemMainColor: [
-    '#5D87FF',
-    '#B48DF3',
-    '#1D84FF',
-    '#60C041',
-    '#38C0FC',
-    '#F9901F',
-    '#FF80C8'
-  ] as const,
-  // 快速入口配置
-  fastEnter: fastEnterConfig,
-  // 顶部栏功能配置
-  headerBar: headerBarConfig
+/** 缓存的配置对象 */
+let cachedConfig: SystemConfig | null = null
+
+/**
+ * 获取应用配置（懒加载）
+ *
+ * 只在首次访问时创建配置对象，后续访问直接返回缓存
+ *
+ * @returns 应用配置对象
+ */
+function getAppConfig(): SystemConfig {
+  if (!cachedConfig) {
+    cachedConfig = createAppConfig()
+  }
+  return cachedConfig
 }
 
-export default Object.freeze(appConfig)
+/**
+ * 应用配置对象
+ *
+ * 使用 Proxy 实现懒加载和属性访问拦截
+ * 确保配置在 JSON 加载完成后才创建
+ */
+const appConfig = new Proxy({} as SystemConfig, {
+  get(target, prop) {
+    const config = getAppConfig()
+    return config[prop as keyof SystemConfig]
+  },
+  ownKeys() {
+    const config = getAppConfig()
+    return Reflect.ownKeys(config)
+  },
+  getOwnPropertyDescriptor(target, prop) {
+    const config = getAppConfig()
+    return Reflect.getOwnPropertyDescriptor(config, prop)
+  }
+})
+
+export default appConfig
