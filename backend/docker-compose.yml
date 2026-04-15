@@ -64,6 +64,8 @@ services:
     env_file:
       - .env
     command: rq worker --url ${REDIS_URL}
+    volumes:
+      - .:/app
     depends_on:
       mysql:
         condition: service_healthy

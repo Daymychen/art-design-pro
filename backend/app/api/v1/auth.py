@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from rq import Queue
 from app.core.deps import get_db, get_current_user
-from app.core.redis import redis_client
+from app.core.redis import rq_redis
 from app.core.config import settings
 from app.models.user import User
 from app.schemas.auth import LoginParams, UserInfoResponse, RefreshParams
@@ -11,14 +11,14 @@ from app.schemas.common import ok, fail
 from app.services.auth import authenticate_user, generate_tokens, get_user_buttons
 from app.services.user import create_user_by_email
 from app.services.verify_code import generate_code, store_code, verify_code, check_cooldown, set_cooldown
-from app.services.email import send_verify_code_email
+from app.services.mail_sender import send_verify_code_email
 from app.core.security import decode_refresh_token, hash_password
 import jwt
 
 router = APIRouter()
 
-# RQ 队列
-rq_queue = Queue(connection=redis_client)
+# RQ 队列（必须用不带 decode_responses 的连接）
+rq_queue = Queue(connection=rq_redis)
 
 
 @router.get("/api/auth/email-config")
