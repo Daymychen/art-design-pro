@@ -22,7 +22,7 @@ class User(Base):
     avatar = Column(String(500), default="")
     gender = Column(SmallInteger, default=1)  # 0=女, 1=男
     mobile = Column(String(20), default="")
-    email = Column(String(100), default="")
+    email = Column(String(100), default="", unique=True, index=True)
     department = Column(String(50), default="")
     status = Column(String(10), default="1")  # 1=在线,2=离线,3=异常,4=注销
     created_by = Column(String(50), default="")
