@@ -6,7 +6,11 @@ from app.core.security import verify_password, create_access_token, create_refre
 
 
 def authenticate_user(db: Session, username: str, password: str) -> User | None:
-    user = db.query(User).filter(User.username == username).first()
+    """验证用户，支持用户名或邮箱登录"""
+    if "@" in username:
+        user = db.query(User).filter(User.email == username).first()
+    else:
+        user = db.query(User).filter(User.username == username).first()
     if not user or not verify_password(password, user.password_hash):
         return None
     return user

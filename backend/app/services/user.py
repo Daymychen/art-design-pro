@@ -96,3 +96,33 @@ def delete_user(db: Session, user_id: int) -> bool:
     db.delete(user)
     db.commit()
     return True
+
+
+def create_user_by_email(db: Session, email: str, password: str) -> User:
+    """通过邮箱注册新用户，用户名取邮箱 @ 前部分，重复则追加数字"""
+    base_username = email.split("@")[0]
+    username = base_username
+
+    # 处理用户名冲突
+    counter = 1
+    while db.query(User).filter(User.username == username).first():
+        username = f"{base_username}{counter}"
+        counter += 1
+
+    # 查找默认角色 R_USER
+    default_role = db.query(Role).filter(Role.role_code == "R_USER").first()
+
+    user = User(
+        username=username,
+        password_hash=hash_password(password),
+        nick_name=username,
+        email=email.lower(),
+        status="1",
+        created_by="self_register",
+    )
+    if default_role:
+        user.roles = [default_role]
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    return user
