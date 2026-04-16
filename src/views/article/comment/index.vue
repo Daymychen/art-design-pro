@@ -4,7 +4,13 @@
     <h1 class="text-4xl font-medium mt-5">留言墙</h1>
     <p class="mt-3.5 text-g-600">每一份留言都记录了您的想法，也为我们提供了珍贵的回忆</p>
 
+    <div v-if="loading" class="mt-10 text-center">
+      <ElIcon class="is-loading text-2xl"><Loading /></ElIcon>
+      <p class="mt-2 text-g-600">加载中...</p>
+    </div>
+    <ElEmpty v-else-if="commentList.length === 0" description="暂无留言" class="mt-10" />
     <ul
+      v-else
       class="mt-10 grid grid-cols-5 gap-5 max-2xl:grid-cols-4 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 mb-5"
     >
       <li
@@ -64,7 +70,7 @@
             </div>
           </div>
 
-          <!-- 评论组件 -->
+          <!-- 评论组件（留言墙评论无关联文章，不传 articleId） -->
           <CommentWidget />
         </div>
       </template>
@@ -73,7 +79,9 @@
 </template>
 
 <script setup lang="ts">
-  import { commentList } from '@/mock/temp/commentList'
+  import { Loading } from '@element-plus/icons-vue'
+  import { fetchCommentWall } from '@/api/comment'
+  import type { CommentWallItem } from '@/api/comment'
 
   defineOptions({ name: 'ArticleComment' })
 
@@ -89,15 +97,30 @@
 
   const COLOR_LIST = ['#D8F8FF', '#FDDFD9', '#FCE6F0', '#D3F8F0', '#FFEABC', '#F5E1FF', '#E1E6FE']
 
+  const commentList = ref<CommentWallItem[]>([])
+  const loading = ref(false)
+
   const showDrawer = ref(false)
   const clickItem = ref<CommentItem>({
-    id: 1,
-    date: '2024-9-3',
-    content: '加油！学好Node 自己写个小Demo',
-    collection: 5,
-    comment: 8,
-    userName: '匿名',
+    id: 0,
+    date: '',
+    content: '',
+    collection: 0,
+    comment: 0,
+    userName: '',
     color: COLOR_LIST[0]
+  })
+
+  onMounted(async () => {
+    loading.value = true
+    try {
+      commentList.value = await fetchCommentWall()
+    } catch (e) {
+      console.error('获取留言列表失败:', e)
+      ElMessage.error('获取留言列表失败')
+    } finally {
+      loading.value = false
+    }
   })
 
   /**
@@ -106,7 +129,7 @@
   const commentsWithColors = computed(() => {
     let lastColorIndex = -1
 
-    return commentList.map((item) => {
+    return commentList.value.map((item) => {
       let newIndex: number
 
       do {

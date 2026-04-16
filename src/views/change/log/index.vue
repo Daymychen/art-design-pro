@@ -5,7 +5,11 @@
     <h3 class="text-2xl font-medium text-g-900 mb-8">更新日志</h3>
 
     <!-- 日志列表 -->
-    <div class="space-y-5">
+    <div v-if="loading" class="flex-cc h-40">
+      <ElIcon class="is-loading text-4xl text-theme"><Loading /></ElIcon>
+    </div>
+    <ElEmpty v-else-if="upgradeLogList.length === 0" description="暂无更新日志" />
+    <div v-else class="space-y-5">
       <div
         v-for="item in upgradeLogList"
         :key="item.version"
@@ -47,7 +51,23 @@
 </template>
 
 <script setup lang="ts">
-  import { upgradeLogList } from '@/mock/upgrade/changeLog'
+  import { fetchChangelogList } from '@/api/changelog'
+  import type { UpgradeLog } from '@/api/changelog'
+  import { Loading } from '@element-plus/icons-vue'
 
   defineOptions({ name: 'ChangeLog' })
+
+  const upgradeLogList = ref<UpgradeLog[]>([])
+  const loading = ref(false)
+
+  onMounted(async () => {
+    loading.value = true
+    try {
+      upgradeLogList.value = await fetchChangelogList()
+    } catch (e) {
+      console.error('获取更新日志失败:', e)
+    } finally {
+      loading.value = false
+    }
+  })
 </script>

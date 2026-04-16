@@ -132,7 +132,7 @@
       "title": "一款兼具设计美学与高效开发的后台系统",
       "subTitle": "美观实用的界面，经过视觉优化，确保卓越的用户体验"
     },
-    "title": "欢迎回来",
+    "title": "欢迎",
     "subTitle": "输入您的账号和密码登录",
     "roles": {
       "super": "超级管理员",
@@ -140,7 +140,7 @@
       "user": "普通用户"
     },
     "placeholder": {
-      "username": "请输入账号",
+      "username": "请输入账号 / 邮箱",
       "password": "请输入密码",
       "slider": "请拖动滑块完成验证"
     },
@@ -153,34 +153,67 @@
     "register": "注册",
     "success": {
       "title": "登录成功",
-      "message": "欢迎回来"
+      "message": "欢迎"
     }
   },
   "forgetPassword": {
     "title": "忘记密码？",
-    "subTitle": "输入您的电子邮件来重置您的密码",
-    "placeholder": "请输入您的电子邮件",
-    "submitBtnText": "提交",
-    "backBtnText": "返回"
+    "subTitle": "输入您的公司邮箱来重置密码",
+    "step1Title": "验证邮箱",
+    "step2Title": "设置新密码",
+    "placeholder": {
+      "email": "yourname@{domain}",
+      "verifyCode": "请输入验证码",
+      "newPassword": "请输入新密码",
+      "confirmPassword": "请再次输入新密码"
+    },
+    "sendCode": "发送验证码",
+    "sendCodeCountdown": "{seconds}秒后重试",
+    "codeSent": "验证码已发送到您的邮箱",
+    "nextStep": "下一步",
+    "rule": {
+      "emailRequired": "请输入邮箱",
+      "emailInvalid": "请输入有效的邮箱地址",
+      "emailDomainInvalid": "仅支持公司邮箱",
+      "codeRequired": "请输入验证码",
+      "codeLength": "验证码为6位数字",
+      "newPasswordRequired": "请输入新密码",
+      "confirmPasswordRequired": "请再次输入新密码",
+      "passwordMismatch": "两次输入密码不一致!",
+      "passwordLength": "密码长度不能小于6位"
+    },
+    "submitBtnText": "重置密码",
+    "resetSuccess": "密码重置成功，请重新登录",
+    "backBtnText": "返回登录"
   },
   "register": {
     "title": "创建账号",
-    "subTitle": "欢迎加入我们，请填写以下信息完成注册",
+    "subTitle": "欢迎加入我们，使用公司邮箱完成注册",
+    "step1Title": "验证邮箱",
+    "step2Title": "设置密码",
     "placeholder": {
-      "username": "请输入账号",
+      "email": "yourname@{domain}",
+      "verifyCode": "请输入验证码",
       "password": "请输入密码",
       "confirmPassword": "请再次输入密码"
     },
+    "sendCode": "发送验证码",
+    "sendCodeCountdown": "{seconds}秒后重试",
+    "codeSent": "验证码已发送到您的邮箱",
+    "nextStep": "下一步",
+    "prevStep": "上一步",
+    "generatedUsername": "您的用户名",
     "rule": {
+      "emailRequired": "请输入邮箱",
+      "emailInvalid": "请输入有效的邮箱地址",
+      "emailDomainInvalid": "仅支持公司邮箱注册",
+      "codeRequired": "请输入验证码",
+      "codeLength": "验证码为6位数字",
       "confirmPasswordRequired": "请再次输入密码",
       "passwordMismatch": "两次输入密码不一致!",
-      "usernameLength": "长度在 3 到 20 个字符",
-      "passwordLength": "密码长度不能小于6位",
-      "agreementRequired": "请同意隐私协议"
+      "passwordLength": "密码长度不能小于6位"
     },
-    "agreeText": "我同意",
-    "privacyPolicy": "《隐私政策》",
-    "submitBtnText": "注册",
+    "submitBtnText": "完成注册",
     "hasAccount": "已有账号？",
     "toLogin": "去登录"
   },

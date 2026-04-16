@@ -140,7 +140,7 @@
       "user": "User"
     },
     "placeholder": {
-      "username": "Please enter your account",
+      "username": "Enter your account / email",
       "password": "Please enter your password",
       "slider": "Please slide to verify"
     },
@@ -158,28 +158,61 @@
   },
   "forgetPassword": {
     "title": "Forgot password?",
-    "subTitle": "Enter your email to reset your password",
-    "placeholder": "Please enter your email",
-    "submitBtnText": "Submit",
-    "backBtnText": "Back"
+    "subTitle": "Enter your company email to reset your password",
+    "step1Title": "Verify Email",
+    "step2Title": "Set New Password",
+    "placeholder": {
+      "email": "yourname@{domain}",
+      "verifyCode": "Enter verification code",
+      "newPassword": "Enter new password",
+      "confirmPassword": "Confirm new password"
+    },
+    "sendCode": "Send Code",
+    "sendCodeCountdown": "Retry in {seconds}s",
+    "codeSent": "Verification code sent to your email",
+    "nextStep": "Next",
+    "rule": {
+      "emailRequired": "Please enter your email",
+      "emailInvalid": "Please enter a valid email address",
+      "emailDomainInvalid": "Only company email is allowed",
+      "codeRequired": "Please enter verification code",
+      "codeLength": "Code must be 6 digits",
+      "newPasswordRequired": "Please enter new password",
+      "confirmPasswordRequired": "Please confirm new password",
+      "passwordMismatch": "Passwords do not match!",
+      "passwordLength": "Password must be at least 6 characters"
+    },
+    "submitBtnText": "Reset Password",
+    "resetSuccess": "Password reset successful, please login again",
+    "backBtnText": "Back to Login"
   },
   "register": {
     "title": "Create account",
-    "subTitle": "Welcome to join us, please fill in the following information to complete the registration",
+    "subTitle": "Welcome, register with your company email",
+    "step1Title": "Verify Email",
+    "step2Title": "Set Password",
     "placeholder": {
-      "username": "Please enter your account",
-      "password": "Please enter your password",
-      "confirmPassword": "Please enter your password again"
+      "email": "yourname@{domain}",
+      "verifyCode": "Enter verification code",
+      "password": "Enter your password",
+      "confirmPassword": "Confirm your password"
     },
+    "sendCode": "Send Code",
+    "sendCodeCountdown": "Retry in {seconds}s",
+    "codeSent": "Verification code sent to your email",
+    "nextStep": "Next",
+    "prevStep": "Back",
+    "generatedUsername": "Your username",
     "rule": {
-      "confirmPasswordRequired": "Please enter your password again",
-      "passwordMismatch": "The two passwords are inconsistent!",
-      "usernameLength": "The length is 3 to 20 characters",
-      "passwordLength": "The password length cannot be less than 6 digits",
-      "agreementRequired": "Please agree to the privacy policy"
+      "emailRequired": "Please enter your email",
+      "emailInvalid": "Please enter a valid email address",
+      "emailDomainInvalid": "Only company email is allowed",
+      "codeRequired": "Please enter verification code",
+      "codeLength": "Code must be 6 digits",
+      "confirmPasswordRequired": "Please confirm your password",
+      "passwordMismatch": "Passwords do not match!",
+      "passwordLength": "Password must be at least 6 characters"
     },
-    "agreeText": "I agree",
-    "privacyPolicy": "Privacy policy",
     "submitBtnText": "Register",
     "hasAccount": "Already have an account?",
     "toLogin": "To login"

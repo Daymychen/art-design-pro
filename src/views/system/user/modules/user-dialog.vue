@@ -39,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ROLE_LIST_DATA } from '@/mock/temp/formData'
+  import { fetchGetRoleList } from '@/api/system-manage'
   import type { FormInstance, FormRules } from 'element-plus'
 
   interface Props {
@@ -50,14 +50,14 @@
 
   interface Emits {
     (e: 'update:visible', value: boolean): void
-    (e: 'submit'): void
+    (e: 'submit', data: Record<string, any>): void
   }
 
   const props = defineProps<Props>()
   const emit = defineEmits<Emits>()
 
   // 角色列表数据
-  const roleList = ref(ROLE_LIST_DATA)
+  const roleList = ref<{ roleName: string; roleCode: string }[]>([])
 
   // 对话框显示控制
   const dialogVisible = computed({
@@ -114,12 +114,24 @@
    */
   watch(
     () => [props.visible, props.type, props.userData],
-    ([visible]) => {
+    async ([visible]) => {
       if (visible) {
         initFormData()
         nextTick(() => {
           formRef.value?.clearValidate()
         })
+        // 加载角色列表
+        if (roleList.value.length === 0) {
+          try {
+            const res = await fetchGetRoleList({ current: 1, size: 100 })
+            roleList.value = res.records.map((r: any) => ({
+              roleName: r.roleName,
+              roleCode: r.roleCode
+            }))
+          } catch (e) {
+            console.error('加载角色列表失败:', e)
+          }
+        }
       }
     },
     { immediate: true }
@@ -134,9 +146,18 @@
 
     await formRef.value.validate((valid) => {
       if (valid) {
-        ElMessage.success(dialogType.value === 'add' ? '添加成功' : '更新成功')
+        const submitData: Record<string, any> = {
+          userName: formData.username,
+          userPhone: formData.phone,
+          userGender: formData.gender,
+          roles: formData.role
+        }
+        // 编辑时附带用户 ID
+        if (props.type === 'edit' && props.userData?.id) {
+          submitData.id = props.userData.id
+        }
         dialogVisible.value = false
-        emit('submit')
+        emit('submit', submitData)
       }
     })
   }

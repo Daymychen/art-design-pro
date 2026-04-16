@@ -1,7 +1,13 @@
 <!-- 文章详情页面 -->
 <template>
   <div class="article-detail page-content">
-    <div class="max-w-200 m-auto mt-15">
+    <div v-if="loading" class="flex-cc h-80">
+      <ElIcon class="is-loading text-4xl text-theme"><Loading /></ElIcon>
+    </div>
+    <div v-else-if="error" class="flex-cc h-80">
+      <ElEmpty :description="error" />
+    </div>
+    <div v-else class="max-w-200 m-auto mt-15">
       <h1 class="text-3xl font-semibold">{{ articleTitle }}</h1>
       <div class="markdown-body mt-12.5" v-highlight v-html="articleHtml"></div>
     </div>
@@ -13,17 +19,10 @@
   import '@/assets/styles/core/md.scss'
   import '@/assets/styles/custom/one-dark-pro.scss'
   import { useCommon } from '@/hooks/core/useCommon'
-  import axios from 'axios'
+  import { fetchArticleDetail } from '@/api/article'
+  import { Loading } from '@element-plus/icons-vue'
 
   defineOptions({ name: 'ArticleDetail' })
-
-  interface ArticleResponse {
-    code: number
-    data: {
-      title: string
-      html_content: string
-    }
-  }
 
   const route = useRoute()
   const articleId = computed(() => Number(route.params.id))
@@ -39,14 +38,9 @@
     error.value = null
 
     try {
-      const { data } = await axios.get<ArticleResponse>(
-        'https://www.qiniu.lingchen.kim/blog_detail.json'
-      )
-
-      if (data.code === 200) {
-        articleTitle.value = data.data.title
-        articleHtml.value = data.data.html_content
-      }
+      const data = await fetchArticleDetail(articleId.value)
+      articleTitle.value = data.title
+      articleHtml.value = data.html_content
     } catch (err) {
       error.value = '文章加载失败'
       console.error('获取文章详情失败:', err)

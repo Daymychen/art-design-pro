@@ -74,6 +74,17 @@ declare namespace Api {
       refreshToken: string
     }
 
+    /** 刷新令牌参数 */
+    interface RefreshParams {
+      refreshToken: string
+    }
+
+    /** 刷新令牌响应 */
+    interface RefreshResponse {
+      token: string
+      refreshToken: string
+    }
+
     /** 用户信息 */
     interface UserInfo {
       buttons: string[]
@@ -82,6 +93,31 @@ declare namespace Api {
       userName: string
       email: string
       avatar?: string
+    }
+
+    /** 邮箱配置响应 */
+    interface EmailConfigResponse {
+      allowed_domains: string[]
+    }
+
+    /** 发送验证码参数 */
+    interface SendVerifyCodeParams {
+      email: string
+      purpose: 'register' | 'reset_password'
+    }
+
+    /** 注册参数 */
+    interface RegisterParams {
+      email: string
+      code: string
+      password: string
+    }
+
+    /** 忘记密码参数 */
+    interface ForgotPasswordParams {
+      email: string
+      code: string
+      new_password: string
     }
   }
 
