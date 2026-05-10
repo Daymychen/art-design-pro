@@ -35,6 +35,40 @@ html.dark {
 }
 
 .dark {
+  .el-image-viewer__mask {
+    background: rgba(4, 6, 12, 0.9) !important;
+  }
+
+  .el-image-viewer__actions {
+    background: rgba(18, 20, 28, 0.88) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+  }
+
+  .el-image-viewer__actions__inner {
+    color: var(--art-gray-900) !important;
+  }
+
+  .el-image-viewer__actions__inner .is-disabled {
+    color: var(--art-gray-500) !important;
+  }
+
+  .el-image-viewer__close,
+  .el-image-viewer__prev,
+  .el-image-viewer__next {
+    color: var(--art-gray-900) !important;
+    background: rgba(18, 20, 28, 0.88) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  }
+
+  .el-image-viewer__close:hover,
+  .el-image-viewer__prev:hover,
+  .el-image-viewer__next:hover,
+  .el-image-viewer__actions__inner i:hover {
+    color: #ffffff !important;
+  }
+
   .page-content .article-list .item .left .outer > div {
     border-right-color: var(--dark-border-color) !important;
   }
