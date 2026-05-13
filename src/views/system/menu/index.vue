@@ -193,9 +193,10 @@
       prop: 'operation',
       label: '操作',
       width: 180,
-      align: 'right',
+      fixed: 'right',
+      align: 'left',
       formatter: (row: AppRouteRecord) => {
-        const buttonStyle = { style: 'text-align: right' }
+        const buttonStyle = { style: 'text-align: left' }
 
         if (row.meta?.isAuthButton) {
           return h('div', buttonStyle, [
