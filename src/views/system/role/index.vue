@@ -1,20 +1,10 @@
 <!-- 角色管理页面 -->
 <template>
   <div class="art-full-height">
-    <RoleSearch
-      v-show="showSearchBar"
-      v-model="searchForm"
-      @search="handleSearch"
-      @reset="resetSearchParams"
-    ></RoleSearch>
+    <RoleSearch v-model="searchForm" @search="handleSearch" @reset="resetSearchParams"></RoleSearch>
 
-    <ElCard class="art-table-card" :style="{ 'margin-top': showSearchBar ? '12px' : '0' }">
-      <ArtTableHeader
-        v-model:columns="columnChecks"
-        v-model:showSearchBar="showSearchBar"
-        :loading="loading"
-        @refresh="refreshData"
-      >
+    <ElCard class="art-table-card">
+      <ArtTableHeader v-model:columns="columnChecks" :loading="loading" @refresh="refreshData">
         <template #left>
           <ElSpace wrap>
             <ElButton @click="showDialog('add')" v-ripple>新增角色</ElButton>
@@ -76,8 +66,6 @@
     enabled: undefined,
     daterange: undefined
   })
-
-  const showSearchBar = ref(false)
 
   const dialogVisible = ref(false)
   const permissionDialog = ref(false)
