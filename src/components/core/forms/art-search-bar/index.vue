@@ -7,6 +7,7 @@
       ref="formRef"
       :model="modelValue"
       :label-position="labelPosition"
+      @keydown.enter="handleEnterSearch"
       v-bind="{ ...$attrs }"
     >
       <ElRow :gutter="gutter">
@@ -489,8 +490,26 @@
    * 处理搜索事件
    */
   const handleSearch = () => {
+    if (props.disabledSearch) return
+
     // 对外只抛出清洗后的查询参数，避免接口收到空数组/空字符串。
     emit('search', getSanitizedOutput())
+  }
+
+  const handleEnterSearch = (event: KeyboardEvent) => {
+    if (event.isComposing) return
+
+    const target = event.target
+    if (!(target instanceof HTMLElement)) return
+
+    if (target.tagName !== 'INPUT') return
+
+    if (target.closest('.el-select, .el-cascader, .el-date-editor')) {
+      return
+    }
+
+    event.preventDefault()
+    handleSearch()
   }
 
   defineExpose({
