@@ -25,6 +25,11 @@
           <ElRadioButton value="button" label="button">按钮</ElRadioButton>
         </ElRadioGroup>
       </template>
+
+      <!-- 图标选择器 -->
+      <template #icon>
+        <ArtIconPicker v-model="form.icon" />
+      </template>
     </ArtForm>
 
     <template #footer>
@@ -44,6 +49,7 @@
   import type { AppRouteRecord } from '@/types/router'
   import type { FormItem } from '@/components/core/forms/art-form/index.vue'
   import ArtForm from '@/components/core/forms/art-form/index.vue'
+  import ArtIconPicker from '@/components/core/forms/art-icon-picker/index.vue'
   import { useWindowSize } from '@vueuse/core'
 
   const { width } = useWindowSize()
@@ -190,7 +196,15 @@
           type: 'input',
           props: { placeholder: '如：/system/user 或留空' }
         },
-        { label: '图标', key: 'icon', type: 'input', props: { placeholder: '如：ri:user-line' } },
+        {
+          label: createLabelTooltip(
+            '图标',
+            '可选择项目内支持的图标，选择后会自动写入 ri: 图标代码'
+          ),
+          key: 'icon',
+          type: 'input',
+          props: { placeholder: '请选择图标' }
+        },
         {
           label: createLabelTooltip(
             '角色权限',
