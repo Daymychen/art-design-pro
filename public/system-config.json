@@ -1,0 +1,118 @@
+{
+  "systemInfo": {
+    "name": "Art Design Pro"
+  },
+  "systemThemeStyles": {
+    "light": {
+      "className": ""
+    },
+    "dark": {
+      "className": "dark"
+    }
+  },
+  "settingThemeList": [
+    {
+      "name": "Light",
+      "theme": "light",
+      "color": ["#fff", "#fff"],
+      "leftLineColor": "#EDEEF0",
+      "rightLineColor": "#EDEEF0"
+    },
+    {
+      "name": "Dark",
+      "theme": "dark",
+      "color": ["#22252A"],
+      "leftLineColor": "#3F4257",
+      "rightLineColor": "#3F4257"
+    },
+    {
+      "name": "System",
+      "theme": "auto",
+      "color": ["#fff", "#22252A"],
+      "leftLineColor": "#EDEEF0",
+      "rightLineColor": "#3F4257"
+    }
+  ],
+  "menuLayoutList": [
+    {
+      "name": "Left",
+      "value": "left"
+    },
+    {
+      "name": "Top",
+      "value": "top"
+    },
+    {
+      "name": "Mixed",
+      "value": "top-left"
+    },
+    {
+      "name": "Dual Column",
+      "value": "dual-menu"
+    }
+  ],
+  "themeList": [
+    {
+      "theme": "design",
+      "background": "#FFFFFF",
+      "systemNameColor": "var(--art-gray-800)",
+      "iconColor": "#6B6B6B",
+      "textColor": "#29343D"
+    },
+    {
+      "theme": "dark",
+      "background": "#191A23",
+      "systemNameColor": "#D9DADB",
+      "iconColor": "#BABBBD",
+      "textColor": "#BABBBD"
+    },
+    {
+      "theme": "light",
+      "background": "#ffffff",
+      "systemNameColor": "var(--art-gray-800)",
+      "iconColor": "#6B6B6B",
+      "textColor": "#29343D"
+    }
+  ],
+  "darkMenuStyles": [
+    {
+      "theme": "dark",
+      "background": "var(--default-box-color)",
+      "systemNameColor": "#DDDDDD",
+      "iconColor": "#BABBBD",
+      "textColor": "rgba(#FFFFFF, 0.7)"
+    }
+  ],
+  "systemMainColor": ["#5D87FF", "#B48DF3", "#1D84FF", "#60C041", "#38C0FC", "#F9901F", "#FF80C8"],
+  "settingDefaults": {
+    "menuType": "top",
+    "menuOpenWidth": 230,
+    "menuOpen": true,
+    "dualMenuShowText": false,
+    "systemThemeType": "dark",
+    "systemThemeMode": "dark",
+    "menuThemeType": "design",
+    "systemThemeColor": "#5D87FF",
+    "showMenuButton": true,
+    "showFastEnter": true,
+    "showRefreshButton": true,
+    "showCrumbs": true,
+    "showWorkTab": true,
+    "showLanguage": true,
+    "showNprogress": false,
+    "showSettingGuide": true,
+    "showFestivalText": false,
+    "watermarkVisible": false,
+    "autoClose": false,
+    "uniqueOpened": true,
+    "colorWeak": false,
+    "refresh": false,
+    "holidayFireworksLoaded": false,
+    "boxBorderMode": true,
+    "pageTransition": "slide-left",
+    "tabStyle": "tab-default",
+    "customRadius": "0.75",
+    "containerWidth": "full",
+    "festivalDate": ""
+  }
+}
